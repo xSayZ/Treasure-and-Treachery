@@ -29,7 +29,7 @@ public class KeywordReplace : UnityEditor.AssetModificationProcessor
 
         string fileContent = System.IO.File.ReadAllText(path);
 
-        fileContent = fileContent.Replace("#DATETIME#", System.DateTime.Today.ToString("dd/MM/yy") + "");
+        fileContent = fileContent.Replace("#DATETIME#", System.DateTime.Today.ToString("yyyy/MM/dd") + "");
         fileContent = fileContent.Replace("#PROJECTNAME#", PlayerSettings.productName);
         fileContent = fileContent.Replace("#DEVELOPER#", System.Environment.UserName);
 

@@ -6,18 +6,17 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections.Generic;
 using UnityEngine;
 
 
 namespace Game {
     namespace Backend {
+
+        Dictionary<PlayerData, int> playerDatabase = new Dictionary<PlayerData, int>();
         public class DataManager
         {
 
-            PlayerData playerOneData;
-            PlayerData playerTwoData;
-            PlayerData playerThreeData;
-            PlayerData playerFourData;
 
 #region Unity Functions
             // Start is called before the first frame update

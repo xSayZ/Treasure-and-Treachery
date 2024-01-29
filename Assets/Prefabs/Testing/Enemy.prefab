@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 5553164627889447383}
   - component: {fileID: 5955323770443865771}
   - component: {fileID: 751426607181468461}
-  - component: {fileID: 4045101602623211544}
   - component: {fileID: 922712805897902393}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,20 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b678deb32fb9f0746af238d422a65752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMovementBehaviour: {fileID: 4045101602623211544}
---- !u!114 &4045101602623211544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5827580885617249925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c888776b0ebbf624f9c425c97f9711f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 922712805897902393}
+  RoamEnemyState:
+    playerLayerMask:
+      serializedVersion: 2
+      m_Bits: 128
+    obstacleLayerMask:
+      serializedVersion: 2
+      m_Bits: 512
 --- !u!195 &922712805897902393
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -126,7 +118,7 @@ GameObject:
   - component: {fileID: 5827580885815019297}
   - component: {fileID: 5827580885815019300}
   - component: {fileID: 5827580885815019303}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Right_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5827580886171389461}
   - component: {fileID: 5827580886171389674}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +256,7 @@ GameObject:
   - component: {fileID: 5827580886283652698}
   - component: {fileID: 5827580886283652697}
   - component: {fileID: 5827580886283652696}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +339,7 @@ GameObject:
   - component: {fileID: 5827580886612808913}
   - component: {fileID: 5827580886612808916}
   - component: {fileID: 5827580886612808919}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Left_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5827580886638555892}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hands
   m_TagString: Untagged
   m_Icon: {fileID: 0}

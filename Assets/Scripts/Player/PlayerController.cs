@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 
 namespace Game {
-    namespace PlayerController {
+    namespace Player {
         public class PlayerController : MonoBehaviour
         {
             [Header("SubBehaviours")] [SerializeField]
@@ -40,7 +40,7 @@ namespace Game {
         public void OnMovement(InputAction.CallbackContext value)
         {
             Vector2 inputValue = value.ReadValue<Vector2>();
-            Debug.Log(inputValue);
+            
         }
 #endregion
 

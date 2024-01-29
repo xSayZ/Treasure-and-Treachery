@@ -27,6 +27,9 @@ namespace Game {
             public float VisionRange;
             public float VisionFov;
             
+            [Header("Hearing Range")]
+            public float HearingRange;
+            
             private EnemyState currentState;
             
             
@@ -55,6 +58,9 @@ namespace Game {
             {
                 Gizmos.color = Color.green;
                 Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, VisionFov, VisionRange);
+                
+                Gizmos.color = Color.blue;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, HearingRange);
             }
 #endregion
 

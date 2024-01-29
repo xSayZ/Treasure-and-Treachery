@@ -8,20 +8,21 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-//using Game.Player;
+using Game.Player;
 
 
 namespace Game {
     namespace Backend {
         public class GameManager : MonoBehaviour
         {
-            [SerializeField] private List<PlayerData> players;
+            [SerializeField] private List<PlayerController> activePlayerControllers;
+
 
 
             #region Unity Functions
             void Awake()
             {
-                players = new List<PlayerData>();
+                players = new List<PlayerController>();
             }
             void Start()
             {

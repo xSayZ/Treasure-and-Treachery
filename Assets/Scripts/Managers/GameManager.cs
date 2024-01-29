@@ -79,9 +79,6 @@ namespace Game {
                     // TODO: Add spawnPosition and spawnRotation
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
                     AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
-                    
-                    SetupActivePlayers();
-
                 }
                 
 
@@ -90,14 +87,6 @@ namespace Game {
             private void AddPlayersToActiveList(PlayerController newPlayer)
             {
                 activePlayerControllers.Add(newPlayer);
-            }
-
-            private void SetupActivePlayers()
-            {
-                for (int i = 0; i < activePlayerControllers.Count; i++)
-                {
-                    activePlayerControllers[i].SetupPlayer(i);
-                }
             }
             
             private void SetObjective()

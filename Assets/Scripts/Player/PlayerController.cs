@@ -7,6 +7,8 @@
 // ------------------------------*/
 
 using System;
+using System.Linq;
+using Cinemachine;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,16 +22,14 @@ namespace Game
         {
             [Tooltip("Set to use Keyboard debugging purposes")]
             public bool Controllers;
+
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private PlayerInput playerInput;
             
-            private int playerID;
+            public int playerID;
             
-            public PlayerData PlayerData;
-
-            private GameManager gameManager;
             private string controlScheme;
 
             #region Unity Functions
@@ -37,13 +37,16 @@ namespace Game
             // Start is called before the first frame update
             void Start()
             {
-                
+                SetupPlayer();
             }
-    
+
             // Update is called once per frame
             void Update()
             {
-                
+            }
+
+            private void LateUpdate()
+            {
                 
             }
 
@@ -57,57 +60,25 @@ namespace Game
 
                 playerMovementBehaviour.MovementData(new Vector3(inputValue.x, 0, inputValue.y));
             }
-            
 
-            public void SetupPlayer(int _newPlayerId)
+
+            public void SetupPlayer()
             {
-                playerID = _newPlayerId;
-                controlScheme = playerInput.defaultControlScheme;
+                playerID = playerInput.playerIndex;
                 
-                switch (playerID)
-                {
-                    case 0:
-                        controlScheme = "Player1";
-                        break;
-                    case 1:
-                        controlScheme = "Player2";
-                        break;
-                    case 2:
-                        controlScheme = "Player3";
-                        break;
-                    case 3:
-                        controlScheme = "Player4";
-                        break;
-                }
-
-                // Switches the input Device Connected
-                
-                for (int i = 0; i < playerInput.devices.Count; i++)
-                {
-                    if (Controllers)
-                    {
-                        playerInput.SwitchCurrentControlScheme(controlScheme, playerInput.devices[i]);
-
-                    }
-                    else
-                    {
-                        playerInput.SwitchCurrentControlScheme(controlScheme, Keyboard.current);
-
-                    }
-                }
-                
-                if (!playerInput.hasMissingRequiredDevices || !playerInput.inputIsActive)
+                if (playerInput.currentControlScheme != "Player1")
                 {
                     gameObject.SetActive(false);
                 }
-                
-
             }
-            
-            #endregion
-
-            #region Private Functions
-            #endregion
         }
+        
+        
+
+        #endregion
+
+        #region Private Functions
+
+        #endregion
     }
 }

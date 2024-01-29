@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 1680948932}
   - component: {fileID: 1130416177640512929}
   - component: {fileID: 8393427140100816367}
-  - component: {fileID: -3493833219328071587}
+  - component: {fileID: 3622730775527207118}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -133,10 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Controllers: 0
+  Controllers: 1
   playerMovementBehaviour: {fileID: 8393427140100816367}
-  playerInput: {fileID: -3493833219328071587}
-  PlayerData: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
+  playerInput: {fileID: 3622730775527207118}
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,10 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  turnSpeed: 0
+  movementSpeed: 10
+  turnSpeed: 1
   playerRigidBody: {fileID: 1680948932}
---- !u!114 &-3493833219328071587
+  accelerationFactor: 1
+--- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,7 +192,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
-    m_ActionName: PlayerController/Movement[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/leftStick/right,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: Player/Movement[/XInputControllerWindows1/leftStick,/XInputControllerWindows/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

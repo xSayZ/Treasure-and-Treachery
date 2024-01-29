@@ -16,7 +16,7 @@ namespace Game {
         public class PlayerData : ScriptableObject
         {
             [SerializeField] private int playerHealth;
-            [SerializeField] private int playerIndex;
+            [SerializeField] public int playerIndex;
             [SerializeField] private int currency;
             [SerializeField] private int questValue;
 

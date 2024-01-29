@@ -20,7 +20,7 @@ namespace Game {
             public override void Enter()
             {
                 // TEMP
-                List<Vector3> targets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, 10, 60, enemyController.playerLayerMask, enemyController.obstacleLayerMask);
+                List<Vector3> targets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, enemyController.VisionRange, enemyController.VisionFov, enemyController.PlayerLayerMask, enemyController.ObstacleLayerMask);
 
                 for (int i = 0; i < targets.Count; i++)
                 {

@@ -19,6 +19,10 @@ namespace Game {
             public GrowlEnemyState GrowlEnemyState;
             public ChaseEnemyState ChaseEnemyState;
             
+            [Header("Layer Masks")]
+            public LayerMask playerLayerMask;
+            public LayerMask obstacleLayerMask;
+            
             private EnemyState currentState;
             
             

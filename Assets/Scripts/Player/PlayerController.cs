@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Player {
-        public class Player : MonoBehaviour
+        public class PlayerController : MonoBehaviour
         {
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;

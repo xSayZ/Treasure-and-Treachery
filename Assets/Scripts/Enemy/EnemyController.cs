@@ -15,9 +15,9 @@ namespace Game {
         {
             [Header("States")]
             public RoamEnemyState RoamEnemyState;
-            public RoamEnemyState AlertEnemyState;
-            public RoamEnemyState GrowlEnemyState;
-            public RoamEnemyState ChaseEnemyState;
+            public AlertEnemyState AlertEnemyState;
+            public GrowlEnemyState GrowlEnemyState;
+            public ChaseEnemyState ChaseEnemyState;
             
             private EnemyState currentState;
             

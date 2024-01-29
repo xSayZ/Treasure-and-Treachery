@@ -50,6 +50,12 @@ namespace Game {
             {
                 currentState.FixedUpdate();
             }
+
+            private void OnDrawGizmosSelected()
+            {
+                Gizmos.color = Color.green;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, VisionFov, VisionRange);
+            }
 #endregion
 
 #region Public Functions

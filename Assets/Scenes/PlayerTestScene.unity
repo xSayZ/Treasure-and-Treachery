@@ -136,15 +136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_LocalScale.z
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1466010711}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Game.PlayerController.PlayerController, Assembly-CSharp
         m_MethodName: OnMovement
         m_Mode: 0
@@ -581,6 +581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  movementSpeed: 0
 --- !u!114 &1466010711
 MonoBehaviour:
   m_ObjectHideFlags: 0

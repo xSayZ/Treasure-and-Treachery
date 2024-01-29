@@ -10,14 +10,25 @@ using UnityEngine;
 
 
 namespace Game {
-    namespace PlayerController
+    namespace Player
     {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
             
+            
+            [SerializeField] private float movementSpeed;
+
+            private Rigidbody playerRigidBody;
+            private Vector3 direction;
 
         #region Unity Functions
             // Start is called before the first frame update
+
+            private void Awake()
+            {
+                playerRigidBody = GetComponent<Rigidbody>();
+
+            }
             void Start()
             {
                 
@@ -32,7 +43,11 @@ namespace Game {
 
         #region Public Functions
 
-#endregion
+        public void MovePlayer(Vector3 directionVector)
+        {
+            playerRigidBody.MovePosition((transform.position+directionVector)*Time.deltaTime*movementSpeed);
+        }
+        #endregion
 
         #region Private Functions
 

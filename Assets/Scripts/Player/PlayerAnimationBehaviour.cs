@@ -10,7 +10,7 @@ using UnityEngine;
 
 
 namespace Game {
-    namespace NAME {
+    namespace Player {
         public class PlayerAnimationBehaviour : MonoBehaviour
         {
         

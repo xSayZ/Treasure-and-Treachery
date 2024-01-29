@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Player {
-        public class PlayerController : MonoBehaviour
+        public class Player : MonoBehaviour
         {
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -40,6 +40,8 @@ namespace Game {
         public void OnMovement(InputAction.CallbackContext value)
         {
             Vector2 inputValue = value.ReadValue<Vector2>();
+            
+            playerMovementBehaviour.MovePlayer(new Vector3(inputValue.x,0,inputValue.y));
             
         }
 #endregion

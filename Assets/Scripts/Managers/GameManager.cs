@@ -28,11 +28,18 @@ namespace Game {
 
 
             #region Unity Functions
+            private void OnDrawGizmos()
+            {
+                Gizmos.color = Color.blue;
+                Gizmos.DrawSphere(spawnRingCenter.position, spawnRingRadius);
+            }
+
             void Awake()
             {
             }
             void Start()
             {
+
                 activePlayerControllers = new List<PlayerController>();
 
                 for (int i = 0; i < numberOfPlayers; i++)
@@ -74,6 +81,7 @@ namespace Game {
                 float x = Mathf.Cos(angle) * spawnRingRadius;
                 float z = Mathf.Sin(angle) * spawnRingRadius;
                 return spawnRingCenter.position + new Vector3(x, 0, z);
+
             }
             #endregion
         }

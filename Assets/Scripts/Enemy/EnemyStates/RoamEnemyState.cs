@@ -19,12 +19,27 @@ namespace Game {
 #region Public Functions
             public override void Enter()
             {
-                // TEMP
-                List<Vector3> targets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, enemyController.VisionRange, enemyController.VisionFov, enemyController.PlayerLayerMask, enemyController.ObstacleLayerMask);
-
-                for (int i = 0; i < targets.Count; i++)
+                List<Vector3> visibleTargets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, enemyController.VisionRange, enemyController.VisionFov, enemyController.PlayerLayerMask, enemyController.ObstacleLayerMask);
+                List<Vector3> audibleTargets = ListenForTarget(enemyController.transform.position, enemyController.HearingRange, enemyController.PlayerLayerMask);
+                
+                if (visibleTargets.Count + audibleTargets.Count > 0)
                 {
-                    Debug.Log(targets[i]);
+                    // This is only needed in alert state
+                    /*Vector3 closestTarget;
+                    float closestDistance = float.MaxValue;
+                    
+                    for (int i = 0; i < targets.Count; i++)
+                    {
+                        float distance = Vector3.Distance(enemyController.transform.position, targets[i]);
+                        
+                        if (distance < closestDistance)
+                        {
+                            closestTarget = targets[i];
+                            closestDistance = distance;
+                        }
+                    }*/
+                    
+                    enemyController.ChangeState(enemyController.AlertEnemyState);
                 }
             }
             

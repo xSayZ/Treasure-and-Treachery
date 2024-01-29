@@ -25,13 +25,17 @@ namespace Game {
 
             [SerializeField] private List<PlayerController> activePlayerControllers;
 
+            [SerializeField] bool debug;
 
 
             #region Unity Functions
             private void OnDrawGizmos()
             {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawSphere(spawnRingCenter.position, spawnRingRadius);
+                if (debug)
+                {
+                    Gizmos.color = new Color(0f, 255f, 0f, 0.5f);
+                    Gizmos.DrawSphere(spawnRingCenter.position, spawnRingRadius);
+                }
             }
 
             void Awake()

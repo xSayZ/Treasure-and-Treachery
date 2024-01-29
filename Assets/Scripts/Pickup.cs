@@ -29,15 +29,24 @@ namespace Game {
             {
                 
             }
-#endregion
 
-#region Public Functions
+            private void OnTriggerEnter(Collider other)
+            {
+                if (other.CompareTag("Player"))
+                {
+                    // TODO: Tell game pickup has been added
+                    Destroy(gameObject);
+                }
+            }
+            #endregion
 
-#endregion
+            #region Public Functions
 
-#region Private Functions
+            #endregion
 
-#endregion
+            #region Private Functions
+
+            #endregion
         }
     }
 }

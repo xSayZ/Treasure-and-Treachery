@@ -2,7 +2,7 @@
 // --------------------------------
 // Creation Date: 2024-01-29
 // Author: b22alesj
-// Description: Controls the enemy
+// Description: Enemy state machine controller
 // --------------------------------
 // ------------------------------*/
 
@@ -13,29 +13,43 @@ namespace Game {
     namespace Enemy {
         public class EnemyController : MonoBehaviour
         {
-            [Header("Sub Behaviours")]
-            [SerializeField] private EnemyMovementBehaviour enemyMovementBehaviour;
-
+            [Header("States")]
+            public RoamEnemyState RoamEnemyState;
+            public RoamEnemyState AlertEnemyState;
+            public RoamEnemyState GrowlEnemyState;
+            public RoamEnemyState ChaseEnemyState;
+            
+            private EnemyState currentState;
+            
+            
 #region Unity Functions
-            // Start is called before the first frame update
+            private void Awake()
+            {
+                RoamEnemyState.Awake(this);
+                AlertEnemyState.Awake(this);
+                GrowlEnemyState.Awake(this);
+                ChaseEnemyState.Awake(this);
+                            
+                currentState = RoamEnemyState;
+            }
+
             private void Start()
             {
-                
+                currentState.Enter();
             }
-    
-            // Update is called once per frame
-            private void Update()
+            
+            private void FixedUpdate()
             {
-                
+                currentState.FixedUpdate();
             }
 #endregion
 
 #region Public Functions
-
-#endregion
-
-#region Private Functions
-
+            public void ChangeState(EnemyState newState)
+            {
+                currentState = newState;
+                currentState.Enter();
+            }
 #endregion
         }
     }

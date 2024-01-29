@@ -10,12 +10,12 @@ using UnityEngine;
 
 
 namespace Game {
-    namespace Scene {
-        public class Pickup : MonoBehaviour
+    namespace Scenes {
+
+        public class CarriageBehaviour : MonoBehaviour
         {
-
-            public bool isObjectivePickup;
-
+        
+            
 
 #region Unity Functions
             // Start is called before the first frame update
@@ -34,15 +34,11 @@ namespace Game {
             {
                 if (other.CompareTag("Player"))
                 {
-                    if (isObjectivePickup)
-                    {
-                        // TODO: Tell game pickup has been added
-                        //other.hasObjective = true;
-
-                    }
-                    Destroy(gameObject);
+                    //if(Objectives == Done)
+                    //End level
                 }
             }
+
             #endregion
 
             #region Public Functions

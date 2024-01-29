@@ -9,10 +9,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
-
+using System;
 
 namespace Game {
     namespace Backend {
+
         public class GameManager : MonoBehaviour
         {
 
@@ -26,7 +27,6 @@ namespace Game {
             [SerializeField] private List<PlayerController> activePlayerControllers;
 
             [SerializeField] bool debug;
-
 
             #region Unity Functions
             private void OnDrawGizmos()
@@ -43,19 +43,10 @@ namespace Game {
             }
             void Start()
             {
-
-                activePlayerControllers = new List<PlayerController>();
-
-                for (int i = 0; i < numberOfPlayers; i++)
-                {
-                    Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
-                    Quaternion _spawnRotation = Quaternion.identity;
-
-                    // TODO: Add spawnPosition and spawnRotation
-                    GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
-                    AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
-                }
+                SetupGame();
             }
+
+
 
             // Update is called once per frame
             void Update()
@@ -70,10 +61,34 @@ namespace Game {
 
 #region Private Functions
 
+            private void SetupGame()
+            {
+                AddPlayers();
+                SetObjective();
+            }
+            private void AddPlayers()
+            {
+                activePlayerControllers = new List<PlayerController>();
+
+                for (int i = 0; i < numberOfPlayers; i++)
+                {
+                    Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
+                    Quaternion _spawnRotation = Quaternion.identity;
+
+                    // TODO: Add spawnPosition and spawnRotation
+                    GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
+                    AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                }
+            }
 
             private void AddPlayersToActiveList(PlayerController newPlayer)
             {
                 activePlayerControllers.Add(newPlayer);
+            }
+
+            private void SetObjective()
+            {
+
             }
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)

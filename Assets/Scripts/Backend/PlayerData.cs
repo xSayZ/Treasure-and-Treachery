@@ -12,6 +12,7 @@ using UnityEngine;
 namespace Game {
     namespace Backend {
 
+
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {

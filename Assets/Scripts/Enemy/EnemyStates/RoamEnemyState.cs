@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -14,8 +15,18 @@ namespace Game {
         [System.Serializable]
         public class RoamEnemyState : EnemyState
         {
+            
 #region Public Functions
-            public override void Enter(){}
+            public override void Enter()
+            {
+                // TEMP
+                List<Vector3> targets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, 10, 60, enemyController.playerLayerMask, enemyController.obstacleLayerMask);
+
+                for (int i = 0; i < targets.Count; i++)
+                {
+                    Debug.Log(targets[i]);
+                }
+            }
             
             public override void FixedUpdate(){}
  #endregion

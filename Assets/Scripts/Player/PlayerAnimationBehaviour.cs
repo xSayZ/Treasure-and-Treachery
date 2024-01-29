@@ -1,7 +1,7 @@
 // /*------------------------------
 // --------------------------------
-// Creation Date: 2024-01-26
-// Author: b22feldy
+// Creation Date: 2024-01-29
+// Author: c21frejo
 // Description: Operation_Donken
 // --------------------------------
 // ------------------------------*/
@@ -10,20 +10,16 @@ using UnityEngine;
 
 
 namespace Game {
-    namespace Backend {
-        public class DataManager
+    namespace Player {
+        public class PlayerAnimationBehaviour : MonoBehaviour
         {
-
-            PlayerData playerOneData;
-            PlayerData playerTwoData;
-            PlayerData playerThreeData;
-            PlayerData playerFourData;
+        
 
 #region Unity Functions
             // Start is called before the first frame update
-            void Awake()
+            void Start()
             {
-            
+                
             }
     
             // Update is called once per frame

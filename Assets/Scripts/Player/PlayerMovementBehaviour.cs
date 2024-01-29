@@ -17,41 +17,49 @@ namespace Game {
             
             
             [SerializeField] private float movementSpeed;
-
-            private Rigidbody playerRigidBody;
+            [SerializeField] private float turnSpeed;
+            [SerializeField]private Rigidbody playerRigidBody;
             private Vector3 direction;
 
         #region Unity Functions
             // Start is called before the first frame update
-
-            private void Awake()
-            {
-                playerRigidBody = GetComponent<Rigidbody>();
-
-            }
             void Start()
             {
                 
             }
     
             // Update is called once per frame
-            void Update()
+            void FixedUpdate()
             {
-                
+                MovePlayer();
+                TurnPlayer();
             }
         #endregion
 
         #region Public Functions
 
-        public void MovePlayer(Vector3 directionVector)
+        public void MovementData(Vector3 _directionVector)
         {
-            playerRigidBody.MovePosition((transform.position+directionVector)*Time.deltaTime*movementSpeed);
+            direction = _directionVector;
+
         }
         #endregion
 
         #region Private Functions
-
-#endregion
+        //TODO:: Add Interpolation for moving
+        private void MovePlayer()
+        {
+            Vector3 movement = direction * Time.deltaTime * movementSpeed;
+            playerRigidBody.MovePosition(transform.position+movement);
+        }
+        //TODO:: Add interpolation for turning
+        private void TurnPlayer()
+        {
+            
+            transform.LookAt(direction+transform.position);
+        }
+        
+        #endregion
         }
     }
 }

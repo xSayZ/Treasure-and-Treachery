@@ -14,7 +14,7 @@ namespace Game {
         public class Pickup : MonoBehaviour
         {
 
-            public bool isObjectivePickup;
+            public bool IsObjectivePickup;
 
 
 #region Unity Functions
@@ -34,7 +34,7 @@ namespace Game {
             {
                 if (other.CompareTag("Player"))
                 {
-                    if (isObjectivePickup)
+                    if (IsObjectivePickup)
                     {
                         // TODO: Tell game pickup has been added
                         //other.hasObjective = true;

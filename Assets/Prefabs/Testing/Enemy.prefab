@@ -78,12 +78,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b678deb32fb9f0746af238d422a65752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerLayerMask:
+  PlayerLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  obstacleLayerMask:
+  ObstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  VisionRange: 10
+  VisionFov: 60
 --- !u!195 &922712805897902393
 NavMeshAgent:
   m_ObjectHideFlags: 0

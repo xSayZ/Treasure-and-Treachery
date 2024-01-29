@@ -20,8 +20,12 @@ namespace Game {
             public ChaseEnemyState ChaseEnemyState;
             
             [Header("Layer Masks")]
-            public LayerMask playerLayerMask;
-            public LayerMask obstacleLayerMask;
+            public LayerMask PlayerLayerMask;
+            public LayerMask ObstacleLayerMask;
+
+            [Header("Vision Cone")]
+            public float VisionRange;
+            public float VisionFov;
             
             private EnemyState currentState;
             

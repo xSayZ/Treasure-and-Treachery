@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using FMODUnity;
 using UnityEngine;
 
 
@@ -24,7 +25,11 @@ namespace Game {
         {
             public static AudioMananger Instance { get; private set; }
             
-            
+            //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
+            private StudioEventEmitter musicEmitter;
+
+            [Header("Music Emitters")]
+            [SerializeField] private StudioEventEmitter hubMusic;
             
            
             
@@ -53,7 +58,36 @@ namespace Game {
 
     #region Public Functions
 
-    
+    public void GetEvent(EventsToBePlayed eventsToBePlayed)
+    {
+        switch (eventsToBePlayed)
+        {
+            case EventsToBePlayed.HubMusic:
+                musicEmitter = hubMusic;
+                break;
+            
+            case EventsToBePlayed.MenuMusic: break;
+            
+            case EventsToBePlayed.GamePlayMusic: break;
+            
+        }
+    }
+
+    public void PlayMusic(EventsToBePlayed eventsToBePlayed)
+    {
+        if (!musicEmitter.IsActive)
+        {
+            musicEmitter.Play();
+            Debug.Log("music emitter played" + " " + eventsToBePlayed);
+        }
+    }
+
+    public void StopMusic(EventsToBePlayed eventsToBePlayed)
+    {//hämtar vilket event vi valt i switchen och stoppar music emittern (musiken)
+        GetEvent(eventsToBePlayed);
+        musicEmitter.Stop();
+    }
+
 
     #endregion
 

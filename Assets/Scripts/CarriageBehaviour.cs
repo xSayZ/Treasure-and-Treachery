@@ -24,7 +24,7 @@ namespace Game {
 #region Unity Functions
             void OnTriggerEnter(Collider other)
             {
-                if (other.CompareTag("Player") && canDoObjective)
+                if (other.CompareTag("Player"))
                 {
                     Debug.Log("Player inside");
                 }

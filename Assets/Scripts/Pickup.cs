@@ -44,6 +44,7 @@ namespace Game {
                     }
 
                     gameObject.SetActive(false);
+                    gameObject.transform.SetParent(other.transform);
                     canBePickup = false;
                 }
             }

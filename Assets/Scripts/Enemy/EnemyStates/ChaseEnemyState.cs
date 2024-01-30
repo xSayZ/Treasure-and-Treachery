@@ -16,6 +16,7 @@ namespace Game {
         public class ChaseEnemyState : EnemyState
         {
             [SerializeField] private float maxDeviationAngle;
+            [SerializeField] private float updateDistance;
             
             private NavMeshAgent navMeshAgent;
             private Vector3 lastSeenPosition;
@@ -39,17 +40,24 @@ namespace Game {
                     lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
                 }
                 
-                // Update nav mesh agent destination if necessary
+                // Update nav mesh agent destination if angle is to much
                 Vector3 _directionToTarget = (navMeshAgent.destination - enemyController.transform.position).normalized;
                 Vector3 _directionToLastSeenPosition = (lastSeenPosition - enemyController.transform.position).normalized;
                 if (Vector3.Angle(_directionToTarget, _directionToLastSeenPosition) > maxDeviationAngle)
                 {
                     navMeshAgent.destination = lastSeenPosition;
-                    Debug.Log("Updated nav mesh agent destination");
+                    //Debug.Log("Updated nav mesh agent destination (angle)");
                 }
                 
-                // Lost target
-                if (Vector3.Distance(enemyController.transform.position, lastSeenPosition) <= navMeshAgent.stoppingDistance)
+                // Update nav mesh agent destination if player is further away and destination has almost been reached
+                if (navMeshAgent.remainingDistance < updateDistance && (navMeshAgent.destination.x != lastSeenPosition.x || navMeshAgent.destination.z != lastSeenPosition.z) && navMeshAgent.hasPath)
+                {
+                    navMeshAgent.destination = lastSeenPosition;
+                    //Debug.Log("Updated nav mesh agent destination (distance)");
+                }
+                
+                // Reached last known target position
+                if (!navMeshAgent.hasPath)
                 {
                     enemyController.ChangeState(enemyController.AlertEnemyState);
                 }

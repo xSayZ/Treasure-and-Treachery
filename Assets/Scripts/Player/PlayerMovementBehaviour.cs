@@ -19,9 +19,11 @@ namespace Game {
             [SerializeField] private float movementSpeed;
             [SerializeField] private float turnSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
-            private Vector3 direction;
+            public Vector3 direction { get; private set; }
+            
+            public float accelerationFactor;
 
-        #region Unity Functions
+            #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
@@ -49,8 +51,10 @@ namespace Game {
         //TODO:: Add Interpolation for moving
         private void MovePlayer()
         {
+
+
             Vector3 movement = direction * Time.deltaTime * movementSpeed;
-            playerRigidBody.MovePosition(transform.position+movement);
+             playerRigidBody.MovePosition(movement+transform.position);
         }
         //TODO:: Add interpolation for turning
         private void TurnPlayer()

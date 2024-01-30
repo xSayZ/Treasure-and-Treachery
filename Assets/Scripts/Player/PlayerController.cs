@@ -6,68 +6,78 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-namespace Game {
-    namespace Player {
+namespace Game
+{
+    namespace Player
+    {
         public class PlayerController : MonoBehaviour
         {
+            public PlayerData Data;
+            
+            
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private PlayerInput playerInput;
-
+            
+            public int playerID;
+            
             private string controlScheme;
-            private int playerID;
-            
-            
-            
-            public PlayerData PlayerData;
-#region Unity Functions
+
+            #region Unity Functions
+
             // Start is called before the first frame update
             void Start()
             {
-                
+                SetupPlayer();
             }
-    
+
             // Update is called once per frame
             void Update()
             {
-                SetUpPlayer(PlayerData);
             }
-#endregion
-
-#region Public Functions
-
-        public void OnMovement(InputAction.CallbackContext value)
-        {
-            Vector2 inputValue = value.ReadValue<Vector2>();
             
-            playerMovementBehaviour.MovementData(new Vector3(inputValue.x,0,inputValue.y));
-        }
+            #endregion
 
+            #region Public Functions
 
-         void SetUpPlayer(PlayerData _data)
-        {
-            playerID = _data.playerIndex;
-            controlScheme = playerInput.currentControlScheme;
-        }
-#endregion
+            public void OnMovement(InputAction.CallbackContext value)
+            {
+                Vector2 inputValue = value.ReadValue<Vector2>();
 
-#region Private Functions
+                playerMovementBehaviour.MovementData(new Vector3(inputValue.x, 0, inputValue.y));
+            }
 
-        
-        private void SmoothInput()
-        {
+            public void OnAttack(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    //TODO;; PlayAttackAnimation 
+                }
+            }
             
+            #endregion
+
+            #region Private Functions
+            private void SetupPlayer()
+            {
+                playerID = playerInput.playerIndex;
+                
+                if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
+                {
+                    gameObject.SetActive(false);
+                }
+                playerInput.SwitchCurrentControlScheme(Keyboard.current);
+
+            }
+            #endregion
         }
         
-        
-#endregion
-        }
+
     }
 }

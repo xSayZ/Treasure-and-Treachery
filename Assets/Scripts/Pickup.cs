@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using UnityEngine;
+using Game.Events;
 
 
 namespace Game {
@@ -14,14 +15,15 @@ namespace Game {
         public class Pickup : MonoBehaviour
         {
 
-            public bool IsObjectivePickup;
+            private bool IsObjectivePickup;
+            private bool canBePickup = true;
 
 
 #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
-                
+                IsObjectivePickup = true;
             }
     
             // Update is called once per frame
@@ -32,15 +34,17 @@ namespace Game {
 
             private void OnTriggerEnter(Collider other)
             {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag("Player") && canBePickup)
                 {
                     if (IsObjectivePickup)
                     {
                         // TODO: Tell game pickup has been added
                         //other.hasObjective = true;
-
+                        EventManager.OnObjectivePickup.Invoke(true);
                     }
-                    Destroy(gameObject);
+
+                    gameObject.SetActive(false);
+                    canBePickup = false;
                 }
             }
             #endregion

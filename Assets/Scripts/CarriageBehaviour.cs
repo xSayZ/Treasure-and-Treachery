@@ -7,37 +7,29 @@
 // ------------------------------*/
 
 using UnityEngine;
-
+using Game.Events;
+using Game.Backend;
+using System;
 
 namespace Game {
     namespace Scenes {
-
         public class CarriageBehaviour : MonoBehaviour
         {
-        
+            private bool canDoObjective = false;
             
+            private void Start() {
+                EventManager.OnObjectivePickup.AddListener(BeginObjective);
+            }
 
 #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
+            void OnTriggerEnter(Collider other)
             {
-                
-            }
-    
-            // Update is called once per frame
-            void Update()
-            {
-                
-            }
-
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag("Player") && canDoObjective)
                 {
-                    //if(Objectives == Done)
-                    //End level
+                    Debug.Log("Player inside");
                 }
             }
+
 
             #endregion
 
@@ -46,6 +38,11 @@ namespace Game {
             #endregion
 
             #region Private Functions
+
+            private void BeginObjective(bool arg0){
+                Debug.Log("Pickup has been picked up?" +arg0);
+                canDoObjective = arg0;
+            }
 
             #endregion
         }

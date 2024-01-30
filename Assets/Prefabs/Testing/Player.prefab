@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 1680948932}
   - component: {fileID: 1130416177640512929}
   - component: {fileID: 8393427140100816367}
+  - component: {fileID: -5808583360332475247}
   - component: {fileID: 3622730775527207118}
   m_Layer: 0
   m_Name: Player
@@ -134,9 +135,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
-  targetGroup: {fileID: 0}
   playerMovementBehaviour: {fileID: 8393427140100816367}
+  playerAttackBehaviour: {fileID: -5808583360332475247}
   playerInput: {fileID: 3622730775527207118}
+  MovementSmoothing: 0.43
+  BaseLockoutTimer: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,11 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxmovementSpeed: 42.62
+  MaxmovementSpeed: 10
   turnSpeed: 1
   playerRigidBody: {fileID: 1680948932}
-  AccelerationFactor: 13.5
-  InputDamp: 0.938
+--- !u!114 &-5808583360332475247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +213,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnAttack
+        m_MethodName: OnRanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -211,6 +225,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
     m_ActionName: Player/Attack[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnMelee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

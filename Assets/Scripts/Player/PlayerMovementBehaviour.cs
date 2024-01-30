@@ -20,15 +20,9 @@ namespace Game {
             [SerializeField] private float turnSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
             public Vector3 direction { get; private set; }
-           
-            public float AccelerationFactor;
-
-            [Range(0, 1)] public float InputDamp;
-
             private float currentSpeed;
-            private Vector3 currentInputVector;
             private Vector3 movement;
-            private Vector3 smoothVelocity;
+            
             #region Unity Functions
             // Start is called before the first frame update
             void Start()
@@ -47,9 +41,8 @@ namespace Game {
         #region Public Functions
 
         public void MovementData(Vector3 _directionVector)
-        {
-            currentSpeed += AccelerationFactor * Time.deltaTime;
-            Debug.Log(currentSpeed);
+        { 
+           
             direction = _directionVector;
 
         }
@@ -60,13 +53,8 @@ namespace Game {
         private void MovePlayer()
         {
             
-            currentSpeed +=  AccelerationFactor * Time.deltaTime;
-            if (currentSpeed>= MaxmovementSpeed) currentSpeed = MaxmovementSpeed;
-
-
-            currentInputVector = Vector3.SmoothDamp(currentInputVector, direction+transform.position,ref smoothVelocity,InputDamp);
-            
-            playerRigidBody.MovePosition(currentInputVector);
+            movement = Time.deltaTime * MaxmovementSpeed * direction;
+            playerRigidBody.MovePosition(movement + transform.localPosition);
 
         }
         //TODO:: Add interpolation for turning

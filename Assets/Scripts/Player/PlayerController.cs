@@ -7,8 +7,6 @@
 // ------------------------------*/
 
 using System;
-using System.Collections.Generic;
-using Cinemachine;
 using Game.Backend;
 using Game.Events;
 using UnityEngine;
@@ -23,52 +21,31 @@ namespace Game
         {
             
             public PlayerData PlayerData;
-            public int playerID { get; private set; }
+            public int PlayerID { get; private set; }
             
-            [Header("SubBehaviours")] [SerializeField]
+            [Header("SubBehaviours")] 
+            [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
-
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
             [Header("InputSettings")]
-         
             [SerializeField] private PlayerInput playerInput;
-            [Tooltip("Effects How effective turning is and inertial movement"),Range(0.1f, 10)]
-            public float MovementSmoothing;
-
             
-            [Header("Other Settings")]
-            [Tooltip("How long before able to Moveagain after shooting")]
-            public float BaseLockoutTimer;
-            private float currentLockoutTimer= 0;
-            private Vector3 rawInputMovement;
-            private Vector3 smoothInputMovement;
-            private Vector3 velocity;
-            private bool lockout;
-
-            [field:SerializeField] public float Currency { get; private set; }
-
-
             #region Unity Functions
-       
-            // Start is called before the first frame update
-
-            
-          
+  
             private void Awake()
             {
                 PlayerData.playerIndex.Clear();
                 PlayerData.currency.Clear();
+                
                 EventManager.OnHealthChange.AddListener(BeginHealthChange);
-
-                    
+                
             }
             
             void Start()
             {
                 
                 SetupPlayer();
-                
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                
 
@@ -78,39 +55,16 @@ namespace Game
             
             private void BeginHealthChange(int Health, int _playerID)
             {
-                if (Health <= 0 && _playerID == playerID)
+                if (Health <= 0 && _playerID == PlayerID)
                 {
                     gameObject.SetActive(true);
                 }
             }
-
-
-            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
-            {
-                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
-                {
-                    if (i== playerID && playerID == _playerId)
-                    {
-                        PlayerData.currency[_playerId] += pickUpGold;
-                    }
-                }
-                
-            }
-
-            private void OnValidate()
-            {
-                if (MovementSmoothing == 0)
-                {
-                    MovementSmoothing = 0.1f;
-                    Debug.LogWarning("Smoothing Movement Must be higher than 0.1f");
-                }
-            }
+            
             
             // Update is called once per frame
             void Update()
             {
-                SmoothInputMovement();
-                UpdatePlayerMovement();
                 
             }
 
@@ -118,8 +72,8 @@ namespace Game
             {
                 if (other.gameObject.layer == 8)
                 {
+                    PlayerData.CurrentHealth--;
                 }
-                
             }
 
             #endregion
@@ -129,14 +83,12 @@ namespace Game
             public void OnMovement(InputAction.CallbackContext value)
             {
                 
-                    Vector2 inputValue = value.ReadValue<Vector2>();
-                    rawInputMovement = (new Vector3(inputValue.x, 0, inputValue.y));
+                    Vector2 _inputValue = value.ReadValue<Vector2>();
+                    Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                    playerMovementBehaviour.MovementData(_rawInputMovement);
                 
                
             }
-            
-            
-            
 
             public void OnRanged(InputAction.CallbackContext value)
             {
@@ -145,9 +97,8 @@ namespace Game
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
                     
-                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.direction.normalized);
-                    Debug.Log(playerMovementBehaviour.direction.normalized);
-                    Lockout();
+                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection.normalized);
+                    Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
                 }
             }
             
@@ -155,28 +106,11 @@ namespace Game
             {
                 if (value.started)
                 {
-                    rawInputMovement = Vector3.zero;
                     //TODO:: AttackAnimation
                     Debug.Log(value);
                 }   
                 
             }
-
-            private void Lockout()
-            {
-                lockout = true;
-                currentLockoutTimer = BaseLockoutTimer;
-                if (lockout)
-                {
-                    currentLockoutTimer -= Time.deltaTime;
-                }
-
-                if (currentLockoutTimer <= 0)
-                {
-                    lockout = false;
-                }
-            }
-            
             
             #endregion
 
@@ -184,7 +118,7 @@ namespace Game
             private void SetupPlayer()
             {
                 
-                playerID = playerInput.playerIndex;
+                PlayerID = playerInput.playerIndex;
 
                 if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
                 {
@@ -193,22 +127,22 @@ namespace Game
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
-                PlayerData.playerIndex.Add(playerID);
+                PlayerData.playerIndex.Add(PlayerID);
                 PlayerData.currency.Add(0);
 
             }
-
-            private void SmoothInputMovement()
-            {
-                smoothInputMovement = Vector3.LerpUnclamped(smoothInputMovement, rawInputMovement,
-                Time.deltaTime * MovementSmoothing);
-            }
-
-            private void UpdatePlayerMovement()
-            {
-                playerMovementBehaviour.MovementData(smoothInputMovement);
-            }
             
+            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
+            {
+                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
+                {
+                    if (i== PlayerID && PlayerID == _playerId)
+                    {
+                        PlayerData.currency[_playerId] += pickUpGold;
+                    }
+                }
+                
+            }
             
             #endregion
         }

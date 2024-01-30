@@ -135,13 +135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
-  playerID: 0
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -5808583360332475247}
   playerInput: {fileID: 3622730775527207118}
-  MovementSmoothing: 10
-  BaseLockoutTimer: 0
-  <Currency>k__BackingField: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,8 +150,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementSmoothing: 0.486
   MaxmovementSpeed: 4
-  turnSpeed: 0
   playerRigidBody: {fileID: 1680948932}
 --- !u!114 &-5808583360332475247
 MonoBehaviour:

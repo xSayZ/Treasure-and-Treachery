@@ -24,11 +24,26 @@ namespace Game {
             [SerializeField] public List<int> currency;
             [SerializeField] private int questValue;
 
-            private int currentHealth;
+            [SerializeField]private int currentHealth = 10;
             private int currentCurrency;
             private int currentQuestValue;
-            
-            
+
+
+            public int CurrentHealth
+            {
+                get => currentHealth;
+                set
+                {
+                    
+                    for (int i = 0; i < playerIndex.Count; i++)
+                    {
+                        int healthChange = value - currentHealth;
+                        currentHealth = Mathf.Clamp(value, 0, playerHealth[i]);
+                        EventManager.OnHealthChange?.Invoke(healthChange,playerIndex[i]);
+                    }
+                   
+                }
+            }
         }
     }
 }

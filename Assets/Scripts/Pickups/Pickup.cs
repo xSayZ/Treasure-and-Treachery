@@ -35,10 +35,10 @@ namespace Game {
 
                     switch (pickupType) {
                         case PickupType.Objective:
-                            EventManager.OnObjectivePickup.Invoke(true, other.gameObject.transform.GetComponent<PlayerController>().playerID);
+                            EventManager.OnObjectivePickup.Invoke(true, other.gameObject.transform.GetComponent<PlayerController>().PlayerID);
                             break;
                         case PickupType.Gold:
-                            EventManager.OnCurrencyPickup.Invoke(amount,other.gameObject.transform.GetComponent<PlayerController>().playerID);
+                            EventManager.OnCurrencyPickup.Invoke(amount,other.gameObject.transform.GetComponent<PlayerController>().PlayerID);
                             break;
                     }
 

@@ -28,7 +28,7 @@ namespace Game {
             {
                 if (other.CompareTag("Player") && 
                     canDoObjective && 
-                    other.gameObject.transform.GetComponent<PlayerController>().playerID == playerID)
+                    other.gameObject.transform.GetComponent<PlayerController>().PlayerID == playerID)
                 {
                     Debug.Log("Player inside");
                 }

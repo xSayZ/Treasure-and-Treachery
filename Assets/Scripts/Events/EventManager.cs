@@ -13,7 +13,8 @@ namespace Game {
     namespace Events {
         public class EventManager
         {
-            public static UnityEvent<bool> OnObjectivePickup = new UnityEvent<bool>();
+            public static UnityEvent<bool, int> OnObjectivePickup = new UnityEvent<bool, int>();
+            public static UnityEvent<int> OnCurrencyPickup = new UnityEvent<int>();
         }
     }
 }

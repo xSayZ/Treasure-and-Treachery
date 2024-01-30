@@ -8,43 +8,47 @@
 
 using UnityEngine;
 using Game.Events;
-using Game.Backend;
 using System;
+using UnityEngine.Diagnostics;
+using Game.Player;
 
 namespace Game {
     namespace Scenes {
         public class CarriageBehaviour : MonoBehaviour
         {
             private bool canDoObjective = false;
+            private int playerID;
             
             private void Start() {
-                EventManager.OnObjectivePickup.AddListener(BeginObjective);
+                EventManager.OnObjectivePickup.AddListener(ObjectiveCheck);
             }
 
 #region Unity Functions
             void OnTriggerEnter(Collider other)
             {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag("Player") && 
+                    canDoObjective && 
+                    other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex == playerID)
                 {
                     Debug.Log("Player inside");
                 }
             }
 
 
-            #endregion
+#endregion
 
-            #region Public Functions
+#region Public Functions
 
-            #endregion
+#endregion
 
-            #region Private Functions
+#region Private Functions
 
-            private void BeginObjective(bool arg0){
-                Debug.Log("Pickup has been picked up?" +arg0);
+            private void ObjectiveCheck(bool arg0, int playerIndex){
                 canDoObjective = arg0;
+                playerID = playerIndex;
             }
+#endregion
 
-            #endregion
         }
     }
 }

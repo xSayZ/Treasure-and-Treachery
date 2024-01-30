@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using System;
+using Cinemachine;
 
 namespace Game {
     namespace Backend {
@@ -28,6 +29,8 @@ namespace Game {
 
             [SerializeField] bool debug;
 
+            [SerializeField] private CinemachineTargetGroup CinemachineTargetGroup;
+            
             #region Unity Functions
             private void OnDrawGizmos()
             {
@@ -87,6 +90,8 @@ namespace Game {
             private void AddPlayersToActiveList(PlayerController newPlayer)
             {
                 activePlayerControllers.Add(newPlayer);
+                CinemachineTargetGroup.AddMember(newPlayer.transform,1,0);
+                
             }
             
             private void SetObjective()

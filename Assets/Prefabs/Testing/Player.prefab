@@ -133,9 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Data: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
+  targetGroup: {fileID: 0}
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerInput: {fileID: 3622730775527207118}
-  playerID: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,10 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  MaxmovementSpeed: 42.62
   turnSpeed: 1
   playerRigidBody: {fileID: 1680948932}
-  accelerationFactor: 1
+  AccelerationFactor: 13.5
+  InputDamp: 0.938
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0

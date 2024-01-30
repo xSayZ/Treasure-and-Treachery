@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Cinemachine;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,23 +19,20 @@ namespace Game
         public class PlayerController : MonoBehaviour
         {
             public PlayerData Data;
-            
+            private int playerID;
+            public CinemachineTargetGroup targetGroup;
             
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
-
             [SerializeField] private PlayerInput playerInput;
             
-            public int playerID;
-            
-            private string controlScheme;
-
             #region Unity Functions
 
             // Start is called before the first frame update
             void Start()
             {
                 SetupPlayer();
+                targetGroup = FindObjectOfType<CinemachineTargetGroup>();
             }
 
             // Update is called once per frame
@@ -67,14 +65,18 @@ namespace Game
             private void SetupPlayer()
             {
                 playerID = playerInput.playerIndex;
-                
+                Data.playerIndex = playerID;
+
                 if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
+                    
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
-
             }
+
+
+           
             #endregion
         }
         

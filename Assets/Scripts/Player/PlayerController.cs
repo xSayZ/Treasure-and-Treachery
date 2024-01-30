@@ -20,7 +20,7 @@ namespace Game
     {
         public class PlayerController : MonoBehaviour
         {
-            public PlayerData Data;
+            public PlayerData PlayerData;
             private int playerID;
 
             [Header("SubBehaviours")] [SerializeField]
@@ -43,6 +43,8 @@ namespace Game
             private Vector3 velocity;
             private bool lockout;
 
+            public float Currency;
+
 
             #region Unity Functions
        
@@ -50,20 +52,21 @@ namespace Game
 
             private void Awake()
             {
-                
+                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
             }
-
             
-            
-            private void BeginObjective(bool arg0){
-                Debug.Log("Pickup has been picked up?" +arg0);
-                canDoObjective = arg0;
-            }
             void Start()
             {
                 SetupPlayer();
                 
-                EventManager.OnObjectivePickup.AddListener(BeginObjective);
+            }
+
+
+            private void BeginCurrencyPickup(int pickUpGold)
+            {
+                PlayerData.currency += pickUpGold;
+                Currency = PlayerData.currency;
+                Debug.Log(PlayerData.currency);
             }
 
             private void OnValidate()
@@ -144,7 +147,7 @@ namespace Game
             private void SetupPlayer()
             {
                 playerID = playerInput.playerIndex;
-                Data.playerIndex = playerID;
+                PlayerData.playerIndex = playerID;
 
                 if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
                 {
@@ -153,7 +156,7 @@ namespace Game
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
 
-                Data.playerIndex = playerID;
+                PlayerData.playerIndex = playerID;
 
             }
 

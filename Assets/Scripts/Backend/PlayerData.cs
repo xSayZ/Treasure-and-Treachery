@@ -18,7 +18,7 @@ namespace Game {
         {
             [SerializeField] private int playerHealth;
             [SerializeField] public int playerIndex;
-            [SerializeField] private int currency;
+            [SerializeField] public int currency;
             [SerializeField] private int questValue;
 
             private int currentHealth;

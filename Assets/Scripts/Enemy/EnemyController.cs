@@ -71,7 +71,6 @@ namespace Game {
                 {
                     if (IsVisible(targetsInVisionRangeUpdate[i]))
                     {
-                        Debug.Log("Visible");
                         if (!targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
                         {
                             targetsInVisionRange.Add(targetsInVisionRangeUpdate[i]);

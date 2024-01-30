@@ -171,8 +171,10 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - 'Music '
   BanksToLoad: []
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
@@ -185,14 +187,14 @@ MonoBehaviour:
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131609
-  HideSetupWizard: 0
+  HideSetupWizard: 1
   LastEventReferenceScanVersion: 131609
   Platforms:
-  - {fileID: 4039308370618083924}
-  - {fileID: -8865652007487361592}
-  - {fileID: 7330888871193939986}
-  - {fileID: 2721939410472482515}
   - {fileID: -8262137530712900770}
+  - {fileID: 2721939410472482515}
+  - {fileID: 7330888871193939986}
+  - {fileID: -8865652007487361592}
+  - {fileID: 4039308370618083924}
   MigratedPlatforms: 150000000a000000080000000200000001000000
 --- !u!114 &2721939410472482515
 MonoBehaviour:
@@ -258,9 +260,9 @@ MonoBehaviour:
     HasValue: 0
   displaySortOrder: 0
   childIdentifiers:
-  - 46fbfdf3fc43db0458918377fd40293e
-  - b7716510a1f36934c87976f3a81dbf3d
   - 2c5177b11d81d824dbb064f9ac8527da
+  - b7716510a1f36934c87976f3a81dbf3d
+  - 46fbfdf3fc43db0458918377fd40293e
   codecChannels:
     Value: []
     HasValue: 0

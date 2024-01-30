@@ -87,7 +87,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638422300090398357
+  lastModified: 638422320814293416
   FileSizes: []
   Exists: 1
 --- !u!114 &-3353771287701370278
@@ -150,7 +150,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638422300089960784
+  lastModified: 638422320813704321
   FileSizes: []
   Exists: 1
 --- !u!114 &-182935175539193737
@@ -202,12 +202,13 @@ MonoBehaviour:
   - {fileID: 5431631683958195136}
   - {fileID: 7086601456145900906}
   - {fileID: -2665852028647137158}
+  - {fileID: 3669677190366473911}
   EditorParameters: []
   MasterBanks:
   - {fileID: -271528840683240399}
   StringsBanks:
   - {fileID: 3595732728518646762}
-  cacheTime: 638422300090398357
+  cacheTime: 638422320814293416
   cacheVersion: 131609
 --- !u!114 &1860189691103445732
 MonoBehaviour:
@@ -244,11 +245,38 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638422300090065788
+  lastModified: 638422320813725256
   FileSizes:
   - Name: 
-    Value: 1188
+    Value: 1240
   Exists: 1
+--- !u!114 &3669677190366473911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/HubMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/HubMusic
+  Guid:
+    Data1: -1949739831
+    Data2: 1135333817
+    Data3: 1448912784
+    Data4: -1024717124
+  Banks:
+  - {fileID: -4121734131413165093}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 118413
 --- !u!114 &5431631683958195136
 MonoBehaviour:
   m_ObjectHideFlags: 0

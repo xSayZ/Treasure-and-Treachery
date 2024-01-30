@@ -60,9 +60,11 @@ namespace Game
                     //TODO;; PlayAttackAnimation 
                 }
             }
+            
+            #endregion
 
-
-            public void SetupPlayer()
+            #region Private Functions
+            private void SetupPlayer()
             {
                 playerID = playerInput.playerIndex;
                 
@@ -73,14 +75,9 @@ namespace Game
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
 
             }
+            #endregion
         }
         
-        
 
-        #endregion
-
-        #region Private Functions
-
-        #endregion
     }
 }

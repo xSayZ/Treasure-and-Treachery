@@ -19,7 +19,8 @@ namespace FMODUnity
         private const string AssetsFolderName = "Assets";
 
         private const string CacheAssetName = "FMODStudioCache";
-        public static string CacheAssetFullName = EditorUtils.WritableAssetPath(CacheAssetName);
+        public static string CacheAssetFullName =>
+            $"{RuntimeUtils.PluginBasePath}/Cache/Editor/{CacheAssetName}.asset";
         private static EventCache eventCache;
 
         private const string StringBankExtension = "strings.bank";

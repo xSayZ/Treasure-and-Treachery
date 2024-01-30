@@ -135,16 +135,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
-  Datas:
-  - {fileID: 11400000, guid: ceb127f4939a16b41abc54406aa89b31, type: 2}
-  - {fileID: 11400000, guid: 4812a97097a203c42a74cc30007c592e, type: 2}
-  - {fileID: 11400000, guid: 22b6775586a6624498bedc7850b3fe3c, type: 2}
-  - {fileID: 11400000, guid: e46e4de106f07dc489425a2346bf6218, type: 2}
   playerID: 0
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -5808583360332475247}
   playerInput: {fileID: 3622730775527207118}
-  MovementSmoothing: 0.43
+  MovementSmoothing: 10
   BaseLockoutTimer: 0
   <Currency>k__BackingField: 0
 --- !u!114 &8393427140100816367
@@ -159,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxmovementSpeed: 10
-  turnSpeed: 1
+  MaxmovementSpeed: 4
+  turnSpeed: 0
   playerRigidBody: {fileID: 1680948932}
 --- !u!114 &-5808583360332475247
 MonoBehaviour:

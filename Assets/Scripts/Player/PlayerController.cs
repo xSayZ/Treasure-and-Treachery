@@ -23,16 +23,17 @@ namespace Game
         {
             
             public PlayerData PlayerData;
-            public int playerID;
-
+            public int playerID { get; private set; }
+            
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
-
-            [Header("InputSettings"), Range(0.1f, 10)]
-            [Tooltip("Effects How effective turning is and inertial movement")]
+            
+            [Header("InputSettings")]
+         
             [SerializeField] private PlayerInput playerInput;
+            [Tooltip("Effects How effective turning is and inertial movement"),Range(0.1f, 10)]
             public float MovementSmoothing;
 
             
@@ -52,27 +53,46 @@ namespace Game
        
             // Start is called before the first frame update
 
+            
+          
             private void Awake()
             {
-                
+                PlayerData.playerIndex.Clear();
+                PlayerData.currency.Clear();
+                EventManager.OnHealthChange.AddListener(BeginHealthChange);
+
                     
             }
             
             void Start()
             {
+                
                 SetupPlayer();
+                
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                
 
                 
             }
 
+            
+            private void BeginHealthChange(int Health, int _playerID)
+            {
+                if (Health <= 0 && _playerID == playerID)
+                {
+                    gameObject.SetActive(true);
+                }
+            }
+
 
             private void BeginCurrencyPickup(int pickUpGold,int _playerId)
             {
-                if (_playerId == playerID)
+                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
                 {
-                    PlayerData.currency += pickUpGold;
+                    if (i== playerID && playerID == _playerId)
+                    {
+                        PlayerData.currency[_playerId] += pickUpGold;
+                    }
                 }
                 
             }
@@ -85,14 +105,23 @@ namespace Game
                     Debug.LogWarning("Smoothing Movement Must be higher than 0.1f");
                 }
             }
-
+            
             // Update is called once per frame
             void Update()
             {
                 SmoothInputMovement();
                 UpdatePlayerMovement();
+                
             }
-            
+
+            private void OnTriggerEnter(Collider other)
+            {
+                if (other.gameObject.layer == 8)
+                {
+                }
+                
+            }
+
             #endregion
 
             #region Public Functions
@@ -105,6 +134,9 @@ namespace Game
                 
                
             }
+            
+            
+            
 
             public void OnRanged(InputAction.CallbackContext value)
             {
@@ -151,8 +183,8 @@ namespace Game
             #region Private Functions
             private void SetupPlayer()
             {
+                
                 playerID = playerInput.playerIndex;
-                PlayerData.playerIndex = playerID;
 
                 if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
                 {
@@ -160,8 +192,9 @@ namespace Game
                     
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
-
-                PlayerData.playerIndex = playerID;
+                
+                PlayerData.playerIndex.Add(playerID);
+                PlayerData.currency.Add(0);
 
             }
 

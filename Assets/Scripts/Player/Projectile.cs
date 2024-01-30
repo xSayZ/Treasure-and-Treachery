@@ -53,6 +53,10 @@ namespace Game {
                 {
                     Destroy(gameObject);
                 }
+                else
+                {
+                    Destroy(gameObject,5);
+                }
             }
 
             #endregion

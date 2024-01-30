@@ -138,7 +138,8 @@ namespace Game
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
 
-                
+                Data.playerIndex = playerID;
+
             }
 
             private void SmoothInputMovement()

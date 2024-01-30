@@ -9,6 +9,7 @@
 using System;
 using Cinemachine;
 using Game.Backend;
+using Game.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -46,9 +47,23 @@ namespace Game
             #region Unity Functions
        
             // Start is called before the first frame update
+
+            private void Awake()
+            {
+                
+            }
+
+            
+            
+            private void BeginObjective(bool arg0){
+                Debug.Log("Pickup has been picked up?" +arg0);
+                canDoObjective = arg0;
+            }
             void Start()
             {
                 SetupPlayer();
+                
+                EventManager.OnObjectivePickup.AddListener(BeginObjective);
             }
 
             private void OnValidate()

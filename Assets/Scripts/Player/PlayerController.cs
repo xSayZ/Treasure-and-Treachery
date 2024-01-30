@@ -6,9 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
-using System.Linq;
-using Cinemachine;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,9 +17,9 @@ namespace Game
     {
         public class PlayerController : MonoBehaviour
         {
-            [Tooltip("Set to use Keyboard debugging purposes")]
-            public bool Controllers;
-
+            public PlayerData Data;
+            
+            
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
@@ -44,12 +41,7 @@ namespace Game
             void Update()
             {
             }
-
-            private void LateUpdate()
-            {
-                
-            }
-
+            
             #endregion
 
             #region Public Functions
@@ -61,15 +53,25 @@ namespace Game
                 playerMovementBehaviour.MovementData(new Vector3(inputValue.x, 0, inputValue.y));
             }
 
+            public void OnAttack(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    //TODO;; PlayAttackAnimation 
+                }
+            }
+
 
             public void SetupPlayer()
             {
                 playerID = playerInput.playerIndex;
                 
-                if (playerInput.currentControlScheme != "Player1")
+                if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
                 }
+                playerInput.SwitchCurrentControlScheme(Keyboard.current);
+
             }
         }
         

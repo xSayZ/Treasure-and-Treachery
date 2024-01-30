@@ -19,7 +19,7 @@ namespace Game {
             [SerializeField] private float movementSpeed;
             [SerializeField] private float turnSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
-            private Vector3 direction;
+            public Vector3 direction { get; private set; }
             
             public float accelerationFactor;
 

@@ -20,23 +20,10 @@ namespace Game {
 
             public override void FixedUpdate()
             {
+                // Roam around here
+                
                 if (enemyController.targetsInVisionRange.Count + enemyController.targetsInHearingRange.Count > 0)
                 {
-                    // This is only needed in alert state
-                    /*Vector3 closestTarget;
-                    float closestDistance = float.MaxValue;
-
-                    for (int i = 0; i < targets.Count; i++)
-                    {
-                        float distance = Vector3.Distance(enemyController.transform.position, targets[i]);
-
-                        if (distance < closestDistance)
-                        {
-                            closestTarget = targets[i];
-                            closestDistance = distance;
-                        }
-                    }*/
-                    
                     enemyController.ChangeState(enemyController.AlertEnemyState);
                 }
             }

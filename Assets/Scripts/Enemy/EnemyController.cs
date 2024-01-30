@@ -106,6 +106,11 @@ namespace Game {
                 currentState.Enter();
             }
             
+            public EnemyState GetCurrentState()
+            {
+                return currentState;
+            }
+            
             public NavMeshAgent GetNavMeshAgent()
             {
                 return navMeshAgent;

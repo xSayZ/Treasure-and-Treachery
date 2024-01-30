@@ -24,8 +24,6 @@ namespace Game {
 #region State Machine Functions
             public override void Enter()
             {
-                Debug.Log("Alert");
-                
                 currentLookTime = 0;
                 hasHeardSomething = false;
                 if (enemyController.targetsInHearingRange.Count > 0)

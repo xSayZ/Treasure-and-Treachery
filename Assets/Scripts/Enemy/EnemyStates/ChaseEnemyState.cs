@@ -24,8 +24,6 @@ namespace Game {
 #region State Machine Functions
             public override void Enter()
             {
-                Debug.Log("Chase");
-                
                 navMeshAgent = enemyController.GetNavMeshAgent();
                 
                 lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;

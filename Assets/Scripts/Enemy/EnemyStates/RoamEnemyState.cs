@@ -16,10 +16,7 @@ namespace Game {
         {
             
 #region State Machine Functions
-            public override void Enter()
-            {
-                Debug.Log("Roam");
-            }
+            //public override void Enter(){}
 
             public override void FixedUpdate()
             {

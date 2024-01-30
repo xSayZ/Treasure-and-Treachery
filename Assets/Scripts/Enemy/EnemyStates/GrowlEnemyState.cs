@@ -17,8 +17,6 @@ namespace Game {
 #region State Machine Functions
             public override void Enter()
             {
-                Debug.Log("Growl");
-                
                 // Alert other zombies
                 
                 enemyController.ChangeState(enemyController.ChaseEnemyState);

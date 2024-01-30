@@ -27,11 +27,10 @@ namespace Game {
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
 
-            [Header("Vision")]
+            [Header("Vision and Hearing")]
+            [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
             [SerializeField] private float visionFov;
-            
-            [Header("Hearing")]
             [SerializeField] private float hearingRange;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
@@ -60,7 +59,9 @@ namespace Game {
                 
                 // Setup vision and hearing colliders
                 visionSphere.radius = visionRange;
+                visionSphere.transform.position = headOrigin.position;
                 hearingSphere.radius = hearingRange;
+                hearingSphere.transform.position = headOrigin.position;
             }
             
             private void FixedUpdate()
@@ -70,6 +71,7 @@ namespace Game {
                 {
                     if (IsVisible(targetsInVisionRangeUpdate[i]))
                     {
+                        Debug.Log("Visible");
                         if (!targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
                         {
                             targetsInVisionRange.Add(targetsInVisionRangeUpdate[i]);
@@ -156,11 +158,13 @@ namespace Game {
 #region Private Functions
             private bool IsVisible(Transform _targetTransform)
             {
-                Vector3 _directionToTarget = (_targetTransform.position - transform.position).normalized;
+                Vector3 _directionToTarget = new Vector3(_targetTransform.position.x - headOrigin.position.x, 0, _targetTransform.position.z - headOrigin.position.z).normalized;
+                
                 if (Vector3.Angle(transform.forward, _directionToTarget) < visionFov / 2)
                 {
                     float _distanceToTarget = Vector3.Distance(transform.position, _targetTransform.position);
-                    if (!Physics.Raycast(transform.position, _directionToTarget, _distanceToTarget, obstacleLayerMask))
+                    
+                    if (!Physics.Raycast(headOrigin.position, _directionToTarget, _distanceToTarget, obstacleLayerMask))
                     {
                         return true;
                     }

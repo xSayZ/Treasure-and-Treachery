@@ -26,7 +26,7 @@ namespace Game {
             public static AudioMananger Instance { get; private set; }
             
             //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
-            private StudioEventEmitter musicEmitter;
+            public StudioEventEmitter musicEmitter;
 
             [Header("Music Emitters")]
             [SerializeField] private StudioEventEmitter hubMusic;
@@ -75,6 +75,8 @@ namespace Game {
 
     public void PlayMusic(EventsToBePlayed eventsToBePlayed)
     {
+        GetEvent(eventsToBePlayed);
+        
         if (!musicEmitter.IsActive)
         {
             musicEmitter.Play();

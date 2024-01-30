@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using Cinemachine;
 using Game.Backend;
 using Game.Events;
@@ -20,8 +21,9 @@ namespace Game
     {
         public class PlayerController : MonoBehaviour
         {
+            
             public PlayerData PlayerData;
-            private int playerID;
+            public int playerID;
 
             [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -43,7 +45,7 @@ namespace Game
             private Vector3 velocity;
             private bool lockout;
 
-            public float Currency;
+            [field:SerializeField] public float Currency { get; private set; }
 
 
             #region Unity Functions
@@ -52,21 +54,27 @@ namespace Game
 
             private void Awake()
             {
-                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+                
+                    
             }
             
             void Start()
             {
                 SetupPlayer();
+                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+               
+
                 
             }
 
 
-            private void BeginCurrencyPickup(int pickUpGold)
+            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
             {
-                PlayerData.currency += pickUpGold;
-                Currency = PlayerData.currency;
-                Debug.Log(PlayerData.currency);
+                if (_playerId == playerID)
+                {
+                    PlayerData.currency += pickUpGold;
+                }
+                
             }
 
             private void OnValidate()
@@ -110,9 +118,6 @@ namespace Game
                     Lockout();
                 }
             }
-
-            
-            
             
             public void OnMelee(InputAction.CallbackContext value)
             {
@@ -174,6 +179,7 @@ namespace Game
             
             #endregion
         }
+
         
 
     }

@@ -46,6 +46,7 @@ namespace Game {
             void Start()
             {
                 SetupGame();
+                
             }
 
 

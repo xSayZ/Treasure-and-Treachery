@@ -12,10 +12,12 @@ using UnityEngine;
 namespace Game {
     namespace Backend {
 
+
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
             [SerializeField] private int playerHealth;
+            [SerializeField] public int playerIndex;
             [SerializeField] private int currency;
             [SerializeField] private int questValue;
 

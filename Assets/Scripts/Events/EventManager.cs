@@ -15,7 +15,6 @@ namespace Game {
         {
             public static UnityEvent<bool, int> OnObjectivePickup = new UnityEvent<bool, int>();
             public static UnityEvent<int,int> OnCurrencyPickup = new UnityEvent<int,int>();
-            public static UnityEvent<int,int> OnHealthChange = new UnityEvent<int,int>();
         }
     }
 }

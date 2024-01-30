@@ -22,7 +22,8 @@ namespace Game
             
             public PlayerData PlayerData;
             public int PlayerID { get; private set; }
-            
+            //temp Health Solution
+            public int Health;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -38,29 +39,28 @@ namespace Game
                 PlayerData.playerIndex.Clear();
                 PlayerData.currency.Clear();
                 
-                EventManager.OnHealthChange.AddListener(BeginHealthChange);
-                
             }
             
             void Start()
             {
                 
                 SetupPlayer();
+                SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
-               
-
+                
                 
             }
 
-            
-            private void BeginHealthChange(int Health, int _playerID)
+            void SetStartHealth()
             {
-                if (Health <= 0 && _playerID == PlayerID)
+                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
                 {
-                    gameObject.SetActive(true);
+                    if (i==PlayerID)
+                    {
+                        Health = PlayerData.playerHealth[PlayerID];
+                    }
                 }
             }
-            
             
             // Update is called once per frame
             void Update()
@@ -72,7 +72,6 @@ namespace Game
             {
                 if (other.gameObject.layer == 8)
                 {
-                    PlayerData.CurrentHealth--;
                 }
             }
 

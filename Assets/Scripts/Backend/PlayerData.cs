@@ -19,31 +19,15 @@ namespace Game {
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
-            [SerializeField] private List<int> playerHealth;
+            [field:SerializeField] public List<int> playerHealth { get; private set; }
             [SerializeField] public List<int> playerIndex ;
             [SerializeField] public List<int> currency;
             [SerializeField] private int questValue;
 
-            [SerializeField]private int currentHealth = 10;
+            private int currentHealth;
             private int currentCurrency;
             private int currentQuestValue;
-
-
-            public int CurrentHealth
-            {
-                get => currentHealth;
-                set
-                {
-                    
-                    for (int i = 0; i < playerIndex.Count; i++)
-                    {
-                        int healthChange = value - currentHealth;
-                        currentHealth = Mathf.Clamp(value, 0, playerHealth[i]);
-                        EventManager.OnHealthChange?.Invoke(healthChange,playerIndex[i]);
-                    }
-                   
-                }
-            }
+            
         }
     }
 }

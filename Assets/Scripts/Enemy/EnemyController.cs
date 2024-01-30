@@ -32,8 +32,8 @@ namespace Game {
             [Header("Hearing")]
             [SerializeField] private float hearingRange;
             
-            public List<Transform> targetsInVisionRange;
-            public List<Transform> targetsInHearingRange;
+            [HideInInspector] public List<Transform> targetsInVisionRange;
+            [HideInInspector] public List<Transform> targetsInHearingRange;
             
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;

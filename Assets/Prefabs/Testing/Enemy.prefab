@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5827580885617249946}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &9139357778190945824
 SphereCollider:
@@ -121,6 +121,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5827580886171389461}
+  - {fileID: 8807501642393051556}
   - {fileID: 5568707354221422241}
   - {fileID: 7056162891010349775}
   m_Father: {fileID: 0}
@@ -143,12 +144,14 @@ MonoBehaviour:
     rotationSpeed: 1
   ChaseEnemyState:
     maxDeviationAngle: 15
+    updateDistance: 1
   navMeshAgent: {fileID: 922712805897902393}
   visionSphere: {fileID: 3648830157090948581}
   hearingSphere: {fileID: 9139357778190945824}
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  headOrigin: {fileID: 8807501642393051556}
   visionRange: 15
   visionFov: 90
   hearingRange: 7.5
@@ -543,6 +546,37 @@ Transform:
   m_Father: {fileID: 5827580886171389461}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7155720603479222068
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8807501642393051556}
+  m_Layer: 8
+  m_Name: HeadOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8807501642393051556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7155720603479222068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5827580885617249946}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8946523340693129063
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +608,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5827580885617249946}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &3648830157090948581
 SphereCollider:

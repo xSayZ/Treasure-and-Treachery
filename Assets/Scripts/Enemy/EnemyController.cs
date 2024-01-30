@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
@@ -21,6 +22,7 @@ namespace Game {
             public ChaseEnemyState ChaseEnemyState;
 
             [Header("Setup")]
+            [SerializeField] private NavMeshAgent navMeshAgent;
             [SerializeField] private SphereCollider visionSphere;
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
@@ -63,8 +65,6 @@ namespace Game {
             
             private void FixedUpdate()
             {
-                currentState.FixedUpdate();
-                
                 // Update targets in vision range
                 for (int i = 0; i < targetsInVisionRangeUpdate.Count; i++)
                 {
@@ -83,6 +83,8 @@ namespace Game {
                         }
                     }
                 }
+                
+                currentState.FixedUpdate();
             }
 
             private void OnDrawGizmosSelected()
@@ -102,7 +104,12 @@ namespace Game {
                 currentState = _newState;
                 currentState.Enter();
             }
-
+            
+            public NavMeshAgent GetNavMeshAgent()
+            {
+                return navMeshAgent;
+            }
+            
             public void VisionRangeEntered(Transform _targetTransform)
             {
                 if (_targetTransform.gameObject.CompareTag("Player") && !targetsInVisionRangeUpdate.Contains(_targetTransform))

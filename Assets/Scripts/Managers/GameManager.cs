@@ -33,8 +33,7 @@ namespace Game {
             {
                 if (debug)
                 {
-                    Gizmos.color = new Color(0f, 255f, 0f, 0.5f);
-                    Gizmos.DrawSphere(spawnRingCenter.position, spawnRingRadius);
+                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(gameObject.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
                 }
             }
 

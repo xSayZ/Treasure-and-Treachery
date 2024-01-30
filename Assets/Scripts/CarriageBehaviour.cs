@@ -7,47 +7,48 @@
 // ------------------------------*/
 
 using UnityEngine;
-
+using Game.Events;
+using System;
+using UnityEngine.Diagnostics;
+using Game.Player;
 
 namespace Game {
     namespace Scenes {
-
         public class CarriageBehaviour : MonoBehaviour
         {
-        
+            private bool canDoObjective = false;
+            private int playerID;
             
+            private void Start() {
+                EventManager.OnObjectivePickup.AddListener(ObjectiveCheck);
+            }
 
 #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
+            void OnTriggerEnter(Collider other)
             {
-                
-            }
-    
-            // Update is called once per frame
-            void Update()
-            {
-                
-            }
-
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.CompareTag("Player"))
+                if (other.CompareTag("Player") && 
+                    canDoObjective && 
+                    other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex == playerID)
                 {
-                    //if(Objectives == Done)
-                    //End level
+                    Debug.Log("Player inside");
                 }
             }
 
-            #endregion
 
-            #region Public Functions
+#endregion
 
-            #endregion
+#region Public Functions
 
-            #region Private Functions
+#endregion
 
-            #endregion
+#region Private Functions
+
+            private void ObjectiveCheck(bool arg0, int playerIndex){
+                canDoObjective = arg0;
+                playerID = playerIndex;
+            }
+#endregion
+
         }
     }
 }

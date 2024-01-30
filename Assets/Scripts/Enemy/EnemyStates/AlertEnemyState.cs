@@ -18,6 +18,7 @@ namespace Game {
             [SerializeField] private float rotationSpeed;
             
             private float currentLookTime;
+            private bool hasHeardSomething;
             private Vector3 lastHeardPosition;
             
 #region State Machine Functions
@@ -26,8 +27,10 @@ namespace Game {
                 Debug.Log("Alert");
                 
                 currentLookTime = 0;
+                hasHeardSomething = false;
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
+                    hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                 }
             }
@@ -50,13 +53,17 @@ namespace Game {
                 // Update last heard position
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
+                    hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                 }
                 
                 // Turn towards last heard position
-                Vector3 _targetDirection = (lastHeardPosition - enemyController.transform.position).normalized;
-                Quaternion _lookRotation = Quaternion.LookRotation(_targetDirection);
-                enemyController.transform.rotation = Quaternion.Slerp(enemyController.transform.rotation, _lookRotation, Time.fixedDeltaTime * rotationSpeed);
+                if (hasHeardSomething)
+                {
+                    Vector3 _targetDirection = (lastHeardPosition - enemyController.transform.position).normalized;
+                    Quaternion _lookRotation = Quaternion.LookRotation(_targetDirection);
+                    enemyController.transform.rotation = Quaternion.Slerp(enemyController.transform.rotation, _lookRotation, Time.fixedDeltaTime * rotationSpeed);
+                }
             }
             
             //public override void Exit(){}

@@ -14,10 +14,12 @@ namespace Game {
         [System.Serializable]
         public class AlertEnemyState : EnemyState
         {
-#region Public Functions
-            public override void Enter(){}
+#region State Machine Functions
+            //public override void Enter(){}
             
-            public override void FixedUpdate(){}
+            //public override void FixedUpdate(){}
+            
+            //public override void Exit(){}
  #endregion
         }
     }

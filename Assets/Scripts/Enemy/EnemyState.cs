@@ -6,7 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,7 +15,7 @@ namespace Game {
         {
             protected EnemyController enemyController;
             
-#region Public Functions
+#region State Machine Functions
             public void Awake(EnemyController e)
             {
                 enemyController = e;

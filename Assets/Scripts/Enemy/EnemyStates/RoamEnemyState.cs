@@ -6,7 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,22 +15,21 @@ namespace Game {
         public class RoamEnemyState : EnemyState
         {
             
-#region Public Functions
-            public override void Enter()
+#region State Machine Functions
+            //public override void Enter(){}
+
+            public override void FixedUpdate()
             {
-                List<Vector3> visibleTargets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, enemyController.VisionRange, enemyController.VisionFov, enemyController.PlayerLayerMask, enemyController.ObstacleLayerMask);
-                List<Vector3> audibleTargets = ListenForTarget(enemyController.transform.position, enemyController.HearingRange, enemyController.PlayerLayerMask);
-                
-                if (visibleTargets.Count + audibleTargets.Count > 0)
+                if (enemyController.targetsInVisionRange.Count + enemyController.targetsInHearingRange.Count > 0)
                 {
                     // This is only needed in alert state
                     /*Vector3 closestTarget;
                     float closestDistance = float.MaxValue;
-                    
+
                     for (int i = 0; i < targets.Count; i++)
                     {
                         float distance = Vector3.Distance(enemyController.transform.position, targets[i]);
-                        
+
                         if (distance < closestDistance)
                         {
                             closestTarget = targets[i];
@@ -43,7 +41,7 @@ namespace Game {
                 }
             }
             
-            public override void FixedUpdate(){}
+            //public override void Exit(){}
  #endregion
         }
     }

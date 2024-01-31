@@ -15,7 +15,9 @@ namespace Game {
     namespace Audio {
         public class VolumeSliders : MonoBehaviour
         {
-            public Slider volumeSlider;
+            public Slider sFXVolumeSlider;
+            public Slider vOXVolumeSlider;
+            public Slider musicVolumeSlider;
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -27,18 +29,28 @@ namespace Game {
             // Update is called once per frame
             void Update()
             {
-                UpdateSfxVolume();
+                UpdateVolumeSliders();
             }
 #endregion
 
 #region Public Functions
 
-    public void UpdateSfxVolume()
+    public void UpdateVolumeSliders()
     {
+        var sFXVolume = sFXVolumeSlider.value;
+        string sfxvcaPath = "vca:/SFX_VCA";
+        VCA sfxvca = RuntimeManager.GetVCA(sfxvcaPath);
+        sfxvca.setVolume(sFXVolume);
+
+        var VOXVolume = vOXVolumeSlider.value;
+        string voxvcaPath = "vca:/VOX_VCA";
+        VCA voxvca = RuntimeManager.GetVCA(voxvcaPath);
+        voxvca.setVolume(VOXVolume);
         
-         var _sFXVolume = volumeSlider.value;   
-        string vcaPath = "vca:/TestVCA";
-        FMOD.Studio.VCA vca = FMODUnity.RuntimeManager.GetVCA(vcaPath); vca.setVolume(_sFXVolume); 
+        var musicVolume = musicVolumeSlider.value;
+        string musicvcaPath = "vca:/MUSIC_VCA";
+        VCA musicvca = RuntimeManager.GetVCA(musicvcaPath);
+        musicvca.setVolume(musicVolume);
     }
     
 

@@ -805,6 +805,7 @@ GameObject:
   - component: {fileID: 1434465572}
   - component: {fileID: 1434465571}
   - component: {fileID: 1434465573}
+  - component: {fileID: 1434465574}
   m_Layer: 0
   m_Name: VirtualCamera1
   m_TagString: Untagged
@@ -882,6 +883,18 @@ MonoBehaviour:
   m_Damping: 1
   m_MinFOV: 3
   m_MaxFOV: 60
+--- !u!114 &1434465574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1434465570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1d16d145bb422429d72f284b5b98ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1606144599
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1043,6 @@ MonoBehaviour:
   spawnRingRadius: 2.94
   activePlayerControllers: []
   debug: 0
-  CinemachineTargetGroup: {fileID: 1349667097}
 --- !u!4 &1694668518
 Transform:
   m_ObjectHideFlags: 0

@@ -27,7 +27,12 @@ namespace Game {
             private Vector3 movement;
             
             private Vector3 rawInputDirection;
+            public Vector3 targetDirection;
             public Vector3 SmoothMovementDirection{ get; private set; }
+            
+            
+
+            private Vector3 oldPosition;
 
             private void OnValidate()
             {
@@ -49,7 +54,7 @@ namespace Game {
         #endregion
 
         #region Public Functions
-
+        
         public void MovementData(Vector3 _directionVector)
         { 
            
@@ -60,15 +65,18 @@ namespace Game {
 
         #region Private Functions
         
+        
+        
         private void MovePlayer()
         {
             
             movement = Time.deltaTime * MaxmovementSpeed * SmoothMovementDirection;
-            playerRigidBody.MovePosition(movement + transform.localPosition);
+            playerRigidBody.MovePosition(movement+transform.position);
 
         }
         private void TurnPlayer()
         {
+            targetDirection = (rawInputDirection).normalized;
             transform.LookAt(SmoothMovementDirection+transform.position);
         }
         

@@ -19,7 +19,7 @@ namespace Game {
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
-            [SerializeField] public int playerHealth { get; private set; }
+            [field:SerializeField] public int playerHealth { get; private set; }
             [SerializeField] public int playerIndex ;
             [SerializeField] public int currency;
             [SerializeField] private int questValue;

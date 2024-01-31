@@ -6,9 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
+
 using Game.Backend;
-using Game.Events;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,60 +16,53 @@ namespace Game
 {
     namespace Player
     {
+        using Events;
+        using Scenes;
         public class PlayerController : MonoBehaviour
         {
-            [Header("PlayerInfo")]
+            
             public PlayerData PlayerData;
-            [field:SerializeField]public int PlayerID { get; private set; }
+            public int PlayerID { get; private set; }
+
+            public static int CurrentAmountOfControllers;
+
+            public bool isEvent;
             //temp Health Solution
             public int Health;
-            public int Currency;
+
+            public SceneData SceneData;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
             [Header("InputSettings")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private PlayerInput PlayerInput;
+            //ActionMaps
+            private string MenuActions = "Events";
+            private string PlayerAction = "Player";
             
             #region Unity Functions
-  
-            private void Awake()
-            {
-                
-                
-            }
+            
             
             void Start()
             {
-                
+                CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
                 SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                 
-                
             }
-
+            
             void SetStartHealth()
             {
-               
+
                 Health = PlayerData.playerHealth;
-                
+
             }
             
             // Update is called once per frame
-            void Update()
-            {
-                Currency = PlayerData.currency;
-            }
-
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.gameObject.layer == 8)
-                {
-                }
-            }
-
+       
             #endregion
 
             #region Public Functions
@@ -91,10 +83,14 @@ namespace Game
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
-                    
-                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection.normalized);
-                    Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
+                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection);
+                   
                 }
+            }
+
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                Debug.Log(value.ReadValueAsButton());
             }
             
             public void OnMelee(InputAction.CallbackContext value)
@@ -103,44 +99,89 @@ namespace Game
                 {
                     //TODO:: AttackAnimation
                     Debug.Log(value);
-                }   
+                }  
+            }
+                 
+            public void EnableEventControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Events");
+            }
+
+            public void EnableGamePlayControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Players");
+            }
+
+
+            public void OnTogglePause(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    GameManager.Instance.TogglePauseState(this);
+                    
+                }
                 
             }
             
+                 
+            public void SetInputActiveState(bool gameIsPaused) {
+                switch (gameIsPaused)
+                {
+                    case true:
+                        PlayerInput.DeactivateInput();
+                        break;
+
+                    case false:
+                        PlayerInput.ActivateInput();
+                        break;
+                }
+            }
+
+            
             #endregion
 
+            private void Update()
+            {
+               
+                Death();
+            }
+
+            
             #region Private Functions
-            private void SetupPlayer()
+            public void SetupPlayer()
             {
                 
-                PlayerID = playerInput.playerIndex;
+                PlayerID = PlayerInput.playerIndex;
 
-                if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
+                if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
                     
                 }
-                playerInput.SwitchCurrentControlScheme(Keyboard.current);
-
-                PlayerData.playerIndex = PlayerID;
-                
-
-
+                PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
             
             private void BeginCurrencyPickup(int pickUpGold,int _playerId)
             {
-                
                     if (PlayerID == _playerId)
                     {
                         PlayerData.currency += pickUpGold;
                     }
                 
-                
             }
-            
+
+            private void Death()
+            {
+                if (Health <= 0)
+                {
+                    // TODO: Forward to animationBehaviour
+                    gameObject.SetActive(false);
+                }
+            }
+
             #endregion
         }
+        
 
         
 

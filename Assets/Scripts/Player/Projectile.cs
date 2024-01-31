@@ -34,9 +34,9 @@ namespace Game {
             }
     
             // Update is called once per frame
-            private void Update()
-            {
-                transform.Translate( direction * projectileSpeed * Time.fixedDeltaTime);
+            private void FixedUpdate()
+            { 
+                transform.Translate( direction* projectileSpeed * Time.fixedDeltaTime);
                 
 
             }

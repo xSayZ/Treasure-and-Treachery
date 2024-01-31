@@ -15,10 +15,7 @@ namespace Game {
         [System.Serializable]
         public class ChaseEnemyState : EnemyState
         {
-            [SerializeField] private float maxDeviationAngle;
-            [SerializeField] private float updateDistance;
-            
-            private Vector3 lastSeenPosition;
+            private Vector3 lastTargetPosition;
             
 #region State Machine Functions
             protected override void SetUp()
@@ -28,8 +25,8 @@ namespace Game {
 
             public override void Enter()
             {
-                lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
-                enemyController.NavMeshAgent.destination = lastSeenPosition;
+                lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                enemyController.NavMeshAgent.destination = lastTargetPosition;
             }
 
             public override void FixedUpdate()
@@ -37,10 +34,14 @@ namespace Game {
                 // Update last seen position
                 if (enemyController.targetsInVisionRange.Count > 0)
                 {
-                    lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                    lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                }
+                else if (enemyController.targetsInHearingRange.Count > 0)
+                {
+                    lastTargetPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                 }
                 
-                NavmeshUpdateCheck(lastSeenPosition);
+                NavmeshUpdateCheck(lastTargetPosition);
                 
                 // Reached last known target position
                 if (!enemyController.NavMeshAgent.hasPath)

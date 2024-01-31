@@ -17,13 +17,12 @@ namespace Game {
         public class AttackBehaviour : MonoBehaviour
         {
             
-            
+            [Header("References")]
             public CapsuleCollider WeaponCollider;
             public GameObject projectile;
             
-            private Vector3 _direction;
             private bool enemyInRange;
-            private List<Collider> enemyColliders;
+            private List<Collider> enemyColliders = new List<Collider>();
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -51,6 +50,7 @@ private void OnTriggerEnter(Collider other)
 
     if (other.gameObject.layer == 8)
     {
+        Debug.Log("enter");
         enemyInRange = true;
         enemyColliders.Add(other);
         
@@ -59,8 +59,13 @@ private void OnTriggerEnter(Collider other)
 
 private void OnTriggerExit(Collider other)
 {
-    enemyInRange = false;
-    enemyColliders.Remove(other);
+    if (!other.gameObject.CompareTag("Pickup")) 
+    {
+        Debug.Log("exit");
+        enemyInRange = false;
+        enemyColliders?.Remove(other);
+    }
+  
 }
 
 #region Public Functions
@@ -90,7 +95,7 @@ private void OnTriggerExit(Collider other)
 
     private void OnDrawGizmos()
     {
-        Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position,_direction+transform.forward,60,45,2);
+        Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position,transform.forward,60,45,2);
         
     }
 

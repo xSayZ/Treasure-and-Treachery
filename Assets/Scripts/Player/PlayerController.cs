@@ -25,12 +25,9 @@ namespace Game
             public int PlayerID { get; private set; }
 
             public static int CurrentAmountOfControllers;
-
-            public bool isEvent;
+            
             //temp Health Solution
             public int Health;
-
-            public SceneData SceneData;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -38,10 +35,6 @@ namespace Game
             
             [Header("InputSettings")]
             [SerializeField] private PlayerInput PlayerInput;
-            //ActionMaps
-            private string MenuActions = "Events";
-            private string PlayerAction = "Player";
-            
             #region Unity Functions
             
             

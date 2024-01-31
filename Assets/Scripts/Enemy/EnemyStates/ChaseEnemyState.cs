@@ -15,9 +15,6 @@ namespace Game {
         [System.Serializable]
         public class ChaseEnemyState : EnemyState
         {
-            [SerializeField] private float maxDeviationAngle;
-            [SerializeField] private float updateDistance;
-            
             private Vector3 lastTargetPosition;
             
 #region State Machine Functions

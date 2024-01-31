@@ -8,8 +8,6 @@
 
 using UnityEngine;
 using Game.Events;
-using System;
-using UnityEngine.Diagnostics;
 using Game.Player;
 
 namespace Game {
@@ -28,9 +26,9 @@ namespace Game {
             {
                 if (other.CompareTag("Player") && 
                     canDoObjective && 
-                    other.gameObject.transform.GetComponent<PlayerController>().PlayerID == playerID)
+                    other.gameObject.transform.GetComponent<PlayerController>().Data.playerIndex == playerID)
                 {
-                    Debug.Log("Player inside");
+                    //TODO: Send to player that they can use pickup
                 }
             }
 

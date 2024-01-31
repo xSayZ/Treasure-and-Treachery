@@ -10,45 +10,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using System;
-using Cinemachine;
-using UnityEngine.InputSystem.XInput;
 
 namespace Game {
     namespace Backend {
 
         public class GameManager : MonoBehaviour
         {
-            
-            public GameObject playerPrefab;
-            public int numberOfPlayers;
-            
-            public Transform spawnRingCenter;
-            [Range(0.5f, 5f)]
-            public float spawnRingRadius;
 
-            [SerializeField] private List<PlayerController> activePlayerControllers;
+            [Header("Setup")]
+            [SerializeField] private GameObject playerPrefab;
+            [SerializeField] private int numberOfPlayers;   
+
+            [Header("Spawn Variables")]
+            [SerializeField] private Transform spawnRingCenter;
+            [Range(0.5f, 15f)]
+            [SerializeField] private float spawnRingRadius;
+
+            [Space]
+            [SerializeField] public List<GameObject> activePlayerControllers;
 
             [SerializeField] bool debug;
 
-            [SerializeField] private CinemachineTargetGroup CinemachineTargetGroup;
-            
             #region Unity Functions
             private void OnDrawGizmos()
             {
                 if (debug)
                 {
-                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(gameObject.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
+                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(spawnRingCenter.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
                 }
             }
 
             void Awake()
             {
+                SetupGame();
             }
             void Start()
-            {
-                SetupGame();
-                
-            }
+            {            }
 
 
 
@@ -67,42 +64,49 @@ namespace Game {
 
             private void SetupGame()
             {
-                
                 AddPlayers();
                 SetObjective();
                 
             }
             private void AddPlayers()
             {
-                activePlayerControllers = new List<PlayerController>();
+                activePlayerControllers = new List<GameObject>();
 
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
                     Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
                     Quaternion _spawnRotation = Quaternion.identity;
 
-                    // TODO: Add spawnPosition and spawnRotation
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
-                    AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                    _spawnedPlayer.GetComponent<PlayerController>();
+                    AddPlayersToActiveList(_spawnedPlayer);
+
+                    foreach (var newPlayer in activePlayerControllers)
+                    {
+                        try
+                        {
+                            newPlayer.GetComponent<PlayerController>().Data.playerIndex = i;
+                        }
+                        catch (Exception e)
+                        {
+                            LogWarning("No PlayerData: "+e.Message);
+                        }
+                    }
                 }
                 
 
             }
             
-            private void AddPlayersToActiveList(PlayerController newPlayer)
+            private void AddPlayersToActiveList(GameObject _newPlayer)
             {
-                activePlayerControllers.Add(newPlayer);
-                CinemachineTargetGroup.AddMember(newPlayer.transform,1,0);
-                
+                activePlayerControllers.Add(_newPlayer);
+
             }
             
             private void SetObjective()
             {
 
             }
-            
-            
-            
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
             {
@@ -116,6 +120,18 @@ namespace Game {
 
             }
             #endregion
+
+            private void Log(string _msg)
+            {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+_msg);
+            }
+
+            private void LogWarning(string _msg)
+            {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+_msg);
+            }
         }
     }
 }

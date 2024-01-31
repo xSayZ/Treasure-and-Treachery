@@ -11,16 +11,17 @@ using UnityEngine;
 using Game.Player;
 using System;
 using Cinemachine;
+using UnityEngine.InputSystem.XInput;
 
 namespace Game {
     namespace Backend {
 
         public class GameManager : MonoBehaviour
         {
-
+            
             public GameObject playerPrefab;
             public int numberOfPlayers;
-
+            
             public Transform spawnRingCenter;
             [Range(0.5f, 5f)]
             public float spawnRingRadius;
@@ -66,6 +67,7 @@ namespace Game {
 
             private void SetupGame()
             {
+                
                 AddPlayers();
                 SetObjective();
                 
@@ -98,6 +100,9 @@ namespace Game {
             {
 
             }
+            
+            
+            
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
             {

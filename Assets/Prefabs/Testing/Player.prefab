@@ -135,9 +135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
+  isEvent: 1
+  Health: 0
+  SceneData: {fileID: 11400000, guid: 19d891deab582e14396bba3522f3dd66, type: 2}
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -5808583360332475247}
-  playerInput: {fileID: 3622730775527207118}
+  PlayerInput: {fileID: 3622730775527207118}
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +243,19 @@ MonoBehaviour:
     m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
     m_ActionName: Player/MeleeAttack[/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a3da3d52-d014-47bd-aa22-a193ac5d4a98
     m_ActionName: Events/Submit[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0

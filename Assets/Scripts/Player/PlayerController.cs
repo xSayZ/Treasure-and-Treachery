@@ -6,48 +6,80 @@
 // --------------------------------
 // ------------------------------*/
 
+
 using System;
+using System.Linq;
 using Game.Backend;
-using Game.Events;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XInput;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 namespace Game
 {
     namespace Player
     {
+        using Events;
+        using Scenes;
         public class PlayerController : MonoBehaviour
         {
             
             public PlayerData PlayerData;
             public int PlayerID { get; private set; }
+
+            public static int CurrentAmountOfControllers;
+
+            public bool isEvent;
             //temp Health Solution
             public int Health;
+
+            public SceneData SceneData;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
             [Header("InputSettings")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private PlayerInput PlayerInput;
+
+            //ActionMaps
+            private string MenuActions = "Events";
+            private string PlayerAction = "Player";
             
             #region Unity Functions
   
             private void Awake()
             {
-             
                 
             }
+
+            private void OnEnable()
+            {
+                PlayerInput.actions["SwitchMap"].performed += SwitchActionmap;
+            }
             
-            void Start()
+            private void OnDisable()
             {
                 
+                PlayerInput.actions["SwitchMap"].performed += SwitchActionmap;
+            }
+
+            private void SwitchActionmap(InputAction.CallbackContext context)
+            {
+                PlayerInput.actions.FindAction("Events").Enable();
+            }
+
+            void Start()
+            {
+                CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
                 SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
-                
-                
+
+
             }
 
             void SetStartHealth()
@@ -61,7 +93,10 @@ namespace Game
             void Update()
             {
                 
+                   
             }
+
+          
 
             private void OnTriggerEnter(Collider other)
             {
@@ -95,6 +130,11 @@ namespace Game
                     Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
                 }
             }
+
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                Debug.Log(value.ReadValueAsButton());
+            }
             
             public void OnMelee(InputAction.CallbackContext value)
             {
@@ -112,14 +152,14 @@ namespace Game
             private void SetupPlayer()
             {
                 
-                PlayerID = playerInput.playerIndex;
+                PlayerID = PlayerInput.playerIndex;
 
-                if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
+                if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
                     
                 }
-                playerInput.SwitchCurrentControlScheme(Keyboard.current);
+                PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
 
             }
@@ -134,10 +174,10 @@ namespace Game
                 
             }
             
-            
-            
+
             #endregion
         }
+        
 
         
 

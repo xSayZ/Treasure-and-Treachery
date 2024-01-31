@@ -23,11 +23,11 @@ namespace Game {
 
             [Header("Spawn Variables")]
             [SerializeField] private Transform spawnRingCenter;
-            [Range(0.5f, 5f)]
+            [Range(0.5f, 15f)]
             [SerializeField] private float spawnRingRadius;
 
             [Space]
-            [SerializeField] private List<PlayerController> activePlayerControllers;
+            [SerializeField] public List<GameObject> activePlayerControllers;
 
             [SerializeField] bool debug;
 
@@ -36,17 +36,16 @@ namespace Game {
             {
                 if (debug)
                 {
-                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(gameObject.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
+                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(spawnRingCenter.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
                 }
             }
 
             void Awake()
             {
-            }
-            void Start()
-            {
                 SetupGame();
             }
+            void Start()
+            {            }
 
 
 
@@ -71,7 +70,7 @@ namespace Game {
             }
             private void AddPlayers()
             {
-                activePlayerControllers = new List<PlayerController>();
+                activePlayerControllers = new List<GameObject>();
 
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
@@ -79,13 +78,14 @@ namespace Game {
                     Quaternion _spawnRotation = Quaternion.identity;
 
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
-                    AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                    _spawnedPlayer.GetComponent<PlayerController>();
+                    AddPlayersToActiveList(_spawnedPlayer);
 
                     foreach (var newPlayer in activePlayerControllers)
                     {
                         try
                         {
-                            newPlayer.Data.playerIndex = i;
+                            newPlayer.GetComponent<PlayerController>().Data.playerIndex = i;
                         }
                         catch (Exception e)
                         {
@@ -97,7 +97,7 @@ namespace Game {
 
             }
             
-            private void AddPlayersToActiveList(PlayerController _newPlayer)
+            private void AddPlayersToActiveList(GameObject _newPlayer)
             {
                 activePlayerControllers.Add(_newPlayer);
 

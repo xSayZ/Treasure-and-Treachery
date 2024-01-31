@@ -151,9 +151,22 @@ namespace Game {
 
                 isPaused = !isPaused;
 
-                //ToggleTimeScale();
+                ToggleTimeScale();
+
+                UpdateActivePlayerInputs();
 
                 SwitchFocusedPlayerControlScheme();
+            }
+
+            private void UpdateActivePlayerInputs()
+            {
+                for (int i = 0; i < activePlayerControllers.Count; i++)
+                {
+                    if(activePlayerControllers[i] != focusedPlayerController)
+                    {
+                        //activePlayerControllers[i].SetInputActiveState(isPaused);
+                    }
+                }
             }
 
             void SwitchFocusedPlayerControlScheme()
@@ -180,6 +193,26 @@ namespace Game {
                 return spawnRingCenter.position + new Vector3(x, 0, z);
 
             }
+
+
+            void ToggleTimeScale()
+            {
+                float _newTimeScale = 0f;
+
+                switch(isPaused)
+                {
+                    case true:
+                        _newTimeScale = 0f;
+                        break;
+                    case false:
+                        _newTimeScale = 1f;
+                        break;
+
+                }
+
+                Time.timeScale = _newTimeScale;
+            }
+
             #endregion
 
             private void Log(string _msg)

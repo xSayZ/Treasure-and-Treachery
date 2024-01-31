@@ -40,15 +40,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "on",
-                    "type": "Button",
-                    "id": "e14b9cd6-f145-413a-9c61-f2a1c2e121ed",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -142,6 +133,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d1ccba21-f0c4-401b-814a-d1061ed09c3a",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "097363bc-bac2-4339-9bbc-eef866e484a8",
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
@@ -164,12 +166,12 @@
                 },
                 {
                     "name": "",
-                    "id": "a652eeb5-1d49-4416-a1e6-0a60da0f499c",
-                    "path": "",
+                    "id": "bdb93662-89ff-49c3-b9e9-51681dee2b39",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "on",
+                    "action": "TogglePause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

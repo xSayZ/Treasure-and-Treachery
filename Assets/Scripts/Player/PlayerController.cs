@@ -83,7 +83,7 @@ namespace Game
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
-                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection);
+                    playerAttackBehaviour.RangedAttack();
                    
                 }
             }

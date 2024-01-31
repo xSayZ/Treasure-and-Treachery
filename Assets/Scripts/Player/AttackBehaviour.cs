@@ -20,8 +20,9 @@ namespace Game {
             private Vector3 _direction;
             public CapsuleCollider WeaponCollider;
             private bool enemyInRange;
-            
-#region Unity Functions
+            public float projectileSpeed;
+
+            #region Unity Functions
             // Start is called before the first frame update
 
             private void Awake()
@@ -61,12 +62,14 @@ private void OnTriggerEnter(Collider other)
         }
     }
 
-    public void RangedAttack(Vector3 direction)
+    public void RangedAttack()
     {
         //TODO FixedRangeAttack
-        projectile.GetComponent<Projectile>().SetDirection(direction);
-        Instantiate(projectile, direction, Quaternion.identity);
-        
+        GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
+
+        Projectile playerProjectile = _projectile.GetComponent<Projectile>();
+        playerProjectile.SetDirection(transform.forward);
+
     }
 
 

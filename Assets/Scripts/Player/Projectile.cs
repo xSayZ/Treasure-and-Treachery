@@ -17,8 +17,8 @@ namespace Game {
             public float projectileSpeed;
             public Vector3 direction;
             public Rigidbody rb;
-            private Vector3 currentBulletPosition;
-            private Vector3 oldBulletPosition;
+            public float BulletAliveTime;
+            
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
@@ -28,8 +28,6 @@ namespace Game {
 
             void Start()
             {
-                
-                Debug.Log(direction);
                 
             }
     
@@ -43,7 +41,6 @@ namespace Game {
 
             private void LateUpdate()
             {
-                oldBulletPosition = transform.position;
               
             }
 
@@ -55,7 +52,7 @@ namespace Game {
                 }
                 else
                 {
-                    Destroy(gameObject,5);
+                    Destroy(gameObject,BulletAliveTime);
                 }
             }
 

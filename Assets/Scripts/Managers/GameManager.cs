@@ -85,7 +85,7 @@ namespace Game {
                     {
                         try
                         {
-                            newPlayer.GetComponent<PlayerController>().Data.playerIndex = i;
+                            newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
                         }
                         catch (Exception e)
                         {

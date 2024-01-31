@@ -2,40 +2,19 @@
 // --------------------------------
 // Creation Date: 2024-01-29
 // Author: b22feldy
-// Description: Operation_Donken
+// Description: Event Manager
 // --------------------------------
 // ------------------------------*/
 
-using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Game {
     namespace Events {
-        public class EventManager : MonoBehaviour
+        public class EventManager
         {
-        
-
-#region Unity Functions
-            // Start is called before the first frame update
-            void Start()
-            {
-                
-            }
-    
-            // Update is called once per frame
-            void Update()
-            {
-                
-            }
-#endregion
-
-#region Public Functions
-
-#endregion
-
-#region Private Functions
-
-#endregion
+            public static UnityEvent<bool, int> OnObjectivePickup = new UnityEvent<bool, int>();
+            public static UnityEvent<int,int> OnCurrencyPickup = new UnityEvent<int,int>();
         }
     }
 }

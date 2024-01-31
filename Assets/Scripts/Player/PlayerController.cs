@@ -7,15 +7,9 @@
 // ------------------------------*/
 
 
-using System;
-using System.Linq;
 using Game.Backend;
-
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XInput;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 
 namespace Game
@@ -89,9 +83,8 @@ namespace Game
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
-                    
-                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection.normalized);
-                    Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
+                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection);
+                   
                 }
             }
 

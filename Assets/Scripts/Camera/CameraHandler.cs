@@ -53,11 +53,11 @@ namespace Game {
                         radius = 1,
                     };
 
-                    Debug.Log(_targets[i].transform);
+                   // Debug.Log(_targets[i].transform);
                 }
 
                 targetGroup.m_Targets = targetsArray;
-                Debug.Log(targetGroup.m_Targets);
+                //Debug.Log(targetGroup.m_Targets);
             }
 
             #endregion

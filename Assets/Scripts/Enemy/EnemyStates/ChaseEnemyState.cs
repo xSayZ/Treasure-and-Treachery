@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
@@ -14,10 +15,42 @@ namespace Game {
         [System.Serializable]
         public class ChaseEnemyState : EnemyState
         {
-#region Public Functions
-            public override void Enter(){}
+            private Vector3 lastTargetPosition;
             
-            public override void FixedUpdate(){}
+#region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Chase";
+            }
+
+            public override void Enter()
+            {
+                lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                enemyController.NavMeshAgent.destination = lastTargetPosition;
+            }
+
+            public override void FixedUpdate()
+            {
+                // Update last seen position
+                if (enemyController.targetsInVisionRange.Count > 0)
+                {
+                    lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                }
+                else if (enemyController.targetsInHearingRange.Count > 0)
+                {
+                    lastTargetPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
+                }
+                
+                NavmeshUpdateCheck(lastTargetPosition);
+                
+                // Reached last known target position
+                if (!enemyController.NavMeshAgent.hasPath)
+                {
+                    enemyController.ChangeState(enemyController.AlertEnemyState);
+                }
+            }
+            
+            //public override void Exit(){}
  #endregion
         }
     }

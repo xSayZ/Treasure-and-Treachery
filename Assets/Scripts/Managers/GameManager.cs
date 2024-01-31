@@ -22,7 +22,7 @@ namespace Game {
 
         public class GameManager : Singleton<GameManager>
         {
-            [SerializeField] private GameMode currentGameMode;
+            public GameMode currentGameMode;
 
             [Header("Singleplayer")]
             [SerializeField] private GameObject inScenePlayer;

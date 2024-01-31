@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8771654464408475489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music .bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
+  Name: 'Music '
+  StudioPath: 'bank:/Music '
+  lastModified: 638423047664805906
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-8285741006923170633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/Gameplay Music
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/Gameplay Music
+  Guid:
+    Data1: 569035522
+    Data2: 1150319660
+    Data3: 1801595818
+    Data4: -251461116
+  Banks:
+  - {fileID: -4345788876620703977}
+  - {fileID: -8771654464408475489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 115565
 --- !u!114 &-7829195457973194119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +100,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 787
+--- !u!114 &-6847813824939079514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_Forest
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_Forest
+  Guid:
+    Data1: -1532181125
+    Data2: 1286213870
+    Data3: 1520653463
+    Data4: 681523216
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 50000
 --- !u!114 &-6171353108464973810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +190,24 @@ MonoBehaviour:
   lastModified: 638422279054432065
   FileSizes: []
   Exists: 1
+--- !u!114 &-4345788876620703977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638423047664534623
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-3777273569872142365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +244,33 @@ MonoBehaviour:
   lastModified: 638422279054707589
   FileSizes: []
   Exists: 1
+--- !u!114 &-2972512135525741263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
+  Guid:
+    Data1: 39127466
+    Data2: 1192805161
+    Data3: 1299908248
+    Data4: -602217388
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 787
 --- !u!114 &-2940143083632996751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,19 +340,19 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 4071039249403256301}
-  - {fileID: -6099474810633867552}
-  - {fileID: -3777273569872142365}
+  - {fileID: 2001904823976165637}
+  - {fileID: -4345788876620703977}
+  - {fileID: -8771654464408475489}
   EditorEvents:
-  - {fileID: -2940143083632996751}
-  - {fileID: -6171353108464973810}
-  - {fileID: 3253127397669464083}
-  - {fileID: 3510426935203963109}
+  - {fileID: -8285741006923170633}
+  - {fileID: -6847813824939079514}
+  - {fileID: -2972512135525741263}
+  - {fileID: 3649976443888383382}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -6099474810633867552}
+  - {fileID: -4345788876620703977}
   StringsBanks:
-  - {fileID: 4071039249403256301}
+  - {fileID: 2001904823976165637}
   cacheTime: 638423047664805906
   cacheVersion: 131609
 --- !u!114 &1860189691103445732
@@ -253,6 +371,26 @@ MonoBehaviour:
   Name: Master.strings
   StudioPath: bank:/Master.strings
   lastModified: 638422279054478452
+  FileSizes:
+  - Name: 
+    Value: 1188
+  Exists: 1
+--- !u!114 &2001904823976165637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638423047664597176
   FileSizes:
   - Name: 
     Value: 1188
@@ -304,6 +442,33 @@ MonoBehaviour:
     Data4: -1818785855
   Banks:
   - {fileID: -6099474810633867552}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1352
+--- !u!114 &3649976443888383382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Attack
+  Guid:
+    Data1: 779386042
+    Data2: 1103460210
+    Data3: 2131411853
+    Data4: -1818785855
+  Banks:
+  - {fileID: -4345788876620703977}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1

@@ -49,13 +49,7 @@ namespace Game
             private string PlayerAction = "Player";
             
             #region Unity Functions
-  
-            private void Awake()
-            {
-                
-            }
-
-       
+            
             
             void Start()
             {
@@ -63,15 +57,9 @@ namespace Game
                 SetupPlayer();
                 SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
-
-
-            }
-
-            private void OnEnable()
-            {
                 
             }
-
+            
             void SetStartHealth()
             {
 
@@ -80,25 +68,7 @@ namespace Game
             }
             
             // Update is called once per frame
-            
-            public void EnableEventControls()
-            {
-                PlayerInput.SwitchCurrentActionMap("Events");
-            }
-
-            public void EnableGamePlayControls()
-            {
-                PlayerInput.SwitchCurrentActionMap("Players");
-            }
-
-
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.gameObject.layer == 8)
-                {
-                }
-            }
-
+       
             #endregion
 
             #region Public Functions
@@ -136,12 +106,54 @@ namespace Game
                 {
                     //TODO:: AttackAnimation
                     Debug.Log(value);
-                }   
+                }  
+            }
+                 
+            public void EnableEventControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Events");
+            }
+
+            public void EnableGamePlayControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Players");
+            }
+
+
+            public void OnTogglePause(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    GameManager.Instance.TogglePauseState(this);
+                    
+                }
                 
             }
             
+                 
+            public void SetInputActiveState(bool gameIsPaused) {
+                switch (gameIsPaused)
+                {
+                    case true:
+                        PlayerInput.DeactivateInput();
+                        break;
+
+                    case false:
+                        PlayerInput.ActivateInput();
+                        break;
+                }
+            }
+
+            
             #endregion
 
+            private void Update()
+            {
+               
+                Death();
+            }
+
+            
             #region Private Functions
             public void SetupPlayer()
             {
@@ -154,8 +166,6 @@ namespace Game
                     
                 }
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
-                
-
             }
             
             private void BeginCurrencyPickup(int pickUpGold,int _playerId)
@@ -165,9 +175,16 @@ namespace Game
                         PlayerData.currency += pickUpGold;
                     }
                 
-                
             }
-            
+
+            private void Death()
+            {
+                if (Health <= 0)
+                {
+                    // TODO: Forward to animationBehaviour
+                    gameObject.SetActive(false);
+                }
+            }
 
             #endregion
         }

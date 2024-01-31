@@ -17,13 +17,16 @@ namespace Game {
         public class GameManager : MonoBehaviour
         {
 
-            public GameObject playerPrefab;
-            public int numberOfPlayers;
+            [Header("Setup")]
+            [SerializeField] private GameObject playerPrefab;
+            [SerializeField] private int numberOfPlayers;   
 
-            public Transform spawnRingCenter;
+            [Header("Spawn Variables")]
+            [SerializeField] private Transform spawnRingCenter;
             [Range(0.5f, 5f)]
-            public float spawnRingRadius;
+            [SerializeField] private float spawnRingRadius;
 
+            [Space]
             [SerializeField] private List<PlayerController> activePlayerControllers;
 
             [SerializeField] bool debug;
@@ -75,17 +78,29 @@ namespace Game {
                     Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
                     Quaternion _spawnRotation = Quaternion.identity;
 
-                    // TODO: Add spawnPosition and spawnRotation
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
                     AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+
+                    foreach (var newPlayer in activePlayerControllers)
+                    {
+                        try
+                        {
+                            newPlayer.Data.playerIndex = i;
+                        }
+                        catch (Exception e)
+                        {
+                            LogWarning("No PlayerData: "+e.Message);
+                        }
+                    }
                 }
                 
 
             }
             
-            private void AddPlayersToActiveList(PlayerController newPlayer)
+            private void AddPlayersToActiveList(PlayerController _newPlayer)
             {
-                activePlayerControllers.Add(newPlayer);
+                activePlayerControllers.Add(_newPlayer);
+
             }
             
             private void SetObjective()
@@ -105,6 +120,18 @@ namespace Game {
 
             }
             #endregion
+
+            private void Log(string _msg)
+            {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+_msg);
+            }
+
+            private void LogWarning(string _msg)
+            {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+_msg);
+            }
         }
     }
 }

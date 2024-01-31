@@ -14,10 +14,20 @@ using System;
 namespace Game {
     namespace Backend {
 
+        public enum GameMode
+        {
+            SinglePlayer,
+            LocalMultiplayer
+        }
+
         public class GameManager : MonoBehaviour
         {
+            [SerializeField] private GameMode currentGameMode;
 
-            [Header("Setup")]
+            [Header("Singleplayer")]
+            [SerializeField] private GameObject inScenePlayer;
+
+            [Header("Local Multiplayer")]
             [SerializeField] private GameObject playerPrefab;
             [SerializeField] private int numberOfPlayers;   
 
@@ -27,7 +37,9 @@ namespace Game {
             [SerializeField] private float spawnRingRadius;
 
             [Space]
-            [SerializeField] public List<GameObject> activePlayerControllers;
+            public List<GameObject> activePlayerControllers;
+            private bool isPaused;
+            private PlayerController focusedPlayerController;
 
             [SerializeField] bool debug;
 
@@ -42,18 +54,16 @@ namespace Game {
 
             void Awake()
             {
-                SetupGame();
+
             }
+
             void Start()
-            {            }
-
-
-
-            // Update is called once per frame
-            void Update()
             {
-                
+                isPaused = false;
+
+                SetupBasedOnGameState();
             }
+
 #endregion
 
 #region Public Functions
@@ -62,12 +72,40 @@ namespace Game {
 
 #region Private Functions
 
-            private void SetupGame()
+            void SetupBasedOnGameState()
             {
+                switch (currentGameMode)
+                {
+                    case GameMode.SinglePlayer:
+                        SetupSinglePlayer();
+                        break;
+                    case GameMode.LocalMultiplayer:
+                        SetupLocalMultiplayer();
+                        break;
+                }
+            }
+
+            void SetupSinglePlayer()
+            {
+                activePlayerControllers = new List<GameObject>();
+
+                if(inScenePlayer == true)
+                {
+                    AddPlayersToActiveList(inScenePlayer);
+                }
+            }
+
+            void SetupLocalMultiplayer()
+            {
+                if(inScenePlayer == true)
+                {
+                    Destroy(inScenePlayer);
+                }
+
                 AddPlayers();
                 SetObjective();
-                
             }
+
             private void AddPlayers()
             {
                 activePlayerControllers = new List<GameObject>();
@@ -100,12 +138,20 @@ namespace Game {
             private void AddPlayersToActiveList(GameObject _newPlayer)
             {
                 activePlayerControllers.Add(_newPlayer);
-
             }
             
             private void SetObjective()
             {
 
+            }
+
+            public void TogglePauseState(PlayerController newFocusedPlayerController)
+            {
+                focusedPlayerController = newFocusedPlayerController;
+
+                isPaused = !isPaused;
+
+                //ToggleTimeScale();
             }
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)

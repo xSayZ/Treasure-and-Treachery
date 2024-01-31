@@ -6,77 +6,190 @@
 // --------------------------------
 // ------------------------------*/
 
+
+using System;
+using System.Linq;
 using Game.Backend;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.XInput;
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 
 namespace Game
 {
     namespace Player
     {
+        using Events;
+        using Scenes;
         public class PlayerController : MonoBehaviour
         {
-            public PlayerData Data;
             
-            
-            [Header("SubBehaviours")] [SerializeField]
+            public PlayerData PlayerData;
+            public int PlayerID { get; private set; }
+
+            public static int CurrentAmountOfControllers;
+
+            public bool isEvent;
+            //temp Health Solution
+            public int Health;
+
+            public SceneData SceneData;
+            [Header("SubBehaviours")] 
+            [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
-
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
-            public int playerID;
+            [Header("InputSettings")]
+            [SerializeField] private PlayerInput PlayerInput;
+            //ActionMaps
+            private string MenuActions = "Events";
+            private string PlayerAction = "Player";
             
-            private string controlScheme;
-
             #region Unity Functions
-
-            // Start is called before the first frame update
+            
+            
             void Start()
             {
+                CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
-            }
-
-            // Update is called once per frame
-            void Update()
-            {
+                SetStartHealth();
+                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+                
             }
             
+            void SetStartHealth()
+            {
+
+                Health = PlayerData.playerHealth;
+
+            }
+            
+            // Update is called once per frame
+       
             #endregion
 
             #region Public Functions
 
             public void OnMovement(InputAction.CallbackContext value)
             {
-                Vector2 inputValue = value.ReadValue<Vector2>();
-
-                playerMovementBehaviour.MovementData(new Vector3(inputValue.x, 0, inputValue.y));
+                
+                    Vector2 _inputValue = value.ReadValue<Vector2>();
+                    Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                    playerMovementBehaviour.MovementData(_rawInputMovement);
+                
+               
             }
 
-            public void OnAttack(InputAction.CallbackContext value)
+            public void OnRanged(InputAction.CallbackContext value)
             {
                 if (value.started)
                 {
-                    //TODO;; PlayAttackAnimation 
+                    //TODO: ADD MovementData = 0,0,0
+                    //TODO;; PlayAttackAnimation
+                    
+                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection.normalized);
+                    Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
                 }
             }
+
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                Debug.Log(value.ReadValueAsButton());
+            }
+            
+            public void OnMelee(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    //TODO:: AttackAnimation
+                    Debug.Log(value);
+                }  
+            }
+                 
+            public void EnableEventControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Events");
+            }
+
+            public void EnableGamePlayControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Players");
+            }
+
+
+            public void OnTogglePause(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    GameManager.Instance.TogglePauseState(this);
+                    
+                }
+                
+            }
+            
+                 
+            public void SetInputActiveState(bool gameIsPaused) {
+                switch (gameIsPaused)
+                {
+                    case true:
+                        PlayerInput.DeactivateInput();
+                        break;
+
+                    case false:
+                        PlayerInput.ActivateInput();
+                        break;
+                }
+            }
+
             
             #endregion
 
-            #region Private Functions
-            private void SetupPlayer()
+            private void Update()
             {
-                playerID = playerInput.playerIndex;
+               
+                Death();
+            }
+
+            
+            #region Private Functions
+            public void SetupPlayer()
+            {
                 
-                if (playerInput.playerIndex !=0 && playerInput.currentControlScheme !="Player1")
+                PlayerID = PlayerInput.playerIndex;
+
+                if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
+                    
                 }
-                playerInput.SwitchCurrentControlScheme(Keyboard.current);
-
+                PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
+            
+            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
+            {
+                    if (PlayerID == _playerId)
+                    {
+                        PlayerData.currency += pickUpGold;
+                    }
+                
+            }
+
+            private void Death()
+            {
+                if (Health <= 0)
+                {
+                    // TODO: Forward to animationBehaviour
+                    gameObject.SetActive(false);
+                }
+            }
+
             #endregion
         }
+        
+
         
 
     }

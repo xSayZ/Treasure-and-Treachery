@@ -19,11 +19,12 @@ namespace Game
     {
         public class PlayerController : MonoBehaviour
         {
-            
+            [Header("PlayerInfo")]
             public PlayerData PlayerData;
-            public int PlayerID { get; private set; }
+            [field:SerializeField]public int PlayerID { get; private set; }
             //temp Health Solution
             public int Health;
+            public int Currency;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -36,8 +37,7 @@ namespace Game
   
             private void Awake()
             {
-                PlayerData.playerIndex.Clear();
-                PlayerData.currency.Clear();
+                
                 
             }
             
@@ -53,19 +53,15 @@ namespace Game
 
             void SetStartHealth()
             {
-                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
-                {
-                    if (i==PlayerID)
-                    {
-                        Health = PlayerData.playerHealth[PlayerID];
-                    }
-                }
+               
+                Health = PlayerData.playerHealth;
+                
             }
             
             // Update is called once per frame
             void Update()
             {
-                
+                Currency = PlayerData.currency;
             }
 
             private void OnTriggerEnter(Collider other)
@@ -125,21 +121,21 @@ namespace Game
                     
                 }
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
+
+                PlayerData.playerIndex = PlayerID;
                 
-                PlayerData.playerIndex.Add(PlayerID);
-                PlayerData.currency.Add(0);
+
 
             }
             
             private void BeginCurrencyPickup(int pickUpGold,int _playerId)
             {
-                for (int i = 0; i < PlayerData.playerIndex.Count; i++)
-                {
-                    if (i== PlayerID && PlayerID == _playerId)
+                
+                    if (PlayerID == _playerId)
                     {
-                        PlayerData.currency[_playerId] += pickUpGold;
+                        PlayerData.currency += pickUpGold;
                     }
-                }
+                
                 
             }
             

@@ -11,6 +11,7 @@ using UnityEngine;
 using Game.Player;
 using System;
 using Cinemachine;
+using Game.Scenes;
 
 namespace Game {
     namespace Backend {
@@ -18,7 +19,7 @@ namespace Game {
         public class GameManager : MonoBehaviour
         {
 
-            public GameObject playerPrefab;
+            public List<GameObject> playerPrefab;
             public int numberOfPlayers;
 
             public Transform spawnRingCenter;
@@ -66,6 +67,7 @@ namespace Game {
 
             private void SetupGame()
             {
+                CinemachineTargetGroup.AddMember(FindObjectOfType<CarriageBehaviour>().transform,1,0);
                 AddPlayers();
                 SetObjective();
                 
@@ -80,7 +82,7 @@ namespace Game {
                     Quaternion _spawnRotation = Quaternion.identity;
 
                     // TODO: Add spawnPosition and spawnRotation
-                    GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
+                    GameObject _spawnedPlayer = Instantiate(playerPrefab[i], _spawnPosition, _spawnRotation) as GameObject;
                     AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
                 }
                 

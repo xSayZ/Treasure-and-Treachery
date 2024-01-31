@@ -19,9 +19,9 @@ namespace Game {
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
-            [field:SerializeField] public List<int> playerHealth { get; private set; }
-            [SerializeField] public List<int> playerIndex ;
-            [SerializeField] public List<int> currency;
+            [SerializeField] public int playerHealth { get; private set; }
+            [SerializeField] public int playerIndex ;
+            [SerializeField] public int currency;
             [SerializeField] private int questValue;
 
             private int currentHealth;

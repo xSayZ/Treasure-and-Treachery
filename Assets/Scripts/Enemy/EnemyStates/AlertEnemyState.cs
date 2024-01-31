@@ -22,6 +22,11 @@ namespace Game {
             private Vector3 lastHeardPosition;
             
 #region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Alert";
+            }
+
             public override void Enter()
             {
                 currentLookTime = 0;

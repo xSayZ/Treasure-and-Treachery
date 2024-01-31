@@ -22,10 +22,14 @@ namespace Game {
             private Vector3 lastSeenPosition;
             
 #region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Chase";
+                navMeshAgent = enemyController.GetNavMeshAgent();
+            }
+
             public override void Enter()
             {
-                navMeshAgent = enemyController.GetNavMeshAgent();
-                
                 lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
                 navMeshAgent.destination = lastSeenPosition;
             }

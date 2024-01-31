@@ -14,14 +14,18 @@ namespace Game {
     namespace Enemy {
         public abstract class EnemyState
         {
+            public string Name = "NameNotSet";
             protected EnemyController enemyController;
             
 #region State Machine Functions
             public void Awake(EnemyController e)
             {
                 enemyController = e;
+                SetUp();
             }
-
+            
+            protected virtual void SetUp(){}
+            
             public virtual void Enter(){}
             
             public virtual void FixedUpdate(){}

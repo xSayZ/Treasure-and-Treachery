@@ -31,7 +31,7 @@ namespace Game {
                      EditorGUILayout.PrefixLabel("Current State");
                      if (Application.isPlaying)
                      {
-                         EditorGUILayout.LabelField(enemyController.GetCurrentState().ToString());
+                         EditorGUILayout.LabelField(enemyController.GetCurrentState().Name);
                      }
                      else
                      {

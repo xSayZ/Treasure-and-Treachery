@@ -15,6 +15,11 @@ namespace Game {
         public class GrowlEnemyState : EnemyState
         {
 #region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Growl";
+            }
+
             public override void Enter()
             {
                 // Alert other zombies

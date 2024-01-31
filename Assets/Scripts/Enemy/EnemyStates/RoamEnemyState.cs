@@ -16,6 +16,11 @@ namespace Game {
         {
             
 #region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Roam";
+            }
+
             //public override void Enter(){}
 
             public override void FixedUpdate()

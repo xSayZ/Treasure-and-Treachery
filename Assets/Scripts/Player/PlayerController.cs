@@ -44,7 +44,6 @@ namespace Game
             
             [Header("InputSettings")]
             [SerializeField] private PlayerInput PlayerInput;
-
             //ActionMaps
             private string MenuActions = "Events";
             private string PlayerAction = "Player";
@@ -56,22 +55,8 @@ namespace Game
                 
             }
 
-            private void OnEnable()
-            {
-                PlayerInput.actions["SwitchMap"].performed += SwitchActionmap;
-            }
+       
             
-            private void OnDisable()
-            {
-                
-                PlayerInput.actions["SwitchMap"].performed += SwitchActionmap;
-            }
-
-            private void SwitchActionmap(InputAction.CallbackContext context)
-            {
-                PlayerInput.actions.FindAction("Events").Enable();
-            }
-
             void Start()
             {
                 CurrentAmountOfControllers = Gamepad.all.Count;
@@ -82,6 +67,11 @@ namespace Game
 
             }
 
+            private void OnEnable()
+            {
+                
+            }
+
             void SetStartHealth()
             {
 
@@ -90,13 +80,17 @@ namespace Game
             }
             
             // Update is called once per frame
-            void Update()
+            
+            public void EnableEventControls()
             {
-                
-                   
+                PlayerInput.SwitchCurrentActionMap("Events");
             }
 
-          
+            public void EnableGamePlayControls()
+            {
+                PlayerInput.SwitchCurrentActionMap("Players");
+            }
+
 
             private void OnTriggerEnter(Collider other)
             {
@@ -149,7 +143,7 @@ namespace Game
             #endregion
 
             #region Private Functions
-            private void SetupPlayer()
+            public void SetupPlayer()
             {
                 
                 PlayerID = PlayerInput.playerIndex;

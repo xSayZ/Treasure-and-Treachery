@@ -49,8 +49,12 @@ namespace Game {
                 // Update last heard position
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
-                    hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
+                    if (!hasHeardSomething)
+                    {
+                        enemyController.NavMeshAgent.destination = lastHeardPosition;
+                    }
+                    hasHeardSomething = true;
                 }
                 
                 if (hasHeardSomething)

@@ -20,7 +20,7 @@ namespace Game {
             LocalMultiplayer
         }
 
-        public class GameManager : MonoBehaviour
+        public class GameManager : Singleton<GameManager>
         {
             [SerializeField] private GameMode currentGameMode;
 
@@ -38,7 +38,7 @@ namespace Game {
 
             [Space]
             public List<GameObject> activePlayerControllers;
-            private bool isPaused;
+            [SerializeField] private bool isPaused;
             private PlayerController focusedPlayerController;
 
             [SerializeField] bool debug;
@@ -123,7 +123,7 @@ namespace Game {
                     {
                         try
                         {
-                            newPlayer.GetComponent<PlayerController>().Data.playerIndex = i;
+                            newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
                         }
                         catch (Exception e)
                         {
@@ -152,6 +152,21 @@ namespace Game {
                 isPaused = !isPaused;
 
                 //ToggleTimeScale();
+
+                SwitchFocusedPlayerControlScheme();
+            }
+
+            void SwitchFocusedPlayerControlScheme()
+            {
+                switch (isPaused)
+                {
+                    case true:
+                        focusedPlayerController.EnableEventControls();
+                        break;
+                    case false:
+                        focusedPlayerController.EnableGamePlayControls();
+                        break;
+                }
             }
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)

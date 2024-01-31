@@ -133,10 +133,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
+  PlayerData: {fileID: 11400000, guid: 4d1033c1e0c11b545839b4702b81be02, type: 2}
+  isEvent: 0
+  Health: 0
+  SceneData: {fileID: 11400000, guid: 19d891deab582e14396bba3522f3dd66, type: 2}
   playerMovementBehaviour: {fileID: 8393427140100816367}
-  playerInput: {fileID: 3622730775527207118}
-  playerID: 0
+  playerAttackBehaviour: {fileID: 0}
+  PlayerInput: {fileID: 3622730775527207118}
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,10 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  turnSpeed: 1
+  MovementSmoothing: 0.1
+  MaxmovementSpeed: 0
   playerRigidBody: {fileID: 1680948932}
-  accelerationFactor: 1
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +216,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: a3da3d52-d014-47bd-aa22-a193ac5d4a98
     m_ActionName: Events/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

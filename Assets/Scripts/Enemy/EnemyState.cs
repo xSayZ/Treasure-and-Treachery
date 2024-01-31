@@ -14,7 +14,7 @@ namespace Game {
     namespace Enemy {
         public abstract class EnemyState
         {
-            public string Name = "NameNotSet";
+            [HideInInspector] public string Name = "NameNotSet";
             protected EnemyController enemyController;
             
 #region State Machine Functions

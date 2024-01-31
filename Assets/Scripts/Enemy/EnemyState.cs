@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
@@ -51,6 +52,24 @@ namespace Game {
                 }
                              
                 return _closestTarget;
+            }
+            
+            protected void NavmeshUpdateCheck(Vector3 _lastTargetPosition)
+            {
+                // Update nav mesh agent destination if angle is to much
+                Vector3 _directionToTarget = (enemyController.NavMeshAgent.destination - enemyController.transform.position).normalized;
+                Vector3 _directionToLastSeenPosition = (_lastTargetPosition - enemyController.transform.position).normalized;
+                if (Vector3.Angle(_directionToTarget, _directionToLastSeenPosition) > enemyController.MaxDeviationAngle)
+                {
+                    enemyController.NavMeshAgent.destination = _lastTargetPosition;
+                    //Debug.Log("Updated nav mesh agent destination (angle)");
+                }
+                // Update nav mesh agent destination if player is further away and destination has almost been reached
+                else if (enemyController.NavMeshAgent.remainingDistance < enemyController.UpdateDistance && (enemyController.NavMeshAgent.destination.x != _lastTargetPosition.x || enemyController.NavMeshAgent.destination.z != _lastTargetPosition.z) && enemyController.NavMeshAgent.hasPath)
+                {
+                    enemyController.NavMeshAgent.destination = _lastTargetPosition;
+                    //Debug.Log("Updated nav mesh agent destination (distance)");
+                }
             }
 #endregion
         }

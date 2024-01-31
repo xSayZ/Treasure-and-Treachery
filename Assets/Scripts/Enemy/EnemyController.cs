@@ -22,7 +22,7 @@ namespace Game {
             public ChaseEnemyState ChaseEnemyState;
 
             [Header("Setup")]
-            [SerializeField] private NavMeshAgent navMeshAgent;
+            public NavMeshAgent NavMeshAgent;
             [SerializeField] private SphereCollider visionSphere;
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
@@ -32,6 +32,10 @@ namespace Game {
             [SerializeField] private float visionRange;
             [SerializeField] private float visionFov;
             [SerializeField] private float hearingRange;
+
+            [Header("Nav Mesh Agent Update")]
+            public float MaxDeviationAngle;
+            public float UpdateDistance;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
@@ -113,7 +117,7 @@ namespace Game {
             
             public NavMeshAgent GetNavMeshAgent()
             {
-                return navMeshAgent;
+                return NavMeshAgent;
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

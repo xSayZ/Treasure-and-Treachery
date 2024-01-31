@@ -18,20 +18,18 @@ namespace Game {
             [SerializeField] private float maxDeviationAngle;
             [SerializeField] private float updateDistance;
             
-            private NavMeshAgent navMeshAgent;
             private Vector3 lastSeenPosition;
             
 #region State Machine Functions
             protected override void SetUp()
             {
                 Name = "Chase";
-                navMeshAgent = enemyController.GetNavMeshAgent();
             }
 
             public override void Enter()
             {
                 lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
-                navMeshAgent.destination = lastSeenPosition;
+                enemyController.NavMeshAgent.destination = lastSeenPosition;
             }
 
             public override void FixedUpdate()
@@ -42,24 +40,10 @@ namespace Game {
                     lastSeenPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
                 }
                 
-                // Update nav mesh agent destination if angle is to much
-                Vector3 _directionToTarget = (navMeshAgent.destination - enemyController.transform.position).normalized;
-                Vector3 _directionToLastSeenPosition = (lastSeenPosition - enemyController.transform.position).normalized;
-                if (Vector3.Angle(_directionToTarget, _directionToLastSeenPosition) > maxDeviationAngle)
-                {
-                    navMeshAgent.destination = lastSeenPosition;
-                    //Debug.Log("Updated nav mesh agent destination (angle)");
-                }
-                
-                // Update nav mesh agent destination if player is further away and destination has almost been reached
-                if (navMeshAgent.remainingDistance < updateDistance && (navMeshAgent.destination.x != lastSeenPosition.x || navMeshAgent.destination.z != lastSeenPosition.z) && navMeshAgent.hasPath)
-                {
-                    navMeshAgent.destination = lastSeenPosition;
-                    //Debug.Log("Updated nav mesh agent destination (distance)");
-                }
+                NavmeshUpdateCheck(lastSeenPosition);
                 
                 // Reached last known target position
-                if (!navMeshAgent.hasPath)
+                if (!enemyController.NavMeshAgent.hasPath)
                 {
                     enemyController.ChangeState(enemyController.AlertEnemyState);
                 }

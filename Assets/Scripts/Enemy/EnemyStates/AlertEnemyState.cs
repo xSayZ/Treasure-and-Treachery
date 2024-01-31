@@ -14,10 +14,9 @@ namespace Game {
         [System.Serializable]
         public class AlertEnemyState : EnemyState
         {
-            [SerializeField] private float lookTime;
-            [SerializeField] private float rotationSpeed;
+            [SerializeField] private float alertTime;
             
-            private float currentLookTime;
+            private float currentAlertTime;
             private bool hasHeardSomething;
             private Vector3 lastHeardPosition;
             
@@ -29,12 +28,13 @@ namespace Game {
 
             public override void Enter()
             {
-                currentLookTime = 0;
+                currentAlertTime = 0;
                 hasHeardSomething = false;
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
                     hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
+                    enemyController.NavMeshAgent.destination = lastHeardPosition;
                 }
             }
 
@@ -46,13 +46,6 @@ namespace Game {
                     enemyController.ChangeState(enemyController.GrowlEnemyState);
                 }
                 
-                // Look cooldown
-                currentLookTime += Time.fixedDeltaTime;
-                if (currentLookTime >= lookTime)
-                {
-                    enemyController.ChangeState(enemyController.RoamEnemyState);
-                }
-                
                 // Update last heard position
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
@@ -60,12 +53,19 @@ namespace Game {
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                 }
                 
-                // Turn towards last heard position
                 if (hasHeardSomething)
                 {
-                    Vector3 _targetDirection = (lastHeardPosition - enemyController.transform.position).normalized;
-                    Quaternion _lookRotation = Quaternion.LookRotation(_targetDirection);
-                    enemyController.transform.rotation = Quaternion.Slerp(enemyController.transform.rotation, _lookRotation, Time.fixedDeltaTime * rotationSpeed);
+                   NavmeshUpdateCheck(lastHeardPosition); 
+                }
+                
+                // Reached last known target position
+                if (!enemyController.NavMeshAgent.hasPath)
+                {
+                    currentAlertTime += Time.fixedDeltaTime;
+                    if (currentAlertTime >= alertTime)
+                    {
+                        enemyController.ChangeState(enemyController.RoamEnemyState);
+                    }
                 }
             }
             

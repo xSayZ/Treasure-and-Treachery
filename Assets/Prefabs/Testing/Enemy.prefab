@@ -139,13 +139,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b678deb32fb9f0746af238d422a65752, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RoamEnemyState:
+    Name: NameNotSet
   AlertEnemyState:
-    lookTime: 5
-    rotationSpeed: 1
+    Name: NameNotSet
+    alertTime: 5
+  GrowlEnemyState:
+    Name: NameNotSet
   ChaseEnemyState:
+    Name: NameNotSet
     maxDeviationAngle: 15
     updateDistance: 1
-  navMeshAgent: {fileID: 922712805897902393}
+  NavMeshAgent: {fileID: 922712805897902393}
   visionSphere: {fileID: 3648830157090948581}
   hearingSphere: {fileID: 9139357778190945824}
   obstacleLayerMask:
@@ -155,6 +160,8 @@ MonoBehaviour:
   visionRange: 15
   visionFov: 90
   hearingRange: 7.5
+  MaxDeviationAngle: 15
+  UpdateDistance: 1
   targetsInVisionRange: []
   targetsInHearingRange: []
 --- !u!195 &922712805897902393

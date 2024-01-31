@@ -16,11 +16,14 @@ namespace Game {
     namespace Player {
         public class AttackBehaviour : MonoBehaviour
         {
-            public GameObject projectile;
-            private Vector3 _direction;
+            
+            
             public CapsuleCollider WeaponCollider;
+            public GameObject projectile;
+            
+            private Vector3 _direction;
             private bool enemyInRange;
-            public float projectileSpeed;
+            private List<Collider> enemyColliders;
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -42,13 +45,22 @@ namespace Game {
             }
 #endregion
 
+
 private void OnTriggerEnter(Collider other)
 {
 
     if (other.gameObject.layer == 8)
     {
         enemyInRange = true;
+        enemyColliders.Add(other);
+        
     }
+}
+
+private void OnTriggerExit(Collider other)
+{
+    enemyInRange = false;
+    enemyColliders.Remove(other);
 }
 
 #region Public Functions
@@ -58,7 +70,10 @@ private void OnTriggerEnter(Collider other)
     {
         if (enemyInRange)
         {
-            //TODO: DamageEnemy
+            for (int i = 0; i < enemyColliders?.Count; i++)
+            {
+                //TODO:: Damage EnemyHealth;
+            }
         }
     }
 

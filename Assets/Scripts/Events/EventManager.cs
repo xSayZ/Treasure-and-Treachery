@@ -14,7 +14,7 @@ namespace Game {
         public class EventManager
         {
             public static UnityEvent<bool, int> OnObjectivePickup = new UnityEvent<bool, int>();
-            public static UnityEvent<int> OnCurrencyPickup = new UnityEvent<int>();
+            public static UnityEvent<int,int> OnCurrencyPickup = new UnityEvent<int,int>();
         }
     }
 }

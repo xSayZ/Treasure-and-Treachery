@@ -38,7 +38,7 @@ namespace Game {
                             EventManager.OnObjectivePickup.Invoke(true, other.gameObject.transform.GetComponent<PlayerController>().Data.playerIndex);
                             break;
                         case PickupType.Gold:
-                            EventManager.OnCurrencyPickup.Invoke(amount);
+                            EventManager.OnCurrencyPickup.Invoke(amount,other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex);
                             break;
                     }
 

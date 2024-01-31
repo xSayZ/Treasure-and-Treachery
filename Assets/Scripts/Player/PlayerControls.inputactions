@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "RangedAttack",
                     "type": "Button",
                     "id": "9287a433-221b-4d7d-9971-ae1b56536a61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MeleeAttack",
+                    "type": "Button",
+                    "id": "2cf468e8-28a3-4f7b-a5b7-d607fa2741d8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -109,7 +118,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "Attack",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "097363bc-bac2-4339-9bbc-eef866e484a8",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1",
+                    "action": "MeleeAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -126,7 +146,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -136,7 +156,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "GamePadControlls",
+                    "groups": "GamePadControlls;Player1",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -147,7 +167,7 @@
                     "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Player1",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false

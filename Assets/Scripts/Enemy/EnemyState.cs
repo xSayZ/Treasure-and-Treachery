@@ -8,46 +8,68 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
     namespace Enemy {
         public abstract class EnemyState
         {
+            [HideInInspector] public string Name = "NameNotSet";
             protected EnemyController enemyController;
             
-#region Public Functions
+#region State Machine Functions
             public void Awake(EnemyController e)
             {
                 enemyController = e;
+                SetUp();
             }
-
+            
+            protected virtual void SetUp(){}
+            
             public virtual void Enter(){}
             
             public virtual void FixedUpdate(){}
+            
+            public virtual void Exit(){}
 #endregion
 
-
-#region Protcted Functions
-            protected List<Vector3> LookForTarget(Vector3 lookPosition, Vector3 lookDirection, float lookDistance, float lookFov, LayerMask playerLayerMask, LayerMask obstacleLayerMask)
+#region Protected Functions
+            protected Transform GetClosestTarget(List<Transform> _targets)
             {
-                List<Vector3> visibleTargetPositions = new List<Vector3>();
-                Collider[] targetsInViewRadius = Physics.OverlapSphere(lookPosition, lookDistance, playerLayerMask);
-                
-                for (int i = 0; i < targetsInViewRadius.Length; i++)
+                Transform _closestTarget = _targets[0];
+                float _closestDistance = Vector3.Distance(enemyController.transform.position, _targets[0].position);
+                             
+                for (int i = 1; i < _targets.Count; i++)
                 {
-                    Vector3 directionToTarget = (targetsInViewRadius[i].transform.position - lookPosition).normalized;
-                    if (Vector3.Angle(lookDirection, directionToTarget) < lookFov / 2)
+                    float _distance = Vector3.Distance(enemyController.transform.position, _targets[i].position);
+                                 
+                    if (_distance < _closestDistance)
                     {
-                        float distanceToTarget = Vector3.Distance(lookPosition, targetsInViewRadius[i].transform.position);
-                        if (!Physics.Raycast(lookPosition, directionToTarget, distanceToTarget, obstacleLayerMask))
-                        {
-                            visibleTargetPositions.Add(targetsInViewRadius[i].transform.position);
-                        }
+                        _closestTarget = _targets[i];
+                        _closestDistance = _distance;
                     }
                 }
-                
-                return visibleTargetPositions;
+                             
+                return _closestTarget;
+            }
+            
+            protected void NavmeshUpdateCheck(Vector3 _lastTargetPosition)
+            {
+                // Update nav mesh agent destination if angle is to much
+                Vector3 _directionToTarget = (enemyController.NavMeshAgent.destination - enemyController.transform.position).normalized;
+                Vector3 _directionToLastSeenPosition = (_lastTargetPosition - enemyController.transform.position).normalized;
+                if (Vector3.Angle(_directionToTarget, _directionToLastSeenPosition) > enemyController.MaxDeviationAngle)
+                {
+                    enemyController.NavMeshAgent.destination = _lastTargetPosition;
+                    //Debug.Log("Updated nav mesh agent destination (angle)");
+                }
+                // Update nav mesh agent destination if player is further away and destination has almost been reached
+                else if (enemyController.NavMeshAgent.remainingDistance < enemyController.UpdateDistance && (enemyController.NavMeshAgent.destination.x != _lastTargetPosition.x || enemyController.NavMeshAgent.destination.z != _lastTargetPosition.z) && enemyController.NavMeshAgent.hasPath)
+                {
+                    enemyController.NavMeshAgent.destination = _lastTargetPosition;
+                    //Debug.Log("Updated nav mesh agent destination (distance)");
+                }
             }
 #endregion
         }

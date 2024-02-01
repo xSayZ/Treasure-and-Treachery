@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using UnityEngine;
 
 
@@ -14,25 +15,34 @@ namespace Game {
     {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
-            
-            
-            [SerializeField] private float movementSpeed;
-            [SerializeField] private float turnSpeed;
+
+            [Header("MovementSettings")]
+            [Tooltip("Effects How effective turning is and inertial movement")]
+        [Range(0.1f, 2f)]
+            public float MovementSmoothing;
+
+            [SerializeField] private float MaxmovementSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
-            public Vector3 direction { get; private set; }
+            private float currentSpeed;
+            private Vector3 movement;
             
-            public float accelerationFactor;
+            private Vector3 rawInputDirection;
+            public Vector3 SmoothMovementDirection{ get; private set; }
+
+            private void OnValidate()
+            {
+                if (MovementSmoothing <= 0)
+                {
+                    Debug.LogWarning($"Smoothing must be between 0.1f-2f");
+                    MovementSmoothing = 0.1f;
+                }
+            }
+
 
             #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
-            {
-                
-            }
-    
-            // Update is called once per frame
             void FixedUpdate()
             {
+                SmoothInputMovement();
                 MovePlayer();
                 TurnPlayer();
             }
@@ -41,28 +51,33 @@ namespace Game {
         #region Public Functions
 
         public void MovementData(Vector3 _directionVector)
-        {
-            direction = _directionVector;
+        { 
+           
+            rawInputDirection = _directionVector;
 
         }
         #endregion
 
         #region Private Functions
-        //TODO:: Add Interpolation for moving
+        
         private void MovePlayer()
         {
+            
+            movement = Time.deltaTime * MaxmovementSpeed * SmoothMovementDirection;
+            playerRigidBody.MovePosition(movement + transform.localPosition);
 
-
-            Vector3 movement = direction * Time.deltaTime * movementSpeed;
-             playerRigidBody.MovePosition(movement+transform.position);
         }
-        //TODO:: Add interpolation for turning
         private void TurnPlayer()
         {
-            
-            transform.LookAt(direction+transform.position);
+            transform.LookAt(SmoothMovementDirection+transform.position);
         }
-
+        
+        
+        private void SmoothInputMovement()
+        {
+            SmoothMovementDirection = Vector3.Lerp(SmoothMovementDirection, rawInputDirection,
+                Time.deltaTime * MovementSmoothing);
+        }
 
         
         #endregion

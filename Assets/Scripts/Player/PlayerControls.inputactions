@@ -15,9 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "RangedAttack",
                     "type": "Button",
                     "id": "9287a433-221b-4d7d-9971-ae1b56536a61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MeleeAttack",
+                    "type": "Button",
+                    "id": "2cf468e8-28a3-4f7b-a5b7-d607fa2741d8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -109,7 +118,57 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "Attack",
+                    "action": "RangedAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "097363bc-bac2-4339-9bbc-eef866e484a8",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1",
+                    "action": "MeleeAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Events",
+            "id": "d4cf590a-c9b4-4752-8842-c0aa42af4b5c",
+            "actions": [
+                {
+                    "name": "Submit",
+                    "type": "Button",
+                    "id": "a3da3d52-d014-47bd-aa22-a193ac5d4a98",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b5fd5554-715a-4e1d-8526-2f5dc6ef9bd1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "GamePadControlls;Player1",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8c9daeb-43fe-42e5-94cd-59a788552f00",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player1",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -6,7 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -16,19 +15,25 @@ namespace Game {
         public class RoamEnemyState : EnemyState
         {
             
-#region Public Functions
-            public override void Enter()
+#region State Machine Functions
+            protected override void SetUp()
             {
-                // TEMP
-                List<Vector3> targets = LookForTarget(enemyController.transform.position, enemyController.transform.forward, enemyController.VisionRange, enemyController.VisionFov, enemyController.PlayerLayerMask, enemyController.ObstacleLayerMask);
+                Name = "Roam";
+            }
 
-                for (int i = 0; i < targets.Count; i++)
+            //public override void Enter(){}
+
+            public override void FixedUpdate()
+            {
+                // Roam around here
+                
+                if (enemyController.targetsInVisionRange.Count + enemyController.targetsInHearingRange.Count > 0)
                 {
-                    Debug.Log(targets[i]);
+                    enemyController.ChangeState(enemyController.AlertEnemyState);
                 }
             }
             
-            public override void FixedUpdate(){}
+            //public override void Exit(){}
  #endregion
         }
     }

@@ -120,10 +120,10 @@ namespace Game {
             private void OnDrawGizmosSelected()
             {
                 Gizmos.color = Color.green;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, visionFov, visionRange);
+                Utility.Gizmos.GizmosExtra.DrawSemiCircle(transform.position, transform.forward, visionFov, visionRange);
                 
                 Gizmos.color = Color.blue;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, hearingRange);
+                Utility.Gizmos.GizmosExtra.DrawCircle(transform.position, hearingRange);
 
                 Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
                 
@@ -131,13 +131,9 @@ namespace Game {
                 Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
                 Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
                 
-                Gizmos.color = Color.yellow;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1);
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1);
-                
-                Gizmos.color = Color.red;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item2);
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item2);
+                Gizmos.color = Color.magenta;
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
             }
 #endregion
 

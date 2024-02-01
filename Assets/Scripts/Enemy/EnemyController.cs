@@ -8,13 +8,14 @@
 
 using System;
 using System.Collections.Generic;
+using Game.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 namespace Game {
     namespace Enemy {
-        public class EnemyController : MonoBehaviour
+        public class EnemyController : MonoBehaviour, IDamageable
         {
             [Header("States")]
             public RoamEnemyState RoamEnemyState;
@@ -28,9 +29,13 @@ namespace Game {
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
 
+            [field:Header("Health")]
+            [field:SerializeField] public int Health { get; set; }
+            
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
+            [Range(0, 360)]
             [SerializeField] private float visionFov;
             [SerializeField] private float hearingRange;
 
@@ -134,6 +139,11 @@ namespace Game {
             public NavMeshAgent GetNavMeshAgent()
             {
                 return NavMeshAgent;
+            }
+
+            public void Death()
+            {
+                Destroy(gameObject);
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

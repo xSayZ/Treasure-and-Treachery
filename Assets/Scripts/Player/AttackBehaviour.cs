@@ -6,43 +6,95 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Game.Core;
+using Game.Enemy;
 using UnityEngine;
 
 
-namespace Game {
-    namespace Player {
+namespace Game
+{
+    namespace Player
+    {
         public class AttackBehaviour : MonoBehaviour
         {
+            [Header("References")] public CapsuleCollider WeaponCollider;
             public GameObject projectile;
+            public int MeleeAttackDamage;
+            private bool enemyInRange;
+            public List<Collider> enemyColliders = new List<Collider>();
 
-#region Unity Functions
+            #region Unity Functions
+
             // Start is called before the first frame update
-            void Start()
+
+            private void Awake()
             {
-                
+                WeaponCollider.GetComponentInChildren<Collider>();
             }
-    
             // Update is called once per frame
             void Update()
             {
+                enemyColliders = enemyColliders.Where(item =>item != null).ToList();
+
+            }
+
+            #endregion
+            
+            private void OnTriggerEnter(Collider other)
+            {
+                if (other.gameObject.layer == 8 && !other.isTrigger)
+                {
+                    enemyInRange = true;
+                    enemyColliders.Add(other);
+                }
+            }
+
+            private void OnTriggerExit(Collider other)
+            {
+                if (!other.gameObject.CompareTag("Pickup"))
+                {
+                    enemyInRange = false;
+                    enemyColliders?.Remove(other);
+                }
+            }
+
+            #region Public Functions
+
+            public void MeleeAttack()
+            {
+                for (int i = 0; i < enemyColliders?.Count; i++)
+                {
+                    if (enemyColliders[i].TryGetComponent(out IDamageable hit))
+                    {
+                        hit.Damage(MeleeAttackDamage);
+                    }
+                }
                 
             }
-#endregion
 
-#region Public Functions
+            public void RangedAttack()
+            {
+                //TODO FixedRangeAttack
+                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
 
-    public void RangedAttack(Vector3 direction)
-    {
-        Debug.Log(direction);
-        projectile.GetComponent<Projectile>().SetDirection(direction);
-        Instantiate(projectile, transform.position, Quaternion.identity);
-       
-    }
-#endregion
+                Projectile playerProjectile = _projectile.GetComponent<Projectile>();
+                playerProjectile.SetDirection(transform.forward);
+            }
 
-#region Private Functions
 
-#endregion
+            private void OnDrawGizmos()
+            {
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, 60, 45, 2);
+            }
+
+            #endregion
+
+            #region Private Functions
+
+            #endregion
         }
     }
 }

@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using UnityEngine;
 
 
@@ -13,10 +14,22 @@ namespace Game {
     namespace Player {
         public class PlayerAnimationBehaviour : MonoBehaviour
         {
-        
+            private Animator Animator;
 
 #region Unity Functions
             // Start is called before the first frame update
+            private void Awake()
+            {
+                Animator = GetComponent<Animator>();
+            }
+
+
+
+            private void SmoothAnimation(float smoothing)
+            {
+                
+                
+            }
             void Start()
             {
                 

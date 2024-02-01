@@ -17,6 +17,7 @@ namespace Game {
         [System.Serializable]
         public class RoamEnemyState : EnemyState
         {
+            [SerializeField] private float moveSpeed;
             [SerializeField] private float minRoamRange;
             [SerializeField] private float maxRoamRange;
             [Range(0, 180)]
@@ -37,6 +38,7 @@ namespace Game {
 
             public override void Enter()
             {
+                enemyController.NavMeshAgent.speed = moveSpeed;
                 currentStuckCount = 0;
             }
 

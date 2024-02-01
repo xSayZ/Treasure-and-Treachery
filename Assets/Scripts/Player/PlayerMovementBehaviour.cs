@@ -7,7 +7,10 @@
 // ------------------------------*/
 
 using System;
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 
 namespace Game {
@@ -18,17 +21,24 @@ namespace Game {
 
             [Header("MovementSettings")]
             [Tooltip("Effects How effective turning is and inertial movement")]
-        [Range(0.1f, 2f)]
+            [Range(0.1f, 2f)]
             public float MovementSmoothing;
-
             [SerializeField] private float MaxmovementSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
             private float currentSpeed;
             private Vector3 movement;
-            
             private Vector3 rawInputDirection;
-            public Vector3 SmoothMovementDirection{ get; private set; }
+            private Vector3 smoothMovementDirection;
+            
+            private Vector3 oldPosition;
 
+
+            [Header("Test Values")]
+            public float DashModifier;
+            public float BasedashTime;
+            private float currentDashTime;
+            private bool dashComplete;
+            
             private void OnValidate()
             {
                 if (MovementSmoothing <= 0)
@@ -40,6 +50,12 @@ namespace Game {
 
 
             #region Unity Functions
+
+            private void Start()
+            {
+                currentDashTime = BasedashTime;
+            }
+
             void FixedUpdate()
             {
                 SmoothInputMovement();
@@ -49,33 +65,36 @@ namespace Game {
         #endregion
 
         #region Public Functions
-
+        
         public void MovementData(Vector3 _directionVector)
-        { 
-           
+        {
+            
             rawInputDirection = _directionVector;
-
+            
         }
+        
         #endregion
-
+        
         #region Private Functions
+        
+        
         
         private void MovePlayer()
         {
             
-            movement = Time.deltaTime * MaxmovementSpeed * SmoothMovementDirection;
-            playerRigidBody.MovePosition(movement + transform.localPosition);
+            movement = Time.deltaTime * MaxmovementSpeed * smoothMovementDirection;
+            playerRigidBody.MovePosition(movement+transform.position);
 
         }
         private void TurnPlayer()
         {
-            transform.LookAt(SmoothMovementDirection+transform.position);
+            transform.LookAt(smoothMovementDirection+transform.position);
         }
         
         
         private void SmoothInputMovement()
         {
-            SmoothMovementDirection = Vector3.Lerp(SmoothMovementDirection, rawInputDirection,
+            smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
                 Time.deltaTime * MovementSmoothing);
         }
 

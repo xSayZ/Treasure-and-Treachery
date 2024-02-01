@@ -244,7 +244,8 @@ namespace Game
 
             private Vector3 IsoVectorConvert(Vector3 vector)
             {
-                Quaternion rotation = Quaternion.Euler(0,angle, 0);
+                Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion rotation = Quaternion.Euler(0,cameraRot.y, 0);
                 Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
                 Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
                 return result;

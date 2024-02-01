@@ -98,7 +98,7 @@ namespace Game {
             else
             {
                 currentSpeed = MaxmovementSpeed;
-                movement = Time.deltaTime * currentSpeed * smoothMovementDirection;
+                movement = Time.deltaTime * currentSpeed * rawInputDirection;
                 playerRigidBody.MovePosition(transform.position+movement);
 
             }

@@ -25,20 +25,23 @@ namespace Game {
             public float MovementSmoothing;
             [SerializeField] private float MaxmovementSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
-            private float currentSpeed;
+            private float currentSpeed = 0.01f;
             private Vector3 movement;
             private Vector3 rawInputDirection;
             private Vector3 smoothMovementDirection;
             
             private Vector3 oldPosition;
-
+            
 
             [Header("Test Values")]
             public float DashModifier;
             public float BasedashTime;
             private float currentDashTime;
             private bool dashComplete;
-            
+
+            [Header("Movement Type")] 
+            public bool useVelocity;
+
             private void OnValidate()
             {
                 if (MovementSmoothing <= 0)
@@ -46,6 +49,8 @@ namespace Game {
                     Debug.LogWarning($"Smoothing must be between 0.1f-2f");
                     MovementSmoothing = 0.1f;
                 }
+
+                
             }
 
 
@@ -76,14 +81,33 @@ namespace Game {
         #endregion
         
         #region Private Functions
-        
-        
-        
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.collider)
+            {
+                playerRigidBody.velocity = Vector3.zero;
+
+            }
+        }
+
         private void MovePlayer()
         {
             
-            movement = Time.deltaTime * MaxmovementSpeed * smoothMovementDirection;
-            playerRigidBody.MovePosition(movement+transform.position);
+            if (useVelocity)
+            {
+                movement = Time.fixedDeltaTime * MaxmovementSpeed * smoothMovementDirection;
+
+                Debug.Log(currentSpeed);
+                playerRigidBody.velocity = smoothMovementDirection + movement;
+            }
+            else
+            {
+                currentSpeed = MaxmovementSpeed;
+                movement = Time.deltaTime * currentSpeed * smoothMovementDirection;
+                playerRigidBody.MovePosition(transform.position+movement);
+
+            }
 
         }
         private void TurnPlayer()

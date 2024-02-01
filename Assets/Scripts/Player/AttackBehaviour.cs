@@ -18,14 +18,23 @@ namespace Game
 {
     namespace Player
     {
+        
         public class AttackBehaviour : MonoBehaviour
         {
-            [Header("References")] public CapsuleCollider WeaponCollider;
+            [Header("Component References")]
+            
+            public CapsuleCollider WeaponCollider;
             public GameObject projectile;
+            [Header("Modifiables")]
             public int MeleeAttackDamage;
-            private bool enemyInRange;
+            public int ProjectileAttackDamage;
+            public float BaseFireRate;
+            
+            [HideInInspector]
             public List<Collider> enemyColliders = new List<Collider>();
 
+
+            private float currentFireRate;
             #region Unity Functions
 
             // Start is called before the first frame update
@@ -33,12 +42,13 @@ namespace Game
             private void Awake()
             {
                 WeaponCollider.GetComponentInChildren<Collider>();
+                currentFireRate = 0;
             }
             // Update is called once per frame
             void Update()
             {
                 enemyColliders = enemyColliders.Where(item =>item != null).ToList();
-
+                currentFireRate -= Time.deltaTime;
             }
 
             #endregion
@@ -47,7 +57,6 @@ namespace Game
             {
                 if (other.gameObject.layer == 8 && !other.isTrigger)
                 {
-                    enemyInRange = true;
                     enemyColliders.Add(other);
                 }
             }
@@ -56,7 +65,6 @@ namespace Game
             {
                 if (!other.gameObject.CompareTag("Pickup"))
                 {
-                    enemyInRange = false;
                     enemyColliders?.Remove(other);
                 }
             }
@@ -78,11 +86,18 @@ namespace Game
             public void RangedAttack()
             {
                 //TODO FixedRangeAttack
-                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
+                if (currentFireRate <=0 )
+                {
+                    GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
 
-                Projectile playerProjectile = _projectile.GetComponent<Projectile>();
-                playerProjectile.SetDirection(transform.forward);
+                    Projectile playerProjectile = _projectile.GetComponent<Projectile>();
+                    playerProjectile.SetProjectileDamage(ProjectileAttackDamage);
+                    playerProjectile.SetDirection(transform.forward);
+
+                    currentFireRate = BaseFireRate;
+                }  
             }
+                
 
 
             private void OnDrawGizmos()

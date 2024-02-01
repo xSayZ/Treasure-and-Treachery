@@ -23,13 +23,19 @@ namespace Game
     {
         using Events;
         using Scenes;
+
+        public enum Archetype
+        {
+            Melee,
+            Ranged,
+            Both,
+        }
+
         public class PlayerController : MonoBehaviour,IDamageable
         {
             
             public PlayerData PlayerData;
             public int PlayerID { get; private set; }
-
-            public static int CurrentAmountOfControllers;
             
             //temp Health Solution
             [Header("SubBehaviours")] 
@@ -39,6 +45,8 @@ namespace Game
             
             [Header("InputSettings")]
             [SerializeField] private PlayerInput PlayerInput;
+
+            public Archetype CharacterType;
             #region Unity Functions
             
 
@@ -52,7 +60,6 @@ namespace Game
             private bool waitUntilNextDash;
             void Start()
             {
-                CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                 
@@ -82,10 +89,14 @@ namespace Game
                 // Dashing will lock character from moving direction during the duration 
                 if (!dashing)
                 {
-                    Vector2 _inputValue = value.ReadValue<Vector2>();
-                    Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                    if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
+                    {
+                        Vector2 _inputValue = value.ReadValue<Vector2>();
+                        Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                     
-                    playerMovementBehaviour.MovementData(_rawInputMovement);
+                        playerMovementBehaviour.MovementData(_rawInputMovement);
+                    }
+                  
                 }
             }
             
@@ -95,7 +106,11 @@ namespace Game
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
-                    playerAttackBehaviour.RangedAttack();
+                    if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
+                    {
+                        playerAttackBehaviour.RangedAttack();
+
+                    }
                    
                 }
             }

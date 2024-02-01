@@ -19,7 +19,8 @@ namespace Game {
             public Vector3 direction;
             public Rigidbody rb;
             public float BulletAliveTime;
-            public int ProjectileDamage;
+
+            private int _projectileDamage;
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
@@ -51,7 +52,7 @@ namespace Game {
                 {
                     if (  other.gameObject.TryGetComponent(out IDamageable hit))
                     {
-                        hit.Damage(ProjectileDamage);
+                        hit.Damage(_projectileDamage);
                         Destroy(this.gameObject);
                     }
 
@@ -69,6 +70,11 @@ namespace Game {
 public void SetDirection(Vector3 _direction)
 {
     direction = _direction;
+}
+
+public void SetProjectileDamage(int _damage)
+{
+    _projectileDamage = _damage;
 }
 #endregion
 

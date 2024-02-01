@@ -15,7 +15,7 @@ namespace Game {
             
             public void Death(){}
             
-            private void Damage(int _damage)
+            public void Damage(int _damage)
             {
                 Health -= _damage;
                 if (Health <= 0)

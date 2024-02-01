@@ -47,8 +47,8 @@ namespace Game
             public float DashModifier;
             public float dashTime;
             public float waitTimeUntilNextDash;
-            private bool dashing;
             
+            private bool dashing;
             private bool waitUntilNextDash;
             void Start()
             {
@@ -65,7 +65,7 @@ namespace Game
 
             [field:SerializeField]public int Health { get; set; }
 
-            private void Death()
+            public void Death()
             {
                 if (Health <=0)
                 {
@@ -91,7 +91,7 @@ namespace Game
             
             public void OnRanged(InputAction.CallbackContext value)
             {
-                if (value.started)
+                if (value.action.triggered)
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
@@ -107,7 +107,7 @@ namespace Game
             
             public void OnMelee(InputAction.CallbackContext value)
             {
-                if (value.started)
+                if (value.action.triggered)
                 {
                     playerAttackBehaviour.MeleeAttack();
                 }  

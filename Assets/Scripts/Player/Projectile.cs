@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using Game.Core;
 using UnityEngine;
 
 
@@ -18,7 +19,7 @@ namespace Game {
             public Vector3 direction;
             public Rigidbody rb;
             public float BulletAliveTime;
-            
+            public int ProjectileDamage;
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
@@ -48,7 +49,12 @@ namespace Game {
             {
                 if (other.gameObject.layer== 8) 
                 {
-                    Destroy(gameObject);
+                    if (  other.gameObject.TryGetComponent(out IDamageable hit))
+                    {
+                        hit.Damage(ProjectileDamage);
+                        Destroy(this.gameObject);
+                    }
+
                 }
                 else
                 {

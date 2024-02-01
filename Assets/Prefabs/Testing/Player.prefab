@@ -139,9 +139,10 @@ MonoBehaviour:
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -3509399097656645022}
   PlayerInput: {fileID: 3622730775527207118}
+  CharacterType: 2
   DashModifier: 10
   dashTime: 0.4
-  waitTimeUntilNextDash: 0
+  BaseDashCoolDown: 0
   <Health>k__BackingField: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
@@ -155,11 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSmoothing: 0.81
+  MovementSmoothing: 10
   MaxmovementSpeed: 10
   playerRigidBody: {fileID: 1680948932}
   DashModifier: 0
   BasedashTime: 0
+  useVelocity: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +307,9 @@ MonoBehaviour:
   WeaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
   MeleeAttackDamage: 10
+  BaseMeleeAttackCooldown: 1
+  RangedAttackDamage: 1
+  BaseFireRateRanged: 1
   enemyColliders: []
 --- !u!1 &4809585492123438367
 GameObject:

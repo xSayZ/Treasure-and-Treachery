@@ -70,6 +70,11 @@ namespace Game {
                     //Debug.Log("Updated nav mesh agent destination (distance)");
                 }
             }
+
+            protected bool IsStuck(Vector3 _prevoiusPosition, Vector3 _currentPosition, float _minMoveDistance)
+            {
+                return Vector3.Distance(_prevoiusPosition, _currentPosition) < _minMoveDistance;
+            }
 #endregion
         }
     }

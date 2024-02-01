@@ -63,6 +63,8 @@ namespace Game
             private bool dashing;
             
             private float currentDashCooldown;
+
+            public float angle;
             void Start()
             {
                 SetupPlayer();
@@ -100,7 +102,7 @@ namespace Game
                         Vector2 _inputValue = value.ReadValue<Vector2>();
                         Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                         
-                        playerMovementBehaviour.MovementData(_rawInputMovement);
+                        playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                     }
                 }
 
@@ -240,7 +242,14 @@ namespace Game
                 }
             }
 
+            private Vector3 IsoVectorConvert(Vector3 vector)
+            {
+                Quaternion rotation = Quaternion.Euler(0,angle, 0);
+                Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+                Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+                return result;
 
+            }
             #endregion
         }
         

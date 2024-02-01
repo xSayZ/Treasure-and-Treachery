@@ -46,7 +46,6 @@ namespace Game {
                 // No longer chasing
                 if (IsStuck(positionLastUpdate, enemyController.transform.position, minMoveDistance))
                 {
-                    Debug.Log("Not moved far enough");
                     enemyController.ChangeState(enemyController.AlertEnemyState);
                 }
                 

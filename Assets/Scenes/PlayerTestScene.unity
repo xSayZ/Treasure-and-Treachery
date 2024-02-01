@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: dd7d8ef6490b9ea42906585343e18b38, type: 2}
 --- !u!1001 &158733796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -227,28 +227,56 @@ PrefabInstance:
       value: Player/Dash[/XInputControllerWindows/buttonEast]
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1587958332}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1587958332}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnMelee
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnDash
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Game.Player.PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Game.Player.PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -977,6 +1005,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1d16d145bb422429d72f284b5b98ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 0
+  radius: 0
 --- !u!1 &1434465570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1d16d145bb422429d72f284b5b98ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weight: 0
+  radius: 0
 --- !u!114 &1587958332 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
@@ -1206,6 +1238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 751426607181468461, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+      propertyPath: <Health>k__BackingField
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
       propertyPath: m_Name
       value: Enemy

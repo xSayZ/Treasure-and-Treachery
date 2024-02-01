@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using Game.Core;
 using Game.Enemy;
 using UnityEngine;
 
@@ -77,7 +78,10 @@ private void OnTriggerExit(Collider other)
         {
             for (int i = 0; i < enemyColliders?.Count; i++)
             {
-                //TODO:: Damage EnemyHealth;
+                if (enemyColliders[i].TryGetComponent(out IDamageable hit))
+                {
+                    hit.Damage(1);
+                }
             }
         }
     }

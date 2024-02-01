@@ -7,9 +7,11 @@
 // ------------------------------*/
 
 
+using System;
 using System.Collections;
 using System.Diagnostics;
 using Game.Backend;
+using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
@@ -21,7 +23,7 @@ namespace Game
     {
         using Events;
         using Scenes;
-        public class PlayerController : MonoBehaviour
+        public class PlayerController : MonoBehaviour,IDamageable
         {
             
             public PlayerData PlayerData;
@@ -30,7 +32,6 @@ namespace Game
             public static int CurrentAmountOfControllers;
             
             //temp Health Solution
-            public int Health;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -58,11 +59,20 @@ namespace Game
             }
             private void Update()
             {
-               
-                Death();
+               Death();
                 WaitTimeBeforeNextDash();
             }
-            
+
+            [field:SerializeField]public int Health { get; set; }
+
+            private void Death()
+            {
+                if (Health <=0)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+
             #endregion
 
             #region Public Functions
@@ -99,8 +109,7 @@ namespace Game
             {
                 if (value.started)
                 {
-                    //TODO:: AttackAnimation
-                    Debug.Log(value);
+                    playerAttackBehaviour.MeleeAttack();
                 }  
             }
 
@@ -182,15 +191,7 @@ namespace Game
                     }
                 
             }
-
-            private void Death()
-            {
-                if (Health <= 0)
-                {
-                    // TODO: Forward to animationBehaviour
-                    gameObject.SetActive(false);
-                }
-            }
+            
             
             
             //TODO: Move Dash to playerMovement

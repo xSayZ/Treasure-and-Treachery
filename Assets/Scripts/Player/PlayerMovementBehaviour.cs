@@ -7,7 +7,10 @@
 // ------------------------------*/
 
 using System;
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 
 namespace Game {
@@ -29,6 +32,13 @@ namespace Game {
             
             private Vector3 oldPosition;
 
+
+            [Header("Test Values")]
+            public float DashModifier;
+            public float BasedashTime;
+            private float currentDashTime;
+            private bool dashComplete;
+            
             private void OnValidate()
             {
                 if (MovementSmoothing <= 0)
@@ -40,6 +50,12 @@ namespace Game {
 
 
             #region Unity Functions
+
+            private void Start()
+            {
+                currentDashTime = BasedashTime;
+            }
+
             void FixedUpdate()
             {
                 SmoothInputMovement();
@@ -51,13 +67,14 @@ namespace Game {
         #region Public Functions
         
         public void MovementData(Vector3 _directionVector)
-        { 
-           
+        {
+            
             rawInputDirection = _directionVector;
-
+            
         }
+        
         #endregion
-
+        
         #region Private Functions
         
         

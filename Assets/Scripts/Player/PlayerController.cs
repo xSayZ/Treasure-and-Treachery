@@ -7,9 +7,12 @@
 // ------------------------------*/
 
 
+using System.Collections;
+using System.Diagnostics;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 
 
 namespace Game
@@ -37,7 +40,12 @@ namespace Game
             [SerializeField] private PlayerInput PlayerInput;
             #region Unity Functions
             
-            
+
+            [Header("Dash Data")]
+            [Tooltip("How much current displacement should increase with")]
+            public float DashModifier;
+            public float dashTime;
+            private bool dashing;
             void Start()
             {
                 CurrentAmountOfControllers = Gamepad.all.Count;
@@ -62,14 +70,18 @@ namespace Game
 
             public void OnMovement(InputAction.CallbackContext value)
             {
-                
+                // Dashing will lock character from moving direction during the duration 
+                if (!dashing)
+                {
                     Vector2 _inputValue = value.ReadValue<Vector2>();
                     Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                     playerMovementBehaviour.MovementData(_rawInputMovement);
-                
+                }
+                  
+                    
                
             }
-
+            
             public void OnRanged(InputAction.CallbackContext value)
             {
                 if (value.started)
@@ -94,7 +106,28 @@ namespace Game
                     Debug.Log(value);
                 }  
             }
-                 
+
+            public void OnDash(InputAction.CallbackContext value)
+            {
+
+                if (value.started && dashing == false)
+                {
+                    //Add Dash dust cloud if wanted
+                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
+                    StartCoroutine(WaitUntilDashComplete());
+                    dashing = true;
+                }
+            }
+
+
+            IEnumerator WaitUntilDashComplete()
+            {
+                yield return new WaitForSeconds(dashTime);
+                dashing = false;
+
+
+            }
+            
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");

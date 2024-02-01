@@ -35,6 +35,7 @@ namespace Game {
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
+            [Range(0, 360)]
             [SerializeField] private float visionFov;
             [SerializeField] private float hearingRange;
 

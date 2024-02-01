@@ -31,10 +31,15 @@ namespace Game {
 
             [field:Header("Health")]
             [field:SerializeField] public int Health { get; set; }
+
+            [Header("Attack")]
+            [SerializeField] private int damage;
+            [SerializeField] private float attackCooldown;
             
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
+            [Range(0, 360)]
             [SerializeField] private float visionFov;
             [SerializeField] private float hearingRange;
 
@@ -47,6 +52,8 @@ namespace Game {
             
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;
+            private List<IDamageable> targetsInAttackRange;
+            private float currentAttackCooldown;
             
             
 #region Unity Functions
@@ -71,6 +78,8 @@ namespace Game {
                 visionSphere.transform.position = headOrigin.position;
                 hearingSphere.radius = hearingRange;
                 hearingSphere.transform.position = headOrigin.position;
+
+                targetsInAttackRange = new List<IDamageable>();
             }
             
             private void FixedUpdate()
@@ -92,6 +101,17 @@ namespace Game {
                             targetsInVisionRange.Remove(targetsInVisionRangeUpdate[i]);
                         }
                     }
+                }
+                
+                // Attack targets in range
+                if (currentAttackCooldown > 0)
+                {
+                    currentAttackCooldown -= Time.fixedDeltaTime;
+                }
+                else if (targetsInAttackRange.Count > 0)
+                {
+                    targetsInAttackRange[0].Damage(damage);
+                    currentAttackCooldown = attackCooldown;
                 }
                 
                 currentState.FixedUpdate();
@@ -133,11 +153,6 @@ namespace Game {
             public EnemyState GetCurrentState()
             {
                 return currentState;
-            }
-            
-            public NavMeshAgent GetNavMeshAgent()
-            {
-                return NavMeshAgent;
             }
 
             public void Death()
@@ -184,6 +199,25 @@ namespace Game {
                 if (targetsInHearingRange.Contains(_targetTransform))
                 {
                     targetsInHearingRange.Remove(_targetTransform);
+                }
+            }
+            
+            public void AttackRangeEntered(Transform _targetTransform)
+            {
+                if (_targetTransform.gameObject.CompareTag("Player"))
+                {
+                    if (_targetTransform.TryGetComponent(out IDamageable hit))
+                    {
+                        targetsInAttackRange.Add(hit);
+                    }
+                }
+            }
+            
+            public void AttackRangeExited(Transform _targetTransform)
+            {
+                if (_targetTransform.TryGetComponent(out IDamageable hit))
+                {
+                    targetsInAttackRange.Remove(hit);
                 }
             }
 #endregion

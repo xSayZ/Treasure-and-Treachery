@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using System;
+using UnityEngine.UI;
+using UnityEditor.EditorTools;
 
 namespace Game {
     namespace Backend {
@@ -25,23 +27,30 @@ namespace Game {
             public GameMode currentGameMode;
 
             [Header("Singleplayer")]
+            [Tooltip("Player inside scene needs to be assigned")]
             [SerializeField] private GameObject inScenePlayer;
 
             [Header("Local Multiplayer")]
+            [Tooltip("Player Prefabs needs to be assigned")]
             [SerializeField] private GameObject playerPrefab;
-            [SerializeField] private int numberOfPlayers;   
+            [Range(1, 4)]
+            [Tooltip("Assign amount of players to be spawned")]
+            [SerializeField] private int numberOfPlayers;
 
             [Header("Spawn Variables")]
+            [Tooltip("Assign the spawn point where players are to be instantiated from")]
             [SerializeField] private Transform spawnRingCenter;
             [Range(0.5f, 15f)]
             [SerializeField] private float spawnRingRadius;
 
+
             [Space]
             public List<GameObject> activePlayerControllers;
-            [SerializeField] private bool isPaused;
             private PlayerController focusedPlayerController;
 
+            [Header("Debug")]
             [SerializeField] bool debug;
+            [SerializeField] private bool isPaused;
 
             #region Unity Functions
             private void OnDrawGizmos()
@@ -164,7 +173,7 @@ namespace Game {
                 {
                     if(activePlayerControllers[i] != focusedPlayerController)
                     {
-                        //activePlayerControllers[i].SetInputActiveState(isPaused);
+                        activePlayerControllers[i].GetComponent<PlayerController>().SetInputActiveState(isPaused);
                     }
                 }
             }

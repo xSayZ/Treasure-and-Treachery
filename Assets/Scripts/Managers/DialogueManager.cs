@@ -9,6 +9,7 @@
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
+using UnityEngine.InputSystem;
 
 
 namespace Game {
@@ -20,8 +21,12 @@ namespace Game {
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private TextMeshProUGUI dialogueText;
 
+            [SerializeField] PlayerInput playerInput;
+            [SerializeField] private TextAsset inkJSON;
+
             private Story currentStory;
             private bool dialogueIsPlaying;
+            private bool submitPressed;
 
 #region Unity Functions
             // Start is called before the first frame update
@@ -29,10 +34,18 @@ namespace Game {
             {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
+                playerInput.SwitchCurrentActionMap("Events");
             }
 
             void Update(){
-                
+
+                if(!dialogueIsPlaying) {
+                    EnterDialogueMode(inkJSON);
+                }
+
+                if (GetSubmitPressed()){
+                    ContinueStory();
+                }
             }    
 #endregion
 
@@ -49,6 +62,22 @@ namespace Game {
                     ExitDialogueMode();
                 }
             }
+
+            public void SubmitPressed(InputAction.CallbackContext value) {
+                if (value.performed)
+                {
+                    submitPressed = true;
+                } else if (value.canceled) {
+                    submitPressed = false;
+                }
+            }
+
+            public bool GetSubmitPressed() 
+            {
+                bool result = submitPressed;
+                submitPressed = false;
+                return result;
+            }
 #endregion
 
 #region Private Functions
@@ -57,6 +86,16 @@ namespace Game {
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
             }
+
+            private void ContinueStory() {
+                if (currentStory.canContinue) {
+                    dialogueText.text = currentStory.Continue();
+                } else {
+                    ExitDialogueMode();
+                }
+                
+            }
+            
 #endregion
         }
     }

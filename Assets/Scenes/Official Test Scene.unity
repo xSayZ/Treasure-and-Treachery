@@ -410,9 +410,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4919606561199187983, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 2127921488}
     - target: {fileID: 4919606561199188080, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.4100003
+      value: -6.41008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919606561199188080, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.1218557
+      objectReference: {fileID: 0}
+    - target: {fileID: 4919606561199188080, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.393822
       objectReference: {fileID: 0}
     - target: {fileID: 4919606561199188080, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -440,15 +452,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4919606561328586634, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.4100003
+      value: -6.41008
       objectReference: {fileID: 0}
     - target: {fileID: 4919606561328586634, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.389999
+      value: 2.1218557
       objectReference: {fileID: 0}
     - target: {fileID: 4919606561328586634, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.619999
+      value: -20.393822
       objectReference: {fileID: 0}
     - target: {fileID: 4919606561328586634, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -538,7 +550,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4919606562048200640, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
 --- !u!1 &391206177
 GameObject:
@@ -791,6 +804,65 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+--- !u!1 &761243080 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4919606562048200670, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+  m_PrefabInstance: {fileID: 346855587}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &761243085
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761243080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9384ab8608cdc3d479fe89cd51eed48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
+  m_Heading:
+    m_Definition: 2
+    m_VelocityFilterStrength: 4
+    m_Bias: 0
+  m_RecenterToTargetHeading:
+    m_enabled: 1
+    m_WaitTime: 1
+    m_RecenteringTime: 2
+    m_LegacyHeadingDefinition: -1
+    m_LegacyVelocityFilterStrength: -1
+  m_XAxis:
+    Value: 0
+    m_SpeedMode: 0
+    m_MaxSpeed: 300
+    m_AccelTime: 0.1
+    m_DecelTime: 0.1
+    m_InputAxisName: Mouse X
+    m_InputAxisValue: 0
+    m_InvertInput: 1
+    m_MinValue: -180
+    m_MaxValue: 180
+    m_Wrap: 1
+    m_Recentering:
+      m_enabled: 0
+      m_WaitTime: 1
+      m_RecenteringTime: 2
+      m_LegacyHeadingDefinition: -1
+      m_LegacyVelocityFilterStrength: -1
+  m_LegacyRadius: 3.4028235e+38
+  m_LegacyHeightOffset: 3.4028235e+38
+  m_LegacyHeadingBias: 3.4028235e+38
+  m_HeadingIsSlave: 0
 --- !u!1 &790537139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1618,6 +1690,11 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
+--- !u!4 &2127921488 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4919606562057455735, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+  m_PrefabInstance: {fileID: 346855587}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2132857525
 GameObject:
   m_ObjectHideFlags: 0

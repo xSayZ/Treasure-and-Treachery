@@ -141,6 +141,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoamEnemyState:
     Name: NameNotSet
+    minRoamRange: 5
+    maxRoamRange: 10
+    minRoamAngle: 15
+    maxRoamAngle: 90
+    minMoveDistance: 0.01
+    maxMoveFrames: 50
   AlertEnemyState:
     Name: NameNotSet
     alertTime: 5
@@ -148,14 +154,14 @@ MonoBehaviour:
     Name: NameNotSet
   ChaseEnemyState:
     Name: NameNotSet
-    maxDeviationAngle: 15
-    updateDistance: 1
+    minMoveDistance: 0.01
   NavMeshAgent: {fileID: 922712805897902393}
   visionSphere: {fileID: 3648830157090948581}
   hearingSphere: {fileID: 9139357778190945824}
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  <Health>k__BackingField: 1
   headOrigin: {fileID: 8807501642393051556}
   visionRange: 15
   visionFov: 90
@@ -185,7 +191,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 4
 --- !u!54 &5553164627889447383
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using Game.Core;
 using UnityEngine;
 
 
@@ -17,8 +18,8 @@ namespace Game {
             public float projectileSpeed;
             public Vector3 direction;
             public Rigidbody rb;
-            private Vector3 currentBulletPosition;
-            private Vector3 oldBulletPosition;
+            public float BulletAliveTime;
+            public int ProjectileDamage;
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
@@ -29,21 +30,18 @@ namespace Game {
             void Start()
             {
                 
-                Debug.Log(direction);
-                
             }
     
             // Update is called once per frame
-            private void Update()
-            {
-                transform.Translate( direction * projectileSpeed * Time.fixedDeltaTime);
+            private void FixedUpdate()
+            { 
+                transform.Translate( direction* projectileSpeed * Time.fixedDeltaTime);
                 
 
             }
 
             private void LateUpdate()
             {
-                oldBulletPosition = transform.position;
               
             }
 
@@ -51,11 +49,16 @@ namespace Game {
             {
                 if (other.gameObject.layer== 8) 
                 {
-                    Destroy(gameObject);
+                    if (  other.gameObject.TryGetComponent(out IDamageable hit))
+                    {
+                        hit.Damage(ProjectileDamage);
+                        Destroy(this.gameObject);
+                    }
+
                 }
                 else
                 {
-                    Destroy(gameObject,5);
+                    Destroy(gameObject,BulletAliveTime);
                 }
             }
 

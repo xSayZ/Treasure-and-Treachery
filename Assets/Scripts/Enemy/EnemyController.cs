@@ -6,14 +6,16 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
+using Game.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 namespace Game {
     namespace Enemy {
-        public class EnemyController : MonoBehaviour
+        public class EnemyController : MonoBehaviour, IDamageable
         {
             [Header("States")]
             public RoamEnemyState RoamEnemyState;
@@ -27,6 +29,9 @@ namespace Game {
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
 
+            [field:Header("Health")]
+            [field:SerializeField] public int Health { get; set; }
+            
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
@@ -99,6 +104,20 @@ namespace Game {
                 
                 Gizmos.color = Color.blue;
                 Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, hearingRange);
+
+                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
+                
+                float _roamAngleRange = (_roamValues.Item4 - _roamValues.Item3 / 2);
+                Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
+                Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
+                
+                Gizmos.color = Color.yellow;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1);
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1);
+                
+                Gizmos.color = Color.red;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item2);
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item2);
             }
 #endregion
 
@@ -106,6 +125,7 @@ namespace Game {
             public void ChangeState(EnemyState _newState)
             {
                 currentState.Exit();
+                NavMeshAgent.ResetPath();
                 currentState = _newState;
                 currentState.Enter();
             }
@@ -118,6 +138,11 @@ namespace Game {
             public NavMeshAgent GetNavMeshAgent()
             {
                 return NavMeshAgent;
+            }
+
+            public void Death()
+            {
+                Destroy(gameObject);
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

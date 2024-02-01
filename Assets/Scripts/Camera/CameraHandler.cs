@@ -18,8 +18,8 @@ namespace Game {
             GameManager gameManager;
             CinemachineTargetGroup targetGroup;
 
-            int weight;
-            int radius;
+            [SerializeField] int weight;
+            [SerializeField] int radius;
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -49,8 +49,8 @@ namespace Game {
                     targetsArray[i] = new CinemachineTargetGroup.Target
                     {
                         target = _targets[i].transform,
-                        weight = 2,
-                        radius = 1,
+                        weight = weight,
+                        radius = radius,
                     };
 
                    // Debug.Log(_targets[i].transform);

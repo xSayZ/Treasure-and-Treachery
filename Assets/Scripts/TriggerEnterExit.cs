@@ -19,12 +19,18 @@ namespace Game {
             
             private void OnTriggerEnter(Collider other)
             {
-                triggerEnter.Invoke(other.transform);
+                if (!other.isTrigger)
+                {
+                    triggerEnter.Invoke(other.transform);
+                }
             }
             
             private void OnTriggerExit(Collider other)
             {
-                triggerExit.Invoke(other.transform);
+                if (!other.isTrigger)
+                {
+                    triggerExit.Invoke(other.transform);
+                }
             }
         }
     }

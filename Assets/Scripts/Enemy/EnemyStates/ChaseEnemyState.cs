@@ -14,6 +14,7 @@ namespace Game {
         [System.Serializable]
         public class ChaseEnemyState : EnemyState
         {
+            [SerializeField] private float moveSpeed;
             [SerializeField] private float minMoveDistance;
             
             private Vector3 lastTargetPosition;
@@ -27,6 +28,7 @@ namespace Game {
 
             public override void Enter()
             {
+                enemyController.NavMeshAgent.speed = moveSpeed;
                 lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
                 enemyController.NavMeshAgent.destination = lastTargetPosition;
             }

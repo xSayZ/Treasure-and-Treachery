@@ -18,7 +18,7 @@ namespace Game {
     {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
-
+            
             [Header("MovementSettings")]
             [Tooltip("Effects How effective turning is and inertial movement")]
             
@@ -106,7 +106,8 @@ namespace Game {
         }
         public void TurnPlayer()
         {
-            transform.LookAt(smoothMovementDirection+transform.position);
+
+           transform.LookAt(transform.position+smoothMovementDirection);
         }
         
         

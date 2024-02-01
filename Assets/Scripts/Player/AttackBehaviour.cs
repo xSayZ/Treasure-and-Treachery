@@ -23,7 +23,7 @@ namespace Game {
             public GameObject projectile;
             
             private bool enemyInRange;
-            private List<Collider> enemyColliders = new List<Collider>();
+            public List<Collider> enemyColliders = new List<Collider>();
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -49,9 +49,8 @@ namespace Game {
 private void OnTriggerEnter(Collider other)
 {
 
-    if (other.gameObject.layer == 8)
+    if (other.gameObject.layer == 8 && !other.isTrigger)
     {
-        Debug.Log("enter");
         enemyInRange = true;
         enemyColliders.Add(other);
         
@@ -62,7 +61,6 @@ private void OnTriggerExit(Collider other)
 {
     if (!other.gameObject.CompareTag("Pickup")) 
     {
-        Debug.Log("exit");
         enemyInRange = false;
         enemyColliders?.Remove(other);
     }
@@ -80,6 +78,7 @@ private void OnTriggerExit(Collider other)
             {
                 if (enemyColliders[i].TryGetComponent(out IDamageable hit))
                 {
+                    Debug.Log(hit);
                     hit.Damage(1);
                 }
             }

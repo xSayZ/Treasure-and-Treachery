@@ -35,7 +35,7 @@ namespace Game
         {
             
             public PlayerData PlayerData;
-            public int PlayerID { get; private set; }
+            private int playerID;
             
             //temp Health Solution
             [Header("SubBehaviours")] 
@@ -45,6 +45,10 @@ namespace Game
             
             [Header("InputSettings")]
             [SerializeField] private PlayerInput PlayerInput;
+            
+            // stashed values will lose on death
+            private int currency;
+            private int questValue;
 
             public Archetype CharacterType;
             #region Unity Functions
@@ -53,16 +57,18 @@ namespace Game
             [Header("Dash Data")]
             [Tooltip("How much current displacement should increase with")]
             public float DashModifier;
-            public float dashTime;
-            public float waitTimeUntilNextDash;
-            
+            public float  dashTime;
+            public float BaseDashCoolDown;
+
             private bool dashing;
-            private bool waitUntilNextDash;
+            
+            private float currentDashCooldown;
             void Start()
             {
                 SetupPlayer();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
-                
+                currentDashCooldown = 0;
+
             }
             private void Update()
             {
@@ -93,10 +99,29 @@ namespace Game
                     {
                         Vector2 _inputValue = value.ReadValue<Vector2>();
                         Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
-                    
+                        
                         playerMovementBehaviour.MovementData(_rawInputMovement);
                     }
-                  
+                }
+
+                if (playerAttackBehaviour.isAttacking)
+                {
+                    Debug.Log("test");
+                }
+            }
+            
+            public void OnDash(InputAction.CallbackContext value)
+            {
+                
+                if (value.started && dashing == false  && BaseDashCoolDown <=0)
+                {
+                    //Todo:: PlayDustCloud Particle if needed
+                    
+                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
+                    StartCoroutine(WaitUntilDashComplete());
+                    dashing = true;
+                    currentDashCooldown = BaseDashCoolDown;
+
                 }
             }
             
@@ -105,6 +130,7 @@ namespace Game
                 if (value.action.triggered)
                 {
                     //TODO: ADD MovementData = 0,0,0
+                    playerMovementBehaviour.MovementData(Vector3.zero);
                     //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
@@ -114,34 +140,24 @@ namespace Game
                    
                 }
             }
-
-            public void OnSubmit(InputAction.CallbackContext value)
-            {
-                Debug.Log(value.ReadValueAsButton());
-            }
             
             public void OnMelee(InputAction.CallbackContext value)
             {
+                playerMovementBehaviour.MovementData(Vector3.zero);
                 if (value.action.triggered)
                 {
                     playerAttackBehaviour.MeleeAttack();
                 }  
             }
 
-            public void OnDash(InputAction.CallbackContext value)
-            {
-                
-                if (value.started && dashing == false  && waitTimeUntilNextDash >=0)
-                {
-                    //Add Dash dust cloud if wanted
-                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
-                    StartCoroutine(WaitUntilDashComplete());
-                    dashing = true;
-                    
 
-                }
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                Debug.Log(value.ReadValueAsButton());
             }
             
+     
+          
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -186,7 +202,7 @@ namespace Game
             private void SetupPlayer()
             {
                 
-                PlayerID = PlayerInput.playerIndex;
+                playerID = PlayerInput.playerIndex;
                 
                 Health = PlayerData.playerHealth;
                 
@@ -200,7 +216,7 @@ namespace Game
             
             private void BeginCurrencyPickup(int pickUpGold,int _playerId)
             {
-                    if (PlayerID == _playerId)
+                    if (playerID == _playerId)
                     {
                         PlayerData.currency += pickUpGold;
                     }
@@ -218,9 +234,9 @@ namespace Game
 
             private void WaitTimeBeforeNextDash()
             {
-                if (waitUntilNextDash)
+                if (dashing ==false)
                 {
-                    waitTimeUntilNextDash -= Time.deltaTime;
+                    currentDashCooldown -= Time.deltaTime;
                 }
             }
 

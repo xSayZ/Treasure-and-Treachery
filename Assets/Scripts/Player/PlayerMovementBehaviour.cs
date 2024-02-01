@@ -21,7 +21,7 @@ namespace Game {
 
             [Header("MovementSettings")]
             [Tooltip("Effects How effective turning is and inertial movement")]
-            [Range(0.1f, 2f)]
+            
             public float MovementSmoothing;
             [SerializeField] private float MaxmovementSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
@@ -39,7 +39,7 @@ namespace Game {
             private float currentDashTime;
             private bool dashComplete;
 
-            [Header("Movement Type")] 
+            [Header("Movement Type Temp stuff"),Tooltip("If using Velocity Modify MaxmovementSpeed to 1000")] 
             public bool useVelocity;
 
             private void OnValidate()
@@ -49,11 +49,7 @@ namespace Game {
                     Debug.LogWarning($"Smoothing must be between 0.1f-2f");
                     MovementSmoothing = 0.1f;
                 }
-
-                
             }
-
-
             #region Unity Functions
 
             private void Start()
@@ -97,8 +93,6 @@ namespace Game {
             if (useVelocity)
             {
                 movement = Time.fixedDeltaTime * MaxmovementSpeed * smoothMovementDirection;
-
-                Debug.Log(currentSpeed);
                 playerRigidBody.velocity = smoothMovementDirection + movement;
             }
             else
@@ -110,7 +104,7 @@ namespace Game {
             }
 
         }
-        private void TurnPlayer()
+        public void TurnPlayer()
         {
             transform.LookAt(smoothMovementDirection+transform.position);
         }

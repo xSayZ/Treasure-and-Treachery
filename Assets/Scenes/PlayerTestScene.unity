@@ -211,6 +211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5827580885617249946, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
       propertyPath: m_RootOrder
       value: 15
@@ -383,6 +387,18 @@ PrefabInstance:
       propertyPath: BaseFireRate
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: BaseFireRateRanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: RangedAttackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: BaseMeleeAttackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 288723119442727232, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -433,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: DashModifier
-      value: 2
+      value: 1.53
       objectReference: {fileID: 0}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: CharacterType
@@ -445,7 +461,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8393427140100816367, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: MaxmovementSpeed
-      value: 100
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393427140100816367, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: MovementSmoothing
+      value: 80.51
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2e895e811ae4784087aff28f749f186, type: 3}
@@ -746,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5827580885617249946, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -843,11 +867,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 5000
+  near clip plane: 0.3
+  far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 10
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -870,8 +894,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1278970045}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 2.3140793, y: 12.92, z: 1.3777456}
+  m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
+  m_LocalPosition: {x: 2.8174286, y: 20.181265, z: -11.882952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1221,6 +1245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c34be594f40ad64aa798fbf9f6799a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountForObjective: 3
+  carriageTeleport: {fileID: 0}
 --- !u!1001 &1679405785
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1296,6 +1322,10 @@ PrefabInstance:
     - target: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5827580885617249946, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
       propertyPath: m_RootOrder
@@ -1379,8 +1409,8 @@ MonoBehaviour:
   spawnRingCenter: {fileID: 1606144603}
   spawnRingRadius: 2.21
   activePlayerControllers: []
-  isPaused: 0
   debug: 0
+  isPaused: 0
 --- !u!4 &1694668518
 Transform:
   m_ObjectHideFlags: 0

@@ -121,6 +121,7 @@ namespace Game {
             public void ChangeState(EnemyState _newState)
             {
                 currentState.Exit();
+                NavMeshAgent.ResetPath();
                 currentState = _newState;
                 currentState.Enter();
             }

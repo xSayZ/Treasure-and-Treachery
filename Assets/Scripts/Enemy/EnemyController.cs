@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -99,6 +100,20 @@ namespace Game {
                 
                 Gizmos.color = Color.blue;
                 Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, hearingRange);
+
+                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
+                
+                float _roamAngleRange = (_roamValues.Item4 - _roamValues.Item3 / 2);
+                Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
+                Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
+                
+                Gizmos.color = Color.yellow;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1);
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1);
+                
+                Gizmos.color = Color.red;
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item2);
+                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item2);
             }
 #endregion
 
@@ -106,6 +121,7 @@ namespace Game {
             public void ChangeState(EnemyState _newState)
             {
                 currentState.Exit();
+                NavMeshAgent.ResetPath();
                 currentState = _newState;
                 currentState.Enter();
             }

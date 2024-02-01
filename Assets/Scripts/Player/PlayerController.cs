@@ -8,14 +8,13 @@
 
 
 using System;
-using System.Linq;
+using System.Collections;
+using System.Diagnostics;
 using Game.Backend;
-
+using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.XInput;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
+using Debug = UnityEngine.Debug;
 
 
 namespace Game
@@ -24,19 +23,15 @@ namespace Game
     {
         using Events;
         using Scenes;
-        public class PlayerController : MonoBehaviour
+        public class PlayerController : MonoBehaviour,IDamageable
         {
             
             public PlayerData PlayerData;
             public int PlayerID { get; private set; }
 
             public static int CurrentAmountOfControllers;
-
-            public bool isEvent;
+            
             //temp Health Solution
-            public int Health;
-
-            public SceneData SceneData;
             [Header("SubBehaviours")] 
             [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
@@ -44,54 +39,64 @@ namespace Game
             
             [Header("InputSettings")]
             [SerializeField] private PlayerInput PlayerInput;
-            //ActionMaps
-            private string MenuActions = "Events";
-            private string PlayerAction = "Player";
-            
             #region Unity Functions
             
+
+            [Header("Dash Data")]
+            [Tooltip("How much current displacement should increase with")]
+            public float DashModifier;
+            public float dashTime;
+            public float waitTimeUntilNextDash;
             
+            private bool dashing;
+            private bool waitUntilNextDash;
             void Start()
             {
                 CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
-                SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                 
             }
-            
-            void SetStartHealth()
+            private void Update()
             {
-
-                Health = PlayerData.playerHealth;
-
+               Death();
+                WaitTimeBeforeNextDash();
             }
-            
-            // Update is called once per frame
-       
+
+            [field:SerializeField]public int Health { get; set; }
+
+            public void Death()
+            {
+                if (Health <=0)
+                {
+                    gameObject.SetActive(false);
+                }
+            }
+
             #endregion
 
             #region Public Functions
 
             public void OnMovement(InputAction.CallbackContext value)
             {
-                
+                // Dashing will lock character from moving direction during the duration 
+                if (!dashing)
+                {
                     Vector2 _inputValue = value.ReadValue<Vector2>();
                     Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                    
                     playerMovementBehaviour.MovementData(_rawInputMovement);
-                
-               
+                }
             }
-
+            
             public void OnRanged(InputAction.CallbackContext value)
             {
-                if (value.started)
+                if (value.action.triggered)
                 {
                     //TODO: ADD MovementData = 0,0,0
                     //TODO;; PlayAttackAnimation
-                    
-                    playerAttackBehaviour.RangedAttack(playerMovementBehaviour.SmoothMovementDirection.normalized);
-                    Debug.Log(playerMovementBehaviour.SmoothMovementDirection.normalized);
+                    playerAttackBehaviour.RangedAttack();
+                   
                 }
             }
 
@@ -102,13 +107,26 @@ namespace Game
             
             public void OnMelee(InputAction.CallbackContext value)
             {
-                if (value.started)
+                if (value.action.triggered)
                 {
-                    //TODO:: AttackAnimation
-                    Debug.Log(value);
+                    playerAttackBehaviour.MeleeAttack();
                 }  
             }
-                 
+
+            public void OnDash(InputAction.CallbackContext value)
+            {
+                
+                if (value.started && dashing == false  && waitTimeUntilNextDash >=0)
+                {
+                    //Add Dash dust cloud if wanted
+                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
+                    StartCoroutine(WaitUntilDashComplete());
+                    dashing = true;
+                    
+
+                }
+            }
+            
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -147,19 +165,16 @@ namespace Game
             
             #endregion
 
-            private void Update()
-            {
-               
-                Death();
-            }
 
             
             #region Private Functions
-            public void SetupPlayer()
+            private void SetupPlayer()
             {
                 
                 PlayerID = PlayerInput.playerIndex;
-
+                
+                Health = PlayerData.playerHealth;
+                
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
@@ -176,15 +191,24 @@ namespace Game
                     }
                 
             }
-
-            private void Death()
+            
+            
+            
+            //TODO: Move Dash to playerMovement
+            private IEnumerator WaitUntilDashComplete()
             {
-                if (Health <= 0)
+                yield return new WaitForSeconds(dashTime);
+                dashing = false;
+            }
+
+            private void WaitTimeBeforeNextDash()
+            {
+                if (waitUntilNextDash)
                 {
-                    // TODO: Forward to animationBehaviour
-                    gameObject.SetActive(false);
+                    waitTimeUntilNextDash -= Time.deltaTime;
                 }
             }
+
 
             #endregion
         }

@@ -181,6 +181,9 @@ namespace Game {
                         break;
                 }
             }
+            
+            
+       
 
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
             {

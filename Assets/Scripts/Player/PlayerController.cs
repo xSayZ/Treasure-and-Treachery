@@ -45,25 +45,24 @@ namespace Game
             [Tooltip("How much current displacement should increase with")]
             public float DashModifier;
             public float dashTime;
+            public float waitTimeUntilNextDash;
             private bool dashing;
+            
+            private bool waitUntilNextDash;
             void Start()
             {
                 CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
-                SetStartHealth();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                 
             }
-            
-            void SetStartHealth()
+            private void Update()
             {
-
-                Health = PlayerData.playerHealth;
-
+               
+                Death();
+                WaitTimeBeforeNextDash();
             }
             
-            // Update is called once per frame
-       
             #endregion
 
             #region Public Functions
@@ -75,11 +74,9 @@ namespace Game
                 {
                     Vector2 _inputValue = value.ReadValue<Vector2>();
                     Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                    
                     playerMovementBehaviour.MovementData(_rawInputMovement);
                 }
-                  
-                    
-               
             }
             
             public void OnRanged(InputAction.CallbackContext value)
@@ -109,23 +106,16 @@ namespace Game
 
             public void OnDash(InputAction.CallbackContext value)
             {
-
-                if (value.started && dashing == false)
+                
+                if (value.started && dashing == false  && waitTimeUntilNextDash >=0)
                 {
                     //Add Dash dust cloud if wanted
                     playerMovementBehaviour.MovementData(transform.forward*DashModifier);
                     StartCoroutine(WaitUntilDashComplete());
                     dashing = true;
+                    
+
                 }
-            }
-
-
-            IEnumerator WaitUntilDashComplete()
-            {
-                yield return new WaitForSeconds(dashTime);
-                dashing = false;
-
-
             }
             
             public void EnableEventControls()
@@ -166,19 +156,16 @@ namespace Game
             
             #endregion
 
-            private void Update()
-            {
-               
-                Death();
-            }
 
             
             #region Private Functions
-            public void SetupPlayer()
+            private void SetupPlayer()
             {
                 
                 PlayerID = PlayerInput.playerIndex;
-
+                
+                Health = PlayerData.playerHealth;
+                
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     gameObject.SetActive(false);
@@ -204,6 +191,23 @@ namespace Game
                     gameObject.SetActive(false);
                 }
             }
+            
+            
+            //TODO: Move Dash to playerMovement
+            private IEnumerator WaitUntilDashComplete()
+            {
+                yield return new WaitForSeconds(dashTime);
+                dashing = false;
+            }
+
+            private void WaitTimeBeforeNextDash()
+            {
+                if (waitUntilNextDash)
+                {
+                    waitTimeUntilNextDash -= Time.deltaTime;
+                }
+            }
+
 
             #endregion
         }

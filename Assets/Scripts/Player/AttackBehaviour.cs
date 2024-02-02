@@ -54,7 +54,7 @@ namespace Game
             // Update is called once per frame
             void Update()
             {
-                enemyColliders = enemyColliders.Where(item => item != null).ToList();
+                enemyColliders = enemyColliders.Where(Collider => Collider != null).ToList();
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
                 if (currentMeleeCooldown <=0 || currentFireRate <= 0)

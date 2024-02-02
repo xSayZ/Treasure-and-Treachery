@@ -7,9 +7,8 @@
 // ------------------------------*/
 
 
-using System;
+
 using System.Collections;
-using System.Diagnostics;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -61,7 +60,7 @@ namespace Game
             public float BaseDashCoolDown;
 
             private bool dashing;
-            
+            private Vector3 _rawInputMovement;
             private float currentDashCooldown;
 
             public float angle;
@@ -84,6 +83,7 @@ namespace Game
             {
                 if (Health <=0)
                 {
+                    
                     gameObject.SetActive(false);
                 }
             }
@@ -100,7 +100,7 @@ namespace Game
                     if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
                     {
                         Vector2 _inputValue = value.ReadValue<Vector2>();
-                        Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                        _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                         
                         playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                     }
@@ -111,7 +111,13 @@ namespace Game
                     Debug.Log("test");
                 }
             }
-            
+
+
+            public void DamageTaken()
+            {
+                Debug.Log("test");
+            }
+
             public void OnDash(InputAction.CallbackContext value)
             {
                 
@@ -119,11 +125,10 @@ namespace Game
                 {
                     //Todo:: PlayDustCloud Particle if needed
                     
-                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
+                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement*DashModifier));
                     StartCoroutine(WaitUntilDashComplete());
                     dashing = true;
                     currentDashCooldown = BaseDashCoolDown;
-
                 }
             }
             
@@ -231,6 +236,7 @@ namespace Game
             private IEnumerator WaitUntilDashComplete()
             {
                 yield return new WaitForSeconds(dashTime);
+                playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 dashing = false;
             }
 
@@ -241,10 +247,11 @@ namespace Game
                     currentDashCooldown -= Time.deltaTime;
                 }
             }
-
+            
             private Vector3 IsoVectorConvert(Vector3 vector)
             {
-                Quaternion rotation = Quaternion.Euler(0,angle, 0);
+                Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion rotation = Quaternion.Euler(0,cameraRot.y, 0);
                 Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
                 Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
                 return result;

@@ -116,7 +116,7 @@ Rigidbody:
   m_GameObject: {fileID: 288723119442727263}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3
+  m_Drag: 8
   m_AngularDrag: 1000
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   DashModifier: 10
   dashTime: 0.4
   BaseDashCoolDown: 0
+  angle: 0
   <Health>k__BackingField: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
@@ -156,12 +157,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSmoothing: 10
-  MaxmovementSpeed: 10
+  MovementSmoothing: 5
+  MaxmovementSpeed: 50
   playerRigidBody: {fileID: 1680948932}
   DashModifier: 0
   BasedashTime: 0
-  useVelocity: 0
+  useVelocity: 1
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0

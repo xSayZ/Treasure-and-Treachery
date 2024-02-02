@@ -20,7 +20,7 @@ namespace Game
 {
     namespace Player
     {
-        using Events;
+        using Quest;
         using Scenes;
 
         public enum Archetype
@@ -67,7 +67,7 @@ namespace Game
             void Start()
             {
                 SetupPlayer();
-                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
                 currentDashCooldown = 0;
 
             }
@@ -221,7 +221,7 @@ namespace Game
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
             
-            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
+            private void BeginCurrencyPickup(int _playerId,int pickUpGold)
             {
                     if (playerID == _playerId)
                     {

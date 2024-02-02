@@ -6,7 +6,11 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 
 namespace Game {
@@ -15,55 +19,146 @@ namespace Game {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
             
+            [Header("MovementSettings")]
+            [Tooltip("Effects How smooth turning is")]
             
-            [SerializeField] private float movementSpeed;
-            [SerializeField] private float turnSpeed;
+            public float MovementSmoothing;
+            [SerializeField] private float MaxmovementSpeed;
+            public float turnSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
-            public Vector3 direction { get; private set; }
+            private float currentSpeed = 0.01f;
+            private Vector3 movement;
+            private Vector3 rawInputDirection = Vector3.zero;
+            private Vector3 smoothMovementDirection;
             
-            public float accelerationFactor;
+            private Vector3 oldPosition;
+            
 
-            #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
+            [Header("Test Values")]
+            public float DashModifier;
+            public float BasedashTime;
+            private float currentDashTime;
+            private bool dashComplete;
+
+            [Header("Movement Type Temp stuff"),Tooltip("If using Velocity Modify MaxmovementSpeed to 1000")] 
+            public bool useVelocity;
+
+            private void OnValidate()
             {
-                
+                if (MovementSmoothing <= 0)
+                {
+                    Debug.LogWarning($"Smoothing must be between 0.1f-2f");
+                    MovementSmoothing = 0.1f;
+                }
             }
-    
-            // Update is called once per frame
+            #region Unity Functions
+
+            private void Start()
+            {
+                currentDashTime = BasedashTime;
+            }
+
             void FixedUpdate()
             {
+                SmoothInputMovement();
                 MovePlayer();
                 TurnPlayer();
             }
         #endregion
 
         #region Public Functions
-
+        
         public void MovementData(Vector3 _directionVector)
         {
-            direction = _directionVector;
-
+            
+            rawInputDirection = _directionVector;
+            
         }
+        
         #endregion
-
+        
         #region Private Functions
-        //TODO:: Add Interpolation for moving
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.collider)
+            {
+                playerRigidBody.velocity = Vector3.zero;
+
+            }
+        }
+        
+   
         private void MovePlayer()
         {
-
-
-            Vector3 movement = direction * Time.deltaTime * movementSpeed;
-             playerRigidBody.MovePosition(movement+transform.position);
-        }
-        //TODO:: Add interpolation for turning
-        private void TurnPlayer()
-        {
             
-            transform.LookAt(direction+transform.position);
+            if (useVelocity)
+            {
+                if (rawInputDirection == Vector3.zero)
+                {
+                    rawInputDirection = Vector3.zero;
+                }
+                movement = Time.fixedDeltaTime * MaxmovementSpeed * rawInputDirection;
+                playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
+                
+            }
+            else
+            {
+                Vector3 movement = CameraDirection(IsoVectorConvert(smoothMovementDirection)) *MaxmovementSpeed * Time.deltaTime;
+                playerRigidBody.MovePosition(transform.position + movement);
+
+            }
+
+        }
+        public void TurnPlayer()
+        {
+            if(smoothMovementDirection.sqrMagnitude > 0.01f)
+            {
+
+                Quaternion rotation = Quaternion.Slerp(playerRigidBody.rotation,
+                    Quaternion.LookRotation (IsoVectorConvert(CameraDirection(smoothMovementDirection))),
+                    turnSpeed);
+
+                playerRigidBody.MoveRotation(rotation);
+
+            }
+
+            if (useVelocity)
+            {
+                transform.LookAt(transform.position+smoothMovementDirection);
+
+            }
+        }
+        
+        
+        private void SmoothInputMovement()
+        {
+            smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
+                Time.deltaTime * MovementSmoothing);
         }
 
+        Vector3 CameraDirection(Vector3 movementDirection)
+        {
+            var cameraForward = UnityEngine.Camera.main.transform.forward;
+            var cameraRight = UnityEngine.Camera.main.transform.right;
 
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
+        
+            return cameraForward * movementDirection.z + cameraRight * movementDirection.x; 
+   
+        }
+        
+        private Vector3 IsoVectorConvert(Vector3 vector)
+        {
+            Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+            Quaternion rotation = Quaternion.Euler(0,cameraRot.y-90, 0);
+            Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+            Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+            return result;
+
+        }
+      
         
         #endregion
         }

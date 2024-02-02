@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 1130416177640512929}
   - component: {fileID: 8393427140100816367}
   - component: {fileID: 3622730775527207118}
+  - component: {fileID: -3509399097656645022}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -88,6 +89,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 288723118889570767}
+  - {fileID: 293143638008996613}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -114,11 +116,11 @@ Rigidbody:
   m_GameObject: {fileID: 288723119442727263}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3
+  m_Drag: 8
   m_AngularDrag: 1000
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1130416177640512929
@@ -133,9 +135,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerData: {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
   playerMovementBehaviour: {fileID: 8393427140100816367}
-  playerInput: {fileID: 3622730775527207118}
-  playerID: 0
+  playerAttackBehaviour: {fileID: -3509399097656645022}
+  PlayerInput: {fileID: 3622730775527207118}
+  CharacterType: 2
+  DashModifier: 2.3
+  dashTime: 0.4
+  BaseDashCoolDown: 0
+  playerObj: {fileID: 288723118889570766}
+  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
+  _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
+  angle: 0
+  <Health>k__BackingField: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,10 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
-  turnSpeed: 1
+  MovementSmoothing: 5
+  MaxmovementSpeed: 8.87
+  turnSpeed: 1.02
   playerRigidBody: {fileID: 1680948932}
-  accelerationFactor: 1
+  DashModifier: 2.3
+  BasedashTime: 0
+  useVelocity: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +212,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnAttack
+        m_MethodName: OnRanged
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -209,11 +224,144 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
     m_ActionName: Player/Attack[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a3da3d52-d014-47bd-aa22-a193ac5d4a98
+    m_ActionName: Events/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnMelee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnTogglePause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/XInputControllerWindows/buttonEast,/Keyboard/3]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &-3509399097656645022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponCollider: {fileID: 5877225869525892562}
+  projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  MeleeAttackDamage: 1
+  BaseMeleeAttackCooldown: 1
+  RangedAttackDamage: 1
+  BaseFireRateRanged: 1
+  enemyColliders: []
+--- !u!1 &4809585492123438367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293143638008996613}
+  - component: {fileID: 5877225869525892562}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &293143638008996613
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809585492123438367}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.691}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 288723119442727232}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &5877225869525892562
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809585492123438367}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.7833144
+  m_Height: 1.5666289
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.97338057, z: 0.2833144}
 --- !u!1001 &1463199174117706838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -269,6 +417,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: witch_body
       objectReference: {fileID: 0}
+    - target: {fileID: 2328169485041697687, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
 --- !u!4 &1424521324978711485 stripped

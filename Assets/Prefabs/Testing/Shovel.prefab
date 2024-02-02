@@ -236,13 +236,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3636038088544870491}
-  - component: {fileID: 100904241}
-  - component: {fileID: 100904244}
   - component: {fileID: 100904245}
   - component: {fileID: 100904242}
   m_Layer: 0
   m_Name: Shovel
-  m_TagString: Untagged
+  m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -263,35 +261,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &100904241
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7325814396568422906}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
---- !u!65 &100904244
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7325814396568422906}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1753957, y: 0.066272974, z: 0.360383}
-  m_Center: {x: -0.08769789, y: 0.046240926, z: 0.008166388}
 --- !u!135 &100904245
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -317,4 +286,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0e4eed1bb3e2c45a2ec2e150d925d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isObjectivePickup: 0

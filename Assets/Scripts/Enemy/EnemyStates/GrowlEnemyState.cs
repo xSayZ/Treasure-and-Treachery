@@ -14,10 +14,22 @@ namespace Game {
         [System.Serializable]
         public class GrowlEnemyState : EnemyState
         {
-#region Public Functions
-            public override void Enter(){}
+#region State Machine Functions
+            protected override void SetUp()
+            {
+                Name = "Growl";
+            }
+
+            public override void Enter()
+            {
+                // Alert other zombies
+                
+                enemyController.ChangeState(enemyController.ChaseEnemyState);
+            }
             
-            public override void FixedUpdate(){}
+            //public override void FixedUpdate(){}
+            
+            //public override void Exit(){}
  #endregion
         }
     }

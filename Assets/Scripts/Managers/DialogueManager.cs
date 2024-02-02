@@ -10,6 +10,7 @@ using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 
 namespace Game {
@@ -20,6 +21,10 @@ namespace Game {
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private TextMeshProUGUI dialogueText;
+
+            [Header("Choices UI")]
+            [SerializeField] private GameObject[] choices;
+            private TextMeshProUGUI[] choicesText;
 
             [SerializeField] PlayerInput playerInput;
             [SerializeField] private TextAsset inkJSON;
@@ -35,12 +40,22 @@ namespace Game {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 playerInput.SwitchCurrentActionMap("Events");
+
+                choicesText = new TextMeshProUGUI[choices.Length];
+                int index = 0;
+                foreach (GameObject choice in choices)
+                {
+                    choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+                    index++;
+                }
+                EnterDialogueMode(inkJSON);
+
             }
 
             void Update(){
 
                 if(!dialogueIsPlaying) {
-                    EnterDialogueMode(inkJSON);
+                    
                 }
 
                 if (GetSubmitPressed()){
@@ -94,6 +109,14 @@ namespace Game {
                     ExitDialogueMode();
                 }
                 
+            }
+
+            private void DisplayChoices(){
+                List<Choice> currentChoices = currentStory.currentChoices;
+
+                if(currentChoices.Count > choices.Length) {
+                    Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
+                }
             }
             
 #endregion

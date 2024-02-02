@@ -119,7 +119,7 @@ namespace Game {
                 activePlayerControllers = new List<GameObject>();
 
                 var controllers = Input.GetJoystickNames();
-                for (int i = 0; i < controllers.Length; i++)
+                for (int i = 0; i < numberOfPlayers; i++)
                 {
                     Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
                     Quaternion _spawnRotation = Quaternion.identity;

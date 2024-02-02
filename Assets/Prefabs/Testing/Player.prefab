@@ -143,6 +143,7 @@ MonoBehaviour:
   DashModifier: 10
   dashTime: 0.4
   BaseDashCoolDown: 0
+  _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
   angle: 0
   <Health>k__BackingField: 0
 --- !u!114 &8393427140100816367
@@ -159,10 +160,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MovementSmoothing: 5
   MaxmovementSpeed: 50
+  turnSpeed: 1.02
   playerRigidBody: {fileID: 1680948932}
   DashModifier: 0
   BasedashTime: 0
-  useVelocity: 1
+  useVelocity: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,7 +418,7 @@ PrefabInstance:
     - target: {fileID: 2328169485041697687, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 350b2eb1385a9594ea33d6d83574cf58, type: 2}
+      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
 --- !u!4 &1424521324978711485 stripped

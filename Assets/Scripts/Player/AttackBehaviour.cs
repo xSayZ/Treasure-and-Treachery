@@ -29,9 +29,9 @@ namespace Game
             [SerializeField] public float BaseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")] 
-            [SerializeField] public int RangedAttackDamage;
-            [SerializeField] public float BaseFireRateRanged;
-
+            [SerializeField] private int RangedAttackDamage;
+            [SerializeField] private float BaseFireRateRanged;
+            [SerializeField] private float projectileSpeed;
              public List<Collider> enemyColliders = new List<Collider>();
              
             public bool isAttacking { get; private set; }
@@ -109,6 +109,7 @@ namespace Game
 
                     Projectile playerProjectile = _projectile.GetComponent<Projectile>();
                     playerProjectile.SetProjectileDamage(RangedAttackDamage);
+                    playerProjectile.SetProjectileSpeed(projectileSpeed);
                     playerProjectile.SetDirection(transform.forward);
 
                     currentFireRate = BaseFireRateRanged;

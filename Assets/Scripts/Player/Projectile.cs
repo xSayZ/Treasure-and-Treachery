@@ -21,6 +21,8 @@ namespace Game {
             public float BulletAliveTime;
 
             private int _projectileDamage;
+
+            private Vector3 mPrevPos;
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
@@ -30,24 +32,28 @@ namespace Game {
 
             void Start()
             {
-                
+                mPrevPos = transform.position;
             }
-    
+
+            
             // Update is called once per frame
             private void FixedUpdate()
             { 
                 transform.Translate( direction* projectileSpeed * Time.fixedDeltaTime);
-                
+
+                RaycastHit[] hits = Physics.RaycastAll(new Ray(mPrevPos, (transform.position - mPrevPos).normalized),
+                    (transform.position - mPrevPos).magnitude);
+                for (int i = 0; i < hits.Length; i++)
+                {
+                    Debug.Log(hits[i].collider.gameObject.name);
+                }
 
             }
 
-            private void LateUpdate()
-            {
-              
-            }
 
             private void OnTriggerEnter(Collider other)
             {
+                
                 if (other.gameObject.layer== 8) 
                 {
                     if (  other.gameObject.TryGetComponent(out IDamageable hit))
@@ -60,9 +66,8 @@ namespace Game {
                 else
                 {
                     Destroy(gameObject,BulletAliveTime);
-                }
+                }                    
             }
-
             #endregion
 
 #region Public Functions
@@ -75,6 +80,10 @@ public void SetDirection(Vector3 _direction)
 public void SetProjectileDamage(int _damage)
 {
     _projectileDamage = _damage;
+}
+public void SetProjectileSpeed(float _speed)
+{
+    projectileSpeed = _speed;
 }
 #endregion
 

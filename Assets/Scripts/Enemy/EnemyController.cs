@@ -159,6 +159,11 @@ namespace Game {
                 Destroy(gameObject);
             }
             
+            public void DamageTaken()
+            {
+                // Enemy has taken damage
+            }
+            
             public void VisionRangeEntered(Transform _targetTransform)
             {
                 if (_targetTransform.gameObject.CompareTag("Player") && !targetsInVisionRangeUpdate.Contains(_targetTransform))

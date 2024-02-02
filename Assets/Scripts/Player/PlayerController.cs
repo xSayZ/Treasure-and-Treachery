@@ -77,7 +77,6 @@ namespace Game
             private void Update()
             {
                Death();
-                WaitTimeBeforeNextDash();
             }
 
             [field:SerializeField]public int Health { get; set; }
@@ -231,7 +230,7 @@ namespace Game
                 
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                     
                 }
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
@@ -254,14 +253,6 @@ namespace Game
                 yield return new WaitForSeconds(dashTime);
                 playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 dashing = false;
-            }
-
-            private void WaitTimeBeforeNextDash()
-            {
-                if (dashing ==false)
-                {
-                    currentDashCooldown -= Time.deltaTime;
-                }
             }
             
             private Vector3 IsoVectorConvert(Vector3 vector)

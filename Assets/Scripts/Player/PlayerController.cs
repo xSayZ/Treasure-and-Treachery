@@ -63,6 +63,9 @@ namespace Game
             private Vector3 _rawInputMovement;
             private float currentDashCooldown;
 
+
+            [Header("Test Stuff")] 
+            public Material _material;
             public float angle;
             void Start()
             {
@@ -84,9 +87,26 @@ namespace Game
                 if (Health <=0)
                 {
                     
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                 }
             }
+            
+            //Temp animation
+            IEnumerator FlashRed()
+            {
+                _material.color = Color.red;
+                yield return new WaitForSeconds(1f);
+
+                _material.color = Color.white;
+                
+            }
+            
+            public void DamageTaken()
+            {
+                StartCoroutine(FlashRed());
+            }
+
+            
 
             #endregion
 
@@ -113,11 +133,7 @@ namespace Game
             }
 
 
-            public void DamageTaken()
-            {
-                Debug.Log("test");
-            }
-
+            
             public void OnDash(InputAction.CallbackContext value)
             {
                 

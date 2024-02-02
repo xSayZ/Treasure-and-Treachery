@@ -111,8 +111,13 @@ namespace Game
                     Debug.Log("test");
                 }
             }
-       
-            
+
+
+            public void DamageTaken()
+            {
+                Debug.Log("test");
+            }
+
             public void OnDash(InputAction.CallbackContext value)
             {
                 

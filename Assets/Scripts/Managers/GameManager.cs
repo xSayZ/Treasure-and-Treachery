@@ -11,7 +11,6 @@ using UnityEngine;
 using Game.Player;
 using System;
 using UnityEngine.UI;
-using UnityEditor.EditorTools;
 
 namespace Game {
     namespace Backend {
@@ -57,7 +56,7 @@ namespace Game {
             {
                 if (debug)
                 {
-                    Utility.Gizmos.GizmoSemiCircle.DrawWireArc(spawnRingCenter.transform.position, Vector3.forward, 360, spawnRingRadius, 50);
+                    Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
 

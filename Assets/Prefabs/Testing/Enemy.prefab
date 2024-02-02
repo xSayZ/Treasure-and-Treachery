@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 922712805897902393}
   - component: {fileID: 5553164627889447383}
   - component: {fileID: 5955323770443865771}
+  - component: {fileID: 1555211380649002530}
   m_Layer: 8
   m_Name: Enemy
   m_TagString: Untagged
@@ -317,6 +318,37 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1555211380649002530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827580885617249925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 897549255
+      Data2: 1327116457
+      Data3: -1942137952
+      Data4: 66596515
+    Path: event:/Enemies/EnemyTest
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &5827580885815019296
 GameObject:
   m_ObjectHideFlags: 0

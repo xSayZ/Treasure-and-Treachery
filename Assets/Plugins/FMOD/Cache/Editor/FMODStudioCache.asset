@@ -72,6 +72,30 @@ MonoBehaviour:
   lastModified: 638422279054432065
   FileSizes: []
   Exists: 1
+--- !u!114 &-4485580563485728517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 'parameter:/HubMusic/HubProgress '
+  m_EditorClassIdentifier: 
+  Name: 'HubProgress '
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 388449005
+    data2: 2667010541
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-4121734131413165093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +111,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638424695298617955
+  lastModified: 638424721218359881
   FileSizes: []
   Exists: 1
 --- !u!114 &-3353771287701370278
@@ -204,7 +228,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638424695297995568
+  lastModified: 638424711343379069
   FileSizes: []
   Exists: 1
 --- !u!114 &-182935175539193737
@@ -265,7 +289,7 @@ MonoBehaviour:
   - {fileID: -271528840683240399}
   StringsBanks:
   - {fileID: 3595732728518646762}
-  cacheTime: 638424695298617955
+  cacheTime: 638424721218359881
   cacheVersion: 131609
 --- !u!114 &1860189691103445732
 MonoBehaviour:
@@ -302,10 +326,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638424695298025563
+  lastModified: 638424711343424104
   FileSizes:
   - Name: 
-    Value: 1810
+    Value: 1864
   Exists: 1
 --- !u!114 &3669677190366473911
 MonoBehaviour:
@@ -329,8 +353,9 @@ MonoBehaviour:
   - {fileID: -4121734131413165093}
   IsStream: 1
   Is3D: 0
-  IsOneShot: 1
-  Parameters: []
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -4485580563485728517}
   MinDistance: 1
   MaxDistance: 20
   Length: 118413

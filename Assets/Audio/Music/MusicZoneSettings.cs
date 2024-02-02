@@ -8,7 +8,6 @@
 
 using FMODUnity;
 using UnityEngine;
-using FMODUnity;
 using FMOD.Studio;
 
 
@@ -31,7 +30,8 @@ namespace Game {
                 public EventsToBePlayed eventsToBePlayed;
                 public Action action;
                 public string paramName;
-                public float paramValue; 
+                public float paramValue;
+                public bool ignoreSeekSpeed;
             }
             
             //skapar arrays av variabeln som innehåller "AudioZSettings" 
@@ -64,7 +64,9 @@ namespace Game {
                                 AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
                                 break;
 
-                            case Action.SetParameter: break;
+                            case Action.SetParameter: 
+                                AudioMananger.Instance.SetParameter(i.paramName, i.paramValue, i.ignoreSeekSpeed);
+                                break;
 
                         }
                     }

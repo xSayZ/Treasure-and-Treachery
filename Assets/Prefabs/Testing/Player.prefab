@@ -161,12 +161,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementSmoothing: 5
-  MaxmovementSpeed: 8.87
-  turnSpeed: 1.02
-  playerRigidBody: {fileID: 1680948932}
-  DashModifier: 2.3
-  BasedashTime: 0
-  useVelocity: 0
+  BaseMoveSpeed: 50
+  turnSpeed: 2.79
+  DashSpeedModifier: 50
+  DashTime: 1
+  DashLockoutPeriod: 1
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +314,7 @@ MonoBehaviour:
   BaseMeleeAttackCooldown: 1
   RangedAttackDamage: 1
   BaseFireRateRanged: 1
+  projectileSpeed: 0
   enemyColliders: []
 --- !u!1 &4809585492123438367
 GameObject:

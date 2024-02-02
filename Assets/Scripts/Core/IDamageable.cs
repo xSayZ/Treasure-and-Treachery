@@ -15,12 +15,18 @@ namespace Game {
             
             public void Death(){}
             
+            public void DamageTaken(){}
+            
             public void Damage(int _damage)
             {
                 Health -= _damage;
                 if (Health <= 0)
                 {
                     Death();
+                }
+                else
+                {
+                    DamageTaken();
                 }
             }
         }

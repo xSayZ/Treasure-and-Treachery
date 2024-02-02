@@ -119,18 +119,21 @@ namespace Game {
 
             private void OnDrawGizmosSelected()
             {
+                // Vision range
                 Gizmos.color = Color.green;
                 Utility.Gizmos.GizmosExtra.DrawSemiCircle(transform.position, transform.forward, visionFov, visionRange);
                 
+                // Hearing range
                 Gizmos.color = Color.blue;
                 Utility.Gizmos.GizmosExtra.DrawCircle(transform.position, hearingRange);
-
-                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
                 
+                // Values for roam
+                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
                 float _roamAngleRange = (_roamValues.Item4 - _roamValues.Item3 / 2);
                 Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
                 Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
                 
+                // Roam range
                 Gizmos.color = Color.magenta;
                 Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
                 Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
@@ -154,6 +157,11 @@ namespace Game {
             public void Death()
             {
                 Destroy(gameObject);
+            }
+            
+            public void DamageTaken()
+            {
+                // Enemy has taken damage
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

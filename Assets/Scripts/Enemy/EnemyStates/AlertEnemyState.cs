@@ -32,6 +32,7 @@ namespace Game {
                 enemyController.NavMeshAgent.speed = moveSpeed;
                 currentAlertTime = 0;
                 hasHeardSomething = false;
+                
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
                     hasHeardSomething = true;

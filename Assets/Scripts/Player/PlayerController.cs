@@ -14,6 +14,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+using Game.Audio;
 
 
 namespace Game
@@ -63,6 +64,13 @@ namespace Game
             private Vector3 _rawInputMovement;
             private float currentDashCooldown;
 
+            [Header("Audio")] 
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
+            
+            
+            [Header("Test Stuff")] 
+            public Material _material;
             public float angle;
             void Start()
             {
@@ -74,7 +82,6 @@ namespace Game
             private void Update()
             {
                Death();
-                WaitTimeBeforeNextDash();
             }
 
             [field:SerializeField]public int Health { get; set; }
@@ -84,9 +91,26 @@ namespace Game
                 if (Health <=0)
                 {
                     
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                 }
             }
+            
+            //Temp animation
+            IEnumerator FlashRed()
+            {
+                _material.color = Color.red;
+                yield return new WaitForSeconds(1f);
+
+                _material.color = Color.white;
+                
+            }
+            
+            public void DamageTaken()
+            {
+                StartCoroutine(FlashRed());
+            }
+
+            
 
             #endregion
 
@@ -113,11 +137,7 @@ namespace Game
             }
 
 
-            public void DamageTaken()
-            {
-                Debug.Log("test");
-            }
-
+            
             public void OnDash(InputAction.CallbackContext value)
             {
                 
@@ -142,7 +162,7 @@ namespace Game
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
                         playerAttackBehaviour.RangedAttack();
-
+                        //playerAudio.PlayerRangedAudio(playerObj);
                     }
                    
                 }
@@ -154,6 +174,7 @@ namespace Game
                 if (value.action.triggered)
                 {
                     playerAttackBehaviour.MeleeAttack();
+                    playerAudio.MeleeAudioPlay(playerObj);
                 }  
             }
 
@@ -215,7 +236,7 @@ namespace Game
                 
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                     
                 }
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
@@ -238,14 +259,6 @@ namespace Game
                 yield return new WaitForSeconds(dashTime);
                 playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 dashing = false;
-            }
-
-            private void WaitTimeBeforeNextDash()
-            {
-                if (dashing ==false)
-                {
-                    currentDashCooldown -= Time.deltaTime;
-                }
             }
             
             private Vector3 IsoVectorConvert(Vector3 vector)

@@ -103,10 +103,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.21336804
-  m_Height: 1.651695
+  m_Radius: 0.5
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.76729953, z: -0.09314276}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &1680948932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -118,11 +118,11 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 8
   m_AngularDrag: 1000
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
-  m_CollisionDetection: 1
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!114 &1130416177640512929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,17 +140,14 @@ MonoBehaviour:
   playerAttackBehaviour: {fileID: -3509399097656645022}
   PlayerInput: {fileID: 3622730775527207118}
   CharacterType: 2
-  <Health>k__BackingField: 0
-  WalkOnGraves: 1
-  dashAttack: 1
+  DashModifier: 2.3
+  dashTime: 0.4
+  BaseDashCoolDown: 0
+  playerObj: {fileID: 288723118889570766}
+  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
-  DownDir: {x: 0, y: -1, z: 0}
-  RideSpringDamper: 20.15
-  RideSpringStrength: 43
-  RideHeight: 0
-  _rayDidHit: 1
-  SphereCheckNumber: 9
-  raycastDistance: 0.33
+  angle: 0
+  <Health>k__BackingField: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,12 +160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSmoothing: 4.06
-  BaseMoveSpeed: 50
-  turnSpeed: 5.65
-  DashSpeedModifier: 100
-  DashTime: 0.5
-  DashLockoutPeriod: 1
+  MovementSmoothing: 5
+  MaxmovementSpeed: 8.87
+  turnSpeed: 1.02
+  playerRigidBody: {fileID: 1680948932}
+  DashModifier: 2.3
+  BasedashTime: 0
+  useVelocity: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,7 +315,6 @@ MonoBehaviour:
   BaseMeleeAttackCooldown: 1
   RangedAttackDamage: 1
   BaseFireRateRanged: 1
-  projectileSpeed: 10
   enemyColliders: []
 --- !u!1 &4809585492123438367
 GameObject:

@@ -7,20 +7,21 @@
 // ------------------------------*/
 
 
-using System;
+
 using System.Collections;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+using Game.Audio;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Events;
+        using Quest;
         using Scenes;
 
         public enum Archetype
@@ -52,41 +53,38 @@ namespace Game
             public Archetype CharacterType;
             #region Unity Functions
             
-            [field:SerializeField]public int Health { get; set; }
 
-        
+            [Header("Dash Data")]
+            [Tooltip("How much current displacement should increase with")]
+            public float DashModifier;
+            public float  dashTime;
+            public float BaseDashCoolDown;
+
+            private bool dashing;
             private Vector3 _rawInputMovement;
+            private float currentDashCooldown;
 
-            public bool WalkOnGraves;
-
-            public bool dashAttack;
-
+            [Header("Audio")] 
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
+            
+            
             [Header("Test Stuff")] 
             public Material _material;
+            public float angle;
             void Start()
             {
                 SetupPlayer();
-                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
+                currentDashCooldown = 0;
+
             }
             private void Update()
             {
                Death();
-               if (WalkOnGraves)
-               {
-                   
-               }
-               OnRayHit();
             }
 
-            private void FixedUpdate()
-            {
-                if (WalkOnGraves)
-                {
-                    Ray();
-
-                }
-            }
-
+            [field:SerializeField]public int Health { get; set; }
 
             public void Death()
             {
@@ -120,41 +118,51 @@ namespace Game
 
             public void OnMovement(InputAction.CallbackContext value)
             {
-                Vector2 _inputValue = value.ReadValue<Vector2>();
-
                 // Dashing will lock character from moving direction during the duration 
-               
+                if (!dashing)
+                {
                     if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
                     {
+                        Vector2 _inputValue = value.ReadValue<Vector2>();
                         _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                         
                         playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                     }
+                }
+
+                if (playerAttackBehaviour.isAttacking)
+                {
+                    Debug.Log("test");
+                }
             }
 
 
             
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.action.WasPressedThisFrame()  && playerMovementBehaviour.currentLockoutTime <=0)
+                
+                if (value.started && dashing == false  && BaseDashCoolDown <=0)
                 {
                     //Todo:: PlayDustCloud Particle if needed
-                    //playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement*DashModifier));
-                    playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
+                    
+                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement*DashModifier));
+                    StartCoroutine(WaitUntilDashComplete());
+                    dashing = true;
+                    currentDashCooldown = BaseDashCoolDown;
                 }
             }
             
             public void OnRanged(InputAction.CallbackContext value)
             {
-                //TODO:: Make Character Charge up and able to
                 if (value.action.triggered)
                 {
+                    //TODO: ADD MovementData = 0,0,0
                     playerMovementBehaviour.MovementData(Vector3.zero);
+                    //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
-                        playerMovementBehaviour.TurnPlayer();
                         playerAttackBehaviour.RangedAttack();
-
+                        //playerAudio.PlayerRangedAudio(playerObj);
                     }
                    
                 }
@@ -162,13 +170,15 @@ namespace Game
             
             public void OnMelee(InputAction.CallbackContext value)
             {
+                playerMovementBehaviour.MovementData(Vector3.zero);
                 if (value.action.triggered)
                 {
-                    playerMovementBehaviour.TurnPlayer();
                     playerAttackBehaviour.MeleeAttack();
-                }
-                
+                    playerAudio.MeleeAudioPlay(playerObj);
+                }  
             }
+
+
             public void OnSubmit(InputAction.CallbackContext value)
             {
                 Debug.Log(value.ReadValueAsButton());
@@ -210,8 +220,11 @@ namespace Game
                         break;
                 }
             }
+
             
             #endregion
+
+
             
             #region Private Functions
             private void SetupPlayer()
@@ -220,6 +233,7 @@ namespace Game
                 playerID = PlayerInput.playerIndex;
                 
                 Health = PlayerData.playerHealth;
+                
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
                     Destroy(gameObject);
@@ -228,12 +242,23 @@ namespace Game
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
             
-            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
+            private void BeginCurrencyPickup(int _playerId,int pickUpGold)
             {
                     if (playerID == _playerId)
                     {
                         PlayerData.currency += pickUpGold;
                     }
+                
+            }
+            
+            
+            
+            //TODO: Move Dash to playerMovement
+            private IEnumerator WaitUntilDashComplete()
+            {
+                yield return new WaitForSeconds(dashTime);
+                playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
+                dashing = false;
             }
             
             private Vector3 IsoVectorConvert(Vector3 vector)
@@ -246,66 +271,10 @@ namespace Game
 
             }
             #endregion
-            
-            #region Experimental code
-
-            public Vector3 DownDir;
-            public float RideSpringDamper;
-            public float RideSpringStrength;
-            public float RideHeight;
-
-            private RaycastHit _rayHit;
-        
-            public bool _rayDidHit;
-        
-            public float SphereCheckNumber;
-            public float raycastDistance;
-        
-
-            #endregion
-
-            void OnRayHit()
-            {
-                DownDir = IsoVectorConvert(-transform.up);
-                if (Physics.Raycast(transform.position,-transform.up,out _rayHit,raycastDistance))
-                {
-                    _rayDidHit = true;
-                }
-                else
-                {
-                    _rayDidHit = false;
-                }
-            }
-
-            void Ray()
-            {
-                if (_rayDidHit)
-                {
-                    Vector3 vel = IsoVectorConvert(GetComponent<Rigidbody>().velocity);
-                    Vector3 rayDir = IsoVectorConvert(transform.TransformDirection(DownDir));
-                    Vector3 otherVel = Vector3.zero;
-                    Rigidbody hitBody = _rayHit.rigidbody;
-                    if (hitBody != null)
-                    {
-                        otherVel = hitBody.velocity;
-                    }
-
-                    float rayDirVel = Vector3.Dot(rayDir, vel);
-                    float otherDirVel = Vector3.Dot(rayDir, otherVel);
-                    float x = _rayHit.distance - RideHeight;
-                    float relVel = rayDirVel - otherDirVel;
-                    float springForce = (x * RideSpringStrength) - (relVel * RideSpringDamper);
-                    Debug.DrawLine(transform.position,transform.position+(rayDir*springForce),Color.blue);
-                    GetComponent<Rigidbody>().AddForce(IsoVectorConvert(rayDir*springForce));
-                    if (hitBody != null)
-                    {
-                        hitBody.AddForceAtPosition(rayDir*-springForce,IsoVectorConvert(_rayHit.point));
-                    }
-                }
-            }
         }
+        
 
-    
+        
 
     }
 }

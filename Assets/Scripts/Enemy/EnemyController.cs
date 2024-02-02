@@ -6,14 +6,16 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
+using Game.Core;
 using UnityEngine;
 using UnityEngine.AI;
 
 
 namespace Game {
     namespace Enemy {
-        public class EnemyController : MonoBehaviour
+        public class EnemyController : MonoBehaviour, IDamageable
         {
             [Header("States")]
             public RoamEnemyState RoamEnemyState;
@@ -27,9 +29,17 @@ namespace Game {
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
 
+            [field:Header("Health")]
+            [field:SerializeField] public int Health { get; set; }
+
+            [Header("Attack")]
+            [SerializeField] private int damage;
+            [SerializeField] private float attackCooldown;
+            
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
             [SerializeField] private float visionRange;
+            [Range(0, 360)]
             [SerializeField] private float visionFov;
             [SerializeField] private float hearingRange;
 
@@ -42,6 +52,8 @@ namespace Game {
             
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;
+            private List<IDamageable> targetsInAttackRange;
+            private float currentAttackCooldown;
             
             
 #region Unity Functions
@@ -66,6 +78,8 @@ namespace Game {
                 visionSphere.transform.position = headOrigin.position;
                 hearingSphere.radius = hearingRange;
                 hearingSphere.transform.position = headOrigin.position;
+
+                targetsInAttackRange = new List<IDamageable>();
             }
             
             private void FixedUpdate()
@@ -89,16 +103,40 @@ namespace Game {
                     }
                 }
                 
+                // Attack targets in range
+                if (currentAttackCooldown > 0)
+                {
+                    currentAttackCooldown -= Time.fixedDeltaTime;
+                }
+                else if (targetsInAttackRange.Count > 0)
+                {
+                    targetsInAttackRange[0].Damage(damage);
+                    currentAttackCooldown = attackCooldown;
+                }
+                
                 currentState.FixedUpdate();
             }
 
             private void OnDrawGizmosSelected()
             {
+                // Vision range
                 Gizmos.color = Color.green;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, visionFov, visionRange);
+                Utility.Gizmos.GizmosExtra.DrawSemiCircle(transform.position, transform.forward, visionFov, visionRange);
                 
+                // Hearing range
                 Gizmos.color = Color.blue;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, hearingRange);
+                Utility.Gizmos.GizmosExtra.DrawCircle(transform.position, hearingRange);
+                
+                // Values for roam
+                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
+                float _roamAngleRange = (_roamValues.Item4 - _roamValues.Item3 / 2);
+                Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
+                Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
+                
+                // Roam range
+                Gizmos.color = Color.magenta;
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
             }
 #endregion
 
@@ -106,6 +144,7 @@ namespace Game {
             public void ChangeState(EnemyState _newState)
             {
                 currentState.Exit();
+                NavMeshAgent.ResetPath();
                 currentState = _newState;
                 currentState.Enter();
             }
@@ -114,10 +153,15 @@ namespace Game {
             {
                 return currentState;
             }
-            
-            public NavMeshAgent GetNavMeshAgent()
+
+            public void Death()
             {
-                return NavMeshAgent;
+                Destroy(gameObject);
+            }
+            
+            public void DamageTaken()
+            {
+                // Enemy has taken damage
             }
             
             public void VisionRangeEntered(Transform _targetTransform)
@@ -159,6 +203,25 @@ namespace Game {
                 if (targetsInHearingRange.Contains(_targetTransform))
                 {
                     targetsInHearingRange.Remove(_targetTransform);
+                }
+            }
+            
+            public void AttackRangeEntered(Transform _targetTransform)
+            {
+                if (_targetTransform.gameObject.CompareTag("Player"))
+                {
+                    if (_targetTransform.TryGetComponent(out IDamageable hit))
+                    {
+                        targetsInAttackRange.Add(hit);
+                    }
+                }
+            }
+            
+            public void AttackRangeExited(Transform _targetTransform)
+            {
+                if (_targetTransform.TryGetComponent(out IDamageable hit))
+                {
+                    targetsInAttackRange.Remove(hit);
                 }
             }
 #endregion

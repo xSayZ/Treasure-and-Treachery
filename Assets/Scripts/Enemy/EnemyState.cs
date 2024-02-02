@@ -8,7 +8,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 
 namespace Game {
@@ -39,18 +38,18 @@ namespace Game {
             {
                 Transform _closestTarget = _targets[0];
                 float _closestDistance = Vector3.Distance(enemyController.transform.position, _targets[0].position);
-                             
+                
                 for (int i = 1; i < _targets.Count; i++)
                 {
                     float _distance = Vector3.Distance(enemyController.transform.position, _targets[i].position);
-                                 
+                    
                     if (_distance < _closestDistance)
                     {
                         _closestTarget = _targets[i];
                         _closestDistance = _distance;
                     }
                 }
-                             
+                
                 return _closestTarget;
             }
             
@@ -70,6 +69,11 @@ namespace Game {
                     enemyController.NavMeshAgent.destination = _lastTargetPosition;
                     //Debug.Log("Updated nav mesh agent destination (distance)");
                 }
+            }
+
+            protected bool IsStuck(Vector3 _prevoiusPosition, Vector3 _currentPosition, float _minMoveDistance)
+            {
+                return Vector3.Distance(_prevoiusPosition, _currentPosition) < _minMoveDistance;
             }
 #endregion
         }

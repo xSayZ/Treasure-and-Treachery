@@ -14,6 +14,7 @@ namespace Game {
         [System.Serializable]
         public class AlertEnemyState : EnemyState
         {
+            [SerializeField] private float moveSpeed;
             [SerializeField] private float alertTime;
             
             private float currentAlertTime;
@@ -28,8 +29,10 @@ namespace Game {
 
             public override void Enter()
             {
+                enemyController.NavMeshAgent.speed = moveSpeed;
                 currentAlertTime = 0;
                 hasHeardSomething = false;
+                
                 if (enemyController.targetsInHearingRange.Count > 0)
                 {
                     hasHeardSomething = true;

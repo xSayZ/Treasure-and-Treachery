@@ -8,6 +8,7 @@
 
 using System;
 using Game.Core;
+using Game.Audio;
 using UnityEngine;
 
 
@@ -20,6 +21,10 @@ namespace Game {
             public Rigidbody rb;
             public float BulletAliveTime;
 
+            [Header("Audio")]
+            public GameObject projectileObj;
+            public PlayerAudio playerAudio;
+            
             private int _projectileDamage;
 #region Unity Functions
             // Start is called before the first frame update
@@ -30,7 +35,7 @@ namespace Game {
 
             void Start()
             {
-                
+                playerAudio.PlayerRangedAudio(projectileObj);
             }
     
             // Update is called once per frame

@@ -14,6 +14,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+using Game.Audio;
 
 
 namespace Game
@@ -63,7 +64,11 @@ namespace Game
             private Vector3 _rawInputMovement;
             private float currentDashCooldown;
 
-
+            [Header("Audio")] 
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
+            
+            
             [Header("Test Stuff")] 
             public Material _material;
             public float angle;
@@ -157,7 +162,7 @@ namespace Game
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
                         playerAttackBehaviour.RangedAttack();
-
+                        //playerAudio.PlayerRangedAudio(playerObj);
                     }
                    
                 }
@@ -169,6 +174,7 @@ namespace Game
                 if (value.action.triggered)
                 {
                     playerAttackBehaviour.MeleeAttack();
+                    playerAudio.MeleeAudioPlay(playerObj);
                 }  
             }
 

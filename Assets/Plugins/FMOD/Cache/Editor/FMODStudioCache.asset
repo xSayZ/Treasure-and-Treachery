@@ -87,7 +87,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638422320814293416
+  lastModified: 638424695298617955
   FileSizes: []
   Exists: 1
 --- !u!114 &-3353771287701370278
@@ -108,6 +108,60 @@ MonoBehaviour:
   lastModified: 638422279054707589
   FileSizes: []
   Exists: 1
+--- !u!114 &-3147440113232576235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_VOICE/PLY_VOX_Witch/PLY_VOX_Witch Dialogue Test
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_VOICE/PLY_VOX_Witch/PLY_VOX_Witch Dialogue Test
+  Guid:
+    Data1: 372742679
+    Data2: 1093187185
+    Data3: -1737522512
+    Data4: 717542289
+  Banks:
+  - {fileID: -271528840683240399}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2500
+--- !u!114 &-2910119810888626174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  Guid:
+    Data1: 1597842329
+    Data2: 1341618427
+    Data3: -612474749
+    Data4: 1306189908
+  Banks:
+  - {fileID: -271528840683240399}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1191
 --- !u!114 &-2665852028647137158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +184,7 @@ MonoBehaviour:
   - {fileID: -271528840683240399}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
@@ -150,7 +204,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638422320813704321
+  lastModified: 638424695297995568
   FileSizes: []
   Exists: 1
 --- !u!114 &-182935175539193737
@@ -203,12 +257,15 @@ MonoBehaviour:
   - {fileID: 7086601456145900906}
   - {fileID: -2665852028647137158}
   - {fileID: 3669677190366473911}
+  - {fileID: -3147440113232576235}
+  - {fileID: 8674265397277883458}
+  - {fileID: -2910119810888626174}
   EditorParameters: []
   MasterBanks:
   - {fileID: -271528840683240399}
   StringsBanks:
   - {fileID: 3595732728518646762}
-  cacheTime: 638422320814293416
+  cacheTime: 638424695298617955
   cacheVersion: 131609
 --- !u!114 &1860189691103445732
 MonoBehaviour:
@@ -245,10 +302,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638422320813725256
+  lastModified: 638424695298025563
   FileSizes:
   - Name: 
-    Value: 1240
+    Value: 1810
   Exists: 1
 --- !u!114 &3669677190366473911
 MonoBehaviour:
@@ -359,6 +416,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 787
+--- !u!114 &8674265397277883458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  Guid:
+    Data1: 294073659
+    Data2: 1102772808
+    Data3: -1501118058
+    Data4: 1650866803
+  Banks:
+  - {fileID: -271528840683240399}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1586
 --- !u!114 &8920347680937049910
 MonoBehaviour:
   m_ObjectHideFlags: 0

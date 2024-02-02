@@ -8,6 +8,7 @@
 
 using System;
 using FMODUnity;
+using JetBrains.Annotations;
 using UnityEngine;
 
 
@@ -31,7 +32,6 @@ namespace Game {
             [Header("Music Emitters")]
             [SerializeField] private StudioEventEmitter hubMusic;
             
-           
             
             
             
@@ -84,10 +84,20 @@ namespace Game {
         }
     }
 
+    //hämtar vilket event vi valt i switchen och stoppar music emittern (musiken)
     public void StopMusic(EventsToBePlayed eventsToBePlayed)
-    {//hämtar vilket event vi valt i switchen och stoppar music emittern (musiken)
+    {
         GetEvent(eventsToBePlayed);
         musicEmitter.Stop();
+        Debug.Log("musicEvent stopped" + " " + eventsToBePlayed);
+    }
+        
+    //sätter parameter för musikevent i FMOD (ändras via "MusicZoneSettings" cs.
+    public void SetParameter(string paramName, float paramValue, bool ignoreSeekSpeed)
+    {
+        musicEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
+        Debug.Log("Parameter set to" + " " + paramValue);
+        Debug.Log("on event" + paramName);
     }
 
 

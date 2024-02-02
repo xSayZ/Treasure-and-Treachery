@@ -84,6 +84,7 @@ namespace Game
             {
                 if (Health <=0)
                 {
+                    
                     gameObject.SetActive(false);
                 }
             }

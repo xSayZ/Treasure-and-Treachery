@@ -20,7 +20,7 @@ namespace Game {
         {
             
             [Header("MovementSettings")]
-            [Tooltip("Effects How effective turning is and inertial movement")]
+            [Tooltip("Effects How smooth turning is")]
             
             public float MovementSmoothing;
             [SerializeField] private float MaxmovementSpeed;
@@ -92,22 +92,24 @@ namespace Game {
             
             if (useVelocity)
             {
-                movement = Time.fixedDeltaTime * MaxmovementSpeed * smoothMovementDirection;
-                playerRigidBody.velocity = smoothMovementDirection + movement;
+                movement = Time.fixedDeltaTime * MaxmovementSpeed * rawInputDirection;
+                playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
             }
             else
             {
                 currentSpeed = MaxmovementSpeed;
-                movement = Time.deltaTime * currentSpeed * rawInputDirection;
-                playerRigidBody.MovePosition(transform.position+movement);
+
+                Vector3 smoothDelta = Vector3.MoveTowards(transform.position, smoothMovementDirection+transform.position,
+                    Time.fixedDeltaTime * MaxmovementSpeed);
+                playerRigidBody.MovePosition(smoothDelta+transform.TransformDirection(smoothDelta));
 
             }
 
         }
         public void TurnPlayer()
         {
-
-           transform.LookAt(transform.position+smoothMovementDirection);
+            
+            transform.LookAt(transform.position+smoothMovementDirection);
         }
         
         

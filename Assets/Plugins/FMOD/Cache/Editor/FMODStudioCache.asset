@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638424821889719049
+  lastModified: 638424936719503771
   FileSizes: []
   Exists: 1
 --- !u!114 &-8285741006923170633
@@ -37,8 +37,8 @@ MonoBehaviour:
     Data3: 1801595818
     Data4: -251461116
   Banks:
-  - {fileID: -4345788876620703977}
   - {fileID: -8771654464408475489}
+  - {fileID: -4345788876620703977}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -46,6 +46,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 115565
+--- !u!114 &-7898304553414489985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_Trees
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_Trees
+  Guid:
+    Data1: -1257043467
+    Data2: 1131270637
+    Data3: -569233486
+    Data4: 1864945059
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2200
 --- !u!114 &-7829195457973194119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,33 +181,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1191
---- !u!114 &-6847813824939079514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambiance/AMB_Forest
-  m_EditorClassIdentifier: 
-  Path: event:/Ambiance/AMB_Forest
-  Guid:
-    Data1: -1532181125
-    Data2: 1286213870
-    Data3: 1520653463
-    Data4: 681523216
-  Banks:
-  - {fileID: -4345788876620703977}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 50000
 --- !u!114 &-6232045396490716716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638424821889381335
+  lastModified: 638424940823158935
   FileSizes: []
   Exists: 1
 --- !u!114 &-3777273569872142365
@@ -360,6 +360,30 @@ MonoBehaviour:
   StudioPath: 'bank:/Music '
   lastModified: 638423047664805906
   FileSizes: []
+  Exists: 1
+--- !u!114 &-3617613412962792841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AMB_WindBirds/WindStrength
+  m_EditorClassIdentifier: 
+  Name: WindStrength
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1683709149
+    data2: 2351910085
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-3353771287701370278
 MonoBehaviour:
@@ -434,6 +458,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 115565
+--- !u!114 &-2873597769828564059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AMB_WindBirds/BirdLevel
+  m_EditorClassIdentifier: 
+  Name: BirdLevel
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2748064553
+    data2: 43515341
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-182935175539193737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +528,6 @@ MonoBehaviour:
   - {fileID: -8771654464408475489}
   EditorEvents:
   - {fileID: -8285741006923170633}
-  - {fileID: -6847813824939079514}
   - {fileID: -2972512135525741263}
   - {fileID: 3649976443888383382}
   - {fileID: -5552225739945622752}
@@ -489,12 +536,16 @@ MonoBehaviour:
   - {fileID: -4896040559178061498}
   - {fileID: 3718767352691979054}
   - {fileID: -6232045396490716716}
-  EditorParameters: []
+  - {fileID: -7898304553414489985}
+  - {fileID: 4112177975335357294}
+  EditorParameters:
+  - {fileID: 2034168813460971885}
+  - {fileID: 3799509540542684703}
   MasterBanks:
   - {fileID: -4345788876620703977}
   StringsBanks:
   - {fileID: 2001904823976165637}
-  cacheTime: 638424821889719049
+  cacheTime: 638424940823293294
   cacheVersion: 131609
 --- !u!114 &1860189691103445732
 MonoBehaviour:
@@ -531,10 +582,34 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638424821889410020
+  lastModified: 638424940823293294
   FileSizes:
   - Name: 
-    Value: 1910
+    Value: 2412
+  Exists: 1
+--- !u!114 &2034168813460971885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WindStrength
+  m_EditorClassIdentifier: 
+  Name: WindStrength
+  StudioPath: parameter:/WindStrength
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1683709149
+    data2: 2351910085
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &3253127397669464083
 MonoBehaviour:
@@ -642,8 +717,32 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 2500
+  MaxDistance: 50
+  Length: 1000
+--- !u!114 &3799509540542684703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BirdLevel
+  m_EditorClassIdentifier: 
+  Name: BirdLevel
+  StudioPath: parameter:/BirdLevel
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2748064553
+    data2: 43515341
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &4071039249403256301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -664,6 +763,35 @@ MonoBehaviour:
   - Name: 
     Value: 1188
   Exists: 1
+--- !u!114 &4112177975335357294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_WindBirds
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_WindBirds
+  Guid:
+    Data1: -1155292529
+    Data2: 1246562929
+    Data3: -910430320
+    Data4: 132008940
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2873597769828564059}
+  - {fileID: -3617613412962792841}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &8920347680937049910
 MonoBehaviour:
   m_ObjectHideFlags: 0

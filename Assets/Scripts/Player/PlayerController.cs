@@ -70,6 +70,7 @@ namespace Game
                 SetupPlayer();
                 EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
                 currentDashCooldown = 0;
+                PlayerData = new PlayerData(); 
 
             }
             private void Update()

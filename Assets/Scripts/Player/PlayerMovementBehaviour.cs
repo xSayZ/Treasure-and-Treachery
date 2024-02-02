@@ -24,10 +24,11 @@ namespace Game {
             
             public float MovementSmoothing;
             [SerializeField] private float MaxmovementSpeed;
+            public float turnSpeed;
             [SerializeField]private Rigidbody playerRigidBody;
             private float currentSpeed = 0.01f;
             private Vector3 movement;
-            private Vector3 rawInputDirection;
+            private Vector3 rawInputDirection = Vector3.zero;
             private Vector3 smoothMovementDirection;
             
             private Vector3 oldPosition;
@@ -86,30 +87,47 @@ namespace Game {
 
             }
         }
-
+        
+   
         private void MovePlayer()
         {
             
             if (useVelocity)
             {
+                if (rawInputDirection == Vector3.zero)
+                {
+                    rawInputDirection = Vector3.zero;
+                }
                 movement = Time.fixedDeltaTime * MaxmovementSpeed * rawInputDirection;
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
+                
             }
             else
             {
-                currentSpeed = MaxmovementSpeed;
-
-                Vector3 smoothDelta = Vector3.MoveTowards(transform.position, smoothMovementDirection+transform.position,
-                    Time.fixedDeltaTime * MaxmovementSpeed);
-                playerRigidBody.MovePosition(smoothDelta+transform.TransformDirection(smoothDelta));
+                Vector3 movement = CameraDirection(IsoVectorConvert(smoothMovementDirection)) *MaxmovementSpeed * Time.deltaTime;
+                playerRigidBody.MovePosition(transform.position + movement);
 
             }
 
         }
         public void TurnPlayer()
         {
-            
-            transform.LookAt(transform.position+smoothMovementDirection);
+            if(smoothMovementDirection.sqrMagnitude > 0.01f)
+            {
+
+                Quaternion rotation = Quaternion.Slerp(playerRigidBody.rotation,
+                    Quaternion.LookRotation (IsoVectorConvert(CameraDirection(smoothMovementDirection))),
+                    turnSpeed);
+
+                playerRigidBody.MoveRotation(rotation);
+
+            }
+
+            if (useVelocity)
+            {
+                transform.LookAt(transform.position+smoothMovementDirection);
+
+            }
         }
         
         
@@ -119,7 +137,27 @@ namespace Game {
                 Time.deltaTime * MovementSmoothing);
         }
 
+        Vector3 CameraDirection(Vector3 movementDirection)
+        {
+            var cameraForward = UnityEngine.Camera.main.transform.forward;
+            var cameraRight = UnityEngine.Camera.main.transform.right;
 
+            cameraForward.y = 0f;
+            cameraRight.y = 0f;
+        
+            return cameraForward * movementDirection.z + cameraRight * movementDirection.x; 
+   
+        }
+        
+        private Vector3 IsoVectorConvert(Vector3 vector)
+        {
+            Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+            Quaternion rotation = Quaternion.Euler(0,cameraRot.y-90, 0);
+            Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+            Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+            return result;
+
+        }
       
         
         #endregion

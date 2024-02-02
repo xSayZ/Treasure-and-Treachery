@@ -22,6 +22,12 @@ namespace Game {
             private EventReference playerMeleeAttack;
             [SerializeField] 
             private EventReference playerFootStep;
+            [SerializeField]
+            private EventReference playerShoot;
+            [SerializeField]
+            private EventReference projectileHit;
+            [SerializeField] 
+            private EventReference projectileSwoosh;
             
             [Header("Player Vox")]
             [SerializeField] 
@@ -45,7 +51,7 @@ namespace Game {
 
 #region Public Functions
 
-public void MeleeAudioPlay(GameObject meleeObj, int comboValue)
+public void MeleeAudioPlay(GameObject meleeObj)
 {
     //deklarerar en lokal variabel av typen eventinstance och initialiserar denna med referens till innehållet i vår eventreferece "playermeeleattack"
     EventInstance playerMeleeAttackInstance = RuntimeManager.CreateInstance(playerMeleeAttack);
@@ -82,6 +88,34 @@ public void PlayerFootstepPlay(GameObject footObj, string surface)
     playerFootstepInstance.start();
     playerFootstepInstance.release();
 }
+
+public void PlayerRangedAudio(GameObject weaponObj)
+{
+    EventInstance playerRangedInstance = RuntimeManager.CreateInstance(playerShoot);
+    RuntimeManager.AttachInstanceToGameObject(playerRangedInstance, weaponObj.transform);
+    playerRangedInstance.start();
+    playerRangedInstance.release();
+}
+
+public void ProjectileHitAudio(GameObject projectileObj)
+{
+    EventInstance projectileHitInstance = RuntimeManager.CreateInstance(projectileHit);
+    RuntimeManager.AttachInstanceToGameObject(projectileHitInstance, projectileObj.transform);
+    projectileHitInstance.start();
+    projectileHitInstance.release();
+}
+
+public void ProjectileSwooshAudio(GameObject projectileObj)
+{
+    EventInstance projectileSwooshInstance = RuntimeManager.CreateInstance(projectileSwoosh);
+    RuntimeManager.AttachInstanceToGameObject(projectileSwooshInstance, projectileObj.transform);
+    projectileSwooshInstance.start();
+    projectileSwooshInstance.release();
+}
+
+
+
+
 #endregion
 
 #region Private Functions

@@ -1,13 +1,12 @@
 // /*------------------------------
 // --------------------------------
-// Creation Date: 2024-01-30
-// Author: Felix
-// Description: Operation_Donken
+// Creation Date: 2024-02-02
+// Author: alexa
+// Description: Custom editor for pickup
 // --------------------------------
 // ------------------------------*/
 
 using UnityEditor;
-using UnityEngine;
 
 
 namespace Game {
@@ -18,15 +17,22 @@ namespace Game {
             public override void OnInspectorGUI()
             {
                 Pickup pickup = (Pickup)target;
-
-                DrawDefaultInspector();
-
-                switch(pickup.pickupType){
-                    case Pickup.PickupType.Gold:
-                        pickup.Amount = EditorGUILayout.IntField("Amount", pickup.Amount);
-                        break;
-                    case Pickup.PickupType.Objective:
+                if (!target) return;
+                
+                base.OnInspectorGUI();
+                
+                EditorGUILayout.Space();
+                
+                switch(pickup.PickupType)
+                {
+                    case Pickup.PickupTypes.QuestItem:
+                        EditorGUILayout.LabelField("Quest Settings", EditorStyles.boldLabel);
                         pickup.Weight = EditorGUILayout.IntField("Weight", pickup.Weight);
+                        break;
+                    
+                    case Pickup.PickupTypes.Gold:
+                        EditorGUILayout.LabelField("Gold Settings", EditorStyles.boldLabel);
+                        pickup.Amount = EditorGUILayout.IntField("Amount", pickup.Amount);
                         break;
                 }
             }

@@ -56,23 +56,18 @@ namespace Game {
                 }
             }
             #region Unity Functions
-
             private void Start()
             {
-                playerRigidBody = GetComponent<Rigidbody>();
                 currentSpeed = BaseMoveSpeed;
+                playerRigidBody = GetComponent<Rigidbody>();
                 currentLockoutTime = 0;
             }
 
             private void Update()
             {
-                DashCompletion();
-            }
-
-            void FixedUpdate()
-            {
                 SmoothInputMovement();
                 TurnPlayer();
+                DashCompletion();
                 MovePlayer();
             }
             
@@ -92,21 +87,21 @@ namespace Game {
         {
                 if (rawInputDirection == Vector3.zero)
                 {
-                    rawInputDirection = Vector3.zero;
+                    playerRigidBody.velocity = Vector3.zero;
                 }
-                movement = Time.fixedDeltaTime * currentSpeed * rawInputDirection;
+                movement = Time.deltaTime * currentSpeed * rawInputDirection;
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
         }
         public void TurnPlayer()
         {
             if(smoothMovementDirection.sqrMagnitude > 0.01f)
             {
-
+    
                 Quaternion rotation = Quaternion.Slerp(playerRigidBody.rotation,
-                    Quaternion.LookRotation (IsoVectorConvert(CameraDirection(smoothMovementDirection))),
+                    Quaternion.LookRotation (smoothMovementDirection),
                     turnSpeed);
 
-                playerRigidBody.MoveRotation(rotation);
+                playerRigidBody.rotation = rotation;
             }
             
         }

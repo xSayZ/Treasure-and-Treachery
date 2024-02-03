@@ -54,15 +54,14 @@ namespace Game
 
             private Vector3 _rawInputMovement;
 
-            [Header("Audio")] [SerializeField] private GameObject playerObj;
+            [Header("Audio")]
+            [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
 
 
-            [Header("Test Stuff")] public Material _material;
+            [Header("Test Stuff")]
+            public Material _material;
             public bool WalkOnGraves;
-            public bool dashAttack;
-
-            public float angle;
 
             void Start()
             {
@@ -262,7 +261,7 @@ namespace Game
             public float SphereCheckNumber;
             public float raycastDistance;
 
-            #endregion
+            
 
             void OnRayHit()
             {
@@ -303,6 +302,7 @@ namespace Game
                     }
                 }
             }
+            #endregion
         }
     }
 }

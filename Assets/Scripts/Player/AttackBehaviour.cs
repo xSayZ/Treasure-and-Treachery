@@ -6,13 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
-using Game.Enemy;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Game
@@ -66,7 +63,11 @@ namespace Game
             {
                 if (other.gameObject.layer == enemyLayer && !other.isTrigger)
                 {
-                    enemyColliders.Add(other);
+                    if (WeaponCollider.isTrigger)
+                    {
+                        enemyColliders.Add(other);
+                    }
+                  
                 }
             }
 
@@ -105,6 +106,7 @@ namespace Game
                 //TODO FixedRangeAttack
                 if (currentFireRate <= 0)
                 {
+                   
                     GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
 
                     Projectile playerProjectile = _projectile.GetComponent<Projectile>();

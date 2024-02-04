@@ -8,6 +8,7 @@
 
 
 using System.Collections;
+using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -98,17 +99,17 @@ namespace Game
             }
 
             //Temp animation
-            IEnumerator FlashRed()
+            private async void FlashRed()
             {
                 _material.color = Color.red;
-                yield return new WaitForSeconds(1f);
+                await Task.Delay(1000);
 
                 _material.color = Color.white;
             }
 
             public void DamageTaken()
             {
-                StartCoroutine(FlashRed());
+                FlashRed();
             }
 
             #endregion

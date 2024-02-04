@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -41,8 +42,8 @@ namespace Game {
             private float DashSpeedModifier;
             [SerializeField,Tooltip("How long should you be able to Dash")] private float DashTime;
             
-            [SerializeField,Tooltip("How long before able to Dash Again")] private float DashLockoutPeriod;
-            public float currentLockoutTime { get; private set; }
+            [field:SerializeField,Tooltip("How long before able to Dash Again")] private int DashLockoutPeriod;
+            [field:SerializeField]public float currentLockoutTime { get; private set; }
             
             private bool lockout;
 
@@ -52,7 +53,7 @@ namespace Game {
                 if (DashLockoutPeriod <0 )
                 {
                     Debug.LogWarning("lockout period needs to be higher than 0");
-                    DashLockoutPeriod = 0.1f;
+                    DashLockoutPeriod = 1;
                 }
             }
             #region Unity Functions
@@ -110,15 +111,15 @@ namespace Game {
         {
             if (dash)
             {
-                StartCoroutine(IsDashing());
+                IsDashing();
                 currentLockoutTime = DashLockoutPeriod;
             }
         }
 
-        private IEnumerator IsDashing()
+        private async void IsDashing()
         {
             currentSpeed = BaseMoveSpeed + DashSpeedModifier;
-            yield return new WaitForSeconds(DashTime);
+            await Task.Delay(DashLockoutPeriod*1000);
             currentSpeed = BaseMoveSpeed;
             lockout = true;
         }
@@ -127,6 +128,7 @@ namespace Game {
             if (lockout)
             {
                 currentLockoutTime -=Time.deltaTime;
+                Debug.Log(currentLockoutTime);
             }
 
             if (currentLockoutTime <= 0)
@@ -139,33 +141,8 @@ namespace Game {
             smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
                 Time.deltaTime * MovementSmoothing);
         }
-        Vector3 CameraDirection(Vector3 movementDirection)
-        {
-            var cameraForward = UnityEngine.Camera.main.transform.forward;
-            var cameraRight = UnityEngine.Camera.main.transform.right;
-
-            cameraForward.y = 0f;
-            cameraRight.y = 0f;
-        
-            return cameraForward * movementDirection.z + cameraRight * movementDirection.x; 
-   
-        }
-        private Vector3 IsoVectorConvert(Vector3 vector)
-        {
-            Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
-            Quaternion rotation = Quaternion.Euler(0,cameraRot.y-90, 0);
-            Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
-            Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
-            return result;
-
-        }
-      
         #endregion
-        
-        
-        
-        
-        
+
         }
     }
 }

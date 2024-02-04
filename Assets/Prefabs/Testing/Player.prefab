@@ -140,14 +140,18 @@ MonoBehaviour:
   playerAttackBehaviour: {fileID: -3509399097656645022}
   PlayerInput: {fileID: 3622730775527207118}
   CharacterType: 2
-  DashModifier: 2.3
-  dashTime: 0.4
-  BaseDashCoolDown: 0
   playerObj: {fileID: 288723118889570766}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
-  angle: 0
+  WalkOnGraves: 0
   <Health>k__BackingField: 0
+  DownDir: {x: 0, y: 0, z: 0}
+  RideSpringDamper: 0
+  RideSpringStrength: 0
+  RideHeight: 0
+  _rayDidHit: 0
+  SphereCheckNumber: 0
+  raycastDistance: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +170,7 @@ MonoBehaviour:
   DashSpeedModifier: 50
   DashTime: 1
   DashLockoutPeriod: 1
+  <currentLockoutTime>k__BackingField: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,6 +418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5161419525955454584, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Name
       value: witch_body

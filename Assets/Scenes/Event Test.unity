@@ -530,8 +530,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1380,7 +1380,7 @@ MonoBehaviour:
   m_XRTrackingOrigin: {fileID: 0}
   m_ActionsAsset: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: 0}
+  m_MoveAction: {fileID: -4219944333652022791, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
   m_SubmitAction: {fileID: -8208100885738473591, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
   m_CancelAction: {fileID: 0}
   m_LeftClickAction: {fileID: 0}
@@ -1389,7 +1389,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 0}
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
 --- !u!1 &1602993037
@@ -1686,8 +1686,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 1978916904}
   dialogueText: {fileID: 761061802}
-  playerInput: {fileID: 0}
-  inkJSON: {fileID: 0}
+  choices:
+  - {fileID: 1008192547}
+  - {fileID: 839872053}
+  - {fileID: 1267521513}
+  playerInput: {fileID: 58386884}
+  inkJSON: {fileID: 4900000, guid: fb7071f2087730540b534d7f49b75c03, type: 3}
 --- !u!1 &1942095795
 GameObject:
   m_ObjectHideFlags: 0

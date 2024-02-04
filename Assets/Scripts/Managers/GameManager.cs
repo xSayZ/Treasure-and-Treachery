@@ -11,6 +11,7 @@ using UnityEngine;
 using Game.Player;
 using System;
 using UnityEngine.UI;
+using UnityEditor.SceneManagement;
 
 namespace Game {
     namespace Backend {
@@ -24,6 +25,9 @@ namespace Game {
         public class GameManager : Singleton<GameManager>
         {
             public GameMode currentGameMode;
+            [Range(0, 1200)]
+            [Tooltip("Amount of time per round in seconds")]
+            public float roundTime;
 
             [Header("Singleplayer")]
             [Tooltip("Player inside scene needs to be assigned")]
@@ -49,7 +53,7 @@ namespace Game {
 
             [Header("Debug")]
             [SerializeField] bool debug;
-            [SerializeField] private bool isPaused;
+            private bool isPaused;
 
             #region Unity Functions
             private void OnDrawGizmos()
@@ -91,6 +95,9 @@ namespace Game {
                         SetupLocalMultiplayer();
                         break;
                 }
+
+                Timer timer = gameObject.AddComponent<Timer>();
+                timer.StartTimer();
             }
 
             void SetupSinglePlayer()
@@ -127,6 +134,8 @@ namespace Game {
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
                     _spawnedPlayer.GetComponent<PlayerController>();
                     AddPlayersToActiveList(_spawnedPlayer);
+
+                    Log("Added " + _spawnedPlayer + " to the scene");
 
                     foreach (var newPlayer in activePlayerControllers)
                     {

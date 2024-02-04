@@ -105,6 +105,7 @@ namespace Game {
             private void ContinueStory() {
                 if (currentStory.canContinue) {
                     dialogueText.text = currentStory.Continue();
+                    DisplayChoices();
                 } else {
                     ExitDialogueMode();
                 }
@@ -116,6 +117,20 @@ namespace Game {
 
                 if(currentChoices.Count > choices.Length) {
                     Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
+                }
+
+                int index = 0;
+
+                foreach (Choice choice in currentChoices)
+                {
+                    choices[index].gameObject.SetActive(true);
+                    choicesText[index].text = choice.text;
+                    index++;
+                }
+
+                for (int i = index; i < choices.Length; i++)
+                {
+                    choices[i].gameObject.SetActive(false);
                 }
             }
             

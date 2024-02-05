@@ -8,6 +8,7 @@
 
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
@@ -37,12 +38,12 @@ namespace Game
             private int playerID;
 
             //temp Health Solution
-            [Header("SubBehaviours")] [SerializeField]
+            [Header("Sub Behaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
 
-            [Header("InputSettings")] [SerializeField]
+            [Header("Input Settings")] [SerializeField]
             private PlayerInput PlayerInput;
 
             // stashed values will lose on death
@@ -50,6 +51,8 @@ namespace Game
             private int questValue;
 
             public Archetype CharacterType;
+
+            private List<IInteractable> inInteractRange;
 
             #region Unity Functions
 
@@ -68,6 +71,7 @@ namespace Game
             {
                 SetupPlayer();
                 QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
+                inInteractRange = new List<IInteractable>();
             }
 
             private void Update()
@@ -171,6 +175,18 @@ namespace Game
             }
 
 
+            public void OnInteract(InputAction.CallbackContext value)
+            {
+                if (value.performed)
+                {
+                    for (int i = 0; i < inInteractRange.Count; i++)
+                    {
+                        inInteractRange[i].Interact(playerID);
+                    }
+                }
+            }
+
+
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -202,6 +218,24 @@ namespace Game
                     case false:
                         PlayerInput.ActivateInput();
                         break;
+                }
+            }
+
+            public void InteractRangeEntered(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Add(_interactable);
+                    Debug.Log("Enter");
+                }
+            }
+            
+            public void InteractRangeExited(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Remove(_interactable);
+                    Debug.Log("Exit");
                 }
             }
 

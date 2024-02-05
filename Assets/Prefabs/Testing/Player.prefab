@@ -90,6 +90,7 @@ Transform:
   m_Children:
   - {fileID: 288723118889570767}
   - {fileID: 293143638008996613}
+  - {fileID: 3315964591415030162}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -145,13 +146,6 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
   WalkOnGraves: 0
   <Health>k__BackingField: 0
-  DownDir: {x: 0, y: 0, z: 0}
-  RideSpringDamper: 0
-  RideSpringStrength: 0
-  RideHeight: 0
-  _rayDidHit: 0
-  SphereCheckNumber: 0
-  raycastDistance: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +271,19 @@ MonoBehaviour:
     m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
     m_ActionName: Player/TogglePause[/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
     m_ActionName: Player/Interact
   - m_PersistentCalls:
@@ -296,6 +302,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
     m_ActionName: Player/Dash[/XInputControllerWindows/buttonEast,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4d679be-ccb0-48e2-8934-7925682d0a17
+    m_ActionName: Events/Navigate[/Keyboard/s,/Keyboard/w,/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID/leftStick/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -320,7 +330,95 @@ MonoBehaviour:
   RangedAttackDamage: 1
   BaseFireRateRanged: 1
   projectileSpeed: 0
-  enemyColliders: []
+  enemyTransforms: []
+--- !u!1 &1056064203512873105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3315964591415030162}
+  - component: {fileID: 1257480473752164003}
+  - component: {fileID: 5299217361044131399}
+  m_Layer: 0
+  m_Name: InteractionRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3315964591415030162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056064203512873105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 288723119442727232}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1257480473752164003
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056064203512873105}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 1, z: -0.15}
+--- !u!114 &5299217361044131399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056064203512873105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: InteractRangeEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: InteractRangeExited
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4809585492123438367
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +429,9 @@ GameObject:
   m_Component:
   - component: {fileID: 293143638008996613}
   - component: {fileID: 5877225869525892562}
+  - component: {fileID: 599826034944332561}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: MeleeRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -367,6 +466,48 @@ CapsuleCollider:
   m_Height: 1.5666289
   m_Direction: 1
   m_Center: {x: 0, y: 0.97338057, z: 0.2833144}
+--- !u!114 &599826034944332561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809585492123438367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3509399097656645022}
+        m_TargetAssemblyTypeName: Game.Player.AttackBehaviour, Assembly-CSharp
+        m_MethodName: OnAttackRangeEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -3509399097656645022}
+        m_TargetAssemblyTypeName: Game.Player.AttackBehaviour, Assembly-CSharp
+        m_MethodName: OnAttackRangeExit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &1463199174117706838
 PrefabInstance:
   m_ObjectHideFlags: 0

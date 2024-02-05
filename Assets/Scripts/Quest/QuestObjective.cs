@@ -7,13 +7,14 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Core;
 using Game.Scene;
 using UnityEngine;
 
 
 namespace Game {
     namespace Quest {
-        public class QuestObjective : MonoBehaviour
+        public class QuestObjective : MonoBehaviour, IInteractable
         {
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
@@ -60,6 +61,14 @@ namespace Game {
 #endregion
 
 #region Private Functions
+            public void Interact(int _playerIndex)
+            {
+                Debug.Log("Interacted");
+                Debug.Log(_playerIndex);
+            }
+#endregion
+
+#region Private Functions
             private void QuestItemPickedUp(int _playerIndex, int _weight, Pickup _pickup)
             {
                 if (requiredPickups.Contains(_pickup))
@@ -75,7 +84,7 @@ namespace Game {
                     QuestManager.OnRequiredQuestCompleted(this);
                 }
                 
-                Destroy(gameObject);
+                //Destroy(gameObject);
             }
 #endregion
         }

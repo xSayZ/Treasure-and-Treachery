@@ -40,7 +40,7 @@ namespace Game {
             [Header("Dash Settings")] 
             [SerializeField,Tooltip("Addition modifier adds modified speed to DashSpeed")]
             private float DashSpeedModifier;
-            [SerializeField,Tooltip("How long should you be able to Dash")] public float DashTime { get; private set; }
+            [field:SerializeField,Tooltip("How long should you be able to Dash")] public float DashTime { get; private set; }
             [field:SerializeField]public float currentLockoutTime { get; private set; }
             
             private bool lockout;

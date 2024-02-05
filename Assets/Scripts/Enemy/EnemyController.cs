@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Core;
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -157,6 +158,11 @@ namespace Game {
             public void Death()
             {
                 Destroy(gameObject);
+            }
+            
+            public void DamageTaken()
+            {
+                // Enemy has taken damage
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

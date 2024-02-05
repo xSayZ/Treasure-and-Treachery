@@ -7,21 +7,21 @@
 // ------------------------------*/
 
 
-using System;
+
 using System.Collections;
-using System.Diagnostics;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+using Game.Audio;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Events;
+        using Quest;
         using Scenes;
 
         public enum Archetype
@@ -61,21 +61,27 @@ namespace Game
             public float BaseDashCoolDown;
 
             private bool dashing;
-            
+            private Vector3 _rawInputMovement;
             private float currentDashCooldown;
 
+            [Header("Audio")] 
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
+            
+            
+            [Header("Test Stuff")] 
+            public Material _material;
             public float angle;
             void Start()
             {
                 SetupPlayer();
-                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
+                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
                 currentDashCooldown = 0;
 
             }
             private void Update()
             {
                Death();
-                WaitTimeBeforeNextDash();
             }
 
             [field:SerializeField]public int Health { get; set; }
@@ -84,9 +90,27 @@ namespace Game
             {
                 if (Health <=0)
                 {
-                    gameObject.SetActive(false);
+                    
+                    Destroy(gameObject);
                 }
             }
+            
+            //Temp animation
+            IEnumerator FlashRed()
+            {
+                _material.color = Color.red;
+                yield return new WaitForSeconds(1f);
+
+                _material.color = Color.white;
+                
+            }
+            
+            public void DamageTaken()
+            {
+                StartCoroutine(FlashRed());
+            }
+
+            
 
             #endregion
 
@@ -100,7 +124,7 @@ namespace Game
                     if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
                     {
                         Vector2 _inputValue = value.ReadValue<Vector2>();
-                        Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                        _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
                         
                         playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                     }
@@ -111,6 +135,8 @@ namespace Game
                     Debug.Log("test");
                 }
             }
+
+
             
             public void OnDash(InputAction.CallbackContext value)
             {
@@ -119,11 +145,10 @@ namespace Game
                 {
                     //Todo:: PlayDustCloud Particle if needed
                     
-                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
+                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement*DashModifier));
                     StartCoroutine(WaitUntilDashComplete());
                     dashing = true;
                     currentDashCooldown = BaseDashCoolDown;
-
                 }
             }
             
@@ -137,7 +162,7 @@ namespace Game
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
                         playerAttackBehaviour.RangedAttack();
-
+                        //playerAudio.PlayerRangedAudio(playerObj);
                     }
                    
                 }
@@ -149,6 +174,7 @@ namespace Game
                 if (value.action.triggered)
                 {
                     playerAttackBehaviour.MeleeAttack();
+                    playerAudio.MeleeAudioPlay(playerObj);
                 }  
             }
 
@@ -210,13 +236,13 @@ namespace Game
                 
                 if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
                 {
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                     
                 }
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
             
-            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
+            private void BeginCurrencyPickup(int _playerId,int pickUpGold)
             {
                     if (playerID == _playerId)
                     {
@@ -231,20 +257,14 @@ namespace Game
             private IEnumerator WaitUntilDashComplete()
             {
                 yield return new WaitForSeconds(dashTime);
+                playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 dashing = false;
             }
-
-            private void WaitTimeBeforeNextDash()
-            {
-                if (dashing ==false)
-                {
-                    currentDashCooldown -= Time.deltaTime;
-                }
-            }
-
+            
             private Vector3 IsoVectorConvert(Vector3 vector)
             {
-                Quaternion rotation = Quaternion.Euler(0,angle, 0);
+                Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion rotation = Quaternion.Euler(0,cameraRot.y, 0);
                 Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
                 Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
                 return result;

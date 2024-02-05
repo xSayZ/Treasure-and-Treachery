@@ -12,8 +12,10 @@ namespace Game {
         public interface IDamageable
         {
             public int Health { get; set; }
-            
-            public void Death(){}
+
+            public void Death();
+
+            public void DamageTaken();
             
             public void Damage(int _damage)
             {
@@ -21,6 +23,10 @@ namespace Game {
                 if (Health <= 0)
                 {
                     Death();
+                }
+                else
+                {
+                    DamageTaken();
                 }
             }
         }

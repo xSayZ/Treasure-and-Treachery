@@ -16,6 +16,10 @@ namespace Game {
         {
             private Animator Animator;
 
+            private int RangedAttackId;
+            private int InteractId;
+            private int MovementId;
+
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()

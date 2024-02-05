@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-
+using Game.Audio;
 
 namespace Game {
     namespace Enemy {
@@ -26,6 +26,9 @@ namespace Game {
             [SerializeField] private float maxRoamAngle;
             [SerializeField] private float minMoveDistance;
             [SerializeField] private int maxMoveFrames;
+            [Header("Audio")]
+            [SerializeField] private EnemyAudio enemyAudio;
+            [SerializeField] private GameObject enemyObj;
             
             private Vector3 positionLastUpdate;
             private int currentStuckCount;
@@ -40,6 +43,7 @@ namespace Game {
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
                 currentStuckCount = 0;
+                enemyAudio.EnemyRoamAudio(enemyObj);
             }
 
             public override void FixedUpdate()

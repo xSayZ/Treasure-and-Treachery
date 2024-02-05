@@ -226,7 +226,6 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Add(_interactable);
-                    Debug.Log("Enter");
                 }
             }
             
@@ -235,7 +234,6 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Remove(_interactable);
-                    Debug.Log("Exit");
                 }
             }
 

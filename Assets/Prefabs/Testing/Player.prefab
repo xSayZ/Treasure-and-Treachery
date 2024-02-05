@@ -75,7 +75,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &288723119442727232
 Transform:
   m_ObjectHideFlags: 0
@@ -145,13 +145,6 @@ MonoBehaviour:
   _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
   WalkOnGraves: 0
   <Health>k__BackingField: 0
-  DownDir: {x: 0, y: 0, z: 0}
-  RideSpringDamper: 0
-  RideSpringStrength: 0
-  RideHeight: 0
-  _rayDidHit: 0
-  SphereCheckNumber: 0
-  raycastDistance: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +161,8 @@ MonoBehaviour:
   BaseMoveSpeed: 50
   turnSpeed: 2.79
   DashSpeedModifier: 50
-  DashTime: 1
-  DashLockoutPeriod: 1
+  <DashTime>k__BackingField: 0
+  <DashCooldown>k__BackingField: 0
   <currentLockoutTime>k__BackingField: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
@@ -296,6 +289,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
     m_ActionName: Player/Dash[/XInputControllerWindows/buttonEast,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4d679be-ccb0-48e2-8934-7925682d0a17
+    m_ActionName: Events/Navigate[/Keyboard/s,/Keyboard/w,/XInputControllerWindows/leftStick/down,/SwitchProControllerHID/leftStick/down,/XInputControllerWindows/leftStick/up,/SwitchProControllerHID/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/Menu[/XInputControllerWindows/dpad/up,/SwitchProControllerHID/dpad/up,/XInputControllerWindows/leftStick/down,/SwitchProControllerHID/leftStick/down,/XInputControllerWindows/leftStick/left,/SwitchProControllerHID/leftStick/left,/XInputControllerWindows/leftStick/right,/SwitchProControllerHID/leftStick/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

@@ -23,9 +23,13 @@ namespace Game {
         public enum Action
         {
           None,
-          Play,
-          Stop,
-          SetParameter,
+          PlayMusic,
+          StopMusic,
+          SetMusicParam,
+          
+          PlayAmbience,
+          StopAmbience,
+          SetAmbience,
         }
         
         //Inställningar som görs i inspectorn för vilket event och vad som ska ske, samt vilken parameter och parametervärde som ska justeras
@@ -62,22 +66,33 @@ namespace Game {
                 //Jämför vilken action vi valt från vårt enum Action som finns i "AudioSettings"
                 switch (i.action)
                 {
-                  case Action.Play: AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
+                  case Action.None: 
+                    Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
+                    break;
+                  
+                  case Action.PlayMusic: 
+                    
+                    AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
                     break;
                     
-                  case Action.Stop: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
+                  case Action.StopMusic: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
                     break;
                     
                   //När "SetParameter" är vald i enumet "Action" så körs metoden "SetParameter();" i vår AudioMananger.
                   //Dem nya världena som finns i variblarna från vår array "triggerEnterAudioSettings" skickas med in i "SetParameter();" metoden
-                  case Action.SetParameter:
-                      AudioMananger.Instance.SetParameter(i.paramName, i.paramValue, i.ignoreseekspeed);
+                  case Action.SetMusicParam:
+                      AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
                      //Skriver ut de nya världena i konsollen från AudioMananger
-                     
                     break;
                     
-                  case Action.None: 
-                    Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
+                  
+                  case Action.PlayAmbience: AudioMananger.Instance.PlayAmbience(i.eventsToBePlayed);
+                    break;
+                    
+                  case Action.StopAmbience: AudioMananger.Instance.StopAmbience(i.eventsToBePlayed);
+                    break;
+                  
+                  case Action.SetAmbience: AudioMananger.Instance.SetAmbienceParam(i.paramName, i.paramValue, i.ignoreseekspeed);
                     break;
                 }
               }
@@ -108,23 +123,32 @@ namespace Game {
               else
               {
                 switch (i.action)
-                {
-                  case Action.Play: AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
+                { 
+                  case Action.None: 
+                    Debug.Log("Action set to None on AudioTrigger - OnTriggerExit");
+                    break;
+                  
+                  case Action.PlayMusic: AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
                     break;
                 
-                  case Action.Stop: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
+                  case Action.StopMusic: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
                     break;
-                
-                  //När "SetParameter" är vald i enumet "Action" så körs metoden "SetParameter();" i vår AudioMananger.
-                  //Dem nya världena som finns i variblarna från vår array "triggerExitAudioSettings" skickas med in i "SetParameter();" metoden
-                  case Action.SetParameter: 
-                    AudioMananger.Instance.SetParameter(i.paramName, i.paramValue, i.ignoreseekspeed);
+                  
+                  //Dem nya världena som finns i variblarna från vår array "triggerExitAudioSettings" skickas med in i "SetParameter();" metoden i vår AudioMananger
+                  case Action.SetMusicParam: 
+                    AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
                     //Skriver ut de nya världena i konsollen. 
                     Debug.Log("parameter set to" + " " + i.paramValue + " " + "on parameter" + " " + i.paramName + " "+ "ignore seek-speed was set to" + i.ignoreseekspeed + "On Exit");
                     break;
                   
-                  case Action.None: 
-                    Debug.Log("Action set to None on AudioTrigger - OnTriggerExit");
+                  
+                  case Action.PlayAmbience: AudioMananger.Instance.PlayAmbience(i.eventsToBePlayed);
+                    break;
+                  
+                  case Action.StopAmbience: AudioMananger.Instance.StopAmbience(i.eventsToBePlayed);
+                    break;
+                  
+                  case Action.SetAmbience: AudioMananger.Instance.SetAmbienceParam(i.paramName, i.paramValue, i.ignoreseekspeed);
                     break;
                 }
               }

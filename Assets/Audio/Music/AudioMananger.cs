@@ -35,9 +35,6 @@ namespace Game {
             [SerializeField] private StudioEventEmitter hubMusic;
             [SerializeField] private StudioEventEmitter ambience;
             
-            
-            
-            
     #region Unity Functions
          private void Awake()
          { //Om instansen inte är denna instans av detta script så ska spelobjektet som instansen 
@@ -86,10 +83,9 @@ namespace Game {
     {
         GetEvent(eventsToBePlayed);
         
-        if (!musicEmitter.IsActive || !ambienceEmitter.IsActive)
+        if (!musicEmitter.IsActive)
         {
             musicEmitter.Play();
-            ambienceEmitter.Play();
             Debug.Log("music emitter played" + " " + eventsToBePlayed);
         }
     }
@@ -103,11 +99,33 @@ namespace Game {
     }
         
     //sätter parameter för musikevent i FMOD (ändras via "MusicZoneSettings" cs.
-    public void SetParameter(string paramName, float paramValue, bool ignoreSeekSpeed)
+    public void SetMusicParam(string paramName, float paramValue, bool ignoreSeekSpeed)
     {
         musicEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
         Debug.Log("parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
         
+    }
+    
+    
+
+    public void PlayAmbience(EventsToBePlayed eventsToBePlayed)
+    {
+        GetEvent(eventsToBePlayed);
+        ambienceEmitter.Play();
+        Debug.Log("ambience emitter played");
+    }
+
+    public void StopAmbience(EventsToBePlayed eventsToBePlayed)
+    {
+        GetEvent(eventsToBePlayed);
+        ambienceEmitter.Stop();
+        Debug.Log("ambience emitter stopped");
+    }
+    
+    public void SetAmbienceParam(string paramName, float paramValue, bool ignoreSeekSpeed)
+    {
+        ambienceEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
+        Debug.Log("Ambience parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
     }
 
 

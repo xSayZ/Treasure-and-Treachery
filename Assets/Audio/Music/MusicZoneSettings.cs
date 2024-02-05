@@ -19,10 +19,15 @@ namespace Game {
             public enum Action
             {
                 None,
-                Play,
-                Stop,
-                SetParameter,
+                PlayMusic,
+                StopMusic,
+                SetMusicParam,
+          
+                PlayAmbience,
+                StopAmbience,
+                SetAmbience,
             }
+            
             
             [System.Serializable]
             public struct ZoneSettings
@@ -56,16 +61,26 @@ namespace Game {
                         {
                             case Action.None: break;
 
-                            case Action.Play:
+                            case Action.PlayMusic:
                                 AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
                                 break;
 
-                            case Action.Stop:
+                            case Action.StopMusic:
                                 AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
                                 break;
 
-                            case Action.SetParameter: 
-                                AudioMananger.Instance.SetParameter(i.paramName, i.paramValue, i.ignoreSeekSpeed);
+                            case Action.SetMusicParam: 
+                                AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreSeekSpeed);
+                                break;
+                            
+                            
+                            case Action.PlayAmbience: AudioMananger.Instance.PlayAmbience(i.eventsToBePlayed);
+                                break;
+                    
+                            case Action.StopAmbience: AudioMananger.Instance.StopAmbience(i.eventsToBePlayed);
+                                break;
+                  
+                            case Action.SetAmbience: AudioMananger.Instance.SetAmbienceParam(i.paramName, i.paramValue, i.ignoreSeekSpeed);
                                 break;
 
                         }

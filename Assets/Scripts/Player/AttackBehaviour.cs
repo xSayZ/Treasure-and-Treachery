@@ -117,13 +117,6 @@ namespace Game
                     currentFireRate = BaseFireRateRanged;
                 }
             }
-
-
-            private void OnDrawGizmos()
-            {
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, 60, 45, 2);
-            }
-
             #endregion
 
             #region Private Functions

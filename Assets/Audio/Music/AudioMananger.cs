@@ -21,7 +21,7 @@ namespace Game {
             HubMusic,
             GamePlayMusic,
             MenuMusic,
-            
+            Ambience,
         }
         public class AudioMananger : MonoBehaviour
         {
@@ -29,9 +29,11 @@ namespace Game {
             
             //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
             public StudioEventEmitter musicEmitter;
+            public StudioEventEmitter ambienceEmitter;
 
-            [Header("Music Emitters")]
+            [Header("Event references")]
             [SerializeField] private StudioEventEmitter hubMusic;
+            [SerializeField] private StudioEventEmitter ambience;
             
             
             
@@ -67,9 +69,15 @@ namespace Game {
                 musicEmitter = hubMusic;
                 break;
             
-            case EventsToBePlayed.MenuMusic: break;
+            case EventsToBePlayed.MenuMusic:
+                break;
             
-            case EventsToBePlayed.GamePlayMusic: break;
+            case EventsToBePlayed.GamePlayMusic: 
+                break;
+            
+            case EventsToBePlayed.Ambience: 
+                ambienceEmitter = ambience; 
+                break;
             
         }
     }
@@ -78,9 +86,10 @@ namespace Game {
     {
         GetEvent(eventsToBePlayed);
         
-        if (!musicEmitter.IsActive)
+        if (!musicEmitter.IsActive || !ambienceEmitter.IsActive)
         {
             musicEmitter.Play();
+            ambienceEmitter.Play();
             Debug.Log("music emitter played" + " " + eventsToBePlayed);
         }
     }

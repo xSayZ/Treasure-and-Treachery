@@ -29,7 +29,7 @@ namespace Game
             [SerializeField] private int RangedAttackDamage;
             [SerializeField] private float BaseFireRateRanged;
             [SerializeField] private float projectileSpeed;
-             public List<Collider> enemyColliders = new List<Collider>();
+             public List<Transform> enemyTransforms = new List<Transform>();
              
             public bool isAttacking { get; private set; }
             private float currentFireRate;
@@ -51,7 +51,7 @@ namespace Game
             // Update is called once per frame
             void Update()
             {
-                enemyColliders = enemyColliders.Where(Collider => Collider != null).ToList();
+                enemyTransforms = enemyTransforms.Where(Collider => Collider != null).ToList();
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
                 if (currentMeleeCooldown <=0 || currentFireRate <= 0)
@@ -59,39 +59,41 @@ namespace Game
                     isAttacking = false;
                 }
             }
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.gameObject.layer == enemyLayer && !other.isTrigger)
-                {
-                    if (WeaponCollider.isTrigger)
-                    {
-                        enemyColliders.Add(other);
-                    }
-                  
-                }
-            }
-
-            private void OnTriggerExit(Collider other)
-            {
-                if (other.gameObject.layer != enemyLayer)
-                {
-                    enemyColliders?.Remove(other);
-                }
-            }
+            
 
             #endregion
 
            
             #region Public Functions
 
+            public void OnAttackRangeEnter(Transform _transform)
+            {
+                if (_transform.gameObject.layer == enemyLayer)
+                {
+                    if (WeaponCollider.isTrigger)
+                    {
+                        enemyTransforms.Add(_transform);
+                    }
+                  
+                }
+            }
+
+            public void OnAttackRangeExit(Transform _transform)
+            {
+                if (_transform.gameObject.layer != enemyLayer)
+                {
+                    enemyTransforms?.Remove(_transform);
+                }
+            }
+            
             public void MeleeAttack()
             {
                 if (currentMeleeCooldown <= 0)
                 {
                     isAttacking = true;
-                    for (int i = 0; i < enemyColliders?.Count; i++)
+                    for (int i = 0; i < enemyTransforms?.Count; i++)
                     {
-                        if (enemyColliders[i].TryGetComponent(out IDamageable hit))
+                        if (enemyTransforms[i].TryGetComponent(out IDamageable hit))
                         {
                             hit.Damage(MeleeAttackDamage);
                         }

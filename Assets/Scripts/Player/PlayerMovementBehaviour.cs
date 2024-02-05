@@ -40,9 +40,7 @@ namespace Game {
             [Header("Dash Settings")] 
             [SerializeField,Tooltip("Addition modifier adds modified speed to DashSpeed")]
             private float DashSpeedModifier;
-            [SerializeField,Tooltip("How long should you be able to Dash")] private float DashTime;
-            
-            [field:SerializeField,Tooltip("How long before able to Dash Again")] private int DashLockoutPeriod;
+            [SerializeField,Tooltip("How long should you be able to Dash")] public float DashTime { get; private set; }
             [field:SerializeField]public float currentLockoutTime { get; private set; }
             
             private bool lockout;
@@ -50,10 +48,10 @@ namespace Game {
             private void OnValidate()
             {
 
-                if (DashLockoutPeriod <0 )
+                if (DashTime <0 )
                 {
                     Debug.LogWarning("lockout period needs to be higher than 0");
-                    DashLockoutPeriod = 1;
+                    DashTime = 0;
                 }
             }
             #region Unity Functions
@@ -111,15 +109,15 @@ namespace Game {
         {
             if (dash)
             {
-                IsDashing();
-                currentLockoutTime = DashLockoutPeriod;
+                StartCoroutine(IsDashing());
+                currentLockoutTime = DashTime;
             }
         }
 
-        private async void IsDashing()
+        private IEnumerator IsDashing()
         {
             currentSpeed = BaseMoveSpeed + DashSpeedModifier;
-            await Task.Delay(DashLockoutPeriod*1000);
+            yield return new WaitForSeconds(DashTime);
             currentSpeed = BaseMoveSpeed;
             lockout = true;
         }

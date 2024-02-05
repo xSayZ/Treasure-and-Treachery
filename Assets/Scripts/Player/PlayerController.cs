@@ -77,6 +77,7 @@ namespace Game
                 SetupPlayer();
                 QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
                 currentDashCooldown = 0;
+                PlayerData = new PlayerData(); 
 
             }
             private void Update()

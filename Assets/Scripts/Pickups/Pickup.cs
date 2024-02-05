@@ -1,72 +1,58 @@
 // /*------------------------------
 // --------------------------------
-// Creation Date: 2024-01-29
-// Author: b22feldy
-// Description: Operation_Donken
+// Creation Date: 2024-02-02
+// Author: alexa
+// Description: Item that can be picked up
 // --------------------------------
 // ------------------------------*/
 
-using UnityEngine;
-using Game.Events;
+using Game.Quest;
 using Game.Player;
-using System;
+using UnityEngine;
+
 
 namespace Game {
     namespace Scene {
         public class Pickup : MonoBehaviour
         {
-            public enum PickupType
+            public enum PickupTypes
             {
-                Gold,
-                Objective
+                QuestItem,
+                Gold
             }
-
-            public PickupType pickupType;
             
-            [HideInInspector] private int amount;
-            [HideInInspector] private int weight;
+            [Header("Pickup Type")]
+            public PickupTypes PickupType;
+            
+            // Quest item variables
+            [HideInInspector] public int Weight;
+            
+            // Gold variables
+            [HideInInspector] public int Amount;
 
 #region Unity Functions
-
+            
+            
             private void OnTriggerEnter(Collider other)
             {
                 if (other.CompareTag("Player"))
                 {
-
-                    switch (pickupType) {
-                        case PickupType.Objective:
-                            EventManager.OnObjectivePickup.Invoke(true, other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex);
+                    int _playerIndex = other.gameObject.GetComponent<PlayerController>().PlayerData.playerIndex;
+                    
+                    switch (PickupType)
+                    {
+                        case PickupTypes.QuestItem:
+                            QuestManager.OnQuestItemPickedUp.Invoke(_playerIndex, Weight, this);
                             break;
-                        case PickupType.Gold:
-                            EventManager.OnCurrencyPickup.Invoke(amount,other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex);
+                        
+                        case PickupTypes.Gold:
+                            QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
                             break;
                     }
-
-                    // TODO: Player needs to know that the shovel has been picked up and that its on that specific player.
-                    gameObject.SetActive(false);
-                    gameObject.transform.SetParent(other.transform);
+                    
+                    Destroy(gameObject);
                 }
             }
-#endregion
-
-#region Public Functions
-
-            public int Amount {
-                get {
-                    return this.amount;
-                } set {
-                    this.amount = value;
-                }
-            }
-
-            public int Weight {
-                get {
-                    return this.weight;
-                } set {
-                    this.weight = value;
-                }
-            }
-
 #endregion
         }
     }

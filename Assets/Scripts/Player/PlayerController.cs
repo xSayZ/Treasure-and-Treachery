@@ -7,70 +7,109 @@
 // ------------------------------*/
 
 
-using System;
 using System.Collections;
-using System.Diagnostics;
+using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Debug = UnityEngine.Debug;
+using Game.Audio;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Events;
+        using Quest;
         using Scenes;
-        public class PlayerController : MonoBehaviour,IDamageable
+
+        public enum Archetype
         {
-            
+            Melee,
+            Ranged,
+            Both,
+        }
+
+        public class PlayerController : MonoBehaviour, IDamageable
+        {
             public PlayerData PlayerData;
-            public int PlayerID { get; private set; }
+            private int playerID;
 
-            public static int CurrentAmountOfControllers;
-            
             //temp Health Solution
-            [Header("SubBehaviours")] 
-            [SerializeField]
+            [Header("SubBehaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
-            [SerializeField] private AttackBehaviour playerAttackBehaviour;
-            
-            [Header("InputSettings")]
-            [SerializeField] private PlayerInput PlayerInput;
-            #region Unity Functions
-            
 
-            [Header("Dash Data")]
-            [Tooltip("How much current displacement should increase with")]
-            public float DashModifier;
-            public float dashTime;
-            public float waitTimeUntilNextDash;
-            
-            private bool dashing;
-            private bool waitUntilNextDash;
+            [SerializeField] private AttackBehaviour playerAttackBehaviour;
+
+            [Header("InputSettings")] [SerializeField]
+            private PlayerInput PlayerInput;
+
+            // stashed values will lose on death
+            private int currency;
+            private int questValue;
+
+            public Archetype CharacterType;
+
+            #region Unity Functions
+
+            private Vector3 _rawInputMovement;
+
+            [Header("Audio")]
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
+
+
+            [Header("Test Stuff")]
+            public Material _material;
+            public bool WalkOnGraves;
+
             void Start()
             {
-                CurrentAmountOfControllers = Gamepad.all.Count;
                 SetupPlayer();
-                EventManager.OnCurrencyPickup.AddListener(BeginCurrencyPickup);
-                
-            }
-            private void Update()
-            {
-               Death();
-                WaitTimeBeforeNextDash();
+                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
             }
 
-            [field:SerializeField]public int Health { get; set; }
+            private void Update()
+            {
+                Death();
+                if (WalkOnGraves)
+                {
+                }
+
+                //OnRayHit();
+            }
+
+            private void FixedUpdate()
+            {/*
+                if (WalkOnGraves)
+                {
+                    Ray();
+                }*/
+            }
+
+            [field: SerializeField] public int Health { get; set; }
 
             public void Death()
             {
-                if (Health <=0)
+                if (Health <= 0)
                 {
-                    gameObject.SetActive(false);
+                    Destroy(gameObject);
                 }
+            }
+
+            //Temp animation
+            private async void FlashRed()
+            {
+                _material.color = Color.red;
+                await Task.Delay(1000);
+
+                _material.color = Color.white;
+            }
+
+            public void DamageTaken()
+            {
+                FlashRed();
             }
 
             #endregion
@@ -80,53 +119,58 @@ namespace Game
             public void OnMovement(InputAction.CallbackContext value)
             {
                 // Dashing will lock character from moving direction during the duration 
-                if (!dashing)
+                Vector2 _inputValue = value.ReadValue<Vector2>();
+
+                if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
                 {
-                    Vector2 _inputValue = value.ReadValue<Vector2>();
-                    Vector3 _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
-                    
-                    playerMovementBehaviour.MovementData(_rawInputMovement);
+                    _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+
+                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 }
             }
-            
+
+
+            public void OnDash(InputAction.CallbackContext value)
+            {
+                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.currentLockoutTime <= 0)
+                {
+                    //Todo:: PlayDustCloud Particle if needed
+                    playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
+                }
+            }
+
             public void OnRanged(InputAction.CallbackContext value)
+            {
+                //TODO make Character chargeUp
+                if (value.action.triggered)
+                {
+                    //TODO;; PlayAttackAnimation
+                    if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
+                    {
+                        playerAttackBehaviour.RangedAttack();
+                        //playerAudio.PlayerRangedAudio(playerObj);
+                    }
+                }
+            }
+
+            public void OnMelee(InputAction.CallbackContext value)
             {
                 if (value.action.triggered)
                 {
-                    //TODO: ADD MovementData = 0,0,0
-                    //TODO;; PlayAttackAnimation
-                    playerAttackBehaviour.RangedAttack();
-                   
+                    playerMovementBehaviour.TurnPlayer();
+
+                    playerAttackBehaviour.MeleeAttack();
+                    playerAudio.MeleeAudioPlay(playerObj);
                 }
             }
+
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
                 Debug.Log(value.ReadValueAsButton());
             }
-            
-            public void OnMelee(InputAction.CallbackContext value)
-            {
-                if (value.action.triggered)
-                {
-                    playerAttackBehaviour.MeleeAttack();
-                }  
-            }
 
-            public void OnDash(InputAction.CallbackContext value)
-            {
-                
-                if (value.started && dashing == false  && waitTimeUntilNextDash >=0)
-                {
-                    //Add Dash dust cloud if wanted
-                    playerMovementBehaviour.MovementData(transform.forward*DashModifier);
-                    StartCoroutine(WaitUntilDashComplete());
-                    dashing = true;
-                    
 
-                }
-            }
-            
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -143,13 +187,12 @@ namespace Game
                 if (value.started)
                 {
                     GameManager.Instance.TogglePauseState(this);
-                    
                 }
-                
             }
-            
-                 
-            public void SetInputActiveState(bool gameIsPaused) {
+
+
+            public void SetInputActiveState(bool gameIsPaused)
+            {
                 switch (gameIsPaused)
                 {
                     case true:
@@ -162,59 +205,103 @@ namespace Game
                 }
             }
 
-            
             #endregion
 
 
-            
             #region Private Functions
+
             private void SetupPlayer()
             {
-                
-                PlayerID = PlayerInput.playerIndex;
-                
+                playerID = PlayerInput.playerIndex;
+
                 Health = PlayerData.playerHealth;
-                
-                if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
+
+                if (PlayerInput.playerIndex != 0 && PlayerInput.currentControlScheme != "Player1")
                 {
-                    gameObject.SetActive(false);
-                    
+                    Destroy(gameObject);
                 }
+
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
-            
-            private void BeginCurrencyPickup(int pickUpGold,int _playerId)
-            {
-                    if (PlayerID == _playerId)
-                    {
-                        PlayerData.currency += pickUpGold;
-                    }
-                
-            }
-            
-            
-            
-            //TODO: Move Dash to playerMovement
-            private IEnumerator WaitUntilDashComplete()
-            {
-                yield return new WaitForSeconds(dashTime);
-                dashing = false;
-            }
 
-            private void WaitTimeBeforeNextDash()
+            private void BeginCurrencyPickup(int _playerId, int pickUpGold)
             {
-                if (waitUntilNextDash)
+                if (playerID == _playerId)
                 {
-                    waitTimeUntilNextDash -= Time.deltaTime;
+                    PlayerData.currency += pickUpGold;
                 }
             }
 
 
+            //TODO: Move Dash to playerMovement
+            private Vector3 IsoVectorConvert(Vector3 vector)
+            {
+                Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion rotation = Quaternion.Euler(0, cameraRot.y, 0);
+                Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
+                Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
+                return result;
+            }
+
+            #endregion
+
+
+            #region Experimental code
+            /*
+            public Vector3 DownDir;
+            public float RideSpringDamper;
+            public float RideSpringStrength;
+            public float RideHeight;
+
+            private RaycastHit _rayHit;
+
+            public bool _rayDidHit;
+
+            public float SphereCheckNumber;
+            public float raycastDistance;
+
+            
+
+            void OnRayHit()
+            {
+                DownDir = IsoVectorConvert(-transform.up);
+                if (Physics.Raycast(transform.position, -transform.up, out _rayHit, raycastDistance))
+                {
+                    _rayDidHit = true;
+                }
+                else
+                {
+                    _rayDidHit = false;
+                }
+            }
+
+            void Ray()
+            {
+                if (_rayDidHit)
+                {
+                    Vector3 vel = IsoVectorConvert(GetComponent<Rigidbody>().velocity);
+                    Vector3 rayDir = IsoVectorConvert(transform.TransformDirection(DownDir));
+                    Vector3 otherVel = Vector3.zero;
+                    Rigidbody hitBody = _rayHit.rigidbody;
+                    if (hitBody != null)
+                    {
+                        otherVel = hitBody.velocity;
+                    }
+
+                    float rayDirVel = Vector3.Dot(rayDir, vel);
+                    float otherDirVel = Vector3.Dot(rayDir, otherVel);
+                    float x = _rayHit.distance - RideHeight;
+                    float relVel = rayDirVel - otherDirVel;
+                    float springForce = (x * RideSpringStrength) - (relVel * RideSpringDamper);
+                    Debug.DrawLine(transform.position, transform.position + (rayDir * springForce), Color.blue);
+                    GetComponent<Rigidbody>().AddForce(IsoVectorConvert(rayDir * springForce));
+                    if (hitBody != null)
+                    {
+                        hitBody.AddForceAtPosition(rayDir * -springForce, IsoVectorConvert(_rayHit.point));
+                    }
+                }
+            }*/
             #endregion
         }
-        
-
-        
-
     }
 }

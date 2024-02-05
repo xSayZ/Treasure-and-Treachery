@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using Game.Core;
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -119,25 +120,24 @@ namespace Game {
 
             private void OnDrawGizmosSelected()
             {
+                // Vision range
                 Gizmos.color = Color.green;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, visionFov, visionRange);
+                Utility.Gizmos.GizmosExtra.DrawSemiCircle(transform.position, transform.forward, visionFov, visionRange);
                 
+                // Hearing range
                 Gizmos.color = Color.blue;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, -transform.forward, 360, hearingRange);
-
-                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
+                Utility.Gizmos.GizmosExtra.DrawCircle(transform.position, hearingRange);
                 
+                // Values for roam
+                Tuple<float, float, float, float> _roamValues = RoamEnemyState.GetRoamValues();
                 float _roamAngleRange = (_roamValues.Item4 - _roamValues.Item3 / 2);
                 Vector3 _roamDirectionRight = Quaternion.AngleAxis(_roamAngleRange / 2 + _roamValues.Item3 / 2, Vector3.up) * transform.forward;
                 Vector3 _roamDirectionLeft = Quaternion.AngleAxis(-(_roamAngleRange / 2 + _roamValues.Item3 / 2), Vector3.up) * transform.forward;
                 
-                Gizmos.color = Color.yellow;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1);
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1);
-                
-                Gizmos.color = Color.red;
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item2);
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item2);
+                // Roam range
+                Gizmos.color = Color.magenta;
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionRight, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
+                Utility.Gizmos.GizmosExtra.DrawHollowSemiCircle(transform.position, _roamDirectionLeft, _roamAngleRange, _roamValues.Item1, _roamValues.Item2);
             }
 #endregion
 
@@ -158,6 +158,11 @@ namespace Game {
             public void Death()
             {
                 Destroy(gameObject);
+            }
+            
+            public void DamageTaken()
+            {
+                // Enemy has taken damage
             }
             
             public void VisionRangeEntered(Transform _targetTransform)

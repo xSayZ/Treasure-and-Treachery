@@ -116,7 +116,7 @@ Rigidbody:
   m_GameObject: {fileID: 288723119442727263}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3
+  m_Drag: 8
   m_AngularDrag: 1000
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -139,10 +139,19 @@ MonoBehaviour:
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -3509399097656645022}
   PlayerInput: {fileID: 3622730775527207118}
-  DashModifier: 10
-  dashTime: 0.4
-  waitTimeUntilNextDash: 0
+  CharacterType: 2
+  playerObj: {fileID: 288723118889570766}
+  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
+  _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
+  WalkOnGraves: 0
   <Health>k__BackingField: 0
+  DownDir: {x: 0, y: 0, z: 0}
+  RideSpringDamper: 0
+  RideSpringStrength: 0
+  RideHeight: 0
+  _rayDidHit: 0
+  SphereCheckNumber: 0
+  raycastDistance: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,11 +164,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSmoothing: 0.81
-  MaxmovementSpeed: 10
-  playerRigidBody: {fileID: 1680948932}
-  DashModifier: 0
-  BasedashTime: 0
+  MovementSmoothing: 5
+  BaseMoveSpeed: 50
+  turnSpeed: 2.79
+  DashSpeedModifier: 50
+  DashTime: 1
+  DashLockoutPeriod: 1
+  <currentLockoutTime>k__BackingField: 0
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,7 +315,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WeaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
-  MeleeAttackDamage: 10
+  MeleeAttackDamage: 1
+  BaseMeleeAttackCooldown: 1
+  RangedAttackDamage: 1
+  BaseFireRateRanged: 1
+  projectileSpeed: 0
   enemyColliders: []
 --- !u!1 &4809585492123438367
 GameObject:
@@ -403,6 +418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5161419525955454584, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
     - target: {fileID: 919132149155446097, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Name
       value: witch_body
@@ -410,7 +429,7 @@ PrefabInstance:
     - target: {fileID: 2328169485041697687, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 350b2eb1385a9594ea33d6d83574cf58, type: 2}
+      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
 --- !u!4 &1424521324978711485 stripped

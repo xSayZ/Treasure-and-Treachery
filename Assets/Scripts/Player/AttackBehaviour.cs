@@ -6,11 +6,9 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
-using Game.Enemy;
 using UnityEngine;
 
 
@@ -20,12 +18,24 @@ namespace Game
     {
         public class AttackBehaviour : MonoBehaviour
         {
-            [Header("References")] public CapsuleCollider WeaponCollider;
+            [Header("Component References")] public CapsuleCollider WeaponCollider;
             public GameObject projectile;
-            public int MeleeAttackDamage;
-            private bool enemyInRange;
-            public List<Collider> enemyColliders = new List<Collider>();
 
+            [Header("Melee Attack Settings")] 
+            [SerializeField]public int MeleeAttackDamage;
+            [SerializeField] public float BaseMeleeAttackCooldown;
+
+            [Header("Ranged Attack Settings")] 
+            [SerializeField] private int RangedAttackDamage;
+            [SerializeField] private float BaseFireRateRanged;
+            [SerializeField] private float projectileSpeed;
+             public List<Collider> enemyColliders = new List<Collider>();
+             
+            public bool isAttacking { get; private set; }
+            private float currentFireRate;
+            private float currentMeleeCooldown;
+            private LayerMask enemyLayer;
+            
             #region Unity Functions
 
             // Start is called before the first frame update
@@ -33,55 +43,79 @@ namespace Game
             private void Awake()
             {
                 WeaponCollider.GetComponentInChildren<Collider>();
+                currentFireRate = 0;
+                currentMeleeCooldown = 0;
+                enemyLayer = LayerMask.NameToLayer("Enemy");
             }
+
             // Update is called once per frame
             void Update()
             {
-                enemyColliders = enemyColliders.Where(item =>item != null).ToList();
-
+                enemyColliders = enemyColliders.Where(Collider => Collider != null).ToList();
+                currentFireRate -= Time.deltaTime;
+                currentMeleeCooldown -= Time.deltaTime;
+                if (currentMeleeCooldown <=0 || currentFireRate <= 0)
+                {
+                    isAttacking = false;
+                }
             }
-
-            #endregion
-            
             private void OnTriggerEnter(Collider other)
             {
-                if (other.gameObject.layer == 8 && !other.isTrigger)
+                if (other.gameObject.layer == enemyLayer && !other.isTrigger)
                 {
-                    enemyInRange = true;
-                    enemyColliders.Add(other);
+                    if (WeaponCollider.isTrigger)
+                    {
+                        enemyColliders.Add(other);
+                    }
+                  
                 }
             }
 
             private void OnTriggerExit(Collider other)
             {
-                if (!other.gameObject.CompareTag("Pickup"))
+                if (other.gameObject.layer != enemyLayer)
                 {
-                    enemyInRange = false;
                     enemyColliders?.Remove(other);
                 }
             }
 
+            #endregion
+
+           
             #region Public Functions
 
             public void MeleeAttack()
             {
-                for (int i = 0; i < enemyColliders?.Count; i++)
+                if (currentMeleeCooldown <= 0)
                 {
-                    if (enemyColliders[i].TryGetComponent(out IDamageable hit))
+                    isAttacking = true;
+                    for (int i = 0; i < enemyColliders?.Count; i++)
                     {
-                        hit.Damage(MeleeAttackDamage);
+                        if (enemyColliders[i].TryGetComponent(out IDamageable hit))
+                        {
+                            hit.Damage(MeleeAttackDamage);
+                        }
                     }
+
+                    currentMeleeCooldown = BaseMeleeAttackCooldown;
                 }
-                
             }
 
             public void RangedAttack()
             {
                 //TODO FixedRangeAttack
-                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
+                if (currentFireRate <= 0)
+                {
+                   
+                    GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
 
-                Projectile playerProjectile = _projectile.GetComponent<Projectile>();
-                playerProjectile.SetDirection(transform.forward);
+                    Projectile playerProjectile = _projectile.GetComponent<Projectile>();
+                    playerProjectile.SetProjectileDamage(RangedAttackDamage);
+                    playerProjectile.SetProjectileSpeed(projectileSpeed);
+                    playerProjectile.SetDirection(transform.forward);
+
+                    currentFireRate = BaseFireRateRanged;
+                }
             }
 
 

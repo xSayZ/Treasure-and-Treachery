@@ -76,7 +76,12 @@ namespace Game {
                 SetupBasedOnGameState();
             }
 
-#endregion
+            private void Update()
+            {
+                
+            }
+
+            #endregion
 
 #region Public Functions
 
@@ -97,7 +102,7 @@ namespace Game {
                 }
 
                 Timer timer = gameObject.AddComponent<Timer>();
-                timer.StartTimer();
+                timer.StartTimer(roundTime);
             }
 
             void SetupSinglePlayer()
@@ -233,7 +238,6 @@ namespace Game {
 
                 Time.timeScale = _newTimeScale;
             }
-
             #endregion
 
             private void Log(string _msg)

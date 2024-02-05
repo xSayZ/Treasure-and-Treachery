@@ -17,14 +17,7 @@ namespace Game {
             private float elapsedTime;
             
             private bool isTimerRunning;
-
-            // Constructor to set the timer duration
-            public Timer (float _duration) {
-                timerDuration = _duration;
-            }
             
-        
-
 #region Unity Functions
     
             // Update is called once per frame
@@ -36,16 +29,26 @@ namespace Game {
                     isTimerRunning = false;
                 }
 
-                Debug.Log(timerDuration);
+                Debug.Log(elapsedTime);
             }
 #endregion
 
 #region Public Functions
-            public void StartTimer(){
+            public void StartTimer(float _duration){
                 if(!isTimerRunning) {
+                    timerDuration = _duration;
                     elapsedTime = 0f;
                     isTimerRunning = true;
                 }
+            }
+            
+            public void StopTimer(){
+                isTimerRunning = false;
+            }
+            
+            public float GetCurrentTime()
+            {
+                return elapsedTime;
             }
 #endregion
 

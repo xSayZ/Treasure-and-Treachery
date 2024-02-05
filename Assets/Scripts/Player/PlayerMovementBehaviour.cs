@@ -41,6 +41,8 @@ namespace Game {
             [SerializeField,Tooltip("Addition modifier adds modified speed to DashSpeed")]
             private float DashSpeedModifier;
             [field:SerializeField,Tooltip("How long should you be able to Dash")] public float DashTime { get; private set; }
+            [field:SerializeField,Tooltip("Dash Cooldown how long before able to Dash again after Dashing")]
+            public float DashCooldown { get; private set; }
             [field:SerializeField]public float currentLockoutTime { get; private set; }
             
             private bool lockout;
@@ -107,10 +109,10 @@ namespace Game {
 
         public void Dash(bool dash)
         {
-            if (dash)
+            if (dash && DashCooldown <=0)
             {
                 StartCoroutine(IsDashing());
-                currentLockoutTime = DashTime;
+                currentLockoutTime = DashCooldown;
             }
         }
 

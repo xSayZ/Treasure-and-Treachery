@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Core;
 using Game.Scene;
 using UnityEngine.Events;
 
@@ -15,7 +16,7 @@ namespace Game {
     namespace Quest {
         public static class QuestManager
         {
-            public static UnityEvent<int, int, Pickup> OnQuestItemPickedUp = new UnityEvent<int, int, Pickup>(); // Player Index, Weight, Quest Objective
+            public static UnityEvent<int, Item> OnItemPickedUp = new UnityEvent<int, Item>(); // Player Index, Item, Quest Objective
             public static UnityEvent<int, int> OnGoldPickedUp = new UnityEvent<int, int>(); // Player Index, Amount
             
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();

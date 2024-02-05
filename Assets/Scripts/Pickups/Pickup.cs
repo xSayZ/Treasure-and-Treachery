@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Core;
 using Game.Quest;
 using Game.Player;
 using UnityEngine;
@@ -13,7 +14,7 @@ using UnityEngine;
 
 namespace Game {
     namespace Scene {
-        public class Pickup : MonoBehaviour
+        public class Pickup : MonoBehaviour, IInteractable
         {
             public enum PickupTypes
             {
@@ -25,33 +26,28 @@ namespace Game {
             public PickupTypes PickupType;
             
             // Quest item variables
-            [HideInInspector] public int Weight;
+            [Header("Item Settings")]
+            public Item Item;
             
             // Gold variables
-            [HideInInspector] public int Amount;
+            [Header("Gold Settings")]
+            public int Amount;
 
-#region Unity Functions
-            
-            
-            private void OnTriggerEnter(Collider other)
+#region Public Functions
+            public void Interact(int _playerIndex)
             {
-                if (other.CompareTag("Player"))
+                switch (PickupType)
                 {
-                    int _playerIndex = other.gameObject.GetComponent<PlayerController>().PlayerData.playerIndex;
-                    
-                    switch (PickupType)
-                    {
-                        case PickupTypes.QuestItem:
-                            QuestManager.OnQuestItemPickedUp.Invoke(_playerIndex, Weight, this);
-                            break;
+                    case PickupTypes.QuestItem:
+                        QuestManager.OnItemPickedUp.Invoke(_playerIndex, Item);
+                        break;
                         
-                        case PickupTypes.Gold:
-                            QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
-                            break;
-                    }
-                    
-                    Destroy(gameObject);
+                    case PickupTypes.Gold:
+                        QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        break;
                 }
+                
+                Destroy(gameObject);
             }
 #endregion
         }

@@ -8,7 +8,6 @@
 
 using System.Collections.Generic;
 using Game.Core;
-using Game.Scene;
 using UnityEngine;
 
 
@@ -18,17 +17,17 @@ namespace Game {
         {
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
-            [SerializeField] private List<Pickup> requiredPickups;
+            [SerializeField] private List<Item> requiredItems;
             
 #region Unity Functions
             private void OnEnable()
             {
-                QuestManager.OnQuestItemPickedUp.AddListener(QuestItemPickedUp);
+                QuestManager.OnItemPickedUp.AddListener(QuestItemPickedUp);
             }
             
             private void OnDisable()
             {
-                QuestManager.OnQuestItemPickedUp.RemoveListener(QuestItemPickedUp);
+                QuestManager.OnItemPickedUp.RemoveListener(QuestItemPickedUp);
             }
             
             private void Start()
@@ -38,42 +37,21 @@ namespace Game {
                     QuestManager.RegisterRequiredQuest(this);
                 }
             }
-            
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.CompareTag("Player"))
-                {
-                    // Quest is completed immediately at the moment, count down timer instead
-                    if (requiredPickups.Count <= 0) // Dose not account for what player has item
-                    {
-                       QuestCompleted(); 
-                    }
-                }
-            }
-            
-            private void OnTriggerExit(Collider other)
-            {
-                if (other.CompareTag("Player"))
-                {
-                    // Dose nothing at the moment, will stop timer
-                }
-            }
 #endregion
 
 #region Private Functions
             public void Interact(int _playerIndex)
             {
-                Debug.Log("Interacted");
-                Debug.Log(_playerIndex);
+                // Player interacted with quest objective
             }
 #endregion
 
 #region Private Functions
-            private void QuestItemPickedUp(int _playerIndex, int _weight, Pickup _pickup)
+            private void QuestItemPickedUp(int _playerIndex, Item _item)
             {
-                if (requiredPickups.Contains(_pickup))
+                if (requiredItems.Contains(_item))
                 {
-                    requiredPickups.Remove(_pickup); // Temporary, remove it form list when player enters objective zone instead
+                    requiredItems.Remove(_item); // Temporary, remove it form list when player enters objective zone instead
                 }
             }
             
@@ -84,7 +62,7 @@ namespace Game {
                     QuestManager.OnRequiredQuestCompleted(this);
                 }
                 
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
 #endregion
         }

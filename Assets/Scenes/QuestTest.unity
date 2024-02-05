@@ -1798,7 +1798,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40872007}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.05034, y: -0.33, z: 8.894075}
+  m_LocalPosition: {x: -44.05034, y: -0.38, z: 8.894075}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37962,10 +37962,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 788821834}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &788821836
 MeshRenderer:
@@ -38045,8 +38045,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PickupType: 0
-  Weight: 0
-  Amount: 5
+  Item:
+    Weight: 0
+  Amount: 0
 --- !u!43 &790467240
 Mesh:
   m_ObjectHideFlags: 0
@@ -50279,8 +50280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredQuest: 1
-  requiredPickups:
-  - {fileID: 788821839}
+  requiredItems: []
 --- !u!1 &1012956107 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 288723119442727263, guid: a2e895e811ae4784087aff28f749f186, type: 3}

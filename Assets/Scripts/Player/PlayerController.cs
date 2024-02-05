@@ -67,10 +67,21 @@ namespace Game
             public Material _material;
             public bool WalkOnGraves;
 
+            private void OnEnable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
+            private void OnDisable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
             void Start()
             {
                 SetupPlayer();
-                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
                 inInteractRange = new List<IInteractable>();
             }
 
@@ -114,6 +125,7 @@ namespace Game
             public void DamageTaken()
             {
                 FlashRed();
+                PlayerData.currentHealth = Health;
             }
 
             #endregion
@@ -246,7 +258,7 @@ namespace Game
             {
                 playerID = PlayerInput.playerIndex;
 
-                Health = PlayerData.playerHealth;
+                Health = PlayerData.startingHealth;
 
                 if (PlayerInput.playerIndex != 0 && PlayerInput.currentControlScheme != "Player1")
                 {
@@ -256,14 +268,23 @@ namespace Game
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
 
-            private void BeginCurrencyPickup(int _playerId, int pickUpGold)
+            private void PickUpGold(int _playerId, int pickUpGold)
             {
                 if (playerID == _playerId)
                 {
                     PlayerData.currency += pickUpGold;
                 }
             }
-
+            
+            private void PickUpItem(int _playerId, Item _item)
+            {
+                if (playerID == _playerId)
+                {
+                    Debug.Log(PlayerData.currentItem);
+                    PlayerData.currentItem = _item;
+                    Debug.Log(PlayerData.currentItem);
+                }
+            }
 
             //TODO: Move Dash to playerMovement
             private Vector3 IsoVectorConvert(Vector3 vector)

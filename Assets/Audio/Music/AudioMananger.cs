@@ -10,6 +10,7 @@ using System;
 using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
+using FMOD.Studio;
 
 
 namespace Game {
@@ -96,8 +97,8 @@ namespace Game {
     public void SetParameter(string paramName, float paramValue, bool ignoreSeekSpeed)
     {
         musicEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
-        Debug.Log("Parameter set to" + " " + paramValue);
-        Debug.Log("on event" + paramName);
+        Debug.Log("parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
+        
     }
 
 

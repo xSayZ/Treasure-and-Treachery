@@ -77,15 +77,15 @@ namespace Game
                 {
                 }
 
-                OnRayHit();
+                //OnRayHit();
             }
 
             private void FixedUpdate()
-            {
+            {/*
                 if (WalkOnGraves)
                 {
                     Ray();
-                }
+                }*/
             }
 
             [field: SerializeField] public int Health { get; set; }
@@ -144,8 +144,6 @@ namespace Game
                 //TODO make Character chargeUp
                 if (value.action.triggered)
                 {
-                    //TODO: ADD MovementData = 0,0,0
-                    playerMovementBehaviour.MovementData(Vector3.zero);
                     //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
@@ -249,7 +247,7 @@ namespace Game
 
 
             #region Experimental code
-
+            /*
             public Vector3 DownDir;
             public float RideSpringDamper;
             public float RideSpringStrength;
@@ -302,7 +300,7 @@ namespace Game
                         hitBody.AddForceAtPosition(rayDir * -springForce, IsoVectorConvert(_rayHit.point));
                     }
                 }
-            }
+            }*/
             #endregion
         }
     }

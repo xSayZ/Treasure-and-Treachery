@@ -11,7 +11,7 @@ namespace Game {
     namespace Core {
         public interface IInteractable
         {
-            public void Interact(int _playerIndex);
+            public void Interact(int _playerIndex, bool _start);
         }
     }
 }

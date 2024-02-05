@@ -34,7 +34,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Interact(int _playerIndex)
+            public void Interact(int _playerIndex, bool _start)
             {
                 if (canLeave)
                 {

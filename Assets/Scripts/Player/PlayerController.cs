@@ -189,11 +189,20 @@ namespace Game
 
             public void OnInteract(InputAction.CallbackContext value)
             {
-                if (value.performed)
+                if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
                 {
-                    for (int i = 0; i < inInteractRange.Count; i++)
+                    return;
+                }
+                
+                for (int i = inInteractRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
                     {
-                        inInteractRange[i].Interact(playerID);
+                        inInteractRange.Remove(inInteractRange[i]);
+                    }
+                    else
+                    {
+                        inInteractRange[i].Interact(playerID, value.performed);
                     }
                 }
             }
@@ -280,9 +289,7 @@ namespace Game
             {
                 if (playerID == _playerId)
                 {
-                    Debug.Log(PlayerData.currentItem);
                     PlayerData.currentItem = _item;
-                    Debug.Log(PlayerData.currentItem);
                 }
             }
 

@@ -23,18 +23,19 @@ namespace Game {
                 
                 EditorGUILayout.Space();
                 
-                /*switch(pickup.PickupType)
+                switch(pickup.PickupType)
                 {
                     case Pickup.PickupTypes.QuestItem:
                         EditorGUILayout.LabelField("Quest Settings", EditorStyles.boldLabel);
-                        pickup.Item = (Item)EditorGUILayout.ObjectField("Item", pickup.Item, typeof(Item), true);
+                        pickup.Weight = EditorGUILayout.IntField("Weight", pickup.Weight);
+                        pickup.InteractionTime = EditorGUILayout.FloatField("Interaction Time", pickup.InteractionTime);
                         break;
                     
                     case Pickup.PickupTypes.Gold:
                         EditorGUILayout.LabelField("Gold Settings", EditorStyles.boldLabel);
                         pickup.Amount = EditorGUILayout.IntField("Amount", pickup.Amount);
                         break;
-                }*/
+                }
             }
         }
     }

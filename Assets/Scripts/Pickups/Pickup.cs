@@ -8,7 +8,6 @@
 
 using Game.Core;
 using Game.Quest;
-using Game.Player;
 using UnityEngine;
 
 
@@ -25,21 +24,29 @@ namespace Game {
             [Header("Pickup Type")]
             public PickupTypes PickupType;
             
-            // Quest item variables
-            [Header("Item Settings")]
-            public Item Item;
+            // Item variables
+            [HideInInspector] public int Weight;
+            [HideInInspector] public float InteractionTime;
             
             // Gold variables
-            [Header("Gold Settings")]
-            public int Amount;
+            [HideInInspector] public int Amount;
+
+            private Item item;
+
+#region Unity Functions
+            private void Awake()
+            {
+                CreateItem();
+            }
+#endregion
 
 #region Public Functions
-            public void Interact(int _playerIndex)
+            public void Interact(int _playerIndex, bool _start)
             {
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
-                        QuestManager.OnItemPickedUp.Invoke(_playerIndex, Item);
+                        QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
                         break;
                         
                     case PickupTypes.Gold:
@@ -48,6 +55,18 @@ namespace Game {
                 }
                 
                 Destroy(gameObject);
+            }
+
+            public Item GetItem()
+            {
+                return item;
+            }
+#endregion
+
+#region Private Functions
+            private void CreateItem()
+            {
+                item = new Item(Weight, InteractionTime);
             }
 #endregion
         }

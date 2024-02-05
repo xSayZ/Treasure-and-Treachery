@@ -9,10 +9,16 @@
 
 namespace Game {
     namespace Core {
-        [System.Serializable]
         public class Item
         {
             public int Weight;
+            public float InteractionTime;
+
+            public Item(int _weight, float _interactionTime)
+            {
+                Weight = _weight;
+                InteractionTime = _interactionTime;
+            }
         }
     }
 }

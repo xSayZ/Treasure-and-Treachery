@@ -18,17 +18,19 @@ namespace Game {
         {
             [SerializeField] GameObject playerTeleportPosition;
             
-            private bool canLeave;
+            private bool canLeave = true;
             private int playersInCarriage;
 
 #region Unity Functions
             private void OnEnable()
             {
+                QuestManager.OnRequiredQuestRegistered.AddListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.AddListener(AllRequiredQuestsCompleted);
             }
             
             private void OnDisable()
             {
+                QuestManager.OnRequiredQuestRegistered.RemoveListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.RemoveListener(AllRequiredQuestsCompleted);
             }
 #endregion
@@ -54,6 +56,11 @@ namespace Game {
 #endregion
 
 #region Private Functions
+            private void RequiredQuestRegistered()
+            {
+                canLeave = false;
+            }
+            
             private void AllRequiredQuestsCompleted()
             {
                 canLeave = true;

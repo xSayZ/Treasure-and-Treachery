@@ -23,7 +23,7 @@ namespace Game {
             [SerializeField] 
             private EventReference enemyAlertAudio;
             [SerializeField]
-            private EventReference SpiritStateAudio;
+            private EventReference spiritStateAudio;
 
 
             #region Unity Functions
@@ -59,41 +59,41 @@ public void EnemyAlertAudio(GameObject enemyObj)
 }
 
 
-public void SpiritStateAudioUpdate(GameObject enemyObj, EventInstance spiritStateInstance, int spiritAudioParam)
+public EventInstance SpiritStateAudioUpdate(GameObject enemyObj, EventInstance spiritStateInstance, int spiritAudioParam)
 {
     switch (spiritAudioParam)
     {
         //När Spirit spawnar startar vi eventet och attatchar det.
-        case 5: 
-            spiritStateInstance = RuntimeManager.CreateInstance(SpiritStateAudio);
+        case 5:
+            spiritStateInstance = RuntimeManager.CreateInstance(spiritStateAudio);
             RuntimeManager.AttachInstanceToGameObject(spiritStateInstance, enemyObj.transform);
             spiritStateInstance.start();
+            Debug.Log("Spirit have an event");
             break;
         //Roam State
         case 0:
-            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
-            spiritStateInstance.setParameterByName("SpiritState", 0f);
+            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 0);
             break;
         //Alert State
         case 1:
-            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
-            spiritStateInstance.setParameterByName("SpiritState", 1f);
+            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 1);
             break;
         //Chase
         case 2:
-            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
-            spiritStateInstance.setParameterByName("SpiritState", 2f);
+            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 2);
             break;
         //Death
         case 3:
-            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
-            spiritStateInstance.setParameterByName("SpiritState", 3f);
+            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 3);
             spiritStateInstance.release();
             break;
     }
     
-    
-    spiritStateInstance.release();
+    return spiritStateInstance;
 }
 #endregion
 

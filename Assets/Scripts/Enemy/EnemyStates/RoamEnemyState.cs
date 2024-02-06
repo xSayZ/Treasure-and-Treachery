@@ -26,9 +26,7 @@ namespace Game {
             [SerializeField] private float maxRoamAngle;
             [SerializeField] private float minMoveDistance;
             [SerializeField] private int maxMoveFrames;
-            [Header("Audio")]
-            [SerializeField] private EnemyAudio enemyAudio;
-            [SerializeField] private GameObject enemyObj;
+
             
             private Vector3 positionLastUpdate;
             private int currentStuckCount;
@@ -42,8 +40,17 @@ namespace Game {
             public override void Enter()
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
-                currentStuckCount = 0;
-                enemyAudio.EnemyRoamAudio(enemyObj);
+                currentStuckCount = 0; 
+                
+                try  
+                {
+                    enemyController.enemyAudio.EnemyRoamAudio(enemyController.gameObject);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
+                }
+                
             }
 
             public override void FixedUpdate()

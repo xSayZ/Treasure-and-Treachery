@@ -12,44 +12,48 @@ using Game.Backend;
 using Game.Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 namespace Game {
-    namespace NAME {
+    namespace UI {
         public class PlayerSetupMenuController : MonoBehaviour
         {
-            public List<GameObject> Buttons;
-            private PlayerData data;
-        
+            
+            public GameObject playerCursor;
 
             public void OnMenuNavigation(InputAction.CallbackContext value)
             {
                 value.ReadValue<Vector2>();
             }
+            
 
-            public void GetPlayerIndex()
+            public void SpawnPlayerIndex()
             {
-                for (int i = 0; i < GameManager.Instance.activePlayerControllers.Count; i++)
+                GameObject canvas = GameObject.FindGameObjectWithTag("Selection");
+
+                for (int i = 0; i < Gamepad.all.Count; i++)
                 {
-                    
+                    GameObject cursor = Instantiate(playerCursor, canvas.transform);
                 }
 
             }
-
-            
-            public 
-            
-            
-            
-            
-            
 #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
-                GetPlayerIndex();
-
+                SpawnPlayerIndex();
+                for (int i = 0; i < Gamepad.all.Count; i++)
+                {
+                }
+                
             }
+
+            void SelectPlayer(int index)
+            {
+                
+            }
+            
     
             // Update is called once per frame
             void Update()

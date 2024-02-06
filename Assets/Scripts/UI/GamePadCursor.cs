@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -25,7 +26,7 @@ namespace Game
         {
             [SerializeField]
             private PlayerInput PlayerInput;
-
+            
             [SerializeField] 
             private RectTransform cursorTransform;
 
@@ -41,10 +42,22 @@ namespace Game
             private Mouse virtualMouse;
 
             private bool previousMouseState;
-            
+
+            private void Awake()
+            {
+                canvas = FindObjectOfType<Canvas>();
+                canvasRectTransform = GameObject.FindGameObjectWithTag("Selection").GetComponent<RectTransform>();
+            }
+
             private void OnEnable()
             {
+
+               
+                
                 mainCamera = UnityEngine.Camera.main;
+                
+                
+                
                 if (virtualMouse == null)
                 {
                     virtualMouse = (Mouse) InputSystem.AddDevice("VirtualMouse");
@@ -60,27 +73,36 @@ namespace Game
                     InputState.Change(virtualMouse.position,position);
                 }
 
-                InputUser.PerformPairingWithDevice(virtualMouse, PlayerInput.user);
-
+                for (int i = 0; i < Gamepad.all.Count; i++)
+                {
+                    InputUser.PerformPairingWithDevice(virtualMouse, PlayerInput.user);
+                    Debug.Log(PlayerInput.user);
+                }
                 
                 
                 InputSystem.onAfterUpdate += UpdateMotion;
+                
+
             }
 
             private void OnDisable()
             {
+                if (virtualMouse != null && virtualMouse.added)
+                {
+                    InputSystem.RemoveDevice(virtualMouse);
+                }
                 InputSystem.onAfterUpdate -= UpdateMotion;
             }
 
 
             private void UpdateMotion()
             {
-                if (virtualMouse == null || Gamepad.current  == null)
+                if (virtualMouse == null || Gamepad.all[PlayerInput.user.index]  == null)
                 {
                     return;
                 }
 
-                Vector2 deltaValue = Gamepad.current.leftStick.ReadValue();
+                Vector2 deltaValue = Gamepad.all[PlayerInput.user.index] .leftStick.ReadValue();
                 deltaValue *= cursorSpeed * Time.deltaTime;
 
                 Vector2 currentPos = virtualMouse.position.ReadValue();
@@ -94,7 +116,7 @@ namespace Game
                 InputState.Change(virtualMouse.delta,deltaValue);
 
 
-                bool aButtonIsPressed = Gamepad.current.aButton.isPressed;
+                bool aButtonIsPressed = Gamepad.all[PlayerInput.user.index].aButton.isPressed;
                 if (previousMouseState != aButtonIsPressed)
                 {
                     virtualMouse.CopyState<MouseState>(out MouseState mouseState);
@@ -104,13 +126,14 @@ namespace Game
                 }
 
                 AnchorCursor(newPos);
-
+                Debug.Log(virtualMouse.position);
             }
 
             private void AnchorCursor(Vector2 position)
             {
                 Vector2 anchoredPosition; 
                 RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRectTransform,position,canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null: mainCamera,out anchoredPosition);
+                cursorTransform.anchoredPosition = anchoredPosition;   
             }
         }
     }

@@ -27,12 +27,20 @@ namespace Game {
                 {
                     case Pickup.PickupTypes.QuestItem:
                         EditorGUILayout.LabelField("Quest Settings", EditorStyles.boldLabel);
-                        pickup.Weight = EditorGUILayout.IntField("Weight", pickup.Weight);
+                        var _weight = serializedObject.FindProperty("Weight");
+                        EditorGUILayout.PropertyField(_weight);
+                        var _interactionTime = serializedObject.FindProperty("InteractionTime");
+                        EditorGUILayout.PropertyField(_interactionTime);
+                        var _itemSprite = serializedObject.FindProperty("ItemSprite");
+                        EditorGUILayout.PropertyField(_itemSprite);
+                        serializedObject.ApplyModifiedProperties();
                         break;
                     
                     case Pickup.PickupTypes.Gold:
                         EditorGUILayout.LabelField("Gold Settings", EditorStyles.boldLabel);
-                        pickup.Amount = EditorGUILayout.IntField("Amount", pickup.Amount);
+                        var _amount = serializedObject.FindProperty("Amount");
+                        EditorGUILayout.PropertyField(_amount);
+                        serializedObject.ApplyModifiedProperties();
                         break;
                 }
             }

@@ -6,24 +6,21 @@
 // --------------------------------
 // ------------------------------*/
 
-
-using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Debug = UnityEngine.Debug;
 using Game.Audio;
+using Game.Quest;
+using UnityEngine.UI;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Quest;
-        using Scenes;
-
         public enum Archetype
         {
             Melee,
@@ -37,24 +34,23 @@ namespace Game
             private int playerID;
 
             //temp Health Solution
-            [Header("SubBehaviours")] [SerializeField]
+            [Header("Sub Behaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
-
-            [Header("InputSettings")] [SerializeField]
+            
+            [Header("Input Settings")] [SerializeField]
             private PlayerInput PlayerInput;
-
-            // stashed values will lose on death
-            private int currency;
-            private int questValue;
 
             public Archetype CharacterType;
 
-            #region Unity Functions
+            private List<IInteractable> inInteractRange;
 
             private Vector3 _rawInputMovement;
 
+            [Header("UI")]
+            [SerializeField] private GameObject itemImage;
+            
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -63,11 +59,27 @@ namespace Game
             [Header("Test Stuff")]
             public Material _material;
             public bool WalkOnGraves;
+            
+            #region Unity Functions
 
+            private void OnEnable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
+            private void OnDisable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
             void Start()
             {
                 SetupPlayer();
-                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
+                inInteractRange = new List<IInteractable>();
             }
 
             private void Update()
@@ -110,6 +122,7 @@ namespace Game
             public void DamageTaken()
             {
                 FlashRed();
+                PlayerData.currentHealth = Health;
             }
 
             #endregion
@@ -171,6 +184,27 @@ namespace Game
             }
 
 
+            public void OnInteract(InputAction.CallbackContext value)
+            {
+                if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
+                {
+                    return;
+                }
+                
+                for (int i = inInteractRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
+                    {
+                        inInteractRange.Remove(inInteractRange[i]);
+                    }
+                    else
+                    {
+                        inInteractRange[i].Interact(playerID, value.performed);
+                    }
+                }
+            }
+
+
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -205,8 +239,25 @@ namespace Game
                 }
             }
 
-            #endregion
+            public void InteractRangeEntered(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Add(_interactable);
+                    _interactable.InInteractionRange(playerID, true);
+                }
+            }
+            
+            public void InteractRangeExited(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Remove(_interactable);
+                    _interactable.InInteractionRange(playerID, false);
+                }
+            }
 
+            #endregion
 
             #region Private Functions
 
@@ -214,7 +265,7 @@ namespace Game
             {
                 playerID = PlayerInput.playerIndex;
 
-                Health = PlayerData.playerHealth;
+                Health = PlayerData.startingHealth;
 
                 if (PlayerInput.playerIndex != 0 && PlayerInput.currentControlScheme != "Player1")
                 {
@@ -224,14 +275,56 @@ namespace Game
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
 
-            private void BeginCurrencyPickup(int _playerId, int pickUpGold)
+            
+            
+            private void PickUpItem(int _playerId, Item _item)
+            {
+                if (playerID == _playerId)
+                {
+                    if (PlayerData.currentItem != null)
+                    {
+                        DropItem(_playerId, PlayerData.currentItem, false);
+                    }
+                    
+                    _item.Pickup.SetActive(false);
+                    InteractRangeExited(_item.Pickup.transform);
+                    PlayerData.currentItem = _item;
+
+                    itemImage.GetComponent<Image>().sprite = _item.Sprite;
+                    itemImage.SetActive(true);
+                }
+            }
+            
+            private void DropItem(int _playerId, Item _item, bool _destroy)
+            {
+                if (playerID == _playerId)
+                {
+                    if (PlayerData.currentItem == _item)
+                    {
+                       PlayerData.currentItem = null;
+                       
+                       itemImage.SetActive(false);
+                       
+                       if (!_destroy)
+                       {
+                           _item.Pickup.SetActive(true);
+                           _item.Pickup.transform.position = transform.position;
+                       }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Cant remove item from player inventory since player dose not have that item in their inventory");
+                    }
+                }
+            }
+            
+            private void PickUpGold(int _playerId, int pickUpGold)
             {
                 if (playerID == _playerId)
                 {
                     PlayerData.currency += pickUpGold;
                 }
             }
-
 
             //TODO: Move Dash to playerMovement
             private Vector3 IsoVectorConvert(Vector3 vector)
@@ -244,7 +337,6 @@ namespace Game
             }
 
             #endregion
-
 
             #region Experimental code
             /*

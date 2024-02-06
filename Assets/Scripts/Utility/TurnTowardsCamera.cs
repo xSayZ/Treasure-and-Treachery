@@ -12,10 +12,22 @@ using UnityEngine;
 namespace Utility {
     public class TurnTowardsCamera : MonoBehaviour
     {
+        [SerializeField] private bool runContinuously;
+
+        private Transform _cameraTransform;
+        
         private void Start()
         {
-            Transform _cameraTransform = UnityEngine.Camera.main.transform;
+            _cameraTransform = UnityEngine.Camera.main.transform;
             transform.rotation = _cameraTransform.rotation;
+        }
+
+        private void Update()
+        {
+            if (runContinuously)
+            {
+                transform.rotation = _cameraTransform.rotation;
+            }
         }
     }
 }

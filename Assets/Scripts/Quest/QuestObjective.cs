@@ -26,6 +26,7 @@ namespace Game {
             {
                 public bool IsInteracting;
                 public float CurrentInteractTime;
+                public int PlayerIndex;
             }
             
             private Dictionary<Item, QuestStatus> requiredItems;
@@ -64,6 +65,7 @@ namespace Game {
                 
                 for (int i = 0; i < _itemsToRemove.Count; i++)
                 {
+                    QuestManager.OnItemDropped.Invoke(requiredItems[_itemsToRemove[i]].PlayerIndex, _itemsToRemove[i], true);
                     requiredItems.Remove(_itemsToRemove[i]);
                 }
                 
@@ -81,6 +83,7 @@ namespace Game {
                 if (requiredItems.ContainsKey(_playerData.currentItem))
                 {
                     requiredItems[_playerData.currentItem].IsInteracting = _start;
+                    requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                 }
             }
 #endregion

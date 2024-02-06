@@ -6,25 +6,20 @@
 // --------------------------------
 // ------------------------------*/
 
-
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Debug = UnityEngine.Debug;
 using Game.Audio;
+using Game.Quest;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Quest;
-        using Scenes;
-
         public enum Archetype
         {
             Melee,
@@ -42,13 +37,9 @@ namespace Game
             private PlayerMovementBehaviour playerMovementBehaviour;
 
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
-
+            
             [Header("Input Settings")] [SerializeField]
             private PlayerInput PlayerInput;
-
-            // stashed values will lose on death
-            private int currency;
-            private int questValue;
 
             public Archetype CharacterType;
 
@@ -70,12 +61,14 @@ namespace Game
             private void OnEnable()
             {
                 QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
             }
             
             private void OnDisable()
             {
                 QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
             }
             
@@ -260,7 +253,6 @@ namespace Game
 
             #endregion
 
-
             #region Private Functions
 
             private void SetupPlayer()
@@ -277,19 +269,42 @@ namespace Game
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
 
-            private void PickUpGold(int _playerId, int pickUpGold)
-            {
-                if (playerID == _playerId)
-                {
-                    PlayerData.currency += pickUpGold;
-                }
-            }
+            
             
             private void PickUpItem(int _playerId, Item _item)
             {
                 if (playerID == _playerId)
                 {
                     PlayerData.currentItem = _item;
+                }
+            }
+            
+            private void DropItem(int _playerId, Item _item, bool _destroy)
+            {
+                if (playerID == _playerId)
+                {
+                    if (PlayerData.currentItem == _item)
+                    {
+                       PlayerData.currentItem = null;
+                       
+                       if (!_destroy)
+                       {
+                           // TODO: Drop item on ground here
+                           Debug.LogWarning("Logic for dropping item not yet implemented");
+                       }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Cant remove item from player inventory since player dose not have that item in their inventory");
+                    }
+                }
+            }
+            
+            private void PickUpGold(int _playerId, int pickUpGold)
+            {
+                if (playerID == _playerId)
+                {
+                    PlayerData.currency += pickUpGold;
                 }
             }
 
@@ -304,7 +319,6 @@ namespace Game
             }
 
             #endregion
-
 
             #region Experimental code
             /*

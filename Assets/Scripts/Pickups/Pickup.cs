@@ -46,6 +46,11 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
+                if (!_start)
+                {
+                    return;
+                }
+                
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
@@ -56,8 +61,6 @@ namespace Game {
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
                         break;
                 }
-                
-                Destroy(gameObject);
             }
             
             public void InInteractionRange(int _playerIndex, bool _inRange)
@@ -74,7 +77,7 @@ namespace Game {
 #region Private Functions
             private void CreateItem()
             {
-                item = new Item(Weight, InteractionTime);
+                item = new Item(Weight, InteractionTime, gameObject);
             }
 #endregion
         }

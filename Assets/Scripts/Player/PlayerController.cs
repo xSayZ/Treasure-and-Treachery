@@ -277,6 +277,13 @@ namespace Game
             {
                 if (playerID == _playerId)
                 {
+                    if (PlayerData.currentItem != null)
+                    {
+                        DropItem(_playerId, PlayerData.currentItem, false);
+                    }
+                    
+                    _item.Pickup.SetActive(false);
+                    InteractRangeExited(_item.Pickup.transform);
                     PlayerData.currentItem = _item;
                 }
             }
@@ -291,8 +298,8 @@ namespace Game
                        
                        if (!_destroy)
                        {
-                           // TODO: Drop item on ground here
-                           Debug.LogWarning("Logic for dropping item not yet implemented");
+                           _item.Pickup.SetActive(true);
+                           _item.Pickup.transform.position = transform.position;
                        }
                     }
                     else

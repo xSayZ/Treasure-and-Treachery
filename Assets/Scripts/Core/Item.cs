@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using UnityEngine;
+
 
 namespace Game {
     namespace Core {
@@ -13,11 +15,13 @@ namespace Game {
         {
             public int Weight;
             public float InteractionTime;
+            public GameObject Pickup;
 
-            public Item(int _weight, float _interactionTime)
+            public Item(int _weight, float _interactionTime, GameObject _pickup)
             {
                 Weight = _weight;
                 InteractionTime = _interactionTime;
+                Pickup = _pickup;
             }
         }
     }

@@ -20,6 +20,8 @@ namespace Game {
         {
             [Header("Setup")]
             [SerializeField] private GameObject interactionUI;
+            [SerializeField] private Transform progressBarCanvas;
+            [SerializeField] private GameObject progressBarPrefab;
             
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
@@ -30,6 +32,12 @@ namespace Game {
                 public bool IsInteracting;
                 public float CurrentInteractTime;
                 public int PlayerIndex;
+                public GameObject ProgressBar;
+                
+                public QuestStatus(GameObject _progressBar)
+                {
+                    ProgressBar = _progressBar;
+                }
             }
             
             private Dictionary<Item, QuestStatus> requiredItems;
@@ -45,7 +53,8 @@ namespace Game {
                 requiredItems = new Dictionary<Item, QuestStatus>();
                 for (int i = 0; i < requiredPickups.Count; i++)
                 {
-                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus());
+                    GameObject _progressBar = Instantiate(progressBarPrefab, progressBarCanvas);
+                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus(_progressBar));
                 }
             }
             
@@ -80,7 +89,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Interact(int _playerIndex, bool _start) // Check if start or end
+            public void Interact(int _playerIndex, bool _start)
             {
                 PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
                 if (requiredItems.ContainsKey(_playerData.currentItem))

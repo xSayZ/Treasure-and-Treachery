@@ -18,7 +18,6 @@ namespace Game {
             [SerializeField] private float alertTime;
             [Header("Audio")]
             [SerializeField] private EnemyAudio enemyAudio;
-            [SerializeField] private GameObject enemyObj;
 
             private float currentAlertTime;
             private bool hasHeardSomething;
@@ -42,7 +41,7 @@ namespace Game {
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                     enemyController.NavMeshAgent.destination = lastHeardPosition;
                 }
-                enemyAudio.EnemyAlertAudio(enemyObj);
+                enemyAudio.EnemyAlertAudio(enemyController.gameObject);
             }
 
             public override void FixedUpdate()

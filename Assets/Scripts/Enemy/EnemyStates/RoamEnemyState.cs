@@ -28,7 +28,6 @@ namespace Game {
             [SerializeField] private int maxMoveFrames;
             [Header("Audio")]
             [SerializeField] private EnemyAudio enemyAudio;
-            [SerializeField] private GameObject enemyObj;
             
             private Vector3 positionLastUpdate;
             private int currentStuckCount;
@@ -42,8 +41,8 @@ namespace Game {
             public override void Enter()
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
-                currentStuckCount = 0;
-                enemyAudio.EnemyRoamAudio(enemyObj);
+                currentStuckCount = 0; 
+                enemyAudio.EnemyRoamAudio(enemyController.gameObject);
             }
 
             public override void FixedUpdate()

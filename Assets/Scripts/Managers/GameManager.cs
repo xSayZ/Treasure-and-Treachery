@@ -48,6 +48,7 @@ namespace Game {
 
 
             [Space]
+            
             public List<GameObject> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
@@ -104,7 +105,7 @@ namespace Game {
                 Timer timer = gameObject.AddComponent<Timer>();
                 timer.StartTimer(roundTime);
             }
-
+            
             void SetupSinglePlayer()
             {
                 activePlayerControllers = new List<GameObject>();
@@ -133,15 +134,20 @@ namespace Game {
                 var controllers = Input.GetJoystickNames();
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
+                    if (i >= controllers.Length)
+                    {
+                        LogWarning("No controller found for player " + i);
+                        continue;
+                    }
+                    
                     Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
                     Quaternion _spawnRotation = Quaternion.identity;
 
                     GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
                     _spawnedPlayer.GetComponent<PlayerController>();
                     AddPlayersToActiveList(_spawnedPlayer);
-
-                    Log("Added " + _spawnedPlayer + " to the scene");
-
+                    
+                    // Set the player index
                     foreach (var newPlayer in activePlayerControllers)
                     {
                         try
@@ -207,15 +213,19 @@ namespace Game {
             
             
        
-
+            // Calculate the position of the players in the ring
             Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
             {
+                // If there is only one player, return the center of the ring
                 if (numberOfPlayers == 1)
                     return spawnRingCenter.position;
 
+                // Calculate the angle
                 float angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
+                // Calculate the position
                 float x = Mathf.Cos(angle) * spawnRingRadius;
                 float z = Mathf.Sin(angle) * spawnRingRadius;
+                // Return the position
                 return spawnRingCenter.position + new Vector3(x, 0, z);
 
             }

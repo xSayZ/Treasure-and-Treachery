@@ -20,7 +20,6 @@ namespace Game {
             
 #region Unity Functions
     
-            // Update is called once per frame
             void Update()
             {
                 if(isTimerRunning) {
@@ -28,8 +27,6 @@ namespace Game {
                 } if (elapsedTime >= timerDuration) {
                     isTimerRunning = false;
                 }
-
-                Debug.Log(elapsedTime);
             }
 #endregion
 

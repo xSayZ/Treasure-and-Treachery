@@ -28,6 +28,7 @@ namespace Game {
                     case Pickup.PickupTypes.QuestItem:
                         EditorGUILayout.LabelField("Quest Settings", EditorStyles.boldLabel);
                         pickup.Weight = EditorGUILayout.IntField("Weight", pickup.Weight);
+                        pickup.InteractionTime = EditorGUILayout.FloatField("Interaction Time", pickup.InteractionTime);
                         break;
                     
                     case Pickup.PickupTypes.Gold:

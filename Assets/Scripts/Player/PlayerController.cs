@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.Quest;
+using UnityEngine.UI;
 
 
 namespace Game
@@ -45,10 +46,11 @@ namespace Game
 
             private List<IInteractable> inInteractRange;
 
-            #region Unity Functions
-
             private Vector3 _rawInputMovement;
 
+            [Header("UI")]
+            [SerializeField] private GameObject itemImage;
+            
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -57,6 +59,8 @@ namespace Game
             [Header("Test Stuff")]
             public Material _material;
             public bool WalkOnGraves;
+            
+            #region Unity Functions
 
             private void OnEnable()
             {
@@ -285,6 +289,9 @@ namespace Game
                     _item.Pickup.SetActive(false);
                     InteractRangeExited(_item.Pickup.transform);
                     PlayerData.currentItem = _item;
+
+                    itemImage.GetComponent<Image>().sprite = _item.Sprite;
+                    itemImage.SetActive(true);
                 }
             }
             
@@ -295,6 +302,8 @@ namespace Game
                     if (PlayerData.currentItem == _item)
                     {
                        PlayerData.currentItem = null;
+                       
+                       itemImage.SetActive(false);
                        
                        if (!_destroy)
                        {

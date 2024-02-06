@@ -30,6 +30,7 @@ namespace Game {
             // Item variables
             [HideInInspector] public int Weight;
             [HideInInspector] public float InteractionTime;
+            [HideInInspector] public Sprite ItemSprite;
             
             // Gold variables
             [HideInInspector] public int Amount;
@@ -77,7 +78,7 @@ namespace Game {
 #region Private Functions
             private void CreateItem()
             {
-                item = new Item(Weight, InteractionTime, gameObject);
+                item = new Item(Weight, InteractionTime, gameObject, ItemSprite);
             }
 #endregion
         }

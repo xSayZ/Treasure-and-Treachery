@@ -16,12 +16,14 @@ namespace Game {
             public int Weight;
             public float InteractionTime;
             public GameObject Pickup;
+            public Sprite Sprite;
 
-            public Item(int _weight, float _interactionTime, GameObject _pickup)
+            public Item(int _weight, float _interactionTime, GameObject _pickup, Sprite _sprite)
             {
                 Weight = _weight;
                 InteractionTime = _interactionTime;
                 Pickup = _pickup;
+                Sprite = _sprite;
             }
         }
     }

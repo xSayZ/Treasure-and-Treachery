@@ -31,6 +31,8 @@ namespace Game {
                         EditorGUILayout.PropertyField(_weight);
                         var _interactionTime = serializedObject.FindProperty("InteractionTime");
                         EditorGUILayout.PropertyField(_interactionTime);
+                        var _itemSprite = serializedObject.FindProperty("ItemSprite");
+                        EditorGUILayout.PropertyField(_itemSprite);
                         serializedObject.ApplyModifiedProperties();
                         break;
                     

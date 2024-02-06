@@ -240,6 +240,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Add(_interactable);
+                    _interactable.InInteractionRange(playerID, true);
                 }
             }
             
@@ -248,6 +249,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Remove(_interactable);
+                    _interactable.InInteractionRange(playerID, false);
                 }
             }
 

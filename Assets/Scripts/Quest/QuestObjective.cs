@@ -18,6 +18,9 @@ namespace Game {
     namespace Quest {
         public class QuestObjective : MonoBehaviour, IInteractable
         {
+            [Header("Setup")]
+            [SerializeField] GameObject InteractionUI;
+            
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
@@ -85,6 +88,11 @@ namespace Game {
                     requiredItems[_playerData.currentItem].IsInteracting = _start;
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                 }
+            }
+            
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                InteractionUI.SetActive(_inRange);
             }
 #endregion
 

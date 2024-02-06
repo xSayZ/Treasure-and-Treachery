@@ -16,6 +16,8 @@ namespace Game {
     namespace Scenes {
         public class CarriageBehaviour : MonoBehaviour, IInteractable
         {
+            [Header("Setup")]
+            [SerializeField] GameObject InteractionUI;
             [SerializeField] GameObject playerTeleportPosition;
             
             private bool canLeave = true;
@@ -51,6 +53,14 @@ namespace Game {
                         // All players are in carriage, time to end level
                         Debug.Log("Level Done");
                     }
+                }
+            }
+
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                if (canLeave)
+                {
+                    InteractionUI.SetActive(_inRange);
                 }
             }
 #endregion

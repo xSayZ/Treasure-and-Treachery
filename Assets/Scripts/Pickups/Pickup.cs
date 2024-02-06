@@ -21,6 +21,9 @@ namespace Game {
                 Gold
             }
             
+            [Header("Setup")]
+            [SerializeField] GameObject InteractionUI;
+            
             [Header("Pickup Type")]
             public PickupTypes PickupType;
             
@@ -55,6 +58,11 @@ namespace Game {
                 }
                 
                 Destroy(gameObject);
+            }
+            
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                InteractionUI.SetActive(_inRange);
             }
 
             public Item GetItem()

@@ -101,7 +101,16 @@ namespace Game {
             
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
-                interactionUI.SetActive(_inRange);
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                
+                if (_inRange && requiredItems.ContainsKey(_playerData.currentItem))
+                {
+                    interactionUI.SetActive(true);
+                }
+                else
+                {
+                    interactionUI.SetActive(false);
+                }
             }
 #endregion
 

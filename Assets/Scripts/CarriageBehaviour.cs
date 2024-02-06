@@ -58,9 +58,13 @@ namespace Game {
 
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
-                if (canLeave)
+                if (_inRange && canLeave)
                 {
-                    interactionUI.SetActive(_inRange);
+                    interactionUI.SetActive(true);
+                }
+                else
+                {
+                    interactionUI.SetActive(false);
                 }
             }
 #endregion

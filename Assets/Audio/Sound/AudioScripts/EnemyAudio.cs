@@ -23,7 +23,7 @@ namespace Game {
             [SerializeField] 
             private EventReference enemyAlertAudio;
             [SerializeField]
-            private EventReference enemyChaseAudio;
+            private EventReference SpiritStateAudio;
 
 
             #region Unity Functions
@@ -58,12 +58,42 @@ public void EnemyAlertAudio(GameObject enemyObj)
     enemyAlertInstance.release();
 }
 
-public void EnemyChaseAudio(GameObject enemyObj)
+
+public void SpiritStateAudioUpdate(GameObject enemyObj, EventInstance spiritStateInstance, int spiritAudioParam)
 {
-    EventInstance enemyChaseInstance = RuntimeManager.CreateInstance(enemyChaseAudio);
-    RuntimeManager.AttachInstanceToGameObject(enemyChaseInstance, enemyObj.transform);
-    enemyChaseInstance.start();
-    enemyChaseInstance.release();
+    switch (spiritAudioParam)
+    {
+        //När Spirit spawnar startar vi eventet och attatchar det.
+        case 5: 
+            spiritStateInstance = RuntimeManager.CreateInstance(SpiritStateAudio);
+            RuntimeManager.AttachInstanceToGameObject(spiritStateInstance, enemyObj.transform);
+            spiritStateInstance.start();
+            break;
+        //Roam State
+        case 0:
+            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 0f);
+            break;
+        //Alert State
+        case 1:
+            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 1f);
+            break;
+        //Chase
+        case 2:
+            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 2f);
+            break;
+        //Death
+        case 3:
+            Debug.Log("Spirit State Param Changed To" + spiritAudioParam);
+            spiritStateInstance.setParameterByName("SpiritState", 3f);
+            spiritStateInstance.release();
+            break;
+    }
+    
+    
+    spiritStateInstance.release();
 }
 #endregion
 

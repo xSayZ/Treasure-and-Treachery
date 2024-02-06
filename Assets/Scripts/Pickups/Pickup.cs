@@ -6,14 +6,14 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Core;
 using Game.Quest;
-using Game.Player;
 using UnityEngine;
 
 
 namespace Game {
     namespace Scene {
-        public class Pickup : MonoBehaviour
+        public class Pickup : MonoBehaviour, IInteractable
         {
             public enum PickupTypes
             {
@@ -24,34 +24,49 @@ namespace Game {
             [Header("Pickup Type")]
             public PickupTypes PickupType;
             
-            // Quest item variables
+            // Item variables
             [HideInInspector] public int Weight;
+            [HideInInspector] public float InteractionTime;
             
             // Gold variables
             [HideInInspector] public int Amount;
 
+            private Item item;
+
 #region Unity Functions
-            
-            
-            private void OnTriggerEnter(Collider other)
+            private void Awake()
             {
-                if (other.CompareTag("Player"))
+                CreateItem();
+            }
+#endregion
+
+#region Public Functions
+            public void Interact(int _playerIndex, bool _start)
+            {
+                switch (PickupType)
                 {
-                    int _playerIndex = other.gameObject.GetComponent<PlayerController>().PlayerData.playerIndex;
-                    
-                    switch (PickupType)
-                    {
-                        case PickupTypes.QuestItem:
-                            QuestManager.OnQuestItemPickedUp.Invoke(_playerIndex, Weight, this);
-                            break;
+                    case PickupTypes.QuestItem:
+                        QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
+                        break;
                         
-                        case PickupTypes.Gold:
-                            QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
-                            break;
-                    }
-                    
-                    Destroy(gameObject);
+                    case PickupTypes.Gold:
+                        QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        break;
                 }
+                
+                Destroy(gameObject);
+            }
+
+            public Item GetItem()
+            {
+                return item;
+            }
+#endregion
+
+#region Private Functions
+            private void CreateItem()
+            {
+                item = new Item(Weight, InteractionTime);
             }
 #endregion
         }

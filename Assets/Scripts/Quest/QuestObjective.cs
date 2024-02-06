@@ -11,6 +11,7 @@ using Game.Backend;
 using Game.Core;
 using Game.Player;
 using Game.Scene;
+using Game.UI;
 using UnityEngine;
 
 
@@ -32,9 +33,9 @@ namespace Game {
                 public bool IsInteracting;
                 public float CurrentInteractTime;
                 public int PlayerIndex;
-                public GameObject ProgressBar;
+                public ProgressBar ProgressBar;
                 
-                public QuestStatus(GameObject _progressBar)
+                public QuestStatus(ProgressBar _progressBar)
                 {
                     ProgressBar = _progressBar;
                 }
@@ -54,7 +55,8 @@ namespace Game {
                 for (int i = 0; i < requiredPickups.Count; i++)
                 {
                     GameObject _progressBar = Instantiate(progressBarPrefab, progressBarCanvas);
-                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus(_progressBar));
+                    _progressBar.SetActive(false);
+                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus(_progressBar.GetComponent<ProgressBar>()));
                 }
             }
             
@@ -68,8 +70,12 @@ namespace Game {
                     {
                         item.Value.CurrentInteractTime += Time.deltaTime;
                         
+                        float _currentProgress = item.Value.CurrentInteractTime / item.Key.InteractionTime;
+                        item.Value.ProgressBar.SetProgress(_currentProgress);
+                        
                         if (item.Value.CurrentInteractTime >= item.Key.InteractionTime)
                         {
+                            item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
                         }
                     }
@@ -102,6 +108,8 @@ namespace Game {
                 {
                     requiredItems[_playerData.currentItem].IsInteracting = _start;
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
+                    
+                    requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
                 }
             }
             

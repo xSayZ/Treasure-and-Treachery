@@ -17,7 +17,7 @@ namespace Game {
         public class CarriageBehaviour : MonoBehaviour, IInteractable
         {
             [Header("Setup")]
-            [SerializeField] GameObject InteractionUI;
+            [SerializeField] private GameObject interactionUI;
             [SerializeField] GameObject playerTeleportPosition;
             
             private bool canLeave = true;
@@ -60,7 +60,7 @@ namespace Game {
             {
                 if (canLeave)
                 {
-                    InteractionUI.SetActive(_inRange);
+                    interactionUI.SetActive(_inRange);
                 }
             }
 #endregion

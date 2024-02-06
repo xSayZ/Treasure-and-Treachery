@@ -22,7 +22,7 @@ namespace Game {
             }
             
             [Header("Setup")]
-            [SerializeField] GameObject InteractionUI;
+            [SerializeField] private GameObject interactionUI;
             
             [Header("Pickup Type")]
             public PickupTypes PickupType;
@@ -62,7 +62,7 @@ namespace Game {
             
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
-                InteractionUI.SetActive(_inRange);
+                interactionUI.SetActive(_inRange);
             }
 
             public Item GetItem()

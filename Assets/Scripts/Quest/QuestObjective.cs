@@ -19,7 +19,7 @@ namespace Game {
         public class QuestObjective : MonoBehaviour, IInteractable
         {
             [Header("Setup")]
-            [SerializeField] GameObject InteractionUI;
+            [SerializeField] private GameObject interactionUI;
             
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
@@ -92,7 +92,7 @@ namespace Game {
             
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
-                InteractionUI.SetActive(_inRange);
+                interactionUI.SetActive(_inRange);
             }
 #endregion
 

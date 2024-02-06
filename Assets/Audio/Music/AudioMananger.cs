@@ -10,6 +10,7 @@ using System;
 using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
+using FMOD.Studio;
 
 
 namespace Game {
@@ -20,7 +21,7 @@ namespace Game {
             HubMusic,
             GamePlayMusic,
             MenuMusic,
-            
+            Ambience,
         }
         public class AudioMananger : MonoBehaviour
         {
@@ -28,12 +29,11 @@ namespace Game {
             
             //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
             public StudioEventEmitter musicEmitter;
+            public StudioEventEmitter ambienceEmitter;
 
-            [Header("Music Emitters")]
+            [Header("Event references")]
             [SerializeField] private StudioEventEmitter hubMusic;
-            
-            
-            
+            [SerializeField] private StudioEventEmitter ambience;
             
     #region Unity Functions
          private void Awake()
@@ -66,9 +66,15 @@ namespace Game {
                 musicEmitter = hubMusic;
                 break;
             
-            case EventsToBePlayed.MenuMusic: break;
+            case EventsToBePlayed.MenuMusic:
+                break;
             
-            case EventsToBePlayed.GamePlayMusic: break;
+            case EventsToBePlayed.GamePlayMusic: 
+                break;
+            
+            case EventsToBePlayed.Ambience: 
+                ambienceEmitter = ambience; 
+                break;
             
         }
     }
@@ -93,11 +99,33 @@ namespace Game {
     }
         
     //sätter parameter för musikevent i FMOD (ändras via "MusicZoneSettings" cs.
-    public void SetParameter(string paramName, float paramValue, bool ignoreSeekSpeed)
+    public void SetMusicParam(string paramName, float paramValue, bool ignoreSeekSpeed)
     {
         musicEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
-        Debug.Log("Parameter set to" + " " + paramValue);
-        Debug.Log("on event" + paramName);
+        Debug.Log("parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
+        
+    }
+    
+    
+
+    public void PlayAmbience(EventsToBePlayed eventsToBePlayed)
+    {
+        GetEvent(eventsToBePlayed);
+        ambienceEmitter.Play();
+        Debug.Log("ambience emitter played");
+    }
+
+    public void StopAmbience(EventsToBePlayed eventsToBePlayed)
+    {
+        GetEvent(eventsToBePlayed);
+        ambienceEmitter.Stop();
+        Debug.Log("ambience emitter stopped");
+    }
+    
+    public void SetAmbienceParam(string paramName, float paramValue, bool ignoreSeekSpeed)
+    {
+        ambienceEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
+        Debug.Log("Ambience parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
     }
 
 

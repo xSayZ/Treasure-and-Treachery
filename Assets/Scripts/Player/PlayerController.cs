@@ -6,24 +6,20 @@
 // --------------------------------
 // ------------------------------*/
 
-
-
-using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Debug = UnityEngine.Debug;
 using Game.Audio;
+using Game.Quest;
 
 
 namespace Game
 {
     namespace Player
     {
-        using Quest;
-        using Scenes;
-
         public enum Archetype
         {
             Melee,
@@ -31,87 +27,99 @@ namespace Game
             Both,
         }
 
-        public class PlayerController : MonoBehaviour,IDamageable
+        public class PlayerController : MonoBehaviour, IDamageable
         {
-            
             public PlayerData PlayerData;
             private int playerID;
-            
+
             //temp Health Solution
-            [Header("SubBehaviours")] 
-            [SerializeField]
+            [Header("Sub Behaviours")] [SerializeField]
             private PlayerMovementBehaviour playerMovementBehaviour;
+
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
-            [Header("InputSettings")]
-            [SerializeField] private PlayerInput PlayerInput;
-            
-            // stashed values will lose on death
-            private int currency;
-            private int questValue;
+            [Header("Input Settings")] [SerializeField]
+            private PlayerInput PlayerInput;
 
             public Archetype CharacterType;
+
+            private List<IInteractable> inInteractRange;
+
             #region Unity Functions
-            
 
-            [Header("Dash Data")]
-            [Tooltip("How much current displacement should increase with")]
-            public float DashModifier;
-            public float  dashTime;
-            public float BaseDashCoolDown;
-
-            private bool dashing;
             private Vector3 _rawInputMovement;
-            private float currentDashCooldown;
 
-            [Header("Audio")] 
+            [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
-            
-            
-            [Header("Test Stuff")] 
+
+
+            [Header("Test Stuff")]
             public Material _material;
-            public float angle;
+            public bool WalkOnGraves;
+
+            private void OnEnable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
+            private void OnDisable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
+                QuestManager.OnItemDropped.AddListener(DropItem);
+                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+            }
+            
             void Start()
             {
                 SetupPlayer();
-                QuestManager.OnGoldPickedUp.AddListener(BeginCurrencyPickup);
-                currentDashCooldown = 0;
-                PlayerData = new PlayerData(); 
-
+                inInteractRange = new List<IInteractable>();
             }
+
             private void Update()
             {
-               Death();
+                Death();
+                if (WalkOnGraves)
+                {
+                }
+
+                //OnRayHit();
             }
 
-            [field:SerializeField]public int Health { get; set; }
+            private void FixedUpdate()
+            {/*
+                if (WalkOnGraves)
+                {
+                    Ray();
+                }*/
+            }
+
+            [field: SerializeField] public int Health { get; set; }
 
             public void Death()
             {
-                if (Health <=0)
+                if (Health <= 0)
                 {
-                    
                     Destroy(gameObject);
                 }
             }
-            
+
             //Temp animation
-            IEnumerator FlashRed()
+            private async void FlashRed()
             {
                 _material.color = Color.red;
-                yield return new WaitForSeconds(1f);
+                await Task.Delay(1000);
 
                 _material.color = Color.white;
-                
-            }
-            
-            public void DamageTaken()
-            {
-                StartCoroutine(FlashRed());
             }
 
-            
+            public void DamageTaken()
+            {
+                FlashRed();
+                PlayerData.currentHealth = Health;
+            }
 
             #endregion
 
@@ -120,63 +128,49 @@ namespace Game
             public void OnMovement(InputAction.CallbackContext value)
             {
                 // Dashing will lock character from moving direction during the duration 
-                if (!dashing)
-                {
-                    if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
-                    {
-                        Vector2 _inputValue = value.ReadValue<Vector2>();
-                        _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
-                        
-                        playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
-                    }
-                }
+                Vector2 _inputValue = value.ReadValue<Vector2>();
 
-                if (playerAttackBehaviour.isAttacking)
+                if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
                 {
-                    Debug.Log("test");
+                    _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+
+                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
                 }
             }
 
 
-            
             public void OnDash(InputAction.CallbackContext value)
             {
-                
-                if (value.started && dashing == false  && BaseDashCoolDown <=0)
+                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.currentLockoutTime <= 0)
                 {
                     //Todo:: PlayDustCloud Particle if needed
-                    
-                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement*DashModifier));
-                    StartCoroutine(WaitUntilDashComplete());
-                    dashing = true;
-                    currentDashCooldown = BaseDashCoolDown;
+                    playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
                 }
             }
-            
+
             public void OnRanged(InputAction.CallbackContext value)
             {
+                //TODO make Character chargeUp
                 if (value.action.triggered)
                 {
-                    //TODO: ADD MovementData = 0,0,0
-                    playerMovementBehaviour.MovementData(Vector3.zero);
                     //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
                         playerAttackBehaviour.RangedAttack();
                         //playerAudio.PlayerRangedAudio(playerObj);
                     }
-                   
                 }
             }
-            
+
             public void OnMelee(InputAction.CallbackContext value)
             {
-                playerMovementBehaviour.MovementData(Vector3.zero);
                 if (value.action.triggered)
                 {
+                    playerMovementBehaviour.TurnPlayer();
+
                     playerAttackBehaviour.MeleeAttack();
                     playerAudio.MeleeAudioPlay(playerObj);
-                }  
+                }
             }
 
 
@@ -184,9 +178,29 @@ namespace Game
             {
                 Debug.Log(value.ReadValueAsButton());
             }
-            
-     
-          
+
+
+            public void OnInteract(InputAction.CallbackContext value)
+            {
+                if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
+                {
+                    return;
+                }
+                
+                for (int i = inInteractRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
+                    {
+                        inInteractRange.Remove(inInteractRange[i]);
+                    }
+                    else
+                    {
+                        inInteractRange[i].Interact(playerID, value.performed);
+                    }
+                }
+            }
+
+
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");
@@ -203,13 +217,12 @@ namespace Game
                 if (value.started)
                 {
                     GameManager.Instance.TogglePauseState(this);
-                    
                 }
-                
             }
-            
-                 
-            public void SetInputActiveState(bool gameIsPaused) {
+
+
+            public void SetInputActiveState(bool gameIsPaused)
+            {
                 switch (gameIsPaused)
                 {
                     case true:
@@ -222,60 +235,147 @@ namespace Game
                 }
             }
 
+            public void InteractRangeEntered(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Add(_interactable);
+                }
+            }
             
+            public void InteractRangeExited(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Remove(_interactable);
+                }
+            }
+
             #endregion
 
-
-            
             #region Private Functions
+
             private void SetupPlayer()
             {
-                
                 playerID = PlayerInput.playerIndex;
-                
-                Health = PlayerData.playerHealth;
-                
-                if (PlayerInput.playerIndex !=0 && PlayerInput.currentControlScheme !="Player1")
+
+                Health = PlayerData.startingHealth;
+
+                if (PlayerInput.playerIndex != 0 && PlayerInput.currentControlScheme != "Player1")
                 {
                     Destroy(gameObject);
-                    
                 }
+
                 PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
+
             
-            private void BeginCurrencyPickup(int _playerId,int pickUpGold)
+            
+            private void PickUpItem(int _playerId, Item _item)
             {
-                    if (playerID == _playerId)
+                if (playerID == _playerId)
+                {
+                    PlayerData.currentItem = _item;
+                }
+            }
+            
+            private void DropItem(int _playerId, Item _item, bool _destroy)
+            {
+                if (playerID == _playerId)
+                {
+                    if (PlayerData.currentItem == _item)
                     {
-                        PlayerData.currency += pickUpGold;
+                       PlayerData.currentItem = null;
+                       
+                       if (!_destroy)
+                       {
+                           // TODO: Drop item on ground here
+                           Debug.LogWarning("Logic for dropping item not yet implemented");
+                       }
                     }
-                
+                    else
+                    {
+                        Debug.LogWarning("Cant remove item from player inventory since player dose not have that item in their inventory");
+                    }
+                }
             }
             
-            
-            
-            //TODO: Move Dash to playerMovement
-            private IEnumerator WaitUntilDashComplete()
+            private void PickUpGold(int _playerId, int pickUpGold)
             {
-                yield return new WaitForSeconds(dashTime);
-                playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
-                dashing = false;
+                if (playerID == _playerId)
+                {
+                    PlayerData.currency += pickUpGold;
+                }
             }
-            
+
+            //TODO: Move Dash to playerMovement
             private Vector3 IsoVectorConvert(Vector3 vector)
             {
                 Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
-                Quaternion rotation = Quaternion.Euler(0,cameraRot.y, 0);
+                Quaternion rotation = Quaternion.Euler(0, cameraRot.y, 0);
                 Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
                 Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
                 return result;
-
             }
+
+            #endregion
+
+            #region Experimental code
+            /*
+            public Vector3 DownDir;
+            public float RideSpringDamper;
+            public float RideSpringStrength;
+            public float RideHeight;
+
+            private RaycastHit _rayHit;
+
+            public bool _rayDidHit;
+
+            public float SphereCheckNumber;
+            public float raycastDistance;
+
+            
+
+            void OnRayHit()
+            {
+                DownDir = IsoVectorConvert(-transform.up);
+                if (Physics.Raycast(transform.position, -transform.up, out _rayHit, raycastDistance))
+                {
+                    _rayDidHit = true;
+                }
+                else
+                {
+                    _rayDidHit = false;
+                }
+            }
+
+            void Ray()
+            {
+                if (_rayDidHit)
+                {
+                    Vector3 vel = IsoVectorConvert(GetComponent<Rigidbody>().velocity);
+                    Vector3 rayDir = IsoVectorConvert(transform.TransformDirection(DownDir));
+                    Vector3 otherVel = Vector3.zero;
+                    Rigidbody hitBody = _rayHit.rigidbody;
+                    if (hitBody != null)
+                    {
+                        otherVel = hitBody.velocity;
+                    }
+
+                    float rayDirVel = Vector3.Dot(rayDir, vel);
+                    float otherDirVel = Vector3.Dot(rayDir, otherVel);
+                    float x = _rayHit.distance - RideHeight;
+                    float relVel = rayDirVel - otherDirVel;
+                    float springForce = (x * RideSpringStrength) - (relVel * RideSpringDamper);
+                    Debug.DrawLine(transform.position, transform.position + (rayDir * springForce), Color.blue);
+                    GetComponent<Rigidbody>().AddForce(IsoVectorConvert(rayDir * springForce));
+                    if (hitBody != null)
+                    {
+                        hitBody.AddForceAtPosition(rayDir * -springForce, IsoVectorConvert(_rayHit.point));
+                    }
+                }
+            }*/
             #endregion
         }
-        
-
-        
-
     }
 }

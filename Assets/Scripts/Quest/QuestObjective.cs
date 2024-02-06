@@ -7,67 +7,88 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Backend;
+using Game.Core;
+using Game.Player;
 using Game.Scene;
 using UnityEngine;
 
 
 namespace Game {
     namespace Quest {
-        public class QuestObjective : MonoBehaviour
+        public class QuestObjective : MonoBehaviour, IInteractable
         {
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
             
+            private class QuestStatus
+            {
+                public bool IsInteracting;
+                public float CurrentInteractTime;
+                public int PlayerIndex;
+            }
+            
+            private Dictionary<Item, QuestStatus> requiredItems;
+            
 #region Unity Functions
-            private void OnEnable()
-            {
-                QuestManager.OnQuestItemPickedUp.AddListener(QuestItemPickedUp);
-            }
-            
-            private void OnDisable()
-            {
-                QuestManager.OnQuestItemPickedUp.RemoveListener(QuestItemPickedUp);
-            }
-            
             private void Start()
             {
                 if (requiredQuest)
                 {
                     QuestManager.RegisterRequiredQuest(this);
                 }
-            }
-            
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.CompareTag("Player"))
+
+                requiredItems = new Dictionary<Item, QuestStatus>();
+                for (int i = 0; i < requiredPickups.Count; i++)
                 {
-                    // Quest is completed immediately at the moment, count down timer instead
-                    if (requiredPickups.Count <= 0) // Dose not account for what player has item
-                    {
-                       QuestCompleted(); 
-                    }
+                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus());
                 }
             }
             
-            private void OnTriggerExit(Collider other)
+            private void Update()
             {
-                if (other.CompareTag("Player"))
+                List<Item> _itemsToRemove = new List<Item>();
+                
+                foreach(KeyValuePair<Item, QuestStatus> item in requiredItems)
                 {
-                    // Dose nothing at the moment, will stop timer
+                    if (item.Value.IsInteracting)
+                    {
+                        item.Value.CurrentInteractTime += Time.deltaTime;
+                        
+                        if (item.Value.CurrentInteractTime >= item.Key.InteractionTime)
+                        {
+                            _itemsToRemove.Add(item.Key);
+                        }
+                    }
+                }
+                
+                for (int i = 0; i < _itemsToRemove.Count; i++)
+                {
+                    QuestManager.OnItemDropped.Invoke(requiredItems[_itemsToRemove[i]].PlayerIndex, _itemsToRemove[i], true);
+                    requiredItems.Remove(_itemsToRemove[i]);
+                }
+                
+                if (requiredItems.Count <= 0)
+                {
+                    QuestCompleted();
+                }
+            }
+#endregion
+
+#region Public Functions
+            public void Interact(int _playerIndex, bool _start) // Check if start or end
+            {
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                if (requiredItems.ContainsKey(_playerData.currentItem))
+                {
+                    requiredItems[_playerData.currentItem].IsInteracting = _start;
+                    requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                 }
             }
 #endregion
 
 #region Private Functions
-            private void QuestItemPickedUp(int _playerIndex, int _weight, Pickup _pickup)
-            {
-                if (requiredPickups.Contains(_pickup))
-                {
-                    requiredPickups.Remove(_pickup); // Temporary, remove it form list when player enters objective zone instead
-                }
-            }
-            
             private void QuestCompleted()
             {
                 if (requiredQuest)

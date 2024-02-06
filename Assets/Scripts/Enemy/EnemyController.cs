@@ -47,6 +47,9 @@ namespace Game {
             [Header("Nav Mesh Agent Update")]
             public float MaxDeviationAngle;
             public float UpdateDistance;
+
+            [Header("Audio")] 
+            [SerializeField] public EnemyAudio enemyAudio;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;

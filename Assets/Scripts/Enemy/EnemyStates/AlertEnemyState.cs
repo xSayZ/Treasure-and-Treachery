@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using Game.Audio;
 using UnityEngine;
 
@@ -16,8 +17,6 @@ namespace Game {
         {
             [SerializeField] private float moveSpeed;
             [SerializeField] private float alertTime;
-            [Header("Audio")]
-            [SerializeField] private EnemyAudio enemyAudio;
 
             private float currentAlertTime;
             private bool hasHeardSomething;
@@ -41,7 +40,16 @@ namespace Game {
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                     enemyController.NavMeshAgent.destination = lastHeardPosition;
                 }
-                enemyAudio.EnemyAlertAudio(enemyController.gameObject);
+                
+                try  
+                {
+                    enemyController.enemyAudio.EnemyAlertAudio(enemyController.gameObject);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
+                }
+                
             }
 
             public override void FixedUpdate()

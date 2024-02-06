@@ -36,7 +36,7 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
-                if (canLeave)
+                if (_start && canLeave)
                 {
                     GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
                     player.GetComponent<PlayerController>().SetInputActiveState(true);

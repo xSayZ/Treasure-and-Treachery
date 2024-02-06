@@ -12,9 +12,10 @@ using UnityEngine;
 namespace Utility {
     public class TurnTowardsCamera : MonoBehaviour
     {
-        private void Update()
+        private void Start()
         {
-            transform.LookAt(UnityEngine.Camera.main.transform.position, Vector3.up);
+            Transform _cameraTransform = UnityEngine.Camera.main.transform;
+            transform.rotation = _cameraTransform.rotation;
         }
     }
 }

@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Game.Core;
 using Game.Audio;
 using UnityEngine;
@@ -50,6 +51,7 @@ namespace Game {
 
             [Header("Audio")] 
             [SerializeField] public EnemyAudio enemyAudio;
+            public EventInstance spiritAudioEventInstance;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
@@ -67,7 +69,7 @@ namespace Game {
                 AlertEnemyState.Awake(this);
                 GrowlEnemyState.Awake(this);
                 ChaseEnemyState.Awake(this);
-                            
+                
                 currentState = RoamEnemyState;
             }
 
@@ -84,6 +86,16 @@ namespace Game {
                 hearingSphere.transform.position = headOrigin.position;
 
                 targetsInAttackRange = new List<IDamageable>();
+                
+                try  
+                {
+                    spiritAudioEventInstance = enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 5);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                }
+
             }
             
             private void FixedUpdate()
@@ -161,6 +173,16 @@ namespace Game {
             public void Death()
             {
                 Destroy(gameObject);
+                
+                try
+                {
+                    enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 3);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                }
+                
             }
             
             public void DamageTaken()

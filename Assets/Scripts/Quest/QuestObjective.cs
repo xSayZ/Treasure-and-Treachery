@@ -92,6 +92,12 @@ namespace Game {
             public void Interact(int _playerIndex, bool _start)
             {
                 PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                
+                if (_playerData.currentItem == null)
+                {
+                    return;
+                }
+                
                 if (requiredItems.ContainsKey(_playerData.currentItem))
                 {
                     requiredItems[_playerData.currentItem].IsInteracting = _start;
@@ -102,6 +108,12 @@ namespace Game {
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
                 PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                
+                if (_playerData.currentItem == null)
+                {
+                    interactionUI.SetActive(false);
+                    return;
+                }
                 
                 if (_inRange && requiredItems.ContainsKey(_playerData.currentItem))
                 {

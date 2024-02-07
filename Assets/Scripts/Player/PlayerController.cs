@@ -86,6 +86,17 @@ namespace Game
 
             public void Death()
             {
+                if (PlayerData.currentItem != null)
+                {
+                    DropItem(playerID, PlayerData.currentItem, false);
+                }
+                
+                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
+                {
+                    Debug.Log(i);
+                    inInteractRange[i].InInteractionRange(playerID, false);
+                }
+                
                 Destroy(gameObject);
             }
 
@@ -180,16 +191,26 @@ namespace Game
                     return;
                 }
                 
+                // Null check
                 for (int i = inInteractRange.Count - 1; i >= 0; i--)
                 {
                     if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
                     {
                         inInteractRange.Remove(inInteractRange[i]);
                     }
-                    else
-                    {
-                        inInteractRange[i].Interact(playerID, value.performed);
-                    }
+                }
+                
+                // Drop item
+                if (inInteractRange.Count <= 0 && PlayerData.currentItem != null && value.performed)
+                {
+                    Debug.Log("Drop");
+                    DropItem(playerID, PlayerData.currentItem, false);
+                }
+                
+                // Interact with stuff
+                for (int i = 0; i < inInteractRange.Count; i++)
+                {
+                    inInteractRange[i].Interact(playerID, value.performed);
                 }
             }
 

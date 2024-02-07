@@ -1,8 +1,16 @@
-using System;
-using System.Collections;
+
+// /*------------------------------
+// --------------------------------
+// Creation Date: 2024/02/05
+// Author: Fredrik
+// Description: Operation_Donken
+// --------------------------------
+// ------------------------------*/
+
 using System.Collections.Generic;
 using System.Linq;
 using Game;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,40 +19,39 @@ using UnityEngine.UI;
 public class SetupSelector : MonoBehaviour
 {
     public GameObject UIImage;
-    public int SetStartImageX;
-    public int SetStartImageY;
-    public int ImageSpacing;
-
-    public Image Border;
     public List<CharacterSelect> selects;
-    public List<Sprite> Images;
-
-    public ImageBank bank;
+    public static List<Sprite> Images;
     
+    public ImageBank bank;
+    private HorizontalLayoutGroup _layoutGroup;
     public void SetActivePlayers()
     {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Selection");
         for (int i = 0; i < Gamepad.all.Count; i++)
         {
-            GameObject image = Instantiate(UIImage, canvas.transform, true);
-            image.GetComponent<RectTransform>().anchoredPosition = new Vector2(-SetStartImageX+ImageSpacing*(i+1), SetStartImageY);
+            GameObject image = Instantiate(UIImage, _layoutGroup.transform, true);
             selects.Add(image.GetComponent<CharacterSelect>());
         }
     }
     public void Start()
     {
+        _layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
+        Images = bank.characterImages;
         SetActivePlayers();
+        
     }
 
     private void Update()
     {
+       
+        
+        
         if (selects.All(a=> a.playersIsReady))
         {
-            Debug.Log("all ready");
+            //Debug.Log("all ready");
         }
         else
         {
-            Debug.Log("All not ready");
+            //Debug.Log("All not ready");
         }
         
         

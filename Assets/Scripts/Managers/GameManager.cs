@@ -11,8 +11,6 @@ using UnityEngine;
 using Game.Player;
 using System;
 using System.Linq;
-using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 
 namespace Game {
     namespace Backend {

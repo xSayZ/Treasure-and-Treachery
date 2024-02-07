@@ -9,13 +9,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utility;
 
 
 namespace Game {
     namespace Player
     {
-        public class PlayerMovementBehaviour : MonoBehaviour
-        {
+        public class PlayerMovementBehaviour : MonoBehaviour {
 
             [Header("MovementSettings")]
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
@@ -93,6 +93,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
+                
                 if (rawInputDirection == Vector3.zero)
                 {
                     playerRigidBody.velocity = Vector3.zero;
@@ -101,16 +102,14 @@ namespace Game {
                 movement = Time.deltaTime * currentSpeed * rawInputDirection;
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
             }
-            public void TurnPlayer()
-            {
-                if(smoothMovementDirection.sqrMagnitude > 0.01f)
-                {
-                    var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
-                        Quaternion.LookRotation(smoothMovementDirection), turnSpeed);
+            public void TurnPlayer() {
+                if (!(smoothMovementDirection.sqrMagnitude > 0.01f))
+                    return;
+                var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
+                    Quaternion.LookRotation(smoothMovementDirection), turnSpeed);
     
-                    playerRigidBody.rotation = _rotation;
-                }
-                
+                playerRigidBody.rotation = _rotation;
+
             }
     
             public void Dash(bool _dash) {

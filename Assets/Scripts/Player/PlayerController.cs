@@ -278,32 +278,38 @@ namespace Game
             
             private void PickUpItem(int _playerId, Item _item) {
                 if (playerID != _playerId)
+                {
                     return;
+                }
                 
                 if (playerData.currentItem != null)
                 {
                     DropItem(_playerId, playerData.currentItem, false);
                 }
-                    
+                
                 _item.Pickup.SetActive(false);
                 InteractRangeExited(_item.Pickup.transform);
                 playerData.currentItem = _item;
-
+                
                 itemImage.GetComponent<Image>().sprite = _item.Sprite;
                 itemImage.SetActive(true);
             }
             
             private void DropItem(int _playerId, Item _item, bool _destroy) {
                 if (playerID != _playerId)
+                {
                     return;
+                }
                 
                 if (playerData.currentItem == _item)
                 {
                     playerData.currentItem = null;
                     itemImage.SetActive(false);
-
+                    
                     if (_destroy)
+                    {
                         return;
+                    }
                     
                     _item.Pickup.SetActive(true);
                     _item.Pickup.transform.position = transform.position;
@@ -321,6 +327,7 @@ namespace Game
                     playerData.currency += pickUpGold;
                 }
             }
+            
             private static Vector3 IsoVectorConvert(Vector3 vector) {
 
                 if (UnityEngine.Camera.main == null)
@@ -393,12 +400,12 @@ namespace Game
             
             private void Log(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+msg);
+                Debug.Log("[GameManager]: " + msg);
             }
 
             private void LogWarning(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+msg);
+                Debug.Log("[GameManager]: " + msg);
             }
         }
     }

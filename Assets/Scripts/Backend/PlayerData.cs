@@ -29,6 +29,7 @@ namespace Game {
             private void OnEnable()
             {
                 currentHealth = startingHealth;
+                currency = 0;
                 currentItem = null;
             }
         }

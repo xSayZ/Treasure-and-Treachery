@@ -60,6 +60,7 @@ namespace Game {
                         
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        Destroy(gameObject);
                         break;
                 }
             }

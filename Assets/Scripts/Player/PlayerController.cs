@@ -32,7 +32,7 @@ namespace Game
         {
             [Header("Player Data")]
             [Tooltip("Player Data Scriptable Object")]
-            [SerializeField] public PlayerData playerData;
+            [SerializeField] public PlayerData PlayerData;
             private int playerID;
 
             
@@ -51,7 +51,7 @@ namespace Game
             // Interactables
             private List<IInteractable> inInteractRange;
             // Movement
-            private Vector3 _rawInputMovement;
+            private Vector3 rawInputMovement;
 
             [Header("UI")]
             [SerializeField] private GameObject itemImage;
@@ -63,8 +63,8 @@ namespace Game
             [field: SerializeField] public int Health { get; set; }
 
             [Header("Test Stuff")]
-            public Material _material;
-            public bool WalkOnGraves;
+            [SerializeField] private Material material;
+            // public bool WalkOnGraves;
             
             [Space]
             [Header("Debug")]
@@ -96,9 +96,9 @@ namespace Game
             
             public void Death()
             {
-                if (playerData.currentItem != null)
+                if (PlayerData.currentItem != null)
                 {
-                    DropItem(playerID, playerData.currentItem, false);
+                    DropItem(playerID, PlayerData.currentItem, false);
                 }
                 
                 for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
@@ -113,17 +113,17 @@ namespace Game
             //Temp animation
             private async void FlashRed()
             {
-                _material.color = Color.red;
+                material.color = Color.red;
                 await Task.Delay(1000);
 
-                _material.color = Color.white;
+                material.color = Color.white;
             }
 
             public void DamageTaken()
             {
                 FlashRed();
                 Log("Player " + playerID + " took damage");
-                playerData.currentHealth = Health;
+                PlayerData.currentHealth = Health;
             }
 
             #endregion
@@ -140,9 +140,9 @@ namespace Game
                 // Get current input value
                 Vector2 _inputValue = value.ReadValue<Vector2>();
                 
-                _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+                rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
 
-                playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
+                playerMovementBehaviour.MovementData(IsoVectorConvert(rawInputMovement));
             }
             
             public void OnDash(InputAction.CallbackContext value)
@@ -162,7 +162,7 @@ namespace Game
                     //TODO: PlayAttackAnimation
                     if (characterType == Archetype.Ranged || characterType == Archetype.Both)
                     {
-                        if (playerData.currentItem != null)
+                        if (PlayerData.currentItem != null)
                         {
                             return;
                         }
@@ -177,7 +177,7 @@ namespace Game
             {
                 if (value.action.triggered)
                 {
-                    if (playerData.currentItem != null)
+                    if (PlayerData.currentItem != null)
                         return;
                     
                     playerMovementBehaviour.TurnPlayer();
@@ -203,10 +203,10 @@ namespace Game
                 }
                 
                 // Drop item
-                if (inInteractRange.Count <= 0 && playerData.currentItem != null && value.performed)
+                if (inInteractRange.Count <= 0 && PlayerData.currentItem != null && value.performed)
                 {
                     Log("Plyer" + playerID + "Dropped item");
-                    DropItem(playerID, playerData.currentItem, false);
+                    DropItem(playerID, PlayerData.currentItem, false);
                 }
                 
                 // Interact with stuff
@@ -272,7 +272,7 @@ namespace Game
             private void SetupPlayer()
             {
                 playerID = playerInput.playerIndex;
-                Health = playerData.startingHealth;
+                Health = PlayerData.startingHealth;
 
                 // * Marked for delete
                 if (playerInput.playerIndex != 0 && playerInput.currentControlScheme != "Player1")
@@ -289,14 +289,14 @@ namespace Game
                     return;
                 }
                 
-                if (playerData.currentItem != null)
+                if (PlayerData.currentItem != null)
                 {
-                    DropItem(_playerId, playerData.currentItem, false);
+                    DropItem(_playerId, PlayerData.currentItem, false);
                 }
                 
                 _item.Pickup.SetActive(false);
                 InteractRangeExited(_item.Pickup.transform);
-                playerData.currentItem = _item;
+                PlayerData.currentItem = _item;
                 
                 itemImage.GetComponent<Image>().sprite = _item.Sprite;
                 itemImage.SetActive(true);
@@ -308,9 +308,9 @@ namespace Game
                     return;
                 }
                 
-                if (playerData.currentItem == _item)
+                if (PlayerData.currentItem == _item)
                 {
-                    playerData.currentItem = null;
+                    PlayerData.currentItem = null;
                     itemImage.SetActive(false);
                     
                     if (_destroy)
@@ -331,7 +331,7 @@ namespace Game
             {
                 if (playerID == _playerId)
                 {
-                    playerData.currency += pickUpGold;
+                    PlayerData.currency += pickUpGold;
                 }
             }
             

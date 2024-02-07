@@ -97,7 +97,7 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
-                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().playerData;
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
                 
                 if (_playerData.currentItem == null)
                 {
@@ -115,7 +115,7 @@ namespace Game {
             
             public void InInteractionRange(int _playerIndex, bool _inRange)
             {
-                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().playerData;
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
                 
                 if (_playerData.currentItem == null)
                 {

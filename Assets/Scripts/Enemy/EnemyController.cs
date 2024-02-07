@@ -89,8 +89,20 @@ namespace Game {
             private void FixedUpdate()
             {
                 // Update targets in vision range
-                for (int i = 0; i < targetsInVisionRangeUpdate.Count; i++)
+                for (int i = targetsInVisionRangeUpdate.Count - 1; i >= 0; i--)
                 {
+                    if (!targetsInVisionRangeUpdate[i]) // Null check
+                    {
+                        if (targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
+                        {
+                            targetsInVisionRange.Remove(targetsInVisionRangeUpdate[i]);
+                        }
+                        
+                        targetsInVisionRangeUpdate.Remove(targetsInVisionRangeUpdate[i]);
+                        
+                        return;
+                    }
+                    
                     if (IsVisible(targetsInVisionRangeUpdate[i]))
                     {
                         if (!targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
@@ -107,6 +119,24 @@ namespace Game {
                     }
                 }
                 
+                // Remove null references from hearing range
+                for (int i = targetsInHearingRange.Count - 1; i >= 0; i--)
+                {
+                    if (!targetsInHearingRange[i])
+                    {
+                        targetsInHearingRange.Remove(targetsInHearingRange[i]);
+                    }
+                }
+                
+                // Remove null references from attack range
+                for (int i = targetsInAttackRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(targetsInAttackRange[i] as UnityEngine.Object))
+                    {
+                        targetsInAttackRange.Remove(targetsInAttackRange[i]);
+                    }
+                }
+
                 // Attack targets in range
                 if (currentAttackCooldown > 0)
                 {

@@ -34,7 +34,7 @@ namespace Game
             
             private List<Transform> enemyTransforms = new List<Transform>();
 
-            private bool isAttacking;
+            //private bool isAttacking;
             private float currentFireRate;
             private float currentMeleeCooldown;
             private LayerMask enemyLayer;
@@ -58,7 +58,7 @@ namespace Game
                 currentMeleeCooldown -= Time.deltaTime;
                 if (currentMeleeCooldown <=0 || currentFireRate <= 0)
                 {
-                    isAttacking = false;
+                    //isAttacking = false;
                 }
             }
             
@@ -88,7 +88,6 @@ namespace Game
                 if (!(currentMeleeCooldown <= 0))
                     return;
                 
-                isAttacking = true;
                 for (int i = 0; i < enemyTransforms?.Count; i++) {
                     if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
                         continue;

@@ -81,7 +81,7 @@ namespace Game
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
 
-                PlayerInput.deviceRegainedEvent.Invoke(PlayerInput);
+                playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
             
             
@@ -92,8 +92,7 @@ namespace Game
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
                 
-                PlayerInput.deviceLostEvent.Invoke(PlayerInput);
-
+                playerInput.deviceLostEvent.Invoke(playerInput);
             }
             
             void Start()

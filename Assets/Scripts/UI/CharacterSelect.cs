@@ -6,6 +6,8 @@
 // Description: Operation_Donken
 // --------------------------------
 // ------------------------------*/
+
+using System;
 using System.Collections.Generic;
 using Game.Backend;
 using UnityEngine;
@@ -29,14 +31,8 @@ namespace Game
             private int currentId;
             private int id;
 
-
-            public enum Select
-            {
-                wolf,
-                lilith,
-                gorgon,
-                kobold
-            }
+            private Sprite cachedSprite;
+            private int cachedId;
 
 
             // Start is called before the first frame update
@@ -59,11 +55,13 @@ namespace Game
                 {
                     Vector2 value = context.ReadValue<Vector2>();
                     id += (int)value.y;
+                    Debug.Log(id);
                     id = Wrap(id, 0, 4);
-                    if (id == 4) id = 0;
-                    Image.sprite = SetupSelector.Images[id % 4];
-                    currentId = id % 4;
-
+                    if (id < 0 || id > 4) id = 0;
+                    if (SetupSelector.Images.TryGetValue(id,out Sprite sprite))
+                    {
+                        Image.sprite = SetupSelector.Images[id];
+                    }
                 }
 
             }
@@ -80,7 +78,10 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                     }
                     
+                    cachedSprite = SetupSelector.Images[currentId];
+                    cachedId = currentId;
                     playersIsReady = true;
+                    SetupSelector.Images.Remove(currentId);
 
 
                 }
@@ -96,7 +97,11 @@ namespace Game
                     {
                         transform.GetChild(i).gameObject.SetActive(false);
                     }
+                    
+                    SetupSelector.Images.Add(cachedId,cachedSprite);
                     playersIsReady = false;
+                    
+
                 }
             }
 

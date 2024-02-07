@@ -13,6 +13,7 @@ using Game;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -20,10 +21,19 @@ public class SetupSelector : MonoBehaviour
 {
     public GameObject UIImage;
     public List<CharacterSelect> selects;
-    public static List<Sprite> Images;
+    public static Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
     
     public ImageBank bank;
     private HorizontalLayoutGroup _layoutGroup;
+    
+    public enum Select
+    {
+        wolf,
+        lilith,
+        gorgon,
+        kobold
+    }
+    
     public void SetActivePlayers()
     {
         for (int i = 0; i < Gamepad.all.Count; i++)
@@ -35,7 +45,11 @@ public class SetupSelector : MonoBehaviour
     public void Start()
     {
         _layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
-        Images = bank.characterImages;
+        
+        for (int i = 0; i < bank.characterImages.Count; i++)
+        {
+            Images.Add(i,bank.characterImages[i]);
+        }
         SetActivePlayers();
         
     }
@@ -47,13 +61,8 @@ public class SetupSelector : MonoBehaviour
         
         if (selects.All(a=> a.playersIsReady))
         {
-            //Debug.Log("all ready");
+            // Debug.log("All Ready")
         }
-        else
-        {
-            //Debug.Log("All not ready");
-        }
-        
         
     }
    

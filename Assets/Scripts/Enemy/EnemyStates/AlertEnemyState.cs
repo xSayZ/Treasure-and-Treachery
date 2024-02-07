@@ -43,13 +43,12 @@ namespace Game {
                 
                 try  
                 {
-                    enemyController.enemyAudio.EnemyAlertAudio(enemyController.gameObject);
+                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 1);
                 } 
                 catch (Exception e)
                 {
-                    Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
+                    Debug.LogError("[{AlertEnemyState}]: Error Exception " + e);
                 }
-                
             }
 
             public override void FixedUpdate()

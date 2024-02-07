@@ -19,6 +19,7 @@ namespace Game {
             public static UnityEvent<int, Item, bool> OnItemDropped = new UnityEvent<int, Item, bool>(); // Player Index, Item, Destroy
             public static UnityEvent<int, int> OnGoldPickedUp = new UnityEvent<int, int>(); // Player Index, Amount
             
+            public static UnityEvent OnRequiredQuestRegistered = new UnityEvent();
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();
             
             private static List<QuestObjective> requiredQuestObjectivesLeft = new List<QuestObjective>();
@@ -26,6 +27,7 @@ namespace Game {
             public static void RegisterRequiredQuest(QuestObjective _questObjective)
             {
                 requiredQuestObjectivesLeft.Add(_questObjective);
+                OnRequiredQuestRegistered.Invoke();
             }
             
             public static void OnRequiredQuestCompleted(QuestObjective _questObjective)

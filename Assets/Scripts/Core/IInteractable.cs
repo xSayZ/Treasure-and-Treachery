@@ -12,6 +12,8 @@ namespace Game {
         public interface IInteractable
         {
             public void Interact(int _playerIndex, bool _start);
+            
+            public void InInteractionRange(int _playerIndex, bool _inRange);
         }
     }
 }

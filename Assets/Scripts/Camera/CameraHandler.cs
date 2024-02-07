@@ -16,6 +16,7 @@ namespace Game {
         public class CameraHandler : MonoBehaviour
         {
             [SerializeField] CinemachineVirtualCamera vCam;
+            [SerializeField] UnityEngine.Camera UICamera;
             CinemachineTargetGroup targetGroup;
 
             [SerializeField] int weight;
@@ -30,7 +31,9 @@ namespace Game {
                 SetCamera();
             }
 
-            private void Update() {
+            private void Update()
+            {
+                UICamera.fieldOfView = UnityEngine.Camera.main.fieldOfView;
                 //vCam.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = 10;
             }
     

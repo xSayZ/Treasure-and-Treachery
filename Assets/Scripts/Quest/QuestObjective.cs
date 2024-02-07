@@ -11,6 +11,7 @@ using Game.Backend;
 using Game.Core;
 using Game.Player;
 using Game.Scene;
+using Game.UI;
 using UnityEngine;
 
 
@@ -18,6 +19,11 @@ namespace Game {
     namespace Quest {
         public class QuestObjective : MonoBehaviour, IInteractable
         {
+            [Header("Setup")]
+            [SerializeField] private GameObject interactionUI;
+            [SerializeField] private Transform progressBarCanvas;
+            [SerializeField] private GameObject progressBarPrefab;
+            
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
@@ -27,6 +33,12 @@ namespace Game {
                 public bool IsInteracting;
                 public float CurrentInteractTime;
                 public int PlayerIndex;
+                public ProgressBar ProgressBar;
+                
+                public QuestStatus(ProgressBar _progressBar)
+                {
+                    ProgressBar = _progressBar;
+                }
             }
             
             private Dictionary<Item, QuestStatus> requiredItems;
@@ -42,7 +54,9 @@ namespace Game {
                 requiredItems = new Dictionary<Item, QuestStatus>();
                 for (int i = 0; i < requiredPickups.Count; i++)
                 {
-                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus());
+                    GameObject _progressBar = Instantiate(progressBarPrefab, progressBarCanvas);
+                    _progressBar.SetActive(false);
+                    requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus(_progressBar.GetComponent<ProgressBar>()));
                 }
             }
             
@@ -56,8 +70,12 @@ namespace Game {
                     {
                         item.Value.CurrentInteractTime += Time.deltaTime;
                         
+                        float _currentProgress = item.Value.CurrentInteractTime / item.Key.InteractionTime;
+                        item.Value.ProgressBar.SetProgress(_currentProgress);
+                        
                         if (item.Value.CurrentInteractTime >= item.Key.InteractionTime)
                         {
+                            item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
                         }
                     }
@@ -77,13 +95,41 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Interact(int _playerIndex, bool _start) // Check if start or end
+            public void Interact(int _playerIndex, bool _start)
             {
                 PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                
+                if (_playerData.currentItem == null)
+                {
+                    return;
+                }
+                
                 if (requiredItems.ContainsKey(_playerData.currentItem))
                 {
                     requiredItems[_playerData.currentItem].IsInteracting = _start;
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
+                    
+                    requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
+                }
+            }
+            
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                
+                if (_playerData.currentItem == null)
+                {
+                    interactionUI.SetActive(false);
+                    return;
+                }
+                
+                if (_inRange && requiredItems.ContainsKey(_playerData.currentItem))
+                {
+                    interactionUI.SetActive(true);
+                }
+                else
+                {
+                    interactionUI.SetActive(false);
                 }
             }
 #endregion

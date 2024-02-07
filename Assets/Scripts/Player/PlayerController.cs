@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.Quest;
+using UnityEngine.UI;
 
 
 namespace Game
@@ -45,10 +46,11 @@ namespace Game
 
             private List<IInteractable> inInteractRange;
 
-            #region Unity Functions
-
             private Vector3 _rawInputMovement;
 
+            [Header("UI")]
+            [SerializeField] private GameObject itemImage;
+            
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -57,6 +59,8 @@ namespace Game
             [Header("Test Stuff")]
             public Material _material;
             public bool WalkOnGraves;
+            
+            #region Unity Functions
 
             private void OnEnable()
             {
@@ -240,6 +244,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Add(_interactable);
+                    _interactable.InInteractionRange(playerID, true);
                 }
             }
             
@@ -248,6 +253,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Remove(_interactable);
+                    _interactable.InInteractionRange(playerID, false);
                 }
             }
 
@@ -275,7 +281,17 @@ namespace Game
             {
                 if (playerID == _playerId)
                 {
+                    if (PlayerData.currentItem != null)
+                    {
+                        DropItem(_playerId, PlayerData.currentItem, false);
+                    }
+                    
+                    _item.Pickup.SetActive(false);
+                    InteractRangeExited(_item.Pickup.transform);
                     PlayerData.currentItem = _item;
+
+                    itemImage.GetComponent<Image>().sprite = _item.Sprite;
+                    itemImage.SetActive(true);
                 }
             }
             
@@ -287,10 +303,12 @@ namespace Game
                     {
                        PlayerData.currentItem = null;
                        
+                       itemImage.SetActive(false);
+                       
                        if (!_destroy)
                        {
-                           // TODO: Drop item on ground here
-                           Debug.LogWarning("Logic for dropping item not yet implemented");
+                           _item.Pickup.SetActive(true);
+                           _item.Pickup.transform.position = transform.position;
                        }
                     }
                     else

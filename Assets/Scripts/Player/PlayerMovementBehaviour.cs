@@ -48,6 +48,8 @@ namespace Game {
             private Vector3 movement;
             private Vector3 rawInputDirection = Vector3.zero;
             private Vector3 smoothMovementDirection;
+            
+            private bool canMove = true;
 
 #region Validation
             private void OnValidate() {
@@ -76,6 +78,11 @@ namespace Game {
 
             private void Update()
             {
+                if (!canMove)
+                {
+                    return;
+                }
+                
                 SmoothInputMovement();
                 TurnPlayer();
                 DashCompletion();
@@ -87,6 +94,11 @@ namespace Game {
             public void MovementData(Vector3 _directionVector)
             {
                 rawInputDirection = _directionVector;
+            }
+            
+            public void SetMovementActiveState(bool _active)
+            {
+                canMove = _active;
             }
 #endregion
 

@@ -70,8 +70,6 @@ namespace Game
             [Header("Debug")]
             [SerializeField] private bool debug;
             
-            private bool canMove = true;
-            
             #region Unity Functions
 
             private void OnEnable()
@@ -255,11 +253,6 @@ namespace Game
                         playerInput.ActivateInput();
                         break;
                 }
-            }
-            
-            public void SetMovementActiveState(bool _active)
-            {
-                canMove = _active;
             }
             
             public void InteractRangeEntered(Transform _transform)

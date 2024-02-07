@@ -77,6 +77,8 @@ namespace Game {
                         {
                             item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
+                            
+                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true);
                         }
                     }
                 }
@@ -110,6 +112,7 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
+                    GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start);
                 }
             }
             

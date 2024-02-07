@@ -82,32 +82,11 @@ namespace Game
                 inInteractRange = new List<IInteractable>();
             }
 
-            private void Update()
-            {
-                Death();
-                if (WalkOnGraves)
-                {
-                }
-
-                //OnRayHit();
-            }
-
-            private void FixedUpdate()
-            {/*
-                if (WalkOnGraves)
-                {
-                    Ray();
-                }*/
-            }
-
             [field: SerializeField] public int Health { get; set; }
 
             public void Death()
             {
-                if (Health <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
 
             //Temp animation

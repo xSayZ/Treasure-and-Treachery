@@ -86,6 +86,11 @@ namespace Game
 
             public void Death()
             {
+                if (PlayerData.currentItem != null)
+                {
+                    DropItem(playerID, PlayerData.currentItem, false);
+                }
+                
                 Destroy(gameObject);
             }
 

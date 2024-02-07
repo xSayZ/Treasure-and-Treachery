@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.Quest;
+using UnityEngine.UI;
 
 
 namespace Game
@@ -45,10 +46,11 @@ namespace Game
 
             private List<IInteractable> inInteractRange;
 
-            #region Unity Functions
-
             private Vector3 _rawInputMovement;
 
+            [Header("UI")]
+            [SerializeField] private GameObject itemImage;
+            
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -57,6 +59,8 @@ namespace Game
             [Header("Test Stuff")]
             public Material _material;
             public bool WalkOnGraves;
+            
+            #region Unity Functions
 
             private void OnEnable()
             {
@@ -78,32 +82,22 @@ namespace Game
                 inInteractRange = new List<IInteractable>();
             }
 
-            private void Update()
-            {
-                Death();
-                if (WalkOnGraves)
-                {
-                }
-
-                //OnRayHit();
-            }
-
-            private void FixedUpdate()
-            {/*
-                if (WalkOnGraves)
-                {
-                    Ray();
-                }*/
-            }
-
             [field: SerializeField] public int Health { get; set; }
 
             public void Death()
             {
-                if (Health <= 0)
+                if (PlayerData.currentItem != null)
                 {
-                    Destroy(gameObject);
+                    DropItem(playerID, PlayerData.currentItem, false);
                 }
+                
+                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
+                {
+                    Debug.Log(i);
+                    inInteractRange[i].InInteractionRange(playerID, false);
+                }
+                
+                Destroy(gameObject);
             }
 
             //Temp animation
@@ -156,6 +150,11 @@ namespace Game
                     //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
+                        if (PlayerData.currentItem != null)
+                        {
+                            return;
+                        }
+                        
                         playerAttackBehaviour.RangedAttack();
                         //playerAudio.PlayerRangedAudio(playerObj);
                     }
@@ -166,6 +165,11 @@ namespace Game
             {
                 if (value.action.triggered)
                 {
+                    if (PlayerData.currentItem != null)
+                    {
+                        return;
+                    }
+                    
                     playerMovementBehaviour.TurnPlayer();
 
                     playerAttackBehaviour.MeleeAttack();
@@ -187,16 +191,26 @@ namespace Game
                     return;
                 }
                 
+                // Null check
                 for (int i = inInteractRange.Count - 1; i >= 0; i--)
                 {
                     if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
                     {
                         inInteractRange.Remove(inInteractRange[i]);
                     }
-                    else
-                    {
-                        inInteractRange[i].Interact(playerID, value.performed);
-                    }
+                }
+                
+                // Drop item
+                if (inInteractRange.Count <= 0 && PlayerData.currentItem != null && value.performed)
+                {
+                    Debug.Log("Drop");
+                    DropItem(playerID, PlayerData.currentItem, false);
+                }
+                
+                // Interact with stuff
+                for (int i = 0; i < inInteractRange.Count; i++)
+                {
+                    inInteractRange[i].Interact(playerID, value.performed);
                 }
             }
 
@@ -240,6 +254,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Add(_interactable);
+                    _interactable.InInteractionRange(playerID, true);
                 }
             }
             
@@ -248,6 +263,7 @@ namespace Game
                 if (_transform.TryGetComponent(out IInteractable _interactable))
                 {
                     inInteractRange.Remove(_interactable);
+                    _interactable.InInteractionRange(playerID, false);
                 }
             }
 
@@ -275,7 +291,17 @@ namespace Game
             {
                 if (playerID == _playerId)
                 {
+                    if (PlayerData.currentItem != null)
+                    {
+                        DropItem(_playerId, PlayerData.currentItem, false);
+                    }
+                    
+                    _item.Pickup.SetActive(false);
+                    InteractRangeExited(_item.Pickup.transform);
                     PlayerData.currentItem = _item;
+
+                    itemImage.GetComponent<Image>().sprite = _item.Sprite;
+                    itemImage.SetActive(true);
                 }
             }
             
@@ -287,10 +313,12 @@ namespace Game
                     {
                        PlayerData.currentItem = null;
                        
+                       itemImage.SetActive(false);
+                       
                        if (!_destroy)
                        {
-                           // TODO: Drop item on ground here
-                           Debug.LogWarning("Logic for dropping item not yet implemented");
+                           _item.Pickup.SetActive(true);
+                           _item.Pickup.transform.position = transform.position;
                        }
                     }
                     else

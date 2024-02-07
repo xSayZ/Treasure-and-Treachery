@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Game.Core;
 using Game.Audio;
 using UnityEngine;
@@ -50,6 +51,7 @@ namespace Game {
 
             [Header("Audio")] 
             [SerializeField] public EnemyAudio enemyAudio;
+            public EventInstance spiritAudioEventInstance;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
@@ -67,7 +69,7 @@ namespace Game {
                 AlertEnemyState.Awake(this);
                 GrowlEnemyState.Awake(this);
                 ChaseEnemyState.Awake(this);
-                            
+                
                 currentState = RoamEnemyState;
             }
 
@@ -84,13 +86,35 @@ namespace Game {
                 hearingSphere.transform.position = headOrigin.position;
 
                 targetsInAttackRange = new List<IDamageable>();
+                
+                try  
+                {
+                    spiritAudioEventInstance = enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 5);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                }
+
             }
             
             private void FixedUpdate()
             {
                 // Update targets in vision range
-                for (int i = 0; i < targetsInVisionRangeUpdate.Count; i++)
+                for (int i = targetsInVisionRangeUpdate.Count - 1; i >= 0; i--)
                 {
+                    if (!targetsInVisionRangeUpdate[i]) // Null check
+                    {
+                        if (targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
+                        {
+                            targetsInVisionRange.Remove(targetsInVisionRangeUpdate[i]);
+                        }
+                        
+                        targetsInVisionRangeUpdate.Remove(targetsInVisionRangeUpdate[i]);
+                        
+                        return;
+                    }
+                    
                     if (IsVisible(targetsInVisionRangeUpdate[i]))
                     {
                         if (!targetsInVisionRange.Contains(targetsInVisionRangeUpdate[i]))
@@ -107,6 +131,24 @@ namespace Game {
                     }
                 }
                 
+                // Remove null references from hearing range
+                for (int i = targetsInHearingRange.Count - 1; i >= 0; i--)
+                {
+                    if (!targetsInHearingRange[i])
+                    {
+                        targetsInHearingRange.Remove(targetsInHearingRange[i]);
+                    }
+                }
+                
+                // Remove null references from attack range
+                for (int i = targetsInAttackRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(targetsInAttackRange[i] as UnityEngine.Object))
+                    {
+                        targetsInAttackRange.Remove(targetsInAttackRange[i]);
+                    }
+                }
+
                 // Attack targets in range
                 if (currentAttackCooldown > 0)
                 {
@@ -161,6 +203,16 @@ namespace Game {
             public void Death()
             {
                 Destroy(gameObject);
+                
+                try
+                {
+                    enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 3);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                }
+                
             }
             
             public void DamageTaken()

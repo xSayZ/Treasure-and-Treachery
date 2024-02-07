@@ -40,17 +40,15 @@ namespace Game {
             public override void Enter()
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
-                currentStuckCount = 0; 
-                
+                currentStuckCount = 0;
                 try  
                 {
-                    enemyController.enemyAudio.EnemyRoamAudio(enemyController.gameObject);
+                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 0);
                 } 
                 catch (Exception e)
                 {
                     Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
                 }
-                
             }
 
             public override void FixedUpdate()

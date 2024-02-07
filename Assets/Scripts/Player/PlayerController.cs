@@ -144,6 +144,7 @@ namespace Game
 
                 playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
             }
+            
             public void OnDash(InputAction.CallbackContext value)
             {
                 if (value.action.WasPressedThisFrame() && playerMovementBehaviour.dashCooldown <= 0)
@@ -184,10 +185,13 @@ namespace Game
                     playerAudio.MeleeAudioPlay(playerObj);
                 }
             }
+            
             public void OnInteract(InputAction.CallbackContext value)
             {
-                if (value is { started: true, performed: false }) // Needed to stop interaction form triggering twice when pressing button
+                if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
+                {
                     return;
+                }
                 
                 // Null check
                 for (int i = inInteractRange.Count - 1; i >= 0; i--)
@@ -243,13 +247,16 @@ namespace Game
                         break;
                 }
             }
-            public void InteractRangeEntered(Transform _transform) {
+            
+            public void InteractRangeEntered(Transform _transform)
+            {
                 if (!_transform.TryGetComponent(out IInteractable _interactable))
                     return;
                 
                 inInteractRange.Add(_interactable);
                 _interactable.InInteractionRange(playerID, true);
             }
+            
             public void InteractRangeExited(Transform _transform)
             {
                 if (_transform.TryGetComponent(out IInteractable _interactable))

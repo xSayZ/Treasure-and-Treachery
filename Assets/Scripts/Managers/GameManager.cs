@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using System;
+using System.Linq;
 using UnityEngine.UI;
 using UnityEditor.SceneManagement;
 
@@ -57,85 +58,59 @@ namespace Game {
             private bool isPaused;
 
             #region Unity Functions
-            private void OnDrawGizmos()
-            {
-                if (debug)
-                {
+            private void OnDrawGizmos()  {
+                if (debug)  {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
-
-            void Awake()
-            {
-
-            }
-
-            void Start()
-            {
+            void Start()  {
                 isPaused = false;
 
                 SetupBasedOnGameState();
             }
-
-            private void Update()
-            {
-                
-            }
-
-            #endregion
-
-#region Public Functions
-
+            
 #endregion
 
 #region Private Functions
-
-            void SetupBasedOnGameState()
-            {
-                switch (currentGameMode)
-                {
+            private void SetupBasedOnGameState() {
+                switch (currentGameMode)  {
                     case GameMode.SinglePlayer:
                         SetupSinglePlayer();
                         break;
                     case GameMode.LocalMultiplayer:
                         SetupLocalMultiplayer();
                         break;
+                    default:
+                        throw new ArgumentOutOfRangeException(); 
                 }
 
-                Timer timer = gameObject.AddComponent<Timer>();
-                timer.StartTimer(roundTime);
+                Timer _timer = gameObject.AddComponent<Timer>();
+                _timer.StartTimer(roundTime);
             }
-            
-            void SetupSinglePlayer()
-            {
+
+            private void SetupSinglePlayer() {
                 activePlayerControllers = new List<GameObject>();
 
-                if(inScenePlayer == true)
-                {
+                if(inScenePlayer == true)  {
                     AddPlayersToActiveList(inScenePlayer);
                 }
             }
 
-            void SetupLocalMultiplayer()
-            {
+            private void SetupLocalMultiplayer() {
                 if(inScenePlayer == true)
                 {
                     Destroy(inScenePlayer);
                 }
 
                 AddPlayers();
-                SetObjective();
             }
 
-            private void AddPlayers()
-            {
+            private void AddPlayers() {
                 activePlayerControllers = new List<GameObject>();
 
-                var controllers = Input.GetJoystickNames();
-                for (int i = 0; i < numberOfPlayers; i++)
-                {
-                    if (i >= controllers.Length)
-                    {
+                string[] _controllers = Input.GetJoystickNames();
+                for (int i = 0; i < numberOfPlayers; i++) {
+                    if (i >= _controllers.Length) {
                         LogWarning("No controller found for player " + i);
                         continue;
                     }
@@ -143,16 +118,16 @@ namespace Game {
                     Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
                     Quaternion _spawnRotation = Quaternion.identity;
 
-                    GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
+                    var _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
                     _spawnedPlayer.GetComponent<PlayerController>();
                     AddPlayersToActiveList(_spawnedPlayer);
                     
                     // Set the player index
-                    foreach (var newPlayer in activePlayerControllers)
+                    foreach (GameObject _newPlayer in activePlayerControllers)
                     {
                         try
                         {
-                            newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
+                            _newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
                         }
                         catch (Exception e)
                         {
@@ -160,48 +135,30 @@ namespace Game {
                         }
                     }
                 }
-                
 
             }
             
-            private void AddPlayersToActiveList(GameObject _newPlayer)
-            {
-                activePlayerControllers.Add(_newPlayer);
-            }
-            
-            private void SetObjective()
-            {
-
+            private void AddPlayersToActiveList(GameObject newPlayer) {
+                activePlayerControllers.Add(newPlayer);
             }
 
-            public void TogglePauseState(PlayerController newFocusedPlayerController)
-            {
+            public void TogglePauseState(PlayerController newFocusedPlayerController) {
                 focusedPlayerController = newFocusedPlayerController;
-
                 isPaused = !isPaused;
 
                 ToggleTimeScale();
-
                 UpdateActivePlayerInputs();
-
                 SwitchFocusedPlayerControlScheme();
             }
 
-            private void UpdateActivePlayerInputs()
-            {
-                for (int i = 0; i < activePlayerControllers.Count; i++)
-                {
-                    if(activePlayerControllers[i] != focusedPlayerController)
-                    {
-                        activePlayerControllers[i].GetComponent<PlayerController>().SetInputActiveState(isPaused);
-                    }
+            private void UpdateActivePlayerInputs() {
+                foreach (GameObject _t in activePlayerControllers.Where(t => t != focusedPlayerController.gameObject)) {
+                    _t.GetComponent<PlayerController>().SetInputActiveState(isPaused);
                 }
             }
 
-            void SwitchFocusedPlayerControlScheme()
-            {
-                switch (isPaused)
-                {
+            private void SwitchFocusedPlayerControlScheme() {
+                switch (isPaused) {
                     case true:
                         focusedPlayerController.EnableEventControls();
                         break;
@@ -210,56 +167,38 @@ namespace Game {
                         break;
                 }
             }
-            
-            
-       
             // Calculate the position of the players in the ring
-            Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
-            {
+            private Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers) {
                 // If there is only one player, return the center of the ring
                 if (numberOfPlayers == 1)
                     return spawnRingCenter.position;
 
                 // Calculate the angle
-                float angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
+                float _angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
                 // Calculate the position
-                float x = Mathf.Cos(angle) * spawnRingRadius;
-                float z = Mathf.Sin(angle) * spawnRingRadius;
+                float _x = Mathf.Cos(_angle) * spawnRingRadius;
+                float _z = Mathf.Sin(_angle) * spawnRingRadius;
                 // Return the position
-                return spawnRingCenter.position + new Vector3(x, 0, z);
-
+                return spawnRingCenter.position + new Vector3(_x, 0, _z);
             }
-
-
-            void ToggleTimeScale()
-            {
-                float _newTimeScale = 0f;
-
-                switch(isPaused)
-                {
-                    case true:
-                        _newTimeScale = 0f;
-                        break;
-                    case false:
-                        _newTimeScale = 1f;
-                        break;
-
-                }
+            private void ToggleTimeScale() {
+                float _newTimeScale = isPaused switch {
+                    true => 0f,
+                    false => 1f
+                };
 
                 Time.timeScale = _newTimeScale;
             }
             #endregion
 
-            private void Log(string _msg)
-            {
+            private void Log(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+_msg);
+                Debug.Log("[GameManager]: "+msg);
             }
 
-            private void LogWarning(string _msg)
-            {
+            private void LogWarning(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+_msg);
+                Debug.Log("[GameManager]: "+msg);
             }
         }
     }

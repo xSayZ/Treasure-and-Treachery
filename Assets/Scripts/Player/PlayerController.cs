@@ -91,6 +91,12 @@ namespace Game
                     DropItem(playerID, PlayerData.currentItem, false);
                 }
                 
+                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
+                {
+                    Debug.Log(i);
+                    inInteractRange[i].InInteractionRange(playerID, false);
+                }
+                
                 Destroy(gameObject);
             }
 

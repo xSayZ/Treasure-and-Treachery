@@ -67,13 +67,19 @@ namespace Game
                 QuestManager.OnItemPickedUp.AddListener(PickUpItem);
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+
+                PlayerInput.deviceRegainedEvent.Invoke(PlayerInput);
             }
+            
             
             private void OnDisable()
             {
                 QuestManager.OnItemPickedUp.AddListener(PickUpItem);
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+                
+                PlayerInput.deviceLostEvent.Invoke(PlayerInput);
+
             }
             
             void Start()
@@ -128,6 +134,8 @@ namespace Game
             #endregion
 
             #region Public Functions
+            
+            
 
             public void OnMovement(InputAction.CallbackContext value)
             {
@@ -204,7 +212,8 @@ namespace Game
                 }
             }
 
-
+            
+            
             public void EnableEventControls()
             {
                 PlayerInput.SwitchCurrentActionMap("Events");

@@ -51,58 +51,51 @@ namespace Game
 
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                if (!playersIsReady)
+                if (playersIsReady) return;
+                
+                Vector2 value = context.ReadValue<Vector2>();
+                id += (int)value.y;
+                id = Wrap(id, 0, 4);
+                if (SetupSelector.Images.TryGetValue(id,out Sprite sprite))
                 {
-                    Vector2 value = context.ReadValue<Vector2>();
-                    id += (int)value.y;
-                    Debug.Log(id);
-                    id = Wrap(id, 0, 4);
-                    if (id < 0 || id > 4) id = 0;
-                    if (SetupSelector.Images.TryGetValue(id,out Sprite sprite))
-                    {
-                        Image.sprite = SetupSelector.Images[id];
-                    }
+                    Image.sprite = sprite;
                 }
 
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if (context.performed && !playersIsReady)
+                if (!context.performed || playersIsReady) return;
+                
+                data.playerIndex = currentId;
+                    
+                for (int i = 0; i < transform.childCount; i++)
                 {
-                    
-                    data.playerIndex = currentId;
-                    
-                    for (int i = 0; i < transform.childCount; i++)
-                    {
-                        transform.GetChild(i).gameObject.SetActive(true);
-                    }
-                    
-                    cachedSprite = SetupSelector.Images[currentId];
-                    cachedId = currentId;
-                    playersIsReady = true;
-                    SetupSelector.Images.Remove(currentId);
-
-
+                    transform.GetChild(i).gameObject.SetActive(true);
                 }
+                    
+                cachedSprite = SetupSelector.Images[currentId];
+                cachedId = currentId;
+                
+                playersIsReady = true;
+                SetupSelector.Images.Remove(currentId);
             }
 
             #endregion
 
             public void OnCancel(InputAction.CallbackContext context)
             {
-                if (context.performed && playersIsReady)
+                if (!context.performed || !playersIsReady) return;
+                
+                
+                for (int i = 0; i < transform.childCount; i++)
                 {
-                    for (int i = 0; i < transform.childCount; i++)
-                    {
-                        transform.GetChild(i).gameObject.SetActive(false);
-                    }
-                    
-                    SetupSelector.Images.Add(cachedId,cachedSprite);
-                    playersIsReady = false;
-                    
-
+                    transform.GetChild(i).gameObject.SetActive(false);
                 }
+                    
+                playersIsReady = false;
+                SetupSelector.Images.Add(cachedId,cachedSprite);
+
             }
 
 

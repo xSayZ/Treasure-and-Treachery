@@ -15,7 +15,7 @@ using Random = UnityEngine.Random;
 
 namespace Game {
     namespace Backend {
-        public class SpawnManager : MonoBehaviour
+        public class SpawnManager : Singleton<SpawnManager>
         {
             [Header("Time Curve")]
             [Tooltip("Curve for modifying the spawn time")]
@@ -23,14 +23,12 @@ namespace Game {
             
             [Header("Spawn Variables")]
             [Tooltip("Time between enemy spawns")]
-            [SerializeField] private float spawnTime = 20f;
-            private float spawnTimeModifier;
-            [Tooltip("Debugging purposes")]
-            [SerializeField] private float debugTime;
+            [SerializeField] public float spawnTime = 20f;
+            [HideInInspector] public float spawnTimeModifier;
             
             [Header("Assignable Lists")]
             [Tooltip("Assign the enemy prefabs to be spawned")]
-            [SerializeField] private GameObject[] enemyPrefabs;
+            [SerializeField] public GameObject[] enemyPrefabs;
             [Tooltip("Assign the spawn points for the enemies")]
             [SerializeField] private Spawner[] spawnPoints;
 
@@ -43,7 +41,6 @@ namespace Game {
             private void Start()
             {
                 camera = UnityEngine.Camera.main;
-                StartCoroutine(EnemySpawn(spawnTime - spawnTimeModifier));
                 timer = GameManager.Instance.GetComponent<Timer>();
             }
 
@@ -58,36 +55,16 @@ namespace Game {
                     percentage = timer.GetCurrentTime() / GameManager.Instance.roundTime;
                 }
                 
-                debugTime = spawnTime - spawnTimeModifier;
-                
-                for (int i = 0; i < spawnPoints.Length; i++)
+                foreach (var _spawnPoint in spawnPoints)
                 {
                     // Get the view position of the spawn point
-                    Vector3 _viewPos = camera.WorldToViewportPoint(spawnPoints[i].transform.position);
+                    Vector3 _viewPos = camera.WorldToViewportPoint(_spawnPoint.transform.position);
                     
                     // Check if the spawn point is within the camera view
                     if(_viewPos.x >= 0 && _viewPos.x <= 1 && _viewPos.y >= 0 && _viewPos.y <= 1 && _viewPos.z > 0) {
-                        spawnPoints[i].allowForSpawn = false;
+                        _spawnPoint.allowForSpawn = false;
                     } else {
-                        if (EnemyManager.Instance.GetCurrentEnemyCount() < EnemyManager.Instance.GetMaxEnemyCount()) {
-                            spawnPoints[i].allowForSpawn = true;
-                        }
-                    }
-                }
-            }
-
-            // Coroutine for spawning enemies
-            private IEnumerator EnemySpawn(float _spawnTime)
-            {
-                while (true)
-                {
-                    for (int i = 0; i < spawnPoints.Length; i++)
-                    {
-                        if (spawnPoints[i].allowForSpawn != true)
-                            yield break;
-                        
-                        yield return new WaitForSeconds(_spawnTime);
-                        SpawnEnemy(spawnPoints[i].transform);
+                        _spawnPoint.allowForSpawn = true;
                     }
                 }
             }

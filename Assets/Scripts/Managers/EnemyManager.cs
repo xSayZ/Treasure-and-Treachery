@@ -8,7 +8,6 @@
 
 using System.Collections.Generic;
 using Game.Enemy;
-using Game.NAME;
 using UnityEngine;
 
 
@@ -19,7 +18,7 @@ namespace Game {
             [Header("Enemy Count")]
             [SerializeField] private int maxEnemies = 10;
             
-            private List<EnemyController> enemies;
+            [SerializeField] private List<EnemyController> enemies;
             
             // Start is called before the first frame update
             void Start()

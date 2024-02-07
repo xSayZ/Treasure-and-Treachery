@@ -25,10 +25,8 @@ namespace Game {
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
             private TextMeshProUGUI[] choicesText;
-
             [SerializeField] PlayerInput playerInput;
             [SerializeField] private TextAsset inkJSON;
-
             private Story currentStory;
             private bool dialogueIsPlaying;
             private bool submitPressed;

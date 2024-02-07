@@ -16,19 +16,23 @@ namespace Game {
     namespace Scenes {
         public class CarriageBehaviour : MonoBehaviour, IInteractable
         {
+            [Header("Setup")]
+            [SerializeField] private GameObject interactionUI;
             [SerializeField] GameObject playerTeleportPosition;
             
-            private bool canLeave;
+            private bool canLeave = true;
             private int playersInCarriage;
 
 #region Unity Functions
             private void OnEnable()
             {
+                QuestManager.OnRequiredQuestRegistered.AddListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.AddListener(AllRequiredQuestsCompleted);
             }
             
             private void OnDisable()
             {
+                QuestManager.OnRequiredQuestRegistered.RemoveListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.RemoveListener(AllRequiredQuestsCompleted);
             }
 #endregion
@@ -51,9 +55,26 @@ namespace Game {
                     }
                 }
             }
+
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                if (_inRange && canLeave)
+                {
+                    interactionUI.SetActive(true);
+                }
+                else
+                {
+                    interactionUI.SetActive(false);
+                }
+            }
 #endregion
 
 #region Private Functions
+            private void RequiredQuestRegistered()
+            {
+                canLeave = false;
+            }
+            
             private void AllRequiredQuestsCompleted()
             {
                 canLeave = true;

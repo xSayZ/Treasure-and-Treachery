@@ -21,12 +21,16 @@ namespace Game {
                 Gold
             }
             
+            [Header("Setup")]
+            [SerializeField] private GameObject interactionUI;
+            
             [Header("Pickup Type")]
             public PickupTypes PickupType;
             
             // Item variables
             [HideInInspector] public int Weight;
             [HideInInspector] public float InteractionTime;
+            [HideInInspector] public Sprite ItemSprite;
             
             // Gold variables
             [HideInInspector] public int Amount;
@@ -43,6 +47,11 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
+                if (!_start)
+                {
+                    return;
+                }
+                
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
@@ -53,8 +62,11 @@ namespace Game {
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
                         break;
                 }
-                
-                Destroy(gameObject);
+            }
+            
+            public void InInteractionRange(int _playerIndex, bool _inRange)
+            {
+                interactionUI.SetActive(_inRange);
             }
 
             public Item GetItem()
@@ -66,7 +78,7 @@ namespace Game {
 #region Private Functions
             private void CreateItem()
             {
-                item = new Item(Weight, InteractionTime);
+                item = new Item(Weight, InteractionTime, gameObject, ItemSprite);
             }
 #endregion
         }

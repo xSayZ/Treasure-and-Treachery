@@ -137,17 +137,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData: {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
+  playerData: {fileID: 0}
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -3509399097656645022}
-  PlayerInput: {fileID: 3622730775527207118}
-  CharacterType: 2
+  playerInput: {fileID: 0}
+  characterType: 0
   itemImage: {fileID: 6253718703671994726}
   playerObj: {fileID: 288723118889570766}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
+  <Health>k__BackingField: 0
   _material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
   WalkOnGraves: 0
-  <Health>k__BackingField: 0
+  debug: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,11 +161,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSmoothing: 5
-  BaseMoveSpeed: 50
+  movementSmoothing: 0
+  baseMoveSpeed: 0
   turnSpeed: 2.79
-  DashSpeedModifier: 50
-  <currentLockoutTime>k__BackingField: 0
+  dashSpeedModifier: 0
+  dashTime: 2
+  dashCooldown: 2
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,14 +325,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WeaponCollider: {fileID: 5877225869525892562}
+  weaponCollider: {fileID: 0}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
-  MeleeAttackDamage: 1
-  BaseMeleeAttackCooldown: 1
-  RangedAttackDamage: 1
-  BaseFireRateRanged: 1
+  meleeAttackDamage: 0
+  baseMeleeAttackCooldown: 0
+  rangedAttackDamage: 0
+  baseFireRateRanged: 0
   projectileSpeed: 0
-  enemyTransforms: []
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0

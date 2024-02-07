@@ -127,7 +127,7 @@ namespace Game {
                     {
                         try
                         {
-                            _newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
+                            _newPlayer.GetComponent<PlayerController>().playerData.playerIndex = i;
                         }
                         catch (Exception e)
                         {

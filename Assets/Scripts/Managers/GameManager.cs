@@ -153,7 +153,7 @@ namespace Game {
 
             private void UpdateActivePlayerInputs() {
                 foreach (GameObject _t in activePlayerControllers.Where(t => t != focusedPlayerController.gameObject)) {
-                    _t.GetComponent<PlayerController>().SetInputActiveState(isPaused);
+                    _t.GetComponent<PlayerController>().SetInputPausedState(isPaused);
                 }
             }
 

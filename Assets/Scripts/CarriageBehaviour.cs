@@ -43,7 +43,7 @@ namespace Game {
                 if (_start && canLeave)
                 {
                     GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
-                    player.GetComponent<PlayerController>().SetInputActiveState(true);
+                    player.GetComponent<PlayerController>().SetInputPausedState(true);
                     player.transform.position = playerTeleportPosition.transform.position;
                     player.transform.localScale = new Vector3(0,0,0);
                     

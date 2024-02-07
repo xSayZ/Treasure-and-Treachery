@@ -70,6 +70,8 @@ namespace Game
             [Header("Debug")]
             [SerializeField] private bool debug;
             
+            private bool canMove = true;
+            
             #region Unity Functions
 
             private void OnEnable()
@@ -132,7 +134,6 @@ namespace Game
 
             public void OnMovement(InputAction.CallbackContext value)
             { 
-                
                 // TODO: PlayFootStepAudio
                 // TODO: PlayFootStepParticle
                 // TODO: PlayFootStepAnimation
@@ -235,9 +236,9 @@ namespace Game
                 }
             }
             
-            public void SetInputActiveState(bool gameIsPaused)
+            public void SetInputPausedState(bool _paused)
             {
-                switch (gameIsPaused)
+                switch (_paused)
                 {
                     case true:
                         playerInput.DeactivateInput();
@@ -246,6 +247,11 @@ namespace Game
                         playerInput.ActivateInput();
                         break;
                 }
+            }
+            
+            public void SetMovementActiveState(bool _active)
+            {
+                canMove = _active;
             }
             
             public void InteractRangeEntered(Transform _transform)

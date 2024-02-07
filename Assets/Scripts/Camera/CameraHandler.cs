@@ -27,7 +27,7 @@ namespace Game {
 
             #region Unity Functions
             // Start is called before the first frame update
-            void Awake()
+            void Start()
             {
                 targetGroup = FindObjectOfType<CinemachineTargetGroup>();
                 SetCamera();

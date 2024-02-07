@@ -82,32 +82,11 @@ namespace Game
                 inInteractRange = new List<IInteractable>();
             }
 
-            private void Update()
-            {
-                Death();
-                if (WalkOnGraves)
-                {
-                }
-
-                //OnRayHit();
-            }
-
-            private void FixedUpdate()
-            {/*
-                if (WalkOnGraves)
-                {
-                    Ray();
-                }*/
-            }
-
             [field: SerializeField] public int Health { get; set; }
 
             public void Death()
             {
-                if (Health <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
 
             //Temp animation
@@ -160,6 +139,11 @@ namespace Game
                     //TODO;; PlayAttackAnimation
                     if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
                     {
+                        if (PlayerData.currentItem != null)
+                        {
+                            return;
+                        }
+                        
                         playerAttackBehaviour.RangedAttack();
                         //playerAudio.PlayerRangedAudio(playerObj);
                     }
@@ -170,6 +154,11 @@ namespace Game
             {
                 if (value.action.triggered)
                 {
+                    if (PlayerData.currentItem != null)
+                    {
+                        return;
+                    }
+                    
                     playerMovementBehaviour.TurnPlayer();
 
                     playerAttackBehaviour.MeleeAttack();

@@ -2,72 +2,107 @@
 // --------------------------------
 // Creation Date: 2024-01-29
 // Author: b22feldy
-// Description: Operation_Donken
+// Description: Carriage for leaving level
 // --------------------------------
 // ------------------------------*/
 
+using Game.Backend;
+using Game.Core;
 using UnityEngine;
-using Game.Events;
+using Game.Quest;
 using Game.Player;
 
 namespace Game {
     namespace Scenes {
-        public class CarriageBehaviour : MonoBehaviour
-        {
-            private bool canDoObjective = false;
-            private bool availableToEndGame = false;
-            [SerializeField] private int amountForObjective = 3;
-            private int playerID;
-            private int playerCounter;
-            [SerializeField] GameObject carriageTeleport;
+        public class CarriageBehaviour : MonoBehaviour, IInteractable {
+            [Header("Variables")]
+            [SerializeField] private int health;
             
-            private void Start() {
-                EventManager.OnObjectivePickup.AddListener(ObjectiveCheck);
-            }
+            [Header("Setup")]
+            [SerializeField] private GameObject interactionUI;
+            [SerializeField] GameObject playerTeleportPosition;
+            
+            // Interaction variables
+            [HideInInspector] public bool[] CanInteractWith { get; set; }
+            [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
+            [HideInInspector] public Transform InteractionTransform { get; set; }
+            
+            private bool canLeave = true;
+            private int playersInCarriage;
 
 #region Unity Functions
-            void OnTriggerEnter(Collider other)
+            private void OnEnable()
             {
-                if (other.CompareTag("Player") && 
-                    canDoObjective && 
-                    other.gameObject.transform.GetComponent<PlayerController>().PlayerData.playerIndex == playerID)
-                {
-                    //TODO: Send to player that they can use pickup
-                    // When they use the shovel, decrease amountForObjective
-                    // If amountForObjective is 0, stop them from being able to use shovel then make it available to leave
-                    if (amountForObjective == 0) {
-                        canDoObjective = false;
-                        availableToEndGame = true;
-                    }
-                }
-
-                if (other.CompareTag("Player") && availableToEndGame) {
-                    var player = other.gameObject;
-                    player.GetComponent<PlayerController>().SetInputActiveState(availableToEndGame);
-                    player.transform.position = carriageTeleport.transform.position;
-                    player.transform.localScale = new Vector3(0,0,0);
-                }
+                QuestManager.OnRequiredQuestRegistered.AddListener(RequiredQuestRegistered);
+                QuestManager.OnAllRequiredQuestsCompleted.AddListener(AllRequiredQuestsCompleted);
             }
-
-
+            
+            private void OnDisable()
+            {
+                QuestManager.OnRequiredQuestRegistered.RemoveListener(RequiredQuestRegistered);
+                QuestManager.OnAllRequiredQuestsCompleted.RemoveListener(AllRequiredQuestsCompleted);
+            }
+            
+            private void Awake()
+            {
+                CanInteractWith = new bool[4]; // Hard coded to max 4 players
+                PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
+                InteractionTransform = transform;
+            }
 #endregion
 
 #region Public Functions
-
-            public void UpdateObjective() {
-                amountForObjective--;
+            public void Interact(int _playerIndex, bool _start)
+            {
+                if (_start && canLeave)
+                {
+                    GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
+                    player.GetComponent<PlayerController>().SetInputPausedState(true);
+                    player.transform.position = playerTeleportPosition.transform.position;
+                    player.transform.localScale = new Vector3(0,0,0);
+                    
+                    playersInCarriage++;
+                    if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)
+                    {
+                        // All players are in carriage, time to end level
+                        Debug.Log("Level Done");
+                    }
+                }
             }
+            
+            public void ToggleInteractionUI(int _playerIndex, bool _active)
+            {
+                PlayersThatWantsToInteract[_playerIndex] = _active;
 
+                bool _displayUI = false;
+                for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
+                {
+                    if (PlayersThatWantsToInteract[i])
+                    {
+                        _displayUI = true;
+                    }
+                }
+                
+                interactionUI.SetActive(_displayUI);
+            }
 #endregion
 
 #region Private Functions
-
-            private void ObjectiveCheck(bool arg0, int playerIndex){
-                canDoObjective = arg0;
-                playerID = playerIndex;
+            private void RequiredQuestRegistered()
+            {
+                canLeave = false;
+            }
+            
+            private void AllRequiredQuestsCompleted()
+            {
+                canLeave = true;
+                
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = true;
+                }
             }
 #endregion
-
         }
     }
 }

@@ -15,49 +15,50 @@ namespace Game {
     namespace Camera {
         public class CameraHandler : MonoBehaviour
         {
-            GameManager gameManager;
-            CinemachineTargetGroup targetGroup;
 
-            [SerializeField] int weight;
-            [SerializeField] int radius;
+            [SerializeField] private UnityEngine.Camera UICamera;
+            private CinemachineTargetGroup targetGroup;
+
+            [SerializeField]
+            private int weight;
+            [SerializeField]
+            private int radius;
+        
 
             #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
-                gameManager = FindObjectOfType<GameManager>();
                 targetGroup = FindObjectOfType<CinemachineTargetGroup>();
                 SetCamera();
             }
+
+            private void Update()
+            {
+                UICamera.fieldOfView = UnityEngine.Camera.main.fieldOfView;
+            }
     
-            #endregion
-
-            #region Public Functions
-
             #endregion
 
             #region Private Functions
 
             private void SetCamera()
             {
-                GameObject[] _targets = gameManager.activePlayerControllers.ToArray();
+                GameObject[] _targets = GameManager.Instance.activePlayerControllers.ToArray();
 
-                CinemachineTargetGroup.Target[] targetsArray = new CinemachineTargetGroup.Target[_targets.Length];
+                CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[_targets.Length];
 
                 for (int i = 0; i < _targets.Length; i++)
                 {
-                    targetsArray[i] = new CinemachineTargetGroup.Target
+                    _targetsArray[i] = new CinemachineTargetGroup.Target
                     {
                         target = _targets[i].transform,
                         weight = weight,
                         radius = radius,
                     };
-
-                   // Debug.Log(_targets[i].transform);
                 }
 
-                targetGroup.m_Targets = targetsArray;
-                //Debug.Log(targetGroup.m_Targets);
+                targetGroup.m_Targets = _targetsArray;
             }
 
             #endregion

@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
-
+using Game.Audio;
 
 namespace Game {
     namespace Enemy {
@@ -26,6 +26,7 @@ namespace Game {
             [SerializeField] private float maxRoamAngle;
             [SerializeField] private float minMoveDistance;
             [SerializeField] private int maxMoveFrames;
+
             
             private Vector3 positionLastUpdate;
             private int currentStuckCount;
@@ -40,6 +41,14 @@ namespace Game {
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
                 currentStuckCount = 0;
+                try  
+                {
+                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 0);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
+                }
             }
 
             public override void FixedUpdate()

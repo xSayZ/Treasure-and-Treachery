@@ -6,8 +6,9 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using UnityEngine;
-
 
 namespace Game {
     namespace Enemy {
@@ -16,12 +17,12 @@ namespace Game {
         {
             [SerializeField] private float moveSpeed;
             [SerializeField] private float alertTime;
-            
+
             private float currentAlertTime;
             private bool hasHeardSomething;
             private Vector3 lastHeardPosition;
-            
-#region State Machine Functions
+
+            #region State Machine Functions
             protected override void SetUp()
             {
                 Name = "Alert";
@@ -38,6 +39,15 @@ namespace Game {
                     hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                     enemyController.NavMeshAgent.destination = lastHeardPosition;
+                }
+                
+                try  
+                {
+                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 1);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{AlertEnemyState}]: Error Exception " + e);
                 }
             }
 

@@ -9,6 +9,8 @@
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
+using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 
 namespace Game {
@@ -20,8 +22,14 @@ namespace Game {
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private TextMeshProUGUI dialogueText;
 
+            [Header("Choices UI")]
+            [SerializeField] private GameObject[] choices;
+            private TextMeshProUGUI[] choicesText;
+            [SerializeField] PlayerInput playerInput;
+            [SerializeField] private TextAsset inkJSON;
             private Story currentStory;
             private bool dialogueIsPlaying;
+            private bool submitPressed;
 
 #region Unity Functions
             // Start is called before the first frame update
@@ -29,10 +37,28 @@ namespace Game {
             {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
+                playerInput.SwitchCurrentActionMap("Events");
+
+                choicesText = new TextMeshProUGUI[choices.Length];
+                int index = 0;
+                foreach (GameObject choice in choices)
+                {
+                    choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+                    index++;
+                }
+                EnterDialogueMode(inkJSON);
+
             }
 
             void Update(){
-                
+
+                if(!dialogueIsPlaying) {
+                    
+                }
+
+                if (GetSubmitPressed()){
+                    ContinueStory();
+                }
             }    
 #endregion
 
@@ -49,6 +75,22 @@ namespace Game {
                     ExitDialogueMode();
                 }
             }
+
+            public void SubmitPressed(InputAction.CallbackContext value) {
+                if (value.performed)
+                {
+                    submitPressed = true;
+                } else if (value.canceled) {
+                    submitPressed = false;
+                }
+            }
+
+            public bool GetSubmitPressed() 
+            {
+                bool result = submitPressed;
+                submitPressed = false;
+                return result;
+            }
 #endregion
 
 #region Private Functions
@@ -57,6 +99,39 @@ namespace Game {
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
             }
+
+            private void ContinueStory() {
+                if (currentStory.canContinue) {
+                    dialogueText.text = currentStory.Continue();
+                    DisplayChoices();
+                } else {
+                    ExitDialogueMode();
+                }
+                
+            }
+
+            private void DisplayChoices(){
+                List<Choice> currentChoices = currentStory.currentChoices;
+
+                if(currentChoices.Count > choices.Length) {
+                    Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
+                }
+
+                int index = 0;
+
+                foreach (Choice choice in currentChoices)
+                {
+                    choices[index].gameObject.SetActive(true);
+                    choicesText[index].text = choice.text;
+                    index++;
+                }
+
+                for (int i = index; i < choices.Length; i++)
+                {
+                    choices[i].gameObject.SetActive(false);
+                }
+            }
+            
 #endregion
         }
     }

@@ -83,15 +83,5 @@ namespace Utility {
                 return _angle;
             }
         }
-        
-        
-        public static class GizmoSemiCircle
-        {
-            public static void DrawWireArc(Vector3 position, Vector3 dir, float anglesRange, float radius, float maxSteps = 20)
-            {
-                GizmosExtra.DrawSemiCircle(position, dir, anglesRange, radius);
-                Debug.LogWarning("[Programmer Note] GizmoSemiCircle class has been deprecated, please use GizmosExtra class instead");
-            }
-        }
     }
 }

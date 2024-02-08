@@ -2,15 +2,13 @@
 // --------------------------------
 // Creation Date: 2024/01/30
 // Author: Fredrik
-// Description: Operation_Donken
+// Description: This script is responsible for the attack behaviour of the player.
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
-using Game.Enemy;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -21,111 +19,95 @@ namespace Game
     {
         public class AttackBehaviour : MonoBehaviour
         {
-            [Header("Component References")] public CapsuleCollider WeaponCollider;
-            public GameObject projectile;
+            [Header("Component References")] 
+            [SerializeField] private CapsuleCollider weaponCollider;
+            [SerializeField] private GameObject projectile;
 
             [Header("Melee Attack Settings")] 
-            [SerializeField]public int MeleeAttackDamage;
-            [SerializeField] public float BaseMeleeAttackCooldown;
+            [SerializeField] private int meleeAttackDamage;
+            [SerializeField] private float baseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")] 
-            [SerializeField] public int RangedAttackDamage;
-            [SerializeField] public float BaseFireRateRanged;
+            [SerializeField] private int rangedAttackDamage;
+            [SerializeField] private float baseFireRateRanged;
+            [SerializeField] private float projectileSpeed;
+            
+            private List<Transform> enemyTransforms = new List<Transform>();
 
-             public List<Collider> enemyColliders = new List<Collider>();
-             
-            public bool isAttacking { get; private set; }
+            //private bool isAttacking;
             private float currentFireRate;
             private float currentMeleeCooldown;
             private LayerMask enemyLayer;
             
             #region Unity Functions
-
-            // Start is called before the first frame update
-
             private void Awake()
             {
-                WeaponCollider.GetComponentInChildren<Collider>();
+                // Get references
+                weaponCollider.GetComponentInChildren<Collider>();
+                enemyLayer = LayerMask.NameToLayer("Enemy");
+                
+                // Set default values
                 currentFireRate = 0;
                 currentMeleeCooldown = 0;
-                enemyLayer = LayerMask.NameToLayer("Enemy");
             }
 
             // Update is called once per frame
-            void Update()
+            private void Update()
             {
-                enemyColliders = enemyColliders.Where(Collider => Collider != null).ToList();
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
                 if (currentMeleeCooldown <=0 || currentFireRate <= 0)
                 {
-                    isAttacking = false;
+                    //isAttacking = false;
                 }
             }
-            private void OnTriggerEnter(Collider other)
-            {
-                if (other.gameObject.layer == enemyLayer && !other.isTrigger)
-                {
-                    enemyColliders.Add(other);
-                }
-            }
-
-            private void OnTriggerExit(Collider other)
-            {
-                if (other.gameObject.layer != enemyLayer)
-                {
-                    enemyColliders?.Remove(other);
-                }
-            }
+            
 
             #endregion
-
            
             #region Public Functions
 
-            public void MeleeAttack()
-            {
-                if (currentMeleeCooldown <= 0)
+            public void OnAttackRangeEnter(Transform _transform) {
+                if (_transform.gameObject.layer != enemyLayer)
+                    return;
+                
+                if (weaponCollider.isTrigger)
                 {
-                    isAttacking = true;
-                    for (int i = 0; i < enemyColliders?.Count; i++)
-                    {
-                        if (enemyColliders[i].TryGetComponent(out IDamageable hit))
-                        {
-                            hit.Damage(MeleeAttackDamage);
-                        }
-                    }
-
-                    currentMeleeCooldown = BaseMeleeAttackCooldown;
+                    enemyTransforms.Add(_transform);
                 }
             }
-
-            public void RangedAttack()
+            public void OnAttackRangeExit(Transform _transform)
             {
-                //TODO FixedRangeAttack
-                if (currentFireRate <= 0)
+                if (_transform.gameObject.layer != enemyLayer)
                 {
-                    GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
-
-                    Projectile playerProjectile = _projectile.GetComponent<Projectile>();
-                    playerProjectile.SetProjectileDamage(RangedAttackDamage);
-                    playerProjectile.SetDirection(transform.forward);
-
-                    currentFireRate = BaseFireRateRanged;
+                    enemyTransforms?.Remove(_transform);
                 }
             }
-
-
-            private void OnDrawGizmos()
-            {
-                Utility.Gizmos.GizmoSemiCircle.DrawWireArc(transform.position, transform.forward, 60, 45, 2);
+            
+            public void MeleeAttack() {
+                if (!(currentMeleeCooldown <= 0))
+                    return;
+                
+                for (int i = 0; i < enemyTransforms?.Count; i++) {
+                    if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
+                        continue;
+                    _hit.Damage(meleeAttackDamage);
+                    enemyTransforms = enemyTransforms.Where(_collider => _collider != null).ToList();
+                }
+                currentMeleeCooldown = baseMeleeAttackCooldown;
             }
 
-            #endregion
-
-            #region Private Functions
-
-            #endregion
+            public void RangedAttack() {
+                if (!(currentFireRate <= 0))
+                    return;
+                
+                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
+                Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
+                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed);
+                
+                currentFireRate = baseFireRateRanged;
+            }
+#endregion
         }
     }
 }

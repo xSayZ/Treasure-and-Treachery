@@ -6,10 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
-using Game.Events;
+using Game.Core;
 using UnityEngine;
-using UnityEngine.Events;
 
 
 namespace Game {
@@ -19,15 +17,26 @@ namespace Game {
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
-            [field:SerializeField] public int playerHealth { get; private set; }
-            [SerializeField] public int playerIndex ;
-            [SerializeField] public int currency;
-            [SerializeField] private int questValue;
-
-            private int currentHealth;
-            private int currentCurrency;
-            private int currentQuestValue;
+            [Header("Settings")]
+            [SerializeField] public int startingHealth;
             
+            [Header("Debug")]
+            [SerializeField] public int currentHealth;
+            [SerializeField] public int playerIndex;
+            [SerializeField] public int currency;
+            [SerializeField] public Item currentItem;
+            
+            public int SetPlayerData(int _currentHealth)
+            {
+                currentHealth = _currentHealth;
+                return playerIndex;
+            }
+            private void OnEnable()
+            {
+                currentHealth = startingHealth;
+                currency = 0;
+                currentItem = null;
+            }
         }
     }
 }

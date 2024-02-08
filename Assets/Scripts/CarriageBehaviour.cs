@@ -14,8 +14,10 @@ using Game.Player;
 
 namespace Game {
     namespace Scenes {
-        public class CarriageBehaviour : MonoBehaviour, IInteractable
-        {
+        public class CarriageBehaviour : MonoBehaviour, IInteractable {
+            [Header("Variables")]
+            [SerializeField] private int health;
+            
             [Header("Setup")]
             [SerializeField] private GameObject interactionUI;
             [SerializeField] GameObject playerTeleportPosition;

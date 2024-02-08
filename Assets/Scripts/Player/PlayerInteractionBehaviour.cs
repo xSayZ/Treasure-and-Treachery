@@ -132,12 +132,16 @@ namespace Game {
 
             public void OnDeath()
             {
+                if (closestInteraction != null)
+                {
+                    closestInteraction.Interact(playerController.PlayerIndex, false);
+                    closestInteraction.ToggleInteractionUI(playerController.PlayerIndex, false);
+                }
+                
                 if (playerController.PlayerData.currentItem != null)
                 {
                     DropItem(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
                 }
-                
-                closestInteraction.ToggleInteractionUI(playerController.PlayerIndex, false);
             }
 #endregion
 

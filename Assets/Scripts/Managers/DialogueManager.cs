@@ -2,15 +2,17 @@
 // --------------------------------
 // Creation Date: 2024-01-30
 // Author: Felix
-// Description: Operation_Donken
+// Description: Dialogue Manager for handling dialogue in the game.
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections;
 using UnityEngine;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 
 namespace Game {
@@ -28,16 +30,16 @@ namespace Game {
             [SerializeField] PlayerInput playerInput;
             [SerializeField] private TextAsset inkJSON;
             private Story currentStory;
-            private bool dialogueIsPlaying;
+            public bool dialogueIsPlaying { get; private set; }
             private bool submitPressed;
-
+            
 #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
-                playerInput.SwitchCurrentActionMap("Events");
+                playerInput.SwitchCurrentActionMap("Menu");
 
                 choicesText = new TextMeshProUGUI[choices.Length];
                 int index = 0;
@@ -46,37 +48,22 @@ namespace Game {
                     choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
                     index++;
                 }
+                
                 EnterDialogueMode(inkJSON);
-
             }
-
-            void Update(){
-
-                if(!dialogueIsPlaying) {
-                    
-                }
-
-                if (GetSubmitPressed()){
-                    ContinueStory();
-                }
-            }    
 #endregion
 
 #region Public Functions
-            public void EnterDialogueMode(TextAsset inkJSON){
-                currentStory = new Story(inkJSON.text);
+            public void EnterDialogueMode(TextAsset _inkJSON){
+                currentStory = new Story(_inkJSON.text);
                 dialogueIsPlaying = true;
                 dialoguePanel.SetActive(true);
-
-                if(currentStory.canContinue){
-                    dialogueText.text = currentStory.Continue();
-                }
-                else {
-                    ExitDialogueMode();
-                }
+                
+                ContinueStory();
             }
 
             public void SubmitPressed(InputAction.CallbackContext value) {
+                Debug.Log("Submit Pressed");
                 if (value.performed)
                 {
                     submitPressed = true;
@@ -90,6 +77,13 @@ namespace Game {
                 bool result = submitPressed;
                 submitPressed = false;
                 return result;
+            }
+            
+            public void MakeChoice(int _choiceIndex)
+            {
+                currentStory.ChooseChoiceIndex(_choiceIndex);
+                GetSubmitPressed(); 
+                ContinueStory();
             }
 #endregion
 
@@ -108,6 +102,14 @@ namespace Game {
                     ExitDialogueMode();
                 }
                 
+            }
+            
+            private void HideChoices() 
+            {
+                foreach (GameObject choiceButton in choices) 
+                {
+                    choiceButton.SetActive(false);
+                }
             }
 
             private void DisplayChoices(){
@@ -130,6 +132,18 @@ namespace Game {
                 {
                     choices[i].gameObject.SetActive(false);
                 }
+
+                StartCoroutine(SelectFirstChoice());
+            }
+            
+            
+            private IEnumerator SelectFirstChoice() 
+            {
+                // Event System requires we clear it first, then wait
+                // for at least one frame before we set the current selected object.
+                EventSystem.current.SetSelectedGameObject(null);
+                yield return new WaitForEndOfFrame();
+                EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
             }
             
 #endregion

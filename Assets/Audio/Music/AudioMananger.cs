@@ -33,7 +33,9 @@ namespace Game {
 
             [Header("Event references")]
             [SerializeField] private StudioEventEmitter hubMusic;
+            [SerializeField] private StudioEventEmitter gamePlayMusic;
             [SerializeField] private StudioEventEmitter ambience;
+            
             
     #region Unity Functions
          private void Awake()
@@ -69,7 +71,8 @@ namespace Game {
             case EventsToBePlayed.MenuMusic:
                 break;
             
-            case EventsToBePlayed.GamePlayMusic: 
+            case EventsToBePlayed.GamePlayMusic:
+                musicEmitter = gamePlayMusic;
                 break;
             
             case EventsToBePlayed.Ambience: 

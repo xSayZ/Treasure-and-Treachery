@@ -20,6 +20,11 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] GameObject playerTeleportPosition;
             
+            // Interaction variables
+            [HideInInspector] public bool[] CanInteractWith { get; set; }
+            [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
+            [HideInInspector] public Transform InteractionTransform { get; set; }
+            
             private bool canLeave = true;
             private int playersInCarriage;
 
@@ -34,6 +39,13 @@ namespace Game {
             {
                 QuestManager.OnRequiredQuestRegistered.RemoveListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.RemoveListener(AllRequiredQuestsCompleted);
+            }
+            
+            private void Awake()
+            {
+                CanInteractWith = new bool[4]; // Hard coded to max 4 players
+                PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
+                InteractionTransform = transform;
             }
 #endregion
 
@@ -55,17 +67,21 @@ namespace Game {
                     }
                 }
             }
-
-            public void InInteractionRange(int _playerIndex, bool _inRange)
+            
+            public void ToggleInteractionUI(int _playerIndex, bool _active)
             {
-                if (_inRange && canLeave)
+                PlayersThatWantsToInteract[_playerIndex] = _active;
+
+                bool _displayUI = false;
+                for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
                 {
-                    interactionUI.SetActive(true);
+                    if (PlayersThatWantsToInteract[i])
+                    {
+                        _displayUI = true;
+                    }
                 }
-                else
-                {
-                    interactionUI.SetActive(false);
-                }
+                
+                interactionUI.SetActive(_displayUI);
             }
 #endregion
 
@@ -78,6 +94,11 @@ namespace Game {
             private void AllRequiredQuestsCompleted()
             {
                 canLeave = true;
+                
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = true;
+                }
             }
 #endregion
         }

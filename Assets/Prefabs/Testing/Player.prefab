@@ -63,12 +63,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288723119442727232}
-  - component: {fileID: 8039321865252058105}
-  - component: {fileID: 1680948932}
   - component: {fileID: 1130416177640512929}
   - component: {fileID: 8393427140100816367}
-  - component: {fileID: 3622730775527207118}
   - component: {fileID: -3509399097656645022}
+  - component: {fileID: 7096703045146938910}
+  - component: {fileID: 3622730775527207118}
+  - component: {fileID: 8039321865252058105}
+  - component: {fileID: 1680948932}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -95,36 +96,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8039321865252058105
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 288723119442727263}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!54 &1680948932
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 288723119442727263}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 8
-  m_AngularDrag: 1000
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 1
-  m_Constraints: 84
-  m_CollisionDetection: 0
 --- !u!114 &1130416177640512929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,15 +108,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c424b50c085d9f45bf000452391624e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData: {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
+  PlayerData: {fileID: 0}
+  PlayerIndex: 0
   playerMovementBehaviour: {fileID: 8393427140100816367}
   playerAttackBehaviour: {fileID: -3509399097656645022}
+  playerInteractionBehaviour: {fileID: 7096703045146938910}
   playerInput: {fileID: 3622730775527207118}
   characterType: 0
-  itemImage: {fileID: 6253718703671994726}
   playerObj: {fileID: 288723118889570766}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
-  <Health>k__BackingField: 0
+  <Health>k__BackingField: 5
   material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
   debug: 0
 --- !u!114 &8393427140100816367
@@ -166,6 +138,38 @@ MonoBehaviour:
   dashSpeedModifier: 50
   dashTime: 2
   dashCooldown: 2
+--- !u!114 &-3509399097656645022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCollider: {fileID: 5877225869525892562}
+  projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  meleeAttackDamage: 1
+  baseMeleeAttackCooldown: 1
+  rangedAttackDamage: 1
+  baseFireRateRanged: 1
+  projectileSpeed: 50
+--- !u!114 &7096703045146938910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942f6491092655f49acb8e89ceac817b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemImage: {fileID: 6253718703671994726}
 --- !u!114 &3622730775527207118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,30 +311,53 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c4d679be-ccb0-48e2-8934-7925682d0a17
     m_ActionName: Events/Navigate[/Keyboard/s,/Keyboard/w,/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &-3509399097656645022
-MonoBehaviour:
+--- !u!136 &8039321865252058105
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 288723119442727263}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponCollider: {fileID: 5877225869525892562}
-  projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
-  meleeAttackDamage: 1
-  baseMeleeAttackCooldown: 1
-  rangedAttackDamage: 1
-  baseFireRateRanged: 1
-  projectileSpeed: 50
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &1680948932
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 8
+  m_AngularDrag: 1000
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,8 +534,8 @@ MonoBehaviour:
   triggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130416177640512929}
-        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 7096703045146938910}
+        m_TargetAssemblyTypeName: Game.Player.PlayerInteractionBehaviour, Assembly-CSharp
         m_MethodName: InteractRangeEntered
         m_Mode: 0
         m_Arguments:
@@ -522,8 +549,8 @@ MonoBehaviour:
   triggerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1130416177640512929}
-        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 7096703045146938910}
+        m_TargetAssemblyTypeName: Game.Player.PlayerInteractionBehaviour, Assembly-CSharp
         m_MethodName: InteractRangeExited
         m_Mode: 0
         m_Arguments:

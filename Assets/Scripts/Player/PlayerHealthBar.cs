@@ -36,8 +36,6 @@ namespace Game {
             
             public void UpdateHealthBar(int _currenHealth)
             {
-                Debug.Log(_currenHealth);
-                
                 for (int i = hearts.Count - 1; i >= 0; i--)
                 {
                     if ((i + 1) * 2 > _currenHealth)

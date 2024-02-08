@@ -44,18 +44,15 @@ namespace Game {
                     {
                         if ((i + 1) * 2 - 1 > _currenHealth)
                         {
-                            Debug.Log("Empty: " + i);
                             hearts[i].sprite = emptyHeart;
                         }
                         else
                         {
-                            Debug.Log("Half: " + i);
                             hearts[i].sprite = halfHeart;
                         }
                     }
                     else
                     {
-                        Debug.Log("Full: " + i);
                         hearts[i].sprite = fullHeart;
                     }
                 }

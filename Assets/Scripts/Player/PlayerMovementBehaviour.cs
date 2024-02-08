@@ -143,32 +143,40 @@ namespace Game
             void ClampPlayerPosition()
             {
                 UnityEngine.Camera camera = UnityEngine.Camera.main;
+
+                Vector3 playerPosition =
+                    camera.WorldToViewportPoint(playerRigidBody.transform.position);
                 
-                    Vector3 playerPosition = camera.WorldToViewportPoint(transform.position);
-                    
-                    
+                    Bounds bounds = OrthographicBounds(camera);
+                   
                     
                     // Clamp the player's position to be within the camera's viewport (0 to 1)
 
                     float clampedX = Mathf.Clamp01(playerPosition.x);
+                    
                     float clampedY = Mathf.Clamp01(playerPosition.y);
+
+                    if (clampedY > 0.9f) clampedY = 0.9f;
+                    Debug.Log(clampedX);
+
+                    if (clampedX > 0.95f) clampedX = 0.95f;
+                    if (clampedX < 0.05f) clampedX = 0.05f;
+                      
                     
                     
-                    
+                
                     Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
-                    Vector3 depth1 = transform.localToWorldMatrix.MultiplyPoint3x4(newPosition);
-                    Vector3 depth2 = camera.cameraToWorldMatrix.MultiplyPoint3x4(newPosition);
+                    playerRigidBody.position = newPosition;
 
-                    
-
-                    camMatrix = camera.cameraToWorldMatrix;
-
-                    Matrix4x4 test = camMatrix * camMatrix.transpose * localWorldMatrix;
-                    
-                    Debug.Log(depth1-depth2);
-                    playerRigidBody.position = new Vector3(newPosition.x,newPosition.y,newPosition.z);
-
-
+            }
+            public static Bounds OrthographicBounds(UnityEngine.Camera camera)
+            {
+                float screenAspect = (float)Screen.width / (float)Screen.height;
+                float cameraHeight = camera.orthographicSize * 2;
+                Bounds bounds = new Bounds(
+                    camera.transform.position,
+                    new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
+                return bounds;
             }
             
           

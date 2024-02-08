@@ -11,8 +11,6 @@ using UnityEngine;
 using Game.Player;
 using System;
 using System.Linq;
-using UnityEngine.UI;
-using UnityEditor.SceneManagement;
 
 namespace Game {
     namespace Backend {
@@ -153,7 +151,7 @@ namespace Game {
 
             private void UpdateActivePlayerInputs() {
                 foreach (GameObject _t in activePlayerControllers.Where(t => t != focusedPlayerController.gameObject)) {
-                    _t.GetComponent<PlayerController>().SetInputActiveState(isPaused);
+                    _t.GetComponent<PlayerController>().SetInputPausedState(isPaused);
                 }
             }
 

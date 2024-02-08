@@ -2,7 +2,7 @@
 // --------------------------------
 // Creation Date: 2024/01/30
 // Author: Fredrik
-// Description: Operation_Donken
+// Description: This script is responsible for the attack behaviour of the player.
 // --------------------------------
 // ------------------------------*/
 
@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Game
@@ -18,66 +19,63 @@ namespace Game
     {
         public class AttackBehaviour : MonoBehaviour
         {
-            [Header("Component References")] public CapsuleCollider WeaponCollider;
-            public GameObject projectile;
+            [Header("Component References")] 
+            [SerializeField] private CapsuleCollider weaponCollider;
+            [SerializeField] private GameObject projectile;
 
             [Header("Melee Attack Settings")] 
-            [SerializeField]public int MeleeAttackDamage;
-            [SerializeField] public float BaseMeleeAttackCooldown;
+            [SerializeField] private int meleeAttackDamage;
+            [SerializeField] private float baseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")] 
-            [SerializeField] private int RangedAttackDamage;
-            [SerializeField] private float BaseFireRateRanged;
+            [SerializeField] private int rangedAttackDamage;
+            [SerializeField] private float baseFireRateRanged;
             [SerializeField] private float projectileSpeed;
-             public List<Transform> enemyTransforms = new List<Transform>();
-             
-            public bool isAttacking { get; private set; }
+            
+            private List<Transform> enemyTransforms = new List<Transform>();
+
+            //private bool isAttacking;
             private float currentFireRate;
             private float currentMeleeCooldown;
             private LayerMask enemyLayer;
             
             #region Unity Functions
-
-            // Start is called before the first frame update
-
             private void Awake()
             {
-                WeaponCollider.GetComponentInChildren<Collider>();
+                // Get references
+                weaponCollider.GetComponentInChildren<Collider>();
+                enemyLayer = LayerMask.NameToLayer("Enemy");
+                
+                // Set default values
                 currentFireRate = 0;
                 currentMeleeCooldown = 0;
-                enemyLayer = LayerMask.NameToLayer("Enemy");
             }
 
             // Update is called once per frame
-            void Update()
+            private void Update()
             {
-                enemyTransforms = enemyTransforms.Where(Collider => Collider != null).ToList();
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
                 if (currentMeleeCooldown <=0 || currentFireRate <= 0)
                 {
-                    isAttacking = false;
+                    //isAttacking = false;
                 }
             }
             
 
             #endregion
-
            
             #region Public Functions
 
-            public void OnAttackRangeEnter(Transform _transform)
-            {
-                if (_transform.gameObject.layer == enemyLayer)
+            public void OnAttackRangeEnter(Transform _transform) {
+                if (_transform.gameObject.layer != enemyLayer)
+                    return;
+                
+                if (weaponCollider.isTrigger)
                 {
-                    if (WeaponCollider.isTrigger)
-                    {
-                        enemyTransforms.Add(_transform);
-                    }
-                  
+                    enemyTransforms.Add(_transform);
                 }
             }
-
             public void OnAttackRangeExit(Transform _transform)
             {
                 if (_transform.gameObject.layer != enemyLayer)
@@ -86,44 +84,30 @@ namespace Game
                 }
             }
             
-            public void MeleeAttack()
-            {
-                if (currentMeleeCooldown <= 0)
-                {
-                    isAttacking = true;
-                    for (int i = 0; i < enemyTransforms?.Count; i++)
-                    {
-                        if (enemyTransforms[i].TryGetComponent(out IDamageable hit))
-                        {
-                            hit.Damage(MeleeAttackDamage);
-                        }
-                    }
-
-                    currentMeleeCooldown = BaseMeleeAttackCooldown;
+            public void MeleeAttack() {
+                if (!(currentMeleeCooldown <= 0))
+                    return;
+                
+                for (int i = 0; i < enemyTransforms?.Count; i++) {
+                    if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
+                        continue;
+                    _hit.Damage(meleeAttackDamage);
+                    enemyTransforms = enemyTransforms.Where(_collider => _collider != null).ToList();
                 }
+                currentMeleeCooldown = baseMeleeAttackCooldown;
             }
 
-            public void RangedAttack()
-            {
-                //TODO FixedRangeAttack
-                if (currentFireRate <= 0)
-                {
-                   
-                    GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
-
-                    Projectile playerProjectile = _projectile.GetComponent<Projectile>();
-                    playerProjectile.SetProjectileDamage(RangedAttackDamage);
-                    playerProjectile.SetProjectileSpeed(projectileSpeed);
-                    playerProjectile.SetDirection(transform.forward);
-
-                    currentFireRate = BaseFireRateRanged;
-                }
+            public void RangedAttack() {
+                if (!(currentFireRate <= 0))
+                    return;
+                
+                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
+                Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
+                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed);
+                
+                currentFireRate = baseFireRateRanged;
             }
-            #endregion
-
-            #region Private Functions
-
-            #endregion
+#endregion
         }
     }
 }

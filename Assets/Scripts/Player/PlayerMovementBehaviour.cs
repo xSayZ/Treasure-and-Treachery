@@ -76,7 +76,7 @@ namespace Game {
                 dashCooldown = 0;
             }
 
-            private void Update()
+            private void FixedUpdate()
             {
                 if (!canMove)
                 {

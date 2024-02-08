@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utility;
@@ -48,7 +49,15 @@ namespace Game {
             private Vector3 movement;
             private Vector3 rawInputDirection = Vector3.zero;
             private Vector3 smoothMovementDirection;
+            
+            private Vector3 playerWorldPos;
 
+            private Matrix4x4 localToWorld;
+            private Matrix4x4 worldToView = UnityEngine.Camera.main.worldToCameraMatrix;
+            
+            
+
+            
 #region Validation
             private void OnValidate() {
                 if (movementSmoothing < 0) {
@@ -71,15 +80,19 @@ namespace Game {
             {
                 currentSpeed = baseMoveSpeed;
                 playerRigidBody = GetComponent<Rigidbody>();
+                
                 dashCooldown = 0;
             }
 
-            private void Update()
+            private void FixedUpdate()
             {
                 SmoothInputMovement();
                 TurnPlayer();
                 DashCompletion();
                 MovePlayer();
+
+                
+                
             }
 #endregion
 

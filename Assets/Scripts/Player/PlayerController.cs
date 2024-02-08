@@ -135,10 +135,10 @@ namespace Game
             
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.dashCooldown <= 0)
+                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
                 {
                     //Todo: PlayDustCloud Particle if needed
-                    playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
+                    playerMovementBehaviour.Dash(value.performed);
                 }
             }
 
@@ -198,6 +198,8 @@ namespace Game
             {
                 if (value.started)
                 {
+                    // Remove after pause has been implemented
+                    return;
                     GameManager.Instance.TogglePauseState(this);
                 }
             }

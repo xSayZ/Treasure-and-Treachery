@@ -39,6 +39,9 @@ namespace Game
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+
+            [Header("UI")]
+            [SerializeField] private PlayerHealthBar playerHealthBar;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
@@ -75,16 +78,10 @@ namespace Game
             
             void Start()
             {
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
                 SetupPlayer();
             }
             
-            public void Death()
-            {
-                playerInteractionBehaviour.OnDeath();
-                
-                Destroy(gameObject);
-            }
-
             //Temp animation
             private async void FlashRed()
             {
@@ -93,12 +90,22 @@ namespace Game
 
                 material.color = Color.white;
             }
-
+            
+            public void Death()
+            {
+                playerInteractionBehaviour.OnDeath();
+                
+                playerHealthBar.UpdateHealthBar(Health);
+                
+                Destroy(gameObject);
+            }
+            
             public void DamageTaken()
             {
                 FlashRed();
                 Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
+                playerHealthBar.UpdateHealthBar(Health);
             }
 #endregion
 

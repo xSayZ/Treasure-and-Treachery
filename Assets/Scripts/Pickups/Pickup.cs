@@ -48,7 +48,7 @@ namespace Game {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
                 for (int i = 0; i < CanInteractWith.Length; i++)
                 {
-                    CanInteractWith[0] = true;
+                    CanInteractWith[i] = true;
                 }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;

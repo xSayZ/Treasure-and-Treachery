@@ -21,8 +21,9 @@ namespace Game {
             [SerializeField] private GameObject itemImage;
             
             private PlayerController playerController;
+            private IInteractable closestInteraction;
             private List<IInteractable> inInteractRange = new List<IInteractable>();
-            
+
 #region Unity Functions
             private void OnEnable()
             {
@@ -39,34 +40,16 @@ namespace Game {
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
             }
-
+            
             private void Start()
             {
                 playerController = GetComponent<PlayerController>();
             }
-#endregion
-
-#region Public Functions
-            public void InteractRangeEntered(Transform _transform)
-            {
-                if (!_transform.TryGetComponent(out IInteractable _interactable))
-                    return;
-                
-                inInteractRange.Add(_interactable);
-                _interactable.InInteractionRange(playerController.PlayerIndex, true);
-            }
             
-            public void InteractRangeExited(Transform _transform)
+            private void Update()
             {
-                if (_transform.TryGetComponent(out IInteractable _interactable))
-                {
-                    inInteractRange.Remove(_interactable);
-                    _interactable.InInteractionRange(playerController.PlayerIndex, false);
-                }
-            }
-
-            public void OnInteract(bool _pressed)
-            {
+                List<IInteractable> canInteractWith = new List<IInteractable>();
+                
                 // Null check
                 for (int i = inInteractRange.Count - 1; i >= 0; i--)
                 {
@@ -76,16 +59,74 @@ namespace Game {
                     }
                 }
                 
+                // Turn of interaction UI and check if player can interact with interaction
+                for (int i = 0; i < inInteractRange.Count; i++)
+                {
+                    inInteractRange[i].ToggleInteractionUI(playerController.PlayerIndex, false);
+                    
+                    if (inInteractRange[i].CanInteractWith[playerController.PlayerIndex])
+                    {
+                        canInteractWith.Add(inInteractRange[i]);
+                    }
+                }
+                
+                // Set closest interaction
+                if (canInteractWith.Count > 0)
+                {
+                    closestInteraction = canInteractWith[0];
+                    float closestDistance = Vector3.Distance(transform.position, canInteractWith[0].InteractionTransform.position);
+                    
+                    for (int i = 1; i < canInteractWith.Count; i++)
+                    {
+                        float _distance = Vector3.Distance(transform.position, canInteractWith[i].InteractionTransform.position);
+                        if (_distance < closestDistance)
+                        {
+                            closestDistance = _distance;
+                            closestInteraction = canInteractWith[i];
+                        }
+                    }
+                    
+                    closestInteraction.ToggleInteractionUI(playerController.PlayerIndex, true);
+                }
+                else
+                {
+                    closestInteraction = null;
+                }
+            }
+#endregion
+
+#region Public Functions
+            public void InteractRangeEntered(Transform _transform)
+            {
+                if (!_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    return;
+                }
+                
+                inInteractRange.Add(_interactable);
+            }
+            
+            public void InteractRangeExited(Transform _transform)
+            {
+                if (_transform.TryGetComponent(out IInteractable _interactable))
+                {
+                    inInteractRange.Remove(_interactable);
+                    _interactable.ToggleInteractionUI(playerController.PlayerIndex, false);
+                }
+            }
+
+            public void OnInteract(bool _pressed)
+            {
                 // Drop item
                 if (inInteractRange.Count <= 0 && playerController.PlayerData.currentItem != null && _pressed)
                 {
                     DropItem(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
                 }
                 
-                // Interact with stuff
-                for (int i = 0; i < inInteractRange.Count; i++)
+                // Interact with closest interaction
+                if (closestInteraction != null)
                 {
-                    inInteractRange[i].Interact(playerController.PlayerIndex, _pressed);
+                    closestInteraction.Interact(playerController.PlayerIndex, _pressed);
                 }
             }
 
@@ -96,11 +137,7 @@ namespace Game {
                     DropItem(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
                 }
                 
-                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
-                {
-                    Debug.Log(i);
-                    inInteractRange[i].InInteractionRange(playerController.PlayerIndex, false);
-                }
+                closestInteraction.ToggleInteractionUI(playerController.PlayerIndex, false);
             }
 #endregion
 

@@ -60,6 +60,8 @@ namespace Game {
             {
                 if (_start && canLeave)
                 {
+                    CanInteractWith[_playerIndex] = false;
+                    
                     GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
                     player.GetComponent<PlayerController>().SetInputPausedState(true);
                     player.transform.position = playerTeleportPosition.transform.position;

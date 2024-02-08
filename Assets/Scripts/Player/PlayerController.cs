@@ -203,8 +203,7 @@ namespace Game
 #region Private Functions
             private void SetupPlayer()
             {
-                PlayerIndex = playerInput.playerIndex;
-                Health = PlayerData.startingHealth;
+                PlayerIndex = PlayerData.SetPlayerData(Health);
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
             }

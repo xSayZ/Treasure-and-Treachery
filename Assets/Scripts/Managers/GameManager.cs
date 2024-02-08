@@ -15,40 +15,25 @@ using System.Linq;
 namespace Game {
     namespace Backend {
 
-        public enum GameMode
-        {
-            SinglePlayer,
-            LocalMultiplayer
-        }
-
         public class GameManager : Singleton<GameManager>
         {
-            public GameMode currentGameMode;
             [Range(0, 1200)]
             [Tooltip("Amount of time per round in seconds")]
             public float roundTime;
 
-            [Header("Singleplayer")]
-            [Tooltip("Player inside scene needs to be assigned")]
-            [SerializeField] private GameObject inScenePlayer;
-
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
             [SerializeField] private GameObject playerPrefab;
-            [Range(1, 4)]
-            [Tooltip("Assign amount of players to be spawned")]
-            [SerializeField] private int numberOfPlayers;
 
             [Header("Spawn Variables")]
             [Tooltip("Assign the spawn point where players are to be instantiated from")]
             [SerializeField] private Transform spawnRingCenter;
             [Range(0.5f, 15f)]
             [SerializeField] private float spawnRingRadius;
-
-
             [Space]
+            [SerializeField] private PlayerData[] activePlayerPlayerData;
             
-            public List<GameObject> activePlayerControllers;
+            [HideInInspector] public List<GameObject> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
@@ -61,79 +46,46 @@ namespace Game {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
+
+            private void Awake() {
+                SetupLocalMultiplayer();
+            }
             void Start()  {
                 isPaused = false;
-
-                SetupBasedOnGameState();
-            }
-            
-#endregion
-
-#region Private Functions
-            private void SetupBasedOnGameState() {
-                switch (currentGameMode)  {
-                    case GameMode.SinglePlayer:
-                        SetupSinglePlayer();
-                        break;
-                    case GameMode.LocalMultiplayer:
-                        SetupLocalMultiplayer();
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(); 
-                }
-
                 Timer _timer = gameObject.AddComponent<Timer>();
                 _timer.StartTimer(roundTime);
             }
+#endregion
 
-            private void SetupSinglePlayer() {
-                activePlayerControllers = new List<GameObject>();
-
-                if(inScenePlayer == true)  {
-                    AddPlayersToActiveList(inScenePlayer);
-                }
-            }
-
+#region Private Functions
+            
             private void SetupLocalMultiplayer() {
-                if(inScenePlayer == true)
-                {
-                    Destroy(inScenePlayer);
-                }
-
+                DestroyExistingPlayerInstances();
                 AddPlayers();
+            }
+            private static void DestroyExistingPlayerInstances() {
+
+                GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
+                if (_playersAlreadyInScene.Length >= 1) {
+                    foreach (GameObject _playerInstances in _playersAlreadyInScene) {
+                        Destroy(_playerInstances);
+                    }
+                }
             }
 
             private void AddPlayers() {
                 activePlayerControllers = new List<GameObject>();
 
                 string[] _controllers = Input.GetJoystickNames();
-                for (int i = 0; i < numberOfPlayers; i++) {
-                    if (i >= _controllers.Length) {
-                        LogWarning("No controller found for player " + i);
-                        continue;
-                    }
-                    
-                    Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
-                    Quaternion _spawnRotation = Quaternion.identity;
-
-                    var _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
-                    _spawnedPlayer.GetComponent<PlayerController>();
-                    AddPlayersToActiveList(_spawnedPlayer);
-                    
-                    // Set the player index
-                    foreach (GameObject _newPlayer in activePlayerControllers)
-                    {
-                        try
-                        {
-                            _newPlayer.GetComponent<PlayerController>().PlayerData.playerIndex = i;
-                        }
-                        catch (Exception e)
-                        {
-                            LogWarning("No PlayerData: "+e.Message);
-                        }
-                    }
+                if (_controllers.Length == 0)
+                {
+                    LogWarning("No controllers detected");
+                    SpawnPlayers(0, 1);
                 }
-
+                
+                for (int i = 0; i < _controllers.Length; i++) {
+                    SpawnPlayers(i, _controllers.Length);
+                }
             }
             
             private void AddPlayersToActiveList(GameObject newPlayer) {
@@ -165,6 +117,19 @@ namespace Game {
                         break;
                 }
             }
+
+            private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
+                Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
+                Quaternion _spawnRotation = Quaternion.identity;
+                    
+                var _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
+                AddPlayersToActiveList(_spawnedPlayer);
+                
+                // Get PlayerData from List and assign it based on playerID
+                PlayerData _playerData  = activePlayerPlayerData[_playerID];
+                _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
+            }
+            
             // Calculate the position of the players in the ring
             private Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers) {
                 // If there is only one player, return the center of the ring

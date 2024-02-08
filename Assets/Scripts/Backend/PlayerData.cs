@@ -26,6 +26,11 @@ namespace Game {
             [SerializeField] public int currency;
             [SerializeField] public Item currentItem;
             
+            public int SetPlayerData(int _currentHealth)
+            {
+                currentHealth = _currentHealth;
+                return playerIndex;
+            }
             private void OnEnable()
             {
                 currentHealth = startingHealth;

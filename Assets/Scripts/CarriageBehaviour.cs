@@ -46,6 +46,10 @@ namespace Game {
             private void Awake()
             {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = true;
+                }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
             }
@@ -91,6 +95,11 @@ namespace Game {
             private void RequiredQuestRegistered()
             {
                 canLeave = false;
+                
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = false;
+                }
             }
             
             private void AllRequiredQuestsCompleted()

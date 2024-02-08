@@ -57,8 +57,10 @@ namespace Game
             
             [field: SerializeField] public int Health { get; set; }
 
-            [Header("Test Stuff")]
-            [SerializeField] private Material material;
+            [Header("Temporary damage animation")]
+            [SerializeField] private MeshRenderer meshRenderer;
+            [SerializeField] private Material defaultMaterial;
+            [SerializeField] private Material damagedMaterial;
             // public bool WalkOnGraves;
             
             [Space]
@@ -82,13 +84,20 @@ namespace Game
                 SetupPlayer();
             }
             
-            //Temp animation
+            // Temporary damage animation
             private async void FlashRed()
             {
-                material.color = Color.red;
-                await Task.Delay(1000);
-
-                material.color = Color.white;
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
             }
             
             public void Death()

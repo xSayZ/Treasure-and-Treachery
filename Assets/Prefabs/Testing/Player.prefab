@@ -121,7 +121,9 @@ MonoBehaviour:
   playerObj: {fileID: 288723118889570766}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   <Health>k__BackingField: 5
-  material: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
+  meshRenderer: {fileID: 3175222094913254878}
+  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
   debug: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
@@ -1118,7 +1120,7 @@ PrefabInstance:
     - target: {fileID: -5161419525955454584, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 39900875cec9ad545b7b3653a3545f8d, type: 2}
+      objectReference: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
     - target: {fileID: 919132149155446097, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
       propertyPath: m_Name
       value: witch_body
@@ -1132,5 +1134,10 @@ PrefabInstance:
 --- !u!4 &1424521324978711485 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+  m_PrefabInstance: {fileID: 1463199174117706838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3175222094913254878 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5161419525955454584, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
   m_PrefabInstance: {fileID: 1463199174117706838}
   m_PrefabAsset: {fileID: 0}

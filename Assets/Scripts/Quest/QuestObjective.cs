@@ -28,6 +28,11 @@ namespace Game {
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
             
+            // Interaction variables
+            [HideInInspector] public bool[] CanInteractWith { get; set; }
+            [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
+            [HideInInspector] public Transform InteractionTransform { get; set; }
+            
             private class QuestStatus
             {
                 public bool IsInteracting;
@@ -44,6 +49,25 @@ namespace Game {
             private Dictionary<Item, QuestStatus> requiredItems;
             
 #region Unity Functions
+            private void OnEnable()
+            {
+                QuestManager.OnItemPickedUp.AddListener(ItemPickedUp);
+                QuestManager.OnItemDropped.AddListener(ItemDropped);
+            }
+            
+            private void OnDisable()
+            {
+                QuestManager.OnItemPickedUp.RemoveListener(ItemPickedUp);
+                QuestManager.OnItemDropped.RemoveListener(ItemDropped);
+            }
+            
+            private void Awake()
+            {
+                CanInteractWith = new bool[4]; // Hard coded to max 4 players
+                PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
+                InteractionTransform = transform;
+            }
+            
             private void Start()
             {
                 if (requiredQuest)
@@ -77,6 +101,9 @@ namespace Game {
                         {
                             item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
+                            
+                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true);
+                            CanInteractWith[item.Value.PlayerIndex] = false;
                         }
                     }
                 }
@@ -110,31 +137,44 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
+                    GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start);
                 }
             }
             
-            public void InInteractionRange(int _playerIndex, bool _inRange)
+            public void ToggleInteractionUI(int _playerIndex, bool _active)
             {
-                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
-                
-                if (_playerData.currentItem == null)
+                PlayersThatWantsToInteract[_playerIndex] = _active;
+
+                bool _displayUI = false;
+                for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
                 {
-                    interactionUI.SetActive(false);
-                    return;
+                    if (PlayersThatWantsToInteract[i])
+                    {
+                        _displayUI = true;
+                    }
                 }
                 
-                if (_inRange && requiredItems.ContainsKey(_playerData.currentItem))
-                {
-                    interactionUI.SetActive(true);
-                }
-                else
-                {
-                    interactionUI.SetActive(false);
-                }
+                interactionUI.SetActive(_displayUI);
             }
 #endregion
 
 #region Private Functions
+            private void ItemPickedUp(int _playerIndex, Item _item)
+            {
+                if (requiredItems.ContainsKey(_item))
+                {
+                    CanInteractWith[_playerIndex] = true;
+                }
+            }
+            
+            private void ItemDropped(int _playerIndex, Item _item, bool _destroy)
+            {
+                if (requiredItems.ContainsKey(_item))
+                {
+                    CanInteractWith[_playerIndex] = false;
+                }
+            }
+            
             private void QuestCompleted()
             {
                 if (requiredQuest)

@@ -33,14 +33,14 @@ namespace Game {
             [SerializeField] private Spawner[] spawnPoints;
 
             [Header("Internal Variables")]
-            private UnityEngine.Camera camera;
+            private UnityEngine.Camera sceneCamera;
 
             private Timer timer;
             float percentage = 0f;
             
             private void Start()
             {
-                camera = UnityEngine.Camera.main;
+                sceneCamera = UnityEngine.Camera.main;
                 timer = GameManager.Instance.GetComponent<Timer>();
             }
 
@@ -58,7 +58,7 @@ namespace Game {
                 foreach (var _spawnPoint in spawnPoints)
                 {
                     // Get the view position of the spawn point
-                    Vector3 _viewPos = camera.WorldToViewportPoint(_spawnPoint.transform.position);
+                    Vector3 _viewPos = sceneCamera.WorldToViewportPoint(_spawnPoint.transform.position);
                     
                     // Check if the spawn point is within the camera view
                     if(_viewPos.x >= 0 && _viewPos.x <= 1 && _viewPos.y >= 0 && _viewPos.y <= 1 && _viewPos.z > 0) {

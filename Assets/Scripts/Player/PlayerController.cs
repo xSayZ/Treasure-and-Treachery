@@ -2,19 +2,16 @@
 // --------------------------------
 // Creation Date: 2024-01-29
 // Author: c21frejo
-// Description: Operation_Donken
+// Description: Script for handling the player
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
-using Game.Quest;
-using UnityEngine.UI;
 
 
 namespace Game
@@ -30,72 +27,60 @@ namespace Game
 
         public class PlayerController : MonoBehaviour, IDamageable
         {
-            public PlayerData PlayerData;
-            private int playerID;
+            [Header("Player Data")]
+            [Tooltip("Player Data Scriptable Object")]
+            [SerializeField] public PlayerData PlayerData;
+            [HideInInspector] public int PlayerIndex;
 
-            //temp Health Solution
-            [Header("Sub Behaviours")] [SerializeField]
-            private PlayerMovementBehaviour playerMovementBehaviour;
-
-            [SerializeField] private AttackBehaviour playerAttackBehaviour;
             
-            [Header("Input Settings")] [SerializeField]
-            private PlayerInput PlayerInput;
-
-            public Archetype CharacterType;
-
-            private List<IInteractable> inInteractRange;
-
-            private Vector3 _rawInputMovement;
-
-            [Header("UI")]
-            [SerializeField] private GameObject itemImage;
+            [Header("Sub Behaviours")]
+            [Tooltip("Assign sub behaviours for player")]
+            [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
+            [SerializeField] private AttackBehaviour playerAttackBehaviour;
+            [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
+            // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            
+            [Header("Input Settings")]
+            [SerializeField] private PlayerInput playerInput;
+            
+            [SerializeField] private Archetype characterType;
+            
+            // Movement
+            private Vector3 rawInputMovement;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
-
+            
+            [field: SerializeField] public int Health { get; set; }
 
             [Header("Test Stuff")]
-            public Material _material;
-            public bool WalkOnGraves;
+            [SerializeField] private Material material;
+            // public bool WalkOnGraves;
             
-            #region Unity Functions
-
+            [Space]
+            [Header("Debug")]
+            [SerializeField] private bool debug;
+            
+#region Unity Functions
             private void OnEnable()
             {
-                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
-                QuestManager.OnItemDropped.AddListener(DropItem);
-                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+                playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
             
             private void OnDisable()
             {
-                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
-                QuestManager.OnItemDropped.AddListener(DropItem);
-                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
+                playerInput.deviceLostEvent.Invoke(playerInput);
             }
             
             void Start()
             {
                 SetupPlayer();
-                inInteractRange = new List<IInteractable>();
             }
-
-            [field: SerializeField] public int Health { get; set; }
-
+            
             public void Death()
             {
-                if (PlayerData.currentItem != null)
-                {
-                    DropItem(playerID, PlayerData.currentItem, false);
-                }
-                
-                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
-                {
-                    Debug.Log(i);
-                    inInteractRange[i].InInteractionRange(playerID, false);
-                }
+                playerInteractionBehaviour.OnDeath();
                 
                 Destroy(gameObject);
             }
@@ -103,52 +88,51 @@ namespace Game
             //Temp animation
             private async void FlashRed()
             {
-                _material.color = Color.red;
+                material.color = Color.red;
                 await Task.Delay(1000);
 
-                _material.color = Color.white;
+                material.color = Color.white;
             }
 
             public void DamageTaken()
             {
                 FlashRed();
+                Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
             }
+#endregion
 
-            #endregion
-
-            #region Public Functions
-
+#region Public Functions
             public void OnMovement(InputAction.CallbackContext value)
-            {
-                // Dashing will lock character from moving direction during the duration 
+            { 
+                // TODO: PlayFootStepAudio
+                // TODO: PlayFootStepParticle
+                // TODO: PlayFootStepAnimation
+                
+                // Get current input value
                 Vector2 _inputValue = value.ReadValue<Vector2>();
+                
+                rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
 
-                if (CharacterType == Archetype.Melee || CharacterType == Archetype.Both)
-                {
-                    _rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
-
-                    playerMovementBehaviour.MovementData(IsoVectorConvert(_rawInputMovement));
-                }
+                playerMovementBehaviour.MovementData(IsoVectorConvert(rawInputMovement));
             }
-
-
+            
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.currentLockoutTime <= 0)
+                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.dashCooldown <= 0)
                 {
-                    //Todo:: PlayDustCloud Particle if needed
+                    //Todo: PlayDustCloud Particle if needed
                     playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
                 }
             }
 
             public void OnRanged(InputAction.CallbackContext value)
             {
-                //TODO make Character chargeUp
+                //TODO: make Character chargeUp
                 if (value.action.triggered)
                 {
-                    //TODO;; PlayAttackAnimation
-                    if (CharacterType == Archetype.Ranged || CharacterType == Archetype.Both)
+                    //TODO: PlayAttackAnimation
+                    if (characterType == Archetype.Ranged || characterType == Archetype.Both)
                     {
                         if (PlayerData.currentItem != null)
                         {
@@ -166,24 +150,14 @@ namespace Game
                 if (value.action.triggered)
                 {
                     if (PlayerData.currentItem != null)
-                    {
                         return;
-                    }
                     
                     playerMovementBehaviour.TurnPlayer();
-
                     playerAttackBehaviour.MeleeAttack();
                     playerAudio.MeleeAudioPlay(playerObj);
                 }
             }
-
-
-            public void OnSubmit(InputAction.CallbackContext value)
-            {
-                Debug.Log(value.ReadValueAsButton());
-            }
-
-
+            
             public void OnInteract(InputAction.CallbackContext value)
             {
                 if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
@@ -191,40 +165,18 @@ namespace Game
                     return;
                 }
                 
-                // Null check
-                for (int i = inInteractRange.Count - 1; i >= 0; i--)
-                {
-                    if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
-                    {
-                        inInteractRange.Remove(inInteractRange[i]);
-                    }
-                }
-                
-                // Drop item
-                if (inInteractRange.Count <= 0 && PlayerData.currentItem != null && value.performed)
-                {
-                    Debug.Log("Drop");
-                    DropItem(playerID, PlayerData.currentItem, false);
-                }
-                
-                // Interact with stuff
-                for (int i = 0; i < inInteractRange.Count; i++)
-                {
-                    inInteractRange[i].Interact(playerID, value.performed);
-                }
+                playerInteractionBehaviour.OnInteract(value.performed);
             }
-
-
+            
             public void EnableEventControls()
             {
-                PlayerInput.SwitchCurrentActionMap("Events");
+                playerInput.SwitchCurrentActionMap("Events");
             }
 
             public void EnableGamePlayControls()
             {
-                PlayerInput.SwitchCurrentActionMap("Players");
+                playerInput.SwitchCurrentActionMap("Players");
             }
-
 
             public void OnTogglePause(InputAction.CallbackContext value)
             {
@@ -233,122 +185,43 @@ namespace Game
                     GameManager.Instance.TogglePauseState(this);
                 }
             }
-
-
-            public void SetInputActiveState(bool gameIsPaused)
+            
+            public void SetInputPausedState(bool _paused)
             {
-                switch (gameIsPaused)
+                switch (_paused)
                 {
                     case true:
-                        PlayerInput.DeactivateInput();
+                        playerInput.DeactivateInput();
                         break;
-
                     case false:
-                        PlayerInput.ActivateInput();
+                        playerInput.ActivateInput();
                         break;
                 }
             }
+ #endregion
 
-            public void InteractRangeEntered(Transform _transform)
-            {
-                if (_transform.TryGetComponent(out IInteractable _interactable))
-                {
-                    inInteractRange.Add(_interactable);
-                    _interactable.InInteractionRange(playerID, true);
-                }
-            }
-            
-            public void InteractRangeExited(Transform _transform)
-            {
-                if (_transform.TryGetComponent(out IInteractable _interactable))
-                {
-                    inInteractRange.Remove(_interactable);
-                    _interactable.InInteractionRange(playerID, false);
-                }
-            }
-
-            #endregion
-
-            #region Private Functions
-
+#region Private Functions
             private void SetupPlayer()
             {
-                playerID = PlayerInput.playerIndex;
-
-                Health = PlayerData.startingHealth;
-
-                if (PlayerInput.playerIndex != 0 && PlayerInput.currentControlScheme != "Player1")
-                {
-                    Destroy(gameObject);
-                }
-
-                PlayerInput.SwitchCurrentControlScheme(Keyboard.current);
-            }
-
-            
-            
-            private void PickUpItem(int _playerId, Item _item)
-            {
-                if (playerID == _playerId)
-                {
-                    if (PlayerData.currentItem != null)
-                    {
-                        DropItem(_playerId, PlayerData.currentItem, false);
-                    }
-                    
-                    _item.Pickup.SetActive(false);
-                    InteractRangeExited(_item.Pickup.transform);
-                    PlayerData.currentItem = _item;
-
-                    itemImage.GetComponent<Image>().sprite = _item.Sprite;
-                    itemImage.SetActive(true);
-                }
+                PlayerIndex = PlayerData.SetPlayerData(Health);
+                
+                playerInput.SwitchCurrentControlScheme(Keyboard.current);
             }
             
-            private void DropItem(int _playerId, Item _item, bool _destroy)
-            {
-                if (playerID == _playerId)
-                {
-                    if (PlayerData.currentItem == _item)
-                    {
-                       PlayerData.currentItem = null;
-                       
-                       itemImage.SetActive(false);
-                       
-                       if (!_destroy)
-                       {
-                           _item.Pickup.SetActive(true);
-                           _item.Pickup.transform.position = transform.position;
-                       }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Cant remove item from player inventory since player dose not have that item in their inventory");
-                    }
-                }
-            }
-            
-            private void PickUpGold(int _playerId, int pickUpGold)
-            {
-                if (playerID == _playerId)
-                {
-                    PlayerData.currency += pickUpGold;
-                }
-            }
+            private static Vector3 IsoVectorConvert(Vector3 vector) {
 
-            //TODO: Move Dash to playerMovement
-            private Vector3 IsoVectorConvert(Vector3 vector)
-            {
-                Vector3 cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
-                Quaternion rotation = Quaternion.Euler(0, cameraRot.y, 0);
-                Matrix4x4 isoMatrix = Matrix4x4.Rotate(rotation);
-                Vector3 result = isoMatrix.MultiplyPoint3x4(vector);
-                return result;
+                if (UnityEngine.Camera.main == null)
+                    return vector;
+                
+                Vector3 _cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion _rotation = Quaternion.Euler(0, _cameraRot.y, 0);
+                Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
+                Vector3 _result = _isoMatrix.MultiplyPoint3x4(vector);
+                return _result;
             }
+#endregion
 
-            #endregion
-
-            #region Experimental code
+#region Experimental code
             /*
             public Vector3 DownDir;
             public float RideSpringDamper;
@@ -403,7 +276,17 @@ namespace Game
                     }
                 }
             }*/
-            #endregion
+#endregion
+            
+            private void Log(string msg) {
+                if (!debug) return;
+                Debug.Log("[GameManager]: " + msg);
+            }
+
+            private void LogWarning(string msg) {
+                if (!debug) return;
+                Debug.Log("[GameManager]: " + msg);
+            }
         }
     }
 }

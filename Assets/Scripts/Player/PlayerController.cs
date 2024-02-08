@@ -6,15 +6,12 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
-using Game.Quest;
-using UnityEngine.UI;
 
 
 namespace Game
@@ -33,28 +30,23 @@ namespace Game
             [Header("Player Data")]
             [Tooltip("Player Data Scriptable Object")]
             [SerializeField] public PlayerData PlayerData;
-            private int playerID;
+            [HideInInspector] public int PlayerIndex;
 
             
             [Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private AttackBehaviour playerAttackBehaviour;
+            [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
-            // [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
             
             [SerializeField] private Archetype characterType;
-
-            // Interactables
-            private List<IInteractable> inInteractRange;
+            
             // Movement
             private Vector3 rawInputMovement;
-
-            [Header("UI")]
-            [SerializeField] private GameObject itemImage;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -70,47 +62,25 @@ namespace Game
             [Header("Debug")]
             [SerializeField] private bool debug;
             
-            #region Unity Functions
-
+#region Unity Functions
             private void OnEnable()
             {
-                // Subscribe to events
-                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
-                QuestManager.OnItemDropped.AddListener(DropItem);
-                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
-
                 playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
             
-            
             private void OnDisable()
             {
-                // Unsubscribe from events
-                QuestManager.OnItemPickedUp.AddListener(PickUpItem);
-                QuestManager.OnItemDropped.AddListener(DropItem);
-                QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
-                
                 playerInput.deviceLostEvent.Invoke(playerInput);
             }
             
             void Start()
             {
                 SetupPlayer();
-                inInteractRange = new List<IInteractable>();
             }
             
             public void Death()
             {
-                if (PlayerData.currentItem != null)
-                {
-                    DropItem(playerID, PlayerData.currentItem, false);
-                }
-                
-                for (int i = 0; i < inInteractRange.Count; i++) // Dose not remove interact Ui for item dropped on death for some reason
-                {
-                    Debug.Log(i);
-                    inInteractRange[i].InInteractionRange(playerID, false);
-                }
+                playerInteractionBehaviour.OnDeath();
                 
                 Destroy(gameObject);
             }
@@ -127,16 +97,12 @@ namespace Game
             public void DamageTaken()
             {
                 FlashRed();
-                Log("Player " + playerID + " took damage");
+                Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
             }
+#endregion
 
-            #endregion
-
-            #region Public Functions
-            
-            
-
+#region Public Functions
             public void OnMovement(InputAction.CallbackContext value)
             { 
                 // TODO: PlayFootStepAudio
@@ -199,30 +165,8 @@ namespace Game
                     return;
                 }
                 
-                // Null check
-                for (int i = inInteractRange.Count - 1; i >= 0; i--)
-                {
-                    if (!(inInteractRange[i] as Object)) // Fancy null check because a normal null check dose not work for some reason
-                    {
-                        inInteractRange.Remove(inInteractRange[i]);
-                    }
-                }
-                
-                // Drop item
-                if (inInteractRange.Count <= 0 && PlayerData.currentItem != null && value.performed)
-                {
-                    Log("Plyer" + playerID + "Dropped item");
-                    DropItem(playerID, PlayerData.currentItem, false);
-                }
-                
-                // Interact with stuff
-                for (int i = 0; i < inInteractRange.Count; i++)
-                {
-                    inInteractRange[i].Interact(playerID, value.performed);
-                }
+                playerInteractionBehaviour.OnInteract(value.performed);
             }
-
-            
             
             public void EnableEventControls()
             {
@@ -254,92 +198,15 @@ namespace Game
                         break;
                 }
             }
-            
-            public void InteractRangeEntered(Transform _transform)
-            {
-                if (!_transform.TryGetComponent(out IInteractable _interactable))
-                    return;
-                
-                inInteractRange.Add(_interactable);
-                _interactable.InInteractionRange(playerID, true);
-            }
-            
-            public void InteractRangeExited(Transform _transform)
-            {
-                if (_transform.TryGetComponent(out IInteractable _interactable))
-                {
-                    inInteractRange.Remove(_interactable);
-                    _interactable.InInteractionRange(playerID, false);
-                }
-            }
-            #endregion
+ #endregion
 
-            #region Private Functions
-            
+#region Private Functions
             private void SetupPlayer()
             {
-                playerID = playerInput.playerIndex;
+                PlayerIndex = playerInput.playerIndex;
                 Health = PlayerData.startingHealth;
-
-                // * Marked for delete
-                if (playerInput.playerIndex != 0 && playerInput.currentControlScheme != "Player1")
-                {
-                    Destroy(gameObject);
-                }
-
+                
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
-            }
-            
-            private void PickUpItem(int _playerId, Item _item) {
-                if (playerID != _playerId)
-                {
-                    return;
-                }
-                
-                if (PlayerData.currentItem != null)
-                {
-                    DropItem(_playerId, PlayerData.currentItem, false);
-                }
-                
-                _item.Pickup.SetActive(false);
-                InteractRangeExited(_item.Pickup.transform);
-                PlayerData.currentItem = _item;
-                
-                itemImage.GetComponent<Image>().sprite = _item.Sprite;
-                itemImage.SetActive(true);
-            }
-            
-            private void DropItem(int _playerId, Item _item, bool _destroy) {
-                if (playerID != _playerId)
-                {
-                    return;
-                }
-                
-                if (PlayerData.currentItem == _item)
-                {
-                    PlayerData.currentItem = null;
-                    itemImage.SetActive(false);
-                    
-                    if (_destroy)
-                    {
-                        return;
-                    }
-                    
-                    _item.Pickup.SetActive(true);
-                    _item.Pickup.transform.position = transform.position;
-                }
-                else
-                {
-                    LogWarning("Cant remove item from player inventory since player does not have that item in their inventory"); 
-                }
-            }
-            
-            private void PickUpGold(int _playerId, int pickUpGold)
-            {
-                if (playerID == _playerId)
-                {
-                    PlayerData.currency += pickUpGold;
-                }
             }
             
             private static Vector3 IsoVectorConvert(Vector3 vector) {
@@ -353,9 +220,9 @@ namespace Game
                 Vector3 _result = _isoMatrix.MultiplyPoint3x4(vector);
                 return _result;
             }
-            #endregion
+#endregion
 
-            #region Experimental code
+#region Experimental code
             /*
             public Vector3 DownDir;
             public float RideSpringDamper;
@@ -410,7 +277,7 @@ namespace Game
                     }
                 }
             }*/
-            #endregion
+#endregion
             
             private void Log(string msg) {
                 if (!debug) return;

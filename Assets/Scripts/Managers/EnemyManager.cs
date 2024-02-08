@@ -18,7 +18,7 @@ namespace Game {
             [Header("Enemy Count")]
             [SerializeField] private int maxEnemies = 10;
             
-            [SerializeField] private List<EnemyController> enemies;
+            private List<EnemyController> enemies;
             
             // Start is called before the first frame update
             void Start()

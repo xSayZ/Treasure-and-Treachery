@@ -12,6 +12,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
+using UnityEngine.InputSystem.Users;
 
 
 namespace Game
@@ -82,6 +83,8 @@ namespace Game
             {
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
                 SetupPlayer();
+                InputUser.PerformPairingWithDevice(Gamepad.current);
+
             }
             
             // Temporary damage animation

@@ -83,8 +83,11 @@ namespace Game
             {
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
                 SetupPlayer();
-                InputUser.PerformPairingWithDevice(Gamepad.current);
 
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                }
             }
             
             // Temporary damage animation
@@ -227,7 +230,7 @@ namespace Game
                 {
                     // Remove after pause has been implemented
                     return;
-                    GameManager.Instance.TogglePauseState(this);
+                    // GameManager.Instance.TogglePauseState(this);
                 }
             }
             

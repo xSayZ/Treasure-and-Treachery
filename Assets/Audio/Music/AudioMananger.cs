@@ -34,25 +34,32 @@ namespace Game {
             [Header("Event references")]
             [SerializeField] private StudioEventEmitter hubMusic;
             [SerializeField] private StudioEventEmitter ambience;
-            
-    #region Unity Functions
+
+            [Header("Audio")] 
+            [SerializeField] private DialogueAudio dialogueAudio;
+
+            public GameObject player1Obj;
+            public GameObject player2Obj;
+            public GameObject player3Obj;
+            public GameObject player4Obj;
+
+            #region Unity Functions
          private void Awake()
          { //Om instansen inte är denna instans av detta script så ska spelobjektet som instansen 
              if (Instance != null && Instance != this) 
              {
-                 Destroy(this); 
+                 Destroy(gameObject); 
              }
              else
              { 
                  Instance = this;
-             } 
-             DontDestroyOnLoad(this);
+             }
          }       
          
-            // Update is called once per frame
-            void Update()
+
+            void Start()
             {
-                
+                dialogueAudio.SetPlayerAudioObjects(player1Obj, player2Obj, player3Obj, player4Obj);
             }
     #endregion
 

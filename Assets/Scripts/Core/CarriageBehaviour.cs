@@ -12,13 +12,12 @@ using UnityEngine;
 using Game.Quest;
 using Game.Player;
 
+
 namespace Game {
     namespace Scenes {
-        public class CarriageBehaviour : MonoBehaviour, IInteractable {
-            [Header("Variables")]
-            [SerializeField] private int health;
-            
+        public class CarriageBehaviour : MonoBehaviour, IInteractable, IDamageable {
             [Header("Setup")]
+            [SerializeField] private CarriageData carriageData;
             [SerializeField] private GameObject interactionUI;
             [SerializeField] GameObject playerTeleportPosition;
             
@@ -26,6 +25,8 @@ namespace Game {
             [HideInInspector] public bool[] CanInteractWith { get; set; }
             [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
             [HideInInspector] public Transform InteractionTransform { get; set; }
+            
+            [HideInInspector] public int Health { get; set; }
             
             private bool canLeave = true;
             private int playersInCarriage;
@@ -52,6 +53,8 @@ namespace Game {
                 }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
+
+                Health = carriageData.currentHealth;
             }
 #endregion
 
@@ -90,6 +93,19 @@ namespace Game {
                 }
                 
                 interactionUI.SetActive(_displayUI);
+            }
+            
+            public void Death()
+            {
+                carriageData.currentHealth = 0;
+                
+                // Carriage was destroyed, level lost
+                Debug.Log("Carriage destroyed, you lost");
+            }
+            
+            public void DamageTaken()
+            {
+                carriageData.currentHealth = Health;
             }
 #endregion
 

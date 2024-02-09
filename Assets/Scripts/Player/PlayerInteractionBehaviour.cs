@@ -17,12 +17,16 @@ namespace Game {
     namespace Player {
         public class PlayerInteractionBehaviour : MonoBehaviour
         {
+            [Header("Settings")]
+            [SerializeField] private float pickUpCooldown;
+            
             [Header("UI")]
             [SerializeField] private GameObject itemImage;
             
             private PlayerController playerController;
             private IInteractable closestInteraction;
             private List<IInteractable> inInteractRange = new List<IInteractable>();
+            private float currentPickUpCooldown;
 
 #region Unity Functions
             private void OnEnable()
@@ -48,6 +52,15 @@ namespace Game {
             
             private void Update()
             {
+                if (currentPickUpCooldown > 0)
+                {
+                    currentPickUpCooldown -= Time.deltaTime;
+                }
+                else
+                {
+                    playerController.PlayerData.canPickUp = true;
+                }
+                
                 List<IInteractable> canInteractWith = new List<IInteractable>();
                 
                 // Null check
@@ -164,6 +177,9 @@ namespace Game {
                 
                 itemImage.GetComponent<Image>().sprite = _item.Sprite;
                 itemImage.SetActive(true);
+
+                playerController.PlayerData.canPickUp = false;
+                currentPickUpCooldown = pickUpCooldown;
             }
             
             private void DropItem(int _playerId, Item _item, bool _destroy)

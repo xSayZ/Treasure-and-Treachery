@@ -6,7 +6,9 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Backend;
 using Game.Core;
+using Game.Player;
 using Game.Quest;
 using UnityEngine;
 
@@ -68,6 +70,10 @@ namespace Game {
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
+                        if (!GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData.canPickUp)
+                        {
+                            return;
+                        }
                         QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
                         break;
                         

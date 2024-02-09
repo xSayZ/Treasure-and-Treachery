@@ -25,17 +25,20 @@ namespace Game {
             [SerializeField] public int playerIndex;
             [SerializeField] public int currency;
             [SerializeField] public Item currentItem;
+            [SerializeField] public bool canPickUp;
             
             public int SetPlayerData(int _currentHealth)
             {
                 currentHealth = _currentHealth;
                 return playerIndex;
             }
+            
             private void OnEnable()
             {
                 currentHealth = startingHealth;
                 currency = 0;
                 currentItem = null;
+                canPickUp = true;
             }
         }
     }

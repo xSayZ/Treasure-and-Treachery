@@ -106,6 +106,8 @@ namespace Game
                 
                 playerHealthBar.UpdateHealthBar(Health);
                 
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                
                 Destroy(gameObject);
             }
             

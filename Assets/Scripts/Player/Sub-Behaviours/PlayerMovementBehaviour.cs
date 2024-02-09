@@ -90,6 +90,7 @@ namespace Game {
                 TurnPlayer();
                 DashCompletion();
                 MovePlayer();
+                ClampPlayerPosition();
             }
 #endregion
 
@@ -157,6 +158,32 @@ namespace Game {
             {
                 smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
                     Time.deltaTime * movementSmoothing);
+            }
+            
+            void ClampPlayerPosition()
+            {
+                UnityEngine.Camera camera = UnityEngine.Camera.main;
+
+                Vector3 playerPosition =
+                    camera.WorldToViewportPoint(playerRigidBody.transform.position);
+                    
+                // Clamp the player's position to be within the camera's viewport (0 to 1)
+
+                float clampedX = Mathf.Clamp01(playerPosition.x);
+                float clampedY = Mathf.Clamp01(playerPosition.y);
+
+                if (clampedY > 0.9f) clampedY = 0.9f;
+                Debug.Log(clampedX);
+
+                if (clampedX > 0.95f) clampedX = 0.95f;
+                if (clampedX < 0.05f) clampedX = 0.05f;
+                      
+                    
+                    
+                
+                Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
+                playerRigidBody.position = newPosition;
+
             }
 #endregion
 

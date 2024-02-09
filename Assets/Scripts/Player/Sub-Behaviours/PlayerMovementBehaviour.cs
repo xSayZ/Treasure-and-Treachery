@@ -84,15 +84,16 @@ namespace Game {
             {
                 SmoothInputMovement();
                 
-                if (canRotate) {
+                if (canRotate)
+                {
                     TurnPlayer();
                 }
                 
-
                 if (canMove)
                 {
                     MovePlayer();
                     DashCompletion();
+                    ClampPlayerPosition();
                 }
             }
 #endregion

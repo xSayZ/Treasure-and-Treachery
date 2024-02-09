@@ -12,6 +12,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
+using Game.NAME;
 using UnityEngine.InputSystem.Users;
 
 
@@ -46,8 +47,12 @@ namespace Game
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
-            
             [SerializeField] private Archetype characterType;
+
+            [Header("RumbleFeatures")] 
+            [SerializeField, Range(0, 1)] private float lowFrequency;
+            [SerializeField, Range(0, 1)] private float highFrequency;
+            [SerializeField, Range(0, 1)] private float duration;
             
             // Movement
             private Vector3 rawInputMovement;
@@ -83,8 +88,8 @@ namespace Game
             {
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
                 SetupPlayer();
-                InputUser.PerformPairingWithDevice(Gamepad.current);
 
+                InputUser.PerformPairingWithDevice(Gamepad.current);
             }
             
             // Temporary damage animation
@@ -116,6 +121,7 @@ namespace Game
             {
                 FlashRed();
                 Log("Player " + PlayerIndex + " took damage");
+                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
             }

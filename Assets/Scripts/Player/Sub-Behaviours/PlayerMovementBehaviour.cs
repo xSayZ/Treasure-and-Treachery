@@ -53,6 +53,7 @@ namespace Game {
             private Vector3 smoothMovementDirection;
             
             private bool canMove = true;
+            private bool canRotate = true;
 
 #region Validation
             private void OnValidate() {
@@ -81,15 +82,18 @@ namespace Game {
 
             private void FixedUpdate()
             {
-                if (!canMove)
-                {
-                    return;
+                SmoothInputMovement();
+                
+                if (canRotate) {
+                    TurnPlayer();
                 }
                 
-                SmoothInputMovement();
-                TurnPlayer();
-                DashCompletion();
-                MovePlayer();
+
+                if (canMove)
+                {
+                    MovePlayer();
+                    DashCompletion();
+                }
             }
 #endregion
 
@@ -99,9 +103,18 @@ namespace Game {
                 rawInputDirection = _directionVector;
             }
             
-            public void SetMovementActiveState(bool _active)
+            public void SetMovementActiveState(bool _movement, bool _rotate)
             {
-                canMove = _active;
+                canMove = _movement;
+                canRotate = _rotate;
+            }
+
+            public float TurnSpeed {
+                get {
+                    return turnSpeed;
+                } set {
+                    turnSpeed = value;
+                }
             }
 #endregion
 
@@ -118,8 +131,6 @@ namespace Game {
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
             }
             public void TurnPlayer() {
-                if (!(smoothMovementDirection.sqrMagnitude > 0.01f))
-                    return;
                 var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
                     Quaternion.LookRotation(smoothMovementDirection), turnSpeed);
     
@@ -157,6 +168,32 @@ namespace Game {
             {
                 smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
                     Time.deltaTime * movementSmoothing);
+            }
+            
+            void ClampPlayerPosition()
+            {
+                UnityEngine.Camera camera = UnityEngine.Camera.main;
+
+                Vector3 playerPosition =
+                    camera.WorldToViewportPoint(playerRigidBody.transform.position);
+                    
+                // Clamp the player's position to be within the camera's viewport (0 to 1)
+
+                float clampedX = Mathf.Clamp01(playerPosition.x);
+                float clampedY = Mathf.Clamp01(playerPosition.y);
+
+                if (clampedY > 0.9f) clampedY = 0.9f;
+                Debug.Log(clampedX);
+
+                if (clampedX > 0.95f) clampedX = 0.95f;
+                if (clampedX < 0.05f) clampedX = 0.05f;
+                      
+                    
+                    
+                
+                Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
+                playerRigidBody.position = newPosition;
+
             }
 #endregion
 

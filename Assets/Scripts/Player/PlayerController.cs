@@ -106,6 +106,8 @@ namespace Game
                 
                 playerHealthBar.UpdateHealthBar(Health);
                 
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                
                 Destroy(gameObject);
             }
             
@@ -119,6 +121,7 @@ namespace Game
 #endregion
 
 #region Public Functions
+            
             public void OnMovement(InputAction.CallbackContext value)
             { 
                 // TODO: PlayFootStepAudio
@@ -144,9 +147,31 @@ namespace Game
 
             public void OnRanged(InputAction.CallbackContext value)
             {
+                if (PlayerData.currentItem != null)
+                    return;
+                
+                if (playerAttackBehaviour.currentFireRate >= 0)
+                    return;
+                
                 //TODO: make Character chargeUp
-                if (value.action.triggered)
+                if(value.started)
                 {
+                    // Aiming
+                    playerMovementBehaviour.SetMovementActiveState(false, true);
+                    playerMovementBehaviour.TurnSpeed /= 2;
+                    // TODO: Aim UI
+                    // TODO: Aim Sound
+
+                } else if (value.canceled) {
+                    // Shooting
+                    playerAttackBehaviour.RangedAttack();
+                    playerMovementBehaviour.TurnSpeed *= 2;
+                    //playerAudio.RangedAudioPlay(playerObj);
+                }
+                    
+                
+                
+                /*
                     //TODO: PlayAttackAnimation
                     if (characterType == Archetype.Ranged || characterType == Archetype.Both)
                     {
@@ -157,8 +182,7 @@ namespace Game
                         
                         playerAttackBehaviour.RangedAttack();
                         //playerAudio.PlayerRangedAudio(playerObj);
-                    }
-                }
+                    }*/
             }
 
             public void OnMelee(InputAction.CallbackContext value)

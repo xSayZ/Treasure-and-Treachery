@@ -26,7 +26,6 @@ namespace Game {
             
             [Tooltip("How fast the player turns")]
             [SerializeField] private float turnSpeed;
-            private float currentSpeed;
             
             [Header("Dash Settings")] 
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
@@ -36,10 +35,14 @@ namespace Game {
             [Range(0, 3)]
             [SerializeField] private float dashTime = 2f;
             
+            [FormerlySerializedAs("dashCooldown")]
             [Tooltip("How long should the cooldown be for the dash.")]
             [Range(0, 5)]
-            [SerializeField] public float dashCooldown = 2f;
+            [SerializeField] private float baseDashCooldown = 2f;
             private bool lockout;
+
+            public float currentDashCooldown;
+            private float currentSpeed;
             
             // References
             private Rigidbody playerRigidBody;
@@ -72,8 +75,8 @@ namespace Game {
             private void Start()
             {
                 currentSpeed = baseMoveSpeed;
+                
                 playerRigidBody = GetComponent<Rigidbody>();
-                dashCooldown = 0;
             }
 
             private void FixedUpdate()
@@ -132,8 +135,10 @@ namespace Game {
     
             private IEnumerator IsDashing()
             {
+                Debug.Log("Dashing");
                 currentSpeed = baseMoveSpeed + dashSpeedModifier;
                 yield return new WaitForSeconds(dashTime);
+                currentDashCooldown = baseDashCooldown;
                 currentSpeed = baseMoveSpeed;
                 lockout = true;
             }
@@ -141,11 +146,10 @@ namespace Game {
             {
                 if (lockout)
                 {
-                    dashCooldown -=Time.deltaTime;
+                    currentDashCooldown -= Time.deltaTime;
+                    Debug.Log(lockout);
                 }
-    
-                if (dashCooldown <= 0)
-                {
+                if (currentDashCooldown <= 0) {
                     lockout = false;
                 }
             }

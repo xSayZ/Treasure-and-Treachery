@@ -46,6 +46,10 @@ namespace Game {
             private void Awake()
             {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = true;
+                }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
             }
@@ -56,6 +60,8 @@ namespace Game {
             {
                 if (_start && canLeave)
                 {
+                    CanInteractWith[_playerIndex] = false;
+                    
                     GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
                     player.GetComponent<PlayerController>().SetInputPausedState(true);
                     player.transform.position = playerTeleportPosition.transform.position;
@@ -91,6 +97,11 @@ namespace Game {
             private void RequiredQuestRegistered()
             {
                 canLeave = false;
+                
+                for (int i = 0; i < CanInteractWith.Length; i++)
+                {
+                    CanInteractWith[i] = false;
+                }
             }
             
             private void AllRequiredQuestsCompleted()

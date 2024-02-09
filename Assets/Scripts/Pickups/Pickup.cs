@@ -6,7 +6,9 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Backend;
 using Game.Core;
+using Game.Player;
 using Game.Quest;
 using UnityEngine;
 
@@ -48,7 +50,7 @@ namespace Game {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
                 for (int i = 0; i < CanInteractWith.Length; i++)
                 {
-                    CanInteractWith[0] = true;
+                    CanInteractWith[i] = true;
                 }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
@@ -68,6 +70,10 @@ namespace Game {
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
+                        if (!GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData.canPickUp)
+                        {
+                            return;
+                        }
                         QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
                         break;
                         

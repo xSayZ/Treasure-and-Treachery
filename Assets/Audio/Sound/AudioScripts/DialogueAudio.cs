@@ -54,7 +54,6 @@ public EventInstance ShovelPickupAudio(GameObject characterObj, EventInstance sh
             RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, characterObj.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 0);
             shovelPickupInstAudio.start();
-            ObjectiveProgressionReactionAudio();
             break;
         case 1:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
@@ -86,9 +85,9 @@ public EventInstance ObjectiveProgressionReactionAudio(EventInstance objectivePr
     switch (speakerCharacter)
     {
         case 0:
-            GameObject randomPlayerExcluding0 = GetRandomPlayer(audioManager.player1Obj);
+          
             objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, randomPlayerExcluding0.transform);
+            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
             objectiveProgReactInstance.setParameterByName("SpeakerCharacter", 0);
             objectiveProgReactInstance.start();
             break;

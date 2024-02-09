@@ -17,7 +17,7 @@ namespace Game
 {
     namespace Player
     {
-        public class AttackBehaviour : MonoBehaviour
+        public class PlayerAttackBehaviour : MonoBehaviour
         {
             [Header("Component References")] 
             [SerializeField] private CapsuleCollider weaponCollider;

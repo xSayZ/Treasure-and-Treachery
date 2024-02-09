@@ -36,7 +36,7 @@ namespace Game
             [Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
-            [SerializeField] private AttackBehaviour playerAttackBehaviour;
+            [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
 

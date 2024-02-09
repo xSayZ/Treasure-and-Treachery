@@ -11,6 +11,7 @@ using Game.Core;
 using UnityEngine;
 using Game.Quest;
 using Game.Player;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -19,7 +20,8 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private CarriageData carriageData;
             [SerializeField] private GameObject interactionUI;
-            [SerializeField] GameObject playerTeleportPosition;
+            [SerializeField] private GameObject playerTeleportPosition;
+            [SerializeField] private Slider healthBar;
             
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
@@ -99,6 +101,8 @@ namespace Game {
             {
                 carriageData.currentHealth = 0;
                 
+                healthBar.value = 0;
+                
                 // Carriage was destroyed, level lost
                 Debug.Log("Carriage destroyed, you lost");
             }
@@ -106,6 +110,9 @@ namespace Game {
             public void DamageTaken()
             {
                 carriageData.currentHealth = Health;
+                
+                float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
+                healthBar.value = _currentProgress;
             }
 #endregion
 

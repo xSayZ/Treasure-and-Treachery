@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 2556337472479372683}
   m_Layer: 0
   m_Name: Carriage
-  m_TagString: Untagged
+  m_TagString: Carriage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c34be594f40ad64aa798fbf9f6799a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  carriageData: {fileID: 11400000, guid: 94d2b14b629e1c64cb24dde53195ff55, type: 2}
   interactionUI: {fileID: 2265107791443352521}
   playerTeleportPosition: {fileID: 9004222807512305301}
 --- !u!65 &2556337472479372683
@@ -264,6 +264,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 857566933646197829}
     m_Modifications:
+    - target: {fileID: 6087840040082884431, guid: be89bab2985b2764fb9921b3961089c3, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7024298260100926576, guid: be89bab2985b2764fb9921b3961089c3, type: 3}
       propertyPath: m_RootOrder
       value: 1

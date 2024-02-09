@@ -53,6 +53,7 @@ namespace Game {
             private Vector3 smoothMovementDirection;
             
             private bool canMove = true;
+            private bool canRotate = true;
 
 #region Validation
             private void OnValidate() {
@@ -81,16 +82,18 @@ namespace Game {
 
             private void FixedUpdate()
             {
-                if (!canMove)
-                {
-                    return;
+                SmoothInputMovement();
+                
+                if (canRotate) {
+                    TurnPlayer();
                 }
                 
-                SmoothInputMovement();
-                TurnPlayer();
-                DashCompletion();
-                MovePlayer();
-                ClampPlayerPosition();
+
+                if (canMove)
+                {
+                    MovePlayer();
+                    DashCompletion();
+                }
             }
 #endregion
 
@@ -100,9 +103,18 @@ namespace Game {
                 rawInputDirection = _directionVector;
             }
             
-            public void SetMovementActiveState(bool _active)
+            public void SetMovementActiveState(bool _movement, bool _rotate)
             {
-                canMove = _active;
+                canMove = _movement;
+                canRotate = _rotate;
+            }
+
+            public float TurnSpeed {
+                get {
+                    return turnSpeed;
+                } set {
+                    turnSpeed = value;
+                }
             }
 #endregion
 
@@ -119,8 +131,6 @@ namespace Game {
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
             }
             public void TurnPlayer() {
-                if (!(smoothMovementDirection.sqrMagnitude > 0.01f))
-                    return;
                 var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
                     Quaternion.LookRotation(smoothMovementDirection), turnSpeed);
     

@@ -17,26 +17,26 @@ namespace Game
 {
     namespace Player
     {
-        public class PlayerAttackBehaviour : MonoBehaviour
-        {
-            [Header("Component References")] 
+        public class PlayerAttackBehaviour : MonoBehaviour {
+            [Header("Component References")]
+            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
             [SerializeField] private CapsuleCollider weaponCollider;
             [SerializeField] private GameObject projectile;
 
             [Header("Melee Attack Settings")] 
             [SerializeField] private int meleeAttackDamage;
-            [SerializeField] private float baseMeleeAttackCooldown;
+            [SerializeField] public float baseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")] 
             [SerializeField] private int rangedAttackDamage;
-            [SerializeField] private float baseFireRateRanged;
+            [SerializeField] public float baseFireRateRanged;
             [SerializeField] private float projectileSpeed;
             
             private List<Transform> enemyTransforms = new List<Transform>();
 
             //private bool isAttacking;
-            private float currentFireRate;
-            private float currentMeleeCooldown;
+            [HideInInspector] public float currentFireRate;
+            [HideInInspector] public float currentMeleeCooldown;
             private LayerMask enemyLayer;
             
             #region Unity Functions
@@ -56,10 +56,6 @@ namespace Game
             {
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
-                if (currentMeleeCooldown <=0 || currentFireRate <= 0)
-                {
-                    //isAttacking = false;
-                }
             }
             
 
@@ -98,14 +94,13 @@ namespace Game
             }
 
             public void RangedAttack() {
-                if (!(currentFireRate <= 0))
-                    return;
                 
                 GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
                 Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
                 _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed);
                 
                 currentFireRate = baseFireRateRanged;
+                playerMovementBehaviour.SetMovementActiveState(true, true);
             }
 #endregion
         }

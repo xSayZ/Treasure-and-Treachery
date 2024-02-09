@@ -222,7 +222,7 @@ namespace Game {
             
             public void VisionRangeEntered(Transform _targetTransform)
             {
-                if (_targetTransform.gameObject.CompareTag("Player") && !targetsInVisionRangeUpdate.Contains(_targetTransform))
+                if ((_targetTransform.gameObject.CompareTag("Player")  || _targetTransform.gameObject.CompareTag("Carriage")) && !targetsInVisionRangeUpdate.Contains(_targetTransform))
                 {
                     targetsInVisionRangeUpdate.Add(_targetTransform);
                     
@@ -264,7 +264,7 @@ namespace Game {
             
             public void AttackRangeEntered(Transform _targetTransform)
             {
-                if (_targetTransform.gameObject.CompareTag("Player"))
+                if (_targetTransform.gameObject.CompareTag("Player") || _targetTransform.gameObject.CompareTag("Carriage"))
                 {
                     if (_targetTransform.TryGetComponent(out IDamageable hit))
                     {

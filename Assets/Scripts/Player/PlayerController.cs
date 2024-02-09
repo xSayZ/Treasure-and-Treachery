@@ -12,6 +12,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
+using UnityEngine.InputSystem.Users;
 
 
 namespace Game
@@ -36,9 +37,12 @@ namespace Game
             [Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
-            [SerializeField] private AttackBehaviour playerAttackBehaviour;
+            [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+
+            [Header("UI")]
+            [SerializeField] private PlayerHealthBar playerHealthBar;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
@@ -54,8 +58,10 @@ namespace Game
             
             [field: SerializeField] public int Health { get; set; }
 
-            [Header("Test Stuff")]
-            [SerializeField] private Material material;
+            [Header("Temporary damage animation")]
+            [SerializeField] private MeshRenderer meshRenderer;
+            [SerializeField] private Material defaultMaterial;
+            [SerializeField] private Material damagedMaterial;
             // public bool WalkOnGraves;
             
             [Space]
@@ -75,34 +81,53 @@ namespace Game
             
             void Start()
             {
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
                 SetupPlayer();
+
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                }
+            }
+            
+            // Temporary damage animation
+            private async void FlashRed()
+            {
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = damagedMaterial;
+                await Task.Delay(100);
+                meshRenderer.material = defaultMaterial;
             }
             
             public void Death()
             {
                 playerInteractionBehaviour.OnDeath();
                 
+                playerHealthBar.UpdateHealthBar(Health);
+                
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                
                 Destroy(gameObject);
             }
-
-            //Temp animation
-            private async void FlashRed()
-            {
-                material.color = Color.red;
-                await Task.Delay(1000);
-
-                material.color = Color.white;
-            }
-
+            
             public void DamageTaken()
             {
                 FlashRed();
                 Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
+                playerHealthBar.UpdateHealthBar(Health);
             }
 #endregion
 
 #region Public Functions
+            
             public void OnMovement(InputAction.CallbackContext value)
             { 
                 // TODO: PlayFootStepAudio
@@ -119,18 +144,40 @@ namespace Game
             
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.action.WasPressedThisFrame() && playerMovementBehaviour.dashCooldown <= 0)
+                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
                 {
                     //Todo: PlayDustCloud Particle if needed
-                    playerMovementBehaviour.Dash(value.action.WasPressedThisFrame());
+                    playerMovementBehaviour.Dash(value.performed);
                 }
             }
 
             public void OnRanged(InputAction.CallbackContext value)
             {
+                if (PlayerData.currentItem != null)
+                    return;
+                
+                if (playerAttackBehaviour.currentFireRate >= 0)
+                    return;
+                
                 //TODO: make Character chargeUp
-                if (value.action.triggered)
+                if(value.started)
                 {
+                    // Aiming
+                    playerMovementBehaviour.SetMovementActiveState(false, true);
+                    playerMovementBehaviour.TurnSpeed /= 2;
+                    // TODO: Aim UI
+                    // TODO: Aim Sound
+
+                } else if (value.canceled) {
+                    // Shooting
+                    playerAttackBehaviour.RangedAttack();
+                    playerMovementBehaviour.TurnSpeed *= 2;
+                    //playerAudio.RangedAudioPlay(playerObj);
+                }
+                    
+                
+                
+                /*
                     //TODO: PlayAttackAnimation
                     if (characterType == Archetype.Ranged || characterType == Archetype.Both)
                     {
@@ -141,8 +188,7 @@ namespace Game
                         
                         playerAttackBehaviour.RangedAttack();
                         //playerAudio.PlayerRangedAudio(playerObj);
-                    }
-                }
+                    }*/
             }
 
             public void OnMelee(InputAction.CallbackContext value)
@@ -182,7 +228,9 @@ namespace Game
             {
                 if (value.started)
                 {
-                    GameManager.Instance.TogglePauseState(this);
+                    // Remove after pause has been implemented
+                    return;
+                    // GameManager.Instance.TogglePauseState(this);
                 }
             }
             

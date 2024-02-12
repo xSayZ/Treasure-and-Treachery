@@ -12,6 +12,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
+using Game.NAME;
 using UnityEngine.InputSystem.Users;
 
 
@@ -40,6 +41,7 @@ namespace Game
             [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
 
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -75,6 +77,7 @@ namespace Game
                 
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
+                playerVisualBehaviour.SetupBehaviour(PlayerData);
             }
             
             

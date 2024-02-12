@@ -19,7 +19,7 @@ namespace Game {
             private int playerID;
             private PlayerData playerData;
             
-            [SerializeField] private MeshRenderer[] playerMeshRenderers;
+            [SerializeField] private SkinnedMeshRenderer[] playerMeshRenderers;
 
 #region Unity Functions
 

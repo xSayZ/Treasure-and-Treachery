@@ -57,6 +57,7 @@ namespace Game {
                 timer.StartTimer(roundTime);
                 
                 SetupLocalMultiplayer();
+                
             }
 #endregion
 

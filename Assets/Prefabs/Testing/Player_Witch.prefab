@@ -162,7 +162,6 @@ MonoBehaviour:
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 5
-  characterType: 0
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   <Health>k__BackingField: 5
@@ -203,8 +202,10 @@ MonoBehaviour:
   playerMovementBehaviour: {fileID: 8393427140100816367}
   weaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  hasMeleeWeapon: 1
   meleeAttackDamage: 1
   baseMeleeAttackCooldown: 1
+  hasRangedWeapon: 1
   rangedAttackDamage: 1
   baseFireRateRanged: 1
   projectileSpeed: 50
@@ -669,13 +670,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'R_Hip_JNT'\n\tTransform 'L_Collar_JNT'\n\tTransform
-    'L_Hip_JNT'\n\tTransform 'Neck_JNT'\n\tTransform 'Pelvis_JNT'\n\tTransform 'R_Collar_JNT'\n\tTransform
-    'R_Hip_JNT'\n\tTransform 'Spine_3_JNT'\n\tTransform 'L_Elbow_JNT'\n\tTransform
-    'L_Ball_JNT'\n\tand more ...\n\tFrom animation clip 'base_idle_ANI'\n\tFrom animation
-    clip 'base_running_ANI'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

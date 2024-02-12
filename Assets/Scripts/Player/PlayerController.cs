@@ -19,13 +19,6 @@ namespace Game
 {
     namespace Player
     {
-        public enum Archetype
-        {
-            Melee,
-            Ranged,
-            Both,
-        }
-
         public class PlayerController : MonoBehaviour, IDamageable
         {
             [Header("Player Data")]
@@ -51,8 +44,6 @@ namespace Game
             [SerializeField] public float movementSmoothingSpeed = 1f;
             private Vector3 rawInputMovement;
             private Vector3 smoothInputMovement;
-            
-            [SerializeField] private Archetype characterType;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;

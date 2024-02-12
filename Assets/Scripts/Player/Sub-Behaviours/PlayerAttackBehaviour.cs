@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Core;
+using Game.Quest;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -23,11 +24,13 @@ namespace Game
             [SerializeField] private CapsuleCollider weaponCollider;
             [SerializeField] private GameObject projectile;
 
-            [Header("Melee Attack Settings")] 
+            [Header("Melee Attack Settings")]
+            [SerializeField] private bool hasMeleeWeapon;
             [SerializeField] private int meleeAttackDamage;
             [SerializeField] public float baseMeleeAttackCooldown;
 
-            [Header("Ranged Attack Settings")] 
+            [Header("Ranged Attack Settings")]
+            [SerializeField] private bool hasRangedWeapon;
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] public float baseFireRateRanged;
             [SerializeField] private float projectileSpeed;
@@ -39,30 +42,36 @@ namespace Game
             [HideInInspector] public float currentMeleeCooldown;
             private LayerMask enemyLayer;
             
-            #region Unity Functions
+#region Unity Functions
+            private void OnEnable()
+            {
+                QuestManager.OnMeleeWeaponPickedUp.AddListener(ActivateMeleeWeapon);
+                QuestManager.OnRagedWeaponPickedUp.AddListener(ActivateRangedWeapon);
+            }
+            
+            private void OnDisable()
+            {
+                QuestManager.OnMeleeWeaponPickedUp.RemoveListener(ActivateMeleeWeapon);
+                QuestManager.OnRagedWeaponPickedUp.RemoveListener(ActivateRangedWeapon);
+            }
+            
             private void Awake()
             {
-                // Get references
-                weaponCollider.GetComponentInChildren<Collider>();
                 enemyLayer = LayerMask.NameToLayer("Enemy");
                 
                 // Set default values
                 currentFireRate = 0;
                 currentMeleeCooldown = 0;
             }
-
-            // Update is called once per frame
+            
             private void Update()
             {
                 currentFireRate -= Time.deltaTime;
                 currentMeleeCooldown -= Time.deltaTime;
             }
+#endregion
             
-
-            #endregion
-           
-            #region Public Functions
-
+#region Public Functions
             public void OnAttackRangeEnter(Transform _transform) {
                 if (_transform.gameObject.layer != enemyLayer)
                     return;
@@ -72,6 +81,7 @@ namespace Game
                     enemyTransforms.Add(_transform);
                 }
             }
+            
             public void OnAttackRangeExit(Transform _transform)
             {
                 if (_transform.gameObject.layer != enemyLayer)
@@ -80,9 +90,12 @@ namespace Game
                 }
             }
             
-            public void MeleeAttack() {
-                if (!(currentMeleeCooldown <= 0))
+            public void MeleeAttack()
+            {
+                if (currentMeleeCooldown > 0 || !hasMeleeWeapon)
+                {
                     return;
+                }
                 
                 for (int i = 0; i < enemyTransforms?.Count; i++) {
                     if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
@@ -93,7 +106,12 @@ namespace Game
                 currentMeleeCooldown = baseMeleeAttackCooldown;
             }
 
-            public void RangedAttack() {
+            public void RangedAttack()
+            {
+                if (!hasRangedWeapon)
+                {
+                    return;
+                }
                 
                 GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
                 Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
@@ -101,6 +119,18 @@ namespace Game
                 
                 currentFireRate = baseFireRateRanged;
                 playerMovementBehaviour.SetMovementActiveState(true, true);
+            }
+#endregion
+            
+#region Private Functions
+            private void ActivateMeleeWeapon(int _playerIndex)
+            {
+                hasMeleeWeapon = true;
+            }
+            
+            private void ActivateRangedWeapon(int _playerIndex)
+            {
+                hasRangedWeapon = true;
             }
 #endregion
         }

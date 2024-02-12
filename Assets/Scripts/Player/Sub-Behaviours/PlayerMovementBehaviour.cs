@@ -113,15 +113,20 @@ namespace Game {
                 Vector3 _movement = Time.deltaTime * movementSpeed * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
-            private void TurnPlayer() {
-                var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
-                                        Quaternion.LookRotation(movementDirection), turnSpeed);
-    
+            private void TurnPlayer()
+            {
+                if (movementDirection == Vector3.zero)
+                {
+                    return;
+                }
+                
+                var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
                 playerRigidBody.rotation = _rotation;
 
             }
     
-            public void Dash(bool _dash) {
+            public void Dash(bool _dash)
+            {
                 if (!_dash)
                     return;
                 StartCoroutine(IsDashing());

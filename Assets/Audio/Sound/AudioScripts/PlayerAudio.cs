@@ -55,37 +55,33 @@ namespace Game {
 
 public void MeleeAudioPlay(GameObject meleeObj)
 {
-    //deklarerar en lokal variabel av typen eventinstance och initialiserar denna med referens till innehållet i vår eventreferece "playermeeleattack"
     EventInstance playerMeleeAttackInstance = RuntimeManager.CreateInstance(playerMeleeAttack);
-        
-    //fäster eventinstance till ett specefikt gameobjekts transform och rigidbody-komponent. gör så att ljudet spelas upp på rätt position.
     RuntimeManager.AttachInstanceToGameObject(playerMeleeAttackInstance, meleeObj.transform, meleeObj.GetComponent<Rigidbody>());
-
-    // Spelar upp Eventet från FMOD
+    
     playerMeleeAttackInstance.start();
-
-    // Stänger Eventinstansens resurser
     playerMeleeAttackInstance.release();
 }
 
-public void PlayerFootstepPlay(GameObject footObj, int surface)
+public void PlayerFootstepPlay(int textureValue, GameObject footObj)
 {
     EventInstance playerFootstepInstance = RuntimeManager.CreateInstance(playerFootStep);
     RuntimeManager.AttachInstanceToGameObject(playerFootstepInstance, footObj.transform);
 
-    switch (surface)
+    switch (textureValue)
     {
         case 0://Grass
-            playerFootstepInstance.setParameterByName("Surface", 0f);
+            // playerFootstepInstance.setParameterByName("Surface", 0f);
+            Debug.Log("ur on grass");
             break;
         case 1: //Path/Dirt
-            playerFootstepInstance.setParameterByName("Surface", 1f);
+            // playerFootstepInstance.setParameterByName("Surface", 1f);
+            Debug.Log("ur on dirt feller");
             break;
         case 2: //Rock
-            playerFootstepInstance.setParameterByName("Surface", 2f);
+            // playerFootstepInstance.setParameterByName("Surface", 2f);
             break;
     }
-    playerFootstepInstance.start();
+    // playerFootstepInstance.start();
     playerFootstepInstance.release();
 }
 

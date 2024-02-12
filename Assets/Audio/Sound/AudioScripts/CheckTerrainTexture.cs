@@ -15,6 +15,7 @@ namespace Game {
     namespace Audio {
         public class CheckTerrainTexture : MonoBehaviour
         {
+            public PlayerAudio playerAudio;
             private Transform playerTransform;
             public Terrain terrainObject;
             
@@ -31,7 +32,18 @@ namespace Game {
 
         private void Update()
         {
-            GetTerrainTexture(); 
+            GetTerrainTexture();
+            if (textureValues[0] > 0.5)
+            {
+                var textureValue = 0;
+                playerAudio.PlayerFootstepPlay(textureValue, gameObject);
+            }
+            if (textureValues[1] > 0.5)
+            {
+                var textureValue = 1;
+                playerAudio.PlayerFootstepPlay(textureValue, gameObject);
+            }
+            
         }
 
         public void GetTerrainTexture()

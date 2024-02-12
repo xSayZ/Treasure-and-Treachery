@@ -40,6 +40,7 @@ namespace Game
             //private bool isAttacking;
             [HideInInspector] public float currentFireRate;
             [HideInInspector] public float currentMeleeCooldown;
+            private PlayerController playerController;
             private LayerMask enemyLayer;
             
 #region Unity Functions
@@ -57,6 +58,7 @@ namespace Game
             
             private void Awake()
             {
+                playerController = GetComponent<PlayerController>();
                 enemyLayer = LayerMask.NameToLayer("Enemy");
                 
                 // Set default values
@@ -125,12 +127,18 @@ namespace Game
 #region Private Functions
             private void ActivateMeleeWeapon(int _playerIndex)
             {
-                hasMeleeWeapon = true;
+                if (_playerIndex == playerController.PlayerIndex)
+                {
+                   hasMeleeWeapon = true; 
+                }
             }
             
             private void ActivateRangedWeapon(int _playerIndex)
             {
-                hasRangedWeapon = true;
+                if (_playerIndex == playerController.PlayerIndex)
+                {
+                    hasRangedWeapon = true;
+                }
             }
 #endregion
         }

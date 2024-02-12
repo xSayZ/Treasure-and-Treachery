@@ -28,6 +28,8 @@ namespace Game {
             private EventReference projectileHit;
             [SerializeField] 
             private EventReference projectileSwoosh;
+            [SerializeField] 
+            private EventReference interactionAudio;
             
             [Header("Player Vox")]
             [SerializeField] 
@@ -111,6 +113,25 @@ public void ProjectileSwooshAudio(GameObject projectileObj)
     RuntimeManager.AttachInstanceToGameObject(projectileSwooshInstance, projectileObj.transform);
     projectileSwooshInstance.start();
     projectileSwooshInstance.release();
+}
+
+public EventInstance InteractionAudio(EventInstance interactionInstance, GameObject questObject, bool isLooping)
+{
+    switch (isLooping)
+    {
+        case true:
+            interactionInstance = RuntimeManager.CreateInstance(interactionAudio);
+            RuntimeManager.AttachInstanceToGameObject(interactionInstance, questObject.transform);
+            interactionInstance.setParameterByName("InteractLooping", 1);
+            interactionInstance.start();
+            break;
+        case false:
+            interactionInstance.setParameterByName("InteractLooping", 0);
+            interactionInstance.keyOff();
+            interactionInstance.release();
+            break;
+    }
+    return interactionInstance;
 }
 
 

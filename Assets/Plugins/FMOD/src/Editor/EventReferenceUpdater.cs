@@ -534,10 +534,6 @@ namespace FMODUnity
                 {
                     newFields.Add(f);
                 }
-                else if (typeof(System.Collections.IEnumerable).IsAssignableFrom(f.FieldType))
-                {
-                    subObjectFields.Add(f);
-                }
                 else if (f.FieldType.Assembly != SystemAssembly && !f.FieldType.IsEnum)
                 {
                     subObjectFields.Add(f);
@@ -684,24 +680,9 @@ namespace FMODUnity
 
                     if (value != null && !parents.Contains(value))
                     {
-                        if (value is System.Collections.IEnumerable)
+                        foreach (Task t in GetGenericUpdateTasks(value, FieldPath(subObjectPath, subObjectField.Name), parents))
                         {
-                            int index = 0;
-                            foreach (object item in value as System.Collections.IEnumerable)
-                            {
-                                foreach (Task t in GetGenericUpdateTasks(item, FieldPath(subObjectPath, subObjectField.Name, index), parents))
-                                {
-                                    yield return t;
-                                }
-                                index++;
-                            }
-                        }
-                        else
-                        {
-                            foreach (Task t in GetGenericUpdateTasks(value, FieldPath(subObjectPath, subObjectField.Name), parents))
-                            {
-                                yield return t;
-                            }
+                            yield return t;
                         }
                     }
                 }
@@ -1498,18 +1479,6 @@ namespace FMODUnity
             }
         }
 
-        private static string FieldPath(string subObjectPath, string fieldName, int index)
-        {
-            if (subObjectPath != null)
-            {
-                return string.Format("{0}.{1}[{2}]", subObjectPath, fieldName, index);
-            }
-            else
-            {
-                return string.Format("{0}[{1}]", fieldName, index);
-            }
-        }
-
         private static object FindSubObject(object o, string path)
         {
             if (path == null)
@@ -1519,21 +1488,9 @@ namespace FMODUnity
 
             object result = o;
 
-            foreach (string pathElement in path.Split('.'))
+            foreach (string fieldName in path.Split('.'))
             {
                 Type type = result.GetType();
-
-                Regex regex = new Regex(@"(\w+)\[(\d+)\]$");
-                Match match = regex.Match(pathElement);
-                int index = -1;
-                string fieldName = pathElement;
-
-                if (match.Success)
-                {
-                    fieldName = match.Groups[1].Value;
-                    index = int.Parse(match.Groups[2].Value);
-                }
-
                 FieldInfo field = type.GetField(fieldName, DefaultBindingFlags);
 
                 if (field == null)
@@ -1542,28 +1499,6 @@ namespace FMODUnity
                 }
 
                 result = field.GetValue(result);
-
-                if (index >= 0)
-                {
-                    System.Collections.IEnumerable enumerable = result as System.Collections.IEnumerable;
-
-                    result = null;
-
-                    if (enumerable != null)
-                    {
-                        int i = 0;
-
-                        foreach (object obj in enumerable)
-                        {
-                            if (index == i)
-                            {
-                                result = obj;
-                                break;
-                            }
-                            i++;
-                        }
-                    }
-                }
 
                 if (result == null)
                 {

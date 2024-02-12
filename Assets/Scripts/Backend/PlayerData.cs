@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Core;
 using UnityEngine;
 
 
@@ -16,14 +17,29 @@ namespace Game {
         [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/Player Data")]
         public class PlayerData : ScriptableObject
         {
-            [SerializeField] private int playerHealth;
+            [Header("Settings")]
+            [SerializeField] public int startingHealth;
+            
+            [Header("Debug")]
+            [SerializeField] public int currentHealth;
             [SerializeField] public int playerIndex;
-            [SerializeField] private int currency;
-            [SerializeField] private int questValue;
-
-            private int currentHealth;
-            private int currentCurrency;
-            private int currentQuestValue;
+            [SerializeField] public int currency;
+            [SerializeField] public Item currentItem;
+            [SerializeField] public bool canPickUp;
+            
+            public int SetPlayerData(int _currentHealth)
+            {
+                currentHealth = _currentHealth;
+                return playerIndex;
+            }
+            
+            private void OnEnable()
+            {
+                currentHealth = startingHealth;
+                currency = 0;
+                currentItem = null;
+                canPickUp = true;
+            }
         }
     }
 }

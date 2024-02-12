@@ -10,102 +10,168 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using System;
+using System.Linq;
+using UnityEngine.Events;
 
 namespace Game {
     namespace Backend {
 
-        public class GameManager : MonoBehaviour
+        public class GameManager : Singleton<GameManager>
         {
+            public static UnityEvent<int> OnPlayerDeath = new UnityEvent<int>();
+            
+            [Range(0, 1200)]
+            [Tooltip("Amount of time per round in seconds")]
+            public float roundTime;
 
-            public GameObject playerPrefab;
-            public int numberOfPlayers;
+            [Header("Local Multiplayer")]
+            [Tooltip("Player Prefabs needs to be assigned")]
+            [SerializeField] private GameObject playerPrefab;
 
-            public Transform spawnRingCenter;
-            [Range(0.5f, 5f)]
-            public float spawnRingRadius;
+            [Header("Spawn Variables")]
+            [Tooltip("Assign the spawn point where players are to be instantiated from")]
+            [SerializeField] private Transform spawnRingCenter;
+            [Range(0.5f, 15f)]
+            [SerializeField] private float spawnRingRadius;
+            [Space]
+            [SerializeField] private PlayerData[] activePlayerPlayerData;
+            
+            public List<GameObject> activePlayerControllers;
+            private PlayerController focusedPlayerController;
 
-            [SerializeField] private List<PlayerController> activePlayerControllers;
-
+            [Header("Debug")]
             [SerializeField] bool debug;
+            private bool isPaused;
 
             #region Unity Functions
-            private void OnDrawGizmos()
-            {
-                if (debug)
-                {
-                    Gizmos.color = new Color(0f, 255f, 0f, 0.5f);
-                    Gizmos.DrawSphere(spawnRingCenter.position, spawnRingRadius);
+            private void OnDrawGizmos()  {
+                if (debug)  {
+                    Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
 
-            void Awake()
-            {
+            private void Awake() {
+                SetupLocalMultiplayer();
             }
-            void Start()
-            {
-                SetupGame();
+            void Start()  {
+                OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
+                isPaused = false;
+                Timer _timer = gameObject.AddComponent<Timer>();
+                _timer.StartTimer(roundTime);
             }
-
-
-
-            // Update is called once per frame
-            void Update()
-            {
-                
-            }
-#endregion
-
-#region Public Functions
-
 #endregion
 
 #region Private Functions
-
-            private void SetupGame()
-            {
+            
+            private void SetupLocalMultiplayer() {
+                DestroyExistingPlayerInstances();
                 AddPlayers();
-                SetObjective();
-                
             }
-            private void AddPlayers()
-            {
-                activePlayerControllers = new List<PlayerController>();
+            private static void DestroyExistingPlayerInstances() {
 
-                for (int i = 0; i < numberOfPlayers; i++)
+                GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
+                if (_playersAlreadyInScene.Length >= 1) {
+                    foreach (GameObject _playerInstances in _playersAlreadyInScene) {
+                        Destroy(_playerInstances);
+                    }
+                }
+            }
+
+            private void AddPlayers() {
+                activePlayerControllers = new List<GameObject>();
+
+                string[] _controllers = Input.GetJoystickNames();
+                if (_controllers.Length == 0)
                 {
-                    Vector3 _spawnPosition = CalculatePositionInRing(i, numberOfPlayers);
-                    Quaternion _spawnRotation = Quaternion.identity;
-
-                    // TODO: Add spawnPosition and spawnRotation
-                    GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation) as GameObject;
-                    AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                    LogWarning("No controllers detected");
+                    SpawnPlayers(0, 1);
                 }
                 
-
+                for (int i = 0; i < _controllers.Length; i++) {
+                    SpawnPlayers(i, _controllers.Length);
+                }
             }
             
-            private void AddPlayersToActiveList(PlayerController newPlayer)
-            {
+            private void AddPlayersToActiveList(GameObject newPlayer) {
                 activePlayerControllers.Add(newPlayer);
             }
-            
-            private void SetObjective()
-            {
 
+            public void TogglePauseState(PlayerController newFocusedPlayerController) {
+                focusedPlayerController = newFocusedPlayerController;
+                isPaused = !isPaused;
+
+                ToggleTimeScale();
+                UpdateActivePlayerInputs();
+                SwitchFocusedPlayerControlScheme();
             }
 
-            Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers)
-            {
+            private void UpdateActivePlayerInputs() {
+                foreach (GameObject _t in activePlayerControllers.Where(t => t != focusedPlayerController.gameObject)) {
+                    _t.GetComponent<PlayerController>().SetInputPausedState(isPaused);
+                }
+            }
+
+            private void SwitchFocusedPlayerControlScheme() {
+                switch (isPaused) {
+                    case true:
+                        focusedPlayerController.EnableEventControls();
+                        break;
+                    case false:
+                        focusedPlayerController.EnableGamePlayControls();
+                        break;
+                }
+            }
+
+            private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
+                Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
+                Quaternion _spawnRotation = Quaternion.identity;
+                    
+                var _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
+                AddPlayersToActiveList(_spawnedPlayer);
+                
+                // Get PlayerData from List and assign it based on playerID
+                PlayerData _playerData  = activePlayerPlayerData[_playerID];
+                _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
+            }
+            
+            // Calculate the position of the players in the ring
+            private Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers) {
+                // If there is only one player, return the center of the ring
                 if (numberOfPlayers == 1)
                     return spawnRingCenter.position;
 
-                float angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
-                float x = Mathf.Cos(angle) * spawnRingRadius;
-                float z = Mathf.Sin(angle) * spawnRingRadius;
-                return spawnRingCenter.position + new Vector3(x, 0, z);
-
+                // Calculate the angle
+                float _angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
+                // Calculate the position
+                float _x = Mathf.Cos(_angle) * spawnRingRadius;
+                float _z = Mathf.Sin(_angle) * spawnRingRadius;
+                // Return the position
+                return spawnRingCenter.position + new Vector3(_x, 0, _z);
             }
+            private void ToggleTimeScale() {
+                float _newTimeScale = isPaused switch {
+                    true => 0f,
+                    false => 1f
+                };
+
+                Time.timeScale = _newTimeScale;
+            }
+            
+            private void RemovePlayerFromCurrentPlayersList(int _playerID) {
+                activePlayerControllers.RemoveAt(_playerID);
+            }
+            
             #endregion
+
+            private void Log(string msg) {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+msg);
+            }
+
+            private void LogWarning(string msg) {
+                if (!debug) return;
+                Debug.Log("[GameManager]: "+msg);
+            }
         }
     }
 }

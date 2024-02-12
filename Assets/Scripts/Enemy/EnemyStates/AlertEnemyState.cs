@@ -38,7 +38,7 @@ namespace Game {
                 {
                     hasHeardSomething = true;
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
-                    enemyController.NavMeshAgent.destination = lastHeardPosition;
+                    enemyController.NavMeshAgent.destination = GetClosestPointOnNavmesh(lastHeardPosition);
                 }
                 
                 try  
@@ -65,7 +65,7 @@ namespace Game {
                     lastHeardPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
                     if (!hasHeardSomething)
                     {
-                        enemyController.NavMeshAgent.destination = lastHeardPosition;
+                        enemyController.NavMeshAgent.destination = GetClosestPointOnNavmesh(lastHeardPosition);
                     }
                     hasHeardSomething = true;
                 }

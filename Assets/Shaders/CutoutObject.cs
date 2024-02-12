@@ -21,10 +21,17 @@ namespace Game
             [SerializeField] private Transform target;
 
             [SerializeField] private LayerMask wallMask;
-            [Header("Debugs")] public Material[] materials;
-            
-            public UnityEngine.Camera cam;
+
+            [SerializeField] private float CutTime;
+           
+
+            private UnityEngine.Camera cam;
             #region Unity Functions
+
+            private void OnValidate()
+            {
+                if (CutTime < 0) CutTime = 0;
+            }
 
             // Start is called before the first frame update
             void Start()
@@ -56,11 +63,11 @@ namespace Game
                         out hit,Vector3.Distance(target.position,cam.transform.position),wallMask))
                     
                 {
-                    target.transform.localScale = new Vector3(2, 2, 2);
+                    target.transform.localScale = Vector3.Lerp(target.transform.localScale,new Vector3(2, 2, 2),Time.deltaTime*CutTime);
                 }
                 else
                 {
-                    target.transform.localScale = new Vector3(0, 0, 0);
+                    target.transform.localScale = Vector3.Lerp(target.transform.localScale,new Vector3(0, 0, 0),Time.deltaTime*CutTime);
 
                 }
                 

@@ -12,7 +12,6 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
-using Game.NAME;
 using UnityEngine.InputSystem.Users;
 
 
@@ -178,7 +177,7 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerInteractionBehaviour.OnInteract(value.performed);
+                    playerInteractionBehaviour.OnInteract(value.started);
                 } 
             }
             

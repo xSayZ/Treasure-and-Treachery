@@ -19,7 +19,7 @@ namespace Game {
             private int playerID;
             private PlayerData playerData;
             
-            [SerializeField] private MeshRenderer playerMeshRenderer;
+            [SerializeField] private MeshRenderer[] playerMeshRenderers;
 
 #region Unity Functions
 
@@ -43,7 +43,9 @@ namespace Game {
 
             void UpdateCharacterMaterial() {
                 // Set the player material color
-                playerMeshRenderer.material.color = playerData.playerMaterialColor;
+                foreach (var playerMeshRenderer in playerMeshRenderers) {
+                    playerMeshRenderer.material.color = playerData.playerMaterialColor;
+                }
             }
             
 #endregion

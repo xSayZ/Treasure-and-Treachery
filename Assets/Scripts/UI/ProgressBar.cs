@@ -7,18 +7,18 @@
 // ------------------------------*/
 
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game {
     namespace UI {
         public class ProgressBar : MonoBehaviour
         {
-            [SerializeField] private RectTransform progressTransform;
-            [SerializeField] private float progressWidth;
+            [SerializeField] private Slider slider;
             
             public void SetProgress(float _progress)
             {
-                progressTransform.sizeDelta = new Vector2(_progress * progressWidth, progressTransform.sizeDelta.y);
+                slider.value = _progress;
             }
         }
     }

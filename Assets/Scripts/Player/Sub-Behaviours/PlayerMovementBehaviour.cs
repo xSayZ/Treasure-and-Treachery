@@ -184,7 +184,6 @@ namespace Game {
                 float clampedY = Mathf.Clamp01(playerPosition.y);
 
                 if (clampedY > 0.9f) clampedY = 0.9f;
-                Debug.Log(clampedX);
 
                 if (clampedX > 0.95f) clampedX = 0.95f;
                 if (clampedX < 0.05f) clampedX = 0.05f;

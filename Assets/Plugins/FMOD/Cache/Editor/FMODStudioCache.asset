@@ -39,7 +39,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638433334632475651
+  lastModified: 638433533249464206
   FileSizes: []
   Exists: 1
 --- !u!114 &-8285741006923170633
@@ -432,6 +432,33 @@ MonoBehaviour:
   lastModified: 638422279054432065
   FileSizes: []
   Exists: 1
+--- !u!114 &-4449521813018366385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_GEN_Footstep/Surface
+  m_EditorClassIdentifier: 
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 3887903347
+    data2: 2708601808
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Grass
+  - Dirt
+  - Rock
+  Exists: 1
 --- !u!114 &-4345788876620703977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,7 +474,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638433334631535632
+  lastModified: 638433533248150107
   FileSizes: []
   Exists: 1
 --- !u!114 &-3777273569872142365
@@ -500,19 +527,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
   Guid:
-    Data1: 39127466
-    Data2: 1192805161
-    Data3: 1299908248
-    Data4: -602217388
+    Data1: -81772934
+    Data2: 1222942848
+    Data3: -1869810791
+    Data4: 629442032
   Banks:
   - {fileID: -4345788876620703977}
   IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4449521813018366385}
   MinDistance: 1
   MaxDistance: 20
-  Length: 787
+  Length: 0
 --- !u!114 &-2940143083632996751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -781,6 +809,7 @@ MonoBehaviour:
   - {fileID: -2406986522633542674}
   - {fileID: -4996863189237792840}
   - {fileID: -5158344785930571961}
+  - {fileID: 4586663123690753964}
   EditorParameters:
   - {fileID: 7936796862777440787}
   - {fileID: -9012124227550197136}
@@ -788,7 +817,7 @@ MonoBehaviour:
   - {fileID: -4345788876620703977}
   StringsBanks:
   - {fileID: 2001904823976165637}
-  cacheTime: 638433334632475651
+  cacheTime: 638433533249464206
   cacheVersion: 131609
 --- !u!114 &896489882819245604
 MonoBehaviour:
@@ -852,10 +881,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638433334631585319
+  lastModified: 638433533248283602
   FileSizes:
   - Name: 
-    Value: 2826
+    Value: 2924
   Exists: 1
 --- !u!114 &2763423973393253782
 MonoBehaviour:
@@ -986,6 +1015,33 @@ MonoBehaviour:
   - Name: 
     Value: 1188
   Exists: 1
+--- !u!114 &4586663123690753964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Interactables/INT_GoldPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Interactables/INT_GoldPickup
+  Guid:
+    Data1: 2063705782
+    Data2: 1099860792
+    Data3: 43462050
+    Data4: -310073987
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 641
 --- !u!114 &6009688522167444756
 MonoBehaviour:
   m_ObjectHideFlags: 0

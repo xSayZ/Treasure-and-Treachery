@@ -19,13 +19,6 @@ namespace Game
 {
     namespace Player
     {
-        public enum Archetype
-        {
-            Melee,
-            Ranged,
-            Both,
-        }
-
         public class PlayerController : MonoBehaviour, IDamageable
         {
             [Header("Player Data")]
@@ -52,8 +45,6 @@ namespace Game
             private Vector3 rawInputMovement;
             private Vector3 smoothInputMovement;
             
-            [SerializeField] private Archetype characterType;
-            
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -69,7 +60,9 @@ namespace Game
             [Header("Debug")]
             [SerializeField] private bool debug;
             
-            public void SetupPlayer(int _newPlayerID) {
+            public void SetupPlayer(int _newPlayerID)
+            {
+                PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
@@ -77,6 +70,13 @@ namespace Game
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
+                
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
+
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                }
             }
             
             
@@ -90,19 +90,14 @@ namespace Game
             {
                 playerInput.deviceLostEvent.Invoke(playerInput);
             }
-            
-            void Start()
+
+            void FixedUpdate()
             {
-                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
-
-                if (Input.GetJoystickNames().Length > 0)
-                {
-                    InputUser.PerformPairingWithDevice(Gamepad.current);
-                }
-            }
-
-            void FixedUpdate() {
                 CalculateMovementInputSmoothing();
+                if (smoothInputMovement.magnitude < 0.01f) {
+                    smoothInputMovement = Vector3.zero;
+                }
+                
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }
@@ -175,7 +170,14 @@ namespace Game
             /// <param name="value"></param>
             public void OnInteract(InputAction.CallbackContext value)
             {
-                playerInteractionBehaviour.OnInteract(value.performed);
+                if (value.started)
+                {
+                    playerInteractionBehaviour.OnInteract(true);
+                }
+                else if (value.canceled)
+                {
+                    playerInteractionBehaviour.OnInteract(false);
+                }
             }
             
             /// <summary>

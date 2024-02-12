@@ -175,10 +175,7 @@ namespace Game
             /// <param name="value"></param>
             public void OnInteract(InputAction.CallbackContext value)
             {
-                if (value.started)
-                {
-                    playerInteractionBehaviour.OnInteract(value.started);
-                } 
+                playerInteractionBehaviour.OnInteract(value.performed);
             }
             
             /// <summary>

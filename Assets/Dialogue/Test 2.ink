@@ -2,32 +2,48 @@
 
 === paragraph_1 ===
 
-Whilst riding in the carriage you suddenly hear a loud meowing coming from somewhere off  the side of the road. The carriage slows down and you can all make out that the sad cries are coming from a little spirit in the form of a cat. The ghostly cat seems to have gotten itself stuck in a tree. 
+Whilst riding in the carriage you suddenly hear loud meowing coming from somewhere off the side of the road. The carriage slows down and you are all able to make out that the sad cries seem to be coming from a little spirit in the form of a cat. The poor cat looks to have gotten itself stuck in a tree and is now in dire need of a kind soul to help it down.  
 
     What do you do?
 
-    * [Climb up the tree and help the cat down] -> option_1
+    * [Climb up the tree and help the cat down] -> Choice_0
 
-    * [Punch the tree until the cat falls down] -> option_2
+    * [Punch the tree until the cat falls down] -> Choice_1
     
-    * [Shoot the cat] -> option_3
-
-=== option_1 ===
-You all collaborate to climb the tree and bring the cat down. With a little convincing Orange and Purple make a human tower, allowing Blue to climb their backs and use them as a makeshift ladder to climb the tree. Green stands off to the side cheering the rescue mission on, slightly upset that she doesn't have a larger part in the rescue mission.
-
-    The plan goes well until it's time for Blue to grab the cat. The cat, terrified by the blue scaly creature trying to grab it, scratches Blue, thus making them fall. Blue then falls onto purple, which then results in them both falling on top of orange. 
+    * [Shoot the cat] -> Choice_2
     
-    Positives? Green is no longer jealous that she wasn't a part of the rescue mission!<br> Negatives? Blue, Purple and Orange all get -5 HP -> END
+    * [Communicate with the cat] -> Choice_3
 
-=== option_2 ===
-Really, this is your plan? Sure, why not. You all move to stand on different sides of the tree, before you all start to simultaneously punch it. The tree is hard and its bark scratches you with each hit. You quickly realize that punching trees really isn't as fun as one would like to think, well, unless your name is Orange. Orange is going fucking in on that tree! Honestly this might be really good for him, a safe way to let out his anger! Or it's completely useless, but hey, at least the guy is having fun.
+=== Choice_0 ===
+You all collaborate to climb the tree and bring the cat down. With a little convincing, Orange and Purple make a human tower, allowing Blue to use them as a makeshift ladder to climb the tree. Green stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
 
-By some miracle your strategy seems to actually work and the cat eventually falls down from the tree. “Thank you for helping me down, guys!”. The cat, who apparently speaks English, gives you each +5 money before quickly scurrying away. Cool! -> END
+ The plan goes perfect until it's time for blue to grab the cat. The cat, terrified by the blue scaly creature, scratches Blue which makes them fall. Blue lands on top of Purple which then results in them both falling on top of Orange. 
+ 
+    Positives? Green is no longer jealous that she wasn't a part of the rescue mission!<br> Negatives? Blue, Purple and Orange all get <b><color=\#D30000>-5 HP</color></b> -> END
+
+=== Choice_1 ===
+Really, this is your plan? Sure, why not. You all move to stand on different sides of the tree and then start to simultaneously punch it. The tree is hard and its bark scratches you with each hit. You quickly realize that punching trees really isn't as fun as one would like to think, well, unless your name is Orange. Orange is going fucking in on that tree! Honestly this might be really good for him, a safe way to let out his anger! Or it's completely useless, but hey, at least the guy is having fun.
+
+By some miracle your strategy seems to actually work and the cat eventually falls down from the tree. “Thank you for helping me down, guys!”. The cat, who apparently speaks English, gives you each  <b><color=\#00FF00>+5 money</color></b> before quickly scurrying away. Cool!
+ -> END
 
 
-=== option_3 ===
+=== Choice_2 ===
 Really, you decided to shoot the cat? What are you guys, monsters? Oh, right, you are! The cat gets completely disintegrated and disappears in a puff of smoke, only leaving behind some pieces of gold. Why did the cat carry gold? Who cares! 
 
-The party gets +5 money and +1 dead ghost cat on your conscience. Neat!-> END
+The party gets <b><color=\#00FF00>+5 money</color></b> and <b><color=\#8F00FF>+1 dead ghost cat</color></b> on everyone's conscience. Neat!-> END
+
+=== Choice_3 ===
+For some reason you all decide that the best option is to communicate with the cat in the universal language of song. Just to make sure the ghostly cat will truly understand you also decide to sing it in meows. Brilliant idea…
+
+You all start meowing a surprisingly beautiful quartet. All those office party performances are actually paying off! The cat's sad meows eventually quiet down only to come back louder, but happier, as it joins in on the song. 
+
+“That was great guys! Here take my business card, in case you ever wanna make a career out of this!” 
+
+The cat hands you all tiny business cards and then scurries away. Only once the cat has already left do you realize that it had just spoken perfect English. You all gain <b><color=\#8F00FF>+1 cat business card!</color></b> -> END
+
+
+
+
 
 

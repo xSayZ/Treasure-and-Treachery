@@ -39,7 +39,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638430931311374740
+  lastModified: 638433289232335220
   FileSizes: []
   Exists: 1
 --- !u!114 &-8285741006923170633
@@ -68,9 +68,38 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -500378305532936234}
+  - {fileID: -6045793327442185706}
   MinDistance: 1
   MaxDistance: 20
   Length: 68571
+--- !u!114 &-8109919954833373778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_VOICE/PLY_VOX_SHARED/PLY_VOX_ObjectiveProgReaction
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_VOICE/PLY_VOX_SHARED/PLY_VOX_ObjectiveProgReaction
+  Guid:
+    Data1: 699834432
+    Data2: 1340092931
+    Data3: -1290063937
+    Data4: 70993087
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5000085743492887921}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-7829195457973194119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +280,30 @@ MonoBehaviour:
   lastModified: 638423047664534623
   FileSizes: []
   Exists: 1
+--- !u!114 &-6045793327442185706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/MusicProg
+  m_EditorClassIdentifier: 
+  Name: MusicProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 2878851826
+    data2: 2108855987
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5677849423191198151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +385,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 115565
+  Length: 118413
 --- !u!114 &-4776317652390078816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,36 +443,9 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638430931311109526
+  lastModified: 638433289231345500
   FileSizes: []
   Exists: 1
---- !u!114 &-4025776807713634460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_VOICE/PLY_VOX_Witch/PLY_VOX_Witch Dialogue Test
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_VOICE/PLY_VOX_Witch/PLY_VOX_Witch Dialogue Test
-  Guid:
-    Data1: 372742679
-    Data2: 1093187185
-    Data3: -1737522512
-    Data4: 717542289
-  Banks:
-  - {fileID: -4345788876620703977}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2500
 --- !u!114 &-3777273569872142365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +562,34 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 6009688522167444756}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 450
+--- !u!114 &-911478585235648047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_VOICE/PLY_VOX_SHARED/PLY_VOX_ShovelVoiceline
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_VOICE/PLY_VOX_SHARED/PLY_VOX_ShovelVoiceline
+  Guid:
+    Data1: 372742679
+    Data2: 1093187185
+    Data3: -1737522512
+    Data4: 717542289
+  Banks:
+  - {fileID: -4345788876620703977}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6872494947436388247}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -697,7 +751,8 @@ MonoBehaviour:
   - {fileID: 896489882819245604}
   - {fileID: -5074763730958229059}
   - {fileID: -2406986522633542674}
-  - {fileID: -4025776807713634460}
+  - {fileID: -911478585235648047}
+  - {fileID: -8109919954833373778}
   EditorParameters:
   - {fileID: 7936796862777440787}
   - {fileID: -9012124227550197136}
@@ -705,7 +760,7 @@ MonoBehaviour:
   - {fileID: -4345788876620703977}
   StringsBanks:
   - {fileID: 2001904823976165637}
-  cacheTime: 638430931311374740
+  cacheTime: 638433289232335220
   cacheVersion: 131609
 --- !u!114 &896489882819245604
 MonoBehaviour:
@@ -769,10 +824,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638430931311125298
+  lastModified: 638433289231385480
   FileSizes:
   - Name: 
-    Value: 2658
+    Value: 2826
   Exists: 1
 --- !u!114 &3253127397669464083
 MonoBehaviour:
@@ -875,6 +930,34 @@ MonoBehaviour:
   - Name: 
     Value: 1188
   Exists: 1
+--- !u!114 &5000085743492887921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_VOX_ObjectiveProgReaction/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Value A
+  - Value B
+  - Value C
+  - Value D
+  Exists: 1
 --- !u!114 &6009688522167444756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -890,7 +973,7 @@ MonoBehaviour:
   Name: InteractLooping
   StudioPath: 
   Min: 0
-  Max: 1
+  Max: 2
   Default: 0
   ID:
     data1: 2934300448
@@ -898,6 +981,34 @@ MonoBehaviour:
   Type: 0
   IsGlobal: 0
   Labels: []
+  Exists: 1
+--- !u!114 &6872494947436388247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_VOX_ShovelVoiceline/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Value A
+  - Value B
+  - Value C
+  - Value D
   Exists: 1
 --- !u!114 &7936796862777440787
 MonoBehaviour:

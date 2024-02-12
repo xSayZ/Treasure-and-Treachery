@@ -9,8 +9,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
-using System;
-using System.Linq;
 using UnityEngine.Events;
 
 namespace Game {
@@ -23,6 +21,7 @@ namespace Game {
             [Range(0, 1200)]
             [Tooltip("Amount of time per round in seconds")]
             public float roundTime;
+            public Timer timer;
 
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
@@ -54,8 +53,8 @@ namespace Game {
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
                 
-                Timer _timer = gameObject.AddComponent<Timer>();
-                _timer.StartTimer(roundTime);
+                timer = gameObject.AddComponent<Timer>();
+                timer.StartTimer(roundTime);
                 
                 SetupLocalMultiplayer();
             }

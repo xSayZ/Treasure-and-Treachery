@@ -69,7 +69,9 @@ namespace Game
             [Header("Debug")]
             [SerializeField] private bool debug;
             
-            public void SetupPlayer(int _newPlayerID) {
+            public void SetupPlayer(int _newPlayerID)
+            {
+                PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
@@ -77,6 +79,13 @@ namespace Game
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
+                
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
+
+                if (Input.GetJoystickNames().Length > 0)
+                {
+                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                }
             }
             
             
@@ -90,18 +99,9 @@ namespace Game
             {
                 playerInput.deviceLostEvent.Invoke(playerInput);
             }
-            
-            void Start()
+
+            void FixedUpdate()
             {
-                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
-
-                if (Input.GetJoystickNames().Length > 0)
-                {
-                    InputUser.PerformPairingWithDevice(Gamepad.current);
-                }
-            }
-
-            void FixedUpdate() {
                 CalculateMovementInputSmoothing();
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();

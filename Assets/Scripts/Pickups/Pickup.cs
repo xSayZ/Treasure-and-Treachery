@@ -20,7 +20,9 @@ namespace Game {
             public enum PickupTypes
             {
                 QuestItem,
-                Gold
+                Gold,
+                MeleeWeapon,
+                RangedWeapon
             }
             
             [Header("Setup")]
@@ -79,6 +81,16 @@ namespace Game {
                         
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        Destroy(gameObject);
+                        break;
+                    
+                    case PickupTypes.MeleeWeapon:
+                        QuestManager.OnMeleeWeaponPickedUp.Invoke(_playerIndex);
+                        Destroy(gameObject);
+                        break;
+                    
+                    case PickupTypes.RangedWeapon:
+                        QuestManager.OnRagedWeaponPickedUp.Invoke(_playerIndex);
                         Destroy(gameObject);
                         break;
                 }

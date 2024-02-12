@@ -68,25 +68,23 @@ public void MeleeAudioPlay(GameObject meleeObj)
     playerMeleeAttackInstance.release();
 }
 
-// spelar upp fotsteg efter en raycast skjuts ut och kollar taggen på marken under. Detta sker i playercontroller-scriptet.
-// Taggen matas in som en string och byter parameter i scriptet nedan
-public void PlayerFootstepPlay(GameObject footObj, string surface)
+public void PlayerFootstepPlay(GameObject footObj, int surface)
 {
     EventInstance playerFootstepInstance = RuntimeManager.CreateInstance(playerFootStep);
     RuntimeManager.AttachInstanceToGameObject(playerFootstepInstance, footObj.transform);
 
-    //switch (surface)
-    //{
-    //    case "Grass":
-   //         playerFootstepInstance.setParameterByName("Surface", 0f);
-  //          break;
-  //      case "Rock":
-  //          playerFootstepInstance.setParameterByName("Surface", 1f);
-  //          break;
-  //      case "Metal":
-   //         playerFootstepInstance.setParameterByName("Surface", 2f);
-    //        break;
-  //  }
+    switch (surface)
+    {
+        case 0://Grass
+            playerFootstepInstance.setParameterByName("Surface", 0f);
+            break;
+        case 1: //Path/Dirt
+            playerFootstepInstance.setParameterByName("Surface", 1f);
+            break;
+        case 2: //Rock
+            playerFootstepInstance.setParameterByName("Surface", 2f);
+            break;
+    }
     playerFootstepInstance.start();
     playerFootstepInstance.release();
 }

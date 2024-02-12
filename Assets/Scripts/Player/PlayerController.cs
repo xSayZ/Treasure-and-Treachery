@@ -175,7 +175,14 @@ namespace Game
             /// <param name="value"></param>
             public void OnInteract(InputAction.CallbackContext value)
             {
-                playerInteractionBehaviour.OnInteract(value.performed);
+                if (value.started)
+                {
+                    playerInteractionBehaviour.OnInteract(true);
+                }
+                else if (value.canceled)
+                {
+                    playerInteractionBehaviour.OnInteract(false);
+                }
             }
             
             /// <summary>

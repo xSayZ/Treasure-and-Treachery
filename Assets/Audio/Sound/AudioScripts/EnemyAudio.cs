@@ -72,22 +72,18 @@ public EventInstance SpiritStateAudioUpdate(GameObject enemyObj, EventInstance s
             break;
         //Roam State
         case 0:
-            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
             spiritStateInstance.setParameterByName("SpiritState", 0);
             break;
         //Alert State
         case 1:
-            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
             spiritStateInstance.setParameterByName("SpiritState", 1);
             break;
         //Chase
         case 2:
-            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
             spiritStateInstance.setParameterByName("SpiritState", 2);
             break;
         //Death
         case 3:
-            Debug.Log("Spirit State Param Changed To: " + spiritAudioParam);
             spiritStateInstance.setParameterByName("SpiritState", 3);
             spiritStateInstance.release();
             break;

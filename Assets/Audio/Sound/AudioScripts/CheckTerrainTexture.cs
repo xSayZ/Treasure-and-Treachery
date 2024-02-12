@@ -15,7 +15,7 @@ namespace Game {
     namespace Audio {
         public class CheckTerrainTexture : MonoBehaviour
         {
-            public Transform playerTransform;
+            private Transform playerTransform;
             public Terrain terrainObject;
             
             public int posX;

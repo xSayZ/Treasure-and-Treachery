@@ -43,8 +43,8 @@ namespace Game {
 
             void UpdateCharacterMaterial() {
                 // Set the player material color
-                foreach (var playerMeshRenderer in playerMeshRenderers) {
-                    playerMeshRenderer.material.color = playerData.playerMaterialColor;
+                foreach (var _playerMeshRenderer in playerMeshRenderers) {
+                    _playerMeshRenderer.materials[0].color = playerData.playerMaterialColor;
                 }
             }
             

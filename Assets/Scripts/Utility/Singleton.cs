@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -7,10 +8,13 @@ using UnityEngine;
 /// </summary>
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T _instance;
+    /// <summary>
+    ///     <c>true</c> if this Singleton Awake() method has already been called by Unity; otherwise, <c>false</c>.
+    /// </summary>
+    public static bool IsAwakened { get; private set; }
 
     private static object _lock = new object();
-
+    
     public static T Instance
     {
         get
@@ -57,6 +61,27 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             }
         }
     }
+    
+    private static T _instance;
+    
+    private void Awake() {
+        if (!IsAwakened) {
+            Debug.Log($"Awake() Singleton with type {this.GetType()} and name {this.gameObject.name}");
+
+            SingletonAwakened();
+            IsAwakened = true;
+        }
+    }
+    
+    /// <summary>
+    ///     Unity3D Awake method.
+    /// </summary>
+    /// <remarks>
+    ///     This method will only be called once even if multiple instances of the
+    ///     singleton MonoBehaviour exist in the scene.
+    ///     You can override this method in derived classes to customize the initialization of your MonoBehaviour
+    /// </remarks>
+    protected virtual void SingletonAwakened() {}
 
     private static bool IsDontDestroyOnLoad()
     {

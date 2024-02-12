@@ -39,18 +39,20 @@ namespace Game
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
-            // [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
 
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
+            [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
+            [SerializeField] public float movementSmoothingSpeed = 1f;
+            private Vector3 rawInputMovement;
+            private Vector3 smoothInputMovement;
             
             [SerializeField] private Archetype characterType;
-            
-            // Movement
-            private Vector3 rawInputMovement;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -62,11 +64,21 @@ namespace Game
             [SerializeField] private MeshRenderer meshRenderer;
             [SerializeField] private Material defaultMaterial;
             [SerializeField] private Material damagedMaterial;
-            // public bool WalkOnGraves;
             
             [Space]
             [Header("Debug")]
             [SerializeField] private bool debug;
+            
+            public void SetupPlayer(int _newPlayerID) {
+                PlayerIndex = _newPlayerID;
+                
+                playerInput.SwitchCurrentControlScheme(Keyboard.current);
+                
+                playerMovementBehaviour.SetupBehaviour();
+                playerAnimationBehaviour.SetupBehaviour();
+                playerVisualBehaviour.SetupBehaviour(PlayerData);
+            }
+            
             
 #region Unity Functions
             private void OnEnable()
@@ -82,12 +94,176 @@ namespace Game
             void Start()
             {
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
-                SetupPlayer();
 
                 if (Input.GetJoystickNames().Length > 0)
                 {
                     InputUser.PerformPairingWithDevice(Gamepad.current);
                 }
+            }
+
+            void FixedUpdate() {
+                CalculateMovementInputSmoothing();
+                UpdatePlayerMovement();
+                UpdatePlayerAnimationMovement();
+            }
+            
+#endregion
+
+#region Input System Actions // INPUT SYSTEM ACTION METHODS
+            
+            /// <summary>
+            /// This is called from PlayerInput; when a joystick or arrow keys has been pushed.
+            /// It stores the input Vector as a Vector3 to then be used by the smoothing function.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnMovement(InputAction.CallbackContext value)
+            { 
+                Vector2 _inputValue = value.ReadValue<Vector2>();
+                rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
+            }
+            /// <summary>
+            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Dash' action.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnDash(InputAction.CallbackContext value)
+            {
+                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
+                {
+                    playerMovementBehaviour.Dash(value.performed);
+                }
+            }
+            /// <summary>
+            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Ranged' action.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnRanged(InputAction.CallbackContext value)
+            {
+                if (PlayerHasNoCurrentItem() && playerAttackBehaviour.currentFireRate <= 0) {
+                    //TODO: make Character chargeUp
+                    if(value.started)
+                    {
+                        // Aiming
+                        playerMovementBehaviour.SetMovementActiveState(false, true);
+                        playerMovementBehaviour.TurnSpeed /= 2;
+
+                    } else if (value.canceled) {
+                        // Shooting
+                        playerAttackBehaviour.RangedAttack();
+                        playerMovementBehaviour.TurnSpeed *= 2;
+                        //playerAudio.RangedAudioPlay(playerObj);
+                    }
+                }
+            }
+            /// <summary>
+            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Melee' action.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnMelee(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    if (PlayerHasNoCurrentItem()) {
+                        playerAttackBehaviour.MeleeAttack();
+                        playerAnimationBehaviour.PlayMeleeAttackAnimation();
+                        playerAudio.MeleeAudioPlay(playerObj);
+                    }
+                }
+            }
+            /// <summary>
+            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Interact' action.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnInteract(InputAction.CallbackContext value)
+            {
+                playerInteractionBehaviour.OnInteract(value.performed);
+            }
+            
+            /// <summary>
+            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'TogglePause' action.
+            /// </summary>
+            /// <param name="value"></param>
+            public void OnTogglePause(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    // Remove after pause has been implemented
+                    return;
+                    // GameManager.Instance.TogglePauseState(this);
+                }
+            }
+            
+            // SWITCHING INPUT ACTION MAPS
+            public void EnableEventControls()
+            {
+                playerInput.SwitchCurrentActionMap("Events");
+            }
+
+            public void EnableGamePlayControls()
+            {
+                playerInput.SwitchCurrentActionMap("Players");
+            }
+            
+            public void SetInputPausedState(bool _paused)
+            {
+                switch (_paused)
+                {
+                    case true:
+                        playerInput.DeactivateInput();
+                        break;
+                    case false:
+                        playerInput.ActivateInput();
+                        break;
+                }
+            }
+            
+#endregion
+
+#region Public Functions
+            
+            public void Death()
+            {
+                playerInteractionBehaviour.OnDeath();
+                playerHealthBar.UpdateHealthBar(Health);
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                Destroy(gameObject);
+            }
+            
+            public void DamageTaken()
+            {
+                FlashRed();
+                Log("Player " + PlayerIndex + " took damage");
+                PlayerData.currentHealth = Health;
+                playerHealthBar.UpdateHealthBar(Health);
+            }
+ #endregion
+
+#region Private Functions
+            private void CalculateMovementInputSmoothing()
+            {
+                smoothInputMovement = Vector3.Lerp(smoothInputMovement, rawInputMovement, Time.deltaTime * movementSmoothingSpeed);
+            }
+
+            private void UpdatePlayerMovement()
+            {
+                playerMovementBehaviour.UpdateMovementData(IsoVectorConvert(smoothInputMovement));
+            }
+
+            private void UpdatePlayerAnimationMovement()
+            {
+                playerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
+            }
+
+            
+            private static Vector3 IsoVectorConvert(Vector3 _vector) {
+
+                if (UnityEngine.Camera.main == null)
+                    return _vector;
+                
+                Vector3 _cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
+                Quaternion _rotation = Quaternion.Euler(0, _cameraRot.y, 0);
+                Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
+                Vector3 _result = _isoMatrix.MultiplyPoint3x4(_vector);
+                return _result;
             }
             
             // Temporary damage animation
@@ -105,168 +281,11 @@ namespace Game
                 await Task.Delay(100);
                 meshRenderer.material = defaultMaterial;
             }
-            
-            public void Death()
-            {
-                playerInteractionBehaviour.OnDeath();
-                
-                playerHealthBar.UpdateHealthBar(Health);
-                
-                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
-                
-                Destroy(gameObject);
+
+            private bool PlayerHasNoCurrentItem() {
+                return PlayerData.currentItem == null;
             }
             
-            public void DamageTaken()
-            {
-                FlashRed();
-                Log("Player " + PlayerIndex + " took damage");
-                PlayerData.currentHealth = Health;
-                playerHealthBar.UpdateHealthBar(Health);
-            }
-#endregion
-
-#region Public Functions
-            
-            public void OnMovement(InputAction.CallbackContext value)
-            { 
-                // TODO: PlayFootStepAudio
-                // TODO: PlayFootStepParticle
-                // TODO: PlayFootStepAnimation
-                
-                // Get current input value
-                Vector2 _inputValue = value.ReadValue<Vector2>();
-                
-                rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
-
-                playerMovementBehaviour.MovementData(IsoVectorConvert(rawInputMovement));
-            }
-            
-            public void OnDash(InputAction.CallbackContext value)
-            {
-                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
-                {
-                    //Todo: PlayDustCloud Particle if needed
-                    playerMovementBehaviour.Dash(value.performed);
-                }
-            }
-
-            public void OnRanged(InputAction.CallbackContext value)
-            {
-                if (PlayerData.currentItem != null)
-                    return;
-                
-                if (playerAttackBehaviour.currentFireRate >= 0)
-                    return;
-                
-                //TODO: make Character chargeUp
-                if(value.started)
-                {
-                    // Aiming
-                    playerMovementBehaviour.SetMovementActiveState(false, true);
-                    playerMovementBehaviour.TurnSpeed /= 2;
-                    // TODO: Aim UI
-                    // TODO: Aim Sound
-
-                } else if (value.canceled) {
-                    // Shooting
-                    playerAttackBehaviour.RangedAttack();
-                    playerMovementBehaviour.TurnSpeed *= 2;
-                    //playerAudio.RangedAudioPlay(playerObj);
-                }
-                    
-                
-                
-                /*
-                    //TODO: PlayAttackAnimation
-                    if (characterType == Archetype.Ranged || characterType == Archetype.Both)
-                    {
-                        if (PlayerData.currentItem != null)
-                        {
-                            return;
-                        }
-                        
-                        playerAttackBehaviour.RangedAttack();
-                        //playerAudio.PlayerRangedAudio(playerObj);
-                    }*/
-            }
-
-            public void OnMelee(InputAction.CallbackContext value)
-            {
-                if (value.action.triggered)
-                {
-                    if (PlayerData.currentItem != null)
-                        return;
-                    
-                    playerMovementBehaviour.TurnPlayer();
-                    playerAttackBehaviour.MeleeAttack();
-                    playerAudio.MeleeAudioPlay(playerObj);
-                }
-            }
-            
-            public void OnInteract(InputAction.CallbackContext value)
-            {
-                if (value.started && !value.performed) // Needed to stop interaction form triggering twice when pressing button
-                {
-                    return;
-                }
-                
-                playerInteractionBehaviour.OnInteract(value.performed);
-            }
-            
-            public void EnableEventControls()
-            {
-                playerInput.SwitchCurrentActionMap("Events");
-            }
-
-            public void EnableGamePlayControls()
-            {
-                playerInput.SwitchCurrentActionMap("Players");
-            }
-
-            public void OnTogglePause(InputAction.CallbackContext value)
-            {
-                if (value.started)
-                {
-                    // Remove after pause has been implemented
-                    return;
-                    // GameManager.Instance.TogglePauseState(this);
-                }
-            }
-            
-            public void SetInputPausedState(bool _paused)
-            {
-                switch (_paused)
-                {
-                    case true:
-                        playerInput.DeactivateInput();
-                        break;
-                    case false:
-                        playerInput.ActivateInput();
-                        break;
-                }
-            }
- #endregion
-
-#region Private Functions
-            private void SetupPlayer()
-            {
-                PlayerIndex = PlayerData.SetPlayerData(Health);
-                
-                playerInput.SwitchCurrentControlScheme(Keyboard.current);
-            }
-            
-            private static Vector3 IsoVectorConvert(Vector3 vector) {
-
-                if (UnityEngine.Camera.main == null)
-                    return vector;
-                
-                Vector3 _cameraRot = UnityEngine.Camera.main.transform.rotation.eulerAngles;
-                Quaternion _rotation = Quaternion.Euler(0, _cameraRot.y, 0);
-                Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
-                Vector3 _result = _isoMatrix.MultiplyPoint3x4(vector);
-                return _result;
-            }
 #endregion
 
 #region Experimental code

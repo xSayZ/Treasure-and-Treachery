@@ -19,6 +19,7 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] public int startingHealth;
+            [SerializeField] public Color playerMaterialColor;
             
             [Header("Debug")]
             [SerializeField] public int currentHealth;

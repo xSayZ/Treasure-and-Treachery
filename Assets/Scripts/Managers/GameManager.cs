@@ -11,12 +11,15 @@ using UnityEngine;
 using Game.Player;
 using System;
 using System.Linq;
+using UnityEngine.Events;
 
 namespace Game {
     namespace Backend {
 
         public class GameManager : Singleton<GameManager>
         {
+            public static UnityEvent<int> OnPlayerDeath = new UnityEvent<int>();
+            
             [Range(0, 1200)]
             [Tooltip("Amount of time per round in seconds")]
             public float roundTime;
@@ -33,7 +36,7 @@ namespace Game {
             [Space]
             [SerializeField] private PlayerData[] activePlayerPlayerData;
             
-            [HideInInspector] public List<GameObject> activePlayerControllers;
+            public List<GameObject> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
@@ -51,6 +54,7 @@ namespace Game {
                 SetupLocalMultiplayer();
             }
             void Start()  {
+                OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
                 Timer _timer = gameObject.AddComponent<Timer>();
                 _timer.StartTimer(roundTime);
@@ -152,6 +156,11 @@ namespace Game {
 
                 Time.timeScale = _newTimeScale;
             }
+            
+            private void RemovePlayerFromCurrentPlayersList(int _playerID) {
+                activePlayerControllers.RemoveAt(_playerID);
+            }
+            
             #endregion
 
             private void Log(string msg) {

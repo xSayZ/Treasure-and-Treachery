@@ -24,11 +24,11 @@ namespace Game {
             [SerializeField] private Slider healthBar;
             
             // Interaction variables
-            [HideInInspector] public bool[] CanInteractWith { get; set; }
-            [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
-            [HideInInspector] public Transform InteractionTransform { get; set; }
-            
-            [HideInInspector] public int Health { get; set; }
+            public bool[] CanInteractWith { get; set; }
+            public bool[] PlayersThatWantsToInteract { get; set; }
+            public Transform InteractionTransform { get; set; }
+
+            public int Health { get; set; }
             
             private bool canLeave = true;
             private int playersInCarriage;
@@ -67,10 +67,11 @@ namespace Game {
                 {
                     CanInteractWith[_playerIndex] = false;
                     
-                    GameObject player = GameManager.Instance.activePlayerControllers[_playerIndex];
-                    player.GetComponent<PlayerController>().SetInputPausedState(true);
-                    player.transform.position = playerTeleportPosition.transform.position;
-                    player.transform.localScale = new Vector3(0,0,0);
+                    PlayerController _player = GameManager.Instance.activePlayerControllers[_playerIndex];
+                    _player.GetComponent<PlayerController>().SetInputPausedState(true);
+                    Transform _transform = _player.transform;
+                    _transform.position = playerTeleportPosition.transform.position;
+                    _transform.localScale = new Vector3(0,0,0);
                     
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)

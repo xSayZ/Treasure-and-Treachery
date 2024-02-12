@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using Game.Player;
@@ -20,7 +22,9 @@ namespace Game {
             public enum PickupTypes
             {
                 QuestItem,
-                Gold
+                Gold,
+                MeleeWeapon,
+                RangedWeapon
             }
             
             [Header("Setup")]
@@ -28,6 +32,9 @@ namespace Game {
             
             [Header("Pickup Type")]
             public PickupTypes PickupType;
+
+            [Header("Audio")] 
+            [SerializeField] private InteractablesAudio interactablesAudio;
             
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
@@ -70,7 +77,7 @@ namespace Game {
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
-                        if (!GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData.canPickUp)
+                        if (!GameManager.Instance.activePlayerControllers[_playerIndex].PlayerData.canPickUp)
                         {
                             return;
                         }
@@ -79,6 +86,26 @@ namespace Game {
                         
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        
+                        try
+                        {
+                            interactablesAudio.GoldPickupAudio(gameObject);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{Pickup}]: Error Exception " + e);
+                        }
+                        
+                        Destroy(gameObject);
+                        break;
+                    
+                    case PickupTypes.MeleeWeapon:
+                        QuestManager.OnMeleeWeaponPickedUp.Invoke(_playerIndex);
+                        Destroy(gameObject);
+                        break;
+                    
+                    case PickupTypes.RangedWeapon:
+                        QuestManager.OnRagedWeaponPickedUp.Invoke(_playerIndex);
                         Destroy(gameObject);
                         break;
                 }

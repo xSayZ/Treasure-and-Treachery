@@ -9,8 +9,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
-using System;
-using System.Linq;
 using UnityEngine.Events;
 
 namespace Game {
@@ -23,6 +21,7 @@ namespace Game {
             [Range(0, 1200)]
             [Tooltip("Amount of time per round in seconds")]
             public float roundTime;
+            public Timer timer;
 
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
@@ -36,7 +35,7 @@ namespace Game {
             [Space]
             [SerializeField] private PlayerData[] activePlayerPlayerData;
             
-            public List<GameObject> activePlayerControllers;
+            public List<PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
@@ -49,15 +48,16 @@ namespace Game {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
-
-            private void Awake() {
-                SetupLocalMultiplayer();
-            }
+            
             void Start()  {
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
-                Timer _timer = gameObject.AddComponent<Timer>();
-                _timer.StartTimer(roundTime);
+                
+                timer = gameObject.AddComponent<Timer>();
+                timer.StartTimer(roundTime);
+                
+                SetupLocalMultiplayer();
+                
             }
 #endregion
 
@@ -66,6 +66,7 @@ namespace Game {
             private void SetupLocalMultiplayer() {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
+                SetupActivePlayers();
             }
             private static void DestroyExistingPlayerInstances() {
 
@@ -78,7 +79,7 @@ namespace Game {
             }
 
             private void AddPlayers() {
-                activePlayerControllers = new List<GameObject>();
+                activePlayerControllers = new List<PlayerController>();
 
                 string[] _controllers = Input.GetJoystickNames();
                 if (_controllers.Length == 0)
@@ -92,8 +93,10 @@ namespace Game {
                 }
             }
             
-            private void AddPlayersToActiveList(GameObject newPlayer) {
-                activePlayerControllers.Add(newPlayer);
+            private void SetupActivePlayers() {
+                for (int i = 0; i < activePlayerControllers.Count; i++) {
+                    activePlayerControllers[i].SetupPlayer(i);
+                }
             }
 
             public void TogglePauseState(PlayerController newFocusedPlayerController) {
@@ -106,8 +109,10 @@ namespace Game {
             }
 
             private void UpdateActivePlayerInputs() {
-                foreach (GameObject _t in activePlayerControllers.Where(t => t != focusedPlayerController.gameObject)) {
-                    _t.GetComponent<PlayerController>().SetInputPausedState(isPaused);
+                for (int i = 0; i < activePlayerControllers.Count; i++) {
+                    if (activePlayerControllers[i] != focusedPlayerController) {
+                        activePlayerControllers[i].SetInputPausedState(isPaused);
+                    }
                 }
             }
 
@@ -126,12 +131,16 @@ namespace Game {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
                     
-                var _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
-                AddPlayersToActiveList(_spawnedPlayer);
+                GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
+                AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
                 
                 // Get PlayerData from List and assign it based on playerID
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
+            }
+            
+            private void AddPlayersToActiveList(PlayerController newPlayer) {
+                activePlayerControllers.Add(newPlayer);
             }
             
             // Calculate the position of the players in the ring

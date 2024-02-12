@@ -9,6 +9,7 @@
 using UnityEngine;
 using Cinemachine;
 using Game.Backend;
+using Game.Player;
 
 
 namespace Game {
@@ -44,7 +45,7 @@ namespace Game {
 
             private void SetCamera()
             {
-                GameObject[] _targets = GameManager.Instance.activePlayerControllers.ToArray();
+                PlayerController[] _targets = GameManager.Instance.activePlayerControllers.ToArray();
 
                 CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[_targets.Length];
 

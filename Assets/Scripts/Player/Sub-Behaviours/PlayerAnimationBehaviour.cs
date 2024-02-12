@@ -14,43 +14,40 @@ namespace Game {
     namespace Player {
         public class PlayerAnimationBehaviour : MonoBehaviour
         {
-            private Animator Animator;
+            [Header("Component References")]
+            public Animator PlayerAnimator;
 
-            private int RangedAttackId;
-            private int InteractId;
-            private int MovementId;
+            private int playerMovementAnimationID;
+            private int playerMeleeAttackAnimationID;
+            private int playerInteractAnimationID;
 
 #region Unity Functions
             // Start is called before the first frame update
             private void Awake()
             {
-                Animator = GetComponent<Animator>();
+                PlayerAnimator = GetComponent<Animator>();
             }
 
-
-
-            private void SmoothAnimation(float smoothing)
-            {
-                
-                
+            public void SetupBehaviour() {
+                SetupAnimationIDs();
             }
-            void Start()
-            {
-                
-            }
-    
-            // Update is called once per frame
-            void Update()
-            {
-                
+
+            void SetupAnimationIDs() {
+                playerMovementAnimationID = Animator.StringToHash("Movement");
+                playerMeleeAttackAnimationID = Animator.StringToHash("MeleeAttack");
+                playerInteractAnimationID = Animator.StringToHash("Interact");
             }
 #endregion
 
 #region Public Functions
 
-#endregion
+            public void UpdateMovementAnimation(float movementBlendValue) {
+                PlayerAnimator.SetFloat(playerMovementAnimationID, movementBlendValue);
+            }
 
-#region Private Functions
+            public void PlayMeleeAttackAnimation() {
+                PlayerAnimator.SetTrigger(playerMeleeAttackAnimationID);
+            }
 
 #endregion
         }

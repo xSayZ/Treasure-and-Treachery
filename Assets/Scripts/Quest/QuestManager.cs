@@ -18,6 +18,8 @@ namespace Game {
             public static UnityEvent<int, Item> OnItemPickedUp = new UnityEvent<int, Item>(); // Player Index, Item
             public static UnityEvent<int, Item, bool> OnItemDropped = new UnityEvent<int, Item, bool>(); // Player Index, Item, Destroy
             public static UnityEvent<int, int> OnGoldPickedUp = new UnityEvent<int, int>(); // Player Index, Amount
+            public static UnityEvent<int> OnMeleeWeaponPickedUp = new UnityEvent<int>(); // Player Index
+            public static UnityEvent<int> OnRagedWeaponPickedUp = new UnityEvent<int>(); // Player Index
             
             public static UnityEvent OnRequiredQuestRegistered = new UnityEvent();
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();

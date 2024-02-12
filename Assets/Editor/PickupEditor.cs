@@ -42,6 +42,12 @@ namespace Game {
                         EditorGUILayout.PropertyField(_amount);
                         serializedObject.ApplyModifiedProperties();
                         break;
+                    
+                    case Pickup.PickupTypes.MeleeWeapon:
+                        break;
+                    
+                    case Pickup.PickupTypes.RangedWeapon:
+                        break;
                 }
             }
         }

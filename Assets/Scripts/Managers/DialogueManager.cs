@@ -13,28 +13,35 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.PlayerLoop;
 
 
 namespace Game {
     namespace Dialogue {
         public class DialogueManager : MonoBehaviour
         {
-        
+            [Header("Params")]
+            [SerializeField] private float typingSpeed = 0.05f;
+            
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private TextMeshProUGUI dialogueText;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
-            private TextMeshProUGUI[] choicesText;
             [SerializeField] PlayerInput playerInput;
             [SerializeField] private TextAsset inkJSON;
-            private Story currentStory;
-            public bool dialogueIsPlaying { get; private set; }
+            
+            private TextMeshProUGUI[] choicesText;
+            
+            private bool dialogueIsPlaying;
             private bool submitPressed;
+            private bool canContinueToNextLine = false;
+            
+            private Story currentStory;
+            private Coroutine displayLineCoroutine;
             
 #region Unity Functions
-            // Start is called before the first frame update
             void Start()
             {
                 dialogueIsPlaying = false;
@@ -48,8 +55,18 @@ namespace Game {
                     choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
                     index++;
                 }
-                
                 EnterDialogueMode(inkJSON);
+            }
+            void Update() {
+
+                if (!dialogueIsPlaying)
+                    return;
+                
+                if (canContinueToNextLine 
+                    && currentStory.currentChoices.Count > 0 
+                    && GetSubmitPressed() ) {
+                    ContinueStory();
+                }
             }
 #endregion
 
@@ -79,8 +96,10 @@ namespace Game {
                 return result;
             }
             
-            public void MakeChoice(int _choiceIndex)
-            {
+            public void MakeChoice(int _choiceIndex) {
+                if (!canContinueToNextLine)
+                    return;
+                
                 currentStory.ChooseChoiceIndex(_choiceIndex);
                 GetSubmitPressed(); 
                 ContinueStory();
@@ -96,8 +115,18 @@ namespace Game {
 
             private void ContinueStory() {
                 if (currentStory.canContinue) {
-                    dialogueText.text = currentStory.Continue();
-                    DisplayChoices();
+                    // stop the coroutine if it's running
+                    if (displayLineCoroutine != null) {
+                        StopCoroutine(displayLineCoroutine);
+                    }
+                    // display the next line
+                    displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+                    // hide the choices
+                    HideChoices();
+                    // if there are choices, display them
+                    if (currentStory.currentChoices.Count > 0) {
+                        DisplayChoices();
+                    }
                 } else {
                     ExitDialogueMode();
                 }
@@ -135,8 +164,37 @@ namespace Game {
 
                 StartCoroutine(SelectFirstChoice());
             }
-            
-            
+
+            private IEnumerator DisplayLine(string line) {
+                // empty the dialogue text
+                dialogueText.text = "";
+                // set the flag to false so the player can't continue to the next line
+                canContinueToNextLine = false;
+                
+                bool isAddingRichTextTag = false;
+                
+                // display each letter one at a time
+                foreach (char letter in line.ToCharArray()) {
+                    // if the player presses the submit button, skip to the end of the line
+                    if (GetSubmitPressed()) {
+                        dialogueText.text = line;
+                        break;
+                    }
+
+                    if (letter == '<' || isAddingRichTextTag) {
+                        isAddingRichTextTag = true;
+                        dialogueText.text += letter;
+                        if (letter == '>') {
+                            isAddingRichTextTag = false;
+                        }
+                    } else {
+                        dialogueText.text += letter;
+                        yield return new WaitForSeconds(typingSpeed);    
+                    }
+                }
+                // set the flag to true so the player can continue to the next line
+                canContinueToNextLine = true;
+            }
             private IEnumerator SelectFirstChoice() 
             {
                 // Event System requires we clear it first, then wait

@@ -30,6 +30,29 @@ namespace Game {
             {
                 timer = GameManager.Instance.timer.GetCurrentTime();
                 Debug.Log("time is" + timer);
+
+                
+                if (timer >= 4)
+                {
+                    AudioMananger.Instance.SetMusicParam("MusicProg", 2f, false);
+                }
+                
+                if (timer >= 8)
+                {
+                    AudioMananger.Instance.SetMusicParam("MusicProg", 3f, false);
+                }
+
+                if (timer >= 12)
+                {
+                    AudioMananger.Instance.SetMusicParam("MusicProg", 4f, false);
+                }
+
+                if (timer >= 16)
+                {
+                    AudioMananger.Instance.SetMusicParam("MusicProg", 5f, false);
+                }
+                
+                
             }
 #endregion
 
@@ -38,6 +61,13 @@ namespace Game {
 #endregion
 
 #region Private Functions
+
+        private void SetParamByTime()
+        {
+            
+
+
+        }
 
 #endregion
         }

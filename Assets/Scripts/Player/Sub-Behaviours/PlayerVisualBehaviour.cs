@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 
 
 namespace Game {
-    namespace NAME {
+    namespace Player {
         public class PlayerVisualBehaviour : MonoBehaviour
         {
             //Player ID

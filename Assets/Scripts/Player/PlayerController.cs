@@ -94,6 +94,10 @@ namespace Game
             void FixedUpdate()
             {
                 CalculateMovementInputSmoothing();
+                if (smoothInputMovement.magnitude < 0.01f) {
+                    smoothInputMovement = Vector3.zero;
+                }
+                
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }

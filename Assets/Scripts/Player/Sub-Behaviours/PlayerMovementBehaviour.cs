@@ -115,13 +115,10 @@ namespace Game {
             }
             private void TurnPlayer()
             {
-                if (movementDirection == Vector3.zero)
-                {
-                    return;
+                if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero) {
+                    var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
+                    playerRigidBody.rotation = _rotation;
                 }
-                
-                var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
-                playerRigidBody.rotation = _rotation;
 
             }
     

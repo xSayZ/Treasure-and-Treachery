@@ -30,7 +30,8 @@ namespace Game {
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
                 lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
-                enemyController.NavMeshAgent.destination = lastTargetPosition;
+                enemyController.NavMeshAgent.destination = GetClosestPointOnNavmesh(lastTargetPosition);
+                Debug.Log(enemyController.NavMeshAgent.destination);
             }
 
             public override void FixedUpdate()

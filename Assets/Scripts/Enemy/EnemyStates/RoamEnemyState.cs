@@ -103,9 +103,7 @@ namespace Game {
                 float _randomAngle = Random.Range(minRoamAngle, maxRoamAngle) * (Random.Range(0, 2) * 2 - 1);
                 Vector3 _randomDirection = Quaternion.AngleAxis(_randomAngle, Vector3.up) * enemyController.transform.forward;
                 Vector3 _randomPoint = enemyController.transform.position + _randomDirection * Random.Range(minRoamRange, maxRoamRange);
-                NavMeshHit _navHit;
-                NavMesh.SamplePosition(_randomPoint, out _navHit, float.MaxValue, -1); 
-                return _navHit.position;
+                return GetClosestPointOnNavmesh(_randomPoint);
             }
  #endregion
         }

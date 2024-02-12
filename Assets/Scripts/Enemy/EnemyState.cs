@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
@@ -34,6 +35,13 @@ namespace Game {
 #endregion
 
 #region Protected Functions
+            protected Vector3 GetClosestPointOnNavmesh(Vector3 _destination)
+            {
+                NavMeshHit _navHit;
+                NavMesh.SamplePosition(_destination, out _navHit, float.MaxValue, -1); 
+                return _navHit.position;
+            }
+            
             protected Transform GetClosestTarget(List<Transform> _targets)
             {
                 Transform _closestTarget = _targets[0];

@@ -6,7 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
+using FMOD.Studio;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using Game.Player;
@@ -27,7 +30,12 @@ namespace Game {
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
-            
+
+            [Header("Audio")] 
+            [SerializeField] 
+            private PlayerAudio playerAudio;
+            private EventInstance _eventInstance;
+
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
             [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
@@ -105,6 +113,15 @@ namespace Game {
                             GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].gameObject.
                                 GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
                             CanInteractWith[item.Value.PlayerIndex] = false;
+                            
+                            try  
+                            {
+                                playerAudio.InteractionAudio(_eventInstance, gameObject, false);
+                            } 
+                            catch (Exception e)
+                            {
+                                Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                            }
                         }
                     }
                 }
@@ -138,8 +155,17 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
+
                     GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.
                         GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
+                    try
+                    {
+                        _eventInstance = playerAudio.InteractionAudio(_eventInstance, gameObject, true);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                    }
                 }
             }
             

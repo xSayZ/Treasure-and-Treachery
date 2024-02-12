@@ -102,7 +102,8 @@ namespace Game {
                             item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
                             
-                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
+                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].gameObject.
+                                GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
                             CanInteractWith[item.Value.PlayerIndex] = false;
                         }
                     }
@@ -124,7 +125,7 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
-                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerController>().PlayerData;
+                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].PlayerData;
                 
                 if (_playerData.currentItem == null)
                 {
@@ -137,7 +138,8 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
-                    GameManager.Instance.activePlayerControllers[_playerIndex].GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
+                    GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.
+                        GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
                 }
             }
             

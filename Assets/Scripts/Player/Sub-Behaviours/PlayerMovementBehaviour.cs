@@ -17,12 +17,9 @@ namespace Game {
     {
         public class PlayerMovementBehaviour : MonoBehaviour {
 
-            [Header("MovementSettings")]
-            [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
-            [SerializeField] public float movementSmoothing;
-
+            [FormerlySerializedAs("baseMoveSpeed")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
-            [SerializeField] private float baseMoveSpeed;
+            [SerializeField] private float movementSpeed = 3f;
             
             [Tooltip("How fast the player turns")]
             [SerializeField] private float turnSpeed;
@@ -42,28 +39,22 @@ namespace Game {
             private bool lockout;
 
             public float currentDashCooldown;
-            private float currentSpeed;
             
             // References
             private Rigidbody playerRigidBody;
             
-            // Internal Variables
-            private Vector3 movement;
-            private Vector3 rawInputDirection = Vector3.zero;
-            private Vector3 smoothMovementDirection;
+            // Stored Values
+            private Vector3 movementDirection;
+            private float currentSpeed;
             
             private bool canMove = true;
             private bool canRotate = true;
 
 #region Validation
             private void OnValidate() {
-                if (movementSmoothing < 0) {
-                    Debug.LogWarning("movementSmoothing needs to be higher than 0");
-                    movementSmoothing = 0;
-                }
-                if(baseMoveSpeed < 0) {
+                if(movementSpeed < 0) {
                     Debug.LogWarning("baseMoveSpeed needs to be higher than 0");
-                    baseMoveSpeed = 0;
+                    movementSpeed = 0;
                 }
                 if (dashTime < 0) {
                     Debug.LogWarning("lockout period needs to be higher than 0");
@@ -71,19 +62,17 @@ namespace Game {
                 }
             }
 #endregion
-            
-#region Unity Functions
-            private void Start()
-            {
-                currentSpeed = baseMoveSpeed;
+
+            public void SetupBehaviour() {
+                currentSpeed = movementSpeed;
                 
                 playerRigidBody = GetComponent<Rigidbody>();
             }
+            
+#region Unity Functions
 
             private void FixedUpdate()
             {
-                SmoothInputMovement();
-                
                 if (canRotate)
                 {
                     TurnPlayer();
@@ -99,9 +88,8 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void MovementData(Vector3 _directionVector)
-            {
-                rawInputDirection = _directionVector;
+            public void UpdateMovementData(Vector3  _newMovementDirection) {
+                movementDirection = _newMovementDirection;
             }
             
             public void SetMovementActiveState(bool _movement, bool _rotate)
@@ -122,18 +110,12 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                
-                if (rawInputDirection == Vector3.zero)
-                {
-                    playerRigidBody.velocity = Vector3.zero;
-                }
-                
-                movement = Time.deltaTime * currentSpeed * rawInputDirection;
+                Vector3 movement = Time.deltaTime * currentSpeed * movementDirection;
                 playerRigidBody.AddForce(movement,ForceMode.VelocityChange);
             }
-            public void TurnPlayer() {
+            private void TurnPlayer() {
                 var _rotation = Quaternion.Slerp(playerRigidBody.rotation,
-                    Quaternion.LookRotation(smoothMovementDirection), turnSpeed);
+                                        Quaternion.LookRotation(movementDirection), turnSpeed);
     
                 playerRigidBody.rotation = _rotation;
 
@@ -148,10 +130,10 @@ namespace Game {
             private IEnumerator IsDashing()
             {
                 Debug.Log("Dashing");
-                currentSpeed = baseMoveSpeed + dashSpeedModifier;
+                currentSpeed = movementSpeed + dashSpeedModifier;
                 yield return new WaitForSeconds(dashTime);
                 currentDashCooldown = baseDashCooldown;
-                currentSpeed = baseMoveSpeed;
+                currentSpeed = movementSpeed;
                 lockout = true;
             }
             private void DashCompletion()
@@ -164,11 +146,6 @@ namespace Game {
                 if (currentDashCooldown <= 0) {
                     lockout = false;
                 }
-            }
-            private void SmoothInputMovement()
-            {
-                smoothMovementDirection = Vector3.Lerp(smoothMovementDirection, rawInputDirection,
-                    Time.deltaTime * movementSmoothing);
             }
             
             void ClampPlayerPosition()

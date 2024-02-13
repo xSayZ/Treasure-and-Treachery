@@ -60,17 +60,7 @@ namespace Game {
 public void PlayFootStep()
 {
     GetTerrainTexture();
-    if (textureValues[0] > 0.5)
-    {
-        var textureValue = 0;
-        playerAudio.PlayerFootstepPlay(textureValue, gameObject);
-    }
-    if (textureValues[1] > 0.5)
-    {
-        var textureValue = 1;
-        playerAudio.PlayerFootstepPlay(textureValue, gameObject);
-    }
-            
+    playerAudio.PlayerFootstepPlay(textureValues[0], textureValues[1], gameObject);
 }
 
 public void GetTerrainTexture()

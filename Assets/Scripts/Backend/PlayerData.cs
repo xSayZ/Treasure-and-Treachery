@@ -27,6 +27,8 @@ namespace Game {
             [SerializeField] public Item currentItem;
             [SerializeField] public bool canPickUp;
             
+            [SerializeField] public int points;
+            
             [SerializeField] public int currency;
             [SerializeField] public int currencyThisLevel;
             [SerializeField] public int kills;
@@ -43,6 +45,8 @@ namespace Game {
                 currentHealth = startingHealth;
                 currentItem = null;
                 canPickUp = true;
+                
+                points = 0;
                 
                 currency = 0;
                 currencyThisLevel = 0;

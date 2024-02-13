@@ -22,13 +22,9 @@ namespace Game {
             private int playerInteractAnimationID;
 
 #region Unity Functions
-            // Start is called before the first frame update
-            private void Awake()
-            {
-                PlayerAnimator = GetComponent<Animator>();
-            }
 
             public void SetupBehaviour() {
+                PlayerAnimator = GetComponent<Animator>();
                 SetupAnimationIDs();
             }
 

@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Security;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
@@ -34,6 +35,7 @@ namespace Game
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
+            [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
 
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -49,7 +51,7 @@ namespace Game
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
             
-            [field: SerializeField] public int Health { get; set; }
+            [field: HideInInspector] public int Health { get; set; }
 
             [Header("Temporary damage animation")]
             [SerializeField] private MeshRenderer meshRenderer;
@@ -65,11 +67,14 @@ namespace Game
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
                 
+                Health = PlayerData.currentHealth;
+                
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
+                playerUIDisplayBehaviours.SetupBehaviour();
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
 
@@ -194,6 +199,17 @@ namespace Game
                 }
             }
             
+            public void OnTogglePlayerUI(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    playerUIDisplayBehaviours.TogglePlayerUIElements(true);
+                }
+                else if (value.canceled) {
+                    playerUIDisplayBehaviours.TogglePlayerUIElements(false);
+                }
+            }
+            
             // SWITCHING INPUT ACTION MAPS
             public void EnableEventControls()
             {
@@ -232,7 +248,7 @@ namespace Game
             
             public void DamageTaken()
             {
-                FlashRed();
+                // FlashRed();
                 Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);

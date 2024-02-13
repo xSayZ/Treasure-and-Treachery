@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using Game.Player;
@@ -30,6 +32,9 @@ namespace Game {
             
             [Header("Pickup Type")]
             public PickupTypes PickupType;
+
+            [Header("Audio")] 
+            [SerializeField] private InteractablesAudio interactablesAudio;
             
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
@@ -81,6 +86,16 @@ namespace Game {
                         
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        
+                        try
+                        {
+                            interactablesAudio.GoldPickupAudio(gameObject);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{Pickup}]: Error Exception " + e);
+                        }
+                        
                         Destroy(gameObject);
                         break;
                     

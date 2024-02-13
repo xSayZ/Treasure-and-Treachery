@@ -1,10 +1,16 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Game
 {
-    [CreateAssetMenu(fileName = "Player sprites", menuName = "Player sprite Data/sprites")]    public class ImageBank : ScriptableObject
+    [CreateAssetMenu(fileName = "UI images", menuName = "Game Images/sprites")] 
+    public class ImageBank : ScriptableObject
     {
         public List<Sprite> characterImages;
+
+        public List<Sprite> IntroImages;
+
+
     }
 }

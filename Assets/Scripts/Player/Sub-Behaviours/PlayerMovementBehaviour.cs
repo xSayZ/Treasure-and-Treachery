@@ -110,7 +110,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * movementSpeed * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentSpeed * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
             private void TurnPlayer()

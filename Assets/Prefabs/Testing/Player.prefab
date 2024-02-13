@@ -135,11 +135,10 @@ MonoBehaviour:
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 5
-  characterType: 0
   playerObj: {fileID: 288723118889570766}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   <Health>k__BackingField: 5
-  meshRenderer: {fileID: 3175222094913254878}
+  meshRenderer: {fileID: 8793524911224631790}
   defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
   debug: 0
@@ -176,8 +175,10 @@ MonoBehaviour:
   playerMovementBehaviour: {fileID: 8393427140100816367}
   weaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  hasMeleeWeapon: 1
   meleeAttackDamage: 1
   baseMeleeAttackCooldown: 1
+  hasRangedWeapon: 1
   rangedAttackDamage: 1
   baseFireRateRanged: 1
   projectileSpeed: 50
@@ -347,7 +348,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bc98c4ce6c6014fa665b06fed75e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMaterial: {fileID: 2100000, guid: 02b1aeca079de37478b7fcb109ddbabf, type: 2}
+  playerMeshRenderers:
+  - {fileID: 3175222094913254878}
+  - {fileID: 5727364715238468561}
 --- !u!136 &8039321865252058105
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1154,5 +1157,15 @@ Transform:
 --- !u!23 &3175222094913254878 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -5161419525955454584, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+  m_PrefabInstance: {fileID: 1463199174117706838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &5727364715238468561 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2650935485671970937, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
+  m_PrefabInstance: {fileID: 1463199174117706838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8793524911224631790 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7946236180666383800, guid: 021e2710665e5e74680493f210d6c3a6, type: 3}
   m_PrefabInstance: {fileID: 1463199174117706838}
   m_PrefabAsset: {fileID: 0}

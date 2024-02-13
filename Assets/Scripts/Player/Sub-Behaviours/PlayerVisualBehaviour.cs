@@ -12,14 +12,14 @@ using UnityEngine.InputSystem;
 
 
 namespace Game {
-    namespace NAME {
+    namespace Player {
         public class PlayerVisualBehaviour : MonoBehaviour
         {
             //Player ID
             private int playerID;
             private PlayerData playerData;
             
-            [SerializeField] private MeshRenderer playerMeshRenderer;
+            [SerializeField] private SkinnedMeshRenderer[] playerMeshRenderers;
 
 #region Unity Functions
 
@@ -43,7 +43,9 @@ namespace Game {
 
             void UpdateCharacterMaterial() {
                 // Set the player material color
-                playerMeshRenderer.material.color = playerData.playerMaterialColor;
+                foreach (var _playerMeshRenderer in playerMeshRenderers) {
+                    _playerMeshRenderer.materials[0].color = playerData.playerMaterialColor;
+                }
             }
             
 #endregion

@@ -116,7 +116,7 @@ namespace Game {
                             
                             try  
                             {
-                                playerAudio.InteractionAudio(_eventInstance, gameObject, false);
+                                playerAudio.InteractionAudio(_eventInstance, gameObject, 2, false);
                             } 
                             catch (Exception e)
                             {
@@ -158,14 +158,30 @@ namespace Game {
 
                     GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.
                         GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
-                    try
+
+                    if (_start == true)
                     {
-                        _eventInstance = playerAudio.InteractionAudio(_eventInstance, gameObject, true);
+                        try
+                        {
+                            _eventInstance = playerAudio.InteractionAudio(_eventInstance, gameObject, 0, true);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                        }
                     }
-                    catch (Exception e)
+                    else
                     {
-                        Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                        try
+                        {
+                            _eventInstance = playerAudio.InteractionAudio(_eventInstance, gameObject, 1, false);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                        }
                     }
+
                 }
             }
             

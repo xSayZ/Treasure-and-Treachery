@@ -70,18 +70,18 @@ public void PlayerFootstepPlay(int textureValue, GameObject footObj)
     switch (textureValue)
     {
         case 0://Grass
-            // playerFootstepInstance.setParameterByName("Surface", 0f);
+            playerFootstepInstance.setParameterByName("Surface", 0f);
             Debug.Log("ur on grass");
             break;
         case 1: //Path/Dirt
-            // playerFootstepInstance.setParameterByName("Surface", 1f);
+            playerFootstepInstance.setParameterByName("Surface", 1f);
             Debug.Log("ur on dirt feller");
             break;
         case 2: //Rock
-            // playerFootstepInstance.setParameterByName("Surface", 2f);
+            playerFootstepInstance.setParameterByName("Surface", 2f);
             break;
     }
-    // playerFootstepInstance.start();
+    playerFootstepInstance.start();
     playerFootstepInstance.release();
 }
 
@@ -109,20 +109,28 @@ public void ProjectileSwooshAudio(GameObject projectileObj)
     projectileSwooshInstance.release();
 }
 
-public EventInstance InteractionAudio(EventInstance interactionInstance, GameObject questObject, bool isLooping)
+public EventInstance InteractionAudio(EventInstance interactionInstance, GameObject questObject, int isLooping, bool startEvent)
 {
+    if (startEvent == true)
+    {
+        interactionInstance = RuntimeManager.CreateInstance(interactionAudio);
+        RuntimeManager.AttachInstanceToGameObject(interactionInstance, questObject.transform);
+        interactionInstance.start();
+    }
+
     switch (isLooping)
     {
-        case true:
-            interactionInstance = RuntimeManager.CreateInstance(interactionAudio);
-            RuntimeManager.AttachInstanceToGameObject(interactionInstance, questObject.transform);
+        case 0:
             interactionInstance.setParameterByName("InteractLooping", 1);
-            interactionInstance.start();
             break;
-        case false:
+        case 1:
             interactionInstance.setParameterByName("InteractLooping", 0);
-            interactionInstance.keyOff();
             interactionInstance.release();
+            break;
+        case 2:
+            interactionInstance.setParameterByName("InteractLooping", 0);
+            interactionInstance.release();
+            interactionInstance.keyOff();
             break;
     }
     return interactionInstance;

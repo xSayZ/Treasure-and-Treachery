@@ -30,7 +30,7 @@ namespace Game {
             playerTransform = gameObject.transform;
         }
 
-        private void Update()
+        public void PlayFootStep()
         {
             GetTerrainTexture();
             if (textureValues[0] > 0.5)

@@ -18,38 +18,44 @@ namespace Game {
     namespace Player {
         public class PlayerUIDisplayBehaviours : MonoBehaviour {
             
-            public TextMeshProUGUI currencyText, killsText;
-            public GameObject playerUIElements;
+            [SerializeField] private TextMeshProUGUI currencyText, killsText;
+            [SerializeField] private GameObject playerUIElements;
+            
+            private PlayerController playerController;
 
-
-            private PlayerController player;
-            private int kills;
-            private int currency;
-
-            public void SetupBehaviour(PlayerController _player) {
-                player = _player;
+            public void SetupBehaviour(PlayerController _playerController)
+            {
+                playerController = _playerController;
                 playerUIElements.SetActive(false);
-                
-                QuestManager.OnGoldPickedUp.AddListener(UpdateCurrencyDisplay);
-                EnemyManager.OnEnemyDeath.AddListener(UpdateKillsDisplay);
-                
                 
                 currencyText.SetText("0");
                 killsText.SetText("0");
-                
             }
 
-            private void UpdateCurrencyDisplay(int _playerID, int _currency) {
-                currency = player.PlayerData.currency;
-                currencyText.SetText((currency).ToString());
+            private void OnEnable()
+            {
+                QuestManager.OnGoldPickedUp.AddListener(UpdateCurrencyDisplay);
+                EnemyManager.OnEnemyDeathUI.AddListener(UpdateKillsDisplay);
             }
 
-            private void UpdateKillsDisplay(EnemyController _enemy) {
-                kills++;
-                killsText.SetText((kills).ToString());
+            private void OnDisable()
+            {
+                QuestManager.OnGoldPickedUp.RemoveListener(UpdateCurrencyDisplay);
+                EnemyManager.OnEnemyDeathUI.RemoveListener(UpdateKillsDisplay);
             }
 
-            public void TogglePlayerUIElements(bool _active) {
+            private void UpdateCurrencyDisplay(int _playerIndex, int _amount)
+            {
+                currencyText.SetText(playerController.PlayerData.currencyThisLevel.ToString());
+            }
+
+            private void UpdateKillsDisplay() 
+            {
+                killsText.SetText(playerController.PlayerData.killsThisLevel.ToString());
+            }
+
+            public void TogglePlayerUIElements(bool _active)
+            {
                 playerUIElements.SetActive(_active);
             }
         }

@@ -22,6 +22,7 @@ namespace Game {
             private List<EnemyController> enemies;
             
             public static UnityEvent<EnemyController> OnEnemyDeath = new UnityEvent<EnemyController>();
+            public static UnityEvent OnEnemyDeathUI = new UnityEvent();
             
             // Start is called before the first frame update
             void Start()

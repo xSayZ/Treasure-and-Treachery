@@ -294,7 +294,7 @@ MonoBehaviour:
   playerUIDisplayBehaviours: {fileID: 940822348860997190}
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
-  movementSmoothingSpeed: 5
+  movementSmoothingSpeed: 25
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   meshRenderer: {fileID: 0}
@@ -549,7 +549,7 @@ Rigidbody:
   m_GameObject: {fileID: 288723119442727263}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 3
+  m_Drag: 6
   m_AngularDrag: 1000
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -801,7 +801,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 06c587f9f43220f4d9255ac7ccf02666, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3787,7 +3787,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 02b1aeca079de37478b7fcb109ddbabf, type: 2}
+  - {fileID: 2100000, guid: 3d8c69c1468559b44a603a24dbfec640, type: 2}
   - {fileID: 2100000, guid: 3d8c69c1468559b44a603a24dbfec640, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

@@ -41,7 +41,7 @@ namespace Game {
 
             private void UpdateKillsDisplay(EnemyController _enemy) {
                 kills++;
-                currencyText.SetText((kills).ToString());
+                killsText.SetText((kills).ToString());
             }
 
             public void TogglePlayerUIElements(bool _active) {

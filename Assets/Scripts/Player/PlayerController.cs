@@ -74,7 +74,7 @@ namespace Game
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
-                playerUIDisplayBehaviours.SetupBehaviour();
+                playerUIDisplayBehaviours.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
 

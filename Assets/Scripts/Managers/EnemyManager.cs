@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using Game.Enemy;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Game {
@@ -20,9 +21,13 @@ namespace Game {
             
             private List<EnemyController> enemies;
             
+            public static UnityEvent<EnemyController> OnEnemyDeath = new UnityEvent<EnemyController>();
+            
             // Start is called before the first frame update
             void Start()
             {
+                OnEnemyDeath.AddListener(RemoveEnemy);
+                
                 enemies = new List<EnemyController>();
                 
                 foreach (var enemy in FindObjectsOfType<EnemyController>()) {
@@ -33,6 +38,11 @@ namespace Game {
             public void AddEnemy(EnemyController _enemy)
             {
                 enemies.Add(_enemy);
+            }
+            
+            public void RemoveEnemy(EnemyController _enemy)
+            {
+                enemies.Remove(_enemy);
             }
 
             public int GetMaxEnemyCount()

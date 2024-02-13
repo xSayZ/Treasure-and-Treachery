@@ -11,6 +11,7 @@ using Game.Core;
 using UnityEngine;
 using Game.Quest;
 using Game.Player;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -77,7 +78,7 @@ namespace Game {
                     if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)
                     {
                         // All players are in carriage, time to end level
-                        Debug.Log("Level Done");
+                        SceneManager.LoadScene(sceneBuildIndex: 1);
                     }
                 }
             }

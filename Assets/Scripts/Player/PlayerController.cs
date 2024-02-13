@@ -69,6 +69,8 @@ namespace Game
                 
                 Health = PlayerData.currentHealth;
                 
+                PlayerData.NewScene();
+                
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
                 playerMovementBehaviour.SetupBehaviour();

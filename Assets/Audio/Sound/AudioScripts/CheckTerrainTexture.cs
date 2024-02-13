@@ -16,9 +16,9 @@ namespace Game {
         public class CheckTerrainTexture : MonoBehaviour
         {
             public PlayerAudio playerAudio;
-            private Transform playerTransform;
-            public Terrain terrainObject;
-            
+            public Transform playerTransform;
+            private Terrain terrainObject;
+
             public int posX;
             public int posZ;
             public float[] textureValues;
@@ -26,32 +26,15 @@ namespace Game {
         #region Unity Functions
         void Start()
         {
-            terrainObject = Terrain.activeTerrain;
+            UpdateTerrainReference();
             playerTransform = gameObject.transform;
         }
 
-        public void PlayFootStep()
-        {
-            GetTerrainTexture();
-            if (textureValues[0] > 0.5)
-            {
-                var textureValue = 0;
-                playerAudio.PlayerFootstepPlay(textureValue, gameObject);
-            }
-            if (textureValues[1] > 0.5)
-            {
-                var textureValue = 1;
-                playerAudio.PlayerFootstepPlay(textureValue, gameObject);
-            }
-            
-        }
+        // void Update()
+        // {
+        //     GetTerrainTexture();
+        // }
 
-        public void GetTerrainTexture()
-        {
-            UpdatePosition();
-            CheckTexture();
-        }
-        
         void UpdatePosition()
         {
             Vector3 terrainPosition = playerTransform.position - terrainObject.transform.position;
@@ -74,9 +57,36 @@ namespace Game {
 
 #region Public Functions
 
+public void PlayFootStep()
+{
+    GetTerrainTexture();
+    if (textureValues[0] > 0.5)
+    {
+        var textureValue = 0;
+        playerAudio.PlayerFootstepPlay(textureValue, gameObject);
+    }
+    if (textureValues[1] > 0.5)
+    {
+        var textureValue = 1;
+        playerAudio.PlayerFootstepPlay(textureValue, gameObject);
+    }
+            
+}
+
+public void GetTerrainTexture()
+{
+    UpdatePosition();
+    CheckTexture();
+}
+
 #endregion
 
 #region Private Functions
+
+private void UpdateTerrainReference()
+{
+    terrainObject = Terrain.activeTerrain;
+}
 
 #endregion
         }

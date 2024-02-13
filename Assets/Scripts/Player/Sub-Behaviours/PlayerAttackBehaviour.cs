@@ -7,11 +7,10 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
-using System.Linq;
+using Game.Backend;
 using Game.Core;
 using Game.Quest;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Game
@@ -99,11 +98,20 @@ namespace Game
                     return;
                 }
                 
-                for (int i = 0; i < enemyTransforms?.Count; i++) {
+                for (int i = enemyTransforms.Count - 1; i >= 0; i--)
+                {
                     if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
                         continue;
-                    _hit.Damage(meleeAttackDamage);
-                    enemyTransforms = enemyTransforms.Where(_collider => _collider != null).ToList();
+                    
+                    bool killed = _hit.Damage(meleeAttackDamage);
+                    if (killed)
+                    {
+                        playerController.PlayerData.kills += 1;
+                        playerController.PlayerData.killsThisLevel += 1;
+                        EnemyManager.OnEnemyDeathUI.Invoke();
+                        
+                        enemyTransforms.Remove(enemyTransforms[i]);
+                    }
                 }
                 currentMeleeCooldown = baseMeleeAttackCooldown;
             }

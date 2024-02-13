@@ -17,16 +17,18 @@ namespace Game {
 
             public void DamageTaken();
             
-            public void Damage(int _damage)
+            public bool Damage(int _damage)
             {
                 Health -= _damage;
                 if (Health <= 0)
                 {
                     Death();
+                    return true;
                 }
                 else
                 {
                     DamageTaken();
+                    return false;
                 }
             }
         }

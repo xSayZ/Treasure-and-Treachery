@@ -213,6 +213,7 @@ namespace Game {
                 if (playerController.PlayerIndex == _playerId)
                 {
                     playerController.PlayerData.currency += pickUpGold;
+                    playerController.PlayerData.currencyThisLevel += pickUpGold;
                 }
             }
 #endregion

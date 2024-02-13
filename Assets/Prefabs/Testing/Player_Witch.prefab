@@ -316,8 +316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 120
   turnSpeed: 1
-  dashSpeedModifier: 50
-  dashTime: 2
+  dashSpeedModifier: 600
+  dashTime: 0.2
   baseDashCooldown: 2
   currentDashCooldown: 0
 --- !u!114 &-3509399097656645022
@@ -764,6 +764,7 @@ GameObject:
   - component: {fileID: 935044926847833322}
   - component: {fileID: 6492465239764110992}
   - component: {fileID: 5271210276642714606}
+  - component: {fileID: 8107908110027112040}
   m_Layer: 0
   m_Name: Character_Witch
   m_TagString: Untagged
@@ -823,6 +824,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerAnimator: {fileID: 6492465239764110992}
+--- !u!114 &8107908110027112040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554543932340145744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e659f057403254c65a9d7d04139bc538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
+  playerTransform: {fileID: 288723119442727232}
+  posX: 0
+  posZ: 0
+  textureValues:
+  - 0
+  - 0
 --- !u!1 &599564386249943647
 GameObject:
   m_ObjectHideFlags: 0

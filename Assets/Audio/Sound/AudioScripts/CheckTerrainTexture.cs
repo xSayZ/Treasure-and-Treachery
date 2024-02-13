@@ -30,10 +30,10 @@ namespace Game {
             playerTransform = gameObject.transform;
         }
 
-        void Update()
-        {
-            GetTerrainTexture();
-        }
+        // void Update()
+        // {
+        //     GetTerrainTexture();
+        // }
 
         void UpdatePosition()
         {

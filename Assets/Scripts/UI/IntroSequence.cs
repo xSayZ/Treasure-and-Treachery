@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -26,6 +27,8 @@ namespace Game
             public Transform endPoint;
             public float timeBeforeChange;
             private float currentTime;
+
+            private float elapsedTime;
             
             private int index;
             #region Unity Functions
@@ -36,13 +39,14 @@ namespace Game
                 introImages = Bank.IntroImages;
                 currentIntroImage.sprite = Bank.IntroImages[0];
                 currentTime = timeBeforeChange;
+                StartCoroutine(LerpPosition(endPoint.position, timeBeforeChange));
             }
 
             // Update is called once per frame
             void Update()
             {
-                //ChangeImage();
-                ImageInterpolation();
+                
+                ChangeScene();
             }
 
             #endregion
@@ -52,10 +56,20 @@ namespace Game
             #endregion
 
             #region Private Functions
-
-            private void ImageInterpolation()
+            
+            
+            private IEnumerator LerpPosition(Vector3 targetPosition, float duration)
             {
-                currentIntroImage.transform.position = Vector3.LerpUnclamped(currentIntroImage.transform.position,endPoint.position,timeBeforeChange*Time.deltaTime);
+                float time = 0;
+                Vector3 startPosition = currentIntroImage.transform.position;
+
+                while (time < duration)
+                {
+                    currentIntroImage.transform.position = Vector3.Lerp(startPosition, targetPosition, time / duration);
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+                currentIntroImage.transform.position = targetPosition;
             }
             
             /*private void ChangeImage()
@@ -71,7 +85,11 @@ namespace Game
 
             private void ChangeScene()
             {
-                
+                if (currentIntroImage.transform.position == endPoint.position)
+                {
+                    // hårdKodad scene
+                    SceneManager.LoadScene("Official Test Scene 1");
+                }
             }
 
            

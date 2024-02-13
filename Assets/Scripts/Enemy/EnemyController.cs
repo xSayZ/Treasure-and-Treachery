@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using FMOD.Studio;
 using Game.Core;
 using Game.Audio;
+using Game.Backend;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -202,7 +203,7 @@ namespace Game {
 
             public void Death()
             {
-                Destroy(gameObject);
+                EnemyManager.OnEnemyDeath.Invoke(this);
                 
                 try
                 {
@@ -213,6 +214,7 @@ namespace Game {
                     Debug.LogError("[{EnemyController}]: Error Exception " + e);
                 }
                 
+                Destroy(gameObject);
             }
             
             public void DamageTaken()

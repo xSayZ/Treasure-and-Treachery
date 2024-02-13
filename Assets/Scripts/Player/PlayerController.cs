@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Security;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
@@ -34,6 +35,7 @@ namespace Game
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
             [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
+            [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
 
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -70,6 +72,7 @@ namespace Game
                 playerMovementBehaviour.SetupBehaviour();
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
+                playerUIDisplayBehaviours.SetupBehaviour();
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
 
@@ -191,6 +194,17 @@ namespace Game
                     // Remove after pause has been implemented
                     return;
                     // GameManager.Instance.TogglePauseState(this);
+                }
+            }
+            
+            public void OnTogglePlayerUI(InputAction.CallbackContext value)
+            {
+                if (value.started)
+                {
+                    playerUIDisplayBehaviours.TogglePlayerUIElements(true);
+                }
+                else if (value.canceled) {
+                    playerUIDisplayBehaviours.TogglePlayerUIElements(false);
                 }
             }
             

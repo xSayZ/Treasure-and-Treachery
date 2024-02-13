@@ -1,57 +1,77 @@
-// /*------------------------------
-// --------------------------------
-// Creation Date: 2024/02/12
-// Author: herman
-// Description: Operation_Donken
-// --------------------------------
-// ------------------------------*/
-
 using System;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Collections;
+using UnityEngine.SceneManagement;
 
-namespace Game {
-    namespace Audio {
-        public class CheckTerrainTexture : MonoBehaviour
+namespace Game.Audio
+{
+    public class CheckTerrainTexture : MonoBehaviour
+    {
+        public PlayerAudio playerAudio;
+        private Transform playerTransform;
+        private Terrain terrainObject;
+        public int posX;
+        public int posZ;
+        public float[] textureValues;
+
+        private void Start()
         {
-            public PlayerAudio playerAudio;
-            private Transform playerTransform;
-            public Terrain terrainObject;
-            
-            public int posX;
-            public int posZ;
-            public float[] textureValues;
+            SceneManager.sceneLoaded += OnSceneLoaded; // Subscribe to the scene loaded event
+            playerTransform = gameObject.transform;
+            UpdateTerrainReference();
+        }
 
-        #region Unity Functions
-        void Start()
+        private void OnDestroy()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded; // Unsubscribe from the event to prevent memory leaks
+        }
+
+        private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+        {
+            UpdateTerrainReference();
+        }
+
+        private void UpdateTerrainReference()
         {
             terrainObject = Terrain.activeTerrain;
-            playerTransform = gameObject.transform;
+            if (terrainObject == null)
+            {
+                Debug.LogWarning("No active terrain found in the scene.");
+            }
         }
 
         public void PlayFootStep()
         {
+            if (terrainObject == null)
+            {
+                Debug.LogWarning("No active terrain found. Footstep detection aborted.");
+                return;
+            }
+
             GetTerrainTexture();
-            if (textureValues[0] > 0.5)
+            if (textureValues[0] > 0.5f)
             {
                 var textureValue = 0;
                 playerAudio.PlayerFootstepPlay(textureValue, gameObject);
             }
-            if (textureValues[1] > 0.5)
+            if (textureValues[1] > 0.5f)
             {
                 var textureValue = 1;
                 playerAudio.PlayerFootstepPlay(textureValue, gameObject);
             }
-            
         }
 
         public void GetTerrainTexture()
         {
+            if (terrainObject == null)
+            {
+                Debug.LogWarning("No active terrain found. Texture detection aborted.");
+                return;
+            }
+
             UpdatePosition();
             CheckTexture();
         }
-        
+
         void UpdatePosition()
         {
             Vector3 terrainPosition = playerTransform.position - terrainObject.transform.position;
@@ -68,17 +88,6 @@ namespace Game {
             float[,,] splatMap = terrainObject.terrainData.GetAlphamaps(posX, posZ, 1, 1);
             textureValues[0] = splatMap[0, 0, 0];
             textureValues[1] = splatMap[0, 0, 1];
-        }
-        
-#endregion
-
-#region Public Functions
-
-#endregion
-
-#region Private Functions
-
-#endregion
         }
     }
 }

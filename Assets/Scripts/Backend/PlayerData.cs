@@ -22,24 +22,32 @@ namespace Game {
             [SerializeField] public Color playerMaterialColor;
             
             [Header("Debug")]
-            [SerializeField] public int currentHealth;
             [SerializeField] public int playerIndex;
-            [SerializeField] public int currency;
+            [SerializeField] public int currentHealth;
             [SerializeField] public Item currentItem;
             [SerializeField] public bool canPickUp;
             
-            public int SetPlayerData(int _currentHealth)
+            [SerializeField] public int currency;
+            [SerializeField] public int currencyThisLevel;
+            [SerializeField] public int kills;
+            [SerializeField] public int killsThisLevel;
+            
+            public void NewScene()
             {
-                currentHealth = _currentHealth;
-                return playerIndex;
+                currencyThisLevel = 0;
+                killsThisLevel = 0;
             }
             
             private void OnEnable()
             {
                 currentHealth = startingHealth;
-                currency = 0;
                 currentItem = null;
                 canPickUp = true;
+                
+                currency = 0;
+                currencyThisLevel = 0;
+                kills = 0;
+                killsThisLevel = 0;
             }
         }
     }

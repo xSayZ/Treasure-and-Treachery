@@ -21,9 +21,13 @@ namespace Game {
             public TextMeshProUGUI currencyText, killsText;
             public GameObject playerUIElements;
 
-            private int kills;
 
-            public void SetupBehaviour() {
+            private PlayerController player;
+            private int kills;
+            private int currency;
+
+            public void SetupBehaviour(PlayerController _player) {
+                player = _player;
                 playerUIElements.SetActive(false);
                 
                 QuestManager.OnGoldPickedUp.AddListener(UpdateCurrencyDisplay);
@@ -36,7 +40,8 @@ namespace Game {
             }
 
             private void UpdateCurrencyDisplay(int _playerID, int _currency) {
-                currencyText.SetText((_currency).ToString());
+                currency = player.PlayerData.currency;
+                currencyText.SetText((currency).ToString());
             }
 
             private void UpdateKillsDisplay(EnemyController _enemy) {

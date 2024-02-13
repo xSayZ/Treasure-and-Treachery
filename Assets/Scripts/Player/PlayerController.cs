@@ -51,7 +51,7 @@ namespace Game
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
             
-            [field: SerializeField] public int Health { get; set; }
+            [field: HideInInspector] public int Health { get; set; }
 
             [Header("Temporary damage animation")]
             [SerializeField] private MeshRenderer meshRenderer;
@@ -66,6 +66,8 @@ namespace Game
             {
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
+                
+                Health = PlayerData.currentHealth;
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
@@ -246,7 +248,7 @@ namespace Game
             
             public void DamageTaken()
             {
-                FlashRed();
+                // FlashRed();
                 Log("Player " + PlayerIndex + " took damage");
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);

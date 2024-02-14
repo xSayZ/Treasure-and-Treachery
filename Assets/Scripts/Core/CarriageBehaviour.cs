@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -26,6 +28,9 @@ namespace Game {
             
             [Header("Settings")]
             [SerializeField] private int nextSceneBuildIndex;
+
+            [Header("Audio")] 
+            [SerializeField] private InteractablesAudio interactablesAudio;
             
             // Interaction variables
             public bool[] CanInteractWith { get; set; }
@@ -120,6 +125,15 @@ namespace Game {
                 
                 float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
                 healthBar.value = _currentProgress;
+
+                try
+                {
+                    interactablesAudio.CarriageHitAudio(gameObject);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
             }
 #endregion
 

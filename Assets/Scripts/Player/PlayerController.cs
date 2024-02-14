@@ -100,12 +100,12 @@ namespace Game
 #region Unity Functions
             private void OnEnable()
             {
-                //playerInput.deviceRegainedEvent.Invoke(playerInput);
+                playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
             
             private void OnDisable()
             {
-                //playerInput.deviceLostEvent.Invoke(playerInput);
+                playerInput.deviceLostEvent.Invoke(playerInput);
             }
 
             void FixedUpdate()
@@ -118,11 +118,12 @@ namespace Game
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }
-
-       
-
             #endregion
 
+            public void OnPlayerJoined()
+            {
+                
+            }
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
             
             /// <summary>

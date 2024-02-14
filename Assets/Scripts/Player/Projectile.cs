@@ -49,7 +49,7 @@ namespace Game
                 transform.Translate(direction * (projectileSpeed * Time.fixedDeltaTime));
             }
             
-            private void OnTriggerEnter(Collider other)
+            private void OnCollisionEnter(Collision other)
             {
                 if (other.gameObject.layer == 8)
                 {

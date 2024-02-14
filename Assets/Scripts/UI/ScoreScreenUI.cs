@@ -9,6 +9,8 @@
 using System.Collections.Generic;
 using Game.Backend;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 
 namespace Game {
@@ -18,6 +20,8 @@ namespace Game {
             [SerializeField] private GameObject playerScoreCanvasPrefab;
             [SerializeField] private List<RenderTexture> renderTextures;
             [SerializeField] private List<PlayerData> playerData; // Temporary
+
+            private int playersDoneCountingUp;
             
             private void Start()
             {
@@ -25,6 +29,19 @@ namespace Game {
                 {
                     PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                     playerScoreUI.SetupUI(renderTextures[i], playerData[i]);
+                }
+            }
+
+            public void DoneCountingUp()
+            {
+                playersDoneCountingUp++;
+            }
+
+            public void OnSubmitPressed(InputAction.CallbackContext _value)
+            {
+                if (playersDoneCountingUp == Input.GetJoystickNames().Length)
+                {
+                    SceneManager.LoadScene(sceneBuildIndex: GameManager.Instance.nextSceneBuildIndex);
                 }
             }
         }

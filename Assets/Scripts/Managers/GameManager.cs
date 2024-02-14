@@ -35,7 +35,7 @@ namespace Game {
             [Space]
             [SerializeField] private PlayerData[] activePlayerPlayerData;
             
-            public List<PlayerController> activePlayerControllers;
+            public Dictionary<int, PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
@@ -103,7 +103,7 @@ namespace Game {
             }
 
             private void AddPlayers() {
-                activePlayerControllers = new List<PlayerController>();
+                activePlayerControllers = new Dictionary<int, PlayerController>();
 
                 string[] _controllers = Input.GetJoystickNames();
                 if (_controllers.Length == 0)
@@ -191,15 +191,15 @@ namespace Game {
                 Quaternion _spawnRotation = Quaternion.identity;
                     
                 GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
-                AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 
                 // Get PlayerData from List and assign it based on playerID
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
             }
             
-            private void AddPlayersToActiveList(PlayerController newPlayer) {
-                activePlayerControllers.Add(newPlayer);
+            private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {
+                activePlayerControllers[_playerIndex] = newPlayer;
             }
             
             // Calculate the position of the players in the ring
@@ -226,7 +226,7 @@ namespace Game {
             }
             
             private void RemovePlayerFromCurrentPlayersList(int _playerID) {
-                activePlayerControllers.RemoveAt(_playerID);
+                activePlayerControllers.Remove(_playerID);
             }
             
             #endregion

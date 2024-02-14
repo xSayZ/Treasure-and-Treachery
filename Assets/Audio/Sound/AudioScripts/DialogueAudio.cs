@@ -6,19 +6,24 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
 using Game.Backend;
+using Game.Core;
+using Game.Player;
+using Game.Quest;
+using Random = UnityEngine.Random;
 
 
 namespace Game {
     namespace Audio {
         
         [CreateAssetMenu(menuName = "ScriptableObjects/Audio/Player/Dialogue")]
-        public class DialogueAudio : ScriptableObject
-        {
+        public class DialogueAudio : ScriptableObject {
+            
             [Header("Players")]
             private List<GameObject> playerObjects = new List<GameObject>();
             
@@ -27,57 +32,69 @@ namespace Game {
             [SerializeField]
             private EventReference shovelPickup, mudReaction, objectiveStartReaction, objectiveProgressionReaction;
             public AudioMananger audioManager;
-        
+
+            private EventInstance shovelPickupInstAudio;
+
+            private int playerIndex;
+            
+            private void OnEnable() {
+                QuestManager.OnItemPickedUp.AddListener(ShovelPickupAudio);
+            }
 
 #region Unity Functions
 
-        
 #endregion
 
 #region Public Functions
 
-public void SetPlayerAudioObjects(GameObject player1, GameObject player2, GameObject player3, GameObject player4)
+public void ShovelPickupAudio(int _playerID, Item _item)
 {
-    playerObjects.Clear();
-    playerObjects.Add(player1);
-    playerObjects.Add(player2);
-    playerObjects.Add(player3);
-    playerObjects.Add(player4);
-}
-
-public EventInstance ShovelPickupAudio(GameObject characterObj, EventInstance shovelPickupInstAudio, int playerCharacterType)
-{
-    switch (playerCharacterType)
+    var _players = GameManager.Instance.activePlayerControllers;
+    switch (_playerID)
     {
         case 0:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[0].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 0);
             shovelPickupInstAudio.start();
             break;
         case 1:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[1].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 1);
             shovelPickupInstAudio.start();
             break;
         case 2:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[2].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 2);
             shovelPickupInstAudio.start();
             break;
         case 3:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[3].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 3);
             shovelPickupInstAudio.start();
             break;
     }
 
-    shovelPickupInstAudio.release();
-    return shovelPickupInstAudio;
+    if (!IsPlaying(shovelPickupInstAudio)) {
 
+        GetRandomPlayerAndPlaySound(_playerID, _players);
+    }
+
+}
+private void GetRandomPlayerAndPlaySound(int _playerID, List<PlayerController> _players) {
+
+    var _randomPlayer = _players[Random.Range(0, playerObjects.Count)];
+
+    if (_randomPlayer != _players[_playerID])
+    {
+        // Play response sound  
+    }
+    else {
+        GetRandomPlayerAndPlaySound(_playerID, _players);
+    }
 }
 
 public EventInstance ObjectiveProgressionReactionAudio(EventInstance objectiveProgReactInstance, GameObject characterObj, int speakerCharacter)
@@ -114,31 +131,14 @@ public EventInstance ObjectiveProgressionReactionAudio(EventInstance objectivePr
     return objectiveProgReactInstance;
 }
 
-public GameObject GetRandomPlayer(GameObject excludedPlayer = null)
-{
-    // Check if there's only one player
-    if (playerObjects.Count == 1 && (excludedPlayer == null || playerObjects.Contains(excludedPlayer)))
-    {
-        Debug.LogError("Only one player GameObject available, which is the speaker. no response generated.");
-        return null;
-    }
-
-    GameObject randomPlayer = null;
-
-    do
-    {
-        int randomIndex = Random.Range(0, playerObjects.Count);
-        randomPlayer = playerObjects[randomIndex];
-    }
-    while (randomPlayer == excludedPlayer);
-
-    return randomPlayer;
-}
-
 #endregion
 
 #region Private Functions
-
+            private bool IsPlaying(EventInstance _instance) {
+                PLAYBACK_STATE state;
+                _instance.getPlaybackState(out state);
+                return state != PLAYBACK_STATE.STOPPED;
+            }
 #endregion
         }
     }

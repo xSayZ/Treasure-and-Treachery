@@ -43,7 +43,7 @@ namespace Game {
             // Internal Bools
             private bool dialogueIsPlaying;
             private bool submitPressed;
-            private bool canContinueToNextLine = false;
+            private bool canContinueToNextLine = true;
             private bool typing = false;
             private bool hasMadeAChoice = false;
 
@@ -74,9 +74,17 @@ namespace Game {
                 story = new Story(storyJSON.text);
                 StartCoroutine(OnAdvanceStory());
             }
-#endregion
 
-#region Public Functions
+            private void Update()
+            {
+                if(!canContinueToNextLine && !typing && GetSubmitPressed())
+                {
+                    canContinueToNextLine = true;
+                } 
+            }
+            #endregion
+
+            #region Public Functions
 
             public void SubmitPressed(InputAction.CallbackContext value) {
                 if (value.started)
@@ -100,6 +108,7 @@ namespace Game {
                 HideChoices();
                 StartCoroutine(OnAdvanceStory());
             }
+
 #endregion
 
 #region Private Functions
@@ -110,9 +119,10 @@ namespace Game {
                 {
                     while (story.canContinue)
                     {
-                        if (!typing) {
+                        if (!typing && canContinueToNextLine) {
                             StartCoroutine(DisplayLine(story.Continue().Trim()));
                         }
+
                         while (typing)
                             yield return null;
                         if (story.canContinue)
@@ -203,8 +213,6 @@ namespace Game {
                 }
 
                 typing = false;
-                // set the flag to true so the player can continue to the next line
-                canContinueToNextLine = true;
             }
             private IEnumerator SelectFirstChoice() 
             {

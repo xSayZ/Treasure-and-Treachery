@@ -39,9 +39,6 @@ namespace Game {
 
             public void SetupUI(RenderTexture _renderTexture, PlayerData _playerData)
             {
-                _playerData.currency = 10;
-                _playerData.currencyThisLevel = 10;
-                
                 playerImage.texture = _renderTexture;
                 
                 int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier;

@@ -89,7 +89,13 @@ namespace Game
 
                 if (Input.GetJoystickNames().Length > 0)
                 {
+<<<<<<< Updated upstream
                     InputUser.PerformPairingWithDevice(Gamepad.current);
+=======
+                    var player = PlayerInput.all[_newPlayerID];
+                    Debug.Log(player.user);
+                    InputUser.PerformPairingWithDevice(Gamepad.all[_newPlayerID],user:player.user);
+>>>>>>> Stashed changes
                 }
             }
             

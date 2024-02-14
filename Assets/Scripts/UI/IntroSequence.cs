@@ -2,14 +2,12 @@
 // --------------------------------
 // Creation Date: 2024-02-13
 // Author: c21frejo
-// Description: Operation_Donken
+// Description: Introsekvens
 // --------------------------------
 // ------------------------------*/
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -20,32 +18,36 @@ namespace Game
     {
         public class IntroSequence : MonoBehaviour
         {
-            public ImageBank Bank;
-            public Image currentIntroImage;
-            public List<Sprite> introImages;
+            [SerializeField] private ImageBank Bank;
+            [SerializeField] private Image currentIntroImage;
+            [SerializeField]private List<Sprite> introImages;
 
-            public Transform endPoint;
+            [SerializeField,Tooltip("Set Scene that will load after load")]
+            private string scene;
+            //public Transform endPoint;
             public float timeBeforeChange;
             private float currentTime;
-
             private float elapsedTime;
-            
             private int index;
+            private bool done;
+            
+            
             #region Unity Functions
 
             // Start is called before the first frame update
             void Start()
             {
+                elapsedTime = 0;
                 introImages = Bank.IntroImages;
                 currentIntroImage.sprite = Bank.IntroImages[0];
                 currentTime = timeBeforeChange;
-                StartCoroutine(LerpPosition(endPoint.position, timeBeforeChange));
+                //StartCoroutine(LerpPosition(endPoint.position, timeBeforeChange));
             }
 
             // Update is called once per frame
             void Update()
             {
-                
+                ChangeImage();
                 ChangeScene();
             }
 
@@ -57,7 +59,7 @@ namespace Game
 
             #region Private Functions
             
-            
+            /*
             private IEnumerator LerpPosition(Vector3 targetPosition, float duration)
             {
                 float time = 0;
@@ -70,9 +72,9 @@ namespace Game
                     yield return null;
                 }
                 currentIntroImage.transform.position = targetPosition;
-            }
+            }*/
             
-            /*private void ChangeImage()
+            private void ChangeImage()
             {
                 currentTime -= Time.deltaTime;
                 if (currentTime <= 0 && index < introImages.Count-1 )
@@ -81,14 +83,19 @@ namespace Game
                     index++;
                     currentIntroImage.sprite = introImages[index];
                 }
-            }*/
+
+                if (index == introImages.Count - 1)
+                {
+                    elapsedTime += Time.deltaTime;
+                    done = true;
+                }
+            }
 
             private void ChangeScene()
             {
-                if (currentIntroImage.transform.position == endPoint.position)
+                if (done && elapsedTime >2)
                 {
-                    // hårdKodad scene
-                    SceneManager.LoadScene("Official Test Scene 1");
+                    SceneManager.LoadScene(scene);
                 }
             }
 

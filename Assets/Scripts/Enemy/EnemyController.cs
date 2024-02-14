@@ -12,6 +12,7 @@ using FMOD.Studio;
 using Game.Core;
 using Game.Audio;
 using Game.Backend;
+using Game.NAME;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,6 +39,7 @@ namespace Game {
             [Header("Attack")]
             [SerializeField] private int damage;
             [SerializeField] private float attackCooldown;
+            [SerializeField] private EnemyAnimationBehaviour enemyAnimationBehaviour;
             
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
@@ -76,6 +78,8 @@ namespace Game {
 
             private void Start()
             {
+                enemyAnimationBehaviour.SetupBehaviour();
+                
                 currentState.Enter();
 
                 targetsInVisionRangeUpdate = new List<Transform>();
@@ -101,6 +105,8 @@ namespace Game {
             
             private void FixedUpdate()
             {
+                enemyAnimationBehaviour.UpdateMovementAnimation(NavMeshAgent.velocity.magnitude);
+                
                 // Update targets in vision range
                 for (int i = targetsInVisionRangeUpdate.Count - 1; i >= 0; i--)
                 {
@@ -157,6 +163,7 @@ namespace Game {
                 }
                 else if (targetsInAttackRange.Count > 0)
                 {
+                    enemyAnimationBehaviour.PlayAttackAnimation();
                     targetsInAttackRange[0].Damage(damage);
                     currentAttackCooldown = attackCooldown;
                 }

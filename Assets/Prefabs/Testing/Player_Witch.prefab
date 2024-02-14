@@ -301,6 +301,9 @@ MonoBehaviour:
   meshRenderer: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
+  lowFrequency: 0
+  highFrequency: 0
+  duration: 0
   debug: 0
 --- !u!114 &8393427140100816367
 MonoBehaviour:
@@ -335,10 +338,8 @@ MonoBehaviour:
   playerMovementBehaviour: {fileID: 8393427140100816367}
   weaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
-  hasMeleeWeapon: 1
   meleeAttackDamage: 1
   baseMeleeAttackCooldown: 1
-  hasRangedWeapon: 1
   rangedAttackDamage: 1
   baseFireRateRanged: 1
   projectileSpeed: 50
@@ -2535,8 +2536,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4809585492123438367}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.691}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.58825}
+  m_LocalScale: {x: 1, y: 1, z: 1.3627}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 288723119442727232}
@@ -2552,10 +2553,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.7833144
-  m_Height: 1.5666289
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.97338057, z: 0.2833144}
+  m_Radius: 0.49396816
+  m_Height: 1.8037219
+  m_Direction: 0
+  m_Center: {x: -0.004566431, y: 0.97338057, z: -0.0060321107}
 --- !u!114 &599826034944332561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3581,7 +3582,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 933c5c806652d2744b0ef9a4c87d3de2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e8182c640637f6c458dbc0b58c449318, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

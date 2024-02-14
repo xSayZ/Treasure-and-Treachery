@@ -96,15 +96,16 @@ namespace Game {
                     break;
                 }
               }
+            
+            //När destroyOnTrigger är satt till true, så blir boxcolliderns trigger false
+            if (destroyOnTrigger == true)
+            {
+              gameObject.SetActive(false);
+              Debug.Log("boxcollider of gameobject set to false, OnTriggerEnter and OnTriggerExit is NOT active on this gameobject");
+            }
+            
           }
-          
-          //När destroyOnTrigger är satt till true, så blir boxcolliderns trigger false
-          if (destroyOnTrigger == true)
-          {
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            Debug.Log("boxcollider of gameobject set to false, OnTriggerEnter and OnTriggerExit is NOT active on this gameobject");
-          }
-          
+
         }
         
         

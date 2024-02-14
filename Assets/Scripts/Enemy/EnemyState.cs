@@ -37,8 +37,17 @@ namespace Game {
 #region Protected Functions
             protected Vector3 GetClosestPointOnNavmesh(Vector3 _destination)
             {
-                NavMeshHit _navHit;
-                NavMesh.SamplePosition(_destination, out _navHit, float.MaxValue, -1); 
+                NavMeshHit _navHit = new NavMeshHit();
+                
+                float _distance = float.MaxValue;
+                int _currentRetries = 0;
+                while (_distance > enemyController.maxPathfindingDeviationDistance && _currentRetries < enemyController.maxPathfindingRetries)
+                {
+                    NavMesh.SamplePosition(_destination, out _navHit, float.MaxValue, -1);
+                    _distance = Vector2.Distance(new Vector2(_destination.x, _destination.z), new Vector2(_navHit.position.x, _navHit.position.z));
+                    _currentRetries++;
+                }
+                
                 return _navHit.position;
             }
             

@@ -242,7 +242,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 60
   Length: 1191
 --- !u!114 &-7829195457973194119
 MonoBehaviour:
@@ -286,10 +286,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638435051322603772
+  lastModified: 638435083989134866
   FileSizes:
   - Name: 
-    Value: 3554
+    Value: 3656
   Exists: 1
 --- !u!114 &-7676756322976742045
 MonoBehaviour:
@@ -845,6 +845,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &-4672777500566850364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/CarriageDamage
+  m_EditorClassIdentifier: 
+  Path: event:/CarriageDamage
+  Guid:
+    Data1: -634866848
+    Data2: 1180533719
+    Data3: 596380828
+    Data4: 2032473119
+  Banks:
+  - {fileID: -4365269198423818314}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 45
+  Length: 1123
 --- !u!114 &-4566525207011836344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -905,7 +932,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638435051322399860
+  lastModified: 638435083989029659
   FileSizes: []
   Exists: 1
 --- !u!114 &-4345788876620703977
@@ -951,7 +978,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 75
+  MaxDistance: 65
   Length: 1701
 --- !u!114 &-4047432572817912291
 MonoBehaviour:
@@ -1788,6 +1815,7 @@ MonoBehaviour:
   - {fileID: -398957141429616055}
   - {fileID: 123886108667118386}
   - {fileID: -1798858652182506410}
+  - {fileID: -4672777500566850364}
   EditorParameters:
   - {fileID: -5333072920344823229}
   - {fileID: 7946791282335761376}
@@ -1795,7 +1823,7 @@ MonoBehaviour:
   - {fileID: -4365269198423818314}
   StringsBanks:
   - {fileID: -7689509610193734131}
-  cacheTime: 638435051322603772
+  cacheTime: 638435083989134866
   cacheVersion: 131609
 --- !u!114 &123886108667118386
 MonoBehaviour:
@@ -1962,7 +1990,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 118413
+  Length: 46600
 --- !u!114 &1860189691103445732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,7 +2491,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638435017658257659
+  lastModified: 638435077288451310
   FileSizes: []
   Exists: 1
 --- !u!114 &5394071309871908271
@@ -2795,7 +2823,7 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 35
   Length: 2200
 --- !u!114 &8344034157144547357
 MonoBehaviour:

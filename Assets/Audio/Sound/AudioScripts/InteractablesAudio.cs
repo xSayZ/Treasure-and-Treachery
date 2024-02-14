@@ -20,6 +20,9 @@ namespace Game {
             [SerializeField]
             private EventReference goldPickupSound;
 
+            [SerializeField] 
+            private EventReference carriageHit;
+
 #region Unity Functions
 
 #endregion
@@ -32,6 +35,14 @@ public void GoldPickupAudio(GameObject goldObj)
     RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, goldObj.transform);
     goldPickupInstance.start();
     goldPickupInstance.release();
+}
+
+public void CarriageHitAudio(GameObject goldObj)
+{
+    EventInstance carriageHitInstance = RuntimeManager.CreateInstance(carriageHit);
+    RuntimeManager.AttachInstanceToGameObject(carriageHitInstance, goldObj.transform);
+    carriageHitInstance.start();
+    carriageHitInstance.release();
 }
 
 #endregion

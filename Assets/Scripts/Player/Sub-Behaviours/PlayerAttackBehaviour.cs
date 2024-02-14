@@ -24,12 +24,10 @@ namespace Game
             [SerializeField] private GameObject projectile;
 
             [Header("Melee Attack Settings")]
-            [SerializeField] private bool hasMeleeWeapon;
             [SerializeField] private int meleeAttackDamage;
             [SerializeField] public float baseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")]
-            [SerializeField] private bool hasRangedWeapon;
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] public float baseFireRateRanged;
             [SerializeField] private float projectileSpeed;
@@ -93,7 +91,7 @@ namespace Game
             
             public void MeleeAttack()
             {
-                if (currentMeleeCooldown > 0 || !hasMeleeWeapon)
+                if (currentMeleeCooldown > 0 || !playerController.PlayerData.hasMeleeWeapon)
                 {
                     return;
                 }
@@ -122,7 +120,7 @@ namespace Game
 
             public void RangedAttack()
             {
-                if (!hasRangedWeapon)
+                if (!playerController.PlayerData.hasRangedWeapon)
                 {
                     return;
                 }
@@ -141,7 +139,7 @@ namespace Game
             {
                 if (_playerIndex == playerController.PlayerIndex)
                 {
-                   hasMeleeWeapon = true; 
+                   playerController.PlayerData.hasMeleeWeapon = true; 
                 }
             }
             
@@ -149,7 +147,7 @@ namespace Game
             {
                 if (_playerIndex == playerController.PlayerIndex)
                 {
-                    hasRangedWeapon = true;
+                    playerController.PlayerData.hasRangedWeapon = true;
                 }
             }
 #endregion

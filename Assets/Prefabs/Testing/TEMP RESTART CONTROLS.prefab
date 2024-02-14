@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1839505110190094444}
   - component: {fileID: 1839505110190094446}
-  - component: {fileID: 1839505110190094445}
+  - component: {fileID: 590097997677659540}
+  - component: {fileID: 5165827602926574265}
   m_Layer: 0
   m_Name: TEMP RESTART CONTROLS
   m_TagString: Untagged
@@ -45,8 +46,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2758bf32e281b6d41baa7fbac881c575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restartInput: {fileID: 1839505110190094445}
---- !u!114 &1839505110190094445
+  restartInput: {fileID: 0}
+--- !u!114 &590097997677659540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839505110190094442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 2
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+--- !u!114 &5165827602926574265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,8 +132,8 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2d5614b8-3c0e-4110-811e-47c151d630cd
     m_ActionName: Restart/New action[/Keyboard/r]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Restart
   m_DefaultActionMap: Restart
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

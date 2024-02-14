@@ -82,7 +82,6 @@ namespace Game {
                 timer.StartTimer(roundTime);
                 
                 SetupLocalMultiplayer();
-                
             }
 #endregion
 
@@ -118,7 +117,13 @@ namespace Game {
                 }
             }
             
-            private void SetupActivePlayers() {
+            private void SetupActivePlayers()
+            {
+                if (!loadStoredPlayerData)
+                {
+                    storedPlayerDatas = new List<StoredPlayerData>();
+                }
+                
                 for (int i = 0; i < activePlayerControllers.Count; i++)
                 {
                     PlayerData playerData = activePlayerControllers[i].PlayerData;
@@ -126,6 +131,8 @@ namespace Game {
                     if (loadStoredPlayerData)
                     {
                         loadStoredPlayerData = false;
+                        
+                        Debug.Log("Loading");
                         
                         playerData.currentHealth = storedPlayerDatas[i].Health;
                         playerData.currency = storedPlayerDatas[i].Currency;
@@ -135,9 +142,16 @@ namespace Game {
                     }
                     else
                     {
-                        storedPlayerDatas = new List<StoredPlayerData>();
+                        Debug.Log("Saving");
                         StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
-                        storedPlayerDatas.Add(data); 
+                        if (i <= storedPlayerDatas.Count)
+                        {
+                            storedPlayerDatas.Add(data);
+                        }
+                        else
+                        {
+                            storedPlayerDatas[i] = data;
+                        }
                     }
                     
                     activePlayerControllers[i].SetupPlayer(i);

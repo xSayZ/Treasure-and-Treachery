@@ -6,11 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using Game.Core;
 using Game.Audio;
+using Game.Backend;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Game
@@ -20,6 +19,7 @@ namespace Game
         public class Projectile : MonoBehaviour
         {
             [SerializeField] private float bulletAliveTime;
+            
             [Header("Audio")]
             [SerializeField] private GameObject projectileObj;
             [SerializeField] private PlayerAudio playerAudio;
@@ -28,41 +28,52 @@ namespace Game
             private Vector3 direction;
             private float projectileSpeed;
             private int projectileDamage;
-
-            // References
-            private Rigidbody rb;
+            private PlayerData playerData;
             
-            #region Unity Functions
-            private void Awake() {
-                rb = GetComponent<Rigidbody>();
-            }
-            void Start() {
+#region Unity Functions
+            private void Start()
+            {
                 playerAudio.PlayerRangedAudio(projectileObj);
             }
-            private void FixedUpdate() {
+            
+            private void FixedUpdate()
+            {
                 transform.Translate(direction * (projectileSpeed * Time.fixedDeltaTime));
             }
-            private void OnTriggerEnter(Collider other) {
-                if (other.gameObject.layer == 8) {
+            
+            private void OnTriggerEnter(Collider other)
+            {
+                if (other.gameObject.layer == 8)
+                {
                     if (!other.gameObject.TryGetComponent(out IDamageable _hit))
                         return;
                     
-                    _hit.Damage(projectileDamage);
-                    Destroy(this.gameObject);
-                } else {
+                    bool killed = _hit.Damage(projectileDamage);
+                    if (killed)
+                    {
+                        playerData.kills += 1;
+                        playerData.killsThisLevel += 1;
+                        EnemyManager.OnEnemyDeathUI.Invoke();
+                    }
+                    
+                    Destroy(gameObject);
+                }
+                else
+                {
                     Destroy(gameObject, bulletAliveTime);
                 }
             }
+#endregion
 
-            #endregion
-
-            #region Public Functions
-            public void SetValues(Vector3 _direction, int _damage, float _projectileSpeed) {
+#region Public Functions
+            public void SetValues(Vector3 _direction, int _damage, float _projectileSpeed, PlayerData _playerData)
+            {
                 direction = _direction;
                 projectileDamage = _damage;
                 projectileSpeed = _projectileSpeed;
+                playerData = _playerData;
             }
-            #endregion
+#endregion
         }
     }
 }

@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "Press(pressPoint=1,behavior=2)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TempRestartButton",
+                    "type": "Button",
+                    "id": "de04f6f6-3097-4213-aaff-05f25c5a8c08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -278,6 +287,17 @@
                     "action": "TogglePlayerUIElement",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cf78139d-373a-422d-b378-b0cbacd0397a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TempRestartButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -423,6 +443,34 @@
                     "action": "MenuNavigation",
                     "isComposite": false,
                     "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "TemporaryRestartMamap",
+            "id": "b91e446a-3b2a-4e3f-9c0b-795d9c1920d0",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "6a8defd2-5122-4836-a267-e170e91cff61",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d815605e-f05f-4984-806c-4a88ab4a3e64",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

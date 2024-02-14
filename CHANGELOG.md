@@ -19,9 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - CHANGELOG.md added
 
-### Changes
+### Changed
 
 - Updated Playtest level
+- Ranged kills now counts towards kill counter
+- Player weapons now save between scenes
 
 ## [0.0.16] - 2024-02-13 
 

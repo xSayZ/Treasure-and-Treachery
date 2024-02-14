@@ -7,6 +7,8 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Audio;
+using Game.Backend;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,6 +44,7 @@ namespace Game
                 currentIntroImage.sprite = Bank.IntroImages[0];
                 currentTime = timeBeforeChange;
                 //StartCoroutine(LerpPosition(endPoint.position, timeBeforeChange));
+
             }
 
             // Update is called once per frame

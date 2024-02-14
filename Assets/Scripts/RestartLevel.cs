@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,13 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class RestartLevel : MonoBehaviour
 {
-    // restart temporary
-    [Header("Press R For Restart")]
-    public PlayerInput restartInput;
-    
-    public void OnRestartLevel(InputAction.CallbackContext context)
+
+    public void Update()
     {
-        if (context.started)
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

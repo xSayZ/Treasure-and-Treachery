@@ -73,7 +73,7 @@ namespace Game
             {
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
-                
+               
                 Health = PlayerData.currentHealth;
                 
                 PlayerData.NewScene();
@@ -85,11 +85,12 @@ namespace Game
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
                 
-                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
                 if (Input.GetJoystickNames().Length > 0)
                 {
-                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                    var player = PlayerInput.all[_newPlayerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[_newPlayerID],user:player.user);
                 }
             }
             
@@ -117,11 +118,12 @@ namespace Game
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }
-
-       
-
             #endregion
 
+            public void OnPlayerJoined()
+            {
+                
+            }
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
             
             /// <summary>

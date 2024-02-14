@@ -32,6 +32,10 @@ namespace Game {
             [SerializeField] private SphereCollider visionSphere;
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
+            
+            [Header("Pathfinding")]
+            [SerializeField] public float maxPathfindingDeviationDistance;
+            [SerializeField] public int maxPathfindingRetries;
 
             [field:Header("Health")]
             [field:SerializeField] public int Health { get; set; }

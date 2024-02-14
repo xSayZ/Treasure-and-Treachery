@@ -60,7 +60,15 @@ namespace Game {
 public void PlayFootStep()
 {
     GetTerrainTexture();
-    playerAudio.PlayerFootstepPlay(textureValues[0], textureValues[1], gameObject);
+
+    try
+    {
+        playerAudio.PlayerFootstepPlay(textureValues[0], textureValues[1], gameObject);
+    }
+    catch (Exception e)
+    {
+        Debug.LogError("[{Projectile}]: Error Exception " + e);
+    }
 }
 
 public void GetTerrainTexture()

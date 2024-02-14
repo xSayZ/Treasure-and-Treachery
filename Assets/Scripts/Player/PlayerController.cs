@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Security;
 using System.Threading.Tasks;
 using Game.Backend;
@@ -167,7 +168,16 @@ namespace Game
                     if (PlayerHasNoCurrentItem()) {
                         playerAttackBehaviour.MeleeAttack();
                         playerAnimationBehaviour.PlayMeleeAttackAnimation();
-                        playerAudio.MeleeAudioPlay(playerObj);
+
+                        try
+                        {
+                            playerAudio.MeleeAudioPlay(playerObj);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                        }
+                        
                     }
                 }
             }

@@ -30,6 +30,8 @@ namespace Game
             private float projectileSpeed;
             private int projectileDamage;
             private PlayerData playerData;
+
+            public LayerMask mask;
             
 #region Unity Functions
             private void Start()
@@ -51,7 +53,8 @@ namespace Game
             
             private void OnCollisionEnter(Collision other)
             {
-                if (other.gameObject.layer == 8)
+                
+                if (other.gameObject.name != "Terrain" && other.gameObject.layer == 8)
                 {
                     if (!other.gameObject.TryGetComponent(out IDamageable _hit))
                         return;
@@ -71,15 +74,22 @@ namespace Game
                         {
                             Debug.LogError("[{Projectile}]: Error Exception " + e);
                         }
-                        
                     }
                     
+                }
+
+                if (other.gameObject.name != "Terrain" )
+                {
                     Destroy(gameObject);
+
                 }
                 else
                 {
                     Destroy(gameObject, bulletAliveTime);
                 }
+
+               
+                
             }
 #endregion
 

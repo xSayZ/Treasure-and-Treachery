@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2024-02-14
 
+- Player - Players can move, attack and interact with the environment
+- Enemy - Enemies can chase and attack players using functional AI
+- Local Multiplayer - Up to 4 players can play together
+- Quests - Players can complete quests to leave the level
+- Environment - A complete environment with trees, rocks, and a carriage for two levels
+- Audio - A complete audio system with music and sound effects
+- Events - A complete event system for dialogue and game events
+- Pickups - Players can pick up and use items along with gold
+
 ### Added
 
 ## [Internal]
@@ -18,13 +27,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - CHANGELOG.md added
+- Music triggers now added to scenes
+- Restart system for debugging
 
 ### Changed
 
 - Updated Playtest level
 - Ranged kills now counts towards kill counter
-- Player weapons now save between scenes
-- Setup scenes in build settings
+- Intro sequence now plays correctly and switches to the next scene
+- Levels updated to have correct objects
+- Dialogue manager updated to have correct dialogue
+- Characters weapons now save between scenes
+- Characters are no longer stored in a list, but a dictionary
+- Players can no longer share controllers when their character dies
+- Characters can no longer spam animations
 
 ## [0.0.16] - 2024-02-13 
 
@@ -39,7 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Player attacks now count as kills
+- Character attacks now count as kills
 - Rewritten dialogue managers
 
 ## [0.0.15] - 2024-02-12
@@ -47,8 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Shovel and Sword Texture
-- Player now has animations
-- Players now have different material colors based on playerID
+- Character now has animations
+- Characters now have different material colors based on playerID
 - Rocks added
 - Different sounds now play depending on textures on the ground
 - Sign mesh
@@ -60,8 +76,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Dirt texture updated
 - Carriage hitboxes fixed
-- Player configured to use new mesh and textures
-- Player can now pickup weapons
+- Character configured to use new mesh and textures
+- Character can now pickup weapons
 - Witch now has different proportions
 - Music now changes dynamically based on the internal game timer
 - Fixed bugs regarding player movement
@@ -90,11 +106,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Players are now clamped within the camera. 
+- Characters are now clamped within the camera. 
 - Carriage now takes damage from enemies
 - Carriage now has a health bar
-- Players now need to aim before being able to shoot
-- Players are removed from list of active players when dying
+- Characters now need to aim before being able to shoot
+- Characters are removed from list of active players when dying
 - Rumble added to controllers
 - Singleton Script updated
 - 
@@ -106,14 +122,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dialogue Audio script added to play sounds correctly
 - Health UI Added
 - Icons added for UI
-- Player Health Bar added
+- Character Health Bar added
 - Grass texture added
 
 ### Changed
 
 - Interaction popup now works correctly
 - Quest objective progress no longer continues after player death
-- Player Movement now works in FixedUpdate rather than Update to correctly use the physics engine and avoid stuttering.
+- Character Movement now works in FixedUpdate rather than Update to correctly use the physics engine and avoid stuttering.
 - All players can now interact with stuff independently
 - Camera bugfixes
 - Carriage texture updated to more detail
@@ -126,10 +142,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Fixed an issue where previously player should not have been able to collide with pickups but still could.
-- Player can no longer attack when holding an item
-- Player can now drop items
-- Player now drops item on death
-- Player can no longer move when interacting
+- Character can no longer attack when holding an item
+- Character can now drop items
+- Character now drops item on death
+- Character can no longer move when interacting
 - Fixed interact UI on death
 - Enemies now spawn correctly after an issue where multiple spawners kept spawning incorrectly
 - Carriage textures added
@@ -150,14 +166,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Player now loses item when it has been used for a quest objective
+- Character now loses item when it has been used for a quest objective
 - Getting into carriage now only triggers on button press and not on button release
 - Players can now leave if there are no required quests on the level to begin with if option is set
 - Enemy audio updated
 - Updated witch model fixed shading issue, improved topology
 - Bugfixes for quests
-- Player can now swap held item
-- Player no longer collides with pickup
+- Character can now swap held item
+- Character no longer collides with pickup
 - Cameras can now render UI above everything else
 - Updated when interaction UI is seen on carriage and quest objective
 
@@ -172,7 +188,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Witch character model updated. Improved topology and redid uvs
 - Environment models updated. Added new meshes for fir, spruce, log, stump along with textures.
 - Movement and Dash for player completed
-- Player can now interact 
+- Character can now interact 
 - Timer bugfixes
 
 ## [0.0.7] - 2024-02-02
@@ -186,12 +202,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Interface for taking damage bugfixes
-- Player now takes damage and shows visual feedback
-- Player now has audio for melee and ranged
+- Character now takes damage and shows visual feedback
+- Character now has audio for melee and ranged
 - Enemy now has audio for its different states
 - Camera now follows players correctly
 - Dialogue Manager now displays choices
-- Player controller now uses quest manager instead of old event manager
+- Character controller now uses quest manager instead of old event manager
 - Carriage for leaving the game changed
 - Pickup has been rewritten to work properly with new quest manager
 - Tree, log and stump meshes updated
@@ -210,8 +226,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Enemies can now take damage
 - Enemy can now have different speeds in different states
 - Enemy can now attack player
-- Players now walk isometrically
-- Player attack revised
+- Characters now walk isometrically
+- Character attack revised
 
 ## [0.0.5] - 2024-01-31
 
@@ -224,7 +240,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Enemy now listens even when chasing
 - Updated GameManager for turning off inputs and pausing the game
-- Player melee changed to not be able to destroy pickups
+- Character melee changed to not be able to destroy pickups
 
 ## [0.0.4] - 2024-01-30
 
@@ -258,7 +274,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - PlayerController and movement added
-- Player mesh added
+- Character mesh added
 - Internal test scenes created
 - Added initial player spawning
 - Pickup script created

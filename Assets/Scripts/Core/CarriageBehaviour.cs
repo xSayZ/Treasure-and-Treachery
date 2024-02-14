@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -23,6 +25,12 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
+            
+            [Header("Settings")]
+            [SerializeField] private int nextSceneBuildIndex;
+
+            [Header("Audio")] 
+            [SerializeField] private InteractablesAudio interactablesAudio;
             
             // Interaction variables
             public bool[] CanInteractWith { get; set; }
@@ -78,7 +86,9 @@ namespace Game {
                     if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)
                     {
                         // All players are in carriage, time to end level
-                        SceneManager.LoadScene(sceneBuildIndex: 1);
+                        
+                        GameManager.nextSceneBuildIndex = nextSceneBuildIndex;
+                        SceneManager.LoadScene(sceneBuildIndex: 2);
                     }
                 }
             }
@@ -115,6 +125,15 @@ namespace Game {
                 
                 float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
                 healthBar.value = _currentProgress;
+
+                try
+                {
+                    interactablesAudio.CarriageHitAudio(gameObject);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
             }
 #endregion
 

@@ -23,9 +23,8 @@ namespace Game {
             MenuMusic,
             Ambience,
         }
-        public class AudioMananger : MonoBehaviour
+        public class AudioMananger : Singleton<AudioMananger>
         {
-            public static AudioMananger Instance { get; private set; }
             
             //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
             public StudioEventEmitter musicEmitter;
@@ -37,27 +36,6 @@ namespace Game {
             [SerializeField] private StudioEventEmitter ambience;
             
             
-    #region Unity Functions
-         private void Awake()
-         { //Om instansen inte är denna instans av detta script så ska spelobjektet som instansen 
-             if (Instance != null && Instance != this) 
-             {
-                 Destroy(this); 
-             }
-             else
-             { 
-                 Instance = this;
-             } 
-             DontDestroyOnLoad(this);
-         }       
-         
-            // Update is called once per frame
-            void Update()
-            {
-                
-            }
-    #endregion
-
     
     #region Public Functions
 

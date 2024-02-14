@@ -77,7 +77,7 @@ namespace Game
             private void OnDrawGizmos(){
             
                 Gizmos.color = Color.black;
-                Gizmos.DrawRay(cam.transform.position,target.transform.position-cam.transform.position);
+                //Gizmos.DrawRay(cam.transform.position,target.transform.position-cam.transform.position);
                 
                 
             }

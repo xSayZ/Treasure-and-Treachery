@@ -34,6 +34,9 @@ namespace Game {
             [SerializeField] private int coinPointMultiplier;
             [SerializeField] private int killPointMultiplier;
 
+            private int coroutinesRunning;
+            private bool done;
+
             public void SetupUI(RenderTexture _renderTexture, PlayerData _playerData)
             {
                 playerImage.texture = _renderTexture;
@@ -50,8 +53,20 @@ namespace Game {
                 StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, killsDelay));
             }
 
+            private void Update()
+            {
+                if (coroutinesRunning <= 0 && !done)
+                {
+                    Debug.Log("Done");
+                    done = true;
+                    FindObjectOfType<ScoreScreenUI>().DoneCountingUp();
+                }
+            }
+
             private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay)
             {
+                coroutinesRunning += 1;
+                
                 yield return new WaitForSeconds(startDelay);
                 
                 int _currentValue = _startValue;
@@ -62,6 +77,8 @@ namespace Game {
                     _textMesh.text = _currentValue.ToString();
                     yield return new WaitForSeconds(_delay);
                 }
+                
+                coroutinesRunning -= 1;
             }
         }
     }

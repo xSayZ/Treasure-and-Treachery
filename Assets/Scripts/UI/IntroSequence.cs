@@ -30,8 +30,8 @@ namespace Game
             private float elapsedTime;
             private int index;
             private bool done;
-            
-            
+
+            private int nothing;
             #region Unity Functions
 
             // Start is called before the first frame update

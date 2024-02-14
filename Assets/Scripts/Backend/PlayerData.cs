@@ -20,26 +20,46 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] public int startingHealth;
             [SerializeField] public Color playerMaterialColor;
+            [SerializeField] public bool hasStartingMeleeWeapon;
+            [SerializeField] public bool hasStartingRangedWeapon;
             
             [Header("Debug")]
-            [SerializeField] public int currentHealth;
             [SerializeField] public int playerIndex;
-            [SerializeField] public int currency;
+            [SerializeField] public int currentHealth;
             [SerializeField] public Item currentItem;
             [SerializeField] public bool canPickUp;
             
-            public int SetPlayerData(int _currentHealth)
+            [SerializeField] public int points;
+            
+            [SerializeField] public int currency;
+            [SerializeField] public int currencyThisLevel;
+            [SerializeField] public int kills;
+            [SerializeField] public int killsThisLevel;
+            
+            [SerializeField] public bool hasMeleeWeapon;
+            [SerializeField] public bool hasRangedWeapon;
+            
+            public void NewScene()
             {
-                currentHealth = _currentHealth;
-                return playerIndex;
+                currencyThisLevel = 0;
+                killsThisLevel = 0;
             }
             
             private void OnEnable()
             {
                 currentHealth = startingHealth;
-                currency = 0;
                 currentItem = null;
                 canPickUp = true;
+                
+                points = 0;
+                
+                currency = 0;
+                currencyThisLevel = 0;
+                kills = 0;
+                killsThisLevel = 0;
+                
+                hasMeleeWeapon = hasStartingMeleeWeapon;
+                hasRangedWeapon = hasStartingRangedWeapon;
             }
         }
     }

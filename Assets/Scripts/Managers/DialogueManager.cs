@@ -14,6 +14,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 
 namespace Game {
@@ -29,21 +30,34 @@ namespace Game {
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
-            [SerializeField] PlayerInput playerInput;
-            [SerializeField] private TextAsset inkJSON;
-            
             private TextMeshProUGUI[] choicesText;
+            
+            [Header("Player Input")]
+            [SerializeField] PlayerInput playerInput;
+            
+            [Header("Ink Story")]
+            public TextAsset storyJSON;
+            private Story story;
+            
             
             private bool dialogueIsPlaying;
             private bool submitPressed;
             private bool canContinueToNextLine = false;
-            
-            private Story currentStory;
+            private bool typing = false;
+            private bool hasMadeAChoice = false;
+
             private Coroutine displayLineCoroutine;
             
 #region Unity Functions
+
+            
             void Start()
             {
+                if (storyJSON == null)
+                {
+                    Debug.LogWarning("Drag a valid story JSON file into the StoryReader component.");
+                }
+                
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 playerInput.SwitchCurrentActionMap("Menu");
@@ -55,24 +69,19 @@ namespace Game {
                     choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
                     index++;
                 }
-                EnterDialogueMode(inkJSON);
-            }
-            void Update() {
 
-                if (!dialogueIsPlaying)
-                    return;
+                story = new Story(storyJSON.text);
+                StartCoroutine(OnAdvanceStory());
+            }
+
+            void Update() {
                 
-                if (canContinueToNextLine 
-                    && currentStory.currentChoices.Count > 0 
-                    && GetSubmitPressed() ) {
-                    ContinueStory();
-                }
             }
 #endregion
 
 #region Public Functions
             public void EnterDialogueMode(TextAsset _inkJSON){
-                currentStory = new Story(_inkJSON.text);
+                story = new Story(_inkJSON.text);
                 dialogueIsPlaying = true;
                 dialoguePanel.SetActive(true);
                 
@@ -96,35 +105,70 @@ namespace Game {
                 return result;
             }
             
-            public void MakeChoice(int _choiceIndex) {
-                if (!canContinueToNextLine)
-                    return;
-                
-                currentStory.ChooseChoiceIndex(_choiceIndex);
-                GetSubmitPressed(); 
-                ContinueStory();
+            public void ChooseChoiceIndex(int _choiceIndex) {
+                story.ChooseChoiceIndex(_choiceIndex);
+                hasMadeAChoice = true;
+                HideChoices();
+                StartCoroutine(OnAdvanceStory());
             }
 #endregion
 
 #region Private Functions
+
+            IEnumerator OnAdvanceStory() {
+                dialoguePanel.SetActive(true);
+                if (story.canContinue)
+                {
+                    Debug.Log("Story can continue");
+                    while (story.canContinue)
+                    {
+                        StartCoroutine(DisplayLine(story.Continue()));
+                        if (!story.canContinue)  {
+                            if (story.currentChoices.Count > 0) {
+                                // Set amount of choices available
+                            } else  {
+                                ExitDialogueMode();
+                            }
+                        }
+                        while (typing)
+                            yield return null;
+                        if (story.canContinue)
+                            yield return new WaitForSeconds(Mathf.Min(1.0f));
+                    }
+                    if (story.currentChoices.Count > 0) {
+                        yield return new WaitForSeconds(1f);
+                        DisplayChoices();
+                        yield return new WaitForSeconds(0.5f);
+                    } else {
+                        // Add a button to continue
+                        ExitDialogueMode();
+                        yield return new WaitForSeconds(2);
+                    }
+                } else  {
+                    yield return new WaitForSeconds(2);
+                        ExitDialogueMode();
+                }
+            }
+
             private void ExitDialogueMode(){
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
+                HideChoices();
             }
 
             private void ContinueStory() {
-                if (currentStory.canContinue) {
+                if (story.canContinue) {
                     // stop the coroutine if it's running
                     if (displayLineCoroutine != null) {
                         StopCoroutine(displayLineCoroutine);
                     }
                     // display the next line
-                    displayLineCoroutine = StartCoroutine(DisplayLine(currentStory.Continue()));
+                    displayLineCoroutine = StartCoroutine(DisplayLine(story.Continue()));
                     // hide the choices
                     HideChoices();
                     // if there are choices, display them
-                    if (currentStory.currentChoices.Count > 0) {
+                    if (story.currentChoices.Count > 0) {
                         DisplayChoices();
                     }
                 } else {
@@ -142,7 +186,7 @@ namespace Game {
             }
 
             private void DisplayChoices(){
-                List<Choice> currentChoices = currentStory.currentChoices;
+                List<Choice> currentChoices = story.currentChoices;
 
                 if(currentChoices.Count > choices.Length) {
                     Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
@@ -168,6 +212,7 @@ namespace Game {
             private IEnumerator DisplayLine(string line) {
                 // empty the dialogue text
                 dialogueText.text = "";
+                typing = true;
                 // set the flag to false so the player can't continue to the next line
                 canContinueToNextLine = false;
                 
@@ -192,6 +237,8 @@ namespace Game {
                         yield return new WaitForSeconds(typingSpeed);    
                     }
                 }
+
+                typing = false;
                 // set the flag to true so the player can continue to the next line
                 canContinueToNextLine = true;
             }

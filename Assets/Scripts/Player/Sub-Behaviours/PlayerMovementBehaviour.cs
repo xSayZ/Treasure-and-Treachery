@@ -131,7 +131,6 @@ namespace Game {
     
             private IEnumerator IsDashing()
             {
-                Debug.Log("Dashing");
                 currentSpeed = movementSpeed + dashSpeedModifier;
                 yield return new WaitForSeconds(dashTime);
                 currentDashCooldown = baseDashCooldown;
@@ -143,7 +142,6 @@ namespace Game {
                 if (lockout)
                 {
                     currentDashCooldown -= Time.deltaTime;
-                    Debug.Log(lockout);
                 }
                 if (currentDashCooldown <= 0) {
                     lockout = false;

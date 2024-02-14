@@ -7,14 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class RestartLevel : MonoBehaviour
 {
-    // restart temporary
-    [Header("Press R For Restart")]
-    public PlayerInput restartInput;
-
 
     public void Update()
     {
-        if (Keyboard.current.rKey.wasPressedThisFrame)
+        if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

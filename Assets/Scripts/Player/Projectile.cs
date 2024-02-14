@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using Game.Core;
 using Game.Audio;
 using Game.Backend;
@@ -33,7 +34,14 @@ namespace Game
 #region Unity Functions
             private void Start()
             {
-                playerAudio.PlayerRangedAudio(projectileObj);
+                try
+                {
+                    playerAudio.PlayerRangedAudio(projectileObj);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{Projectile}]: Error Exception " + e);
+                }
             }
             
             private void FixedUpdate()
@@ -54,6 +62,16 @@ namespace Game
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
+
+                        try
+                        {
+                            playerAudio.ProjectileHitAudio(gameObject);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{Projectile}]: Error Exception " + e);
+                        }
+                        
                     }
                     
                     Destroy(gameObject);

@@ -41,6 +41,9 @@ namespace Game {
             [Header("Debug")]
             [SerializeField] bool debug;
             private bool isPaused;
+            
+            // Temporary
+            [HideInInspector] public static int nextSceneBuildIndex;
 
             #region Unity Functions
             private void OnDrawGizmos()  {

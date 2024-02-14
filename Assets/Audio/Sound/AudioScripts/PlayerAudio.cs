@@ -62,25 +62,14 @@ public void MeleeAudioPlay(GameObject meleeObj)
     playerMeleeAttackInstance.release();
 }
 
-public void PlayerFootstepPlay(int textureValue, GameObject footObj)
+public void PlayerFootstepPlay(float grassValue, float dirtValue, GameObject footObj)
 {
     EventInstance playerFootstepInstance = RuntimeManager.CreateInstance(playerFootStep);
     RuntimeManager.AttachInstanceToGameObject(playerFootstepInstance, footObj.transform);
 
-    switch (textureValue)
-    {
-        case 0://Grass
-            playerFootstepInstance.setParameterByName("Surface", 0f);
-            Debug.Log("ur on grass");
-            break;
-        case 1: //Path/Dirt
-            playerFootstepInstance.setParameterByName("Surface", 1f);
-            Debug.Log("ur on dirt feller");
-            break;
-        case 2: //Rock
-            playerFootstepInstance.setParameterByName("Surface", 2f);
-            break;
-    }
+    playerFootstepInstance.setParameterByName("Grass", grassValue);
+    playerFootstepInstance.setParameterByName("Path", dirtValue);
+    
     playerFootstepInstance.start();
     playerFootstepInstance.release();
 }

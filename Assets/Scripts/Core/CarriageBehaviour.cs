@@ -24,6 +24,9 @@ namespace Game {
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
             
+            [Header("Settings")]
+            [SerializeField] private int nextSceneBuildIndex;
+            
             // Interaction variables
             public bool[] CanInteractWith { get; set; }
             public bool[] PlayersThatWantsToInteract { get; set; }
@@ -78,7 +81,9 @@ namespace Game {
                     if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)
                     {
                         // All players are in carriage, time to end level
-                        SceneManager.LoadScene(sceneBuildIndex: 1);
+                        
+                        GameManager.nextSceneBuildIndex = nextSceneBuildIndex;
+                        SceneManager.LoadScene(sceneBuildIndex: 2);
                     }
                 }
             }

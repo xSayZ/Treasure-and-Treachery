@@ -14,6 +14,7 @@ using Game.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
+using Game.NAME;
 using UnityEngine.InputSystem.Users;
 
 
@@ -58,7 +59,12 @@ namespace Game
             [SerializeField] private MeshRenderer meshRenderer;
             [SerializeField] private Material defaultMaterial;
             [SerializeField] private Material damagedMaterial;
-            
+
+            [Header("Rumble Settings")]
+            [SerializeField,Range(0,1)] private float lowFrequency;
+            [SerializeField,Range(0,1)] private float highFrequency;
+            [SerializeField] private float duration;
+
             [Space]
             [Header("Debug")]
             [SerializeField] private bool debug;
@@ -88,6 +94,8 @@ namespace Game
             }
             
             
+            
+            
 #region Unity Functions
             private void OnEnable()
             {
@@ -109,8 +117,10 @@ namespace Game
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }
-            
-#endregion
+
+       
+
+            #endregion
 
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
             
@@ -261,7 +271,8 @@ namespace Game
             public void DamageTaken()
             {
                 // FlashRed();
-                Log("Player " + PlayerIndex + " took damage");
+                //Log("Player " + PlayerIndex + " took damage");
+                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
             }

@@ -19,7 +19,8 @@ namespace Game
     {
         public class PlayerAttackBehaviour : MonoBehaviour {
             [Header("Component References")]
-            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
+            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */
+            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
             [SerializeField] private CapsuleCollider weaponCollider;
             [SerializeField] private GameObject projectile;
 
@@ -89,11 +90,11 @@ namespace Game
                 }
             }
             
-            public void MeleeAttack()
+            public bool MeleeAttack()
             {
                 if (currentMeleeCooldown > 0 || !playerController.PlayerData.hasMeleeWeapon)
                 {
-                    return;
+                    return false;
                 }
                 
                 for (int i = enemyTransforms.Count - 1; i >= 0; i--)
@@ -116,6 +117,7 @@ namespace Game
                     }
                 }
                 currentMeleeCooldown = baseMeleeAttackCooldown;
+                return true;
             }
 
             public void RangedAttack()

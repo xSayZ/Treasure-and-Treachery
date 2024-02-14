@@ -35,7 +35,7 @@ namespace Game
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
-            [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] public PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
             [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
 
@@ -178,9 +178,10 @@ namespace Game
                 if (value.started)
                 {
                     if (PlayerHasNoCurrentItem()) {
-                        playerAttackBehaviour.MeleeAttack();
-                        playerAnimationBehaviour.PlayMeleeAttackAnimation();
-
+                        
+                        if (playerAttackBehaviour.MeleeAttack()) {
+                            playerAnimationBehaviour.PlayMeleeAttackAnimation();
+                        }
                         try
                         {
                             playerAudio.MeleeAudioPlay(playerObj);

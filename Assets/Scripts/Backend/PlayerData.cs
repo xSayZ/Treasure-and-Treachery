@@ -43,6 +43,8 @@ namespace Game {
             {
                 currencyThisLevel = 0;
                 killsThisLevel = 0;
+                currentItem = null;
+                canPickUp = true;
             }
             
             private void OnEnable()

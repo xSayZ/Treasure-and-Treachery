@@ -54,7 +54,7 @@ namespace Game
             private void OnCollisionEnter(Collision other)
             {
                 
-                if (other.gameObject.name != "Terrain")
+                if (other.gameObject.name != "Terrain" && other.gameObject.layer == 8)
                 {
                     if (!other.gameObject.TryGetComponent(out IDamageable _hit))
                         return;
@@ -78,7 +78,7 @@ namespace Game
                     
                 }
 
-                if (other.gameObject.name != "Terrain")
+                if (other.gameObject.name != "Terrain" )
                 {
                     Destroy(gameObject);
 

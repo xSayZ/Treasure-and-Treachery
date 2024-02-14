@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Game.Backend;
@@ -45,11 +46,11 @@ namespace Game {
 
             private void SetCamera()
             {
-                PlayerController[] _targets = GameManager.Instance.activePlayerControllers.ToArray();
+                Dictionary<int, PlayerController> _targets = GameManager.Instance.activePlayerControllers;
 
-                CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[_targets.Length];
+                CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[_targets.Count];
 
-                for (int i = 0; i < _targets.Length; i++)
+                for (int i = 0; i < _targets.Count; i++)
                 {
                     _targetsArray[i] = new CinemachineTargetGroup.Target
                     {

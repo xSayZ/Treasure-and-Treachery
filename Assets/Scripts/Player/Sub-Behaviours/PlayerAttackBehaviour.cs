@@ -100,6 +100,12 @@ namespace Game
                 
                 for (int i = enemyTransforms.Count - 1; i >= 0; i--)
                 {
+                    if (enemyTransforms[i] == null)
+                    {
+                        enemyTransforms.Remove(enemyTransforms[i]);
+                        continue;
+                    }
+                    
                     if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
                         continue;
                     
@@ -109,8 +115,6 @@ namespace Game
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
-                        
-                        enemyTransforms.Remove(enemyTransforms[i]);
                     }
                 }
                 currentMeleeCooldown = baseMeleeAttackCooldown;

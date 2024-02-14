@@ -44,8 +44,30 @@ namespace Game {
             
             // Temporary
             [HideInInspector] public static int nextSceneBuildIndex;
+            
+            // Saved data for restarting scene
+            private static List<StoredPlayerData> storedPlayerDatas;
+            [HideInInspector] public static bool loadStoredPlayerData;
+            
+            private class StoredPlayerData
+            {
+                public int Health;
+                public int Currency;
+                public int Kills;
+                public bool HasMeleeWeapon;
+                public bool HasRangedWeapon;
 
-            #region Unity Functions
+                public StoredPlayerData(int _health, int _currency, int _kills, bool _hasMeleeWeapon, bool _hasRangedWeapon)
+                {
+                    Health = _health;
+                    Currency = _currency;
+                    Kills = _kills;
+                    HasMeleeWeapon = _hasMeleeWeapon;
+                    HasRangedWeapon = _hasRangedWeapon;
+                }
+            }
+
+#region Unity Functions
             private void OnDrawGizmos()  {
                 if (debug)  {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
@@ -65,12 +87,12 @@ namespace Game {
 #endregion
 
 #region Private Functions
-            
             private void SetupLocalMultiplayer() {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
             }
+            
             private static void DestroyExistingPlayerInstances() {
 
                 GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
@@ -97,7 +119,27 @@ namespace Game {
             }
             
             private void SetupActivePlayers() {
-                for (int i = 0; i < activePlayerControllers.Count; i++) {
+                for (int i = 0; i < activePlayerControllers.Count; i++)
+                {
+                    PlayerData playerData = activePlayerControllers[i].PlayerData;
+                    
+                    if (loadStoredPlayerData)
+                    {
+                        loadStoredPlayerData = false;
+                        
+                        playerData.currentHealth = storedPlayerDatas[i].Health;
+                        playerData.currency = storedPlayerDatas[i].Currency;
+                        playerData.kills = storedPlayerDatas[i].Kills;
+                        playerData.hasMeleeWeapon = storedPlayerDatas[i].HasMeleeWeapon;
+                        playerData.hasRangedWeapon = storedPlayerDatas[i].HasRangedWeapon;
+                    }
+                    else
+                    {
+                        storedPlayerDatas = new List<StoredPlayerData>();
+                        StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
+                        storedPlayerDatas.Add(data); 
+                    }
+                    
                     activePlayerControllers[i].SetupPlayer(i);
                 }
             }

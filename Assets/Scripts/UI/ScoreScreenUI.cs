@@ -41,7 +41,7 @@ namespace Game {
             {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
-                    SceneManager.LoadScene(sceneBuildIndex: GameManager.Instance.nextSceneBuildIndex);
+                    SceneManager.LoadScene(sceneBuildIndex: GameManager.nextSceneBuildIndex);
                 }
             }
         }

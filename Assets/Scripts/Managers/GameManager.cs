@@ -43,7 +43,7 @@ namespace Game {
             private bool isPaused;
             
             // Temporary
-            [HideInInspector] public int nextSceneBuildIndex;
+            [HideInInspector] public static int nextSceneBuildIndex;
 
             #region Unity Functions
             private void OnDrawGizmos()  {

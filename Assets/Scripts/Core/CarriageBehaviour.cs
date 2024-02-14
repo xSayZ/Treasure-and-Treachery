@@ -82,7 +82,7 @@ namespace Game {
                     {
                         // All players are in carriage, time to end level
                         
-                        GameManager.Instance.nextSceneBuildIndex = nextSceneBuildIndex;
+                        GameManager.nextSceneBuildIndex = nextSceneBuildIndex;
                         SceneManager.LoadScene(sceneBuildIndex: 2);
                     }
                 }

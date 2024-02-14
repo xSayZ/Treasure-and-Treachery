@@ -215,6 +215,7 @@ GameObject:
   - component: {fileID: 857566933646197829}
   - component: {fileID: 252409381}
   - component: {fileID: 2556337472479372683}
+  - component: {fileID: 5637645989086444802}
   m_Layer: 12
   m_Name: Carriage
   m_TagString: Carriage
@@ -260,6 +261,8 @@ MonoBehaviour:
   interactionUI: {fileID: 2265107791443352521}
   playerTeleportPosition: {fileID: 9004222807512305301}
   healthBar: {fileID: 4593422253130911176}
+  nextSceneBuildIndex: 0
+  interactablesAudio: {fileID: 0}
 --- !u!65 &2556337472479372683
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -273,6 +276,50 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.5, y: 3, z: 2}
   m_Center: {x: 0.4, y: 1.5, z: 0}
+--- !u!114 &5637645989086444802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857566933646197826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 0
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &2321247396550325700
 GameObject:
   m_ObjectHideFlags: 0

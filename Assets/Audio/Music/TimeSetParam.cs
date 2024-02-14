@@ -29,7 +29,7 @@ namespace Game {
             void Update()
             {
                 timer = GameManager.Instance.timer.GetCurrentTime();
-                Debug.Log("time is" + timer);
+                // Debug.Log("time is" + timer);
 
                 
                 if (timer >= 60)

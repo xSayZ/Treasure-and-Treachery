@@ -84,7 +84,7 @@ public void ShovelPickupAudio(int _playerID, Item _item)
     }
 
 }
-private void GetRandomPlayerAndPlaySound(int _playerID, List<PlayerController> _players) {
+private void GetRandomPlayerAndPlaySound(int _playerID, Dictionary<int, PlayerController> _players) {
 
     var _randomPlayer = _players[Random.Range(0, playerObjects.Count)];
 

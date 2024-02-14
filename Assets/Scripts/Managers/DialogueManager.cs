@@ -33,13 +33,13 @@ namespace Game {
             private TextMeshProUGUI[] choicesText;
             
             [Header("Player Input")]
-            [SerializeField] PlayerInput playerInput;
+            [SerializeField] private PlayerInput playerInput;
             
             [Header("Ink Story")]
             public TextAsset storyJSON;
             private Story story;
             
-            
+            // Internal Bools
             private bool dialogueIsPlaying;
             private bool submitPressed;
             private bool canContinueToNextLine = false;
@@ -73,24 +73,12 @@ namespace Game {
                 story = new Story(storyJSON.text);
                 StartCoroutine(OnAdvanceStory());
             }
-
-            void Update() {
-                
-            }
 #endregion
 
 #region Public Functions
-            public void EnterDialogueMode(TextAsset _inkJSON){
-                story = new Story(_inkJSON.text);
-                dialogueIsPlaying = true;
-                dialoguePanel.SetActive(true);
-                
-                ContinueStory();
-            }
 
             public void SubmitPressed(InputAction.CallbackContext value) {
-                Debug.Log("Submit Pressed");
-                if (value.performed)
+                if (value.started)
                 {
                     submitPressed = true;
                 } else if (value.canceled) {
@@ -102,11 +90,12 @@ namespace Game {
             {
                 bool result = submitPressed;
                 submitPressed = false;
+                Debug.Log(result);
                 return result;
             }
             
-            public void ChooseChoiceIndex(int _choiceIndex) {
-                story.ChooseChoiceIndex(_choiceIndex);
+            public void ChooseChoiceIndex(int choiceIndex) {
+                story.ChooseChoiceIndex(choiceIndex);
                 hasMadeAChoice = true;
                 HideChoices();
                 StartCoroutine(OnAdvanceStory());
@@ -119,16 +108,10 @@ namespace Game {
                 dialoguePanel.SetActive(true);
                 if (story.canContinue)
                 {
-                    Debug.Log("Story can continue");
                     while (story.canContinue)
                     {
-                        StartCoroutine(DisplayLine(story.Continue()));
-                        if (!story.canContinue)  {
-                            if (story.currentChoices.Count > 0) {
-                                // Set amount of choices available
-                            } else  {
-                                ExitDialogueMode();
-                            }
+                        if (!typing) {
+                            StartCoroutine(DisplayLine(story.Continue().Trim()));
                         }
                         while (typing)
                             yield return null;
@@ -140,9 +123,12 @@ namespace Game {
                         DisplayChoices();
                         yield return new WaitForSeconds(0.5f);
                     } else {
-                        // Add a button to continue
-                        ExitDialogueMode();
+                        Debug.Log("Add button to leave");
                         yield return new WaitForSeconds(2);
+                        if (GetSubmitPressed())
+                        {
+                            // Switch Scenes
+                        }
                     }
                 } else  {
                     yield return new WaitForSeconds(2);
@@ -157,26 +143,6 @@ namespace Game {
                 HideChoices();
             }
 
-            private void ContinueStory() {
-                if (story.canContinue) {
-                    // stop the coroutine if it's running
-                    if (displayLineCoroutine != null) {
-                        StopCoroutine(displayLineCoroutine);
-                    }
-                    // display the next line
-                    displayLineCoroutine = StartCoroutine(DisplayLine(story.Continue()));
-                    // hide the choices
-                    HideChoices();
-                    // if there are choices, display them
-                    if (story.currentChoices.Count > 0) {
-                        DisplayChoices();
-                    }
-                } else {
-                    ExitDialogueMode();
-                }
-                
-            }
-            
             private void HideChoices() 
             {
                 foreach (GameObject choiceButton in choices) 
@@ -217,15 +183,16 @@ namespace Game {
                 canContinueToNextLine = false;
                 
                 bool isAddingRichTextTag = false;
-                
+
+                yield return new WaitForSeconds(0.1f);
                 // display each letter one at a time
-                foreach (char letter in line.ToCharArray()) {
+                foreach (char letter in line) {
                     // if the player presses the submit button, skip to the end of the line
                     if (GetSubmitPressed()) {
                         dialogueText.text = line;
                         break;
                     }
-
+                    
                     if (letter == '<' || isAddingRichTextTag) {
                         isAddingRichTextTag = true;
                         dialogueText.text += letter;

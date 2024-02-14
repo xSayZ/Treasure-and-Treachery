@@ -507,6 +507,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
     m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1399,7 +1407,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -4282,7 +4290,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -4866,7 +4874,6 @@ GameObject:
   - component: {fileID: 8738901657361346730}
   - component: {fileID: 8980960950425928009}
   - component: {fileID: 8666561385077763371}
-  - component: {fileID: 7432739285797122084}
   - component: {fileID: 6195663642649715703}
   m_Layer: 0
   m_Name: Sphere
@@ -4940,19 +4947,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &7432739285797122084
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8702738788021654814}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6195663642649715703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4969,7 +4963,7 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 4096
-  CutTime: 0
+  CutTime: 2
 --- !u!1 &8784687896447685542
 GameObject:
   m_ObjectHideFlags: 0

@@ -73,7 +73,7 @@ namespace Game
             {
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
-                
+               
                 Health = PlayerData.currentHealth;
                 
                 PlayerData.NewScene();
@@ -86,10 +86,11 @@ namespace Game
                 playerUIDisplayBehaviours.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
-
+                
                 if (Input.GetJoystickNames().Length > 0)
                 {
-                    InputUser.PerformPairingWithDevice(Gamepad.current);
+                    var player = PlayerInput.all[_newPlayerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[_newPlayerID],user:player.user);
                 }
             }
             
@@ -99,12 +100,12 @@ namespace Game
 #region Unity Functions
             private void OnEnable()
             {
-                playerInput.deviceRegainedEvent.Invoke(playerInput);
+                //playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
             
             private void OnDisable()
             {
-                playerInput.deviceLostEvent.Invoke(playerInput);
+                //playerInput.deviceLostEvent.Invoke(playerInput);
             }
 
             void FixedUpdate()

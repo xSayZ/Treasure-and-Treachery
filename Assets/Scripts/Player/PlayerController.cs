@@ -85,7 +85,7 @@ namespace Game
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
                 
-                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
                 if (Input.GetJoystickNames().Length > 0)
                 {

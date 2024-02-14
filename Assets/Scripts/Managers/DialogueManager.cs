@@ -14,6 +14,7 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 
@@ -90,7 +91,6 @@ namespace Game {
             {
                 bool result = submitPressed;
                 submitPressed = false;
-                Debug.Log(result);
                 return result;
             }
             
@@ -123,12 +123,9 @@ namespace Game {
                         DisplayChoices();
                         yield return new WaitForSeconds(0.5f);
                     } else {
-                        Debug.Log("Add button to leave");
-                        yield return new WaitForSeconds(2);
-                        if (GetSubmitPressed())
-                        {
-                            // Switch Scenes
-                        }
+                        Debug.Log("Change scene");
+                        yield return new WaitForSeconds(5);
+                        SceneManager.LoadScene(4);
                     }
                 } else  {
                     yield return new WaitForSeconds(2);

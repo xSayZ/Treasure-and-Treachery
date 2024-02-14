@@ -129,7 +129,7 @@ namespace Game
                 
                 GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
                 Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
-                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed);
+                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed, playerController.PlayerData);
                 
                 currentFireRate = baseFireRateRanged;
                 playerMovementBehaviour.SetMovementActiveState(true, true);

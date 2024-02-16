@@ -22,7 +22,7 @@ namespace Game {
 
             private List<Image> hearts;
             
-            public void SetupHealthBar(int _maxHealth)
+            public void SetupHealthBar(int _maxHealth, int _currenHealth)
             {
                 hearts = new List<Image>();
                 
@@ -31,7 +31,7 @@ namespace Game {
                     hearts.Add(Instantiate(playerHeartPrefab, transform).GetComponent<Image>());
                 }
                 
-                UpdateHealthBar(_maxHealth);
+                UpdateHealthBar(_currenHealth);
             }
             
             public void UpdateHealthBar(int _currenHealth)

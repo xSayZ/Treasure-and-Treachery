@@ -33,7 +33,6 @@ namespace Game
                 }
             }
             private void SpawnEnemy() {
-                Debug.Log("Entered SpawnEnemy");
                 if (allowForSpawn && EnemyManager.Instance.GetCurrentEnemyCount() < EnemyManager.Instance.GetMaxEnemyCount()){
                     GameObject _spawnedEnemy =  Instantiate(SpawnManager.Instance.enemyPrefabs[UnityEngine.Random.Range(0, SpawnManager.Instance.enemyPrefabs.Length)], transform.position, Quaternion.identity);
                     EnemyManager.Instance.AddEnemy(_spawnedEnemy.GetComponent<EnemyController>());

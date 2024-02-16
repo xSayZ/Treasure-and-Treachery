@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2584897036023405661}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.19, z: 0.702}
+  m_LocalPosition: {x: 0, y: 1.19, z: 0.318}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -165,10 +165,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.25
-  m_Height: 1.5
-  m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.5428137
+  m_Height: 1.6959141
+  m_Direction: 1
+  m_Center: {x: 0.042596996, y: -0.111, z: 0.02501762}
 --- !u!114 &3929070575373597671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,16 +264,16 @@ MonoBehaviour:
   RoamEnemyState:
     Name: NameNotSet
     moveSpeed: 1
-    minRoamRange: 5
-    maxRoamRange: 10
+    minRoamRange: 2.5
+    maxRoamRange: 5
     minRoamAngle: 15
     maxRoamAngle: 90
     minMoveDistance: 0.01
     maxMoveFrames: 50
   AlertEnemyState:
     Name: NameNotSet
-    moveSpeed: 2
-    alertTime: 5
+    moveSpeed: 1
+    alertTime: 2
   GrowlEnemyState:
     Name: NameNotSet
   ChaseEnemyState:
@@ -286,14 +286,16 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  maxPathfindingDeviationDistance: 0.25
+  maxPathfindingRetries: 5
   <Health>k__BackingField: 1
   damage: 1
   attackCooldown: 1
   enemyAnimationBehaviour: {fileID: 8674423117682731983}
   headOrigin: {fileID: 8807501642393051556}
-  visionRange: 7
+  visionRange: 5
   visionFov: 90
-  hearingRange: 5
+  hearingRange: 2.5
   MaxDeviationAngle: 15
   UpdateDistance: 1
   enemyAudio: {fileID: 11400000, guid: cc2aa335d00dd4d21a24112d6d958f92, type: 2}

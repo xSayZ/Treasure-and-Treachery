@@ -20,6 +20,8 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] public int startingHealth;
             [SerializeField] public Color playerMaterialColor;
+            [SerializeField] public bool hasStartingMeleeWeapon;
+            [SerializeField] public bool hasStartingRangedWeapon;
             
             [Header("Debug")]
             [SerializeField] public int playerIndex;
@@ -34,10 +36,15 @@ namespace Game {
             [SerializeField] public int kills;
             [SerializeField] public int killsThisLevel;
             
+            [SerializeField] public bool hasMeleeWeapon;
+            [SerializeField] public bool hasRangedWeapon;
+            
             public void NewScene()
             {
                 currencyThisLevel = 0;
                 killsThisLevel = 0;
+                currentItem = null;
+                canPickUp = true;
             }
             
             private void OnEnable()
@@ -52,6 +59,9 @@ namespace Game {
                 currencyThisLevel = 0;
                 kills = 0;
                 killsThisLevel = 0;
+                
+                hasMeleeWeapon = hasStartingMeleeWeapon;
+                hasRangedWeapon = hasStartingRangedWeapon;
             }
         }
     }

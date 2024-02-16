@@ -35,7 +35,7 @@ namespace Game
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
-            [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] public PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
             [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
 
@@ -73,7 +73,7 @@ namespace Game
             {
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
-                
+               
                 Health = PlayerData.currentHealth;
                 
                 PlayerData.NewScene();
@@ -85,18 +85,12 @@ namespace Game
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
                 
-                playerHealthBar.SetupHealthBar(PlayerData.startingHealth);
+                playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (Input.GetJoystickNames().Length > 0)
-                {
-<<<<<<< Updated upstream
-                    InputUser.PerformPairingWithDevice(Gamepad.current);
-=======
-                    var player = PlayerInput.all[_newPlayerID];
-                    Debug.Log(player.user);
-                    InputUser.PerformPairingWithDevice(Gamepad.all[_newPlayerID],user:player.user);
->>>>>>> Stashed changes
-                }
+                
+                var player = PlayerInput.all[_newPlayerID];
+                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
+                
             }
             
             
@@ -123,11 +117,12 @@ namespace Game
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
             }
-
-       
-
             #endregion
 
+            public void OnPlayerJoined()
+            {
+                
+            }
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
             
             /// <summary>
@@ -182,9 +177,19 @@ namespace Game
                 if (value.started)
                 {
                     if (PlayerHasNoCurrentItem()) {
-                        playerAttackBehaviour.MeleeAttack();
-                        playerAnimationBehaviour.PlayMeleeAttackAnimation();
-                        playerAudio.MeleeAudioPlay(playerObj);
+                        
+                        if (playerAttackBehaviour.MeleeAttack()) {
+                            playerAnimationBehaviour.PlayMeleeAttackAnimation();
+                        }
+                        try
+                        {
+                            playerAudio.MeleeAudioPlay(playerObj);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                        }
+                        
                     }
                 }
             }

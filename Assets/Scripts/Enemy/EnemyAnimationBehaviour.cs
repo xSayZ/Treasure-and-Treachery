@@ -34,7 +34,6 @@ namespace Game {
 
             public void UpdateMovementAnimation(float movementBlendValue)
             {
-                Debug.Log(movementBlendValue);
                 EnemyAnimator.SetFloat(enemyMovementAnimationID, movementBlendValue);
             }
 

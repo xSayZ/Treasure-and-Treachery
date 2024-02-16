@@ -1,28 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+using Game.Backend;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class RestartLevel : MonoBehaviour
 {
-    // restart temporary
-    [Header("Press R For Restart")]
-<<<<<<< Updated upstream
-    public PlayerInput restartInput;
-    
-    public void OnRestartLevel(InputAction.CallbackContext context)
-    {
-        if (context.started)
-=======
-    public KeyCode restartInput;
-    
-
     public void Update()
     {
-        if (Input.GetKeyDown(restartInput))
->>>>>>> Stashed changes
+        if (Input.GetKeyDown(KeyCode.R))
         {
+            GameManager.loadStoredPlayerData = true;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

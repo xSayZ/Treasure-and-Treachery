@@ -35,14 +35,39 @@ namespace Game {
             [Space]
             [SerializeField] private PlayerData[] activePlayerPlayerData;
             
-            public List<PlayerController> activePlayerControllers;
+            public Dictionary<int, PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
             [SerializeField] bool debug;
             private bool isPaused;
+            
+            // Temporary
+            [HideInInspector] public static int nextSceneBuildIndex;
+            
+            // Saved data for restarting scene
+            private static List<StoredPlayerData> storedPlayerDatas;
+            [HideInInspector] public static bool loadStoredPlayerData;
+            
+            private class StoredPlayerData
+            {
+                public int Health;
+                public int Currency;
+                public int Kills;
+                public bool HasMeleeWeapon;
+                public bool HasRangedWeapon;
 
-            #region Unity Functions
+                public StoredPlayerData(int _health, int _currency, int _kills, bool _hasMeleeWeapon, bool _hasRangedWeapon)
+                {
+                    Health = _health;
+                    Currency = _currency;
+                    Kills = _kills;
+                    HasMeleeWeapon = _hasMeleeWeapon;
+                    HasRangedWeapon = _hasRangedWeapon;
+                }
+            }
+
+#region Unity Functions
             private void OnDrawGizmos()  {
                 if (debug)  {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
@@ -57,17 +82,16 @@ namespace Game {
                 timer.StartTimer(roundTime);
                 
                 SetupLocalMultiplayer();
-                
             }
 #endregion
 
 #region Private Functions
-            
             private void SetupLocalMultiplayer() {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
             }
+            
             private static void DestroyExistingPlayerInstances() {
 
                 GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
@@ -79,7 +103,7 @@ namespace Game {
             }
 
             private void AddPlayers() {
-                activePlayerControllers = new List<PlayerController>();
+                activePlayerControllers = new Dictionary<int, PlayerController>();
 
                 string[] _controllers = Input.GetJoystickNames();
                 if (_controllers.Length == 0)
@@ -93,8 +117,43 @@ namespace Game {
                 }
             }
             
-            private void SetupActivePlayers() {
-                for (int i = 0; i < activePlayerControllers.Count; i++) {
+            private void SetupActivePlayers()
+            {
+                if (!loadStoredPlayerData)
+                {
+                    storedPlayerDatas = new List<StoredPlayerData>();
+                }
+                
+                for (int i = 0; i < activePlayerControllers.Count; i++)
+                {
+                    PlayerData playerData = activePlayerControllers[i].PlayerData;
+                    
+                    if (loadStoredPlayerData)
+                    {
+                        loadStoredPlayerData = false;
+                        
+                        Debug.Log("Loading");
+                        
+                        playerData.currentHealth = storedPlayerDatas[i].Health;
+                        playerData.currency = storedPlayerDatas[i].Currency;
+                        playerData.kills = storedPlayerDatas[i].Kills;
+                        playerData.hasMeleeWeapon = storedPlayerDatas[i].HasMeleeWeapon;
+                        playerData.hasRangedWeapon = storedPlayerDatas[i].HasRangedWeapon;
+                    }
+                    else
+                    {
+                        Debug.Log("Saving");
+                        StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
+                        if (i <= storedPlayerDatas.Count)
+                        {
+                            storedPlayerDatas.Add(data);
+                        }
+                        else
+                        {
+                            storedPlayerDatas[i] = data;
+                        }
+                    }
+                    
                     activePlayerControllers[i].SetupPlayer(i);
                 }
             }
@@ -132,15 +191,15 @@ namespace Game {
                 Quaternion _spawnRotation = Quaternion.identity;
                     
                 GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
-                AddPlayersToActiveList(_spawnedPlayer.GetComponent<PlayerController>());
+                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 
                 // Get PlayerData from List and assign it based on playerID
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
             }
             
-            private void AddPlayersToActiveList(PlayerController newPlayer) {
-                activePlayerControllers.Add(newPlayer);
+            private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {
+                activePlayerControllers[_playerIndex] = newPlayer;
             }
             
             // Calculate the position of the players in the ring
@@ -167,7 +226,7 @@ namespace Game {
             }
             
             private void RemovePlayerFromCurrentPlayersList(int _playerID) {
-                activePlayerControllers.RemoveAt(_playerID);
+                activePlayerControllers.Remove(_playerID);
             }
             
             #endregion

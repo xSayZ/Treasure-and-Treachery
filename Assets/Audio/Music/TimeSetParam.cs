@@ -29,25 +29,25 @@ namespace Game {
             void Update()
             {
                 timer = GameManager.Instance.timer.GetCurrentTime();
-                Debug.Log("time is" + timer);
+                // Debug.Log("time is" + timer);
 
                 
-                if (timer >= 4)
+                if (timer >= 60)
                 {
                     AudioMananger.Instance.SetMusicParam("MusicProg", 2f, false);
                 }
                 
-                if (timer >= 8)
+                if (timer >= 120)
                 {
                     AudioMananger.Instance.SetMusicParam("MusicProg", 3f, false);
                 }
 
-                if (timer >= 12)
+                if (timer >= 180)
                 {
                     AudioMananger.Instance.SetMusicParam("MusicProg", 4f, false);
                 }
 
-                if (timer >= 16)
+                if (timer >= 240)
                 {
                     AudioMananger.Instance.SetMusicParam("MusicProg", 5f, false);
                 }

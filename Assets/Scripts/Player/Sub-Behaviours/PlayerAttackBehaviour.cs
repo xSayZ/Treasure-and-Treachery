@@ -19,17 +19,16 @@ namespace Game
     {
         public class PlayerAttackBehaviour : MonoBehaviour {
             [Header("Component References")]
-            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
+            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */
+            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
             [SerializeField] private CapsuleCollider weaponCollider;
             [SerializeField] private GameObject projectile;
 
             [Header("Melee Attack Settings")]
-            [SerializeField] private bool hasMeleeWeapon;
             [SerializeField] private int meleeAttackDamage;
             [SerializeField] public float baseMeleeAttackCooldown;
 
             [Header("Ranged Attack Settings")]
-            [SerializeField] private bool hasRangedWeapon;
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] public float baseFireRateRanged;
             [SerializeField] private float projectileSpeed;
@@ -91,15 +90,21 @@ namespace Game
                 }
             }
             
-            public void MeleeAttack()
+            public bool MeleeAttack()
             {
-                if (currentMeleeCooldown > 0 || !hasMeleeWeapon)
+                if (currentMeleeCooldown > 0 || !playerController.PlayerData.hasMeleeWeapon)
                 {
-                    return;
+                    return false;
                 }
                 
                 for (int i = enemyTransforms.Count - 1; i >= 0; i--)
                 {
+                    if (enemyTransforms[i] == null)
+                    {
+                        enemyTransforms.Remove(enemyTransforms[i]);
+                        continue;
+                    }
+                    
                     if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
                         continue;
                     
@@ -109,23 +114,22 @@ namespace Game
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
-                        
-                        enemyTransforms.Remove(enemyTransforms[i]);
                     }
                 }
                 currentMeleeCooldown = baseMeleeAttackCooldown;
+                return true;
             }
 
             public void RangedAttack()
             {
-                if (!hasRangedWeapon)
+                if (!playerController.PlayerData.hasRangedWeapon)
                 {
                     return;
                 }
                 
                 GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
                 Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
-                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed);
+                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed, playerController.PlayerData);
                 
                 currentFireRate = baseFireRateRanged;
                 playerMovementBehaviour.SetMovementActiveState(true, true);
@@ -137,7 +141,7 @@ namespace Game
             {
                 if (_playerIndex == playerController.PlayerIndex)
                 {
-                   hasMeleeWeapon = true; 
+                   playerController.PlayerData.hasMeleeWeapon = true; 
                 }
             }
             
@@ -145,7 +149,7 @@ namespace Game
             {
                 if (_playerIndex == playerController.PlayerIndex)
                 {
-                    hasRangedWeapon = true;
+                    playerController.PlayerData.hasRangedWeapon = true;
                 }
             }
 #endregion

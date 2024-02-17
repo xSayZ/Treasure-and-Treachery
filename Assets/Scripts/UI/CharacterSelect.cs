@@ -3,13 +3,11 @@
 // --------------------------------
 // Creation Date: 2024/02/05
 // Author: Fredrik
-// Description: Operation_Donken
+// Description: Character Selection Screen
 // --------------------------------
 // ------------------------------*/
 
-using System;
-using System.Collections.Generic;
-using Game.Backend;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -20,13 +18,11 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            [SerializeField] private GameObject UIImage;
-            [SerializeField] PlayerData data;
+            public GameObject gameObject;
             public Image Image;
 
-            public bool playersIsReady;
-
-            [SerializeField] private GameObject Ready;
+            public bool playersIsReady { get; private set; } = false;
+            
             private PlayerInput playerInputs;
             private int currentId;
             private int id;
@@ -34,15 +30,19 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId;
 
-
+            private float inputDelau;
             // Start is called before the first frame update
 
             #region Unity functions
 
             public void Start()
             {
+                HorizontalLayoutGroup layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
+                transform.parent = layoutGroup.transform;
                 playerInputs = GetComponent<PlayerInput>();
-                
+                Image.sprite = SetupSelector.Instance.bank.characterImages[1];
+                inputDelau = 1;
+
             }
 
             #endregion
@@ -52,14 +52,41 @@ namespace Game
             public void OnNavigation(InputAction.CallbackContext context)
             {
                 if (playersIsReady) return;
-                
+
+                inputDelau -= Time.deltaTime;
                 Vector2 value = context.ReadValue<Vector2>();
-                id += (int)value.y;
-                id = Wrap(id, 0, 4);
-                if (SetupSelector.Images.TryGetValue(id,out Sprite sprite))
+                if (value.y > 0)
                 {
-                    Image.sprite = sprite;
+                    
+                    inputDelau -= Time.deltaTime;
+                    Debug.Log(inputDelau);
+                    if (inputDelau <0)
+                    {
+                        id += 1;
+                        inputDelau = 0.1f;
+
+                    }
+                   
                 }
+
+                if (value.y < 0)
+                {
+                    if(inputDelau <0)
+                    {
+                        id -= 1;
+                        inputDelau = 0.1f; 
+                    }
+                    
+
+                }
+                
+                id = Wrap(id, 0, 4);
+                if (id == 4) id = 0;
+                {
+                    
+                }
+                Image.sprite = SetupSelector.Instance.bank.characterImages[id];
+                
 
             }
 
@@ -67,18 +94,14 @@ namespace Game
             {
                 if (!context.performed || playersIsReady) return;
                 
-                data.playerIndex = currentId;
-                    
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
-                    
-                cachedSprite = SetupSelector.Images[currentId];
-                cachedId = currentId;
-                
+
                 playersIsReady = true;
-                SetupSelector.Images.Remove(currentId);
+
+
             }
 
             #endregion
@@ -87,18 +110,16 @@ namespace Game
             {
                 if (!context.performed || !playersIsReady) return;
                 
-                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                 }
                     
                 playersIsReady = false;
-                SetupSelector.Images.Add(cachedId,cachedSprite);
+                
 
             }
-
-
+            
             #region Private
 
             private int Wrap(int Target, int LowerBounds, int UpperBounds)

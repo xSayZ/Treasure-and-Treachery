@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3640159103322284793}
   - component: {fileID: 5247813592374742114}
   - component: {fileID: -7155858616911251584}
+  - component: {fileID: 2503679760492751622}
   m_Layer: 0
   m_Name: PlayerSelection
   m_TagString: Untagged
@@ -53,11 +54,85 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12bece3959bd3394eb427448ff062370, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIImage: {fileID: 8437321311951332803, guid: e9cc39b115c773e4c8a3f5d34c8e6096, type: 3}
-  SetStartImageX: -165
-  SetStartImageY: -15
-  ImageSpacing: 15
-  Border: {fileID: 0}
+  Datas: []
   selects: []
-  Images: []
+  joinAction:
+    m_Name: Join
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fd570c41-102c-4198-807e-6955ff54e00d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: d7fe76cf-a897-4fd6-8eba-6523e8a1b7c2
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Join
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d2f3596c-65c9-4d80-bbf0-6c57bc61b6d7
+      m_Path: <Gamepad>/buttonSouth
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Join
+      m_Flags: 0
+    m_Flags: 0
+  leaveAction:
+    m_Name: Leave
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6e6946a7-0b76-4618-9939-9b276963a76a
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  playerList: []
   bank: {fileID: 11400000, guid: 80847783b78af294fa1a5bdd062d9f8c, type: 2}
+--- !u!114 &2503679760492751622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5030362780799377086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 2
+  m_MaxPlayerCount: -1
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 4339510578734474427, guid: 584712fc85461ca4eae4d2bc2011a44a, type: 3}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1

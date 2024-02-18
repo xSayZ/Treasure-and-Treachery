@@ -307,7 +307,7 @@
             "actions": [
                 {
                     "name": "MenuNavigation",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "045a087a-4694-45e7-b51a-ce4278c49190",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -437,6 +437,39 @@
                     "name": "right",
                     "id": "57e24060-3514-479c-810f-749239f5a41b",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuNavigation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "9fb9d3d1-80ed-4194-ab2e-524ae8594f87",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuNavigation",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "117eef30-0c55-47e5-aded-545eb010fa8e",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MenuNavigation",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "40f4f37a-634b-477d-84c9-c14e725e5622",
+                    "path": "<Gamepad>/dpad/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -18,6 +18,9 @@ namespace Game {
       {
           
         public bool destroyOnTrigger = false;
+        public EventReference otherMusic;
+        public EventReference testStinger;
+        
 
   //Skapar Enum för att kunna ha valmöjlighet senare i structen "AudioSettings"
         public enum Action
@@ -44,7 +47,7 @@ namespace Game {
 
         }
         //skapar arrays av variabeln som innehåller "AudioSettings" 
-        [NonReorderable] public AudioSettings [] triggerEnterAudioSettings;
+         public AudioSettings [] triggerEnterAudioSettings;
         [NonReorderable] public AudioSettings [] triggerExitAudioSettings;
 
         public void OnTriggerEnter(Collider other)
@@ -72,16 +75,27 @@ namespace Game {
                   
                   case Action.PlayMusic: 
                     
-                    AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
+                    //AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
+                    
+                    EventInstance testStinger1 = RuntimeManager.CreateInstance(testStinger);
+                    testStinger1.start();
+                    testStinger1.release();
+                    Debug.Log("testStingerPlayed"); 
+                    
                     break;
                     
                   case Action.StopMusic: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
                     break;
-                    
-                  //När "SetParameter" är vald i enumet "Action" så körs metoden "SetParameter();" i vår AudioMananger.
-                  //Dem nya världena som finns i variblarna från vår array "triggerEnterAudioSettings" skickas med in i "SetParameter();" metoden
+                  
+                  
                   case Action.SetMusicParam:
-                      AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
+                      //AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
+                      EventInstance otherMusic1 = RuntimeManager.CreateInstance(otherMusic);
+                      otherMusic1.start();
+                      otherMusic1.setParameterByName("MusicProg", 4f, false);
+                      otherMusic1.release();
+                      Debug.Log("Played music and setparameter by instance ");
+                      
                      //Skriver ut de nya världena i konsollen från AudioMananger
                     break;
                     

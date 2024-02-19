@@ -20,8 +20,8 @@ using UnityEngine.UI;
 
 public class CharacterSelectHandler : MonoBehaviour
 {
+    [Header("References")]
     public List<PlayerData> Datas;
-    public List<CharacterSelect> selects;
     public List<Transform> imagePosition = new List<Transform>();
     public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
     public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
@@ -31,8 +31,11 @@ public class CharacterSelectHandler : MonoBehaviour
     [SerializeField] private InputAction leaveAction;
 
     private List<PlayerInput> playerList = new List<PlayerInput>();
+    private List<CharacterSelect> selects = new List<CharacterSelect>();
 
     public ImageBank bank;
+
+    
     //EVENTS
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
@@ -40,7 +43,6 @@ public class CharacterSelectHandler : MonoBehaviour
     
     public void Start()
     {
-        
         for (int i = 0; i < bank.characterImages.Count; i++)
         {
             Images.Add(i,bank.characterImages[i]);
@@ -61,13 +63,11 @@ public class CharacterSelectHandler : MonoBehaviour
        
     private void Update()
     {
-        if (selects.All(a=> a.PlayersIsReady))
-        {
-            Debug.Log("high");
-            SceneManager.LoadScene("Adams World");
-        }
 
-        
+        if (selects.All(p => p.PlayersIsReady))
+        {
+            Debug.Log("Hello There");
+        }
     }
 
     private void JoinAction(InputAction.CallbackContext context)

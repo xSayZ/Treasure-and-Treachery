@@ -23,7 +23,6 @@ namespace Game
         public class CharacterSelect : MonoBehaviour
         {
             public Image Image;
-
             public bool PlayersIsReady;
             public bool BeginGame;
             [HideInInspector] public PlayerInput playerInputs;
@@ -33,7 +32,7 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId = 10;
             private float inputDelay;
-            public PlayerData data;
+            private PlayerData data;
             // Start is called before the first frame update
 
             private CharacterSelectHandler characterSelectHandler;
@@ -133,7 +132,7 @@ namespace Game
                 else
                 {
                     
-                    Debug.Log("missing");
+                    Debug.Log("Player is already Taken");
                 }
                 
             }
@@ -143,11 +142,11 @@ namespace Game
             public void OnCancel(InputAction.CallbackContext context)
             {
                 if (!context.performed || !PlayersIsReady) return;
+                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                     characterSelectHandler.Images.Add(cachedId,cachedSprite);
-
                 }
                 
                 PlayersIsReady = false;

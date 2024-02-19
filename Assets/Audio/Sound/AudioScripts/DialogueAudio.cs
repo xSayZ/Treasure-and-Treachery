@@ -31,7 +31,6 @@ namespace Game {
             [Header("Dialogue")] 
             [SerializeField]
             private EventReference shovelPickup, mudReaction, objectiveStartReaction, objectiveProgressionReaction;
-            public AudioMananger audioManager;
 
             private EventInstance shovelPickupInstAudio;
 
@@ -56,31 +55,31 @@ public void ShovelPickupAudio(int _playerID, Item _item)
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
             RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[0].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 0);
-            shovelPickupInstAudio.start();
             break;
         case 1:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
             RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[1].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 1);
-            shovelPickupInstAudio.start();
             break;
         case 2:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
             RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[2].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 2);
-            shovelPickupInstAudio.start();
             break;
         case 3:
             shovelPickupInstAudio = RuntimeManager.CreateInstance(shovelPickup);
             RuntimeManager.AttachInstanceToGameObject(shovelPickupInstAudio, _players[3].gameObject.transform);
             shovelPickupInstAudio.setParameterByName("SpeakerCharacter", 3);
-            shovelPickupInstAudio.start();
             break;
     }
+    
+    shovelPickupInstAudio.start();
+    shovelPickupInstAudio.release();
 
     if (!IsPlaying(shovelPickupInstAudio)) {
 
         GetRandomPlayerAndPlaySound(_playerID, _players);
+        Debug.Log("Nu har jag pratat klart");
     }
 
 }

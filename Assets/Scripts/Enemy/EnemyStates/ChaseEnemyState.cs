@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -29,7 +30,7 @@ namespace Game {
             public override void Enter()
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
-                lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                UpdateLastTargetPosition(enemyController.targetsInVisionRange);
                 enemyController.NavMeshAgent.destination = GetClosestPointOnNavmesh(lastTargetPosition);
             }
 
@@ -38,11 +39,11 @@ namespace Game {
                 // Update last seen position
                 if (enemyController.targetsInVisionRange.Count > 0)
                 {
-                    lastTargetPosition = GetClosestTarget(enemyController.targetsInVisionRange).position;
+                    UpdateLastTargetPosition(enemyController.targetsInVisionRange);
                 }
                 else if (enemyController.targetsInHearingRange.Count > 0)
                 {
-                    lastTargetPosition = GetClosestTarget(enemyController.targetsInHearingRange).position;
+                    UpdateLastTargetPosition(enemyController.targetsInHearingRange);
                 }
                 
                 // No longer chasing
@@ -57,7 +58,23 @@ namespace Game {
             }
 
             //public override void Exit(){}
- #endregion
+#endregion
+
+#region State Machine Functions
+            private void UpdateLastTargetPosition(List<Transform> _targets)
+            {
+                Transform _closestTarget = GetClosestTarget(_targets);
+                
+                if (_closestTarget.CompareTag("Carriage"))
+                {
+                    lastTargetPosition = _closestTarget.GetComponent<BoxCollider>().ClosestPoint(enemyController.transform.position);
+                }
+                else
+                {
+                    lastTargetPosition = _closestTarget.position;
+                }
+            }
+#endregion
         }
     }
 }

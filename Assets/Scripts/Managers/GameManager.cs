@@ -29,7 +29,7 @@ namespace Game {
 
             [Header("Spawn Variables")]
             [Tooltip("Assign the spawn point where players are to be instantiated from")]
-            [SerializeField] private Transform spawnRingCenter;
+            [SerializeField] public Transform spawnRingCenter;
             [Range(0.5f, 15f)]
             [SerializeField] private float spawnRingRadius;
             [Space]

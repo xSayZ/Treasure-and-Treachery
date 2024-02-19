@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 namespace Game {
@@ -20,6 +21,7 @@ namespace Game {
             [SerializeField] private float attackCooldown;
             [SerializeField] private float attackDelay;
             
+            private NavMeshAgent navMeshAgent;
             private EnemyAnimationBehaviour enemyAnimationBehaviour;
             private List<IDamageable> targetsInAttackRange;
             private float currentAttackCooldown;
@@ -47,6 +49,8 @@ namespace Game {
                 {
                     enemyAnimationBehaviour.PlayAttackAnimation();
                     
+                    navMeshAgent.isStopped = true;
+                    
                     currentAttackDelay = attackDelay;
                     isAttacking = true;
                 }
@@ -61,6 +65,8 @@ namespace Game {
                     isAttacking = false;
                     currentAttackCooldown = attackCooldown;
                     
+                    navMeshAgent.isStopped = false;
+                    
                     // Attack everyone in attack range
                     for (int i = 0; i < targetsInAttackRange.Count; i++)
                     {
@@ -71,8 +77,9 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void SetupBehaviour(EnemyAnimationBehaviour _enemyAnimationBehaviour)
+            public void SetupBehaviour(NavMeshAgent _navMeshAgent, EnemyAnimationBehaviour _enemyAnimationBehaviour)
             {
+                navMeshAgent = _navMeshAgent;
                 enemyAnimationBehaviour = _enemyAnimationBehaviour;
                 
                 targetsInAttackRange = new List<IDamageable>();

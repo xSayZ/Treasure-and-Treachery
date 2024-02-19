@@ -77,7 +77,7 @@ namespace Game {
             {
                 // Setup behaviours
                 enemyAnimationBehaviour.SetupBehaviour();
-                enemyAttackBehaviour.SetupBehaviour(enemyAnimationBehaviour);
+                enemyAttackBehaviour.SetupBehaviour(NavMeshAgent, enemyAnimationBehaviour);
                 
                 currentState.Enter();
                 

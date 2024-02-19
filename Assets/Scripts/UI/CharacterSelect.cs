@@ -30,8 +30,8 @@ namespace Game
             
             public GameObject gameObject;
             public Image Image;
-            
-            public bool playersIsReady { get; private set; } = false;
+
+            public bool playersIsReady = false;
             
             private PlayerInput playerInputs;
             private int currentId;
@@ -52,9 +52,9 @@ namespace Game
                 HorizontalLayoutGroup layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
                 transform.parent = layoutGroup.transform;
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[1];
+                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[0];
                 
-                inputDelay = 0.1f;
+                inputDelay = 0.01f;
             }
 
             #endregion
@@ -71,11 +71,11 @@ namespace Game
                 {
                     
                     inputDelay -= Time.deltaTime;
-                    Debug.Log(inputDelay);
+                    
                     if (inputDelay <0)
                     {
                         id += 1;
-                        inputDelay = 0.1f;
+                        inputDelay = 0.01f;
                     }
                 }
                 if (value.y < 0)
@@ -83,14 +83,19 @@ namespace Game
                     if(inputDelay <0)
                     {
                         id -= 1;
-                        inputDelay = 0.1f; 
+                        inputDelay = 0.01f; 
                     }
                 }
                 
                 id = Wrap(id, 0, 4);
                 if (id == 4) id = 0;
-                
-                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[id];
+
+                if (CharacterSelectManager.Instance.Images.TryGetValue(id,out Sprite sprite))
+                {
+                    Image.sprite = sprite;
+                    cachedId = id;
+                    cachedSprite = sprite;
+                }
                 
 
             }
@@ -102,9 +107,12 @@ namespace Game
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
+                    
                     data = CharacterSelectManager.Instance.Datas[id];
-                }
+                    data.CharacterID= id;
+                    CharacterSelectManager.Instance.Images.Remove(cachedId);
 
+                }
                 playersIsReady = true;
 
 
@@ -115,15 +123,14 @@ namespace Game
             public void OnCancel(InputAction.CallbackContext context)
             {
                 if (!context.performed || !playersIsReady) return;
-                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
-                    
+                    CharacterSelectManager.Instance.Images.Add(cachedId,cachedSprite);
+
                 }
-                    
-                playersIsReady = false;
                 
+                playersIsReady = false;
 
             }
             

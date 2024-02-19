@@ -7,7 +7,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game;
@@ -34,7 +33,7 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     [SerializeField] private PlayerData[] data;
     
 
-[SerializeField] private InputAction joinAction;
+    [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
     
@@ -45,6 +44,8 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     
     public void Start()
     {
+        
+        
         playerList.Clear();
         for (int i = 0; i < bank.characterImages.Count; i++)
         {
@@ -76,6 +77,7 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     public void OnPlayerJoin(PlayerInput player)
     {
         playerList.Add(player);
+        selects.Add(player.GetComponent<CharacterSelect>());
         if (PlayerJoinedGame != null)
         {
             PlayerJoinedGame(player);
@@ -90,9 +92,10 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     
     private void Update()
     {
-        if (selects.All(a=> a.playersIsReady) && selects.Count >0)
+        if (selects.All(a=> a.playersIsReady))
         {
-            SceneManager.LoadScene(sceneBuildIndex: GameManager.nextSceneBuildIndex);
+            Debug.Log("high");
+            SceneManager.LoadScene("Adams World");
         }
         
     }

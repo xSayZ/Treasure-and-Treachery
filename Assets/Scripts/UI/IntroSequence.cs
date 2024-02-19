@@ -77,7 +77,7 @@ namespace Game
             {
                 if (done && elapsedTime >timeBeforeChange)
                 {
-                    SceneManager.LoadScene(sceneBuildIndex: GameManager.nextSceneBuildIndex);
+                    SceneManager.LoadScene("Adams World");
                 }
             }
 

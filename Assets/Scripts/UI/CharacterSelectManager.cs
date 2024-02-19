@@ -45,14 +45,13 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     public void Start()
     {
         
-        
-        playerList.Clear();
         for (int i = 0; i < bank.characterImages.Count; i++)
         {
             Images.Add(i,bank.characterImages[i]);
         }
-        
+        playerList.Clear();
         PlayerInputManager.instance.JoinPlayer(0, -1, null);
+        
         joinAction.Enable();
         joinAction.performed += context => JoinAction(context);
         
@@ -77,6 +76,7 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     public void OnPlayerJoin(PlayerInput player)
     {
         playerList.Add(player);
+        
         selects.Add(player.GetComponent<CharacterSelect>());
         if (PlayerJoinedGame != null)
         {
@@ -86,7 +86,7 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
     
     public void OnPlayerLeft(PlayerInput player)
     {
-        playerList.Remove(player);
+        //playerList.Remove(player);
         
     }
     

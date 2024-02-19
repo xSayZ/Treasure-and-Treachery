@@ -38,6 +38,8 @@ namespace Game {
             public Dictionary<int, PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
+            public List<GameObject> playerVariants;
+            
             [Header("Debug")]
             [SerializeField] bool debug;
             private bool isPaused;
@@ -189,13 +191,15 @@ namespace Game {
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
-                    
-                GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
-                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 
                 // Get PlayerData from List and assign it based on playerID
+                
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
+                Debug.Log(_playerData.name);
+                GameObject _spawnedPlayer = Instantiate(playerVariants[_playerData.CharacterID],_spawnPosition,_spawnRotation);
+                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
+                
             }
             
             private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {

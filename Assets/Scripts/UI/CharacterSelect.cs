@@ -27,7 +27,6 @@ namespace Game
                 po = 3,
             }
             
-            
             public GameObject gameObject;
             public Image Image;
 
@@ -55,6 +54,14 @@ namespace Game
                 Image.sprite = CharacterSelectManager.Instance.bank.characterImages[0];
                 
                 inputDelay = 0.01f;
+
+                for (int i = 0; i < CharacterSelectManager.Instance.Datas.Count; i++)
+                {
+                    if (playerInputs.user.index == i)
+                    {
+                        data = CharacterSelectManager.Instance.Datas[i];
+                    }
+                }
             }
 
             #endregion
@@ -108,7 +115,6 @@ namespace Game
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
                     
-                    data = CharacterSelectManager.Instance.Datas[id];
                     data.CharacterID= id;
                     CharacterSelectManager.Instance.Images.Remove(cachedId);
 

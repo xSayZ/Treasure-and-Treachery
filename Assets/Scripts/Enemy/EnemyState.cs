@@ -17,20 +17,20 @@ namespace Game {
         {
             [HideInInspector] public string Name = "NameNotSet";
             protected EnemyController enemyController;
-            
+
 #region State Machine Functions
             public void Awake(EnemyController e)
             {
                 enemyController = e;
                 SetUp();
             }
-            
+
             protected virtual void SetUp(){}
-            
+
             public virtual void Enter(){}
-            
+
             public virtual void FixedUpdate(){}
-            
+
             public virtual void Exit(){}
 #endregion
 
@@ -50,7 +50,7 @@ namespace Game {
                 
                 return _navHit.position;
             }
-            
+
             protected Transform GetClosestTarget(List<Transform> _targets)
             {
                 Transform _closestTarget = _targets[0];
@@ -69,7 +69,7 @@ namespace Game {
                 
                 return _closestTarget;
             }
-            
+
             protected void NavmeshUpdateCheck(Vector3 _lastTargetPosition)
             {
                 // Update nav mesh agent destination if angle is to much

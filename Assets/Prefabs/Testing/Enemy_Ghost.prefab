@@ -184,8 +184,8 @@ MonoBehaviour:
   triggerEnter:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 751426607181468461}
-        m_TargetAssemblyTypeName: Game.Enemy.EnemyController, Assembly-CSharp
+      - m_Target: {fileID: 8048146715905626217}
+        m_TargetAssemblyTypeName: Game.Enemy.EnemyAttackBehaviour, Assembly-CSharp
         m_MethodName: AttackRangeEntered
         m_Mode: 0
         m_Arguments:
@@ -199,8 +199,8 @@ MonoBehaviour:
   triggerExit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 751426607181468461}
-        m_TargetAssemblyTypeName: Game.Enemy.EnemyController, Assembly-CSharp
+      - m_Target: {fileID: 8048146715905626217}
+        m_TargetAssemblyTypeName: Game.Enemy.EnemyAttackBehaviour, Assembly-CSharp
         m_MethodName: AttackRangeExited
         m_Mode: 0
         m_Arguments:
@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5827580885617249946}
   - component: {fileID: 751426607181468461}
+  - component: {fileID: 8048146715905626217}
   - component: {fileID: 922712805897902393}
   - component: {fileID: 5553164627889447383}
   - component: {fileID: 5955323770443865771}
@@ -286,12 +287,11 @@ MonoBehaviour:
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  enemyAnimationBehaviour: {fileID: 8674423117682731983}
+  enemyAttackBehaviour: {fileID: 8048146715905626217}
   maxPathfindingDeviationDistance: 0.25
   maxPathfindingRetries: 5
   <Health>k__BackingField: 1
-  damage: 1
-  attackCooldown: 1
-  enemyAnimationBehaviour: {fileID: 8674423117682731983}
   headOrigin: {fileID: 8807501642393051556}
   visionRange: 5
   visionFov: 90
@@ -301,6 +301,21 @@ MonoBehaviour:
   enemyAudio: {fileID: 11400000, guid: cc2aa335d00dd4d21a24112d6d958f92, type: 2}
   targetsInVisionRange: []
   targetsInHearingRange: []
+--- !u!114 &8048146715905626217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5827580885617249925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 909c0fcc11863194490ebaa229fb7609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 1
+  attackCooldown: 2
+  attackDelay: 0.5
 --- !u!195 &922712805897902393
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -451,7 +466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc15511a4da0ccb4eb1bd5ceab28f36c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyAnimator: {fileID: 1411752920722199305}
 --- !u!1 &8946523340693129063
 GameObject:
   m_ObjectHideFlags: 0

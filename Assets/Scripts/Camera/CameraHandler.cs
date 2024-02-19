@@ -6,63 +6,179 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Cinemachine;
 using Game.Backend;
 using Game.Player;
+using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
+using Vector3 = UnityEngine.Vector3;
+// ReSharper disable Unity.PerformanceCriticalCodeCameraMain
 
 
 namespace Game {
     namespace Camera {
-        public class CameraHandler : MonoBehaviour
-        {
+        public class CameraHandler : MonoBehaviour {
 
-            [SerializeField] private UnityEngine.Camera UICamera;
+            [Header("Objective Camera Settings")]
+            [SerializeField] private ObjectiveTransform[] objectiveTransforms;
+            
+            [Header("Camera Behaviour Settings")]
+            [Range(10f, 20f)]
+            [SerializeField] private float maxZoomOut;
+            [Range(1, 5)]
+            [SerializeField] private int playerWeight;
+            [Range(1, 20)]
+            [SerializeField] private int playerRadius;
+            
+            [Header("Camera References")]
+            [SerializeField] private UnityEngine.Camera uiCamera;
+            [SerializeField] private CinemachineVirtualCamera virtualCamera;
+            
+            // Private Variables
+            private Dictionary<int, PlayerController> targets = new Dictionary<int, PlayerController>();
             private CinemachineTargetGroup targetGroup;
+            private ObjectiveTransform objectiveTransform;
+            
+            private bool canZoom = false;
 
-            [SerializeField]
-            private int weight;
-            [SerializeField]
-            private int radius;
-        
-
+            [Serializable]
+            private class ObjectiveTransform {
+                public Transform Transform;
+                public int Zoom;
+                public int CameraMoveSpeedToObjective;
+                public int TimeUntilNextObjective;
+                
+                public ObjectiveTransform(Transform _transform, int _zoom, int _cameraMoveSpeed, int _timeUntilNextObjective) {
+                    Transform = _transform;
+                    Zoom = _zoom;
+                    CameraMoveSpeedToObjective = _cameraMoveSpeed;
+                    TimeUntilNextObjective = _timeUntilNextObjective;
+                }
+            }
+            
             #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
+            private void Start()
             {
-                targetGroup = FindObjectOfType<CinemachineTargetGroup>();
-                SetCamera();
+                // Get the active player controllers
+                targets = GameManager.Instance.activePlayerControllers;
+                if (objectiveTransforms.Length > 0) {
+                    StartCoroutine(MoveCameraToObjectives());
+                }
+                
             }
 
-            private void Update()
-            {
-                UICamera.fieldOfView = UnityEngine.Camera.main.fieldOfView;
+            private void Update() {
+                
+                if (UnityEngine.Camera.main != null)
+                    uiCamera.fieldOfView = UnityEngine.Camera.main.fieldOfView;
+
+                if(canZoom)
+                    UpdateCameraZoom();
             }
     
             #endregion
 
             #region Private Functions
 
-            private void SetCamera()
+            private IEnumerator MoveCameraToObjectives() {
+                UpdatePlayerMovement(false, false);
+                
+                // Loop through the objective transforms
+                foreach (ObjectiveTransform _objective in objectiveTransforms) {
+                    Vector3 _initialPosition = this.transform.position;
+                    float _timeElapsed = 0;
+                    yield return new WaitForSeconds(_objective.CameraMoveSpeedToObjective);
+                
+                    // Move the camera to the objective transform
+                    while (_timeElapsed < _objective.CameraMoveSpeedToObjective) {
+                        CinemachineFramingTransposer _framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        this.transform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        _timeElapsed += Time.deltaTime;
+                        yield return null;
+                    }
+                    yield return new WaitForSeconds(_objective.TimeUntilNextObjective);
+                }
+                
+                // Set the camera to zoom and update the player movement
+                canZoom = true;
+                SetTargetGroupCamera();
+                UpdatePlayerMovement(true, true);
+            }
+
+            
+            private void SetTargetGroupCamera()
             {
-                Dictionary<int, PlayerController> _targets = GameManager.Instance.activePlayerControllers;
+                targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
+                if (targetGroup == null)  {
+                    Debug.LogError("No target group found in the scene");
+                    return;
+                }
+                
+                // Create a new array of targets
+                CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
 
-                CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[_targets.Count];
-
-                for (int i = 0; i < _targets.Count; i++)
+                // Loop through the players and add them to the target group
+                for (int _i = 0; _i < targets.Count; _i++)
                 {
-                    _targetsArray[i] = new CinemachineTargetGroup.Target
+                    _targetsArray[_i] = new CinemachineTargetGroup.Target
                     {
-                        target = _targets[i].transform,
-                        weight = weight,
-                        radius = radius,
+                        target = targets[_i].transform,
+                        weight = playerWeight,
+                        radius = playerRadius,
                     };
                 }
 
                 targetGroup.m_Targets = _targetsArray;
             }
 
+            private void UpdateCameraZoom() {
+                int _targetCount = targets.Count;
+
+                // If there are more than 1 player, calculate the average distance between the players
+                if (_targetCount > 1) {
+                    float _totalDistance = 0f;
+
+                    // Loop through the players and calculate the distance between them
+                    for (int _i = 0; _i < Mathf.Min(_targetCount, 4); _i += 2) {
+                        // If there are more than 2 players, calculate the distance between the players
+                        if (_i + 1 < _targetCount) {
+                            _totalDistance += CalculateAverageDistance(targets, _i, _i + 1);
+                        }
+                    }
+                    
+                    float CalculateAverageDistance(Dictionary<int, PlayerController> _playerControllers, int _index1, int _index2) {
+                        if (!_playerControllers.ContainsKey(_index1) || !_playerControllers.ContainsKey(_index2)) {
+                            return 0f;
+                        }
+
+                        // Get the transform of the players
+                        Transform _transform1 = _playerControllers[_index1].gameObject.transform;
+                        Transform _transform2 = _playerControllers[_index2].gameObject.transform;
+
+                        // Calculate the distance between the players
+                        return Vector3.Distance(_transform1.position, _transform2.position);
+                    }
+
+                    // Calculate the average distance between the players
+                    float _averageDistance = _totalDistance / Mathf.Max(1, _targetCount / 2);
+
+                    // Set the camera distance to the average distance between the players
+                    virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
+                }
+            }
+            
+            private void UpdatePlayerMovement(bool _canMove, bool _canRotate) {
+                foreach (var player in targets) {
+                    player.Value.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(_canMove, _canRotate);
+                }
+            }
             #endregion
         }
     }

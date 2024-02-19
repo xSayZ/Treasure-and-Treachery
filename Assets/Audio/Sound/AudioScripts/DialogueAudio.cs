@@ -16,6 +16,7 @@ using Game.Core;
 using Game.Player;
 using Game.Quest;
 using Random = UnityEngine.Random;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 
 namespace Game {
@@ -44,10 +45,10 @@ namespace Game {
 #endregion
 
 #region Public Functions
-
 public void ShovelPickupAudio(int _playerID, Item _item)
 {
     var _players = GameManager.Instance.activePlayerControllers;
+    
     switch (_playerID)
     {
         case 0:
@@ -75,24 +76,29 @@ public void ShovelPickupAudio(int _playerID, Item _item)
     shovelPickupInstance.start();
     shovelPickupInstance.release();
     
-    GetRandomPlayerAndPlayResponse(_playerID, _players, shovelReactInstance);
+    if (_players.Count > 1 && !IsPlaying(shovelPickupInstance))
+    {
+        GetRandomPlayerAndPlayResponse(_playerID, _players);
+    }
+    
     // if (!IsPlaying(shovelPickupInstAudio)) {
     //
     //     GetRandomPlayerAndPlaySound(_playerID, _players);
     // }
 
 }
-private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, EventInstance responseInstance) {
+
+private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players) {
 
     var _randomPlayer = _players[Random.Range(0, _players.Count)];
 
     if (_randomPlayer != _players[_playerID])
     {
         Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
-        ObjectiveProgressionReactionAudio(responseInstance, _randomPlayer.gameObject, _randomPlayer.PlayerIndex);
+        ObjectiveProgressionReactionAudio(shovelReactInstance, _randomPlayer.gameObject, _randomPlayer.PlayerIndex);
     }
     else {
-        GetRandomPlayerAndPlayResponse(_playerID, _players, responseInstance);
+        GetRandomPlayerAndPlayResponse(_playerID, _players);
     }
 }
 

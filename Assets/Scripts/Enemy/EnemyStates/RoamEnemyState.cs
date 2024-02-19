@@ -8,9 +8,8 @@
 
 using System;
 using UnityEngine;
-using UnityEngine.AI;
 using Random = UnityEngine.Random;
-using Game.Audio;
+
 
 namespace Game {
     namespace Enemy {
@@ -26,11 +25,10 @@ namespace Game {
             [SerializeField] private float maxRoamAngle;
             [SerializeField] private float minMoveDistance;
             [SerializeField] private int maxMoveFrames;
-
             
             private Vector3 positionLastUpdate;
             private int currentStuckCount;
-            
+
 #region State Machine Functions
             protected override void SetUp()
             {
@@ -41,6 +39,7 @@ namespace Game {
             {
                 enemyController.NavMeshAgent.speed = moveSpeed;
                 currentStuckCount = 0;
+                
                 try  
                 {
                     enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 0);
@@ -86,7 +85,7 @@ namespace Game {
                     enemyController.ChangeState(enemyController.AlertEnemyState);
                 }
             }
-            
+
             //public override void Exit(){}
  #endregion
 
@@ -96,7 +95,7 @@ namespace Game {
                  return new Tuple<float, float, float, float>(minRoamRange, maxRoamRange, minRoamAngle, maxRoamAngle);
              }
  #endregion
- 
+
 #region Private Functions
             private Vector3 GetNewRoamPosition()
             {

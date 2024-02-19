@@ -17,14 +17,21 @@ namespace Game {
         {
             [SerializeField] private float moveSpeed;
             [SerializeField] private float minMoveDistance;
-            
+
+            private EnemyAttackBehaviour enemyAttackBehaviour;
             private Vector3 lastTargetPosition;
             private Vector3 positionLastUpdate;
+            private bool isRotating;
+            private float rotationTime;
 
 #region State Machine Functions
             protected override void SetUp()
             {
                 Name = "Chase";
+                
+                isRotating = false;
+                rotationTime = 0;
+                enemyAttackBehaviour = enemyController.GetEnemyAttackBehaviour();
             }
 
             public override void Enter()
@@ -49,7 +56,25 @@ namespace Game {
                 // No longer chasing
                 if (IsStuck(positionLastUpdate, enemyController.transform.position, minMoveDistance))
                 {
-                    enemyController.ChangeState(enemyController.AlertEnemyState);
+                    if (enemyAttackBehaviour.GetTargetsInAttackRangeCount() <= 0)
+                    {
+                        enemyController.ChangeState(enemyController.AlertEnemyState);
+                    }
+                    else
+                    {
+                        isRotating = true;
+                        
+                        Vector3 _lookVector = lastTargetPosition - enemyController.transform.position;
+                        _lookVector.y = 0;
+                        Quaternion _lookRotation = Quaternion.LookRotation(_lookVector);
+                        enemyController.transform.rotation = Quaternion.Slerp(enemyController.transform.rotation, _lookRotation, rotationTime);
+                    }
+                }
+                
+                // Update rotation time
+                if (isRotating)
+                {
+                    rotationTime += Time.fixedDeltaTime;
                 }
                 
                 positionLastUpdate = enemyController.transform.position;

@@ -184,6 +184,11 @@ namespace Game {
                 return currentState;
             }
 
+            public EnemyAttackBehaviour GetEnemyAttackBehaviour()
+            {
+                return enemyAttackBehaviour;
+            }
+
             public void Death()
             {
                 EnemyManager.OnEnemyDeath.Invoke(this);

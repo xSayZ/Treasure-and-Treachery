@@ -60,7 +60,16 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
 
     }
 
-   
+       
+    private void Update()
+    {
+        if (selects.All(a=> a.playersIsReady) && selects.Any(a => a.beginGame))
+        {
+            Debug.Log("high");
+            SceneManager.LoadScene("Adams World");
+        }
+        
+    }
 
     private void JoinAction(InputAction.CallbackContext context)
     {
@@ -89,15 +98,6 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
         //playerList.Remove(player);
         
     }
-    
-    private void Update()
-    {
-        if (selects.All(a=> a.playersIsReady))
-        {
-            Debug.Log("high");
-            SceneManager.LoadScene("Adams World");
-        }
-        
-    }
+
 
 }

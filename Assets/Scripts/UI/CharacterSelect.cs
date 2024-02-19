@@ -8,6 +8,8 @@
 // ------------------------------*/
 
 
+using System;
+using System.Linq;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,8 +24,8 @@ namespace Game
             public Image Image;
 
             public bool playersIsReady = false;
-            
-            private PlayerInput playerInputs;
+            public bool beginGame;
+            [HideInInspector] public PlayerInput playerInputs;
             private int currentId;
             private int id;
 
@@ -63,7 +65,7 @@ namespace Game
 
                
                 Vector2 value = context.ReadValue<Vector2>();
-                if (value.y > 0)
+                if (value.x > 0)
                 {
                     
                     inputDelay -= Time.deltaTime;
@@ -74,7 +76,7 @@ namespace Game
                         inputDelay = 0.01f;
                     }
                 }
-                if (value.y < 0)
+                if (value.x < 0)
                 {
                     if(inputDelay <0)
                     {
@@ -98,7 +100,7 @@ namespace Game
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if (!context.performed || playersIsReady) return;
+                if ((!context.performed || playersIsReady)) return;
                 
                 for (int i = 0; i < transform.childCount; i++)
                 {
@@ -109,6 +111,11 @@ namespace Game
 
                 }
                 playersIsReady = true;
+                if (context.performed && CharacterSelectManager.Instance.selects.All(c => c.playersIsReady))
+                {
+                    Debug.Log("hi");
+                    beginGame = true;
+                }
 
 
             }

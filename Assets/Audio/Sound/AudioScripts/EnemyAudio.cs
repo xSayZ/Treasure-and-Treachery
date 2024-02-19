@@ -67,26 +67,35 @@ public EventInstance SpiritStateAudioUpdate(GameObject enemyObj, EventInstance s
         case 5:
             spiritStateInstance = RuntimeManager.CreateInstance(spiritStateAudio);
             RuntimeManager.AttachInstanceToGameObject(spiritStateInstance, enemyObj.transform);
-            spiritStateInstance.start();
             Debug.Log("Spirit have an event");
+            spiritStateInstance.start();
             break;
         //Roam State
         case 0:
             spiritStateInstance.setParameterByName("SpiritState", 0);
+            spiritStateInstance.release();
+            spiritStateInstance.start();
             break;
         //Alert State
         case 1:
             spiritStateInstance.setParameterByName("SpiritState", 1);
+            spiritStateInstance.release();
             break;
         //Chase
         case 2:
             spiritStateInstance.setParameterByName("SpiritState", 2);
+            spiritStateInstance.release();
             break;
         //Death
         case 3:
             spiritStateInstance.setParameterByName("SpiritState", 3);
             spiritStateInstance.release();
             break;
+    }
+
+    if (enemyObj.activeInHierarchy == false)
+    {
+        spiritStateInstance.release();
     }
     
     return spiritStateInstance;

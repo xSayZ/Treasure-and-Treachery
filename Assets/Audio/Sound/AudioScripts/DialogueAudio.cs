@@ -22,8 +22,11 @@ namespace Game {
     namespace Audio {
         
         [CreateAssetMenu(menuName = "ScriptableObjects/Audio/Player/Dialogue")]
-        public class DialogueAudio : ScriptableObject {
-            
+        public class DialogueAudio : ScriptableObject
+        {
+
+            public EventInstance eventInstance;
+
             [Header("Players")]
             private List<GameObject> playerObjects = new List<GameObject>();
             
@@ -77,9 +80,8 @@ public void ShovelPickupAudio(int _playerID, Item _item)
     shovelPickupInstAudio.release();
 
     if (!IsPlaying(shovelPickupInstAudio)) {
-
+    
         GetRandomPlayerAndPlaySound(_playerID, _players);
-        Debug.Log("Nu har jag pratat klart");
     }
 
 }
@@ -89,7 +91,7 @@ private void GetRandomPlayerAndPlaySound(int _playerID, Dictionary<int, PlayerCo
 
     if (_randomPlayer != _players[_playerID])
     {
-        // Play response sound  
+        ObjectiveProgressionReactionAudio(eventInstance, _randomPlayer.gameObject, _randomPlayer.PlayerIndex);
     }
     else {
         GetRandomPlayerAndPlaySound(_playerID, _players);
@@ -104,25 +106,25 @@ public EventInstance ObjectiveProgressionReactionAudio(EventInstance objectivePr
           
             objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
             RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("SpeakerCharacter", 0);
+            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 0);
             objectiveProgReactInstance.start();
             break;
         case 1:
             objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
             RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("SpeakerCharacter", 1);
+            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 1);
             objectiveProgReactInstance.start();
             break;
         case 2:
             objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
             RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("SpeakerCharacter", 2);
+            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 2);
             objectiveProgReactInstance.start();
             break;
         case 3:
             objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
             RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("SpeakerCharacter", 3);
+            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 3);
             objectiveProgReactInstance.start();
             break;
     }

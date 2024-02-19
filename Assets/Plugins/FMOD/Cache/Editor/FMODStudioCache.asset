@@ -286,10 +286,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638439390944007789
+  lastModified: 638439465449911095
   FileSizes:
   - Name: 
-    Value: 3656
+    Value: 3744
   Exists: 1
 --- !u!114 &-7676756322976742045
 MonoBehaviour:
@@ -932,7 +932,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638439390943868412
+  lastModified: 638439465449852969
   FileSizes: []
   Exists: 1
 --- !u!114 &-4345788876620703977
@@ -1816,14 +1816,16 @@ MonoBehaviour:
   - {fileID: 123886108667118386}
   - {fileID: -1798858652182506410}
   - {fileID: -4672777500566850364}
+  - {fileID: 2216195252411528043}
   EditorParameters:
   - {fileID: -5333072920344823229}
   - {fileID: 7946791282335761376}
+  - {fileID: 2933366019437665014}
   MasterBanks:
   - {fileID: -4365269198423818314}
   StringsBanks:
   - {fileID: -7689509610193734131}
-  cacheTime: 638439390944007789
+  cacheTime: 638439465449911095
   cacheVersion: 131609
 --- !u!114 &123886108667118386
 MonoBehaviour:
@@ -1991,6 +1993,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 46600
+--- !u!114 &1680532780523126017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/New Event/ResponseCharacter
+  m_EditorClassIdentifier: 
+  Name: ResponseCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 67482059
+    data2: 95407860
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Varg
+  - "H\xE4xa"
+  - Snake
+  - Drake
+  Exists: 1
 --- !u!114 &1860189691103445732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2031,6 +2061,34 @@ MonoBehaviour:
   - Name: 
     Value: 2924
   Exists: 1
+--- !u!114 &2216195252411528043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/New Event
+  m_EditorClassIdentifier: 
+  Path: event:/New Event
+  Guid:
+    Data1: -132896341
+    Data2: 1074520257
+    Data3: -1826422594
+    Data4: -1873703396
+  Banks:
+  - {fileID: -4365269198423818314}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1680532780523126017}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &2237622729645834750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2113,6 +2171,34 @@ MonoBehaviour:
   - Value B
   - Value C
   - Value D
+  Exists: 1
+--- !u!114 &2933366019437665014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ResponseCharacter
+  m_EditorClassIdentifier: 
+  Name: ResponseCharacter
+  StudioPath: parameter:/ResponseCharacter
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 67482059
+    data2: 95407860
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Varg
+  - "H\xE4xa"
+  - Snake
+  - Drake
   Exists: 1
 --- !u!114 &2937164930408390840
 MonoBehaviour:
@@ -2491,7 +2577,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638435276925381272
+  lastModified: 638439464691029860
   FileSizes: []
   Exists: 1
 --- !u!114 &5394071309871908271

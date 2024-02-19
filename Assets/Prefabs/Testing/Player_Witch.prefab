@@ -296,8 +296,6 @@ MonoBehaviour:
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 25
-  playerObj: {fileID: 288723119442727263}
-  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   meshRenderer: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
@@ -335,17 +333,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3e84eee3a1da594aa418cf139504516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMovementBehaviour: {fileID: 8393427140100816367}
-  playerAnimationBehaviour: {fileID: 0}
   weaponCollider: {fileID: 5877225869525892562}
   projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
   meleeAttackDamage: 1
-  baseMeleeAttackCooldown: 0.5
+  meleeAttackCooldown: 0.5
   rangedAttackDamage: 1
-  baseFireRateRanged: 1
+  rangedAttackCooldown: 0.5
   projectileSpeed: 50
-  currentFireRate: 0
-  currentMeleeCooldown: 0
+  playerObj: {fileID: 288723119442727263}
+  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
 --- !u!114 &7096703045146938910
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,11 +3,12 @@
 // --------------------------------
 // Creation Date: 2024/02/05
 // Author: Fredrik
-// Description: Character Selection Screen
+// Description: Character Selection for players
 // --------------------------------
 // ------------------------------*/
 
 
+using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -18,10 +19,9 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            public GameObject gameObject;
             public Image Image;
 
-            public bool playersIsReady { get; private set; } = false;
+            public bool playersIsReady = false;
             
             private PlayerInput playerInputs;
             private int currentId;
@@ -29,8 +29,8 @@ namespace Game
 
             private Sprite cachedSprite;
             private int cachedId;
-
-            private float inputDelau;
+            private float inputDelay;
+            public PlayerData data;
             // Start is called before the first frame update
 
             #region Unity functions
@@ -40,9 +40,17 @@ namespace Game
                 HorizontalLayoutGroup layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
                 transform.parent = layoutGroup.transform;
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = SetupSelector.Instance.bank.characterImages[1];
-                inputDelau = 1;
+                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[0];
+                
+                inputDelay = 0.01f;
 
+                for (int i = 0; i < CharacterSelectManager.Instance.Datas.Count; i++)
+                {
+                    if (playerInputs.user.index == i)
+                    {
+                        data = CharacterSelectManager.Instance.Datas[i];
+                    }
+                }
             }
 
             #endregion
@@ -53,39 +61,37 @@ namespace Game
             {
                 if (playersIsReady) return;
 
-                inputDelau -= Time.deltaTime;
+               
                 Vector2 value = context.ReadValue<Vector2>();
                 if (value.y > 0)
                 {
                     
-                    inputDelau -= Time.deltaTime;
-                    Debug.Log(inputDelau);
-                    if (inputDelau <0)
+                    inputDelay -= Time.deltaTime;
+                    
+                    if (inputDelay <0)
                     {
                         id += 1;
-                        inputDelau = 0.1f;
-
+                        inputDelay = 0.01f;
                     }
-                   
                 }
-
                 if (value.y < 0)
                 {
-                    if(inputDelau <0)
+                    if(inputDelay <0)
                     {
                         id -= 1;
-                        inputDelau = 0.1f; 
+                        inputDelay = 0.01f; 
                     }
-                    
-
                 }
                 
                 id = Wrap(id, 0, 4);
                 if (id == 4) id = 0;
+
+                if (CharacterSelectManager.Instance.Images.TryGetValue(id,out Sprite sprite))
                 {
-                    
+                    Image.sprite = sprite;
+                    cachedId = id;
+                    cachedSprite = sprite;
                 }
-                Image.sprite = SetupSelector.Instance.bank.characterImages[id];
                 
 
             }
@@ -97,8 +103,11 @@ namespace Game
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
-                }
+                    
+                    data.CharacterID= id;
+                    CharacterSelectManager.Instance.Images.Remove(cachedId);
 
+                }
                 playersIsReady = true;
 
 
@@ -109,14 +118,14 @@ namespace Game
             public void OnCancel(InputAction.CallbackContext context)
             {
                 if (!context.performed || !playersIsReady) return;
-                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
+                    CharacterSelectManager.Instance.Images.Add(cachedId,cachedSprite);
+
                 }
-                    
-                playersIsReady = false;
                 
+                playersIsReady = false;
 
             }
             

@@ -18,25 +18,21 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class CharacterSelectManager : Singleton<CharacterSelectManager>
+public class CharacterSelectHandler : MonoBehaviour
 {
     public List<PlayerData> Datas;
     public List<CharacterSelect> selects;
+    public List<Transform> imagePosition = new List<Transform>();
     public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
-
-    public List<PlayerInput> playerList = new List<PlayerInput>();
-    public ImageBank bank;
-    
-    private HorizontalLayoutGroup _layoutGroup;
+    public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
 
     
-    [SerializeField] private PlayerData[] data;
-    
-
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
 
-    
+    private List<PlayerInput> playerList = new List<PlayerInput>();
+
+    public ImageBank bank;
     //EVENTS
 
     public event System.Action<PlayerInput> PlayerJoinedGame;
@@ -48,6 +44,8 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
         for (int i = 0; i < bank.characterImages.Count; i++)
         {
             Images.Add(i,bank.characterImages[i]);
+            ImagesBackup.Add(i,bank.characterImages[i]);
+            
         }
         playerList.Clear();
         PlayerInputManager.instance.JoinPlayer(0, -1, null);
@@ -63,17 +61,19 @@ public class CharacterSelectManager : Singleton<CharacterSelectManager>
        
     private void Update()
     {
-        if (selects.All(a=> a.playersIsReady) && selects.Any(a => a.beginGame))
+        if (selects.All(a=> a.PlayersIsReady))
         {
             Debug.Log("high");
             SceneManager.LoadScene("Adams World");
         }
+
         
     }
 
     private void JoinAction(InputAction.CallbackContext context)
     {
         PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
+        
     }
     
     private void LeaveAction(InputAction.CallbackContext context)

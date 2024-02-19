@@ -3,7 +3,7 @@
 // --------------------------------
 // Creation Date: 2024/02/05
 // Author: Fredrik
-// Description: Character Selection Screen
+// Description: Character Selection for players
 // --------------------------------
 // ------------------------------*/
 
@@ -19,15 +19,6 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            public enum Characters
-            {
-                w  = 0,
-                g  = 1,
-                ds = 2,
-                po = 3,
-            }
-            
-            public GameObject gameObject;
             public Image Image;
 
             public bool playersIsReady = false;
@@ -38,9 +29,7 @@ namespace Game
 
             private Sprite cachedSprite;
             private int cachedId;
-
             private float inputDelay;
-
             public PlayerData data;
             // Start is called before the first frame update
 

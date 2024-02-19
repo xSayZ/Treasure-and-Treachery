@@ -7,7 +7,6 @@
 // ------------------------------*/
 
 using System;
-using Game.Audio;
 using UnityEngine;
 
 namespace Game {
@@ -17,12 +16,12 @@ namespace Game {
         {
             [SerializeField] private float moveSpeed;
             [SerializeField] private float alertTime;
-
+            
             private float currentAlertTime;
             private bool hasHeardSomething;
             private Vector3 lastHeardPosition;
 
-            #region State Machine Functions
+#region State Machine Functions
             protected override void SetUp()
             {
                 Name = "Alert";
@@ -85,7 +84,7 @@ namespace Game {
                     }
                 }
             }
-            
+
             //public override void Exit(){}
  #endregion
         }

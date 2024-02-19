@@ -2,45 +2,46 @@
 // --------------------------------
 // Creation Date: 2024-02-13
 // Author: b22feldy
-// Description: Operation_Donken
+// Description: Controls enemy animations
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using UnityEngine;
 
 
 namespace Game {
-    namespace NAME {
+    namespace Enemy {
         public class EnemyAnimationBehaviour : MonoBehaviour
         {
-            [Header("Component References")]
-            public Animator EnemyAnimator;
-
+            private Animator enemyAnimator;
             private int enemyMovementAnimationID;
             private int enemyAttackAnimationID;
 
+#region Public Functions
             public void SetupBehaviour()
             {
-                EnemyAnimator = GetComponent<Animator>();
+                enemyAnimator = GetComponent<Animator>();
                 SetupAnimationIDs();
             }
+            
+            public void UpdateMovementAnimation(float movementBlendValue)
+            {
+                enemyAnimator.SetFloat(enemyMovementAnimationID, movementBlendValue);
+            }
+            
+            public void PlayAttackAnimation()
+            {
+                enemyAnimator.SetTrigger(enemyAttackAnimationID);
+            }
+#endregion
 
-            void SetupAnimationIDs()
+#region Private Functions
+            private void SetupAnimationIDs()
             {
                 enemyMovementAnimationID = Animator.StringToHash("Movement");
                 enemyAttackAnimationID = Animator.StringToHash("Attack");
             }
-
-            public void UpdateMovementAnimation(float movementBlendValue)
-            {
-                EnemyAnimator.SetFloat(enemyMovementAnimationID, movementBlendValue);
-            }
-
-            public void PlayAttackAnimation()
-            {
-                EnemyAnimator.SetTrigger(enemyAttackAnimationID);
-            }
+#endregion
         }
     }
 }

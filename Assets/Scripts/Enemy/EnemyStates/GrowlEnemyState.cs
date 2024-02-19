@@ -26,9 +26,9 @@ namespace Game {
                 
                 enemyController.ChangeState(enemyController.ChaseEnemyState);
             }
-            
+
             //public override void FixedUpdate(){}
-            
+
             //public override void Exit(){}
  #endregion
         }

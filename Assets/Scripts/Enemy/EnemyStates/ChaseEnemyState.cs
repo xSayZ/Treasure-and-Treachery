@@ -19,7 +19,7 @@ namespace Game {
             
             private Vector3 lastTargetPosition;
             private Vector3 positionLastUpdate;
-            
+
 #region State Machine Functions
             protected override void SetUp()
             {
@@ -55,7 +55,7 @@ namespace Game {
                 
                 NavmeshUpdateCheck(lastTargetPosition);
             }
-            
+
             //public override void Exit(){}
  #endregion
         }

@@ -56,6 +56,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Datas: []
   selects: []
+  playerList: []
+  bank: {fileID: 11400000, guid: 80847783b78af294fa1a5bdd062d9f8c, type: 2}
+  data: []
   joinAction:
     m_Name: Join
     m_Type: 0
@@ -90,8 +93,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  playerList: []
-  bank: {fileID: 11400000, guid: 80847783b78af294fa1a5bdd062d9f8c, type: 2}
 --- !u!114 &2503679760492751622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,12 +106,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NotificationBehavior: 2
-  m_MaxPlayerCount: -1
+  m_MaxPlayerCount: 3
   m_AllowJoining: 1
   m_JoinBehavior: 2
   m_PlayerJoinedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -7155858616911251584}
+        m_TargetAssemblyTypeName: SetupSelector, Assembly-CSharp
+        m_MethodName: OnPlayerJoin
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -8,6 +8,7 @@
 // ------------------------------*/
 
 
+using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -18,9 +19,18 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
+            public enum Characters
+            {
+                w  = 0,
+                g  = 1,
+                ds = 2,
+                po = 3,
+            }
+            
+            
             public GameObject gameObject;
             public Image Image;
-
+            
             public bool playersIsReady { get; private set; } = false;
             
             private PlayerInput playerInputs;
@@ -30,7 +40,9 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId;
 
-            private float inputDelau;
+            private float inputDelay;
+
+            public PlayerData data;
             // Start is called before the first frame update
 
             #region Unity functions
@@ -40,9 +52,9 @@ namespace Game
                 HorizontalLayoutGroup layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
                 transform.parent = layoutGroup.transform;
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = SetupSelector.Instance.bank.characterImages[1];
-                inputDelau = 1;
-
+                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[1];
+                
+                inputDelay = 0.1f;
             }
 
             #endregion
@@ -53,39 +65,32 @@ namespace Game
             {
                 if (playersIsReady) return;
 
-                inputDelau -= Time.deltaTime;
+               
                 Vector2 value = context.ReadValue<Vector2>();
                 if (value.y > 0)
                 {
                     
-                    inputDelau -= Time.deltaTime;
-                    Debug.Log(inputDelau);
-                    if (inputDelau <0)
+                    inputDelay -= Time.deltaTime;
+                    Debug.Log(inputDelay);
+                    if (inputDelay <0)
                     {
                         id += 1;
-                        inputDelau = 0.1f;
-
+                        inputDelay = 0.1f;
                     }
-                   
                 }
-
                 if (value.y < 0)
                 {
-                    if(inputDelau <0)
+                    if(inputDelay <0)
                     {
                         id -= 1;
-                        inputDelau = 0.1f; 
+                        inputDelay = 0.1f; 
                     }
-                    
-
                 }
                 
                 id = Wrap(id, 0, 4);
                 if (id == 4) id = 0;
-                {
-                    
-                }
-                Image.sprite = SetupSelector.Instance.bank.characterImages[id];
+                
+                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[id];
                 
 
             }
@@ -97,6 +102,7 @@ namespace Game
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(true);
+                    data = CharacterSelectManager.Instance.Datas[id];
                 }
 
                 playersIsReady = true;
@@ -113,6 +119,7 @@ namespace Game
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
+                    
                 }
                     
                 playersIsReady = false;

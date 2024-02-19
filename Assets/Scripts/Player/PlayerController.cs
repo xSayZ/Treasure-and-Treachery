@@ -113,9 +113,13 @@ namespace Game
                 if (smoothInputMovement.magnitude < 0.01f) {
                     smoothInputMovement = Vector3.zero;
                 }
+
+                if (!playerMovementBehaviour.canMove)
+                    return;
                 
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
+
             }
             #endregion
 

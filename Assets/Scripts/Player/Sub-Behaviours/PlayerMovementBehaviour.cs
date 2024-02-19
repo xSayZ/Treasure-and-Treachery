@@ -19,7 +19,7 @@ namespace Game {
 
             [FormerlySerializedAs("baseMoveSpeed")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
-            [SerializeField] private float movementSpeed = 3f;
+            [SerializeField] public float movementSpeed = 3f;
             
             [Tooltip("How fast the player turns")]
             [SerializeField] private float turnSpeed;
@@ -45,9 +45,9 @@ namespace Game {
             
             // Stored Values
             private Vector3 movementDirection;
-            private float currentSpeed;
+            public float currentSpeed { get; private set; }
             
-            private bool canMove = true;
+            public bool canMove { get; private set; } = true;
             private bool canRotate = true;
 
 #region Validation
@@ -148,7 +148,7 @@ namespace Game {
                 }
             }
             
-            void ClampPlayerPosition()
+            public void ClampPlayerPosition()
             {
                 UnityEngine.Camera camera = UnityEngine.Camera.main;
 

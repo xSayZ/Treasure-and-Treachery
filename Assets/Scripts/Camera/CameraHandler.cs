@@ -67,6 +67,11 @@ namespace Game {
                 if (objectiveTransforms.Length > 0) {
                     StartCoroutine(MoveCameraToObjectives());
                 }
+                else {
+                    // Set the camera to zoom and update the player movement
+                    canZoom = true;
+                    SetTargetGroupCamera();
+                }
                 
             }
 

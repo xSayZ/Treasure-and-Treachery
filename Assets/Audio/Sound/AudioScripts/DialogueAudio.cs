@@ -78,7 +78,7 @@ public void ShovelPickupAudio(int _playerID, Item _item)
     
     shovelPickupInstAudio.start();
     shovelPickupInstAudio.release();
-
+    GetRandomPlayerAndPlaySound(_playerID, _players);
     if (!IsPlaying(shovelPickupInstAudio)) {
     
         GetRandomPlayerAndPlaySound(_playerID, _players);
@@ -87,10 +87,11 @@ public void ShovelPickupAudio(int _playerID, Item _item)
 }
 private void GetRandomPlayerAndPlaySound(int _playerID, Dictionary<int, PlayerController> _players) {
 
-    var _randomPlayer = _players[Random.Range(0, playerObjects.Count)];
+    var _randomPlayer = _players[Random.Range(0, _players.Count)];
 
     if (_randomPlayer != _players[_playerID])
     {
+        Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
         ObjectiveProgressionReactionAudio(eventInstance, _randomPlayer.gameObject, _randomPlayer.PlayerIndex);
     }
     else {

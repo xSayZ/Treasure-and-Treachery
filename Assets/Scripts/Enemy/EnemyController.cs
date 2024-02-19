@@ -32,6 +32,7 @@ namespace Game {
             [SerializeField] private SphereCollider hearingSphere;
             [SerializeField] private LayerMask obstacleLayerMask;
             [SerializeField] private EnemyAnimationBehaviour enemyAnimationBehaviour;
+            [SerializeField] private EnemyAttackBehaviour enemyAttackBehaviour;
             
             [Header("Pathfinding")]
             [SerializeField] public float maxPathfindingDeviationDistance;
@@ -39,10 +40,6 @@ namespace Game {
             
             [field:Header("Health")]
             [field:SerializeField] public int Health { get; set; }
-            
-            [Header("Attack")]
-            [SerializeField] private int damage;
-            [SerializeField] private float attackCooldown;
             
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;
@@ -64,8 +61,6 @@ namespace Game {
             
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;
-            private List<IDamageable> targetsInAttackRange;
-            private float currentAttackCooldown;
 
 #region Unity Functions
             private void Awake()
@@ -80,13 +75,13 @@ namespace Game {
 
             private void Start()
             {
+                // Setup behaviours
                 enemyAnimationBehaviour.SetupBehaviour();
+                enemyAttackBehaviour.SetupBehaviour(enemyAnimationBehaviour);
                 
                 currentState.Enter();
                 
-                // Initialize variables
                 targetsInVisionRangeUpdate = new List<Transform>();
-                targetsInAttackRange = new List<IDamageable>();
                 
                 // Setup vision and hearing colliders
                 visionSphere.radius = visionRange;
@@ -147,27 +142,6 @@ namespace Game {
                     {
                         targetsInHearingRange.Remove(targetsInHearingRange[i]);
                     }
-                }
-                
-                // Remove null references from attack range
-                for (int i = targetsInAttackRange.Count - 1; i >= 0; i--)
-                {
-                    if (!(targetsInAttackRange[i] as UnityEngine.Object))
-                    {
-                        targetsInAttackRange.Remove(targetsInAttackRange[i]);
-                    }
-                }
-                
-                // Attack targets in range
-                if (currentAttackCooldown > 0)
-                {
-                    currentAttackCooldown -= Time.fixedDeltaTime;
-                }
-                else if (targetsInAttackRange.Count > 0)
-                {
-                    enemyAnimationBehaviour.PlayAttackAnimation();
-                    targetsInAttackRange[0].Damage(damage);
-                    currentAttackCooldown = attackCooldown;
                 }
                 
                 currentState.FixedUpdate();
@@ -270,25 +244,6 @@ namespace Game {
                 if (targetsInHearingRange.Contains(_targetTransform))
                 {
                     targetsInHearingRange.Remove(_targetTransform);
-                }
-            }
-
-            public void AttackRangeEntered(Transform _targetTransform)
-            {
-                if (_targetTransform.gameObject.CompareTag("Player") || _targetTransform.gameObject.CompareTag("Carriage"))
-                {
-                    if (_targetTransform.TryGetComponent(out IDamageable hit))
-                    {
-                        targetsInAttackRange.Add(hit);
-                    }
-                }
-            }
-
-            public void AttackRangeExited(Transform _targetTransform)
-            {
-                if (_targetTransform.TryGetComponent(out IDamageable hit))
-                {
-                    targetsInAttackRange.Remove(hit);
                 }
             }
 #endregion

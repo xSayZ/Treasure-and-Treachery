@@ -85,6 +85,11 @@ namespace Game {
                 targetsInAttackRange = new List<IDamageable>();
             }
 
+            public int GetTargetsInAttackRangeCount()
+            {
+                return targetsInAttackRange.Count;
+            }
+
             public void AttackRangeEntered(Transform _targetTransform)
             {
                 if (_targetTransform.gameObject.CompareTag("Player") || _targetTransform.gameObject.CompareTag("Carriage"))

@@ -35,22 +35,21 @@ namespace Game {
             [Range(0, 5)]
             [SerializeField] private float baseDashCooldown = 2f;
             
-            private bool lockout;
-            private float currentDashCooldown;
-            
             // References
             private Rigidbody playerRigidBody;
             
             // Stored Values
             private Vector3 movementDirection;
-            private float currentSpeed;
+            private float currentMaxSpeed;
+            private float currentDashCooldown;
+            private bool isForceMoving;
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
             
             public void SetupBehaviour()
             {
-                currentSpeed = movementSpeed;
+                currentMaxSpeed = movementSpeed;
                 playerRigidBody = GetComponent<Rigidbody>();
             }
 
@@ -81,8 +80,12 @@ namespace Game {
                 if (canMove)
                 {
                     MovePlayer();
-                    DashCompletion();
                     ClampPlayerPosition();
+                }
+                
+                if (currentDashCooldown > 0)
+                {
+                    currentDashCooldown -= Time.deltaTime;
                 }
             }
 #endregion
@@ -90,7 +93,10 @@ namespace Game {
 #region Public Functions
             public void UpdateMovementData(Vector3  _newMovementDirection)
             {
-                movementDirection = _newMovementDirection;
+                if (!isForceMoving)
+                {
+                    movementDirection = _newMovementDirection;
+                }
             }
 
             public void SetMovementActiveState(bool _movement, bool _rotate)
@@ -107,6 +113,11 @@ namespace Game {
                 }
             }
 
+            public void ApplyForce(float _speed, Vector3 _direction, float _time)
+            {
+                StartCoroutine(ForceMove(_speed, _direction, _time));
+            }
+
             public float TurnSpeed {
                 get {
                     return turnSpeed;
@@ -119,7 +130,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentSpeed * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
 
@@ -129,27 +140,26 @@ namespace Game {
                     var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
                     playerRigidBody.rotation = _rotation;
                 }
-
             }
 
             private IEnumerator IsDashing()
             {
-                currentSpeed = movementSpeed + dashSpeedModifier;
+                currentMaxSpeed = movementSpeed + dashSpeedModifier;
                 yield return new WaitForSeconds(dashTime);
                 currentDashCooldown = baseDashCooldown;
-                currentSpeed = movementSpeed;
-                lockout = true;
+                currentMaxSpeed = movementSpeed;
             }
 
-            private void DashCompletion()
+            private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time)
             {
-                if (lockout)
-                {
-                    currentDashCooldown -= Time.deltaTime;
-                }
-                if (currentDashCooldown <= 0) {
-                    lockout = false;
-                }
+                isForceMoving = true;
+                currentMaxSpeed = _speed;
+                movementDirection = _direction.normalized;
+                
+                yield return new WaitForSeconds(_time);
+                
+                currentMaxSpeed = movementSpeed;
+                isForceMoving = false;
             }
 
             private void ClampPlayerPosition()

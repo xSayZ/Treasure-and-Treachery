@@ -154,7 +154,7 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerAttackBehaviour.MeleeAttack(playerAnimationBehaviour);
+                    playerAttackBehaviour.Melee(playerAnimationBehaviour, playerMovementBehaviour);
                 }
             }
 

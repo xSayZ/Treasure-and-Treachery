@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Game.Audio;
 using Game.Backend;
@@ -25,11 +26,15 @@ namespace Game {
             
             [Header("Melee Attack Settings")]
             [SerializeField] private int meleeAttackDamage;
-            [SerializeField] public float meleeAttackCooldown;
+            [SerializeField] private float meleeAttackCooldown;
+            [SerializeField] private float meleeAttackDuration;
+            [SerializeField] private float meleeAttackDelay;
+            [SerializeField] private float meleeChargeSpeed;
+            [SerializeField] private float meleeChargeTime;
             
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
-            [SerializeField] public float rangedAttackCooldown;
+            [SerializeField] private float rangedAttackCooldown;
             [SerializeField] private float projectileSpeed;
             
             [Header("Audio")]
@@ -39,6 +44,7 @@ namespace Game {
             // Melee
             private List<IDamageable> damageableInRange;
             private float currentMeleeCooldown;
+            private bool isMeleeAttacking;
             
             // Ranged
             private float currentRangedCooldown;
@@ -80,44 +86,18 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void MeleeAttack(PlayerAnimationBehaviour _playerAnimationBehaviour)
+            public void Melee(PlayerAnimationBehaviour _playerAnimationBehaviour, PlayerMovementBehaviour _playerMovementBehaviour)
             {
                 if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
                 {
                     return;
                 }
                 
-                _playerAnimationBehaviour.PlayMeleeAttackAnimation();
-                
-                // Loop through all enemies in range
-                for (int i = damageableInRange.Count - 1; i >= 0; i--)
-                {
-                    if (!(damageableInRange[i] as Object)) // Null check
-                    {
-                        damageableInRange.Remove(damageableInRange[i]);
-                        continue;
-                    }
-                    
-                    bool killed = damageableInRange[i].Damage(meleeAttackDamage);
-                    
-                    if (killed)
-                    {
-                        playerController.PlayerData.kills += 1;
-                        playerController.PlayerData.killsThisLevel += 1;
-                        EnemyManager.OnEnemyDeathUI.Invoke();
-                    }
-                }
-                
                 currentMeleeCooldown = meleeAttackCooldown;
                 
-                try
-                {
-                    playerAudio.MeleeAudioPlay(playerObj);
-                }
-                catch (Exception e)
-                {
-                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
-                }
+                _playerAnimationBehaviour.PlayMeleeAttackAnimation(); 
+                
+                StartCoroutine(MeleeAttack(_playerMovementBehaviour));
             }
 
             public void Aim(bool _aiming, PlayerMovementBehaviour _playerMovementBehaviour)
@@ -145,23 +125,68 @@ namespace Game {
             {
                 if (_transform.gameObject.CompareTag("Enemy"))
                 {
-                    if (_transform.TryGetComponent(out IDamageable hit))
+                    if (_transform.TryGetComponent(out IDamageable _hit))
                     {
-                        damageableInRange.Add(hit);
+                        damageableInRange.Add(_hit);
+
+                        if (isMeleeAttacking)
+                        {
+                            _hit.Damage(meleeAttackDamage);
+                            Debug.Log("Extended kill");
+                        }
                     }
                 }
             }
 
             public void OnAttackRangeExit(Transform _transform)
             {
-                if (_transform.TryGetComponent(out IDamageable hit))
+                if (_transform.TryGetComponent(out IDamageable _hit))
                 {
-                    damageableInRange.Remove(hit);
+                    damageableInRange.Remove(_hit);
                 }
             }
 #endregion
 
 #region Private Functions
+            private IEnumerator MeleeAttack(PlayerMovementBehaviour _playerMovementBehaviour)
+            {
+                yield return new WaitForSeconds(meleeAttackDelay);
+                
+                _playerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
+                
+                // Loop through all enemies in range
+                for (int i = damageableInRange.Count - 1; i >= 0; i--)
+                {
+                    if (!(damageableInRange[i] as Object)) // Null check
+                    {
+                        damageableInRange.Remove(damageableInRange[i]);
+                        continue;
+                    }
+                    
+                    bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                    
+                    if (killed)
+                    {
+                        playerController.PlayerData.kills += 1;
+                        playerController.PlayerData.killsThisLevel += 1;
+                        EnemyManager.OnEnemyDeathUI.Invoke();
+                    }
+                }
+                
+                try
+                {
+                    playerAudio.MeleeAudioPlay(playerObj);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
+                
+                isMeleeAttacking = true;
+                yield return new WaitForSeconds(meleeAttackDuration);
+                isMeleeAttacking = false;
+            }
+            
             private void RangedAttack()
             {
                 GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);

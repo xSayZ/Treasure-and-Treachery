@@ -7,17 +7,23 @@
 // ------------------------------*/
 
 using System.Collections;
+using System.Collections.Generic;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game {
     namespace Player {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
-            [Header("Settings")]
+            [Header("Setup")]
             [SerializeField] private CapsuleCollider playerCollider;
             [SerializeField] private CapsuleCollider dashCollider;
+            [SerializeField] private GameObject dashCanvas;
+            [SerializeField] private GameObject dashUIPrefab;
+            [SerializeField] private Sprite fullDashSprite;
+            [SerializeField] private Sprite emptyDashSprite;
             
             [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
@@ -51,6 +57,7 @@ namespace Game {
             // Dash values
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
+            private List<Image> dashImages;
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
@@ -61,6 +68,15 @@ namespace Game {
                 playerRigidBody = GetComponent<Rigidbody>();
                 currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
+                
+                dashImages = new List<Image>();
+                
+                for (int i = 0; i < numberOfDashes; i++)
+                {
+                    dashImages.Add(Instantiate(dashUIPrefab, dashCanvas.transform).GetComponent<Image>());
+                }
+                
+                UpdateDashUI();
             }
 
 #region Validation
@@ -96,6 +112,7 @@ namespace Game {
                 if (currentDashRechargeTime <= 0 && currentNumberOfDashes < numberOfDashes)
                 {
                     currentNumberOfDashes++;
+                    UpdateDashUI();
                     
                     if (currentNumberOfDashes < numberOfDashes)
                     {
@@ -142,6 +159,7 @@ namespace Game {
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;
+                    UpdateDashUI();
                     
                     StartCoroutine(DashMove());
                 }
@@ -230,6 +248,21 @@ namespace Game {
                 
                 Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
                 playerRigidBody.position = newPosition;
+            }
+
+            private void UpdateDashUI()
+            {
+                for (int i = dashImages.Count - 1; i >= 0; i--)
+                {
+                    if (i < currentNumberOfDashes)
+                    {
+                        dashImages[i].sprite = fullDashSprite;
+                    }
+                    else
+                    {
+                        dashImages[i].sprite = emptyDashSprite;
+                    }
+                }
             }
 #endregion
         }

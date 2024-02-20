@@ -41,6 +41,8 @@ namespace Game {
             [Range(0f, 180f)]
             [SerializeField] private float rangedAimStartAngle;
             [SerializeField] private float rangedAimSpeed;
+            [SerializeField] private float rangedKnockbackSpeed;
+            [SerializeField] private float rangedKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
             [SerializeField] private float projectileSpeed;
             
@@ -152,10 +154,11 @@ namespace Game {
                     
                     currentRangedCooldown = rangedAttackCooldown;
                     
-                    RangedAttack();
+                    FireProjectile();
                     
                     _playerMovementBehaviour.TurnSpeed *= 2;
                     _playerMovementBehaviour.SetMovementActiveState(true, true);
+                    _playerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
             }
 
@@ -225,7 +228,7 @@ namespace Game {
                 isMeleeAttacking = false;
             }
 
-            private void RangedAttack()
+            private void FireProjectile()
             {
                 Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                 

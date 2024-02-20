@@ -113,9 +113,9 @@ namespace Game {
                 }
             }
 
-            public void ApplyForce(float _speed, Vector3 _direction, float _time)
+            public void ApplyForce(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation = false)
             {
-                StartCoroutine(ForceMove(_speed, _direction, _time));
+                StartCoroutine(ForceMove(_speed, _direction, _time, _keepFacingRotation));
             }
 
             public float TurnSpeed {
@@ -136,7 +136,8 @@ namespace Game {
 
             private void TurnPlayer()
             {
-                if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero) {
+                if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero)
+                {
                     var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
                     playerRigidBody.rotation = _rotation;
                 }
@@ -150,14 +151,20 @@ namespace Game {
                 currentMaxSpeed = movementSpeed;
             }
 
-            private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time)
+            private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation)
             {
                 isForceMoving = true;
                 currentMaxSpeed = _speed;
                 movementDirection = _direction.normalized;
                 
+                if (_keepFacingRotation)
+                {
+                    SetMovementActiveState(true, false);
+                }
+                
                 yield return new WaitForSeconds(_time);
                 
+                SetMovementActiveState(true, true);
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;
             }

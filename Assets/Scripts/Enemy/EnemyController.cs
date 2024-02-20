@@ -40,6 +40,7 @@ namespace Game {
             
             [field:Header("Health")]
             [field:SerializeField] public int Health { get; set; }
+            public bool Invincible { get; set; }
             
             [Header("Vision and Hearing")]
             [SerializeField] private Transform headOrigin;

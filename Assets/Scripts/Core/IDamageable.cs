@@ -12,13 +12,19 @@ namespace Game {
         public interface IDamageable
         {
             public int Health { get; set; }
+            public bool Invincible { get; set; }
 
             public void Death();
 
             public void DamageTaken();
-            
+
             public bool Damage(int _damage)
             {
+                if (Invincible)
+                {
+                    return false;
+                }
+                
                 Health -= _damage;
                 if (Health <= 0)
                 {

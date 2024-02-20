@@ -43,7 +43,7 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] bool debug;
-
+            [Tooltip("press this for spawning in multiple players for debugging sounds")]
             public bool soundDebug;
             private bool isPaused;
             
@@ -108,23 +108,23 @@ namespace Game {
             }
 
             private void AddPlayers() {
+                
                 activePlayerControllers = new Dictionary<int, PlayerController>();
-
+                
                 string[] _controllers = Input.GetJoystickNames();
-                if (_controllers.Length == 0)
+                if (_controllers.Length == 0 && !soundDebug)
                 {
                     LogWarning("No controllers detected");
                     SpawnPlayers(0, 1);
                 }
-
-                if (!debug)
+                // ta bort efter speltest 2
+                if (!debug && !soundDebug)
                 {
                     for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
                         SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
                     }
                 }
-
-                if (debug)
+                if (debug && !soundDebug)
                 {
                     for (int i = 0; i < _controllers.Length; i++)
                     {

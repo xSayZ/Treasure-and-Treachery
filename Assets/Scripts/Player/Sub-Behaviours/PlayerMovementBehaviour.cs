@@ -11,13 +11,12 @@ using UnityEngine;
 
 
 namespace Game {
-    namespace Player
-    {
-        public class PlayerMovementBehaviour : MonoBehaviour {
-            
+    namespace Player {
+        public class PlayerMovementBehaviour : MonoBehaviour
+        {
+            [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
             [SerializeField] private float movementSpeed;
-            
             [Tooltip("How fast the player turns")]
             [SerializeField] private float turnSpeed;
             

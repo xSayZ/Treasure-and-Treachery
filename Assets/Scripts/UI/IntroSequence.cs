@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using Game.Audio;
 using Game.Backend;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -77,7 +78,7 @@ namespace Game
             {
                 if (done && elapsedTime >timeBeforeChange)
                 {
-                    SceneManager.LoadScene(sceneBuildIndex: GameManager.nextSceneBuildIndex);
+                    CustomSceneManager.Instance.ChangeScene();
                 }
             }
 

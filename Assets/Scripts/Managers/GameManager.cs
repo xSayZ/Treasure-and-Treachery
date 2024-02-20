@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using UnityEngine.Events;
+using Game.UI;
 
 namespace Game {
     namespace Backend {
@@ -29,7 +30,7 @@ namespace Game {
 
             [Header("Spawn Variables")]
             [Tooltip("Assign the spawn point where players are to be instantiated from")]
-            [SerializeField] private Transform spawnRingCenter;
+            [SerializeField] public Transform spawnRingCenter;
             [Range(0.5f, 15f)]
             [SerializeField] private float spawnRingRadius;
             [Space]
@@ -38,8 +39,12 @@ namespace Game {
             public Dictionary<int, PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
 
+            public List<GameObject> playerVariants;
+            
             [Header("Debug")]
             [SerializeField] bool debug;
+            [Tooltip("press this for spawning in multiple players for debugging sounds")]
+            public bool soundDebug;
             private bool isPaused;
             
             // Temporary
@@ -103,18 +108,37 @@ namespace Game {
             }
 
             private void AddPlayers() {
+                
                 activePlayerControllers = new Dictionary<int, PlayerController>();
-
+                
                 string[] _controllers = Input.GetJoystickNames();
-                if (_controllers.Length == 0)
+                if (_controllers.Length == 0 && !soundDebug)
                 {
                     LogWarning("No controllers detected");
                     SpawnPlayers(0, 1);
                 }
-                
-                for (int i = 0; i < _controllers.Length; i++) {
-                    SpawnPlayers(i, _controllers.Length);
+                // ta bort efter speltest 2
+                if (!debug && !soundDebug)
+                {
+                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
+                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
+                    }
                 }
+                if (debug && !soundDebug)
+                {
+                    for (int i = 0; i < _controllers.Length; i++)
+                    {
+                        SpawnPlayers(i, _controllers.Length);
+                    }
+                }
+
+                if (soundDebug)
+                {
+                    for (int i = 0; i < 4; i++) {
+                        SpawnPlayers(i, 4);
+                    }
+                }
+               
             }
             
             private void SetupActivePlayers()
@@ -189,13 +213,13 @@ namespace Game {
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
-                    
-                GameObject _spawnedPlayer = Instantiate(playerPrefab, _spawnPosition, _spawnRotation);
-                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 
                 // Get PlayerData from List and assign it based on playerID
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
+                GameObject _spawnedPlayer = Instantiate(playerVariants[_playerData.CharacterID],_spawnPosition,_spawnRotation);
+                AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
+                
             }
             
             private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {

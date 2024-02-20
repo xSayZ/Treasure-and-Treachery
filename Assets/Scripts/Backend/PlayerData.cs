@@ -38,7 +38,8 @@ namespace Game {
             
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
-            
+
+            public int CharacterID;
             public void NewScene()
             {
                 currencyThisLevel = 0;

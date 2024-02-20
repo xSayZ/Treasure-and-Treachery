@@ -9,14 +9,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using Cinemachine;
 using Game.Backend;
 using Game.Player;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 using Vector3 = UnityEngine.Vector3;
 // ReSharper disable Unity.PerformanceCriticalCodeCameraMain
 
@@ -63,12 +59,18 @@ namespace Game {
             }
             
             #region Unity Functions
-            private void Start()
-            {
+            private void Start() {
+                targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
+                targetGroup.transform.position = GameManager.Instance.spawnRingCenter.position;
                 // Get the active player controllers
                 targets = GameManager.Instance.activePlayerControllers;
                 if (objectiveTransforms.Length > 0) {
                     StartCoroutine(MoveCameraToObjectives());
+                }
+                else {
+                    // Set the camera to zoom and update the player movement
+                    canZoom = true;
+                    SetTargetGroupCamera();
                 }
                 
             }
@@ -115,7 +117,6 @@ namespace Game {
             
             private void SetTargetGroupCamera()
             {
-                targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 if (targetGroup == null)  {
                     Debug.LogError("No target group found in the scene");
                     return;

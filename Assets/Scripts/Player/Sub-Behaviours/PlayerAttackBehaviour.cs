@@ -6,109 +6,217 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using Game.Quest;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 
-namespace Game
-{
-    namespace Player
-    {
+namespace Game {
+    namespace Player {
         public class PlayerAttackBehaviour : MonoBehaviour {
             [Header("Component References")]
-            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */
-            /* DELETE THIS AFTER PLAYTEST 1 !!! */ [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour; /* DELETE THIS AFTER PLAYTEST 1 !!! */ 
             [SerializeField] private CapsuleCollider weaponCollider;
             [SerializeField] private GameObject projectile;
-
+            [SerializeField] private GameObject aimLineLeft;
+            [SerializeField] private GameObject aimLineRight;
+            
             [Header("Melee Attack Settings")]
             [SerializeField] private int meleeAttackDamage;
-            [SerializeField] public float baseMeleeAttackCooldown;
-
+            [SerializeField] private float meleeAttackCooldown;
+            [SerializeField] private float meleeAttackDuration;
+            [SerializeField] private float meleeAttackDelay;
+            [SerializeField] private float meleeChargeSpeed;
+            [SerializeField] private float meleeChargeTime;
+            
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
-            [SerializeField] public float baseFireRateRanged;
+            [SerializeField] private float rangedAttackCooldown;
+            [Range(0f, 180f)]
+            [SerializeField] private float rangedAimStartAngle;
+            [SerializeField] private float rangedAimSpeed;
+            [SerializeField] private float rangedKnockbackSpeed;
+            [SerializeField] private float rangedKnockbackTime;
+            [SerializeField] private Transform projectileSpawnPoint;
             [SerializeField] private float projectileSpeed;
             
-            private List<Transform> enemyTransforms = new List<Transform>();
-
-            //private bool isAttacking;
-            [HideInInspector] public float currentFireRate;
-            [HideInInspector] public float currentMeleeCooldown;
-            private PlayerController playerController;
-            private LayerMask enemyLayer;
+            [Header("Audio")]
+            [SerializeField] private GameObject playerObj;
+            [SerializeField] private PlayerAudio playerAudio;
             
+            // Melee
+            private List<IDamageable> damageableInRange;
+            private float currentMeleeCooldown;
+            private bool isMeleeAttacking;
+            
+            // Ranged
+            private float currentRangedCooldown;
+            private float currentAimAngle;
+            private bool isAiming;
+            
+            private PlayerController playerController;
+
+#region Validation
+            private void OnValidate()
+            {
+                if(meleeAttackCooldown < meleeAttackDelay + meleeAttackDuration)
+                {
+                    Debug.LogWarning("Melee Attack Cooldown needs to be higher than Melee Attack Delay and Melee Attack Duration combined");
+                    meleeAttackCooldown = meleeAttackDelay + meleeAttackDuration + 0.01f;
+                }
+            }
+#endregion
+
 #region Unity Functions
             private void OnEnable()
             {
                 QuestManager.OnMeleeWeaponPickedUp.AddListener(ActivateMeleeWeapon);
                 QuestManager.OnRagedWeaponPickedUp.AddListener(ActivateRangedWeapon);
             }
-            
+
             private void OnDisable()
             {
                 QuestManager.OnMeleeWeaponPickedUp.RemoveListener(ActivateMeleeWeapon);
                 QuestManager.OnRagedWeaponPickedUp.RemoveListener(ActivateRangedWeapon);
             }
-            
+
             private void Awake()
             {
-                playerController = GetComponent<PlayerController>();
-                enemyLayer = LayerMask.NameToLayer("Enemy");
+                damageableInRange = new List<IDamageable>();
                 
-                // Set default values
-                currentFireRate = 0;
-                currentMeleeCooldown = 0;
+                playerController = GetComponent<PlayerController>();
             }
-            
+
             private void Update()
             {
-                currentFireRate -= Time.deltaTime;
-                currentMeleeCooldown -= Time.deltaTime;
+                if (currentMeleeCooldown > 0)
+                {
+                    currentMeleeCooldown -= Time.deltaTime;
+                }
+                
+                if (currentRangedCooldown > 0)
+                {
+                    currentRangedCooldown -= Time.deltaTime;
+                }
+                
+                if (isAiming && currentAimAngle > 0)
+                {
+                    currentAimAngle -= Time.deltaTime * rangedAimSpeed;
+                    currentAimAngle = Mathf.Max(0, currentAimAngle);
+                    
+                    Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
+                    aimLineLeft.transform.localPosition = _leftPosition;
+                    aimLineLeft.transform.localRotation = _leftRotation;
+                    
+                    Vector3 _rightPosition = Quaternion.AngleAxis(currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Quaternion _rightRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
+                    aimLineRight.transform.localPosition = _rightPosition;
+                    aimLineRight.transform.localRotation = _rightRotation;
+                }
             }
 #endregion
-            
+
 #region Public Functions
-            public void OnAttackRangeEnter(Transform _transform) {
-                if (_transform.gameObject.layer != enemyLayer)
-                    return;
-                
-                if (weaponCollider.isTrigger)
+            public void Melee(PlayerAnimationBehaviour _playerAnimationBehaviour, PlayerMovementBehaviour _playerMovementBehaviour)
+            {
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
                 {
-                    enemyTransforms.Add(_transform);
+                    return;
+                }
+                
+                currentMeleeCooldown = meleeAttackCooldown;
+                
+                _playerAnimationBehaviour.PlayMeleeAttackAnimation(); 
+                
+                StartCoroutine(MeleeAttack(_playerMovementBehaviour));
+            }
+
+            public void Aim(bool _aiming, PlayerMovementBehaviour _playerMovementBehaviour)
+            {
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0)
+                {
+                    return;
+                }
+                
+                if (_aiming)
+                {
+                    isAiming = true;
+                    currentAimAngle = rangedAimStartAngle;
+                    
+                    aimLineLeft.SetActive(true);
+                    aimLineRight.SetActive(true);
+                    
+                    _playerMovementBehaviour.TurnSpeed /= 2;
+                    _playerMovementBehaviour.SetMovementActiveState(false, true);
+                }
+                else if (isAiming)
+                {
+                    isAiming = false;
+                    
+                    aimLineLeft.SetActive(false);
+                    aimLineRight.SetActive(false);
+                    
+                    currentRangedCooldown = rangedAttackCooldown;
+                    
+                    FireProjectile();
+                    
+                    _playerMovementBehaviour.TurnSpeed *= 2;
+                    _playerMovementBehaviour.SetMovementActiveState(true, true);
+                    _playerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
             }
-            
+
+            public void OnAttackRangeEnter(Transform _transform)
+            {
+                if (_transform.gameObject.CompareTag("Enemy"))
+                {
+                    if (_transform.TryGetComponent(out IDamageable _hit))
+                    {
+                        damageableInRange.Add(_hit);
+
+                        if (isMeleeAttacking)
+                        {
+                            _hit.Damage(meleeAttackDamage);
+                            Debug.Log("Extended kill");
+                        }
+                    }
+                }
+            }
+
             public void OnAttackRangeExit(Transform _transform)
             {
-                if (_transform.gameObject.layer != enemyLayer)
+                if (_transform.TryGetComponent(out IDamageable _hit))
                 {
-                    enemyTransforms?.Remove(_transform);
+                    damageableInRange.Remove(_hit);
                 }
             }
-            
-            public bool MeleeAttack()
+#endregion
+
+#region Private Functions
+            private IEnumerator MeleeAttack(PlayerMovementBehaviour _playerMovementBehaviour)
             {
-                if (currentMeleeCooldown > 0 || !playerController.PlayerData.hasMeleeWeapon)
-                {
-                    return false;
-                }
+                yield return new WaitForSeconds(meleeAttackDelay);
                 
-                for (int i = enemyTransforms.Count - 1; i >= 0; i--)
+                _playerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
+                
+                // Loop through all enemies in range
+                for (int i = damageableInRange.Count - 1; i >= 0; i--)
                 {
-                    if (enemyTransforms[i] == null)
+                    if (!(damageableInRange[i] as Object)) // Null check
                     {
-                        enemyTransforms.Remove(enemyTransforms[i]);
+                        damageableInRange.Remove(damageableInRange[i]);
                         continue;
                     }
                     
-                    if (!enemyTransforms[i].TryGetComponent(out IDamageable _hit))
-                        continue;
+                    bool killed = damageableInRange[i].Damage(meleeAttackDamage);
                     
-                    bool killed = _hit.Damage(meleeAttackDamage);
                     if (killed)
                     {
                         playerController.PlayerData.kills += 1;
@@ -116,27 +224,29 @@ namespace Game
                         EnemyManager.OnEnemyDeathUI.Invoke();
                     }
                 }
-                currentMeleeCooldown = baseMeleeAttackCooldown;
-                return true;
-            }
-
-            public void RangedAttack()
-            {
-                if (!playerController.PlayerData.hasRangedWeapon)
+                
+                try
                 {
-                    return;
+                    playerAudio.MeleeAudioPlay(playerObj);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
                 }
                 
-                GameObject _projectile = Instantiate(projectile, transform.position, Quaternion.identity);
-                Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
-                _playerProjectile.SetValues(transform.forward, rangedAttackDamage, projectileSpeed, playerController.PlayerData);
-                
-                currentFireRate = baseFireRateRanged;
-                playerMovementBehaviour.SetMovementActiveState(true, true);
+                isMeleeAttacking = true;
+                yield return new WaitForSeconds(meleeAttackDuration);
+                isMeleeAttacking = false;
             }
-#endregion
-            
-#region Private Functions
+
+            private void FireProjectile()
+            {
+                Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
+                
+                GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
+                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData);
+            }
+
             private void ActivateMeleeWeapon(int _playerIndex)
             {
                 if (_playerIndex == playerController.PlayerIndex)
@@ -144,7 +254,7 @@ namespace Game
                    playerController.PlayerData.hasMeleeWeapon = true; 
                 }
             }
-            
+
             private void ActivateRangedWeapon(int _playerIndex)
             {
                 if (_playerIndex == playerController.PlayerIndex)

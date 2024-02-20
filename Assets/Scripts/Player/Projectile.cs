@@ -19,20 +19,17 @@ namespace Game
     {
         public class Projectile : MonoBehaviour
         {
-            [SerializeField] private float bulletAliveTime;
+            [Header("Settings")]
+            [SerializeField] private float aliveTime;
             
             [Header("Audio")]
             [SerializeField] private GameObject projectileObj;
             [SerializeField] private PlayerAudio playerAudio;
             
-            // Internal Variables
-            private Vector3 direction;
-            private float projectileSpeed;
-            private int projectileDamage;
+            private int damage;
             private PlayerData playerData;
+            private float currentAliveTime;
 
-            public LayerMask mask;
-            
 #region Unity Functions
             private void Start()
             {
@@ -45,27 +42,30 @@ namespace Game
                     Debug.LogError("[{Projectile}]: Error Exception " + e);
                 }
             }
-            
-            private void FixedUpdate()
+
+            // Destroy bullet after specified time
+            private void Update()
             {
-                transform.Translate(direction * (projectileSpeed * Time.fixedDeltaTime));
+                currentAliveTime += Time.deltaTime;
+
+                if (currentAliveTime > aliveTime)
+                {
+                    Destroy(gameObject);
+                }
             }
-            
+
             private void OnCollisionEnter(Collision other)
             {
-                
-                if (other.gameObject.name != "Terrain" && other.gameObject.layer == 8)
+                if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
-                    if (!other.gameObject.TryGetComponent(out IDamageable _hit))
-                        return;
+                    bool killed = _hit.Damage(damage);
                     
-                    bool killed = _hit.Damage(projectileDamage);
                     if (killed)
                     {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
-
+                        
                         try
                         {
                             playerAudio.ProjectileHitAudio(gameObject);
@@ -75,31 +75,19 @@ namespace Game
                             Debug.LogError("[{Projectile}]: Error Exception " + e);
                         }
                     }
-                    
                 }
-
-                if (other.gameObject.name != "Terrain" )
-                {
-                    Destroy(gameObject);
-
-                }
-                else
-                {
-                    Destroy(gameObject, bulletAliveTime);
-                }
-
-               
                 
+                Destroy(gameObject);
             }
 #endregion
 
 #region Public Functions
-            public void SetValues(Vector3 _direction, int _damage, float _projectileSpeed, PlayerData _playerData)
+            public void Setup(int _damage, float _speed, PlayerData _playerData)
             {
-                direction = _direction;
-                projectileDamage = _damage;
-                projectileSpeed = _projectileSpeed;
+                damage = _damage;
                 playerData = _playerData;
+                
+                GetComponent<Rigidbody>().velocity = transform.forward * _speed;
             }
 #endregion
         }

@@ -14,6 +14,10 @@ namespace Game {
     namespace Player {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
+            [Header("Settings")]
+            [SerializeField] private CapsuleCollider playerCollider;
+            [SerializeField] private CapsuleCollider dashCollider;
+            
             [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
             [SerializeField] private float movementSpeed;
@@ -145,7 +149,13 @@ namespace Game {
                 currentMaxSpeed = movementSpeed + dashSpeedModifier;
                 playerController.SetInvincibility(dashTime);
                 
+                playerCollider.isTrigger = true;
+                dashCollider.enabled = true;
+                
                 yield return new WaitForSeconds(dashTime);
+                
+                playerCollider.isTrigger = false;
+                dashCollider.enabled = false;
                 
                 currentDashCooldown = baseDashCooldown;
                 currentMaxSpeed = movementSpeed;

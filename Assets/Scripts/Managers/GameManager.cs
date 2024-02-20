@@ -11,6 +11,7 @@ using UnityEngine;
 using Game.Player;
 using UnityEngine.Events;
 using Game.UI;
+using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Backend {
@@ -43,6 +44,8 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] bool debug;
+            [SerializeField] 
+            private bool SoundDebug;
             private bool isPaused;
             
             // Temporary
@@ -112,10 +115,20 @@ namespace Game {
                 if (_controllers.Length == 0)
                 {
                     LogWarning("No controllers detected");
-                    SpawnPlayers(0, 1);
+                    if (SoundDebug)
+                    {
+                        for (int i = 0; i < playerVariants.Count; i++)
+                        {
+                            SpawnPlayers(i, 4);
+                        }
+                    }
+                    else
+                    {
+                        SpawnPlayers(0, 1);
+
+                    }
                 }
-                
-                for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
+                for (int i = 0; i < CharacterSelectHandler.playerList.Count && _controllers.Length > 0; i++) {
                     SpawnPlayers(i, _controllers.Length);
                 }
             }

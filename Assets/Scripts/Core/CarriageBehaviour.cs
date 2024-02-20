@@ -29,15 +29,17 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private int nextSceneBuildIndex;
 
-            [Header("Audio")] 
+            [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
             
             // Interaction variables
             public bool[] CanInteractWith { get; set; }
             public bool[] PlayersThatWantsToInteract { get; set; }
             public Transform InteractionTransform { get; set; }
-
+            
+            // Health variables
             public int Health { get; set; }
+            public bool Invincible { get; set; }
             
             private bool canLeave = true;
             private int playersInCarriage;

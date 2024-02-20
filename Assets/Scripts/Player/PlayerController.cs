@@ -48,7 +48,13 @@ namespace Game
             private Vector3 rawInputMovement;
             private Vector3 smoothInputMovement;
             
-            [field: HideInInspector] public int Health { get; set; }
+            [Header("Invincibility")]
+            [SerializeField] private float invincibilityTime;
+            private float currentInvincibilityTime;
+            
+            // Health variables
+            public int Health { get; set; }
+            public bool Invincible { get; set; }
             
             [Header("Temporary damage animation")]
             [SerializeField] private MeshRenderer meshRenderer;
@@ -75,7 +81,7 @@ namespace Game
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
-                playerMovementBehaviour.SetupBehaviour();
+                playerMovementBehaviour.SetupBehaviour(this);
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
@@ -98,15 +104,28 @@ namespace Game
                 playerInput.deviceLostEvent.Invoke(playerInput);
             }
 
-            void FixedUpdate()
+            private void FixedUpdate()
             {
                 CalculateMovementInputSmoothing();
-                if (smoothInputMovement.magnitude < 0.01f) {
+                if (smoothInputMovement.magnitude < 0.01f)
+                {
                     smoothInputMovement = Vector3.zero;
                 }
                 
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
+            }
+
+            private void Update()
+            {
+                if (currentInvincibilityTime > 0)
+                {
+                    currentInvincibilityTime -= Time.deltaTime;
+                }
+                else
+                {
+                    Invincible = false;
+                }
             }
 #endregion
 
@@ -126,9 +145,9 @@ namespace Game
             /// </summary>
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
+                if (value.performed)
                 {
-                    playerMovementBehaviour.Dash(value.performed);
+                    playerMovementBehaviour.Dash();
                 }
             }
 
@@ -154,7 +173,7 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerAttackBehaviour.MeleeAttack(playerAnimationBehaviour);
+                    playerAttackBehaviour.Melee(playerAnimationBehaviour, playerMovementBehaviour);
                 }
             }
 
@@ -223,6 +242,11 @@ namespace Game
 #endregion
 
 #region Public Functions
+            public void SetInvincibility(float _time)
+            {
+                Invincible = true;
+                currentInvincibilityTime = _time;
+            }
             
             public void Death()
             {
@@ -234,13 +258,14 @@ namespace Game
             
             public void DamageTaken()
             {
-                // FlashRed();
-                //Log("Player " + PlayerIndex + " took damage");
+                Invincible = true;
+                currentInvincibilityTime = invincibilityTime;
+                
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
             }
- #endregion
+#endregion
 
 #region Private Functions
             private void CalculateMovementInputSmoothing()

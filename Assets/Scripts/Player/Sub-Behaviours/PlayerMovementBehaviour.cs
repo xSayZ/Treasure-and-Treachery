@@ -8,69 +8,65 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Utility;
 
 
 namespace Game {
-    namespace Player
-    {
-        public class PlayerMovementBehaviour : MonoBehaviour {
-
-            [FormerlySerializedAs("baseMoveSpeed")]
+    namespace Player {
+        public class PlayerMovementBehaviour : MonoBehaviour
+        {
+            [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
-            [SerializeField] public float movementSpeed = 3f;
-            
+            [SerializeField] private float movementSpeed;
             [Tooltip("How fast the player turns")]
             [SerializeField] private float turnSpeed;
             
             [Header("Dash Settings")] 
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
             [SerializeField] private float dashSpeedModifier;
-            
             [Tooltip("How long should you be able to dash.")]
             [Range(0, 3)]
-            [SerializeField] private float dashTime = 2f;
-            
-            [FormerlySerializedAs("dashCooldown")]
+            [SerializeField] private float dashTime;
             [Tooltip("How long should the cooldown be for the dash.")]
             [Range(0, 5)]
-            [SerializeField] private float baseDashCooldown = 2f;
-            private bool lockout;
-
-            public float currentDashCooldown;
+            [SerializeField] private float baseDashCooldown;
             
             // References
             private Rigidbody playerRigidBody;
+            private PlayerController playerController;
             
             // Stored Values
             private Vector3 movementDirection;
-            public float currentSpeed { get; private set; }
+            private float currentMaxSpeed;
+            private float currentDashCooldown;
+            private bool isForceMoving;
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
+            
+            public void SetupBehaviour(PlayerController _playerController)
+            {
+                playerController = _playerController;
+                playerRigidBody = GetComponent<Rigidbody>();
+                currentMaxSpeed = movementSpeed;
+            }
 
 #region Validation
-            private void OnValidate() {
-                if(movementSpeed < 0) {
-                    Debug.LogWarning("baseMoveSpeed needs to be higher than 0");
+            private void OnValidate()
+            {
+                if(movementSpeed < 0)
+                {
+                    Debug.LogWarning("Movement Speed needs to be higher than 0");
                     movementSpeed = 0;
                 }
-                if (dashTime < 0) {
-                    Debug.LogWarning("lockout period needs to be higher than 0");
-                    dashTime = 0;   
+                if (dashTime < 0)
+                {
+                    Debug.LogWarning("Dash Time needs to be higher than 0");
+                    dashTime = 0;
                 }
             }
 #endregion
-
-            public void SetupBehaviour() {
-                currentSpeed = movementSpeed;
-                
-                playerRigidBody = GetComponent<Rigidbody>();
-            }
             
 #region Unity Functions
-
             private void FixedUpdate()
             {
                 if (canRotate)
@@ -81,21 +77,42 @@ namespace Game {
                 if (canMove)
                 {
                     MovePlayer();
-                    DashCompletion();
                     ClampPlayerPosition();
+                }
+                
+                if (currentDashCooldown > 0)
+                {
+                    currentDashCooldown -= Time.deltaTime;
                 }
             }
 #endregion
 
 #region Public Functions
-            public void UpdateMovementData(Vector3  _newMovementDirection) {
-                movementDirection = _newMovementDirection;
+            public void UpdateMovementData(Vector3  _newMovementDirection)
+            {
+                if (!isForceMoving)
+                {
+                    movementDirection = _newMovementDirection;
+                }
             }
-            
+
             public void SetMovementActiveState(bool _movement, bool _rotate)
             {
                 canMove = _movement;
                 canRotate = _rotate;
+            }
+
+            public void Dash()
+            {
+                if (currentDashCooldown <= 0)
+                {
+                    StartCoroutine(DashMove());
+                }
+            }
+
+            public void ApplyForce(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation = false)
+            {
+                StartCoroutine(ForceMove(_speed, _direction, _time, _keepFacingRotation));
             }
 
             public float TurnSpeed {
@@ -110,45 +127,49 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentSpeed * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
+
             private void TurnPlayer()
             {
-                if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero) {
+                if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero)
+                {
                     var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
                     playerRigidBody.rotation = _rotation;
                 }
+            }
 
-            }
-    
-            public void Dash(bool _dash)
+            private IEnumerator DashMove()
             {
-                if (!_dash)
-                    return;
-                StartCoroutine(IsDashing());
-            }
-    
-            private IEnumerator IsDashing()
-            {
-                currentSpeed = movementSpeed + dashSpeedModifier;
+                currentMaxSpeed = movementSpeed + dashSpeedModifier;
+                playerController.SetInvincibility(dashTime);
+                
                 yield return new WaitForSeconds(dashTime);
+                
                 currentDashCooldown = baseDashCooldown;
-                currentSpeed = movementSpeed;
-                lockout = true;
+                currentMaxSpeed = movementSpeed;
             }
-            private void DashCompletion()
+
+            private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation)
             {
-                if (lockout)
+                isForceMoving = true;
+                currentMaxSpeed = _speed;
+                movementDirection = _direction.normalized;
+                
+                if (_keepFacingRotation)
                 {
-                    currentDashCooldown -= Time.deltaTime;
+                    SetMovementActiveState(true, false);
                 }
-                if (currentDashCooldown <= 0) {
-                    lockout = false;
-                }
+                
+                yield return new WaitForSeconds(_time);
+                
+                SetMovementActiveState(true, true);
+                currentMaxSpeed = movementSpeed;
+                isForceMoving = false;
             }
-            
-            public void ClampPlayerPosition()
+
+            private void ClampPlayerPosition()
             {
                 UnityEngine.Camera camera = UnityEngine.Camera.main;
 
@@ -164,16 +185,11 @@ namespace Game {
 
                 if (clampedX > 0.95f) clampedX = 0.95f;
                 if (clampedX < 0.05f) clampedX = 0.05f;
-                      
-                    
-                    
                 
                 Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
                 playerRigidBody.position = newPosition;
-
             }
 #endregion
-
         }
     }
 }

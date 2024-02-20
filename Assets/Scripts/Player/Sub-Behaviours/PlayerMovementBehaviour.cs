@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
+using Game.Core;
 using UnityEngine;
 
 
@@ -33,6 +34,7 @@ namespace Game {
             [Tooltip("How long should the cooldown be for the dash.")]
             [Range(0, 5)]
             [SerializeField] private float baseDashCooldown;
+            [SerializeField] private int dashDamage;
             
             // References
             private Rigidbody playerRigidBody;
@@ -87,6 +89,18 @@ namespace Game {
                 if (currentDashCooldown > 0)
                 {
                     currentDashCooldown -= Time.deltaTime;
+                }
+            }
+
+            // Kill enemies when dashing through them
+            private void OnTriggerEnter(Collider other)
+            {
+                if (!other.isTrigger && other.CompareTag("Enemy"))
+                {
+                    if (other.TryGetComponent(out IDamageable _hit))
+                    {
+                        _hit.Damage(dashDamage);
+                    }
                 }
             }
 #endregion

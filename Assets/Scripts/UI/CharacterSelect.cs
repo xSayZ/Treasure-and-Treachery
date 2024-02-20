@@ -25,7 +25,6 @@ namespace Game
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
             
-            
             private Sprite cachedSprite;
             private int cachedId = 10;
             private float inputDelay;
@@ -67,7 +66,6 @@ namespace Game
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
                 if (PlayersIsReady) return;
                 Vector2 value = context.ReadValue<Vector2>();
-                Debug.Log(value.x);
                 switch (value.x)
                 {
                     case > 0.5f:
@@ -105,7 +103,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    SceneManager.LoadScene("Adams World");
+                    CustomSceneManager.Instance.ChangeScene();
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

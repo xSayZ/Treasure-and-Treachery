@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
 using UnityEngine.Events;
+using Game.UI;
 
 namespace Game {
     namespace Backend {
@@ -193,9 +194,7 @@ namespace Game {
                 Quaternion _spawnRotation = Quaternion.identity;
                 
                 // Get PlayerData from List and assign it based on playerID
-                
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];
-                Debug.Log(_playerData.name);
                 GameObject _spawnedPlayer = Instantiate(playerVariants[_playerData.CharacterID],_spawnPosition,_spawnRotation);
                 AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
                 _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;

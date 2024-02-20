@@ -81,7 +81,7 @@ namespace Game
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
-                playerMovementBehaviour.SetupBehaviour();
+                playerMovementBehaviour.SetupBehaviour(this);
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
@@ -242,6 +242,12 @@ namespace Game
 #endregion
 
 #region Public Functions
+            public void SetInvincibility(float _time)
+            {
+                Invincible = true;
+                currentInvincibilityTime = _time;
+            }
+            
             public void Death()
             {
                 playerInteractionBehaviour.OnDeath();

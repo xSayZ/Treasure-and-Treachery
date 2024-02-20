@@ -8,8 +8,6 @@
 
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
-using Utility;
 
 
 namespace Game {
@@ -26,17 +24,16 @@ namespace Game {
             [Header("Dash Settings")] 
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
             [SerializeField] private float dashSpeedModifier;
-            
             [Tooltip("How long should you be able to dash.")]
             [Range(0, 3)]
             [SerializeField] private float dashTime;
-            
             [Tooltip("How long should the cooldown be for the dash.")]
             [Range(0, 5)]
-            [SerializeField] private float baseDashCooldown = 2f;
+            [SerializeField] private float baseDashCooldown;
             
             // References
             private Rigidbody playerRigidBody;
+            private PlayerController playerController;
             
             // Stored Values
             private Vector3 movementDirection;
@@ -47,10 +44,11 @@ namespace Game {
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
             
-            public void SetupBehaviour()
+            public void SetupBehaviour(PlayerController _playerController)
             {
-                currentMaxSpeed = movementSpeed;
+                playerController = _playerController;
                 playerRigidBody = GetComponent<Rigidbody>();
+                currentMaxSpeed = movementSpeed;
             }
 
 #region Validation
@@ -58,13 +56,13 @@ namespace Game {
             {
                 if(movementSpeed < 0)
                 {
-                    Debug.LogWarning("baseMoveSpeed needs to be higher than 0");
+                    Debug.LogWarning("Movement Speed needs to be higher than 0");
                     movementSpeed = 0;
                 }
                 if (dashTime < 0)
                 {
-                    Debug.LogWarning("lockout period needs to be higher than 0");
-                    dashTime = 0;   
+                    Debug.LogWarning("Dash Time needs to be higher than 0");
+                    dashTime = 0;
                 }
             }
 #endregion
@@ -109,7 +107,7 @@ namespace Game {
             {
                 if (currentDashCooldown <= 0)
                 {
-                    StartCoroutine(IsDashing());
+                    StartCoroutine(DashMove());
                 }
             }
 
@@ -143,10 +141,13 @@ namespace Game {
                 }
             }
 
-            private IEnumerator IsDashing()
+            private IEnumerator DashMove()
             {
                 currentMaxSpeed = movementSpeed + dashSpeedModifier;
+                playerController.SetInvincibility(dashTime);
+                
                 yield return new WaitForSeconds(dashTime);
+                
                 currentDashCooldown = baseDashCooldown;
                 currentMaxSpeed = movementSpeed;
             }

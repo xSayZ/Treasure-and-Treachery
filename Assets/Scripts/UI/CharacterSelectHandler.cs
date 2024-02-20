@@ -14,30 +14,30 @@ using Game.Backend;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 public class CharacterSelectHandler : MonoBehaviour
 {
-    [Header("References")]
+    [Header("References")] 
     public List<PlayerData> Datas;
     public List<Transform> imagePosition = new List<Transform>();
     public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
     public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
 
+
+  
+    [SerializeField] private ImageBank bank;
+    
+    [SerializeField] private List<GameObject> PressToJoinText;
+    [SerializeField] private GameObject StartGame;
+    private List<PlayerInput> playerList = new List<PlayerInput>();
+    private List<CharacterSelect> selects = new List<CharacterSelect>();
+    
     
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
-
-    private List<PlayerInput> playerList = new List<PlayerInput>();
-    private List<CharacterSelect> selects = new List<CharacterSelect>();
-
-    public ImageBank bank;
-
-    
     //EVENTS
-
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeaveGame; 
     
@@ -67,6 +67,7 @@ public class CharacterSelectHandler : MonoBehaviour
         if (selects.All(p => p.PlayersIsReady))
         {
             Debug.Log("Hello There");
+            SceneManager.LoadScene("Adams World");
         }
     }
 
@@ -74,9 +75,40 @@ public class CharacterSelectHandler : MonoBehaviour
     {
         PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
         
+        
     }
     
     private void LeaveAction(InputAction.CallbackContext context)
+    {
+        if (playerList.Count > 1)
+        {
+            foreach (PlayerInput player in playerList)
+            {
+                foreach (InputDevice device in player.devices)
+                {
+                    if (device == null || context.control.device != device) continue;
+                    UnregisterPlayer(player);
+                    return;
+
+                }
+            }
+        }
+    }
+
+    private void UnregisterPlayer(PlayerInput player)
+    {
+        selects.Remove(player.GetComponent<CharacterSelect>());
+        PressToJoinText[player.playerIndex].SetActive(true);
+        playerList.Remove(player);
+        if (PlayerLeaveGame != null)
+        {
+            PlayerLeftGame(player);
+            
+        }
+        Destroy(player.transform.gameObject);
+    }
+
+    private void PlayerLeftGame(PlayerInput player)
     {
         
     }
@@ -85,7 +117,7 @@ public class CharacterSelectHandler : MonoBehaviour
     public void OnPlayerJoin(PlayerInput player)
     {
         playerList.Add(player);
-        
+        PressToJoinText[player.playerIndex].gameObject.SetActive(false);
         selects.Add(player.GetComponent<CharacterSelect>());
         if (PlayerJoinedGame != null)
         {
@@ -95,7 +127,7 @@ public class CharacterSelectHandler : MonoBehaviour
     
     public void OnPlayerLeft(PlayerInput player)
     {
-        //playerList.Remove(player);
+        Debug.Log("Player Left the game");
         
     }
 

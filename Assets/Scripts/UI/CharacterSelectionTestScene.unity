@@ -394,7 +394,7 @@ GameObject:
   - component: {fileID: 317793954}
   - component: {fileID: 317793953}
   m_Layer: 5
-  m_Name: PressToJoin
+  m_Name: PressToJoin1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -594,6 +594,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 572666702}
   m_CullTransparentMesh: 1
+--- !u!114 &808140158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+  m_PrefabInstance: {fileID: 1125152202}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12bece3959bd3394eb427448ff062370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &815518818
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +617,7 @@ GameObject:
   - component: {fileID: 815518821}
   - component: {fileID: 815518820}
   m_Layer: 5
-  m_Name: PressToJoin
+  m_Name: PressToJoin2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -765,6 +776,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: PressToJoinText.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: imagePosition.Array.data[0]
       value: 
       objectReference: {fileID: 572666703}
@@ -797,12 +812,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: PressToJoinText.Array.data[0]
+      value: 
+      objectReference: {fileID: 317793951}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: PressToJoinText.Array.data[1]
+      value: 
+      objectReference: {fileID: 815518818}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: PressToJoinText.Array.data[2]
+      value: 
+      objectReference: {fileID: 1856334283}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: PressToJoinText.Array.data[3]
+      value: 
+      objectReference: {fileID: 2018204825}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: leaveAction.m_SingletonActionBindings.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: leaveAction.m_SingletonActionBindings.Array.data[0].m_Id
       value: 78227242-b5d3-4946-9a12-1b43ce8b94e1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: leaveAction.m_SingletonActionBindings.Array.data[1].m_Id
+      value: 55401409-9ef9-406c-8696-8c003fecdde4
       objectReference: {fileID: 0}
     - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: joinAction.m_SingletonActionBindings.Array.data[1].m_Path
@@ -813,8 +848,20 @@ PrefabInstance:
       value: <Keyboard>/escape
       objectReference: {fileID: 0}
     - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: leaveAction.m_SingletonActionBindings.Array.data[1].m_Path
+      value: <Gamepad>/buttonEast
+      objectReference: {fileID: 0}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: leaveAction.m_SingletonActionBindings.Array.data[0].m_Action
       value: Leave
+      objectReference: {fileID: 0}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: leaveAction.m_SingletonActionBindings.Array.data[1].m_Action
+      value: Leave
+      objectReference: {fileID: 0}
+    - target: {fileID: -7155858616911251584, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: leaveAction.m_SingletonActionBindings.Array.data[1].m_Interactions
+      value: Hold(duration=0.6)
       objectReference: {fileID: 0}
     - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: m_AllowJoining
@@ -839,6 +886,34 @@ PrefabInstance:
     - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: m_JoinAction.m_Action.m_Name
       value: Join
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 808140158}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPlayerLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CharacterSelectHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2503679760492751622, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
+      propertyPath: m_PlayerLeftEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3640159103322284793, guid: de2b50e13cf3b4249b4f15b9ef0de02c, type: 3}
       propertyPath: m_RootOrder
@@ -1105,7 +1180,7 @@ GameObject:
   - component: {fileID: 1856334286}
   - component: {fileID: 1856334285}
   m_Layer: 5
-  m_Name: PressToJoin
+  m_Name: PressToJoin3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1358,7 +1433,7 @@ GameObject:
   - component: {fileID: 2018204828}
   - component: {fileID: 2018204827}
   m_Layer: 5
-  m_Name: PressToJoin
+  m_Name: PressToJoin4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

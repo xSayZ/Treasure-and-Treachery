@@ -14,6 +14,7 @@ using System.Linq;
 using Game.Backend;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
 
 namespace Game
@@ -32,7 +33,7 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId = 10;
             private float inputDelay;
-            private PlayerData data;
+            public PlayerData data;
             // Start is called before the first frame update
 
             private CharacterSelectHandler characterSelectHandler;
@@ -46,16 +47,17 @@ namespace Game
                 Image.sprite = characterSelectHandler.Images[0];
                 for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
                 {
-                    if (playerInputs.user.index == i)
+                    if (playerInputs.playerIndex == i)
                     {
                         data =  characterSelectHandler.Datas[i];
                     }
+                    
                 }
                 SetPlayerImagePosition();
                 
                 inputDelay = 0.01f;
                 cachedId = id;
-
+                
             }
 
             #endregion
@@ -73,7 +75,6 @@ namespace Game
             public void OnNavigation(InputAction.CallbackContext context)
             {
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
-                Debug.Log(amountOfImages);
                 if (PlayersIsReady) return;
                 Vector2 value = context.ReadValue<Vector2>();
                 switch (value.x)
@@ -171,19 +172,10 @@ namespace Game
 
             private void SetPlayerImagePosition()
             {
-                int userIndex = playerInputs.user.index;
-                Transform targetTransform = characterSelectHandler.imagePosition[userIndex];
-
+                Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
-
-                int childCount = transform.parent.childCount;
-
-                for (int i = 0; i < childCount; i++)
-                {
-                    Transform childTransform = transform.parent.GetChild(0);
-                    childTransform.gameObject.SetActive(false);
-                }
+                
             }
 
             private void PlayerBlurOut()

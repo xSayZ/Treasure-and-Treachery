@@ -114,7 +114,7 @@ namespace Game {
                     SpawnPlayers(0, 1);
                 }
                 
-                for (int i = 0; i < _controllers.Length; i++) {
+                for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
                     SpawnPlayers(i, _controllers.Length);
                 }
             }

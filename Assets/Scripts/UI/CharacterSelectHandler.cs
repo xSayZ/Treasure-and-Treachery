@@ -14,7 +14,6 @@ using Game.Backend;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.SceneManagement;
 
 public class CharacterSelectHandler : MonoBehaviour
@@ -22,25 +21,27 @@ public class CharacterSelectHandler : MonoBehaviour
     [Header("References")] 
     public List<PlayerData> Datas;
     public List<Transform> imagePosition = new List<Transform>();
-    public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
-    public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
-
-
-  
+    
     [SerializeField] private ImageBank bank;
     
     [SerializeField] private List<GameObject> PressToJoinText;
-    [SerializeField] private GameObject StartGame;
-    private List<PlayerInput> playerList = new List<PlayerInput>();
+    [SerializeField] private GameObject StartGameText;
+    //For selectedAmountOfPlayers
+    public static List<PlayerInput> playerList { get;} = new List<PlayerInput>();
     private List<CharacterSelect> selects = new List<CharacterSelect>();
     
+    public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
+    public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
     
+    public bool BeginGame { get; private set; }
+
     [SerializeField] private InputAction joinAction;
     [SerializeField] private InputAction leaveAction;
     //EVENTS
     public event System.Action<PlayerInput> PlayerJoinedGame;
     public event System.Action<PlayerInput> PlayerLeaveGame; 
     
+
     public void Start()
     {
         for (int i = 0; i < bank.characterImages.Count; i++)
@@ -63,14 +64,23 @@ public class CharacterSelectHandler : MonoBehaviour
        
     private void Update()
     {
-
-        if (selects.All(p => p.PlayersIsReady))
-        {
-            Debug.Log("Hello There");
-            SceneManager.LoadScene("Adams World");
-        }
+        StartGame();
     }
 
+    private void StartGame()
+    {
+        if (selects.All(p => p.PlayersIsReady))
+        {
+            BeginGame = true;
+            StartGameText.SetActive(true);
+        }
+        else
+        {
+            BeginGame = false;
+            StartGameText.SetActive(false);
+
+        }
+    }
     private void JoinAction(InputAction.CallbackContext context)
     {
         PlayerInputManager.instance.JoinPlayerFromActionIfNotAlreadyJoined(context);
@@ -108,12 +118,7 @@ public class CharacterSelectHandler : MonoBehaviour
         Destroy(player.transform.gameObject);
     }
 
-    private void PlayerLeftGame(PlayerInput player)
-    {
-        
-    }
-
-
+    private void PlayerLeftGame(PlayerInput player){}
     public void OnPlayerJoin(PlayerInput player)
     {
         playerList.Add(player);
@@ -124,7 +129,6 @@ public class CharacterSelectHandler : MonoBehaviour
             PlayerJoinedGame(player);
         }
     }
-    
     public void OnPlayerLeft(PlayerInput player)
     {
         Debug.Log("Player Left the game");

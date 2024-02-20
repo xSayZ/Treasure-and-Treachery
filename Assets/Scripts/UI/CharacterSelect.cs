@@ -7,15 +7,12 @@
 // --------------------------------
 // ------------------------------*/
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Game.Backend;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Game
 {
@@ -23,9 +20,8 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            public Image Image;
-            public bool PlayersIsReady;
-            public bool BeginGame;
+            [SerializeField] private Image Image;
+            public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
             
@@ -33,13 +29,11 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId = 10;
             private float inputDelay;
-            public PlayerData data;
-            // Start is called before the first frame update
-
+            private PlayerData data;
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
-            public void Start()
+            private void Start()
             {
                 characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
                 
@@ -59,19 +53,15 @@ namespace Game
                 cachedId = id;
                 
             }
-
+            
+            private void Update()    
+            {
+                PlayerBlurOut();
+            }
             #endregion
 
-            public void Update()    
-            {
-
-               PlayerBlurOut();
-            }
+            #region Inputs
             
-            
-
-            #region Public
-
             public void OnNavigation(InputAction.CallbackContext context)
             {
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
@@ -117,6 +107,11 @@ namespace Game
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
+                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
+                {
+                    SceneManager.LoadScene("Adams World");
+                }
+                
                 if ((!context.performed || PlayersIsReady)) return;
                 if (characterSelectHandler.Images.TryGetValue(id, out Sprite sprite))
                 {
@@ -132,13 +127,12 @@ namespace Game
                 }
                 else
                 {
-                    
                     Debug.Log("Player is already Taken");
                 }
+
+               
                 
             }
-
-            #endregion
 
             public void OnCancel(InputAction.CallbackContext context)
             {
@@ -153,6 +147,7 @@ namespace Game
                 PlayersIsReady = false;
 
             }
+            #endregion
             
             #region Private
 

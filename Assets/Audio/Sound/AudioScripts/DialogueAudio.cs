@@ -26,17 +26,18 @@ namespace Game {
         public class DialogueAudio : ScriptableObject
         {
             //EventInstances
-            private EventInstance shovelPickupInstance, goldPickupInstance, shovelReactInstance;
+            private EventInstance shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance;
 
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, objectiveProgressionReaction;
+            private EventReference shovelPickup, goldPickupAudio, objectiveProgressionReaction, deathAudio;
 
             private int playerIndex;
            
             private void OnEnable() {
+                QuestManager.OnGoldPickedUp.AddListener(GoldPickupDialogue); 
                 QuestManager.OnItemPickedUp.AddListener(ShovelPickupAudio);
-                QuestManager.OnGoldPickedUp.AddListener(GoldPickupDialogue);
+                GameManager.OnPlayerDeath.AddListener(PlayerDeathDialogue);
             }
 
 #region Unity Functions
@@ -44,6 +45,38 @@ namespace Game {
 #endregion
 
 #region Public Functions
+
+private void PlayerDeathDialogue(int _playerID)
+{
+    var _players = GameManager.Instance.activePlayerControllers;
+
+    switch (_playerID)
+    {
+        case 0:
+            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[0].gameObject.transform);
+            deathDialogueInstance.setParameterByName("SpeakerCharacter", 0);
+            break;
+        case 1:
+            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[1].gameObject.transform);
+            deathDialogueInstance.setParameterByName("SpeakerCharacter", 1);
+            break;
+        case 2:
+            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[2].gameObject.transform);
+            deathDialogueInstance.setParameterByName("SpeakerCharacter", 2);
+            break;
+        case 3:
+            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[3].gameObject.transform);
+            deathDialogueInstance.setParameterByName("SpeakerCharacter", 3);
+            break;
+    }
+    deathDialogueInstance.start();
+    deathDialogueInstance.release();
+}
+
 private void ShovelPickupAudio(int _playerID, Item _item)
 {
     var _players = GameManager.Instance.activePlayerControllers;
@@ -109,7 +142,6 @@ private void ObjectiveProgressionReactionAudio(GameObject characterObj, int spea
     shovelReactInstance.start();
     shovelReactInstance.release();
 }
-
 private void GoldPickupDialogue(int _playerID, int amount)
 {
     var _players = GameManager.Instance.activePlayerControllers;

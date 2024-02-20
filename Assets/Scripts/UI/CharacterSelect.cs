@@ -7,14 +7,12 @@
 // --------------------------------
 // ------------------------------*/
 
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Game.Backend;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Game
 {
@@ -22,63 +20,55 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            public Image Image;
-            public bool PlayersIsReady;
-            public bool BeginGame;
+            [SerializeField] private Image Image;
+            public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
-            
             
             private Sprite cachedSprite;
             private int cachedId = 10;
             private float inputDelay;
             private PlayerData data;
-            // Start is called before the first frame update
-
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
-            public void Start()
+            private void Start()
             {
                 characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
                 
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = characterSelectHandler.Images[0];
+                Image.sprite = characterSelectHandler.ImagesBackup[0];
                 for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
                 {
-                    if (playerInputs.user.index == i)
+                    if (playerInputs.playerIndex == i)
                     {
                         data =  characterSelectHandler.Datas[i];
                     }
+                    
                 }
                 SetPlayerImagePosition();
                 
                 inputDelay = 0.01f;
                 cachedId = id;
-
+                
             }
-
+            
+            private void Update()    
+            {
+                PlayerBlurOut();
+            }
             #endregion
 
-            public void Update()    
-            {
-
-               PlayerBlurOut();
-            }
+            #region Inputs
             
-            
-
-            #region Public
-
             public void OnNavigation(InputAction.CallbackContext context)
             {
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
-                Debug.Log(amountOfImages);
                 if (PlayersIsReady) return;
                 Vector2 value = context.ReadValue<Vector2>();
                 switch (value.x)
                 {
-                    case > 0:
+                    case > 0.5f:
                     {
                         inputDelay -= Time.deltaTime;
                         if (inputDelay <0)
@@ -88,7 +78,7 @@ namespace Game
                         }
                         break;
                     }
-                    case < 0:
+                    case < -0.5f:
                     {
                         inputDelay -= Time.deltaTime;
                         if(inputDelay <0)
@@ -96,27 +86,27 @@ namespace Game
                             id--;
                             inputDelay = 0.01f; 
                         }
-
                         break;
                     }
                 }
-
+                
                 id = Wrap(id, 0, 4);
                 if (id < 0) id += amountOfImages;
                 if (id > 3) id -= amountOfImages;
 
-                if ( characterSelectHandler.ImagesBackup.TryGetValue(id,out Sprite sprite))
-                {
+                if (!characterSelectHandler.ImagesBackup.TryGetValue(id, out Sprite sprite)) return;
                     Image.sprite = sprite;
                     cachedId = id;
-                }
-                
-
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if ((!context.performed || PlayersIsReady)) return;
+                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
+                {
+                    CustomSceneManager.Instance.ChangeScene();
+                }
+                
+                if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;
                 if (characterSelectHandler.Images.TryGetValue(id, out Sprite sprite))
                 {
                     for (int i = 0; i < transform.childCount; i++)
@@ -131,13 +121,12 @@ namespace Game
                 }
                 else
                 {
-                    
                     Debug.Log("Player is already Taken");
                 }
+
+               
                 
             }
-
-            #endregion
 
             public void OnCancel(InputAction.CallbackContext context)
             {
@@ -152,6 +141,7 @@ namespace Game
                 PlayersIsReady = false;
 
             }
+            #endregion
             
             #region Private
 
@@ -171,19 +161,11 @@ namespace Game
 
             private void SetPlayerImagePosition()
             {
-                int userIndex = playerInputs.user.index;
-                Transform targetTransform = characterSelectHandler.imagePosition[userIndex];
-
+                Debug.Log(playerInputs.playerIndex);
+                Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
-
-                int childCount = transform.parent.childCount;
-
-                for (int i = 0; i < childCount; i++)
-                {
-                    Transform childTransform = transform.parent.GetChild(0);
-                    childTransform.gameObject.SetActive(false);
-                }
+                
             }
 
             private void PlayerBlurOut()

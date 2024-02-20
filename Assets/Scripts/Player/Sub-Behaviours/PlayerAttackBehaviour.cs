@@ -243,9 +243,8 @@ namespace Game {
             {
                 Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                 
-                GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.identity);
-                Projectile _playerProjectile = _projectile.GetComponent<Projectile>();
-                _playerProjectile.SetValues(_launchRotation * transform.forward, rangedAttackDamage, projectileSpeed, playerController.PlayerData);
+                GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
+                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData);
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

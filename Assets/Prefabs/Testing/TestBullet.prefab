@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 525304689459795203}
   - component: {fileID: -8154356816056595736}
   - component: {fileID: -3291343750499550869}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: TestBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,12 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3a028157d664347945badd4ad1fa864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletAliveTime: 0.7
+  aliveTime: 10
   projectileObj: {fileID: 525304689459795212}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
-  mask:
-    serializedVersion: 2
-    m_Bits: 257
 --- !u!54 &-3291343750499550869
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -145,7 +142,7 @@ GameObject:
   - component: {fileID: 4218644451388366375}
   - component: {fileID: 82214859409037062}
   - component: {fileID: 5021386145782427308}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}

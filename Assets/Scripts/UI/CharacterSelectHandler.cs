@@ -14,7 +14,6 @@ using Game.Backend;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 public class CharacterSelectHandler : MonoBehaviour
 {

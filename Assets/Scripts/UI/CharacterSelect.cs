@@ -38,7 +38,7 @@ namespace Game
                 characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
                 
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = characterSelectHandler.Images[0];
+                Image.sprite = characterSelectHandler.ImagesBackup[0];
                 for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
                 {
                     if (playerInputs.playerIndex == i)
@@ -67,9 +67,10 @@ namespace Game
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
                 if (PlayersIsReady) return;
                 Vector2 value = context.ReadValue<Vector2>();
+                Debug.Log(value.x);
                 switch (value.x)
                 {
-                    case > 0:
+                    case > 0.5f:
                     {
                         inputDelay -= Time.deltaTime;
                         if (inputDelay <0)
@@ -79,7 +80,7 @@ namespace Game
                         }
                         break;
                     }
-                    case < 0:
+                    case < -0.5f:
                     {
                         inputDelay -= Time.deltaTime;
                         if(inputDelay <0)
@@ -87,22 +88,17 @@ namespace Game
                             id--;
                             inputDelay = 0.01f; 
                         }
-
                         break;
                     }
                 }
-
+                
                 id = Wrap(id, 0, 4);
                 if (id < 0) id += amountOfImages;
                 if (id > 3) id -= amountOfImages;
 
-                if ( characterSelectHandler.ImagesBackup.TryGetValue(id,out Sprite sprite))
-                {
+                if (!characterSelectHandler.ImagesBackup.TryGetValue(id, out Sprite sprite)) return;
                     Image.sprite = sprite;
                     cachedId = id;
-                }
-                
-
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
@@ -112,7 +108,7 @@ namespace Game
                     SceneManager.LoadScene("Adams World");
                 }
                 
-                if ((!context.performed || PlayersIsReady)) return;
+                if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;
                 if (characterSelectHandler.Images.TryGetValue(id, out Sprite sprite))
                 {
                     for (int i = 0; i < transform.childCount; i++)
@@ -167,6 +163,7 @@ namespace Game
 
             private void SetPlayerImagePosition()
             {
+                Debug.Log(playerInputs.playerIndex);
                 Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;

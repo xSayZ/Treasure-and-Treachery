@@ -43,6 +43,8 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] bool debug;
+
+            public bool soundDebug;
             private bool isPaused;
             
             // Temporary
@@ -114,10 +116,29 @@ namespace Game {
                     LogWarning("No controllers detected");
                     SpawnPlayers(0, 1);
                 }
-                
-                for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                    SpawnPlayers(i, _controllers.Length);
+
+                if (!debug)
+                {
+                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
+                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
+                    }
                 }
+
+                if (debug)
+                {
+                    for (int i = 0; i < _controllers.Length; i++)
+                    {
+                        SpawnPlayers(i, _controllers.Length);
+                    }
+                }
+
+                if (soundDebug)
+                {
+                    for (int i = 0; i < 4; i++) {
+                        SpawnPlayers(i, 4);
+                    }
+                }
+               
             }
             
             private void SetupActivePlayers()

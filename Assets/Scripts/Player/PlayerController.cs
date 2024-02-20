@@ -88,9 +88,12 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                
-                var player = PlayerInput.all[_newPlayerID];
-                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
+                if (!GameManager.Instance.soundDebug)
+                {
+                    var player = PlayerInput.all[_newPlayerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
+                }
+               
             }
 
 #region Unity Functions

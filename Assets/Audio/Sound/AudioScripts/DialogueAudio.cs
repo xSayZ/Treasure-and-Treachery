@@ -26,18 +26,17 @@ namespace Game {
         public class DialogueAudio : ScriptableObject
         {
             //EventInstances
-            private EventInstance shovelPickupInstance;
-            private EventInstance shovelReactInstance;
+            private EventInstance shovelPickupInstance, goldPickupInstance, shovelReactInstance;
 
             //EventReferences
-            [Header("Dialogue")] 
             [SerializeField]
-            private EventReference shovelPickup, mudReaction, objectiveStartReaction, objectiveProgressionReaction;
+            private EventReference shovelPickup, goldPickupAudio, objectiveProgressionReaction;
 
-            
             private int playerIndex;
+           
             private void OnEnable() {
                 QuestManager.OnItemPickedUp.AddListener(ShovelPickupAudio);
+                QuestManager.OnGoldPickedUp.AddListener(GoldPickupDialogue);
             }
 
 #region Unity Functions
@@ -45,7 +44,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-public void ShovelPickupAudio(int _playerID, Item _item)
+private void ShovelPickupAudio(int _playerID, Item _item)
 {
     var _players = GameManager.Instance.activePlayerControllers;
     
@@ -72,7 +71,6 @@ public void ShovelPickupAudio(int _playerID, Item _item)
             shovelPickupInstance.setParameterByName("SpeakerCharacter", 3);
             break;
     }
-    
     shovelPickupInstance.start();
     shovelPickupInstance.release();
     
@@ -80,70 +78,92 @@ public void ShovelPickupAudio(int _playerID, Item _item)
     {
         GetRandomPlayerAndPlayResponse(_playerID, _players);
     }
-    
-    // if (!IsPlaying(shovelPickupInstAudio)) {
-    //
-    //     GetRandomPlayerAndPlaySound(_playerID, _players);
-    // }
 
 }
-
-private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players) {
-
-    var _randomPlayer = _players[Random.Range(0, _players.Count)];
-
-    if (_randomPlayer != _players[_playerID])
-    {
-        Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
-        ObjectiveProgressionReactionAudio(shovelReactInstance, _randomPlayer.gameObject, _randomPlayer.PlayerIndex);
-    }
-    else {
-        GetRandomPlayerAndPlayResponse(_playerID, _players);
-    }
-}
-
-public EventInstance ObjectiveProgressionReactionAudio(EventInstance objectiveProgReactInstance, GameObject characterObj, int speakerCharacter)
+private void ObjectiveProgressionReactionAudio(GameObject characterObj, int speakerCharacter)
 {
     switch (speakerCharacter)
     {
         case 0:
           
-            objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 0);
-            objectiveProgReactInstance.start();
+            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
+            shovelReactInstance.setParameterByName("SpeakerCharacter", 0);
             break;
         case 1:
-            objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 1);
-            objectiveProgReactInstance.start();
+            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
+            shovelReactInstance.setParameterByName("SpeakerCharacter", 1);
             break;
         case 2:
-            objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 2);
-            objectiveProgReactInstance.start();
+            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
+            shovelReactInstance.setParameterByName("SpeakerCharacter", 2);
             break;
         case 3:
-            objectiveProgReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(objectiveProgReactInstance, characterObj.transform);
-            objectiveProgReactInstance.setParameterByName("ResponseCharacter", 3);
-            objectiveProgReactInstance.start();
+            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
+            shovelReactInstance.setParameterByName("SpeakerCharacter", 3);
             break;
     }
-    objectiveProgReactInstance.release();
-    return objectiveProgReactInstance;
+    shovelReactInstance.start();
+    shovelReactInstance.release();
+}
+
+private void GoldPickupDialogue(int _playerID, int amount)
+{
+    var _players = GameManager.Instance.activePlayerControllers;
+
+    switch (_playerID)
+    {
+     case 0:
+         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[0].gameObject.transform);
+         goldPickupInstance.setParameterByName("SpeakerCharacter", 0);
+         break;
+     case 1:
+         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[1].gameObject.transform);
+         goldPickupInstance.setParameterByName("SpeakerCharacter", 1);
+         break;
+     case 2:
+         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[2].gameObject.transform);
+         goldPickupInstance.setParameterByName("SpeakerCharacter", 2);
+         break;
+     case 3:
+         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[3].gameObject.transform);
+         goldPickupInstance.setParameterByName("SpeakerCharacter", 3);
+         break;
+    }
+    goldPickupInstance.start();
+    goldPickupInstance.release();
 }
 
 #endregion
 
 #region Private Functions
-            private bool IsPlaying(EventInstance _instance) {
-                PLAYBACK_STATE state;
-                _instance.getPlaybackState(out state);
-                return state != PLAYBACK_STATE.STOPPED;
-            }
+
+        private bool IsPlaying(EventInstance _instance) {
+            PLAYBACK_STATE state;
+            _instance.getPlaybackState(out state);
+            return state != PLAYBACK_STATE.STOPPED;
+        }
+        
+private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players) 
+{ 
+    var _randomPlayer = _players[Random.Range(0, _players.Count)];
+
+    if (_randomPlayer != _players[_playerID])
+    {
+        Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
+        ObjectiveProgressionReactionAudio(_randomPlayer.gameObject, _randomPlayer.PlayerIndex);
+    }
+    else {
+        GetRandomPlayerAndPlayResponse(_playerID, _players);
+    }
+}
 #endregion
         }
     }

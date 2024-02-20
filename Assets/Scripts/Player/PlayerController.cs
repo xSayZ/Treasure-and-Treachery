@@ -126,9 +126,9 @@ namespace Game
             /// </summary>
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
+                if (value.performed)
                 {
-                    playerMovementBehaviour.Dash(value.performed);
+                    playerMovementBehaviour.Dash();
                 }
             }
 

@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
+using Game.Core;
 using UnityEngine;
 
 
@@ -14,31 +15,42 @@ namespace Game {
     namespace Player {
         public class PlayerMovementBehaviour : MonoBehaviour
         {
+            [Header("Settings")]
+            [SerializeField] private CapsuleCollider playerCollider;
+            [SerializeField] private CapsuleCollider dashCollider;
+            
             [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
             [SerializeField] private float movementSpeed;
-            [Tooltip("How fast the player turns")]
+            [Tooltip("How fast the player turns.")]
             [SerializeField] private float turnSpeed;
             
-            [Header("Dash Settings")] 
+            [Header("Dash Settings")]
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
             [SerializeField] private float dashSpeedModifier;
             [Tooltip("How long should you be able to dash.")]
             [Range(0, 3)]
             [SerializeField] private float dashTime;
             [Tooltip("How long should the cooldown be for the dash.")]
-            [Range(0, 5)]
-            [SerializeField] private float baseDashCooldown;
+            [Range(0, 30)]
+            [SerializeField] private float dashRechargeTime;
+            [Tooltip("Number of dashes the player has.")]
+            [SerializeField] private int numberOfDashes;
+            [Tooltip("How much damage the dash deals to enemies.")]
+            [SerializeField] private int dashDamage;
             
             // References
             private Rigidbody playerRigidBody;
             private PlayerController playerController;
             
-            // Stored Values
+            // Movement values
             private Vector3 movementDirection;
             private float currentMaxSpeed;
-            private float currentDashCooldown;
             private bool isForceMoving;
+            
+            // Dash values
+            private float currentNumberOfDashes;
+            private float currentDashRechargeTime;
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
@@ -47,6 +59,7 @@ namespace Game {
             {
                 playerController = _playerController;
                 playerRigidBody = GetComponent<Rigidbody>();
+                currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
             }
 
@@ -79,10 +92,31 @@ namespace Game {
                     MovePlayer();
                     ClampPlayerPosition();
                 }
-                
-                if (currentDashCooldown > 0)
+
+                if (currentDashRechargeTime <= 0 && currentNumberOfDashes < numberOfDashes)
                 {
-                    currentDashCooldown -= Time.deltaTime;
+                    currentNumberOfDashes++;
+                    
+                    if (currentNumberOfDashes < numberOfDashes)
+                    {
+                        currentDashRechargeTime = dashRechargeTime;
+                    }
+                }
+                else if (currentDashRechargeTime > 0)
+                {
+                    currentDashRechargeTime -= Time.deltaTime;
+                }
+            }
+
+            // Damage enemies when dashing through them
+            private void OnTriggerEnter(Collider other)
+            {
+                if (!other.isTrigger && other.CompareTag("Enemy"))
+                {
+                    if (other.TryGetComponent(out IDamageable _hit))
+                    {
+                        _hit.Damage(dashDamage);
+                    }
                 }
             }
 #endregion
@@ -104,8 +138,11 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentDashCooldown <= 0)
+                if (currentNumberOfDashes > 0)
                 {
+                    currentNumberOfDashes--;
+                    currentDashRechargeTime = dashRechargeTime;
+                    
                     StartCoroutine(DashMove());
                 }
             }
@@ -145,9 +182,14 @@ namespace Game {
                 currentMaxSpeed = movementSpeed + dashSpeedModifier;
                 playerController.SetInvincibility(dashTime);
                 
+                playerCollider.isTrigger = true;
+                dashCollider.enabled = true;
+                
                 yield return new WaitForSeconds(dashTime);
                 
-                currentDashCooldown = baseDashCooldown;
+                playerCollider.isTrigger = false;
+                dashCollider.enabled = false;
+                
                 currentMaxSpeed = movementSpeed;
             }
 

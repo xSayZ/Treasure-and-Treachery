@@ -273,6 +273,7 @@ Transform:
   - {fileID: 870659820040659581}
   - {fileID: 7887169918594621436}
   - {fileID: 7878444258247842620}
+  - {fileID: 3119158974416069308}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -319,11 +320,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db51020c31a28aa489233a2c85425df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCollider: {fileID: 8039321865252058105}
+  dashCollider: {fileID: 2780460051625702517}
   movementSpeed: 120
   turnSpeed: 1
   dashSpeedModifier: 600
   dashTime: 0.2
-  baseDashCooldown: 2
+  dashRechargeTime: 5
+  numberOfDashes: 2
+  dashDamage: 1
 --- !u!114 &-3509399097656645022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,6 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateOnIsTrigger: 0
   triggerEnter:
     m_PersistentCalls:
       m_Calls:
@@ -1933,6 +1939,52 @@ Transform:
   m_Father: {fileID: 6723951889670840392}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2434292314320904349
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3119158974416069308}
+  - component: {fileID: 2780460051625702517}
+  m_Layer: 14
+  m_Name: DashCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3119158974416069308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2434292314320904349}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 288723119442727232}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &2780460051625702517
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2434292314320904349}
+  m_Material: {fileID: 13400000, guid: d63f844f0ea270e43854b7b5bf2a247b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2545253658045643479
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,6 +2716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateOnIsTrigger: 0
   triggerEnter:
     m_PersistentCalls:
       m_Calls:

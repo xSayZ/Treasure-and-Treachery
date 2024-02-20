@@ -99,6 +99,14 @@ namespace Game {
                 canRotate = _rotate;
             }
 
+            public void Dash()
+            {
+                if (currentDashCooldown <= 0)
+                {
+                    StartCoroutine(IsDashing());
+                }
+            }
+
             public float TurnSpeed {
                 get {
                     return turnSpeed;
@@ -122,14 +130,6 @@ namespace Game {
                     playerRigidBody.rotation = _rotation;
                 }
 
-            }
-
-            public void Dash()
-            {
-                if (currentDashCooldown <= 0)
-                {
-                    StartCoroutine(IsDashing());
-                }
             }
 
             private IEnumerator IsDashing()

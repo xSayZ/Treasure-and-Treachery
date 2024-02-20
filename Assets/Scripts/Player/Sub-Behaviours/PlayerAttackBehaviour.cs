@@ -62,6 +62,17 @@ namespace Game {
             
             private PlayerController playerController;
 
+#region Validation
+            private void OnValidate()
+            {
+                if(meleeAttackCooldown < meleeAttackDelay + meleeAttackDuration)
+                {
+                    Debug.LogWarning("Melee Attack Cooldown needs to be higher than Melee Attack Delay and Melee Attack Duration combined");
+                    meleeAttackCooldown = meleeAttackDelay + meleeAttackDuration + 0.01f;
+                }
+            }
+#endregion
+
 #region Unity Functions
             private void OnEnable()
             {

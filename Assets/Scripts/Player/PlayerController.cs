@@ -29,14 +29,15 @@ namespace Game
             [SerializeField] public PlayerData PlayerData;
             [HideInInspector] public int PlayerIndex;
             
-            [Header("Sub Behaviours")]
+            [field:Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
-            [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
-            [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
-            [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
-            [SerializeField] public PlayerAnimationBehaviour playerAnimationBehaviour;
-            [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
-            [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
+            [field:SerializeField] public PlayerMovementBehaviour PlayerMovementBehaviour { get; private set; }
+            [field:SerializeField] public PlayerAttackBehaviour PlayerAttackBehaviour { get; private set; }
+            [field:SerializeField] public PlayerInteractionBehaviour PlayerInteractionBehaviour { get; private set; }
+            [field:SerializeField] public PlayerAnimationBehaviour PlayerAnimationBehaviour { get; private set; }
+            [field:SerializeField] public PlayerVisualBehaviour PlayerVisualBehaviour { get; private set; }
+            [field:SerializeField] public PlayerUIDisplayBehaviour PlayerUIDisplayBehaviour { get; private set; }
+            [field:SerializeField] public PlayerAbilityBehaviour PlayerAbilityBehaviour { get; private set; }
             
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -44,7 +45,7 @@ namespace Game
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
-            [SerializeField] public float movementSmoothingSpeed = 1f;
+            [SerializeField] private float movementSmoothingSpeed = 1f;
             private Vector3 rawInputMovement;
             private Vector3 smoothInputMovement;
             
@@ -65,6 +66,9 @@ namespace Game
             [SerializeField,Range(0,1)] private float lowFrequency;
             [SerializeField,Range(0,1)] private float highFrequency;
             [SerializeField] private float duration;
+
+            [Header("Audio")] 
+            [SerializeField] private DialogueAudio dialogueAudio;
             
             [Space]
             [Header("Debug")]
@@ -81,10 +85,11 @@ namespace Game
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
-                playerMovementBehaviour.SetupBehaviour(this);
-                playerAnimationBehaviour.SetupBehaviour();
-                playerVisualBehaviour.SetupBehaviour(PlayerData);
-                playerUIDisplayBehaviours.SetupBehaviour(this);
+                PlayerMovementBehaviour.SetupBehaviour(this);
+                PlayerAnimationBehaviour.SetupBehaviour();
+                PlayerVisualBehaviour.SetupBehaviour(PlayerData);
+                PlayerUIDisplayBehaviour.SetupBehaviour(this);
+                PlayerAbilityBehaviour.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
@@ -150,7 +155,7 @@ namespace Game
             {
                 if (value.performed)
                 {
-                    playerMovementBehaviour.Dash();
+                    PlayerMovementBehaviour.Dash();
                 }
             }
 
@@ -161,11 +166,11 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerAttackBehaviour.Aim(true, playerMovementBehaviour);
+                    PlayerAttackBehaviour.Aim(true);
                 }
                 else if (value.canceled)
                 {
-                    playerAttackBehaviour.Aim(false, playerMovementBehaviour);
+                    PlayerAttackBehaviour.Aim(false);
                 }
             }
 
@@ -176,7 +181,7 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerAttackBehaviour.Melee(playerAnimationBehaviour, playerMovementBehaviour);
+                    PlayerAttackBehaviour.Melee();
                 }
             }
 
@@ -187,11 +192,11 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerInteractionBehaviour.OnInteract(true);
+                    PlayerInteractionBehaviour.OnInteract(true);
                 }
                 else if (value.canceled)
                 {
-                    playerInteractionBehaviour.OnInteract(false);
+                    PlayerInteractionBehaviour.OnInteract(false);
                 }
             }
 
@@ -212,10 +217,10 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerUIDisplayBehaviours.TogglePlayerUIElements(true);
+                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(true);
                 }
                 else if (value.canceled) {
-                    playerUIDisplayBehaviours.TogglePlayerUIElements(false);
+                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(false);
                 }
             }
 
@@ -253,7 +258,7 @@ namespace Game
             
             public void Death()
             {
-                playerInteractionBehaviour.OnDeath();
+                PlayerInteractionBehaviour.OnDeath();
                 playerHealthBar.UpdateHealthBar(Health);
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 Destroy(gameObject);
@@ -267,6 +272,14 @@ namespace Game
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
+                try
+                {
+                    dialogueAudio.PlayerDamageAudio(PlayerIndex);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
             }
 #endregion
 
@@ -278,18 +291,18 @@ namespace Game
 
             private void UpdatePlayerMovement()
             {
-                playerMovementBehaviour.UpdateMovementData(IsoVectorConvert(smoothInputMovement));
+                PlayerMovementBehaviour.UpdateMovementData(IsoVectorConvert(smoothInputMovement));
             }
 
             private void UpdatePlayerAnimationMovement()
             {
-                if (!playerMovementBehaviour.canMove)
+                if (!PlayerMovementBehaviour.canMove)
                 {
-                    playerAnimationBehaviour.UpdateMovementAnimation(0);
+                    PlayerAnimationBehaviour.UpdateMovementAnimation(0);
                 }
                 else
                 {
-                    playerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
+                    PlayerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
                 }
             }
 

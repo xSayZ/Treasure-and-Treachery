@@ -60,6 +60,8 @@ namespace Game {
             
             #region Unity Functions
             private void Start() {
+                transform.position = GameManager.Instance.spawnRingCenter.position;
+                
                 targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 targetGroup.transform.position = GameManager.Instance.spawnRingCenter.position;
                 // Get the active player controllers

@@ -58,7 +58,7 @@ namespace Game {
             // Ranged
             private float currentRangedCooldown;
             private float currentAimAngle;
-            private bool isAiming;
+            public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
 
@@ -105,7 +105,7 @@ namespace Game {
                     currentRangedCooldown -= Time.deltaTime;
                 }
                 
-                if (isAiming && currentAimAngle > 0)
+                if (IsAiming && currentAimAngle > 0)
                 {
                     currentAimAngle -= Time.deltaTime * rangedAimSpeed;
                     currentAimAngle = Mathf.Max(0, currentAimAngle);
@@ -124,7 +124,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Melee(PlayerAnimationBehaviour _playerAnimationBehaviour, PlayerMovementBehaviour _playerMovementBehaviour)
+            public void Melee()
             {
                 if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
                 {
@@ -133,12 +133,12 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown;
                 
-                _playerAnimationBehaviour.PlayMeleeAttackAnimation(); 
+                playerController.PlayerAnimationBehaviour.PlayMeleeAttackAnimation(); 
                 
-                StartCoroutine(MeleeAttack(_playerMovementBehaviour));
+                StartCoroutine(MeleeAttack());
             }
 
-            public void Aim(bool _aiming, PlayerMovementBehaviour _playerMovementBehaviour)
+            public void Aim(bool _aiming)
             {
                 if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0)
                 {
@@ -147,18 +147,18 @@ namespace Game {
                 
                 if (_aiming)
                 {
-                    isAiming = true;
+                    IsAiming = true;
                     currentAimAngle = rangedAimStartAngle;
                     
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);
                     
-                    _playerMovementBehaviour.TurnSpeed /= 2;
-                    _playerMovementBehaviour.SetMovementActiveState(false, true);
+                    playerController.PlayerMovementBehaviour.TurnSpeed /= 2;
+                    playerController.PlayerMovementBehaviour.SetMovementActiveState(false, true);
                 }
-                else if (isAiming)
+                else if (IsAiming)
                 {
-                    isAiming = false;
+                    IsAiming = false;
                     
                     aimLineLeft.SetActive(false);
                     aimLineRight.SetActive(false);
@@ -167,9 +167,9 @@ namespace Game {
                     
                     FireProjectile();
                     
-                    _playerMovementBehaviour.TurnSpeed *= 2;
-                    _playerMovementBehaviour.SetMovementActiveState(true, true);
-                    _playerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
+                    playerController.PlayerMovementBehaviour.TurnSpeed *= 2;
+                    playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
+                    playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
             }
 
@@ -184,7 +184,6 @@ namespace Game {
                         if (isMeleeAttacking)
                         {
                             _hit.Damage(meleeAttackDamage);
-                            Debug.Log("Extended kill");
                         }
                     }
                 }
@@ -200,11 +199,11 @@ namespace Game {
 #endregion
 
 #region Private Functions
-            private IEnumerator MeleeAttack(PlayerMovementBehaviour _playerMovementBehaviour)
+            private IEnumerator MeleeAttack()
             {
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
-                _playerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
+                playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
                 
                 // Loop through all enemies in range
                 for (int i = damageableInRange.Count - 1; i >= 0; i--)

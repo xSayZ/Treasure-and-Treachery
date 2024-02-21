@@ -144,7 +144,7 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentNumberOfDashes > 0 && !IsDashing)
+                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming)
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;

@@ -58,7 +58,7 @@ namespace Game {
             // Ranged
             private float currentRangedCooldown;
             private float currentAimAngle;
-            private bool isAiming;
+            public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
 
@@ -105,7 +105,7 @@ namespace Game {
                     currentRangedCooldown -= Time.deltaTime;
                 }
                 
-                if (isAiming && currentAimAngle > 0)
+                if (IsAiming && currentAimAngle > 0)
                 {
                     currentAimAngle -= Time.deltaTime * rangedAimSpeed;
                     currentAimAngle = Mathf.Max(0, currentAimAngle);
@@ -147,7 +147,7 @@ namespace Game {
                 
                 if (_aiming)
                 {
-                    isAiming = true;
+                    IsAiming = true;
                     currentAimAngle = rangedAimStartAngle;
                     
                     aimLineLeft.SetActive(true);
@@ -156,9 +156,9 @@ namespace Game {
                     playerController.PlayerMovementBehaviour.TurnSpeed /= 2;
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(false, true);
                 }
-                else if (isAiming)
+                else if (IsAiming)
                 {
-                    isAiming = false;
+                    IsAiming = false;
                     
                     aimLineLeft.SetActive(false);
                     aimLineRight.SetActive(false);

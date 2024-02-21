@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
+using Game.Quest;
 using UnityEngine.Events;
 using Game.UI;
 
@@ -80,6 +81,8 @@ namespace Game {
             }
             
             void Start()  {
+                QuestManager.SetUp();
+                
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
                 

@@ -57,8 +57,8 @@ namespace Game {
             // Dash values
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
-            private bool isDashing;
             private List<Image> dashImages;
+            public bool IsDashing { get; private set; }
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
@@ -144,7 +144,7 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentNumberOfDashes > 0 && !isDashing)
+                if (currentNumberOfDashes > 0 && !IsDashing)
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;
@@ -162,7 +162,7 @@ namespace Game {
             // Damage enemies when dashing through them
             public void DashKillRangeEntered(Transform _transform)
             {
-                if (!isDashing)
+                if (!IsDashing)
                 {
                     return;
                 }
@@ -203,7 +203,7 @@ namespace Game {
 
             private IEnumerator DashMove()
             {
-                isDashing = true;
+                IsDashing = true;
                 currentMaxSpeed = movementSpeed + dashSpeedModifier;
                 playerController.SetInvincibility(dashTime);
                 
@@ -216,7 +216,7 @@ namespace Game {
                 dashObjectCollider.enabled = false;
                 
                 currentMaxSpeed = movementSpeed;
-                isDashing = false;
+                IsDashing = false;
             }
 
             private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation)

@@ -37,6 +37,7 @@ namespace Game
             [field:SerializeField] public PlayerAnimationBehaviour PlayerAnimationBehaviour { get; private set; }
             [field:SerializeField] public PlayerVisualBehaviour PlayerVisualBehaviour { get; private set; }
             [field:SerializeField] public PlayerUIDisplayBehaviour PlayerUIDisplayBehaviour { get; private set; }
+            [field:SerializeField] public PlayerAbilityBehaviour PlayerAbilityBehaviour { get; private set; }
             
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -85,6 +86,7 @@ namespace Game
                 PlayerAnimationBehaviour.SetupBehaviour();
                 PlayerVisualBehaviour.SetupBehaviour(PlayerData);
                 PlayerUIDisplayBehaviour.SetupBehaviour(this);
+                PlayerAbilityBehaviour.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 

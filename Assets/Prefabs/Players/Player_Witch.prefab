@@ -321,6 +321,7 @@ Transform:
   - {fileID: 7887169918594621436}
   - {fileID: 7878444258247842620}
   - {fileID: 3119158974416069308}
+  - {fileID: 705774294793837024}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -344,6 +345,7 @@ MonoBehaviour:
   <PlayerAnimationBehaviour>k__BackingField: {fileID: 5271210276642714606}
   <PlayerVisualBehaviour>k__BackingField: {fileID: 5777584153659215473}
   <PlayerUIDisplayBehaviour>k__BackingField: {fileID: 940822348860997190}
+  <PlayerAbilityBehaviour>k__BackingField: {fileID: 8903321020183753053}
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 25
@@ -2066,6 +2068,65 @@ Transform:
   m_Father: {fileID: 2420689189593108487}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2264556677085353805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 705774294793837024}
+  - component: {fileID: 8287304861822001694}
+  - component: {fileID: 8903321020183753053}
+  m_Layer: 11
+  m_Name: DragonAbility
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &705774294793837024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264556677085353805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 288723119442727232}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &8287304861822001694
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264556677085353805}
+  m_Material: {fileID: 13400000, guid: d63f844f0ea270e43854b7b5bf2a247b, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8903321020183753053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2264556677085353805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f466a512c6d0c724db16348ddd06ae05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2336297635653789683
 GameObject:
   m_ObjectHideFlags: 0

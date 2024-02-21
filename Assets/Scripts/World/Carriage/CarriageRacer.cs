@@ -17,44 +17,37 @@ namespace Game {
         {
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
-            [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
-            [SerializeField] public float movementSmoothingSpeed = 1f;
-            private Vector3 rawInputMovement;
-            private Vector3 smoothInputMovement;
             
             [Header("Sub Behaviours")]
             [SerializeField] private CarriageMovementBehaviour carriageMovementBehaviour;
+
+            private Vector2 movementInput;
+            private bool breakingInput;
 
 #region Unity Functions
             private void Start() {
                 carriageMovementBehaviour.SetupBehaviour();
             }
+
             private void FixedUpdate() {
-                CalculateMovementInputSmoothing();
-                
                 UpdateCarriageMovement();
-                
             }
 #endregion
 
             public void OnMovement(InputAction.CallbackContext value) {
-                Vector2 input = value.ReadValue<Vector2>();
-                rawInputMovement = new Vector3(input.x, 0, input.y);
+                movementInput = value.ReadValue<Vector2>();
             }
+
 
 #region Public Functions
 
 #endregion
 
 #region Private Functions
-            private void CalculateMovementInputSmoothing()
-            {
-                smoothInputMovement = Vector3.Lerp(smoothInputMovement, rawInputMovement, Time.deltaTime * movementSmoothingSpeed);
-            }
+
             
-            private void UpdateCarriageMovement()
-            {
-                carriageMovementBehaviour.UpdateMovementData(smoothInputMovement);
+            private void UpdateCarriageMovement() {
+                carriageMovementBehaviour.UpdateMovementData(movementInput);
             }
 #endregion
         }

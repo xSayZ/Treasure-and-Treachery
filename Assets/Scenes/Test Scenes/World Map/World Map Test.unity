@@ -152,7 +152,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &147311880
 GameObject:
@@ -580,6 +580,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_YPosition: 20
+--- !u!1 &482892311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482892312}
+  - component: {fileID: 482892313}
+  m_Layer: 0
+  m_Name: Input Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482892312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482892311}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1394581424}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482892313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482892311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621567455fd1c4ceb811cc8a00b6a1a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NotificationBehavior: 2
+  m_MaxPlayerCount: 4
+  m_AllowJoining: 1
+  m_JoinBehavior: 2
+  m_PlayerJoinedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_PlayerLeftEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_JoinAction:
+    m_UseReference: 0
+    m_Action:
+      m_Name: 
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  m_PlayerPrefab: {fileID: 0}
+  m_SplitScreen: 0
+  m_MaintainAspectRatioInSplitScreen: 0
+  m_FixedNumberOfSplitScreens: -1
+  m_SplitScreenRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
 --- !u!1 &668269948
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +866,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &811782543
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 811782544}
+  m_Layer: 0
+  m_Name: PlayerInputs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &811782544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811782543}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1631424771}
+  - {fileID: 1347395923}
+  - {fileID: 1118720838}
+  - {fileID: 1218094783}
+  m_Father: {fileID: 1394581424}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &883490413
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,7 +930,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &966444400
 GameObject:
@@ -994,6 +1105,141 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1118720836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1118720838}
+  - component: {fileID: 1118720837}
+  - component: {fileID: 1118720839}
+  m_Layer: 0
+  m_Name: Player3Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1118720837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118720836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1118720839}
+        m_TargetAssemblyTypeName: Game.World.PlayerIndividualInput, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
+    m_ActionName: Player/Movement[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
+    m_ActionName: Player/RangedAttack[/Keyboard/1,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact[/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID1/buttonNorth,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
+    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1118720838
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118720836}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811782544}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1118720839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1118720836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee65c8bce3e5564684878a3746565b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1143672053
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,7 +1470,7 @@ Transform:
   - {fileID: 1175477484}
   - {fileID: 1143672054}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1175477483
 GameObject:
@@ -1259,6 +1505,141 @@ Transform:
   m_Father: {fileID: 1169846570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1218094781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1218094783}
+  - component: {fileID: 1218094782}
+  - component: {fileID: 1218094784}
+  m_Layer: 0
+  m_Name: Player4Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1218094782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218094781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1218094784}
+        m_TargetAssemblyTypeName: Game.World.PlayerIndividualInput, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
+    m_ActionName: Player/Movement[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
+    m_ActionName: Player/RangedAttack[/Keyboard/1,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact[/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID1/buttonNorth,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
+    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1218094783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218094781}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811782544}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218094784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218094781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee65c8bce3e5564684878a3746565b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1315101978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1394,6 +1775,141 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315101978}
   m_CullTransparentMesh: 1
+--- !u!1 &1347395921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1347395923}
+  - component: {fileID: 1347395922}
+  - component: {fileID: 1347395924}
+  m_Layer: 0
+  m_Name: Player2Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1347395922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347395921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1347395924}
+        m_TargetAssemblyTypeName: Game.World.PlayerIndividualInput, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
+    m_ActionName: Player/Movement[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
+    m_ActionName: Player/RangedAttack[/Keyboard/1,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact[/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID1/buttonNorth,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
+    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1347395923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347395921}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811782544}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347395924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347395921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee65c8bce3e5564684878a3746565b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1385066014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1993,54 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385066014}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1394581423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1394581424}
+  - component: {fileID: 1394581425}
+  m_Layer: 0
+  m_Name: Inputs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1394581424
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394581423}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 482892312}
+  - {fileID: 811782544}
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1394581425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1394581423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d69408325e3c5a4f9ea5fe792eebd4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndividualInputs: []
+  movementInput: []
 --- !u!1 &1418030950
 GameObject:
   m_ObjectHideFlags: 0
@@ -1789,6 +2353,141 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1631424769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1631424771}
+  - component: {fileID: 1631424770}
+  - component: {fileID: 1631424772}
+  m_Layer: 0
+  m_Name: Player1Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1631424770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631424769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631424772}
+        m_TargetAssemblyTypeName: Game.World.PlayerIndividualInput, Assembly-CSharp
+        m_MethodName: OnMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
+    m_ActionName: Player/Movement[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
+    m_ActionName: Player/RangedAttack[/Keyboard/1,/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact[/SwitchProControllerHID/buttonNorth,/SwitchProControllerHID1/buttonNorth,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
+    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/SwitchProControllerHID/rightShoulder,/SwitchProControllerHID1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &1631424771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631424769}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 811782544}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1631424772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631424769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee65c8bce3e5564684878a3746565b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1656832739 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7972531191505085678, guid: 188c56b7d37c9744fb1833bc57b9353f, type: 3}
@@ -2054,7 +2753,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1854684760406719515, guid: 5b33e930b4fb5944e9149a5bd47d72dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2144,7 +2843,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1936473944}
   - component: {fileID: 1936473943}
-  - component: {fileID: 1936473942}
+  - component: {fileID: 1936473945}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2152,26 +2851,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1936473942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1936473941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1936473943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2200,8 +2879,38 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1936473945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936473941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &1980606901
 GameObject:
   m_ObjectHideFlags: 0
@@ -2402,7 +3111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7972531191505085672, guid: 188c56b7d37c9744fb1833bc57b9353f, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7972531191505085672, guid: 188c56b7d37c9744fb1833bc57b9353f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2480,5 +3189,6 @@ PrefabInstance:
       propertyPath: m_SuspensionSpring.spring
       value: 35000
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7972531191505085669, guid: 188c56b7d37c9744fb1833bc57b9353f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 188c56b7d37c9744fb1833bc57b9353f, type: 3}

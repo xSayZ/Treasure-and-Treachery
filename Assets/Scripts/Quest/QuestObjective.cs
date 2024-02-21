@@ -16,6 +16,7 @@ using Game.Player;
 using Game.Scene;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Game {
@@ -30,12 +31,15 @@ namespace Game {
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
             [SerializeField] private List<Pickup> requiredPickups;
-
+            
+            [Header("Quest Events")]
+            [SerializeField] private UnityEvent questCompleted = new UnityEvent();
+            
             [Header("Audio")] 
             [SerializeField] 
             private PlayerAudio playerAudio;
             private EventInstance _eventInstance;
-
+            
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
             [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
@@ -55,34 +59,29 @@ namespace Game {
             }
             
             private Dictionary<Item, QuestStatus> requiredItems;
-            
+
 #region Unity Functions
             private void OnEnable()
             {
                 QuestManager.OnItemPickedUp.AddListener(ItemPickedUp);
                 QuestManager.OnItemDropped.AddListener(ItemDropped);
             }
-            
+
             private void OnDisable()
             {
                 QuestManager.OnItemPickedUp.RemoveListener(ItemPickedUp);
                 QuestManager.OnItemDropped.RemoveListener(ItemDropped);
             }
-            
+
             private void Awake()
             {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
             }
-            
+
             private void Start()
             {
-                if (requiredQuest)
-                {
-                    QuestManager.RegisterRequiredQuest(this);
-                }
-
                 requiredItems = new Dictionary<Item, QuestStatus>();
                 for (int i = 0; i < requiredPickups.Count; i++)
                 {
@@ -91,7 +90,7 @@ namespace Game {
                     requiredItems.Add(requiredPickups[i].GetItem(), new QuestStatus(_progressBar.GetComponent<ProgressBar>()));
                 }
             }
-            
+
             private void Update()
             {
                 List<Item> _itemsToRemove = new List<Item>();
@@ -110,8 +109,7 @@ namespace Game {
                             item.Value.ProgressBar.gameObject.SetActive(false);
                             _itemsToRemove.Add(item.Key);
                             
-                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].gameObject.
-                                GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
+                            GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
                             CanInteractWith[item.Value.PlayerIndex] = false;
                             
                             try  
@@ -155,10 +153,9 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
-
-                    GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.
-                        GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
-
+                    
+                    GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
+                    
                     if (_start == true)
                     {
                         try
@@ -181,14 +178,13 @@ namespace Game {
                             Debug.LogError("[{QuestObjective}]: Error Exception " + e);
                         }
                     }
-
                 }
             }
-            
+
             public void ToggleInteractionUI(int _playerIndex, bool _active)
             {
                 PlayersThatWantsToInteract[_playerIndex] = _active;
-
+                
                 bool _displayUI = false;
                 for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
                 {
@@ -200,6 +196,11 @@ namespace Game {
                 
                 interactionUI.SetActive(_displayUI);
             }
+
+            public bool GetRequiredStatus()
+            {
+                return requiredQuest;
+            }
 #endregion
 
 #region Private Functions
@@ -210,7 +211,7 @@ namespace Game {
                     CanInteractWith[_playerIndex] = true;
                 }
             }
-            
+
             private void ItemDropped(int _playerIndex, Item _item, bool _destroy)
             {
                 if (requiredItems.ContainsKey(_item))
@@ -218,7 +219,7 @@ namespace Game {
                     CanInteractWith[_playerIndex] = false;
                 }
             }
-            
+
             private void QuestCompleted()
             {
                 if (requiredQuest)

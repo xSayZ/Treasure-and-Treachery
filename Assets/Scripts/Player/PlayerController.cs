@@ -66,6 +66,9 @@ namespace Game
             [SerializeField,Range(0,1)] private float lowFrequency;
             [SerializeField,Range(0,1)] private float highFrequency;
             [SerializeField] private float duration;
+
+            [Header("Audio")] 
+            [SerializeField] private DialogueAudio dialogueAudio;
             
             [Space]
             [Header("Debug")]
@@ -269,6 +272,14 @@ namespace Game
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
+                try
+                {
+                    dialogueAudio.PlayerDamageAudio(PlayerIndex);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
             }
 #endregion
 

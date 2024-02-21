@@ -49,6 +49,7 @@ namespace Game {
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
+            [SerializeField] private DialogueAudio dialogueAudio;
             
             // Melee
             private List<IDamageable> damageableInRange;
@@ -221,6 +222,14 @@ namespace Game {
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
+                        try
+                        {
+                            dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                        }
                     }
                 }
                 

@@ -129,6 +129,11 @@ namespace Game {
             // Damage enemies when dashing through them
             private void OnTriggerEnter(Collider other)
             {
+                if (!isDashing)
+                {
+                    return;
+                }
+                
                 if (!other.isTrigger && other.CompareTag("Enemy"))
                 {
                     if (other.TryGetComponent(out IDamageable _hit))

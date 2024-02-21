@@ -57,6 +57,7 @@ namespace Game {
             // Dash values
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
+            private bool isDashing;
             private List<Image> dashImages;
             
             public bool canMove { get; private set; } = true;
@@ -155,7 +156,7 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentNumberOfDashes > 0)
+                if (currentNumberOfDashes > 0 && !isDashing)
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;
@@ -197,6 +198,7 @@ namespace Game {
 
             private IEnumerator DashMove()
             {
+                isDashing = true;
                 currentMaxSpeed = movementSpeed + dashSpeedModifier;
                 playerController.SetInvincibility(dashTime);
                 
@@ -209,6 +211,7 @@ namespace Game {
                 dashCollider.enabled = false;
                 
                 currentMaxSpeed = movementSpeed;
+                isDashing = false;
             }
 
             private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation)

@@ -7,11 +7,12 @@
 // --------------------------------
 // ------------------------------*/
 
-
 using Game.Backend;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
 namespace Game
 {
@@ -19,115 +20,128 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
-            public Image Image;
-
-            public bool playersIsReady = false;
-            
-            private PlayerInput playerInputs;
-            private int currentId;
+            [SerializeField] private Image Image;
+            public bool PlayersIsReady { get; private set; }
+            [HideInInspector] public PlayerInput playerInputs;
             private int id;
-
+            
             private Sprite cachedSprite;
-            private int cachedId;
+            private int cachedId = 10;
             private float inputDelay;
-            public PlayerData data;
-            // Start is called before the first frame update
-
+            private PlayerData data;
+            private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
-            public void Start()
+            private void Start()
             {
-                HorizontalLayoutGroup layoutGroup = FindObjectOfType<HorizontalLayoutGroup>();
-                transform.parent = layoutGroup.transform;
+                characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
+                
                 playerInputs = GetComponent<PlayerInput>();
-                Image.sprite = CharacterSelectManager.Instance.bank.characterImages[0];
+                Image.sprite = characterSelectHandler.ImagesBackup[0];
+                for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
+                {
+                    if (playerInputs.playerIndex == i)
+                    {
+                        data =  characterSelectHandler.Datas[i];
+                    }
+                    
+                }
+                SetPlayerImagePosition();
                 
                 inputDelay = 0.01f;
-
-                for (int i = 0; i < CharacterSelectManager.Instance.Datas.Count; i++)
-                {
-                    if (playerInputs.user.index == i)
-                    {
-                        data = CharacterSelectManager.Instance.Datas[i];
-                    }
-                }
+                cachedId = id;
+                
             }
-
+            
+            private void Update()    
+            {
+                PlayerBlurOut();
+            }
             #endregion
 
-            #region Public
-
+            #region Inputs
+            
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                if (playersIsReady) return;
-
-               
+                int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
+                if (PlayersIsReady) return;
                 Vector2 value = context.ReadValue<Vector2>();
-                if (value.y > 0)
+                switch (value.x)
                 {
-                    
-                    inputDelay -= Time.deltaTime;
-                    
-                    if (inputDelay <0)
+                    case > 0.5f:
                     {
-                        id += 1;
-                        inputDelay = 0.01f;
+                        inputDelay -= Time.deltaTime;
+                        if (inputDelay <0)
+                        {
+                            id++;
+                            inputDelay = 0.01f;
+                        }
+                        break;
                     }
-                }
-                if (value.y < 0)
-                {
-                    if(inputDelay <0)
+                    case < -0.5f:
                     {
-                        id -= 1;
-                        inputDelay = 0.01f; 
+                        inputDelay -= Time.deltaTime;
+                        if(inputDelay <0)
+                        {
+                            id--;
+                            inputDelay = 0.01f; 
+                        }
+                        break;
                     }
                 }
                 
                 id = Wrap(id, 0, 4);
-                if (id == 4) id = 0;
+                if (id < 0) id += amountOfImages;
+                if (id > 3) id -= amountOfImages;
 
-                if (CharacterSelectManager.Instance.Images.TryGetValue(id,out Sprite sprite))
-                {
+                if (!characterSelectHandler.ImagesBackup.TryGetValue(id, out Sprite sprite)) return;
                     Image.sprite = sprite;
                     cachedId = id;
-                    cachedSprite = sprite;
-                }
-                
-
             }
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if (!context.performed || playersIsReady) return;
-                
-                for (int i = 0; i < transform.childCount; i++)
+                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    transform.GetChild(i).gameObject.SetActive(true);
-                    
-                    data.CharacterID= id;
-                    CharacterSelectManager.Instance.Images.Remove(cachedId);
-
+                    CustomSceneManager.Instance.ChangeScene();
                 }
-                playersIsReady = true;
+                
+                if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;
+                if (characterSelectHandler.Images.TryGetValue(id, out Sprite sprite))
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(true);
+                        data.CharacterID= id;
+                        cachedId = id;
+                        cachedSprite = sprite;
+                        characterSelectHandler.Images.Remove(id);
+                    }
+                    PlayersIsReady = true;
+                }
+                else
+                {
+                    Debug.Log("Player is already Taken");
+                }
 
-
+               
+                
             }
-
-            #endregion
 
             public void OnCancel(InputAction.CallbackContext context)
             {
-                if (!context.performed || !playersIsReady) return;
+                if (!context.performed || !PlayersIsReady) return;
+                
                 for (int i = 0; i < transform.childCount; i++)
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
-                    CharacterSelectManager.Instance.Images.Add(cachedId,cachedSprite);
-
+                    characterSelectHandler.Images.Add(cachedId,cachedSprite);
                 }
                 
-                playersIsReady = false;
+                PlayersIsReady = false;
 
             }
+            #endregion
             
             #region Private
 
@@ -145,7 +159,35 @@ namespace Game
                 return UpperBounds - tempVal;
             }
 
+            private void SetPlayerImagePosition()
+            {
+                Debug.Log(playerInputs.playerIndex);
+                Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
+                transform.SetParent(targetTransform);
+                transform.position = targetTransform.position;
+                
+            }
 
+            private void PlayerBlurOut()
+            { 
+                if (!characterSelectHandler.Images.TryGetValue(cachedId, out Sprite sprite))
+                {
+                  
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(true);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < transform.childCount; i++)
+                    {
+                        transform.GetChild(i).gameObject.SetActive(false);
+                    }
+                }
+            }
+            
+            
             #endregion
             
         }

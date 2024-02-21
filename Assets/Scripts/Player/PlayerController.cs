@@ -28,7 +28,6 @@ namespace Game
             [Tooltip("Player Data Scriptable Object")]
             [SerializeField] public PlayerData PlayerData;
             [HideInInspector] public int PlayerIndex;
-
             
             [Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
@@ -38,7 +37,7 @@ namespace Game
             [SerializeField] public PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
             [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
-
+            
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
             
@@ -49,26 +48,28 @@ namespace Game
             private Vector3 rawInputMovement;
             private Vector3 smoothInputMovement;
             
-            [Header("Audio")]
-            [SerializeField] private GameObject playerObj;
-            [SerializeField] private PlayerAudio playerAudio;
+            [Header("Invincibility")]
+            [SerializeField] private float invincibilityTime;
+            private float currentInvincibilityTime;
             
-            [field: HideInInspector] public int Health { get; set; }
-
+            // Health variables
+            public int Health { get; set; }
+            public bool Invincible { get; set; }
+            
             [Header("Temporary damage animation")]
             [SerializeField] private MeshRenderer meshRenderer;
             [SerializeField] private Material defaultMaterial;
             [SerializeField] private Material damagedMaterial;
-
+            
             [Header("Rumble Settings")]
             [SerializeField,Range(0,1)] private float lowFrequency;
             [SerializeField,Range(0,1)] private float highFrequency;
             [SerializeField] private float duration;
-
+            
             [Space]
             [Header("Debug")]
             [SerializeField] private bool debug;
-            
+
             public void SetupPlayer(int _newPlayerID)
             {
                 PlayerData.playerIndex = _newPlayerID;
@@ -80,127 +81,108 @@ namespace Game
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
-                playerMovementBehaviour.SetupBehaviour();
+                playerMovementBehaviour.SetupBehaviour(this);
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
                 playerUIDisplayBehaviours.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                
-                var player = PlayerInput.all[_newPlayerID];
-                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
-                
+                if (!GameManager.Instance.soundDebug)
+                {
+                    var player = PlayerInput.all[_newPlayerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
+                }
+               
             }
-            
-            
-            
-            
+
 #region Unity Functions
             private void OnEnable()
             {
                 playerInput.deviceRegainedEvent.Invoke(playerInput);
             }
-            
+
             private void OnDisable()
             {
                 playerInput.deviceLostEvent.Invoke(playerInput);
             }
 
-            void FixedUpdate()
+            private void FixedUpdate()
             {
                 CalculateMovementInputSmoothing();
-                if (smoothInputMovement.magnitude < 0.01f) {
+                if (smoothInputMovement.magnitude < 0.01f)
+                {
                     smoothInputMovement = Vector3.zero;
                 }
-
-                if (!playerMovementBehaviour.canMove)
-                    return;
                 
                 UpdatePlayerMovement();
                 UpdatePlayerAnimationMovement();
-
             }
-            #endregion
 
-            public void OnPlayerJoined()
+            private void Update()
             {
-                
+                if (currentInvincibilityTime > 0)
+                {
+                    currentInvincibilityTime -= Time.deltaTime;
+                }
+                else
+                {
+                    Invincible = false;
+                }
             }
+#endregion
+
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
-            
             /// <summary>
             /// This is called from PlayerInput; when a joystick or arrow keys has been pushed.
             /// It stores the input Vector as a Vector3 to then be used by the smoothing function.
             /// </summary>
-            /// <param name="value"></param>
             public void OnMovement(InputAction.CallbackContext value)
             { 
                 Vector2 _inputValue = value.ReadValue<Vector2>();
                 rawInputMovement = (new Vector3(_inputValue.x, 0, _inputValue.y));
             }
+
             /// <summary>
             /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Dash' action.
             /// </summary>
-            /// <param name="value"></param>
             public void OnDash(InputAction.CallbackContext value)
             {
-                if (value.performed && playerMovementBehaviour.currentDashCooldown <= 0)
+                if (value.performed)
                 {
-                    playerMovementBehaviour.Dash(value.performed);
+                    playerMovementBehaviour.Dash();
                 }
             }
+
             /// <summary>
             /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Ranged' action.
             /// </summary>
-            /// <param name="value"></param>
             public void OnRanged(InputAction.CallbackContext value)
             {
-                if (PlayerHasNoCurrentItem() && playerAttackBehaviour.currentFireRate <= 0) {
-                    //TODO: make Character chargeUp
-                    if(value.started)
-                    {
-                        // Aiming
-                        playerMovementBehaviour.SetMovementActiveState(false, true);
-                        playerMovementBehaviour.TurnSpeed /= 2;
-
-                    } else if (value.canceled) {
-                        // Shooting
-                        playerAttackBehaviour.RangedAttack();
-                        playerMovementBehaviour.TurnSpeed *= 2;
-                        //playerAudio.RangedAudioPlay(playerObj);
-                    }
+                if (value.started)
+                {
+                    playerAttackBehaviour.Aim(true, playerMovementBehaviour);
+                }
+                else if (value.canceled)
+                {
+                    playerAttackBehaviour.Aim(false, playerMovementBehaviour);
                 }
             }
+
             /// <summary>
             /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Melee' action.
             /// </summary>
-            /// <param name="value"></param>
             public void OnMelee(InputAction.CallbackContext value)
             {
                 if (value.started)
                 {
-                    if (PlayerHasNoCurrentItem()) {
-                        
-                        if (playerAttackBehaviour.MeleeAttack()) {
-                            playerAnimationBehaviour.PlayMeleeAttackAnimation();
-                        }
-                        try
-                        {
-                            playerAudio.MeleeAudioPlay(playerObj);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError("[{PlayerController}]: Error Exception " + e);
-                        }
-                        
-                    }
+                    playerAttackBehaviour.Melee(playerAnimationBehaviour, playerMovementBehaviour);
                 }
             }
+
             /// <summary>
             /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Interact' action.
             /// </summary>
-            /// <param name="value"></param>
             public void OnInteract(InputAction.CallbackContext value)
             {
                 if (value.started)
@@ -212,11 +194,10 @@ namespace Game
                     playerInteractionBehaviour.OnInteract(false);
                 }
             }
-            
+
             /// <summary>
             /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'TogglePause' action.
             /// </summary>
-            /// <param name="value"></param>
             public void OnTogglePause(InputAction.CallbackContext value)
             {
                 if (value.started)
@@ -226,7 +207,7 @@ namespace Game
                     // GameManager.Instance.TogglePauseState(this);
                 }
             }
-            
+
             public void OnTogglePlayerUI(InputAction.CallbackContext value)
             {
                 if (value.started)
@@ -237,7 +218,7 @@ namespace Game
                     playerUIDisplayBehaviours.TogglePlayerUIElements(false);
                 }
             }
-            
+
             // SWITCHING INPUT ACTION MAPS
             public void EnableEventControls()
             {
@@ -248,7 +229,7 @@ namespace Game
             {
                 playerInput.SwitchCurrentActionMap("Players");
             }
-            
+
             public void SetInputPausedState(bool _paused)
             {
                 switch (_paused)
@@ -261,10 +242,14 @@ namespace Game
                         break;
                 }
             }
-            
 #endregion
 
 #region Public Functions
+            public void SetInvincibility(float _time)
+            {
+                Invincible = true;
+                currentInvincibilityTime = _time;
+            }
             
             public void Death()
             {
@@ -276,13 +261,14 @@ namespace Game
             
             public void DamageTaken()
             {
-                // FlashRed();
-                //Log("Player " + PlayerIndex + " took damage");
+                Invincible = true;
+                currentInvincibilityTime = invincibilityTime;
+                
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
             }
- #endregion
+#endregion
 
 #region Private Functions
             private void CalculateMovementInputSmoothing()
@@ -297,10 +283,16 @@ namespace Game
 
             private void UpdatePlayerAnimationMovement()
             {
-                playerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
+                if (!playerMovementBehaviour.canMove)
+                {
+                    playerAnimationBehaviour.UpdateMovementAnimation(0);
+                }
+                else
+                {
+                    playerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
+                }
             }
 
-            
             private static Vector3 IsoVectorConvert(Vector3 _vector) {
 
                 if (UnityEngine.Camera.main == null)
@@ -312,27 +304,6 @@ namespace Game
                 Vector3 _result = _isoMatrix.MultiplyPoint3x4(_vector);
                 return _result;
             }
-            
-            // Temporary damage animation
-            private async void FlashRed()
-            {
-                meshRenderer.material = damagedMaterial;
-                await Task.Delay(100);
-                meshRenderer.material = defaultMaterial;
-                await Task.Delay(100);
-                meshRenderer.material = damagedMaterial;
-                await Task.Delay(100);
-                meshRenderer.material = defaultMaterial;
-                await Task.Delay(100);
-                meshRenderer.material = damagedMaterial;
-                await Task.Delay(100);
-                meshRenderer.material = defaultMaterial;
-            }
-
-            private bool PlayerHasNoCurrentItem() {
-                return PlayerData.currentItem == null;
-            }
-            
 #endregion
 
 #region Experimental code
@@ -391,7 +362,7 @@ namespace Game
                 }
             }*/
 #endregion
-            
+
             private void Log(string msg) {
                 if (!debug) return;
                 Debug.Log("[GameManager]: " + msg);

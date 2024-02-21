@@ -226,6 +226,7 @@ private void GoldPickupDialogue(int _playerID, int amount)
     goldPickupInstance.start();
     goldPickupInstance.release();
 
+    DialogueAudioWrapper.Instance.StartGoldPickupDialogue(goldPickupInstance, _playerID, _players);
     //StartCoroutine(WaitForResponseAudio(goldPickupInstance, _playerID, _players));
     //WaitForResponseAudio(goldPickupInstance, _playerID, _players);
     //GetRandomPlayerAndPlayResponse(_playerID, _players);
@@ -266,7 +267,7 @@ private void GoldPickupReaction(GameObject characterObj, int speakerCharacter)
 
 #region Private Functions
 
-private IEnumerator WaitForResponseAudio(EventInstance instance, int _playerID, Dictionary<int, PlayerController> _players)
+public IEnumerator WaitForResponseAudio(EventInstance instance, int _playerID, Dictionary<int, PlayerController> _players)
 {
     while (IsPlaying(instance))
     {

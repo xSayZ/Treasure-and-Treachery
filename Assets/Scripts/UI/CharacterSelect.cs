@@ -103,7 +103,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    CustomSceneManager.Instance.ChangeScene();
+                    LevelManager.Instance.LoadSceneAsync(1);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

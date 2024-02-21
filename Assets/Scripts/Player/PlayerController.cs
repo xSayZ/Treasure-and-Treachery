@@ -52,8 +52,9 @@ namespace Game
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
-            
-            [field: HideInInspector] public int Health { get; set; }
+            [SerializeField] private DialogueAudio dialogueAudio;
+
+                [field: HideInInspector] public int Health { get; set; }
 
             [Header("Temporary damage animation")]
             [SerializeField] private MeshRenderer meshRenderer;
@@ -277,6 +278,15 @@ namespace Game
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
+                
+                try
+                {
+                    dialogueAudio.PlayerDamageAudio(PlayerIndex);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
             }
  #endregion
 

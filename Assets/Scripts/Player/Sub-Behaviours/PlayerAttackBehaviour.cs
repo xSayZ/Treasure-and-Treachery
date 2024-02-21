@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using Game.Quest;
@@ -40,8 +41,11 @@ namespace Game
             [HideInInspector] public float currentMeleeCooldown;
             private PlayerController playerController;
             private LayerMask enemyLayer;
-            
-#region Unity Functions
+
+            public DialogueAudio dialogueAudio;
+            public GameObject playerObject;
+
+            #region Unity Functions
             private void OnEnable()
             {
                 QuestManager.OnMeleeWeaponPickedUp.AddListener(ActivateMeleeWeapon);
@@ -114,6 +118,7 @@ namespace Game
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
                         EnemyManager.OnEnemyDeathUI.Invoke();
+                        dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
                     }
                 }
                 currentMeleeCooldown = baseMeleeAttackCooldown;

@@ -33,7 +33,7 @@ namespace Game {
             
             [Header("Dash Settings")]
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
-            [SerializeField] private float dashSpeedModifier;
+            [SerializeField] private float dashSpeed;
             [Tooltip("How long should you be able to dash.")]
             [Range(0, 3)]
             [SerializeField] private float dashTime;
@@ -130,7 +130,7 @@ namespace Game {
 #region Public Functions
             public void UpdateMovementData(Vector3  _newMovementDirection)
             {
-                if (!isForceMoving)
+                if (!isForceMoving && !IsDashing)
                 {
                     movementDirection = _newMovementDirection;
                 }
@@ -204,7 +204,8 @@ namespace Game {
             private IEnumerator DashMove()
             {
                 IsDashing = true;
-                currentMaxSpeed = movementSpeed + dashSpeedModifier;
+                currentMaxSpeed = dashSpeed;
+                movementDirection = transform.forward;
                 playerController.SetInvincibility(dashTime);
                 
                 playerCollider.isTrigger = true;

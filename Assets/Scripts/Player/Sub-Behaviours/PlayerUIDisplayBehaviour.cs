@@ -16,7 +16,7 @@ using UnityEngine.UI;
 
 namespace Game {
     namespace Player {
-        public class PlayerUIDisplayBehaviours : MonoBehaviour {
+        public class PlayerUIDisplayBehaviour : MonoBehaviour {
             
             [SerializeField] private TextMeshProUGUI currencyText, killsText;
             [SerializeField] private GameObject playerUIElements;

@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
+using Game.Quest;
 using UnityEngine.Events;
 using Game.UI;
 
@@ -80,6 +81,8 @@ namespace Game {
             }
             
             void Start()  {
+                QuestManager.SetUp();
+                
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
                 
@@ -213,6 +216,7 @@ namespace Game {
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
+
                 
                 // Get PlayerData from List and assign it based on playerID
                 PlayerData _playerData  = activePlayerPlayerData[_playerID];

@@ -34,9 +34,9 @@ namespace Game
             [SerializeField] private PlayerMovementBehaviour playerMovementBehaviour;
             [SerializeField] private PlayerAttackBehaviour playerAttackBehaviour;
             [SerializeField] private PlayerInteractionBehaviour playerInteractionBehaviour;
-            [SerializeField] public PlayerAnimationBehaviour playerAnimationBehaviour;
+            [SerializeField] private PlayerAnimationBehaviour playerAnimationBehaviour;
             [SerializeField] private PlayerVisualBehaviour playerVisualBehaviour;
-            [SerializeField] private PlayerUIDisplayBehaviours playerUIDisplayBehaviours;
+            [SerializeField] private PlayerUIDisplayBehaviour playerUIDisplayBehaviour;
             
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
@@ -84,7 +84,7 @@ namespace Game
                 playerMovementBehaviour.SetupBehaviour(this);
                 playerAnimationBehaviour.SetupBehaviour();
                 playerVisualBehaviour.SetupBehaviour(PlayerData);
-                playerUIDisplayBehaviours.SetupBehaviour(this);
+                playerUIDisplayBehaviour.SetupBehaviour(this);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
@@ -212,10 +212,10 @@ namespace Game
             {
                 if (value.started)
                 {
-                    playerUIDisplayBehaviours.TogglePlayerUIElements(true);
+                    playerUIDisplayBehaviour.TogglePlayerUIElements(true);
                 }
                 else if (value.canceled) {
-                    playerUIDisplayBehaviours.TogglePlayerUIElements(false);
+                    playerUIDisplayBehaviour.TogglePlayerUIElements(false);
                 }
             }
 

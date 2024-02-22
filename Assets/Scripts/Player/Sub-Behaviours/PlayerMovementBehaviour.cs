@@ -19,7 +19,7 @@ namespace Game {
         {
             [Header("Setup")]
             [SerializeField] private CapsuleCollider playerCollider;
-            [SerializeField] private CapsuleCollider dashCollider;
+            [SerializeField] private CapsuleCollider dashObjectCollider;
             [SerializeField] private GameObject dashCanvas;
             [SerializeField] private GameObject dashUIPrefab;
             [SerializeField] private Sprite fullDashSprite;
@@ -33,7 +33,7 @@ namespace Game {
             
             [Header("Dash Settings")]
             [Tooltip("Addition modifier adds modified speed to the dash speed.")]
-            [SerializeField] private float dashSpeedModifier;
+            [SerializeField] private float dashSpeed;
             [Tooltip("How long should you be able to dash.")]
             [Range(0, 3)]
             [SerializeField] private float dashTime;
@@ -58,6 +58,7 @@ namespace Game {
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
             private List<Image> dashImages;
+            public bool IsDashing { get; private set; }
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
@@ -124,24 +125,12 @@ namespace Game {
                     currentDashRechargeTime -= Time.deltaTime;
                 }
             }
-
-            // Damage enemies when dashing through them
-            private void OnTriggerEnter(Collider other)
-            {
-                if (!other.isTrigger && other.CompareTag("Enemy"))
-                {
-                    if (other.TryGetComponent(out IDamageable _hit))
-                    {
-                        _hit.Damage(dashDamage);
-                    }
-                }
-            }
 #endregion
 
 #region Public Functions
             public void UpdateMovementData(Vector3  _newMovementDirection)
             {
-                if (!isForceMoving)
+                if (!isForceMoving && !IsDashing)
                 {
                     movementDirection = _newMovementDirection;
                 }
@@ -155,7 +144,7 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentNumberOfDashes > 0)
+                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming)
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;
@@ -168,6 +157,23 @@ namespace Game {
             public void ApplyForce(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation = false)
             {
                 StartCoroutine(ForceMove(_speed, _direction, _time, _keepFacingRotation));
+            }
+
+            // Damage enemies when dashing through them
+            public void DashKillRangeEntered(Transform _transform)
+            {
+                if (!IsDashing)
+                {
+                    return;
+                }
+                
+                if (_transform.CompareTag("Enemy"))
+                {
+                    if (_transform.TryGetComponent(out IDamageable _hit))
+                    {
+                        _hit.Damage(dashDamage);
+                    }
+                }
             }
 
             public float TurnSpeed {
@@ -197,18 +203,21 @@ namespace Game {
 
             private IEnumerator DashMove()
             {
-                currentMaxSpeed = movementSpeed + dashSpeedModifier;
+                IsDashing = true;
+                currentMaxSpeed = dashSpeed;
+                movementDirection = transform.forward;
                 playerController.SetInvincibility(dashTime);
                 
                 playerCollider.isTrigger = true;
-                dashCollider.enabled = true;
+                dashObjectCollider.enabled = true;
                 
                 yield return new WaitForSeconds(dashTime);
                 
                 playerCollider.isTrigger = false;
-                dashCollider.enabled = false;
+                dashObjectCollider.enabled = false;
                 
                 currentMaxSpeed = movementSpeed;
+                IsDashing = false;
             }
 
             private IEnumerator ForceMove(float _speed, Vector3 _direction, float _time, bool _keepFacingRotation)

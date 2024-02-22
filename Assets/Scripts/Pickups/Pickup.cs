@@ -13,6 +13,7 @@ using Game.Core;
 using Game.Player;
 using Game.Quest;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Game {
@@ -32,7 +33,10 @@ namespace Game {
             
             [Header("Pickup Type")]
             public PickupTypes PickupType;
-
+            
+            [Header("Pickup Events")]
+            [SerializeField] private UnityEvent itemPickedUpFirstTime = new UnityEvent();
+            
             [Header("Audio")] 
             [SerializeField] private InteractablesAudio interactablesAudio;
             
@@ -50,6 +54,7 @@ namespace Game {
             [HideInInspector] public int Amount;
 
             private Item item;
+            private bool hasBeenPickedUpOnce;
 
 #region Unity Functions
             private void Awake()
@@ -82,10 +87,12 @@ namespace Game {
                             return;
                         }
                         QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
+                        TriggerPickUpEvent();
                         break;
                         
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
+                        TriggerPickUpEvent();
                         
                         try
                         {
@@ -101,11 +108,13 @@ namespace Game {
                     
                     case PickupTypes.MeleeWeapon:
                         QuestManager.OnMeleeWeaponPickedUp.Invoke(_playerIndex);
+                        TriggerPickUpEvent();
                         Destroy(gameObject);
                         break;
                     
                     case PickupTypes.RangedWeapon:
                         QuestManager.OnRagedWeaponPickedUp.Invoke(_playerIndex);
+                        TriggerPickUpEvent();
                         Destroy(gameObject);
                         break;
                 }
@@ -137,6 +146,15 @@ namespace Game {
             private void CreateItem()
             {
                 item = new Item(Weight, InteractionTime, gameObject, ItemSprite);
+            }
+
+            private void TriggerPickUpEvent()
+            {
+                if (!hasBeenPickedUpOnce)
+                {
+                    hasBeenPickedUpOnce = true;
+                    itemPickedUpFirstTime.Invoke();
+                }
             }
 #endregion
         }

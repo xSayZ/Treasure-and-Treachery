@@ -23,8 +23,8 @@ public class DialogueAudioWrapper : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instances
         }
     }
-    public void StartGoldPickupDialogue(EventInstance instance, int _playerID, Dictionary<int, PlayerController> _players)
+    public void PlayResponseDialogue(EventInstance askerInstance, int _playerID, Dictionary<int, PlayerController> _players, string context)
     {
-        StartCoroutine(dialogueAudio.WaitForResponseAudio(instance, _playerID, _players));
+        StartCoroutine(dialogueAudio.WaitForResponseAudio(askerInstance, _playerID, _players, context));
     }
 }

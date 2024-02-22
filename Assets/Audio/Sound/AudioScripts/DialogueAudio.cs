@@ -28,11 +28,11 @@ namespace Game {
         public class DialogueAudio : ScriptableObject
         {
             //EventInstances
-            private EventInstance shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance;
+            private EventInstance bajsInstance, shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance, deathReactioninstance;
 
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio;
+            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio;
 
             private int playerIndex;
            
@@ -77,7 +77,6 @@ public void PlayerDamageAudio(int _playerID)
     damageAudioInstance.start();
     damageAudioInstance.release();
 }
-
 public void PlayerAttackAudio(int _playerID)
 {
     var _players = GameManager.Instance.activePlayerControllers;
@@ -137,6 +136,12 @@ private void PlayerDeathDialogue(int _playerID)
     }
     deathDialogueInstance.start();
     deathDialogueInstance.release();
+    
+    if (_players.Count > 1)
+    {
+        DialogueAudioWrapper.Instance.PlayResponseDialogue(bajsInstance, _playerID, _players, "death");
+    }
+    
 }
 private void ShovelPickupAudio(int _playerID, Item _item)
 {
@@ -168,6 +173,7 @@ private void ShovelPickupAudio(int _playerID, Item _item)
     shovelPickupInstance.start();
     shovelPickupInstance.release();
 }
+
 private void ObjectiveProgressionReactionAudio(GameObject characterObj, int speakerCharacter)
 {
     switch (speakerCharacter)
@@ -226,36 +232,42 @@ private void GoldPickupDialogue(int _playerID, int amount)
     goldPickupInstance.start();
     goldPickupInstance.release();
 
-    DialogueAudioWrapper.Instance.StartGoldPickupDialogue(goldPickupInstance, _playerID, _players);
-    //StartCoroutine(WaitForResponseAudio(goldPickupInstance, _playerID, _players));
-    //WaitForResponseAudio(goldPickupInstance, _playerID, _players);
-    //GetRandomPlayerAndPlayResponse(_playerID, _players);
-
-
+    if (_players.Count > 1)
+    {
+        try
+        {
+            DialogueAudioWrapper.Instance.PlayResponseDialogue(goldPickupInstance, _playerID, _players, "gold"); 
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+        }
+    }
 }
 
-private void GoldPickupReaction(GameObject characterObj, int speakerCharacter)
+private void GoldPickupReaction(int _playerID)
 {
-    switch (speakerCharacter)
+    var _players = GameManager.Instance.activePlayerControllers;
+    switch (_playerID)
     {
         case 0:
             goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[0].gameObject.transform);
             goldReactInstance.setParameterByName("SpeakerCharacter", 0);
             break;
         case 1:
             goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[1].gameObject.transform);
             goldReactInstance.setParameterByName("SpeakerCharacter", 1);
             break;
         case 2:
             goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[2].gameObject.transform);
             goldReactInstance.setParameterByName("SpeakerCharacter", 2);
             break;
         case 3:
             goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
+            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[3].gameObject.transform);
             goldReactInstance.setParameterByName("SpeakerCharacter", 3);
             break;
     }
@@ -263,17 +275,47 @@ private void GoldPickupReaction(GameObject characterObj, int speakerCharacter)
     goldReactInstance.release();
 }
 
+private void DeathReactionAudio(int _playerID)
+{
+    var _players = GameManager.Instance.activePlayerControllers;
+    switch (_playerID)
+    {
+        case 0:
+            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[0].gameObject.transform);
+            deathReactioninstance.setParameterByName("SpeakerCharacter", 0);
+            break;
+        case 1:
+            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[1].gameObject.transform);
+            deathReactioninstance.setParameterByName("SpeakerCharacter", 1);
+            break;
+        case 2:
+            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[2].gameObject.transform);
+            deathReactioninstance.setParameterByName("SpeakerCharacter", 2);
+            break;
+        case 3:
+            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[3].gameObject.transform);
+            deathReactioninstance.setParameterByName("SpeakerCharacter", 3);
+            break;
+    }
+    deathReactioninstance.start();
+    deathReactioninstance.release();
+}
+
 #endregion
 
 #region Private Functions
 
-public IEnumerator WaitForResponseAudio(EventInstance instance, int _playerID, Dictionary<int, PlayerController> _players)
+public IEnumerator WaitForResponseAudio(EventInstance askerInstance, int _playerID, Dictionary<int, PlayerController> _players, string context)
 {
-    while (IsPlaying(instance))
+    while (IsPlaying(askerInstance))
     {
         yield return null;
     }
-    GetRandomPlayerAndPlayResponse(_playerID, _players);
+    GetRandomPlayerAndPlayResponse(_playerID, _players, context);
 }
 
         private bool IsPlaying(EventInstance _instance) {
@@ -282,17 +324,25 @@ public IEnumerator WaitForResponseAudio(EventInstance instance, int _playerID, D
             return state != PLAYBACK_STATE.STOPPED;
         }
         
-private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players) 
+private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, string context) 
 { 
     var _randomPlayer = _players[Random.Range(0, _players.Count)];
 
     if (_randomPlayer != _players[_playerID])
     {
         Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
-        GoldPickupReaction(_randomPlayer.gameObject, _randomPlayer.PlayerIndex);
+        
+        if (context == "gold")
+        {
+            GoldPickupReaction(_randomPlayer.PlayerIndex);
+        }
+        else if (context == "death")
+        {
+            DeathReactionAudio(_randomPlayer.PlayerIndex);
+        }
     }
     else {
-        GetRandomPlayerAndPlayResponse(_playerID, _players);
+        GetRandomPlayerAndPlayResponse(_playerID, _players, context);
     }
 }
 #endregion

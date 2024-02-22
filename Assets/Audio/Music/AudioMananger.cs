@@ -74,7 +74,6 @@ namespace Game {
                 }
                 
             }
-
             
             public void StopMusicEvent(EventsToBePlayed eventsToBePlayed, bool ignoreFadeOut)
             {
@@ -94,6 +93,7 @@ namespace Game {
                 musicInstances[num].release();
                 Debug.Log("event instans stoppas");
             }
+            
 
             public void SetParameterMusicEvent(EventsToBePlayed eventsToBePlayed, string paramName, float paramValue, bool ignoreSeekSpeed)
             {

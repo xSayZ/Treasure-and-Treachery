@@ -18,10 +18,7 @@ namespace Game {
       {
           
         public bool destroyOnTrigger = false;
-        public EventReference otherMusic;
-        public EventReference testStinger;
         
-
   //Skapar Enum för att kunna ha valmöjlighet senare i structen "AudioSettings"
         public enum Action
         {

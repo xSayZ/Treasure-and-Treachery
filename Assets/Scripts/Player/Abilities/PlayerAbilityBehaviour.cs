@@ -24,7 +24,7 @@ namespace Game {
 
             protected virtual void Setup(){}
 
-            public void OnDisable()
+            public virtual void OnDisable()
             {
                 if (playerController)
                 {

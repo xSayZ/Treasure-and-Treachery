@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using FMOD.Studio;
+using FMODUnity;
 using Game.Backend;
 using UnityEngine;
 
@@ -16,6 +18,8 @@ namespace Game {
         {
 
             private float timer;
+            private EventsToBePlayed eventsToBePlayed;
+           
             
 
 #region Unity Functions
@@ -34,23 +38,26 @@ namespace Game {
                 
                 if (timer >= 60)
                 {
-                    AudioMananger.Instance.SetMusicParam("MusicProg", 2f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false);
                 }
                 
                 if (timer >= 120)
                 {
-                    AudioMananger.Instance.SetMusicParam("MusicProg", 3f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false);
                 }
+                
 
                 if (timer >= 180)
                 {
-                    AudioMananger.Instance.SetMusicParam("MusicProg", 4f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 4f, false);
                 }
+                
 
                 if (timer >= 240)
                 {
-                    AudioMananger.Instance.SetMusicParam("MusicProg", 5f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 5f, false);
                 }
+                
                 
                 
             }

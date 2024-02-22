@@ -18,7 +18,7 @@ namespace Game {
       {
           
         public bool destroyOnTrigger = false;
-
+        
   //Skapar Enum för att kunna ha valmöjlighet senare i structen "AudioSettings"
         public enum Action
         {
@@ -38,13 +38,14 @@ namespace Game {
         {
           public EventsToBePlayed eventsToBePlayed;
           public Action action;
+          public bool ignoreFadeOut;
           public string paramName;
           public float paramValue;
           public bool ignoreseekspeed;
 
         }
         //skapar arrays av variabeln som innehåller "AudioSettings" 
-        [NonReorderable] public AudioSettings [] triggerEnterAudioSettings;
+         public AudioSettings [] triggerEnterAudioSettings;
         [NonReorderable] public AudioSettings [] triggerExitAudioSettings;
 
         public void OnTriggerEnter(Collider other)
@@ -71,18 +72,18 @@ namespace Game {
                     break;
                   
                   case Action.PlayMusic: 
-                    
-                    AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
+                   AudioMananger.Instance.PlayMusicEvent(i.eventsToBePlayed);
+                  
                     break;
                     
-                  case Action.StopMusic: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
-                    break;
+                  case Action.StopMusic: 
+                    AudioMananger.Instance.StopMusicEvent(i.eventsToBePlayed, i.ignoreFadeOut);
                     
-                  //När "SetParameter" är vald i enumet "Action" så körs metoden "SetParameter();" i vår AudioMananger.
-                  //Dem nya världena som finns i variblarna från vår array "triggerEnterAudioSettings" skickas med in i "SetParameter();" metoden
+                    break;
+                  
                   case Action.SetMusicParam:
-                      AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
-                     //Skriver ut de nya världena i konsollen från AudioMananger
+                    AudioMananger.Instance.SetParameterMusicEvent(i.eventsToBePlayed,i.paramName,i.paramValue,i.ignoreseekspeed);
+                    
                     break;
                     
                   

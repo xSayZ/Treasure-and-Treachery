@@ -23,8 +23,21 @@ namespace Game {
             MenuMusic,
             Ambience,
         }
+
+        public enum MusicAction
+        {
+            None,
+            PlayMusic,
+            StopMusic,
+            SetMusicParam,
+        }
         public class AudioMananger : Singleton<AudioMananger>
         {
+            [Header("New Event references")]
+            [SerializeField] private EventReference[] musicReferences = new EventReference [4];
+            private EventInstance[] musicInstances = new EventInstance [4];
+            
+            
             
             //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
             public StudioEventEmitter musicEmitter;
@@ -34,10 +47,29 @@ namespace Game {
             [SerializeField] private StudioEventEmitter hubMusic;
             [SerializeField] private StudioEventEmitter gamePlayMusic;
             [SerializeField] private StudioEventEmitter ambience;
-            
-            
-    
-    #region Public Functions
+
+
+            private void Start()
+            {
+               
+            }
+
+            public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
+            {
+                //konvertar enum namn till ints 
+                int num = Convert.ToInt32(eventsToBePlayed);
+                
+                //Låten som ska spelas (instansen) är = "num"
+                //Num är = "eventsToBePlayed" via converten
+                musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
+                musicInstances[num].start();
+                
+                Debug.Log("ny event instans spelas");
+
+            }
+
+
+            #region Public Functions
 
     public void GetEvent(EventsToBePlayed eventsToBePlayed)
     {

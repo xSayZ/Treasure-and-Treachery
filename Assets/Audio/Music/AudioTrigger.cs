@@ -74,13 +74,8 @@ namespace Game {
                     break;
                   
                   case Action.PlayMusic: 
-                    
-                    //AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
-                    
-                    EventInstance testStinger1 = RuntimeManager.CreateInstance(testStinger);
-                    testStinger1.start();
-                    testStinger1.release();
-                    Debug.Log("testStingerPlayed"); 
+                   AudioMananger.Instance.PlayMusicEvent(i.eventsToBePlayed);
+                   Debug.Log("musiken fungerar via PlayMusicEvent");
                     
                     break;
                     
@@ -90,11 +85,7 @@ namespace Game {
                   
                   case Action.SetMusicParam:
                       //AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
-                      EventInstance otherMusic1 = RuntimeManager.CreateInstance(otherMusic);
-                      otherMusic1.start();
-                      otherMusic1.setParameterByName("MusicProg", 4f, false);
-                      otherMusic1.release();
-                      Debug.Log("Played music and setparameter by instance ");
+                    
                       
                      //Skriver ut de nya världena i konsollen från AudioMananger
                     break;

@@ -159,8 +159,6 @@ namespace Game {
                     {
                         loadStoredPlayerData = false;
                         
-                        Debug.Log("Loading");
-                        
                         playerData.currentHealth = storedPlayerDatas[i].Health;
                         playerData.currency = storedPlayerDatas[i].Currency;
                         playerData.kills = storedPlayerDatas[i].Kills;
@@ -169,7 +167,6 @@ namespace Game {
                     }
                     else
                     {
-                        Debug.Log("Saving");
                         StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
                         if (i <= storedPlayerDatas.Count)
                         {

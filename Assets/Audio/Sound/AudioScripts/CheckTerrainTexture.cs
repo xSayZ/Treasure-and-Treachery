@@ -73,6 +73,12 @@ public void PlayFootStep()
 
 public void GetTerrainTexture()
 {
+    // Null check
+    if (!terrainObject)
+    {
+        return;
+    }
+    
     UpdatePosition();
     CheckTexture();
 }

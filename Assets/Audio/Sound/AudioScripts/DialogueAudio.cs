@@ -234,7 +234,14 @@ private void GoldPickupDialogue(int _playerID, int amount)
 
     if (_players.Count > 1)
     {
-       DialogueAudioWrapper.Instance.PlayResponseDialogue(goldPickupInstance, _playerID, _players, "gold"); 
+        try
+        {
+            DialogueAudioWrapper.Instance.PlayResponseDialogue(goldPickupInstance, _playerID, _players, "gold"); 
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+        }
     }
 }
 

@@ -24,7 +24,7 @@ namespace Game {
             private float target;
             public void LoadScene(int level)
             {
-               SceneManager.LoadScene("LoadingScreen");
+               SceneManager.LoadScene("LoadingScreen",LoadSceneMode.Single);
                nextLevel = level;
 
             }
@@ -38,11 +38,6 @@ namespace Game {
             public void LoadScoreScreen()
             {
                 SceneManager.LoadScene("ScoreScreen");
-            }
-
-            public void Update()
-            {
-                //progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
             }
         }
     }

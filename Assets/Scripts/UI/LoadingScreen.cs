@@ -44,7 +44,7 @@ namespace Game {
                     target = scene.progress;
                     
                 } while (scene.progress <0.9f);
-                await Task.Delay(900);
+                await Task.Delay(1000);
 
                 scene.allowSceneActivation = true;
                 

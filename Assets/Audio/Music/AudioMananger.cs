@@ -11,6 +11,7 @@ using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
 using FMOD.Studio;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 
 namespace Game {
@@ -64,8 +65,28 @@ namespace Game {
                 musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                 musicInstances[num].start();
                 
-                Debug.Log("ny event instans spelas");
+                Debug.Log("event instans spelas");
 
+            }
+
+            public void StopMusicEvent(EventsToBePlayed eventsToBePlayed, bool ignoreFadeOut)
+            {
+                //konvertar enum namn till ints 
+                int num = Convert.ToInt32(eventsToBePlayed);
+
+                if (ignoreFadeOut == true)
+                {
+                    
+                    musicInstances[num].stop(STOP_MODE.IMMEDIATE);
+                }
+                else
+                {
+                    
+                    musicInstances[num].stop(STOP_MODE.ALLOWFADEOUT);
+                }
+                
+                musicInstances[num].release();
+                Debug.Log("event instans stoppas");
             }
 
 

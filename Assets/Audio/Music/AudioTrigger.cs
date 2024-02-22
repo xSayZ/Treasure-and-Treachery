@@ -41,6 +41,7 @@ namespace Game {
         {
           public EventsToBePlayed eventsToBePlayed;
           public Action action;
+          public bool ignoreFadeOut;
           public string paramName;
           public float paramValue;
           public bool ignoreseekspeed;
@@ -79,7 +80,9 @@ namespace Game {
                     
                     break;
                     
-                  case Action.StopMusic: AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
+                  case Action.StopMusic: 
+                    AudioMananger.Instance.StopMusicEvent(i.eventsToBePlayed, i.ignoreFadeOut);
+                    
                     break;
                   
                   

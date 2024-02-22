@@ -322,6 +322,7 @@ Transform:
   - {fileID: 7878444258247842620}
   - {fileID: 3119158974416069308}
   - {fileID: 705774294793837024}
+  - {fileID: 7523908182518439503}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -345,7 +346,7 @@ MonoBehaviour:
   <PlayerAnimationBehaviour>k__BackingField: {fileID: 5271210276642714606}
   <PlayerVisualBehaviour>k__BackingField: {fileID: 5777584153659215473}
   <PlayerUIDisplayBehaviour>k__BackingField: {fileID: 940822348860997190}
-  <PlayerAbilityBehaviour>k__BackingField: {fileID: 8903321020183753053}
+  <PlayerAbilityBehaviour>k__BackingField: {fileID: 5392029871838341616}
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 25
@@ -383,6 +384,9 @@ MonoBehaviour:
   dashRechargeTime: 5
   numberOfDashes: 2
   dashDamage: 1
+  OnDashKill:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-3509399097656645022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +420,9 @@ MonoBehaviour:
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+  OnKill:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7096703045146938910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,6 +707,55 @@ Transform:
   m_Father: {fileID: 423485101194614793}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &497756980920271079
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7523908182518439503}
+  - component: {fileID: 5392029871838341616}
+  m_Layer: 0
+  m_Name: WerewolfAbility
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7523908182518439503
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497756980920271079}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 288723119442727232}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5392029871838341616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497756980920271079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2fa8ba3600114f4cb0fa457194cfc44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  percentagePerKill: 10
+  decayGracePeriod: 1
+  decayTime: 0.1
+  decayAmount: 1
+  wrathPercentage: 0
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f466a512c6d0c724db16348ddd06ae05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldOnDashKill: 5
 --- !u!1 &2336297635653789683
 GameObject:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    LevelManager.Instance.LoadSceneAsync(1);
+                    LevelManager.Instance.LoadScene(1);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

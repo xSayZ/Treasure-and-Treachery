@@ -20,35 +20,15 @@ namespace Game {
     namespace Managers {
         public class LevelManager : Singleton<LevelManager>
         {
-            [SerializeField] private GameObject loaderCanvas;
-            [SerializeField] private Image progressBar;
-
-
-            public void Start()
-            {
-                DontDestroyOnLoad(gameObject);
-            }
-
+            public static int nextLevel { get; private set; }
             private float target;
-            public async void LoadSceneAsync(int level)
+            public void LoadScene(int level)
             {
-                target = 0;
-                progressBar.fillAmount = 0;
-                AsyncOperation scene = SceneManager.LoadSceneAsync(level);
-                scene.allowSceneActivation = false;
-                loaderCanvas.SetActive(true);
-                do
-                {
-                    await Task.Delay(100);
+               SceneManager.LoadScene("LoadingScreen");
+               nextLevel = level;
 
-                    target = scene.progress;
-                } while (scene.progress <0.9f);
-                await Task.Delay(1000);
-
-                scene.allowSceneActivation = true;
-                loaderCanvas.SetActive(false);
-                
             }
+            
 
             public void LoadGameplayScene(int level)    
             {
@@ -62,7 +42,7 @@ namespace Game {
 
             public void Update()
             {
-                progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
+                //progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
             }
         }
     }

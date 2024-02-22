@@ -80,7 +80,7 @@ namespace Game
                 if (done && elapsedTime >timeBeforeChange && stopUpdating<1)
                 {
                     stopUpdating++;
-                    LevelManager.Instance.LoadSceneAsync(1);
+                    LevelManager.Instance.LoadScene(1);
                 }
             }
 

@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Game.Backend;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -41,7 +42,7 @@ namespace Game {
             {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
-                    SceneManager.LoadScene(sceneBuildIndex: GameManager.nextSceneBuildIndex);
+                    LevelManager.Instance.LoadScene(GameManager.nextSceneBuildIndex);
                 }
             }
         }

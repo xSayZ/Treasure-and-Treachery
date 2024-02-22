@@ -93,7 +93,7 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (!GameManager.Instance.soundDebug)
+                if (!GameManager.Instance.soundDebug && playerInput.devices.Count>0)
                 {
                     var player = PlayerInput.all[_newPlayerID];
                     InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);

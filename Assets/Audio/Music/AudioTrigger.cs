@@ -76,8 +76,7 @@ namespace Game {
                   
                   case Action.PlayMusic: 
                    AudioMananger.Instance.PlayMusicEvent(i.eventsToBePlayed);
-                   Debug.Log("musiken fungerar via PlayMusicEvent");
-                    
+                  
                     break;
                     
                   case Action.StopMusic: 
@@ -85,12 +84,9 @@ namespace Game {
                     
                     break;
                   
-                  
                   case Action.SetMusicParam:
-                      //AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreseekspeed);
+                    AudioMananger.Instance.SetParameterMusicEvent(i.eventsToBePlayed,i.paramName,i.paramValue,i.ignoreseekspeed);
                     
-                      
-                     //Skriver ut de nya världena i konsollen från AudioMananger
                     break;
                     
                   

@@ -57,11 +57,12 @@ namespace Game {
 
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
             {
-                //konvertar enum namn till ints 
+                //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
                 
                 //Låten som ska spelas (instansen) är = "num"
-                //Num är = "eventsToBePlayed" via converten
+                //Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum EventsToBePlayed (men utgår från plats i enumet (int istället för namn i arrayn)
+                //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
                 musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                 musicInstances[num].start();
                 
@@ -71,7 +72,7 @@ namespace Game {
 
             public void StopMusicEvent(EventsToBePlayed eventsToBePlayed, bool ignoreFadeOut)
             {
-                //konvertar enum namn till ints 
+                //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 if (ignoreFadeOut == true)
@@ -87,6 +88,18 @@ namespace Game {
                 
                 musicInstances[num].release();
                 Debug.Log("event instans stoppas");
+            }
+
+            public void SetParameterMusicEvent(EventsToBePlayed eventsToBePlayed, string paramName, float paramValue, bool ignoreSeekSpeed)
+            {
+                //konvertar enum namn till ints (letar upp events)
+                int num = Convert.ToInt32(eventsToBePlayed);
+
+                musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
+
+
+                Debug.Log("musicparam set on Instance to" + paramValue);
+
             }
 
 

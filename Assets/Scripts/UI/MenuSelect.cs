@@ -2,17 +2,16 @@
 // --------------------------------
 // Creation Date: 2024-02-22
 // Author: c21frejo
-// Description: Operation_Donken
+// Description: Stuff For menu
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Game.Managers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -21,19 +20,24 @@ namespace Game {
         {
             
             private PlayerInput _input;
+            
             [Header("Menu Button")]
             [SerializeField] private GameObject[] UIButtons;
 
             private GameObject selectedObject;
+            [Header("Canvases")]
+            [SerializeField] private GameObject[] Canvases;
 
-            [SerializeField] private GameObject settingsCanvas;
-            [SerializeField] private GameObject menuCanvas;
+            [Header("Options")] 
+            [SerializeField] private Slider VolumeSlider;
+            
             
             private void Start()
             {
                 _input = GetComponent<PlayerInput>();
                 
                 StartCoroutine(SelectFirstChoice());
+                
             }
             
             public void OnMenuNavigation(InputAction.CallbackContext context)
@@ -42,30 +46,40 @@ namespace Game {
             }
             public void OnSubmit(InputAction.CallbackContext context)
             {
-                context.action.WasPressedThisFrame();
+                bool isPressed =context.action.WasPressedThisFrame();
                 selectedObject = EventSystem.current.currentSelectedGameObject;
-                if (selectedObject.gameObject == UIButtons[0])
-                {
+                if (selectedObject.gameObject == UIButtons[0] && isPressed)
                     LevelManager.Instance.LoadScene(6);
-                }
 
-                if (selectedObject.gameObject == UIButtons[1])
+                if (selectedObject.gameObject == UIButtons[1]&& isPressed)
                 {
+                    Canvases[1].SetActive(true);
+                    Canvases[0].SetActive(false);
                     
                 }
                 
-                if (selectedObject.gameObject == UIButtons[2])
+                if (selectedObject.gameObject == UIButtons[3]&& isPressed)
                 {
                     #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
                     #endif
-                    
                     Application.Quit();
                 }
-                
-                
             }
-            
+
+            public void OnCancel(InputAction.CallbackContext context)
+            {
+                if (!Canvases[0].activeSelf)
+                {
+                    if (context.action.WasPerformedThisFrame())
+                    {
+                        Canvases[0].SetActive(true);
+                        Canvases[2].SetActive(false);
+                    }
+                   
+                    
+                }
+            }
             
             private IEnumerator SelectFirstChoice() 
             {

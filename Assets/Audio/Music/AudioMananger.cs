@@ -59,25 +59,30 @@ namespace Game {
             {
                 //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
-                
-                //Låten som ska spelas (instansen) är = "num"
-                //Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum EventsToBePlayed (men utgår från plats i enumet (int istället för namn i arrayn)
-                //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
-                musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
-                musicInstances[num].start();
-                
-                Debug.Log("event instans spelas");
 
+
+                bool isActive = CheckActiveState(musicInstances[num]);
+                if (isActive == false)
+                {
+                    Debug.Log("event not active before. Activating");
+                    //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum EventsToBePlayed (men utgår från plats i enumet (int istället för namn)
+                    //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
+                    musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
+                    musicInstances[num].start();
+                                    
+                    Debug.Log("event instans spelas");
+                }
+                
             }
 
+            
             public void StopMusicEvent(EventsToBePlayed eventsToBePlayed, bool ignoreFadeOut)
             {
                 //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
-
+                
                 if (ignoreFadeOut == true)
                 {
-                    
                     musicInstances[num].stop(STOP_MODE.IMMEDIATE);
                 }
                 else
@@ -100,6 +105,23 @@ namespace Game {
 
                 Debug.Log("musicparam set on Instance to" + paramValue);
 
+            }
+            
+            //Kallar på FMOD metod som kollar playbackstate på instansen
+            private bool CheckActiveState(EventInstance eInstance)
+            {
+                bool isActive = true;
+                
+                //Skriver ut playback state i vår lokala variabel "state" som jämförs nedan i if satsen
+                eInstance.getPlaybackState(out PLAYBACK_STATE state);
+                Debug.Log("checking active state" + state);
+                
+                if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
+                {
+                    isActive = false;
+                }
+                //skickar ut värdet om isActive boolen är true eller false
+                return isActive;
             }
 
 

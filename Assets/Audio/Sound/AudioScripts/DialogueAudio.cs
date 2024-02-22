@@ -27,12 +27,13 @@ namespace Game {
         [CreateAssetMenu(menuName = "ScriptableObjects/Audio/Player/Dialogue")]
         public class DialogueAudio : ScriptableObject
         {
+            private Dictionary<int, EventInstance> currentDialogues = new Dictionary<int, EventInstance>();
             //EventInstances
-            private EventInstance bajsInstance, shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance, deathReactioninstance;
+            private EventInstance bajsInstance, shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance, deathReactioninstance, cartEnterInstance;
 
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio;
+            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio;
 
             private int playerIndex;
            
@@ -51,91 +52,28 @@ namespace Game {
 public void PlayerDamageAudio(int _playerID)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-        case 0:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[0].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[1].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[2].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[3].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    damageAudioInstance.start();
-    damageAudioInstance.release();
+    var damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
+    PlayDialogue(_playerID, damageAudioInstance);
 }
+
+public void PlayerCartEnterDialogue(int PlayerID)
+{
+    var _players = GameManager.Instance.activePlayerControllers;
+    var cartEnterInstance = RuntimeManager.CreateInstance(cartEnterAudio);
+    //PlayDialogue(_playerID, cartEnterInstance);
+}
+
 public void PlayerAttackAudio(int _playerID)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-
-    switch (_playerID)
-    {
-        case 0:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[0].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[1].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[2].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[3].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    playerAttackAudioInstance.start();
-    playerAttackAudioInstance.release();
+    var playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
+    PlayDialogue(_playerID, damageAudioInstance);
 }
 private void PlayerDeathDialogue(int _playerID)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-
-    switch (_playerID)
-    {
-        case 0:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[0].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[1].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[2].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[3].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    deathDialogueInstance.start();
-    deathDialogueInstance.release();
+    var deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+    PlayDialogue(_playerID, deathDialogueInstance);
     
     if (_players.Count > 1)
     {
@@ -146,91 +84,21 @@ private void PlayerDeathDialogue(int _playerID)
 private void ShovelPickupAudio(int _playerID, Item _item)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-    
-    switch (_playerID)
-    {
-        case 0:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[0].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[1].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[2].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[3].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    shovelPickupInstance.start();
-    shovelPickupInstance.release();
+    var shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
+    PlayDialogue(_playerID, shovelPickupInstance);
 }
 
-private void ObjectiveProgressionReactionAudio(GameObject characterObj, int speakerCharacter)
+private void ObjectiveProgressionReactionAudio(int _playerID)
 {
-    switch (speakerCharacter)
-    {
-        case 0:
-          
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    shovelReactInstance.start();
-    shovelReactInstance.release();
+    var _players = GameManager.Instance.activePlayerControllers;
+    var shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+    PlayDialogue(_playerID, shovelReactInstance);
 }
 private void GoldPickupDialogue(int _playerID, int amount)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-     case 0:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[0].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 0);
-         break;
-     case 1:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[1].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 1);
-         break;
-     case 2:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[2].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 2);
-         break;
-     case 3:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[3].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 3);
-         break;
-    }
-    goldPickupInstance.start();
-    goldPickupInstance.release();
+    var goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+    PlayDialogue(_playerID, goldPickupInstance);
 
     if (_players.Count > 1)
     {
@@ -248,66 +116,48 @@ private void GoldPickupDialogue(int _playerID, int amount)
 private void GoldPickupReaction(int _playerID)
 {
     var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-        case 0:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[0].gameObject.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[1].gameObject.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[2].gameObject.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, _players[3].gameObject.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    goldReactInstance.start();
-    goldReactInstance.release();
+    var goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
+    PlayDialogue(_playerID, goldReactInstance);
 }
 
 private void DeathReactionAudio(int _playerID)
 {
+    Debug.Log("player " + _playerID + " has something to say");
     var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-        case 0:
-            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[0].gameObject.transform);
-            deathReactioninstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[1].gameObject.transform);
-            deathReactioninstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[2].gameObject.transform);
-            deathReactioninstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathReactioninstance, _players[3].gameObject.transform);
-            deathReactioninstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    deathReactioninstance.start();
-    deathReactioninstance.release();
+    var deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+    PlayDialogue(_playerID, deathReactioninstance);
 }
 
 #endregion
 
 #region Private Functions
+
+private void PlayDialogue(int characterID, EventInstance dialogueInstance) {
+    // Check if there's already a dialogue instance playing for this character
+    if (currentDialogues.ContainsKey(characterID)) {
+        // If so, stop the current dialogue instance
+        StopDialogue(characterID);
+    }
+
+    // Attach instance to character GameObject and start playing
+    var player = GameManager.Instance.activePlayerControllers[characterID];
+    RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+    dialogueInstance.setParameterByName("SpeakerCharacter", characterID);
+    dialogueInstance.start();
+    dialogueInstance.release();
+    // Update the dictionary with the new dialogue instance
+    currentDialogues[characterID] = dialogueInstance;
+}
+
+private void StopDialogue(int characterID) {
+    // Check if there's a dialogue instance playing for this character
+    if (currentDialogues.TryGetValue(characterID, out EventInstance dialogueInstance)) {
+        // Stop the dialogue instance and remove it from the dictionary
+        dialogueInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        dialogueInstance.release();
+        currentDialogues.Remove(characterID);
+    }
+}
 
 public IEnumerator WaitForResponseAudio(EventInstance askerInstance, int _playerID, Dictionary<int, PlayerController> _players, string context)
 {
@@ -338,6 +188,7 @@ private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, Playe
         }
         else if (context == "death")
         {
+            Debug.Log("death is the context");
             DeathReactionAudio(_randomPlayer.PlayerIndex);
         }
     }

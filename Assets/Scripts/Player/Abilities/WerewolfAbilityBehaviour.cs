@@ -7,12 +7,16 @@
 // ------------------------------*/
 
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game {
     namespace Player {
         public class WerewolfAbilityBehaviour : PlayerAbilityBehaviour
         {
+            [Header("Setup")]
+            [SerializeField] private Slider wrathSlider;
+            
             [Header("Settings")]
             [SerializeField] private float percentagePerKill;
             [SerializeField] private float decayGracePeriod;
@@ -28,7 +32,7 @@ namespace Game {
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
             }
 
-            public override void OnDisable()
+            protected override void OnDisable()
             {
                 base.OnDisable();
                 
@@ -65,6 +69,7 @@ namespace Game {
             {
                 wrathPercentage += _amount;
                 wrathPercentage = Mathf.Clamp(wrathPercentage, 0f, 100f);
+                wrathSlider.value = wrathPercentage / 100f;
             }
 
             private void EnemyKilled()

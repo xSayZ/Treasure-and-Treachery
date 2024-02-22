@@ -14,6 +14,7 @@ using Game.Backend;
 using Game.Core;
 using Game.Quest;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -62,6 +63,10 @@ namespace Game {
             public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
+            private bool canAttack = true;
+            
+            // Events
+            [HideInInspector] public UnityEvent OnKill = new UnityEvent();
 
 #region Validation
             private void OnValidate()
@@ -127,7 +132,7 @@ namespace Game {
 #region Public Functions
             public void Melee()
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0 || !canAttack)
                 {
                     return;
                 }
@@ -141,7 +146,7 @@ namespace Game {
 
             public void Aim(bool _aiming)
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0 || !canAttack)
                 {
                     return;
                 }
@@ -172,6 +177,11 @@ namespace Game {
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
+            }
+
+            public void SetAttackActiveState(bool _active)
+            {
+                canAttack = _active;
             }
 
             public void OnAttackRangeEnter(Transform _transform)
@@ -221,7 +231,9 @@ namespace Game {
                     {
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
+                        OnKill.Invoke();
                         EnemyManager.OnEnemyDeathUI.Invoke();
+                        
                         try
                         {
                             dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
@@ -252,7 +264,7 @@ namespace Game {
                 Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                 
                 GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData);
+                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

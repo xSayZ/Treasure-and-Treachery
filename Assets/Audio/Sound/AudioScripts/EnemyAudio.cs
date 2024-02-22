@@ -67,7 +67,7 @@ public EventInstance SpiritStateAudioUpdate(GameObject enemyObj, EventInstance s
         case 5:
             spiritStateInstance = RuntimeManager.CreateInstance(spiritStateAudio);
             RuntimeManager.AttachInstanceToGameObject(spiritStateInstance, enemyObj.transform);
-            Debug.Log("Spirit have an event");
+            // Debug.Log("Spirit have an event");
             spiritStateInstance.start();
             break;
         //Roam State

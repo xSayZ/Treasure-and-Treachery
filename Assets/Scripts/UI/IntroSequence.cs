@@ -31,12 +31,13 @@ namespace Game
             private float elapsedTime;
             private int index;
             private bool done;
-
+            private int stopUpdating;
             #region Unity Functions
 
             // Start is called before the first frame update
             void Start()
             {
+                stopUpdating = 0;
                 elapsedTime = 0;
                 currentIntroImage.sprite = Bank.IntroImages[0];
                 currentTime = timeBeforeChange;
@@ -76,9 +77,10 @@ namespace Game
 
             private void ChangeScene()
             {
-                if (done && elapsedTime >timeBeforeChange)
+                if (done && elapsedTime >timeBeforeChange && stopUpdating<1)
                 {
-                    CustomSceneManager.Instance.ChangeScene();
+                    stopUpdating++;
+                    LevelManager.Instance.LoadScene(1);
                 }
             }
 

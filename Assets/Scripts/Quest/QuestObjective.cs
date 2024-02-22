@@ -97,9 +97,10 @@ namespace Game {
 
             private void Start()
             {
+                requiredItems = new Dictionary<Item, QuestStatus>();
+                
                 if (QuestType == QuestTypes.Fetch)
                 {
-                    requiredItems = new Dictionary<Item, QuestStatus>();
                     for (int i = 0; i < RequiredPickups.Count; i++)
                     {
                         GameObject _progressBar = Instantiate(progressBarPrefab, progressBarCanvas);

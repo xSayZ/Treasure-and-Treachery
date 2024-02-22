@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -62,6 +63,9 @@ namespace Game {
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
+            
+            // Events
+            [HideInInspector] public UnityEvent OnDashKill = new UnityEvent();
             
             public void SetupBehaviour(PlayerController _playerController)
             {
@@ -144,7 +148,7 @@ namespace Game {
 
             public void Dash()
             {
-                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming)
+                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming && canMove)
                 {
                     currentNumberOfDashes--;
                     currentDashRechargeTime = dashRechargeTime;
@@ -171,7 +175,11 @@ namespace Game {
                 {
                     if (_transform.TryGetComponent(out IDamageable _hit))
                     {
-                        _hit.Damage(dashDamage);
+                        bool _killed = _hit.Damage(dashDamage);
+                        if (_killed)
+                        {
+                            OnDashKill.Invoke();
+                        }
                     }
                 }
             }

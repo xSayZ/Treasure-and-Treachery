@@ -62,6 +62,7 @@ namespace Game {
             public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
+            private bool canAttack;
 
 #region Validation
             private void OnValidate()
@@ -127,7 +128,7 @@ namespace Game {
 #region Public Functions
             public void Melee()
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0 || !canAttack)
                 {
                     return;
                 }
@@ -141,7 +142,7 @@ namespace Game {
 
             public void Aim(bool _aiming)
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0 || !canAttack)
                 {
                     return;
                 }
@@ -172,6 +173,11 @@ namespace Game {
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
+            }
+
+            public void SetAttackActiveState(bool _active)
+            {
+                canAttack = _active;
             }
 
             public void OnAttackRangeEnter(Transform _transform)

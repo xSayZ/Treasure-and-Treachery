@@ -22,8 +22,8 @@ namespace Game {
         {
             HubMusic,
             GamePlayMusic,
-            MenuMusic,
-            Ambience,
+            AmbienceTrees,
+            AmbienceWind,
         }
         
         public enum Action

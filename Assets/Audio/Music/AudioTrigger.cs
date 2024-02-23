@@ -46,7 +46,7 @@ namespace Game {
               //Om det inte skrivits in något i inspectorn på parameternamn eller om action är satt till none så skrivs debug, annars körs nedan kod i nästa scope nedan
               if (i.action == Action.None)
               {
-                Debug.Log("You have unfinished fields in Audiotrigger-OnTriggerEnter, action set to -None or -ParameterName was missing");
+                Debug.Log("action set to -None on AudioTrigger");
               }
               
               else
@@ -80,7 +80,7 @@ namespace Game {
             if (destroyOnTrigger == true)
             {
               gameObject.SetActive(false);
-              Debug.Log("boxcollider of gameobject set to false, OnTriggerEnter and OnTriggerExit is NOT active on this gameobject");
+              Debug.Log("boxcollider of gameobject set to false-DestroyOnTrigger is set to true");
             }
             
           }

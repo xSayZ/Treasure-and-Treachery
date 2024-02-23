@@ -87,7 +87,10 @@ namespace Game
                 PlayerAnimationBehaviour.SetupBehaviour();
                 PlayerVisualBehaviour.SetupBehaviour(PlayerData);
                 PlayerUIDisplayBehaviour.SetupBehaviour(this);
-                PlayerAbilityBehaviour.SetupBehaviour(this);
+                if (PlayerAbilityBehaviour)
+                {
+                    PlayerAbilityBehaviour.SetupBehaviour(this);
+                }
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 

@@ -18,10 +18,21 @@ namespace Game {
             public void SetupBehaviour(PlayerController _playerController)
             {
                 playerController = _playerController;
+                playerController.PlayerMovementBehaviour.OnDashKill.AddListener(OnDashKill);
                 Setup();
             }
 
             protected virtual void Setup(){}
+
+            protected virtual void OnDisable()
+            {
+                if (playerController)
+                {
+                    playerController.PlayerMovementBehaviour.OnDashKill.RemoveListener(OnDashKill);
+                }
+            }
+
+            protected virtual void OnDashKill(){}
         }
     }
 }

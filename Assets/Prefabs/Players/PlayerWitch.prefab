@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3032678418352567984
+--- !u!1001 &4900635074414445116
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -53,12 +53,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 288723119442727263, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_Name
-      value: Player4
+      value: PlayerWitch
       objectReference: {fileID: 0}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
-      propertyPath: dialogueAudio
+      propertyPath: <PlayerAbilityBehaviour>k__BackingField
       value: 
-      objectReference: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+      objectReference: {fileID: 4522932746495305627}
     - target: {fileID: 1341973080142894231, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -106,6 +106,21 @@ PrefabInstance:
     - target: {fileID: 2093476671217898568, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9009292134918693065, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+--- !u!114 &4522932746495305627 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8846796984307066279, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+  m_PrefabInstance: {fileID: 4900635074414445116}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9022b6de7d1b24b9c824468766b98b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

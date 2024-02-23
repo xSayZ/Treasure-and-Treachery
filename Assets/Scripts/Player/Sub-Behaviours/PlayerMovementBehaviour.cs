@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Core;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -53,6 +54,7 @@ namespace Game {
             private Vector3 movementDirection;
             private float currentMaxSpeed;
             private bool isForceMoving;
+            [HideInInspector] public float MoveSpeedMultiplier = 1f;
             
             // Dash values
             private float currentNumberOfDashes;
@@ -62,6 +64,10 @@ namespace Game {
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
+            
+            // Events
+            [HideInInspector] public UnityEvent OnDash = new UnityEvent();
+            [HideInInspector] public UnityEvent OnDashKill = new UnityEvent();
             
             public void SetupBehaviour(PlayerController _playerController)
             {
@@ -150,6 +156,7 @@ namespace Game {
                     currentDashRechargeTime = dashRechargeTime;
                     UpdateDashUI();
                     
+                    OnDash.Invoke();
                     StartCoroutine(DashMove());
                 }
             }
@@ -171,7 +178,11 @@ namespace Game {
                 {
                     if (_transform.TryGetComponent(out IDamageable _hit))
                     {
-                        _hit.Damage(dashDamage);
+                        bool _killed = _hit.Damage(dashDamage);
+                        if (_killed)
+                        {
+                            OnDashKill.Invoke();
+                        }
                     }
                 }
             }
@@ -188,7 +199,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
 
@@ -241,22 +252,21 @@ namespace Game {
             private void ClampPlayerPosition()
             {
                 UnityEngine.Camera camera = UnityEngine.Camera.main;
-
-                Vector3 playerPosition =
-                    camera.WorldToViewportPoint(playerRigidBody.transform.position);
-                    
+                
+                Vector3 playerPosition = camera.WorldToViewportPoint(playerRigidBody.transform.position);
+                
                 // Clamp the player's position to be within the camera's viewport (0 to 1)
-
+                
                 float clampedX = Mathf.Clamp01(playerPosition.x);
                 float clampedY = Mathf.Clamp01(playerPosition.y);
 
                 if (clampedY > 0.9f) clampedY = 0.9f;
-
+                
                 if (clampedX > 0.95f) clampedX = 0.95f;
                 if (clampedX < 0.05f) clampedX = 0.05f;
                 
                 Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
-                playerRigidBody.position = newPosition;
+                playerRigidBody.position = new Vector3(newPosition.x, playerRigidBody.position.y, newPosition.z);
             }
 
             private void UpdateDashUI()

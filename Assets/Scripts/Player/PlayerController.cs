@@ -7,8 +7,6 @@
 // ------------------------------*/
 
 using System;
-using System.Security;
-using System.Threading.Tasks;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -89,7 +87,10 @@ namespace Game
                 PlayerAnimationBehaviour.SetupBehaviour();
                 PlayerVisualBehaviour.SetupBehaviour(PlayerData);
                 PlayerUIDisplayBehaviour.SetupBehaviour(this);
-                PlayerAbilityBehaviour.SetupBehaviour(this);
+                if (PlayerAbilityBehaviour)
+                {
+                    PlayerAbilityBehaviour.SetupBehaviour(this);
+                }
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
@@ -279,6 +280,22 @@ namespace Game
                 catch (Exception e)
                 {
                     Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                }
+            }
+
+            public bool Heal(int _amount)
+            {
+                if (Health == PlayerData.startingHealth)
+                {
+                    return false;
+                }
+                else
+                {
+                    Health += _amount;
+                    Health = Mathf.Clamp(Health, 0, PlayerData.startingHealth);
+                    PlayerData.currentHealth = Health;
+                    playerHealthBar.UpdateHealthBar(Health);
+                    return true;
                 }
             }
 #endregion

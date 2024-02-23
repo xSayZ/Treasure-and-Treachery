@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1828032578653783741}
   - component: {fileID: 1828032578653783740}
   m_Layer: 0
-  m_Name: MusicZoneSettings
+  m_Name: AudioZoneSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,24 +44,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612711fc1fd8037489dcc33b87055a25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioZoneSettingsArray:
-  - eventsToBePlayed: 0
-    action: 2
-    paramName: fgdfg
-    paramValue: 1
-    ignoreSeekSpeed: 0
+  audioZoneSettings:
   - eventsToBePlayed: 1
     action: 1
-    paramName: MusicProg
-    paramValue: 1
-    ignoreSeekSpeed: 0
-  - eventsToBePlayed: 1
-    action: 3
-    paramName: MusicProg
-    paramValue: 1
-    ignoreSeekSpeed: 0
+    ignoreFadeOut: 0
+    paramName: 
+    paramValue: 0
+    ignoreseekspeed: 0
+    paramIsGlobal: 0
+  - eventsToBePlayed: 2
+    action: 1
+    ignoreFadeOut: 0
+    paramName: 
+    paramValue: 0
+    ignoreseekspeed: 0
+    paramIsGlobal: 0
   - eventsToBePlayed: 3
-    action: 4
-    paramName: gs
-    paramValue: 1
-    ignoreSeekSpeed: 0
+    action: 1
+    ignoreFadeOut: 0
+    paramName: 
+    paramValue: 0
+    ignoreseekspeed: 0
+    paramIsGlobal: 0

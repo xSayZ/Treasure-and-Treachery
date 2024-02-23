@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
@@ -14,12 +15,14 @@ namespace Game {
         public class LevelManager : Singleton<LevelManager>
         {
             public static int nextLevel { get; private set; }
+            
             private float target;
+            [SerializeField] private string loadingScreenPath = "LoadingScreen";
             public void LoadScene(int level)
             {
-               SceneManager.LoadScene("LoadingScreen",LoadSceneMode.Single);
+               SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);
                nextLevel = level;
-
+               
             }
             
 
@@ -30,7 +33,7 @@ namespace Game {
             
             public void LoadScoreScreen()
             {
-                SceneManager.LoadScene("ScoreScreen");
+                SceneManager.LoadSceneAsync("ScoreScreen");
             }
         }
     }

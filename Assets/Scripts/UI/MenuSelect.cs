@@ -40,16 +40,12 @@ namespace Game {
                 
             }
             
-            public void OnMenuNavigation(InputAction.CallbackContext context)
-            {
-                context.ReadValue<Vector2>();
-            }
             public void OnSubmit(InputAction.CallbackContext context)
             {
-                bool isPressed =context.action.WasPressedThisFrame();
+                bool isPressed = context.action.WasPressedThisFrame();
                 selectedObject = EventSystem.current.currentSelectedGameObject;
-                if (selectedObject.gameObject == UIButtons[0] && isPressed)
-                    LevelManager.Instance.LoadScene(6);
+                if (selectedObject.gameObject == UIButtons[0])
+                    LevelManager.Instance.LoadScene(1);
 
                 if (selectedObject.gameObject == UIButtons[1]&& isPressed)
                 {
@@ -74,6 +70,7 @@ namespace Game {
                     if (context.action.WasPerformedThisFrame())
                     {
                         Canvases[0].SetActive(true);
+                        Canvases[1].SetActive(false);
                         Canvases[2].SetActive(false);
                     }
                 }

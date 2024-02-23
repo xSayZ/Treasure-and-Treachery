@@ -13,7 +13,10 @@ namespace Game {
     namespace Player {
         public class GorgonAbilityBehaviour : PlayerAbilityBehaviour
         {
-            // protected override void Setup() {}
+            protected override void Setup()
+            {
+                playerController.PlayerAttackBehaviour.MeleeIsStunAttack = true;
+            }
 
             // protected override void OnDashKill() {}
         }

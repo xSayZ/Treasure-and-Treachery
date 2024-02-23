@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using Game.Core;
+using Game.Quest;
 using Game.Scene;
 using UnityEngine;
 
@@ -15,11 +16,19 @@ namespace Game {
     namespace Player {
         public class DragonAbilityBehaviour : PlayerAbilityBehaviour
         {
+            [Header("Settings")]
+            [SerializeField] private int goldOnDashKill;
+            
             private bool started;
 
             protected override void Setup()
             {
                 started = true;
+            }
+
+            protected override void OnDashKill()
+            {
+                QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
             }
 
             private void OnTriggerStay(Collider _other)
@@ -42,11 +51,6 @@ namespace Game {
                         }
                     }
                 }
-            }
-
-            private void EnemyDied()
-            {
-                
             }
         }
     }

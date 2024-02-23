@@ -39,11 +39,21 @@ namespace Game {
 
                 if (!isLocked) {
                     unlockedImage.SetActive(true);
+                    if (other.gameObject.GetComponent<Racer.CarriageRacer>().GetSubmitPressed()){
+                        SwitchScene();
+                    }
                 }
+                
             }
             
             private void OnTriggerExit(Collider other) {
                 unlockedImage.SetActive(false);
+            }
+            
+            private void SwitchScene() {
+                if (!isLocked) {
+                    Managers.LevelManager.Instance.LoadScene(levelIndex);
+                }
             }
         }
     }

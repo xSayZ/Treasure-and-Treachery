@@ -15,43 +15,15 @@ namespace Game {
     namespace Racer {
         public class CarriageMovementBehaviour : MonoBehaviour
         {
-
-            public enum Axel
-            {
-                Front,
-                Rear
-            }
-
-            [Serializable]
-            public struct Wheel
-            {
-                public GameObject wheelModel;
-                public WheelCollider wheelCollider;
-                public GameObject wheelEffectObj;
-                public ParticleSystem particleSystem;
-                public Axel axel;
-            }
+            [SerializeField] private float movementSpeed = 10.0f;
+            [SerializeField] private float steerSpeed = 2.0f;
             
-            public float maxAcceleration = 30.0f;
-            public float brakeAcceleration = 50.0f;
-
-            public float turnSensitivity = 1.0f;
-            public float maxSteerAngle = 30.0f;
-
-            public Vector3 centreOfMass;
-
-            public List<Wheel> wheels;
-            
-            private float moveInput;
-            private float steerInput;
-            private bool breaking;
-
-            private Rigidbody carriageRb;
+            private Rigidbody rb;
+            private Vector3 movementDirection;
             
             public void SetupBehaviour()
             { 
-                carriageRb = GetComponent<Rigidbody>();
-                carriageRb.centerOfMass = centreOfMass;
+                rb = GetComponent<Rigidbody>();
             }
             
 #region Unity Functions
@@ -59,15 +31,13 @@ namespace Game {
             private void FixedUpdate() {
                 Move();
                 Steer();
-                Brake();
             }
 #endregion
 
 #region Public Functions
                 
-            public void UpdateMovementData(Vector2 _input) { 
-                moveInput = _input.y; 
-                steerInput = _input.x;
+            public void UpdateMovementData(Vector3 _newMovementDirection) { 
+                movementDirection = _newMovementDirection;
             }
 #endregion
 
@@ -75,35 +45,18 @@ namespace Game {
             
              private void Move()
              {
-                 foreach (var wheel in wheels) {
-                     wheel.wheelCollider.motorTorque = moveInput * 600 * maxAcceleration;
-                 }
+                 Vector3 _movement = Time.deltaTime * movementSpeed * movementDirection;
+                 rb.AddForce(_movement,ForceMode.VelocityChange);
              }
 
              private void Steer()
              {
-                 foreach (var wheel in wheels) {
-                     if (wheel.axel == Axel.Front) {
-                         var _steerAngle = steerInput * turnSensitivity * maxSteerAngle;
-                         wheel.wheelCollider.steerAngle = Mathf.Lerp(wheel.wheelCollider.steerAngle, _steerAngle, 0.6f);
-                     }
-                     
+                 if (movementDirection.sqrMagnitude > 0.01f) {
+                     var _rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(movementDirection), steerSpeed * Time.deltaTime);
+                     rb.rotation = _rotation;
                  }
              }
-
-             private void Brake()
-             {
-                 if (moveInput == 0) {
-                     foreach (var wheel in wheels) {
-                         wheel.wheelCollider.brakeTorque = 300 * brakeAcceleration;
-                     }
-                 }
-                 else {
-                     foreach (var wheel in wheels) {
-                         wheel.wheelCollider.brakeTorque = 0;
-                     }
-                 }
-             }
+            
 #endregion
         }
     }

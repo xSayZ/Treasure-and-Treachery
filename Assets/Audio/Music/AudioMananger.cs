@@ -11,6 +11,7 @@ using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
 using FMOD.Studio;
+using Ink.Parsed;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 
@@ -95,14 +96,21 @@ namespace Game {
             }
             
 
-            public void SetParameterMusicEvent(EventsToBePlayed eventsToBePlayed, string paramName, float paramValue, bool ignoreSeekSpeed)
+            public void SetParameterMusicEvent(EventsToBePlayed eventsToBePlayed, string paramName, float paramValue, bool ignoreSeekSpeed, bool paramIsGlobal)
             {
+                if (paramIsGlobal)
+                {
+                    RuntimeManager.StudioSystem.setParameterByName(paramName, paramValue, ignoreSeekSpeed);
+                    
+                    Debug.Log("global param set to" + paramValue);
+                    return;
+                    
+                }
+                
                 //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-
-
                 Debug.Log("musicparam set on Instance to" + paramValue);
 
             }

@@ -38,24 +38,24 @@ namespace Game {
                 
                 if (timer >= 60)
                 {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
                 }
                 
                 if (timer >= 120)
                 {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false, false);
                 }
                 
 
                 if (timer >= 180)
                 {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 4f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 4f, false, false);
                 }
                 
 
                 if (timer >= 240)
                 {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 5f, false);
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 5f, false, false);
                 }
                 
                 

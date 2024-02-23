@@ -42,6 +42,7 @@ namespace Game {
           public string paramName;
           public float paramValue;
           public bool ignoreseekspeed;
+          public bool paramIsGlobal;
 
         }
         //skapar arrays av variabeln som innehåller "AudioSettings" 
@@ -82,7 +83,7 @@ namespace Game {
                     break;
                   
                   case Action.SetMusicParam:
-                    AudioMananger.Instance.SetParameterMusicEvent(i.eventsToBePlayed,i.paramName,i.paramValue,i.ignoreseekspeed);
+                    AudioMananger.Instance.SetParameterMusicEvent(i.eventsToBePlayed,i.paramName,i.paramValue,i.ignoreseekspeed, i.paramIsGlobal);
                     
                     break;
                     

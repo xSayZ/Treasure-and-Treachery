@@ -27,6 +27,7 @@ namespace Game
 
             [SerializeField] private PlayerInput Input;
 
+            [SerializeField] private int levelIndex;
             //public Transform endPoint;
             [Header("Timer Before next intro slide")]
             public float timeBeforeChange;
@@ -100,7 +101,7 @@ namespace Game
                 if (done && elapsedTime > timeBeforeChange && stopUpdating < 1 || (done && skiped))
                 {
                     stopUpdating++;
-                    LevelManager.Instance.LoadScene(1);
+                    LevelManager.Instance.LoadScene(levelIndex);
                 }
             }
 

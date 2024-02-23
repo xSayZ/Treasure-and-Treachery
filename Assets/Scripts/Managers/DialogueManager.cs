@@ -34,7 +34,7 @@ namespace Game {
             private TextMeshProUGUI[] choicesText;
             
             [Header("Player Input")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private List<PlayerInput> playerInputs = new List<PlayerInput>();
             
             [Header("Ink Story")]
             public TextAsset storyJSON;
@@ -61,7 +61,9 @@ namespace Game {
                 
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
-                playerInput.SwitchCurrentActionMap("Menu");
+                foreach (var _playerInput in playerInputs) {
+                    _playerInput.SwitchCurrentActionMap("Menu");
+                }
 
                 choicesText = new TextMeshProUGUI[choices.Length];
                 int index = 0;

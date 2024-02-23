@@ -22,6 +22,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Internal]
 
+## [0.0.18] - 2024-02-19
+
+### Added
+
+- Camera can now pan to objectives
+
+### Changed
+
+
+
 ## [0.0.17] - 2024-02-14
 
 ### Added

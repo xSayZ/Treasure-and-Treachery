@@ -19,8 +19,6 @@ namespace Game {
 
             private float timer;
             private EventsToBePlayed eventsToBePlayed;
-           
-            
 
 #region Unity Functions
             // Start is called before the first frame update

@@ -741,6 +741,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4198579131972967586, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: musicReferences.Array.data[3].Path
+      value: event:/Ambiance/AMB_WindBirds
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198579131972967586, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: musicReferences.Array.data[3].Guid.Data1
+      value: -1155292529
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198579131972967586, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: musicReferences.Array.data[3].Guid.Data2
+      value: 1246562929
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198579131972967586, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: musicReferences.Array.data[3].Guid.Data3
+      value: -910430320
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198579131972967586, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: musicReferences.Array.data[3].Guid.Data4
+      value: 132008940
+      objectReference: {fileID: 0}
     - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -12700,6 +12720,10 @@ PrefabInstance:
       value: 0.9999998
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798448, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798448, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: m_Center.x
       value: 0.026117349
       objectReference: {fileID: 0}
@@ -16843,35 +16867,83 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].action
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].action
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].action
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[3].action
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[4].action
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].paramName
-      value: Stinger Switch
+      value: WindStrenght
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].paramName
-      value: MusicProg
+      value: Stinger Switch
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].paramName
+      value: WindStrenght
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[3].paramName
+      value: WindStrenght
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[4].paramName
+      value: WindStrenght
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].paramValue
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].paramValue
-      value: 5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].paramValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[3].paramValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[4].paramValue
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].ignoreFadeOut
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramIsGlobal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[3].paramIsGlobal
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[4].paramIsGlobal
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].ignoreseekspeed
@@ -16879,11 +16951,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].eventsToBePlayed
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].eventsToBePlayed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].eventsToBePlayed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[3].eventsToBePlayed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[4].eventsToBePlayed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798450, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: m_Name
@@ -20513,6 +20597,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicTrigger (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798450, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -21586,6 +21674,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1341973080142894231, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875175100146009521, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1875175100146009521, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2093476671217898568, guid: a2e895e811ae4784087aff28f749f186, type: 3}
@@ -28062,20 +28158,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettingsArray.Array.size
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[0].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[0].paramName
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettingsArray.Array.data[0].action
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettingsArray.Array.data[0].paramName
-      value: 
+      value: dgdfg
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettingsArray.Array.data[1].paramName
+      value: gdfdfg
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettingsArray.Array.data[0].paramValue
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettingsArray.Array.data[1].paramValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettingsArray.Array.data[1].eventsToBePlayed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783741, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: m_RootOrder
@@ -38383,27 +38503,63 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.size
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].action
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].action
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
-      propertyPath: triggerEnterAudioSettings.Array.data[1].paramName
+      propertyPath: triggerEnterAudioSettings.Array.data[2].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramName
       value: fdsgsg
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[1].paramName
+      value: MusicProg
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].paramName
+      value: fdsgsg
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].paramValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].paramValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramIsGlobal
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[1].paramIsGlobal
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].eventsToBePlayed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].eventsToBePlayed
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[2].eventsToBePlayed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798450, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: m_Name

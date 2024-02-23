@@ -25,14 +25,15 @@ namespace Game {
             MenuMusic,
             Ambience,
         }
-
-        public enum MusicAction
+        
+        public enum Action
         {
             None,
             PlayMusic,
             StopMusic,
             SetMusicParam,
         }
+        
         public class AudioMananger : Singleton<AudioMananger>
         {
             [Header("New Event references")]
@@ -41,41 +42,27 @@ namespace Game {
             
             
             
-            //tom emitter som får ett värde beroende på vad "get event" metoden skickar från switch case
-            public StudioEventEmitter musicEmitter;
-            public StudioEventEmitter ambienceEmitter;
-
-            [Header("Event references")]
-            [SerializeField] private StudioEventEmitter hubMusic;
-            [SerializeField] private StudioEventEmitter gamePlayMusic;
-            [SerializeField] private StudioEventEmitter ambience;
-
-
-            private void Start()
-            {
-               
-            }
-
+            #region Public Functions
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
             {
                 //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
 
-
+                //Om boolen isActive är "true" så kommer inte musiken startas igen, detta sker via CheckActiveState metoden
                 bool isActive = CheckActiveState(musicInstances[num]);
                 if (isActive == false)
                 {
                     Debug.Log("event not active before. Activating");
-                    //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum EventsToBePlayed (men utgår från plats i enumet (int istället för namn)
+                    //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum "EventsToBePlayed" (men utgår från plats i enumet (int istället för namn)
                     //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
                     musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                     musicInstances[num].start();
                                     
-                    Debug.Log("event instans spelas");
+                    Debug.Log("played music event" + num);
                 }
-                
             }
             
+           
             public void StopMusicEvent(EventsToBePlayed eventsToBePlayed, bool ignoreFadeOut)
             {
                 //konvertar enum namn till ints (letar upp events)
@@ -92,7 +79,7 @@ namespace Game {
                 }
                 
                 musicInstances[num].release();
-                Debug.Log("event instans stoppas");
+                Debug.Log("stopped music event" +" "+ num);
             }
             
 
@@ -101,19 +88,19 @@ namespace Game {
                 if (paramIsGlobal)
                 {
                     RuntimeManager.StudioSystem.setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                    
-                    Debug.Log("global param set to" + paramValue);
+                    Debug.Log("global param set to" +" "+ paramValue);
                     return;
-                    
                 }
+                
                 
                 //konvertar enum namn till ints (letar upp events)
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                Debug.Log("musicparam set on Instance to" + paramValue);
-
+                Debug.Log("local parameter set to" + " "+ paramValue);
             }
+            
+            
             
             //Kallar på FMOD metod som kollar playbackstate på instansen
             private bool CheckActiveState(EventInstance eInstance)
@@ -131,82 +118,8 @@ namespace Game {
                 //skickar ut värdet om isActive boolen är true eller false
                 return isActive;
             }
-
-
-            #region Public Functions
-
-    public void GetEvent(EventsToBePlayed eventsToBePlayed)
-    {
-        switch (eventsToBePlayed)
-        {
-            case EventsToBePlayed.HubMusic:
-                musicEmitter = hubMusic;
-                break;
             
-            case EventsToBePlayed.MenuMusic:
-                break;
             
-            case EventsToBePlayed.GamePlayMusic:
-                musicEmitter = gamePlayMusic;
-                break;
-            
-            case EventsToBePlayed.Ambience: 
-                ambienceEmitter = ambience; 
-                break;
-            
-        }
-    }
-
-    public void PlayMusic(EventsToBePlayed eventsToBePlayed)
-    {
-        GetEvent(eventsToBePlayed);
-        
-        if (!musicEmitter.IsActive)
-        {
-            musicEmitter.Play();
-            Debug.Log("music emitter played" + " " + eventsToBePlayed);
-        }
-    }
-
-    //hämtar vilket event vi valt i switchen och stoppar music emittern (musiken)
-    public void StopMusic(EventsToBePlayed eventsToBePlayed)
-    {
-        GetEvent(eventsToBePlayed);
-        musicEmitter.Stop();
-        Debug.Log("musicEvent stopped" + " " + eventsToBePlayed);
-    }
-        
-    //sätter parameter för musikevent i FMOD (ändras via "MusicZoneSettings" cs.
-    public void SetMusicParam(string paramName, float paramValue, bool ignoreSeekSpeed)
-    {
-        musicEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
-        Debug.Log("parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
-        
-    }
-    
-    
-
-    public void PlayAmbience(EventsToBePlayed eventsToBePlayed)
-    {
-        GetEvent(eventsToBePlayed);
-        ambienceEmitter.Play();
-        Debug.Log("ambience emitter played");
-    }
-
-    public void StopAmbience(EventsToBePlayed eventsToBePlayed)
-    {
-        GetEvent(eventsToBePlayed);
-        ambienceEmitter.Stop();
-        Debug.Log("ambience emitter stopped");
-    }
-    
-    public void SetAmbienceParam(string paramName, float paramValue, bool ignoreSeekSpeed)
-    {
-        ambienceEmitter.SetParameter(paramName,paramValue,ignoreSeekSpeed);
-        Debug.Log("Ambience parameter set to" + " " + paramValue + " " + "on parameter" + " " + paramName + " "+ "ignore seek-speed was set to" + ignoreSeekSpeed);
-    }
-
-
     #endregion
 
     #region Private Functions

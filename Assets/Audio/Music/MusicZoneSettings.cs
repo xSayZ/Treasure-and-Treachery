@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using FMODUnity;
 using UnityEngine;
 using FMOD.Studio;
@@ -15,42 +16,37 @@ namespace Game {
     namespace Audio {
         public class MusicZoneSettings : MonoBehaviour
         {
-        
-            public enum Action
-            {
-                None,
-                PlayMusic,
-                StopMusic,
-                SetMusicParam,
-          
-                PlayAmbience,
-                StopAmbience,
-                SetAmbience,
-            }
             
             
             [System.Serializable]
-            public struct ZoneSettings
+            public struct AudioSettings
             {
                 public EventsToBePlayed eventsToBePlayed;
                 public Action action;
+                public bool ignoreFadeOut;
                 public string paramName;
                 public float paramValue;
-                public bool ignoreSeekSpeed;
+                public bool ignoreseekspeed;
+                public bool paramIsGlobal;
+
             }
             
             //skapar arrays av variabeln som innehåller "AudioZSettings" 
-            [NonReorderable] public ZoneSettings [] audioZoneSettingsArray;
-
+            public AudioSettings [] audioZoneSettings;
             
-
         #region Unity Functions
             // Start is called before the first frame update
-            void Start()
+
+            private void Start()
             {
-                foreach (ZoneSettings i in audioZoneSettingsArray)
+                RunAudioSettings();
+            }
+            
+            public void RunAudioSettings()
+            {
+                foreach (AudioSettings i in audioZoneSettings)
                 {
-                    if (i.paramName == "" || i.action == Action.None)
+                    if (i.action == Action.None)
                     {
                         Debug.Log(
                             "You have unfinished fields in AudioZoneSettings, action set to -None or -ParameterName was missing");
@@ -59,28 +55,23 @@ namespace Game {
                     {
                         switch (i.action)
                         {
-                            case Action.None: break;
-
-                            case Action.PlayMusic:
-                                AudioMananger.Instance.PlayMusic(i.eventsToBePlayed);
-                                break;
-
-                            case Action.StopMusic:
-                                AudioMananger.Instance.StopMusic(i.eventsToBePlayed);
-                                break;
-
-                            case Action.SetMusicParam: 
-                                AudioMananger.Instance.SetMusicParam(i.paramName, i.paramValue, i.ignoreSeekSpeed);
-                                break;
-                            
-                            
-                            case Action.PlayAmbience: AudioMananger.Instance.PlayAmbience(i.eventsToBePlayed);
-                                break;
-                    
-                            case Action.StopAmbience: AudioMananger.Instance.StopAmbience(i.eventsToBePlayed);
+                            case Action.None: 
+                                Debug.Log("Action set to None in MusicZoneSettings");
                                 break;
                   
-                            case Action.SetAmbience: AudioMananger.Instance.SetAmbienceParam(i.paramName, i.paramValue, i.ignoreSeekSpeed);
+                            case Action.PlayMusic: 
+                                AudioMananger.Instance.PlayMusicEvent(i.eventsToBePlayed);
+                  
+                                break;
+                    
+                            case Action.StopMusic: 
+                                AudioMananger.Instance.StopMusicEvent(i.eventsToBePlayed, i.ignoreFadeOut);
+                    
+                                break;
+                  
+                            case Action.SetMusicParam:
+                                AudioMananger.Instance.SetParameterMusicEvent(i.eventsToBePlayed,i.paramName,i.paramValue,i.ignoreseekspeed, i.paramIsGlobal);
+                    
                                 break;
 
                         }

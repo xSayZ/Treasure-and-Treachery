@@ -32,7 +32,7 @@ namespace Game {
                 }
             }
 
-            protected abstract void OnDashKill();
+            protected virtual void OnDashKill(){}
         }
     }
 }

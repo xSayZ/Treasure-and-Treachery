@@ -12,6 +12,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Game.Managers;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
@@ -137,7 +138,7 @@ namespace Game {
                     } else {
                         Debug.Log("Change scene");
                         yield return new WaitForSeconds(5);
-                        SceneManager.LoadScene(4);
+                        LevelManager.Instance.LoadScene(6);
                     }
                 } else  {
                     yield return new WaitForSeconds(2);

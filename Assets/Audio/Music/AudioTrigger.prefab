@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5700800240619798448}
   - component: {fileID: 5700800240619798449}
   m_Layer: 0
-  m_Name: MusicTrigger
+  m_Name: AudioTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,24 +59,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyOnTrigger: 1
-  otherMusic:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  testStinger:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
   triggerEnterAudioSettings:
   - eventsToBePlayed: 1
-    action: 1
-    paramName: fdsgsg
+    action: 0
+    ignoreFadeOut: 0
+    paramName: 
     paramValue: 0
     ignoreseekspeed: 0
-  triggerExitAudioSettings: []
+    paramIsGlobal: 0
+  - eventsToBePlayed: 0
+    action: 0
+    ignoreFadeOut: 0
+    paramName: 
+    paramValue: 0
+    ignoreseekspeed: 0
+    paramIsGlobal: 0

@@ -2,7 +2,7 @@
 // --------------------------------
 // Creation Date: 2024-02-22
 // Author: b22alesj
-// Description: The werewolves ability
+// Description: The werewolf's ability
 // --------------------------------
 // ------------------------------*/
 

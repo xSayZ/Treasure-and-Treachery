@@ -14,7 +14,7 @@ using FMOD.Studio;
 
 namespace Game {
     namespace Audio {
-        public class MusicZoneSettings : MonoBehaviour
+        public class AudioZoneSettings : MonoBehaviour
         {
             
             

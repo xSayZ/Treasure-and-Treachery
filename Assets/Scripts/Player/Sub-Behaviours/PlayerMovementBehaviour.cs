@@ -66,6 +66,7 @@ namespace Game {
             private bool canRotate = true;
             
             // Events
+            [HideInInspector] public UnityEvent OnDash = new UnityEvent();
             [HideInInspector] public UnityEvent OnDashKill = new UnityEvent();
             
             public void SetupBehaviour(PlayerController _playerController)
@@ -155,6 +156,7 @@ namespace Game {
                     currentDashRechargeTime = dashRechargeTime;
                     UpdateDashUI();
                     
+                    OnDash.Invoke();
                     StartCoroutine(DashMove());
                 }
             }

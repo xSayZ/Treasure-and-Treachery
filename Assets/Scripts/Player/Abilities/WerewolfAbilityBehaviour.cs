@@ -17,13 +17,19 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private Slider wrathSlider;
             
-            [Header("Settings")]
+            [Header("Wrath")]
             [SerializeField] private float percentagePerKill;
             [SerializeField] private float decayGracePeriod;
             [SerializeField] private float decayTime;
             [SerializeField] private float decayAmount;
+            
+            [Header("Enraged")]
             [SerializeField] private float meleeAttackCooldownMultiplier;
             [SerializeField] private float moveSpeedMultiplier;
+            
+            [Header("Dash Heal")]
+            [SerializeField] private int dashHealAmount;
+            [SerializeField] private float dashHealWrathLost;
             
             private float wrathPercentage;
             private float currentDecayGracePeriod;
@@ -32,6 +38,7 @@ namespace Game {
             protected override void Setup()
             {
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
+                playerController.PlayerMovementBehaviour.OnDash.AddListener(Dash);
             }
 
             protected override void OnDisable()
@@ -41,6 +48,7 @@ namespace Game {
                 if (playerController)
                 {
                     playerController.PlayerAttackBehaviour.OnKill.RemoveListener(EnemyKilled);
+                    playerController.PlayerMovementBehaviour.OnDash.RemoveListener(Dash);
                 }
             }
 
@@ -102,6 +110,17 @@ namespace Game {
                 currentDecayGracePeriod = decayGracePeriod;
                 currentDecayTime = decayTime;
                 AddWrath(percentagePerKill);
+            }
+
+            private void Dash()
+            {
+                if (wrathPercentage >= dashHealWrathLost)
+                {
+                    if (playerController.Heal(dashHealAmount))
+                    {
+                        AddWrath(-dashHealWrathLost);
+                    }
+                }
             }
         }
     }

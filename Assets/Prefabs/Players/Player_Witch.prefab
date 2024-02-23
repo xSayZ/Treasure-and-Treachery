@@ -386,6 +386,9 @@ MonoBehaviour:
   numberOfDashes: 2
   dashDamage: 1
   MoveSpeedMultiplier: 1
+  OnDash:
+    m_PersistentCalls:
+      m_Calls: []
   OnDashKill:
     m_PersistentCalls:
       m_Calls: []
@@ -762,6 +765,8 @@ MonoBehaviour:
   decayAmount: 1
   meleeAttackCooldownMultiplier: 0.5
   moveSpeedMultiplier: 2
+  dashHealAmount: 2
+  dashHealWrathLost: 25
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0

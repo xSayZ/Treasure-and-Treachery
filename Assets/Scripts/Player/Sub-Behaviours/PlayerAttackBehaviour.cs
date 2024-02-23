@@ -56,6 +56,8 @@ namespace Game {
             private List<IDamageable> damageableInRange;
             private float currentMeleeCooldown;
             private bool isMeleeAttacking;
+            private bool meleeAttackStarted;
+            [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
             
             // Ranged
             private float currentRangedCooldown;
@@ -67,17 +69,6 @@ namespace Game {
             
             // Events
             [HideInInspector] public UnityEvent OnKill = new UnityEvent();
-
-#region Validation
-            private void OnValidate()
-            {
-                if(meleeAttackCooldown < meleeAttackDelay + meleeAttackDuration)
-                {
-                    Debug.LogWarning("Melee Attack Cooldown needs to be higher than Melee Attack Delay and Melee Attack Duration combined");
-                    meleeAttackCooldown = meleeAttackDelay + meleeAttackDuration + 0.01f;
-                }
-            }
-#endregion
 
 #region Unity Functions
             private void OnEnable()
@@ -132,12 +123,12 @@ namespace Game {
 #region Public Functions
             public void Melee()
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0 || !canAttack)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0 || !canAttack || meleeAttackStarted)
                 {
                     return;
                 }
-                
-                currentMeleeCooldown = meleeAttackCooldown;
+
+                meleeAttackStarted = true;
                 
                 playerController.PlayerAnimationBehaviour.PlayMeleeAttackAnimation(); 
                 
@@ -257,6 +248,9 @@ namespace Game {
                 isMeleeAttacking = true;
                 yield return new WaitForSeconds(meleeAttackDuration);
                 isMeleeAttacking = false;
+                
+                currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
+                meleeAttackStarted = false;
             }
 
             private void FireProjectile()

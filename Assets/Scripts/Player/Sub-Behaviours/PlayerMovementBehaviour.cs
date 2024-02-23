@@ -54,6 +54,7 @@ namespace Game {
             private Vector3 movementDirection;
             private float currentMaxSpeed;
             private bool isForceMoving;
+            [HideInInspector] public float MoveSpeedMultiplier = 1f;
             
             // Dash values
             private float currentNumberOfDashes;
@@ -65,6 +66,7 @@ namespace Game {
             private bool canRotate = true;
             
             // Events
+            [HideInInspector] public UnityEvent OnDash = new UnityEvent();
             [HideInInspector] public UnityEvent OnDashKill = new UnityEvent();
             
             public void SetupBehaviour(PlayerController _playerController)
@@ -154,6 +156,7 @@ namespace Game {
                     currentDashRechargeTime = dashRechargeTime;
                     UpdateDashUI();
                     
+                    OnDash.Invoke();
                     StartCoroutine(DashMove());
                 }
             }
@@ -196,7 +199,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
 

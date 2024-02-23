@@ -52,7 +52,7 @@ namespace Game {
                 }
             }
 
-            protected override void OnDashKill()
+            protected override void OnDashKill(bool _stunned)
             {
                 EnemyKilled();
             }

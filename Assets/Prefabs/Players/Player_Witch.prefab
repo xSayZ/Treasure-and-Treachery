@@ -385,6 +385,7 @@ MonoBehaviour:
   dashRechargeTime: 5
   numberOfDashes: 2
   dashDamage: 1
+  MoveSpeedMultiplier: 1
   OnDashKill:
     m_PersistentCalls:
       m_Calls: []
@@ -421,6 +422,7 @@ MonoBehaviour:
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+  MeleeAttackCooldownMultiplier: 1
   OnKill:
     m_PersistentCalls:
       m_Calls: []
@@ -758,6 +760,8 @@ MonoBehaviour:
   decayGracePeriod: 1
   decayTime: 0.1
   decayAmount: 1
+  meleeAttackCooldownMultiplier: 0.5
+  moveSpeedMultiplier: 2
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0

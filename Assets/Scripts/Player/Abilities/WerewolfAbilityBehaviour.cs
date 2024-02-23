@@ -22,6 +22,8 @@ namespace Game {
             [SerializeField] private float decayGracePeriod;
             [SerializeField] private float decayTime;
             [SerializeField] private float decayAmount;
+            [SerializeField] private float meleeAttackCooldownMultiplier;
+            [SerializeField] private float moveSpeedMultiplier;
             
             private float wrathPercentage;
             private float currentDecayGracePeriod;
@@ -70,6 +72,29 @@ namespace Game {
                 wrathPercentage += _amount;
                 wrathPercentage = Mathf.Clamp(wrathPercentage, 0f, 100f);
                 wrathSlider.value = wrathPercentage / 100f;
+                
+                if (wrathPercentage >= 50)
+                {
+                    SetEnraged(true);
+                }
+                else if (wrathPercentage <= 0)
+                {
+                    SetEnraged(false);
+                }
+            }
+
+            private void SetEnraged(bool _active)
+            {
+                if (_active)
+                {
+                    playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = meleeAttackCooldownMultiplier;
+                    playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = moveSpeedMultiplier;
+                }
+                else
+                {
+                    playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = 1f;
+                    playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = 1f;
+                }
             }
 
             private void EnemyKilled()

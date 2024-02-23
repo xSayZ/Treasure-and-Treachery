@@ -57,6 +57,7 @@ namespace Game {
             private float currentMeleeCooldown;
             private bool isMeleeAttacking;
             private bool meleeAttackStarted;
+            [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
             
             // Ranged
             private float currentRangedCooldown;
@@ -248,7 +249,7 @@ namespace Game {
                 yield return new WaitForSeconds(meleeAttackDuration);
                 isMeleeAttacking = false;
                 
-                currentMeleeCooldown = meleeAttackCooldown;
+                currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
             }
 

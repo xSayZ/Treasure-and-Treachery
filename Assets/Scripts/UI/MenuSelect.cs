@@ -29,7 +29,7 @@ namespace Game {
             [SerializeField] private GameObject[] Canvases;
 
             [Header("Options")] 
-            [SerializeField] private Slider VolumeSlider;
+            [SerializeField] private Slider[] VolumeSlider;
             
             
             private void Start()
@@ -76,8 +76,6 @@ namespace Game {
                         Canvases[0].SetActive(true);
                         Canvases[2].SetActive(false);
                     }
-                   
-                    
                 }
             }
             
@@ -89,6 +87,8 @@ namespace Game {
                 yield return new WaitForEndOfFrame();
                 EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
             }
+            
+            
         }
     }
 }

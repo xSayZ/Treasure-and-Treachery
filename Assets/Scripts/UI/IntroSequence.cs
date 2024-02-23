@@ -11,6 +11,7 @@ using Game.Audio;
 using Game.Backend;
 using Game.Managers;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -24,14 +25,20 @@ namespace Game
             [SerializeField] private ImageBank Bank;
             [SerializeField] private Image currentIntroImage;
 
+            [SerializeField] private PlayerInput Input;
+
             //public Transform endPoint;
-            [Header("Timer Before next intro slide")] 
+            [Header("Timer Before next intro slide")]
             public float timeBeforeChange;
+
             private float currentTime;
             private float elapsedTime;
             private int index;
             private bool done;
             private int stopUpdating;
+
+            private bool skiped;
+
             #region Unity Functions
 
             // Start is called before the first frame update
@@ -48,44 +55,55 @@ namespace Game
             {
                 ChangeImage();
                 ChangeScene();
+
+                if (skiped)
+                {
+                    skiped = false;
+                }
             }
 
             #endregion
 
-            #region Public Functions
+            public void OnSkip(InputAction.CallbackContext context)
+            {
+                if (context.action.WasPerformedThisFrame())
+                {
+                    skiped = true;
+                }
 
-            #endregion
-
-            #region Private Functionn
+                if (context.action.WasReleasedThisFrame())
+                    skiped = false;
+            }
             
+            #region Private Functionn
+
             private void ChangeImage()
             {
                 currentTime -= Time.deltaTime;
-                if (currentTime <= 0 && index < Bank.IntroImages.Count-1 )
+                if (((currentTime <= 0) || skiped) && index < Bank.IntroImages.Count - 1)
                 {
                     currentTime = timeBeforeChange;
                     index++;
                     currentIntroImage.sprite = Bank.IntroImages[index];
                 }
 
-                if (index == Bank.IntroImages.Count - 1)
+                if (index == Bank.IntroImages.Count - 1 && !done)
                 {
                     elapsedTime += Time.deltaTime;
                     done = true;
+                    skiped = false;
                 }
             }
 
             private void ChangeScene()
             {
-                if (done && elapsedTime >timeBeforeChange && stopUpdating<1)
+                if (done && elapsedTime > timeBeforeChange && stopUpdating < 1 || (done && skiped))
                 {
                     stopUpdating++;
                     LevelManager.Instance.LoadScene(1);
                 }
             }
 
-           
-            
             #endregion
         }
     }

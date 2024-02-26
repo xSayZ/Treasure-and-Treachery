@@ -34,6 +34,7 @@ namespace Game {
             private float wrathPercentage;
             private float currentDecayGracePeriod;
             private float currentDecayTime;
+            private bool isEnraged;
 
             protected override void Setup()
             {
@@ -84,10 +85,12 @@ namespace Game {
                 if (wrathPercentage >= 50)
                 {
                     SetEnraged(true);
+                    isEnraged = true;
                 }
                 else if (wrathPercentage <= 0)
                 {
                     SetEnraged(false);
+                    isEnraged = false;
                 }
             }
 

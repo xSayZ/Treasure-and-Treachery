@@ -25,6 +25,7 @@ namespace Game {
         {
             [Header("Params")]
             [SerializeField] private float typingSpeed = 0.05f;
+            [SerializeField] private int nextLevelIndex;
             
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
@@ -138,7 +139,7 @@ namespace Game {
                     } else {
                         Debug.Log("Change scene");
                         yield return new WaitForSeconds(5);
-                        LevelManager.Instance.LoadScene(6);
+                        LevelManager.Instance.LoadScene(nextLevelIndex);
                     }
                 } else  {
                     yield return new WaitForSeconds(2);

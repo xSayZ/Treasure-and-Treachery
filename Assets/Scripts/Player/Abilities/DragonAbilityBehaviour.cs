@@ -26,7 +26,7 @@ namespace Game {
                 started = true;
             }
 
-            protected override void OnDashKill()
+            protected override void OnDashKill(bool _stunned)
             {
                 QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
             }

@@ -25,6 +25,7 @@ namespace Game {
             public AlertEnemyState AlertEnemyState;
             public GrowlEnemyState GrowlEnemyState;
             public ChaseEnemyState ChaseEnemyState;
+            public StunnedEnemyState StunnedEnemyState;
             
             [Header("Setup")]
             public NavMeshAgent NavMeshAgent;
@@ -70,6 +71,7 @@ namespace Game {
                 AlertEnemyState.Awake(this);
                 GrowlEnemyState.Awake(this);
                 ChaseEnemyState.Awake(this);
+                StunnedEnemyState.Awake(this);
                 
                 currentState = RoamEnemyState;
             }

@@ -283,6 +283,11 @@ MonoBehaviour:
     Name: NameNotSet
     moveSpeed: 3
     minMoveDistance: 0.01
+  StunnedEnemyState:
+    Name: NameNotSet
+    animator: {fileID: 1411752920722199305}
+    meshRenderer: {fileID: 1688841251493613740}
+    stunnedMaterial: {fileID: 2100000, guid: 6f761eb33e0fb7c4c83a4facdf42c5db, type: 2}
   NavMeshAgent: {fileID: 922712805897902393}
   visionSphere: {fileID: 3648830157090948581}
   hearingSphere: {fileID: 9139357778190945824}
@@ -627,6 +632,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: ba2d4ee99b46c0149bf30614fc1da191, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ba2d4ee99b46c0149bf30614fc1da191, type: 3}
+--- !u!137 &1688841251493613740 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6649597203129319187, guid: ba2d4ee99b46c0149bf30614fc1da191, type: 3}
+  m_PrefabInstance: {fileID: 5415549171295432639}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5525173722904053844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ba2d4ee99b46c0149bf30614fc1da191, type: 3}

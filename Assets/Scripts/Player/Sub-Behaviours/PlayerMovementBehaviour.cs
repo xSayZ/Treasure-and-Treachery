@@ -9,6 +9,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Game.Core;
+using Game.Enemy;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -67,7 +68,7 @@ namespace Game {
             
             // Events
             [HideInInspector] public UnityEvent OnDash = new UnityEvent();
-            [HideInInspector] public UnityEvent OnDashKill = new UnityEvent();
+            [HideInInspector] public UnityEvent<bool> OnDashKill = new UnityEvent<bool>();
             
             public void SetupBehaviour(PlayerController _playerController)
             {
@@ -181,7 +182,23 @@ namespace Game {
                         bool _killed = _hit.Damage(dashDamage);
                         if (_killed)
                         {
-                            OnDashKill.Invoke();
+                            bool _stunKill = false;
+                            
+                            MonoBehaviour _damageableMonoBehaviour = _hit as MonoBehaviour;
+                            if (!_damageableMonoBehaviour)
+                            {
+                                return;
+                            }
+                            
+                            if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
+                            {
+                                if (_enemyController.GetCurrentState() == _enemyController.StunnedEnemyState)
+                                {
+                                    _stunKill = true;
+                                }
+                            }
+                            
+                            OnDashKill.Invoke(_stunKill);
                         }
                     }
                 }

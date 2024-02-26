@@ -13,9 +13,21 @@ namespace Game {
     namespace Player {
         public class GorgonAbilityBehaviour : PlayerAbilityBehaviour
         {
-            // protected override void Setup() {}
+            [Header("Settings")]
+            [SerializeField] private int healthOnStunnedDashKill;
+            
+            protected override void Setup()
+            {
+                playerController.PlayerAttackBehaviour.MeleeIsStunAttack = true;
+            }
 
-            // protected override void OnDashKill() {}
+            protected override void OnDashKill(bool _stunned)
+            {
+                if (_stunned)
+                {
+                    playerController.Heal(healthOnStunnedDashKill);
+                }
+            }
         }
     }
 }

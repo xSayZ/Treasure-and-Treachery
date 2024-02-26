@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Game.Audio;
 using Game.Backend;
 using Game.Core;
+using Game.Enemy;
 using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
@@ -58,6 +59,7 @@ namespace Game {
             private bool isMeleeAttacking;
             private bool meleeAttackStarted;
             [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
+            [HideInInspector] public bool MeleeIsStunAttack;
             
             // Ranged
             private float currentRangedCooldown;
@@ -127,7 +129,7 @@ namespace Game {
                 {
                     return;
                 }
-
+                
                 meleeAttackStarted = true;
                 
                 playerController.PlayerAnimationBehaviour.PlayMeleeAttackAnimation(); 
@@ -216,22 +218,45 @@ namespace Game {
                         continue;
                     }
                     
-                    bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                    bool _doNormalMelee = true;
                     
-                    if (killed)
+                    if (MeleeIsStunAttack)
                     {
-                        playerController.PlayerData.kills += 1;
-                        playerController.PlayerData.killsThisLevel += 1;
-                        OnKill.Invoke();
-                        EnemyManager.OnEnemyDeathUI.Invoke();
-                        
-                        try
+                        MonoBehaviour _damageableMonoBehaviour = damageableInRange[i] as MonoBehaviour;
+                        if (!_damageableMonoBehaviour)
                         {
-                            dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                            continue; 
                         }
-                        catch (Exception e)
+                        
+                        if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
                         {
-                            Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                            if (_enemyController.GetCurrentState() != _enemyController.StunnedEnemyState)
+                            {
+                                _doNormalMelee = false;
+                                _enemyController.ChangeState(_enemyController.StunnedEnemyState);
+                            }
+                        }
+                    }
+                    
+                    if (_doNormalMelee)
+                    {
+                        bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                        
+                        if (killed)
+                        {
+                            playerController.PlayerData.kills += 1;
+                            playerController.PlayerData.killsThisLevel += 1;
+                            OnKill.Invoke();
+                            EnemyManager.OnEnemyDeathUI.Invoke();
+                            
+                            try
+                            {
+                                dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                            }
                         }
                     }
                 }

@@ -11,6 +11,7 @@ using Game.Core;
 using Game.Audio;
 using Game.Backend;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 namespace Game
@@ -28,6 +29,7 @@ namespace Game
             
             private int damage;
             private PlayerData playerData;
+            private UnityEvent onKill;
             private float currentAliveTime;
 
 #region Unity Functions
@@ -64,6 +66,7 @@ namespace Game
                     {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
+                        onKill.Invoke();
                         EnemyManager.OnEnemyDeathUI.Invoke();
                         
                         try
@@ -82,10 +85,11 @@ namespace Game
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, float _speed, PlayerData _playerData)
+            public void Setup(int _damage, float _speed, PlayerData _playerData, UnityEvent _onKill)
             {
                 damage = _damage;
                 playerData = _playerData;
+                onKill = _onKill;
                 
                 GetComponent<Rigidbody>().velocity = transform.forward * _speed;
             }

@@ -70,6 +70,10 @@ namespace Game {
                     {
                         inInteractRange.Remove(inInteractRange[i]);
                     }
+                    else if (!inInteractRange[i].InteractionTransform.gameObject.activeSelf)
+                    {
+                        inInteractRange.Remove(inInteractRange[i]);
+                    }
                 }
                 
                 // Turn of interaction UI and check if player can interact with interaction

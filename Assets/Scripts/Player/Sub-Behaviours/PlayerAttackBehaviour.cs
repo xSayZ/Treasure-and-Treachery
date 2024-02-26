@@ -12,8 +12,10 @@ using System.Collections.Generic;
 using Game.Audio;
 using Game.Backend;
 using Game.Core;
+using Game.Enemy;
 using Game.Quest;
 using UnityEngine;
+using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
@@ -55,6 +57,9 @@ namespace Game {
             private List<IDamageable> damageableInRange;
             private float currentMeleeCooldown;
             private bool isMeleeAttacking;
+            private bool meleeAttackStarted;
+            [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
+            [HideInInspector] public bool MeleeIsStunAttack;
             
             // Ranged
             private float currentRangedCooldown;
@@ -62,17 +67,10 @@ namespace Game {
             public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
-
-#region Validation
-            private void OnValidate()
-            {
-                if(meleeAttackCooldown < meleeAttackDelay + meleeAttackDuration)
-                {
-                    Debug.LogWarning("Melee Attack Cooldown needs to be higher than Melee Attack Delay and Melee Attack Duration combined");
-                    meleeAttackCooldown = meleeAttackDelay + meleeAttackDuration + 0.01f;
-                }
-            }
-#endregion
+            private bool canAttack = true;
+            
+            // Events
+            [HideInInspector] public UnityEvent OnKill = new UnityEvent();
 
 #region Unity Functions
             private void OnEnable()
@@ -127,12 +125,12 @@ namespace Game {
 #region Public Functions
             public void Melee()
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasMeleeWeapon || currentMeleeCooldown > 0 || !canAttack || meleeAttackStarted)
                 {
                     return;
                 }
                 
-                currentMeleeCooldown = meleeAttackCooldown;
+                meleeAttackStarted = true;
                 
                 playerController.PlayerAnimationBehaviour.PlayMeleeAttackAnimation(); 
                 
@@ -141,7 +139,7 @@ namespace Game {
 
             public void Aim(bool _aiming)
             {
-                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0)
+                if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0 || !canAttack)
                 {
                     return;
                 }
@@ -172,6 +170,11 @@ namespace Game {
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
                 }
+            }
+
+            public void SetAttackActiveState(bool _active)
+            {
+                canAttack = _active;
             }
 
             public void OnAttackRangeEnter(Transform _transform)
@@ -215,20 +218,45 @@ namespace Game {
                         continue;
                     }
                     
-                    bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                    bool _doNormalMelee = true;
                     
-                    if (killed)
+                    if (MeleeIsStunAttack)
                     {
-                        playerController.PlayerData.kills += 1;
-                        playerController.PlayerData.killsThisLevel += 1;
-                        EnemyManager.OnEnemyDeathUI.Invoke();
-                        try
+                        MonoBehaviour _damageableMonoBehaviour = damageableInRange[i] as MonoBehaviour;
+                        if (!_damageableMonoBehaviour)
                         {
-                            dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                            continue; 
                         }
-                        catch (Exception e)
+                        
+                        if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
                         {
-                            Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                            if (_enemyController.GetCurrentState() != _enemyController.StunnedEnemyState)
+                            {
+                                _doNormalMelee = false;
+                                _enemyController.ChangeState(_enemyController.StunnedEnemyState);
+                            }
+                        }
+                    }
+                    
+                    if (_doNormalMelee)
+                    {
+                        bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                        
+                        if (killed)
+                        {
+                            playerController.PlayerData.kills += 1;
+                            playerController.PlayerData.killsThisLevel += 1;
+                            OnKill.Invoke();
+                            EnemyManager.OnEnemyDeathUI.Invoke();
+                            
+                            try
+                            {
+                                dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                            }
                         }
                     }
                 }
@@ -245,6 +273,9 @@ namespace Game {
                 isMeleeAttacking = true;
                 yield return new WaitForSeconds(meleeAttackDuration);
                 isMeleeAttacking = false;
+                
+                currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
+                meleeAttackStarted = false;
             }
 
             private void FireProjectile()
@@ -252,7 +283,7 @@ namespace Game {
                 Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                 
                 GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData);
+                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

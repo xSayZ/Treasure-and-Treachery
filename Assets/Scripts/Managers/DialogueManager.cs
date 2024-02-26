@@ -12,6 +12,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Game.Managers;
 using UnityEngine.EventSystems;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
@@ -34,7 +35,7 @@ namespace Game {
             private TextMeshProUGUI[] choicesText;
             
             [Header("Player Input")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private List<PlayerInput> playerInputs = new List<PlayerInput>();
             
             [Header("Ink Story")]
             public TextAsset storyJSON;
@@ -61,7 +62,9 @@ namespace Game {
                 
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
-                playerInput.SwitchCurrentActionMap("Menu");
+                foreach (var _playerInput in playerInputs) {
+                    _playerInput.SwitchCurrentActionMap("Menu");
+                }
 
                 choicesText = new TextMeshProUGUI[choices.Length];
                 int index = 0;
@@ -135,7 +138,7 @@ namespace Game {
                     } else {
                         Debug.Log("Change scene");
                         yield return new WaitForSeconds(5);
-                        SceneManager.LoadScene(4);
+                        LevelManager.Instance.LoadScene(6);
                     }
                 } else  {
                     yield return new WaitForSeconds(2);

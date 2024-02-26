@@ -7,6 +7,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using Game.Backend;
 using Game.Managers;
 using UnityEngine;
@@ -32,11 +33,17 @@ namespace Game
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
-            private void Start()
+            private void Awake()
             {
                 characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
+
+            }
+
+            private void Start()
+            {
                 
                 playerInputs = GetComponent<PlayerInput>();
+
                 Image.sprite = characterSelectHandler.ImagesBackup[0];
                 for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
                 {
@@ -63,8 +70,9 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
                 if (PlayersIsReady) return;
+                int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
+
                 Vector2 value = context.ReadValue<Vector2>();
                 switch (value.x)
                 {
@@ -103,7 +111,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    CustomSceneManager.Instance.ChangeScene();
+                    LevelManager.Instance.LoadScene(1);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

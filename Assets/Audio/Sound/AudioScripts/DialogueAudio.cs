@@ -9,7 +9,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
@@ -23,278 +22,240 @@ using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Game {
     namespace Audio {
-        
         [CreateAssetMenu(menuName = "ScriptableObjects/Audio/Player/Dialogue")]
         public class DialogueAudio : ScriptableObject
         {
+            private Dictionary<int, EventInstance> currentDialogues = new Dictionary<int, EventInstance>();
             //EventInstances
-            private EventInstance shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance;
-
+            private EventInstance bajsInstance, shovelPickupInstance, goldPickupInstance, shovelReactInstance, deathDialogueInstance, damageAudioInstance, goldReactInstance, playerAttackAudioInstance, deathReactioninstance, cartEnterInstance;
+            
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio;
-
+            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio;
+            
             private int playerIndex;
-           
-            private void OnEnable() {
+
+            private void OnEnable()
+            {
                 QuestManager.OnGoldPickedUp.AddListener(GoldPickupDialogue); 
                 QuestManager.OnItemPickedUp.AddListener(ShovelPickupAudio);
                 GameManager.OnPlayerDeath.AddListener(PlayerDeathDialogue);
             }
 
-#region Unity Functions
-
-#endregion
+            private void OnDisable()
+            {
+                QuestManager.OnGoldPickedUp.RemoveListener(GoldPickupDialogue); 
+                QuestManager.OnItemPickedUp.RemoveListener(ShovelPickupAudio);
+                GameManager.OnPlayerDeath.RemoveListener(PlayerDeathDialogue);
+            }
 
 #region Public Functions
+            public void PlayerDamageAudio(int _playerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
+                    PlayDialogue(_playerID, damageAudioInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-public void PlayerDamageAudio(int _playerID)
-{
-    var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-        case 0:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[0].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[1].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[2].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-            RuntimeManager.AttachInstanceToGameObject(damageAudioInstance, _players[3].gameObject.transform);
-            damageAudioInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    damageAudioInstance.start();
-    damageAudioInstance.release();
-}
+            public void PlayerCartEnterDialogue(int PlayerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var cartEnterInstance = RuntimeManager.CreateInstance(cartEnterAudio);
+                    //PlayDialogue(_playerID, cartEnterInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-public void PlayerAttackAudio(int _playerID)
-{
-    var _players = GameManager.Instance.activePlayerControllers;
+            public void PlayerAttackAudio(int _playerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
+                    PlayDialogue(_playerID, damageAudioInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-    switch (_playerID)
-    {
-        case 0:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[0].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[1].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[2].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-            RuntimeManager.AttachInstanceToGameObject(playerAttackAudioInstance, _players[3].gameObject.transform);
-            playerAttackAudioInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    playerAttackAudioInstance.start();
-    playerAttackAudioInstance.release();
-}
-private void PlayerDeathDialogue(int _playerID)
-{
-    var _players = GameManager.Instance.activePlayerControllers;
+            private void PlayerDeathDialogue(int _playerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
+                    PlayDialogue(_playerID, deathDialogueInstance);
+                
+                    if (_players.Count > 1)
+                    {
+                        DialogueAudioWrapper.Instance.PlayResponseDialogue(bajsInstance, _playerID, _players, "death");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-    switch (_playerID)
-    {
-        case 0:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[0].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[1].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[2].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-            RuntimeManager.AttachInstanceToGameObject(deathDialogueInstance, _players[3].gameObject.transform);
-            deathDialogueInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    deathDialogueInstance.start();
-    deathDialogueInstance.release();
-}
-private void ShovelPickupAudio(int _playerID, Item _item)
-{
-    var _players = GameManager.Instance.activePlayerControllers;
-    
-    switch (_playerID)
-    {
-        case 0:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[0].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[1].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[2].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-            RuntimeManager.AttachInstanceToGameObject(shovelPickupInstance, _players[3].gameObject.transform);
-            shovelPickupInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    shovelPickupInstance.start();
-    shovelPickupInstance.release();
-}
-private void ObjectiveProgressionReactionAudio(GameObject characterObj, int speakerCharacter)
-{
-    switch (speakerCharacter)
-    {
-        case 0:
-          
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-            RuntimeManager.AttachInstanceToGameObject(shovelReactInstance, characterObj.transform);
-            shovelReactInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    shovelReactInstance.start();
-    shovelReactInstance.release();
-}
-private void GoldPickupDialogue(int _playerID, int amount)
-{
-    var _players = GameManager.Instance.activePlayerControllers;
-    switch (_playerID)
-    {
-     case 0:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[0].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 0);
-         break;
-     case 1:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[1].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 1);
-         break;
-     case 2:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[2].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 2);
-         break;
-     case 3:
-         goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-         RuntimeManager.AttachInstanceToGameObject(goldPickupInstance, _players[3].gameObject.transform);
-         goldPickupInstance.setParameterByName("SpeakerCharacter", 3);
-         break;
-    }
-    goldPickupInstance.start();
-    goldPickupInstance.release();
+            private void ShovelPickupAudio(int _playerID, Item _item)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
+                    PlayDialogue(_playerID, shovelPickupInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-    DialogueAudioWrapper.Instance.StartGoldPickupDialogue(goldPickupInstance, _playerID, _players);
-    //StartCoroutine(WaitForResponseAudio(goldPickupInstance, _playerID, _players));
-    //WaitForResponseAudio(goldPickupInstance, _playerID, _players);
-    //GetRandomPlayerAndPlayResponse(_playerID, _players);
+            private void ObjectiveProgressionReactionAudio(int _playerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
+                    PlayDialogue(_playerID, shovelReactInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
+            private void GoldPickupDialogue(int _playerID, int amount)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
+                    PlayDialogue(_playerID, goldPickupInstance);
+                    
+                    if (_players.Count > 1)
+                    {
+                        DialogueAudioWrapper.Instance.PlayResponseDialogue(goldPickupInstance, _playerID, _players, "gold");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-}
+            private void GoldPickupReaction(int _playerID)
+            {
+                try
+                {
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
+                    PlayDialogue(_playerID, goldReactInstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 
-private void GoldPickupReaction(GameObject characterObj, int speakerCharacter)
-{
-    switch (speakerCharacter)
-    {
-        case 0:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 0);
-            break;
-        case 1:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 1);
-            break;
-        case 2:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 2);
-            break;
-        case 3:
-            goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-            RuntimeManager.AttachInstanceToGameObject(goldReactInstance, characterObj.transform);
-            goldReactInstance.setParameterByName("SpeakerCharacter", 3);
-            break;
-    }
-    goldReactInstance.start();
-    goldReactInstance.release();
-}
-
+            private void DeathReactionAudio(int _playerID)
+            {
+                try
+                {
+                    Debug.Log("player " + _playerID + " has something to say");
+                    var _players = GameManager.Instance.activePlayerControllers;
+                    var deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
+                    PlayDialogue(_playerID, deathReactioninstance);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+            }
 #endregion
 
 #region Private Functions
+            private void PlayDialogue(int characterID, EventInstance dialogueInstance)
+            {
+                // Check if there's already a dialogue instance playing for this character
+                if (currentDialogues.ContainsKey(characterID)) {
+                    // If so, stop the current dialogue instance
+                    StopDialogue(characterID);
+                }
+                
+                // Attach instance to character GameObject and start playing
+                var player = GameManager.Instance.activePlayerControllers[characterID];
+                RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+                dialogueInstance.setParameterByName("SpeakerCharacter", characterID);
+                dialogueInstance.start();
+                dialogueInstance.release();
+                // Update the dictionary with the new dialogue instance
+                currentDialogues[characterID] = dialogueInstance;
+            }
 
-public IEnumerator WaitForResponseAudio(EventInstance instance, int _playerID, Dictionary<int, PlayerController> _players)
-{
-    while (IsPlaying(instance))
-    {
-        yield return null;
-    }
-    GetRandomPlayerAndPlayResponse(_playerID, _players);
-}
+            private void StopDialogue(int characterID)
+            {
+                // Check if there's a dialogue instance playing for this character
+                if (currentDialogues.TryGetValue(characterID, out EventInstance dialogueInstance)) {
+                    // Stop the dialogue instance and remove it from the dictionary
+                    dialogueInstance.stop(STOP_MODE.ALLOWFADEOUT);
+                    dialogueInstance.release();
+                    currentDialogues.Remove(characterID);
+                }
+            }
 
-        private bool IsPlaying(EventInstance _instance) {
-            PLAYBACK_STATE state;
-            _instance.getPlaybackState(out state);
-            return state != PLAYBACK_STATE.STOPPED;
-        }
-        
-private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players) 
-{ 
-    var _randomPlayer = _players[Random.Range(0, _players.Count)];
+            public IEnumerator WaitForResponseAudio(EventInstance askerInstance, int _playerID, Dictionary<int, PlayerController> _players, string context)
+            {
+                while (IsPlaying(askerInstance))
+                {
+                    yield return null;
+                }
+                GetRandomPlayerAndPlayResponse(_playerID, _players, context);
+            }
 
-    if (_randomPlayer != _players[_playerID])
-    {
-        Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
-        GoldPickupReaction(_randomPlayer.gameObject, _randomPlayer.PlayerIndex);
-    }
-    else {
-        GetRandomPlayerAndPlayResponse(_playerID, _players);
-    }
-}
+            private bool IsPlaying(EventInstance _instance)
+            {
+                PLAYBACK_STATE state;
+                _instance.getPlaybackState(out state);
+                return state != PLAYBACK_STATE.STOPPED;
+            }
+
+            private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, string context) 
+            { 
+                var _randomPlayer = _players[Random.Range(0, _players.Count)];
+                
+                if (_randomPlayer != _players[_playerID])
+                {
+                    Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
+                    
+                    if (context == "gold")
+                    {
+                        GoldPickupReaction(_randomPlayer.PlayerIndex);
+                    }
+                    else if (context == "death")
+                    {
+                        Debug.Log("death is the context");
+                        DeathReactionAudio(_randomPlayer.PlayerIndex);
+                    }
+                }
+                else {
+                    GetRandomPlayerAndPlayResponse(_playerID, _players, context);
+                }
+            }
 #endregion
         }
     }

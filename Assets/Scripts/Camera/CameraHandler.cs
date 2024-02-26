@@ -19,9 +19,11 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Game {
     namespace Camera {
-        public class CameraHandler : MonoBehaviour {
+        public class CameraHandler : MonoBehaviour
+        {
 
             [Header("Objective Camera Settings")]
+            [SerializeField] private float initialWaitTime;
             [SerializeField] private ObjectiveTransform[] objectiveTransforms;
             
             [Header("Camera Behaviour Settings")]
@@ -91,13 +93,14 @@ namespace Game {
             #region Private Functions
 
             private IEnumerator MoveCameraToObjectives() {
-                UpdatePlayerMovement(false, false);
+                SetPlayerActiveState(false);
+                
+                yield return new WaitForSeconds(initialWaitTime);
                 
                 // Loop through the objective transforms
                 foreach (ObjectiveTransform _objective in objectiveTransforms) {
                     Vector3 _initialPosition = this.transform.position;
                     float _timeElapsed = 0;
-                    yield return new WaitForSeconds(_objective.CameraMoveSpeedToObjective);
                 
                     // Move the camera to the objective transform
                     while (_timeElapsed < _objective.CameraMoveSpeedToObjective) {
@@ -113,7 +116,7 @@ namespace Game {
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
                 SetTargetGroupCamera();
-                UpdatePlayerMovement(true, true);
+                SetPlayerActiveState(true);
             }
 
             
@@ -177,9 +180,10 @@ namespace Game {
                 }
             }
             
-            private void UpdatePlayerMovement(bool _canMove, bool _canRotate) {
+            private void SetPlayerActiveState(bool _active) {
                 foreach (var player in targets) {
-                    player.Value.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(_canMove, _canRotate);
+                    player.Value.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(_active, _active);
+                    player.Value.GetComponent<PlayerAttackBehaviour>().SetAttackActiveState(_active);
                 }
             }
             #endregion

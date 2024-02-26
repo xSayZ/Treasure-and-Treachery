@@ -13,21 +13,34 @@ namespace Utility {
     public class TurnTowardsCamera : MonoBehaviour
     {
         [SerializeField] private bool runContinuously;
+        [SerializeField] private bool freezeXAxis;
 
         private Transform _cameraTransform;
         
         private void Start()
         {
             _cameraTransform = UnityEngine.Camera.main.transform;
-            transform.rotation = _cameraTransform.rotation;
+            UpdateRotation();
         }
 
         private void Update()
         {
             if (runContinuously)
             {
-                transform.rotation = _cameraTransform.rotation;
+                UpdateRotation();
             }
+        }
+
+        private void UpdateRotation()
+        {
+            Vector3 _rotation = _cameraTransform.rotation.eulerAngles;
+            
+            if (freezeXAxis)
+            {
+                _rotation = new Vector3(transform.rotation.eulerAngles.x, _rotation.y, _rotation.z);
+            }
+            
+            transform.rotation = Quaternion.Euler(_rotation);
         }
     }
 }

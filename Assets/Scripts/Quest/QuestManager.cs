@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Game.Core;
+using UnityEngine;
 using UnityEngine.Events;
 
 
@@ -25,13 +26,25 @@ namespace Game {
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();
             
             private static List<QuestObjective> requiredQuestObjectivesLeft = new List<QuestObjective>();
-            
-            public static void RegisterRequiredQuest(QuestObjective _questObjective)
+
+            public static void SetUp()
             {
-                requiredQuestObjectivesLeft.Add(_questObjective);
-                OnRequiredQuestRegistered.Invoke();
+                QuestObjective[] _questObjectives = Object.FindObjectsByType<QuestObjective>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+                
+                for (int i = 0; i < _questObjectives.Length; i++)
+                {
+                    if (_questObjectives[i].GetRequiredStatus())
+                    {
+                        requiredQuestObjectivesLeft.Add(_questObjectives[i]);
+                    }
+                }
+                
+                if (requiredQuestObjectivesLeft.Count > 0)
+                {
+                    OnRequiredQuestRegistered.Invoke();
+                }
             }
-            
+
             public static void OnRequiredQuestCompleted(QuestObjective _questObjective)
             {
                 requiredQuestObjectivesLeft.Remove(_questObjective);
@@ -40,7 +53,7 @@ namespace Game {
                     OnAllRequiredQuestsCompleted.Invoke();
                 }
             }
-            
+ 
             public static void Reset()
             {
                 requiredQuestObjectivesLeft = new List<QuestObjective>();

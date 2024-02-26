@@ -27,6 +27,7 @@ namespace Game {
             private float currentAttackCooldown;
             private float currentAttackDelay;
             private bool isAttacking;
+            private bool canAttack = true;
 
 #region Unity Functions
             private void FixedUpdate()
@@ -45,7 +46,7 @@ namespace Game {
                 {
                     currentAttackCooldown -= Time.fixedDeltaTime;
                 }
-                else if (targetsInAttackRange.Count > 0 && !isAttacking)
+                else if (targetsInAttackRange.Count > 0 && !isAttacking && canAttack)
                 {
                     enemyAnimationBehaviour.PlayAttackAnimation();
                     
@@ -88,6 +89,11 @@ namespace Game {
             public int GetTargetsInAttackRangeCount()
             {
                 return targetsInAttackRange.Count;
+            }
+
+            public void SetCanAttack(bool _active)
+            {
+                canAttack = _active;
             }
 
             public void AttackRangeEntered(Transform _targetTransform)

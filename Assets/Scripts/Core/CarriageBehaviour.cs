@@ -10,6 +10,7 @@ using System;
 using Game.Audio;
 using Game.Backend;
 using Game.Core;
+using Game.Managers;
 using UnityEngine;
 using Game.Quest;
 using Game.Player;
@@ -90,7 +91,7 @@ namespace Game {
                         // All players are in carriage, time to end level
                         
                         GameManager.nextSceneBuildIndex = nextSceneBuildIndex;
-                        SceneManager.LoadScene(sceneBuildIndex: 2);
+                        LevelManager.Instance.LoadScoreScreen();
                     }
                 }
             }

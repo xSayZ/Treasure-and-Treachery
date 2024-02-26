@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 154832437}
   - component: {fileID: 154832436}
-  - component: {fileID: 154832438}
+  - component: {fileID: 154832439}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -393,16 +393,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb78e3b47229b84b9ae8fa54e94b99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _input: {fileID: 1035058854}
   UIButtons:
   - {fileID: 563342139}
   - {fileID: 625918670}
   - {fileID: 34797267}
   - {fileID: 1154259547}
+  selectedObject: {fileID: 0}
   Canvases:
   - {fileID: 841674104}
   - {fileID: 1142736087}
   - {fileID: 1222696752}
-  VolumeSlider: []
+  VolumeSlider:
+  - {fileID: 1500463018}
+  - {fileID: 410413118}
+  - {fileID: 637285649}
 --- !u!4 &154832437
 Transform:
   m_ObjectHideFlags: 0
@@ -418,7 +423,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &154832438
+--- !u!114 &154832439
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -427,99 +432,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 154832435}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Script: {fileID: 11500000, guid: 193b580c38ce143839b0ea0902f58c9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
-    m_ActionName: Player/Movement[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
-    m_ActionName: Player/RangedAttack[/Keyboard/1,/XInputControllerWindows/buttonWest,/XInputControllerWindows1/buttonWest]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
-    m_ActionName: Player/MeleeAttack[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/Keyboard/2]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
-    m_ActionName: Player/TogglePause[/XInputControllerWindows/start,/XInputControllerWindows1/start,/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
-    m_ActionName: Player/Interact[/XInputControllerWindows/buttonNorth,/XInputControllerWindows1/buttonNorth,/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
-    m_ActionName: Player/Dash[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Keyboard/3]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
-    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/XInputControllerWindows/rightShoulder,/XInputControllerWindows1/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
-    m_ActionName: Player/TempRestartButton[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
-    m_ActionName: Menu/MenuNavigation[/XInputControllerWindows/leftStick,/XInputControllerWindows1/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/XInputControllerWindows/dpad/up,/XInputControllerWindows1/dpad/up,/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 154832436}
-        m_TargetAssemblyTypeName: Game.UI.MenuSelect, Assembly-CSharp
-        m_MethodName: OnSubmit
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
-    m_ActionName: Menu/Confirm[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth,/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 154832436}
-        m_TargetAssemblyTypeName: Game.UI.MenuSelect, Assembly-CSharp
-        m_MethodName: OnCancel
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
-    m_ActionName: Menu/Cancel[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast,/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
-    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Menu
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  sFXVolumeSlider: {fileID: 1500463018}
+  vOXVolumeSlider: {fileID: 410413118}
+  musicVolumeSlider: {fileID: 637285649}
 --- !u!1 &203857080
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,6 +1889,7 @@ GameObject:
   - component: {fileID: 1035058853}
   - component: {fileID: 1035058852}
   - component: {fileID: 1035058851}
+  - component: {fileID: 1035058854}
   m_Layer: 0
   m_Name: InputSystem
   m_TagString: Untagged
@@ -2006,7 +1925,7 @@ MonoBehaviour:
   m_TrackedDevicePositionAction: {fileID: 0}
   m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
-  m_PointerBehavior: 0
+  m_PointerBehavior: 2
   m_CursorLockBehavior: 0
 --- !u!114 &1035058852
 MonoBehaviour:
@@ -2038,6 +1957,108 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1035058854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035058850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ba335d09-b35c-4f10-b9e7-7c6d3688777b
+    m_ActionName: Player/Movement[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
+    m_ActionName: Player/RangedAttack[/Keyboard/1,/DualSenseGamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
+    m_ActionName: Player/MeleeAttack[/DualSenseGamepadHID/buttonEast,/Keyboard/2]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
+    m_ActionName: Player/TogglePause[/DualSenseGamepadHID/start,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
+    m_ActionName: Player/Interact[/DualSenseGamepadHID/buttonNorth,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af0ed68c-5313-4fd6-b759-2ee1333c6dc8
+    m_ActionName: Player/Dash[/DualSenseGamepadHID/buttonSouth,/Keyboard/3]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
+    m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter,/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
+    m_ActionName: Player/TempRestartButton[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/MenuNavigation[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/DualSenseGamepadHID/dpad/up,/DualSenseGamepadHID/dpad/down]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 154832436}
+        m_TargetAssemblyTypeName: Game.UI.MenuSelect, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Confirm[/DualSenseGamepadHID/buttonSouth,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 154832436}
+        m_TargetAssemblyTypeName: Game.UI.MenuSelect, Assembly-CSharp
+        m_MethodName: OnCancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/DualSenseGamepadHID/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Player1
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1049527933
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,7 +3760,6 @@ GameObject:
   - component: {fileID: 1918321174}
   - component: {fileID: 1918321176}
   - component: {fileID: 1918321175}
-  - component: {fileID: 1918321177}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -3807,21 +3827,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918321173}
   m_CullTransparentMesh: 1
---- !u!114 &1918321177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1918321173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76481d9c5cdccff49990d7f2a5a73807, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 1500463018}
-  sliderValue: 0
-  _input: {fileID: 154832438}
 --- !u!1 &2032267693
 GameObject:
   m_ObjectHideFlags: 0

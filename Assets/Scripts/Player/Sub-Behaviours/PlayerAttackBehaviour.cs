@@ -25,7 +25,8 @@ namespace Game {
         public class PlayerAttackBehaviour : MonoBehaviour {
             [Header("Component References")]
             [SerializeField] private CapsuleCollider weaponCollider;
-            [SerializeField] private GameObject projectile;
+            [SerializeField] private GameObject normalProjectile;
+            [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
             
@@ -299,10 +300,28 @@ namespace Game {
 
             private void FireProjectile()
             {
-                Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
-                
-                GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                if (rangedAimShrink)
+                {
+                    Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
+                    
+                    GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
+                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                }
+                else
+                {
+                    if (currentAimAngle < rangedAimMaxAngle)
+                    {
+                        GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                        Debug.Log("Normal");
+                    }
+                    else
+                    {
+                        GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                        Debug.Log("Wave");
+                    }
+                }
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

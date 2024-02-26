@@ -7,16 +7,20 @@
 // ------------------------------*/
 
 using System;
+using FMOD;
 using FMODUnity;
 using UnityEngine;
 using FMOD.Studio;
+using Debug = UnityEngine.Debug;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 
 namespace Game {
     namespace Audio {
         public class AudioZoneSettings : MonoBehaviour
         {
-            
+            private Bus musicBus;
+            private bool isMuted;
             
             [System.Serializable]
             public struct AudioSettings
@@ -39,9 +43,22 @@ namespace Game {
 
             private void Start()
             {
+                musicBus = RuntimeManager.GetBus("Bus:/Music Bus");
+                /*musicBus.getPaused(out bool state);
+                Debug.Log("Music Bus state is" + state); */
+                
                 RunAudioSettings();
             }
-            
+
+            private void OnDisable()
+            {
+               musicBus.stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+               Debug.Log("Unity Scene changed-Music Bus stopped");
+               /*musicBus.getPaused(out bool state);
+               Debug.Log("Music Bus state is" + state); 
+               */
+            }
+
             public void RunAudioSettings()
             {
                 foreach (AudioSettings i in audioZoneSettings)

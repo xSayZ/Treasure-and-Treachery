@@ -14,18 +14,13 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Game.Managers;
 using UnityEngine.EventSystems;
-using UnityEngine.PlayerLoop;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 
 namespace Game {
     namespace Dialogue {
-        public class DialogueManager : MonoBehaviour
-        {
+        public class DialogueManager : MonoBehaviour {
             [Header("Params")]
-            [SerializeField] private float typingSpeed = 0.05f;
-            [SerializeField] private int nextLevelIndex;
+            [SerializeField] private float typingSpeed;
             
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
@@ -35,11 +30,7 @@ namespace Game {
             [SerializeField] private GameObject[] choices;
             private TextMeshProUGUI[] choicesText;
             
-            [Header("Player Input")]
-            [SerializeField] private List<PlayerInput> playerInputs = new List<PlayerInput>();
-            
             [Header("Ink Story")]
-            public TextAsset storyJSON;
             private Story story;
             
             // Internal Bools
@@ -48,6 +39,7 @@ namespace Game {
             private bool canContinueToNextLine = true;
             private bool typing = false;
             private bool hasMadeAChoice = false;
+            private bool isPaused;
 
             private Coroutine displayLineCoroutine;
             
@@ -56,27 +48,8 @@ namespace Game {
             
             void Start()
             {
-                if (storyJSON == null)
-                {
-                    Debug.LogWarning("Drag a valid story JSON file into the StoryReader component.");
-                }
-                
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
-                foreach (var _playerInput in playerInputs) {
-                    _playerInput.SwitchCurrentActionMap("Menu");
-                }
-
-                choicesText = new TextMeshProUGUI[choices.Length];
-                int index = 0;
-                foreach (GameObject choice in choices)
-                {
-                    choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-                    index++;
-                }
-
-                story = new Story(storyJSON.text);
-                StartCoroutine(OnAdvanceStory());
             }
 
             private void Update()
@@ -90,6 +63,37 @@ namespace Game {
 
             #region Public Functions
 
+            public void StartDialogue(TextAsset storyJSON, float _typingSpeed) {
+                typingSpeed = _typingSpeed;
+                
+                choicesText = new TextMeshProUGUI[choices.Length];
+                int index = 0;
+                foreach (GameObject choice in choices)
+                {
+                    choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+                    index++;
+                }
+                
+                if (dialogueIsPlaying) {
+                    Debug.LogWarning("Dialogue is already playing.");
+                    return;
+                }
+
+                TogglePauseState();
+                
+                dialogueIsPlaying = true;
+                story = new Story(storyJSON.text);
+                
+                story.BindExternalFunction("giveGold", (int amount) => {
+                    Debug.Log("Player received " + amount + " gold.");
+                });
+                story.BindExternalFunction("giveItem", (string itemName) => {
+                    Debug.Log("Player received " + itemName + ".");
+                });
+                
+                StartCoroutine(OnAdvanceStory());
+            }
+            
             public void SubmitPressed(InputAction.CallbackContext value) {
                 if (value.started)
                 {
@@ -139,7 +143,7 @@ namespace Game {
                     } else {
                         Debug.Log("Change scene");
                         yield return new WaitForSeconds(5);
-                        LevelManager.Instance.LoadScene(nextLevelIndex);
+                        ExitDialogueMode();
                     }
                 } else  {
                     yield return new WaitForSeconds(2);
@@ -151,6 +155,7 @@ namespace Game {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
+                TogglePauseState();
                 HideChoices();
             }
 
@@ -225,6 +230,19 @@ namespace Game {
                 EventSystem.current.SetSelectedGameObject(null);
                 yield return new WaitForEndOfFrame();
                 EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+            }
+
+            private void TogglePauseState() {
+                float _newTimeScale = isPaused switch {
+                    true => 0f,
+                    false => 1f
+                };
+                
+                Time.timeScale = _newTimeScale;
+            }
+            
+            private void ToggleInputState() {
+                
             }
             
 #endregion

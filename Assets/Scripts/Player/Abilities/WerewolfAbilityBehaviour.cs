@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,6 +31,9 @@ namespace Game {
             [Header("Dash Heal")]
             [SerializeField] private int dashHealAmount;
             [SerializeField] private float dashHealWrathLost;
+
+            [Header("Audio")] 
+            [SerializeField] private DialogueAudio _dialogueAudio;
             
             private float wrathPercentage;
             private float currentDecayGracePeriod;
@@ -113,6 +117,7 @@ namespace Game {
                 currentDecayGracePeriod = decayGracePeriod;
                 currentDecayTime = decayTime;
                 AddWrath(percentagePerKill);
+                _dialogueAudio.UpdateWereWolfRageAudio(wrathPercentage);
             }
 
             private void Dash()

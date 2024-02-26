@@ -78,6 +78,11 @@ namespace Game {
                 }
             }
 
+            public void UpdateWereWolfRageAudio(float rageAmount)
+            {
+                playerAttackAudioInstance.setParameterByName("WolfRage", rageAmount);
+                Debug.Log("Wrath is" + rageAmount);
+            }
             public void PlayerAttackAudio(int _playerID)
             {
                 try

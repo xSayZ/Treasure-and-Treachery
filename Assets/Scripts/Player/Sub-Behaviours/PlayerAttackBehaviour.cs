@@ -25,7 +25,8 @@ namespace Game {
         public class PlayerAttackBehaviour : MonoBehaviour {
             [Header("Component References")]
             [SerializeField] private CapsuleCollider weaponCollider;
-            [SerializeField] private GameObject projectile;
+            [SerializeField] private GameObject normalProjectile;
+            [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
             
@@ -41,12 +42,14 @@ namespace Game {
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] private float rangedAttackCooldown;
             [Range(0f, 180f)]
-            [SerializeField] private float rangedAimStartAngle;
+            [SerializeField] private float rangedAimMinAngle;
+            [Range(0f, 180f)]
+            [SerializeField] private float rangedAimMaxAngle;
+            [SerializeField] private bool rangedAimShrink;
             [SerializeField] private float rangedAimSpeed;
             [SerializeField] private float rangedKnockbackSpeed;
             [SerializeField] private float rangedKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
-            [SerializeField] private float projectileSpeed;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -104,10 +107,18 @@ namespace Game {
                     currentRangedCooldown -= Time.deltaTime;
                 }
                 
-                if (IsAiming && currentAimAngle > 0)
+                if (IsAiming)
                 {
-                    currentAimAngle -= Time.deltaTime * rangedAimSpeed;
-                    currentAimAngle = Mathf.Max(0, currentAimAngle);
+                    if (rangedAimShrink)
+                    {
+                        currentAimAngle -= Time.deltaTime * rangedAimSpeed;
+                    }
+                    else
+                    {
+                        currentAimAngle += Time.deltaTime * rangedAimSpeed;
+                    }
+                    
+                    currentAimAngle = Mathf.Clamp(currentAimAngle, rangedAimMinAngle, rangedAimMaxAngle);
                     
                     Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
                     Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
@@ -147,7 +158,15 @@ namespace Game {
                 if (_aiming)
                 {
                     IsAiming = true;
-                    currentAimAngle = rangedAimStartAngle;
+                    
+                    if (rangedAimShrink)
+                    {
+                        currentAimAngle = rangedAimMaxAngle;
+                    }
+                    else
+                    {
+                        currentAimAngle = rangedAimMinAngle;
+                    }
                     
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);
@@ -280,10 +299,26 @@ namespace Game {
 
             private void FireProjectile()
             {
-                Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
-                
-                GameObject _projectile = Instantiate(projectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                if (rangedAimShrink)
+                {
+                    Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
+                    
+                    GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
+                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                }
+                else
+                {
+                    if (currentAimAngle < rangedAimMaxAngle)
+                    {
+                        GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                    }
+                    else
+                    {
+                        GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
+                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                    }
+                }
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

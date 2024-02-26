@@ -418,7 +418,9 @@ MonoBehaviour:
   meleeChargeTime: 0.1
   rangedAttackDamage: 1
   rangedAttackCooldown: 0.5
-  rangedAimStartAngle: 45
+  rangedAimMinAngle: 0
+  rangedAimMaxAngle: 45
+  rangedAimShrink: 1
   rangedAimSpeed: 30
   rangedKnockbackSpeed: 200
   rangedKnockbackTime: 0.1
@@ -770,6 +772,7 @@ MonoBehaviour:
   moveSpeedMultiplier: 2
   dashHealAmount: 2
   dashHealWrathLost: 25
+  _dialogueAudio: {fileID: 0}
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0

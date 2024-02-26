@@ -41,7 +41,10 @@ namespace Game {
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] private float rangedAttackCooldown;
             [Range(0f, 180f)]
-            [SerializeField] private float rangedAimStartAngle;
+            [SerializeField] private float rangedAimMinAngle;
+            [Range(0f, 180f)]
+            [SerializeField] private float rangedAimMaxAngle;
+            [SerializeField] private bool rangedAimShrink;
             [SerializeField] private float rangedAimSpeed;
             [SerializeField] private float rangedKnockbackSpeed;
             [SerializeField] private float rangedKnockbackTime;
@@ -104,10 +107,18 @@ namespace Game {
                     currentRangedCooldown -= Time.deltaTime;
                 }
                 
-                if (IsAiming && currentAimAngle > 0)
+                if (IsAiming)
                 {
-                    currentAimAngle -= Time.deltaTime * rangedAimSpeed;
-                    currentAimAngle = Mathf.Max(0, currentAimAngle);
+                    if (rangedAimShrink)
+                    {
+                        currentAimAngle -= Time.deltaTime * rangedAimSpeed;
+                    }
+                    else
+                    {
+                        currentAimAngle += Time.deltaTime * rangedAimSpeed;
+                    }
+                    
+                    currentAimAngle = Mathf.Clamp(currentAimAngle, rangedAimMinAngle, rangedAimMaxAngle);
                     
                     Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
                     Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
@@ -147,7 +158,15 @@ namespace Game {
                 if (_aiming)
                 {
                     IsAiming = true;
-                    currentAimAngle = rangedAimStartAngle;
+                    
+                    if (rangedAimShrink)
+                    {
+                        currentAimAngle = rangedAimMaxAngle;
+                    }
+                    else
+                    {
+                        currentAimAngle = rangedAimMinAngle;
+                    }
                     
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);

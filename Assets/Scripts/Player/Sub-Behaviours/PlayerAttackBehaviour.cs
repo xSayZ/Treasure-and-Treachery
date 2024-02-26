@@ -50,7 +50,6 @@ namespace Game {
             [SerializeField] private float rangedKnockbackSpeed;
             [SerializeField] private float rangedKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
-            [SerializeField] private float projectileSpeed;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -305,21 +304,19 @@ namespace Game {
                     Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                     
                     GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
+                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
                 }
                 else
                 {
                     if (currentAimAngle < rangedAimMaxAngle)
                     {
                         GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
-                        Debug.Log("Normal");
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
                     }
                     else
                     {
                         GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, projectileSpeed, playerController.PlayerData, OnKill);
-                        Debug.Log("Wave");
+                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
                     }
                 }
             }

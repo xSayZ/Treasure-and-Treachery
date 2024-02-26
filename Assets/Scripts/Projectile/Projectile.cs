@@ -14,13 +14,12 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-namespace Game
-{
-    namespace Player
-    {
+namespace Game {
+    namespace Player {
         public class Projectile : MonoBehaviour
         {
             [Header("Settings")]
+            [SerializeField] private float speed;
             [SerializeField] private float aliveTime;
             
             [Header("Audio")]
@@ -49,7 +48,7 @@ namespace Game
             private void Update()
             {
                 currentAliveTime += Time.deltaTime;
-
+                
                 if (currentAliveTime > aliveTime)
                 {
                     Destroy(gameObject);
@@ -85,13 +84,13 @@ namespace Game
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, float _speed, PlayerData _playerData, UnityEvent _onKill)
+            public void Setup(int _damage, PlayerData _playerData, UnityEvent _onKill)
             {
                 damage = _damage;
                 playerData = _playerData;
                 onKill = _onKill;
                 
-                GetComponent<Rigidbody>().velocity = transform.forward * _speed;
+                GetComponent<Rigidbody>().velocity = transform.forward * speed;
             }
 #endregion
         }

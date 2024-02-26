@@ -30,7 +30,7 @@ namespace Game
             
             private Sprite cachedSprite;
             private int cachedId = 10;
-            private PlayerData data;
+            public  static PlayerData data;
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
@@ -121,7 +121,8 @@ namespace Game
                     for (int i = 0; i < transform.childCount; i++)
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
-                        data.CharacterID= id;
+                        data = characterSelectHandler.Datas[id];
+                        characterSelectHandler.SelectedData.Add(data);
                         cachedId = id;
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);
@@ -145,6 +146,8 @@ namespace Game
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                     characterSelectHandler.Images.Add(cachedId,cachedSprite);
+                    characterSelectHandler.SelectedData.Remove(data);
+
                 }
                 
                 PlayersIsReady = false;

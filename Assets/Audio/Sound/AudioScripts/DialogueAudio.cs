@@ -78,6 +78,11 @@ namespace Game {
                 }
             }
 
+            public void UpdateWereWolfRageAudio(float rageAmount)
+            {
+                playerAttackAudioInstance.setParameterByName("WolfRage", rageAmount);
+                Debug.Log("Wrath is" + rageAmount);
+            }
             public void PlayerAttackAudio(int _playerID)
             {
                 try
@@ -240,15 +245,12 @@ namespace Game {
                 
                 if (_randomPlayer != _players[_playerID])
                 {
-                    Debug.Log("random player is:" + _randomPlayer.PlayerIndex);
-                    
                     if (context == "gold")
                     {
                         GoldPickupReaction(_randomPlayer.PlayerIndex);
                     }
                     else if (context == "death")
                     {
-                        Debug.Log("death is the context");
                         DeathReactionAudio(_randomPlayer.PlayerIndex);
                     }
                 }

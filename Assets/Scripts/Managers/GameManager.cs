@@ -124,7 +124,7 @@ namespace Game {
                 if (!debug && !soundDebug)
                 {
                     for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
+                        SpawnPlayers(CharacterSelectHandler.staticData[i].playerIndex, CharacterSelectHandler.playerList.Count);
                     }
                 }
                 if (debug && !soundDebug)

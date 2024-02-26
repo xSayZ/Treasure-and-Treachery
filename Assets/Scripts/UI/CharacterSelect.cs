@@ -22,14 +22,15 @@ namespace Game
         public class CharacterSelect : MonoBehaviour
         {
             [SerializeField] private Image Image;
+            
+            [SerializeField] private float inputDelay;
             public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
             
             private Sprite cachedSprite;
             private int cachedId = 10;
-            private float inputDelay;
-            private PlayerData data;
+            public  static PlayerData data;
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
@@ -76,23 +77,23 @@ namespace Game
                 Vector2 value = context.ReadValue<Vector2>();
                 switch (value.x)
                 {
-                    case > 0.5f:
+                    case > 0.8f:
                     {
                         inputDelay -= Time.deltaTime;
                         if (inputDelay <0)
                         {
                             id++;
-                            inputDelay = 0.01f;
+                            inputDelay = 0.02f;
                         }
                         break;
                     }
-                    case < -0.5f:
+                    case < -0.8f:
                     {
                         inputDelay -= Time.deltaTime;
                         if(inputDelay <0)
                         {
                             id--;
-                            inputDelay = 0.01f; 
+                            inputDelay = 0.02f; 
                         }
                         break;
                     }
@@ -120,7 +121,8 @@ namespace Game
                     for (int i = 0; i < transform.childCount; i++)
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
-                        data.CharacterID= id;
+                        data = characterSelectHandler.Datas[id];
+                        characterSelectHandler.SelectedData.Add(data);
                         cachedId = id;
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);
@@ -144,6 +146,8 @@ namespace Game
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                     characterSelectHandler.Images.Add(cachedId,cachedSprite);
+                    characterSelectHandler.SelectedData.Remove(data);
+
                 }
                 
                 PlayersIsReady = false;

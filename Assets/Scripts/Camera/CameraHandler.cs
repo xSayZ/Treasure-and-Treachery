@@ -67,7 +67,7 @@ namespace Game {
                 targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 targetGroup.transform.position = GameManager.Instance.spawnRingCenter.position;
                 // Get the active player controllers
-                targets = GameManager.Instance.activePlayerControllers;
+                targets = GameManager.Instance.ActivePlayerControllers;
                 if (objectiveTransforms.Length > 0) {
                     StartCoroutine(MoveCameraToObjectives());
                 }

@@ -79,18 +79,18 @@ namespace Game {
                 {
                     CanInteractWith[_playerIndex] = false;
                     
-                    PlayerController _player = GameManager.Instance.activePlayerControllers[_playerIndex];
+                    PlayerController _player = GameManager.Instance.ActivePlayerControllers[_playerIndex];
                     _player.GetComponent<PlayerController>().SetInputPausedState(true);
                     Transform _transform = _player.transform;
                     _transform.position = playerTeleportPosition.transform.position;
                     _transform.localScale = new Vector3(0,0,0);
                     
                     playersInCarriage++;
-                    if (playersInCarriage >= GameManager.Instance.activePlayerControllers.Count)
+                    if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
                     {
                         // All players are in carriage, time to end level
                         
-                        GameManager.nextSceneBuildIndex = nextSceneBuildIndex;
+                        GameManager.NextSceneBuildIndex = nextSceneBuildIndex;
                         LevelManager.Instance.LoadScoreScreen();
                     }
                 }

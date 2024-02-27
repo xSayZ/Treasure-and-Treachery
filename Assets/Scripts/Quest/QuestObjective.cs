@@ -135,7 +135,7 @@ namespace Game {
                                 item.Value.ProgressBar.gameObject.SetActive(false);
                                 _itemsToRemove.Add(item.Key);
                                 
-                                GameManager.Instance.activePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
+                                GameManager.Instance.ActivePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
                                 CanInteractWith[item.Value.PlayerIndex] = false;
                                 
                                 try  
@@ -183,7 +183,7 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
-                PlayerData _playerData = GameManager.Instance.activePlayerControllers[_playerIndex].PlayerData;
+                PlayerData _playerData = GameManager.Instance.ActivePlayerControllers[_playerIndex].PlayerData;
                 
                 if (_playerData.currentItem == null)
                 {
@@ -197,7 +197,7 @@ namespace Game {
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
                     
-                    GameManager.Instance.activePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
+                    GameManager.Instance.ActivePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
                     
                     if (_start == true)
                     {

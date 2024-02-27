@@ -387,6 +387,8 @@ MonoBehaviour:
   dashRechargeTime: 5
   numberOfDashes: 2
   dashDamage: 1
+  dashPushSpeed: 300
+  dashPushTime: 0.25
   MoveSpeedMultiplier: 1
   OnDash:
     m_PersistentCalls:
@@ -1448,6 +1450,84 @@ Transform:
   m_Father: {fileID: 7710745957521555053}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1300030268118003474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8360364839167994145}
+  - component: {fileID: 7502612079790839425}
+  - component: {fileID: 4935618790641627564}
+  m_Layer: 7
+  m_Name: PlayerCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8360364839167994145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300030268118003474}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3119158974416069308}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &7502612079790839425
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300030268118003474}
+  m_Material: {fileID: 13400000, guid: d63f844f0ea270e43854b7b5bf2a247b, type: 2}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &4935618790641627564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300030268118003474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activateOnIsTrigger: 0
+  triggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8393427140100816367}
+        m_TargetAssemblyTypeName: Game.Player.PlayerMovementBehaviour, Assembly-CSharp
+        m_MethodName: DashPushEntered
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerExit:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1334383725153038018
 GameObject:
   m_ObjectHideFlags: 0
@@ -2340,6 +2420,7 @@ Transform:
   m_Children:
   - {fileID: 2797085838219035081}
   - {fileID: 2655943800512080819}
+  - {fileID: 8360364839167994145}
   m_Father: {fileID: 288723119442727232}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

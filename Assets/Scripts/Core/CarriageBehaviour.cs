@@ -122,7 +122,7 @@ namespace Game {
                 Debug.Log("Carriage destroyed, you lost");
             }
             
-            public void DamageTaken()
+            public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
                 carriageData.currentHealth = Health;
                 

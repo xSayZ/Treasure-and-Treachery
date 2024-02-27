@@ -185,7 +185,7 @@ namespace Game {
                 {
                     if (_transform.TryGetComponent(out IDamageable _hit))
                     {
-                        bool _killed = _hit.Damage(dashDamage);
+                        bool _killed = _hit.Damage(dashDamage, transform.position, 0);
                         if (_killed)
                         {
                             bool _stunKill = false;

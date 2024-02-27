@@ -20,6 +20,8 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] private float speed;
+            [Range(0, 2500)]
+            [SerializeField] private float knockbackForce;
             [SerializeField] private float aliveTime;
             
             [Header("Audio")]
@@ -59,7 +61,7 @@ namespace Game {
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
-                    bool killed = _hit.Damage(damage);
+                    bool killed = _hit.Damage(damage, transform.position, knockbackForce);
                     
                     if (killed)
                     {

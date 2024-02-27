@@ -64,13 +64,15 @@ namespace Game
             [SerializeField,Range(0,1)] private float lowFrequency;
             [SerializeField,Range(0,1)] private float highFrequency;
             [SerializeField] private float duration;
-
+            
             [Header("Audio")] 
             [SerializeField] private DialogueAudio dialogueAudio;
             
             [Space]
             [Header("Debug")]
             [SerializeField] private bool debug;
+            
+            private Rigidbody rigidbody;
 
             public void SetupPlayer(int _newPlayerID)
             {
@@ -78,6 +80,8 @@ namespace Game
                 PlayerIndex = _newPlayerID;
                
                 Health = PlayerData.currentHealth;
+
+                rigidbody = GetComponent<Rigidbody>();
                 
                 PlayerData.NewScene();
                 
@@ -243,14 +247,21 @@ namespace Game
                 Destroy(gameObject);
             }
             
-            public void DamageTaken()
+            public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
+                // Knockback
+                Vector3 _knockbackDirection = transform.position - _damagePosition;
+                _knockbackDirection = new Vector3(_knockbackDirection.x, 0, _knockbackDirection.z).normalized;
+                _knockbackDirection *= _knockbackForce;
+                rigidbody.AddForce(_knockbackDirection);
+                
                 Invincible = true;
                 currentInvincibilityTime = invincibilityTime;
                 
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
+                
                 try
                 {
                     dialogueAudio.PlayerDamageAudio(PlayerIndex);

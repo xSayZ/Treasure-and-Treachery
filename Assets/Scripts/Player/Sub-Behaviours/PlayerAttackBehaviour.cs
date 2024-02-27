@@ -46,6 +46,8 @@ namespace Game {
             [SerializeField] private float meleeAttackDelay;
             [SerializeField] private float meleeChargeSpeed;
             [SerializeField] private float meleeChargeTime;
+            [Range(0, 2500)]
+            [SerializeField] private float meleeKncokbackForce;
             
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
@@ -175,7 +177,7 @@ namespace Game {
 
                         if (isMeleeAttacking)
                         {
-                            _hit.Damage(meleeAttackDamage);
+                            _hit.Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
                         }
                     }
                 }
@@ -285,7 +287,7 @@ namespace Game {
                     
                     if (_doNormalMelee)
                     {
-                        bool killed = damageableInRange[i].Damage(meleeAttackDamage);
+                        bool killed = damageableInRange[i].Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
                         
                         if (killed)
                         {
@@ -343,7 +345,7 @@ namespace Game {
                     {
                         GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
                         _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnWaveKill);
-                        (playerController as IDamageable).Damage(rangedWaveHealthCost);
+                        (playerController as IDamageable).Damage(rangedWaveHealthCost, new Vector3(), 0);
                     }
                 }
             }

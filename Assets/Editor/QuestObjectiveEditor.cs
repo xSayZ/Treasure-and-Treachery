@@ -39,6 +39,13 @@ namespace Game {
                         EditorGUILayout.PropertyField(_requiredKills);
                         serializedObject.ApplyModifiedProperties();
                         break;
+                    
+                    case QuestObjective.QuestTypes.Time:
+                        EditorGUILayout.LabelField("Time Settings", EditorStyles.boldLabel);
+                        var _waitTime = serializedObject.FindProperty("WaitTime");
+                        EditorGUILayout.PropertyField(_waitTime);
+                        serializedObject.ApplyModifiedProperties();
+                        break;
                 }
             }
         }

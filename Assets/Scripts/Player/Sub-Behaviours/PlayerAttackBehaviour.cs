@@ -50,6 +50,7 @@ namespace Game {
             [SerializeField] private float rangedKnockbackSpeed;
             [SerializeField] private float rangedKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
+            [SerializeField] private int rangedWaveHealthCost;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -309,7 +310,7 @@ namespace Game {
                 }
                 else
                 {
-                    if (currentAimAngle < rangedAimMaxAngle)
+                    if (currentAimAngle < rangedAimMaxAngle || playerController.Health <= rangedWaveHealthCost)
                     {
                         GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
                         _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
@@ -318,6 +319,7 @@ namespace Game {
                     {
                         GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
                         _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnWaveKill);
+                        (playerController as IDamageable).Damage(rangedWaveHealthCost);
                     }
                 }
             }

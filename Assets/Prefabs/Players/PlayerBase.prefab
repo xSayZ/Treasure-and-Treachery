@@ -407,7 +407,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponCollider: {fileID: 5877225869525892562}
-  projectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  normalProjectile: {fileID: 525304689459795212, guid: 6f710cfe904fea147857d0a59d36a5ce, type: 3}
+  waveProjectile: {fileID: 525304689459795212, guid: d02f11a91afacf342aa310e8ddfef0b2, type: 3}
   aimLineLeft: {fileID: 2687902810199753418}
   aimLineRight: {fileID: 6410334721102978561}
   meleeAttackDamage: 1
@@ -418,18 +419,23 @@ MonoBehaviour:
   meleeChargeTime: 0.1
   rangedAttackDamage: 1
   rangedAttackCooldown: 0.5
-  rangedAimStartAngle: 45
+  rangedAimMinAngle: 0
+  rangedAimMaxAngle: 45
+  rangedAimShrink: 1
   rangedAimSpeed: 30
   rangedKnockbackSpeed: 200
   rangedKnockbackTime: 0.1
   projectileSpawnPoint: {fileID: 7878444258247842620}
-  projectileSpeed: 50
+  rangedWaveHealthCost: 4
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
   MeleeAttackCooldownMultiplier: 1
   MeleeIsStunAttack: 0
   OnKill:
+    m_PersistentCalls:
+      m_Calls: []
+  OnWaveKill:
     m_PersistentCalls:
       m_Calls: []
 --- !u!114 &7096703045146938910
@@ -770,6 +776,7 @@ MonoBehaviour:
   moveSpeedMultiplier: 2
   dashHealAmount: 2
   dashHealWrathLost: 25
+  _dialogueAudio: {fileID: 0}
 --- !u!1 &523193068339122757
 GameObject:
   m_ObjectHideFlags: 0
@@ -6310,3 +6317,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9022b6de7d1b24b9c824468766b98b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healPerNormalKill: 1

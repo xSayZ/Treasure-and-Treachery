@@ -27,7 +27,8 @@ namespace Game {
             public enum QuestTypes
             {
                 Fetch,
-                Kill
+                Kill,
+                Time
             }
             
             [Header("Setup")]
@@ -53,6 +54,9 @@ namespace Game {
             // Kill variables
             [HideInInspector] public int RequiredKills;
             
+            // Kill variables
+            [HideInInspector] public int WaitTime;
+            
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
             [HideInInspector] public bool[] PlayersThatWantsToInteract { get; set; }
@@ -73,6 +77,7 @@ namespace Game {
             
             private Dictionary<Item, QuestStatus> requiredItems;
             private int killsSoFar;
+            private float currentWaitTime;
 
 #region Unity Functions
             private void OnEnable()
@@ -159,6 +164,15 @@ namespace Game {
                 else if (QuestType == QuestTypes.Kill)
                 {
                     if (killsSoFar >= RequiredKills)
+                    {
+                        QuestCompleted();
+                    }
+                }
+                else if (QuestType == QuestTypes.Time)
+                {
+                    currentWaitTime += Time.deltaTime;
+                    
+                    if (currentWaitTime >= WaitTime)
                     {
                         QuestCompleted();
                     }

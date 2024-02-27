@@ -124,7 +124,7 @@ namespace Game {
                 if (!debug && !soundDebug)
                 {
                     for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
+                        SpawnPlayers(CharacterSelectHandler.staticData[i].playerIndex, CharacterSelectHandler.playerList.Count);
                     }
                 }
                 if (debug && !soundDebug)
@@ -213,14 +213,9 @@ namespace Game {
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
-
                 
-                // Get PlayerData from List and assign it based on playerID
-                PlayerData _playerData  = activePlayerPlayerData[_playerID];
-                GameObject _spawnedPlayer = Instantiate(playerVariants[_playerData.CharacterID],_spawnPosition,_spawnRotation);
+                GameObject _spawnedPlayer = Instantiate(playerVariants[_playerID], _spawnPosition, _spawnRotation);
                 AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
-                _spawnedPlayer.GetComponent<PlayerController>().PlayerData = _playerData;
-                
             }
             
             private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {

@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 525304689459795201}
   - component: {fileID: 525304689459795202}
   - component: {fileID: 525304689459795203}
-  - component: {fileID: -8154356816056595736}
+  - component: {fileID: 68721437119506137}
   - component: {fileID: -3291343750499550869}
   m_Layer: 15
-  m_Name: PlayerProjectile
+  m_Name: WaveProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,7 +100,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8154356816056595736
+--- !u!114 &68721437119506137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -109,12 +109,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 525304689459795212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3a028157d664347945badd4ad1fa864, type: 3}
+  m_Script: {fileID: 11500000, guid: d03476f3f574e45468ed9d6e9fac6fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aliveTime: 10
-  projectileObj: {fileID: 525304689459795212}
-  playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
+  speed: 10
+  aliveTime: 1
+  aliveTimePerHit: 1
 --- !u!54 &-3291343750499550869
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,7 +175,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.80784315, g: 0.9867126, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.80784315, b: 0.9281609, a: 1}
   m_Intensity: 1
   m_Range: 5
   m_SpotAngle: 30

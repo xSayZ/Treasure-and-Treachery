@@ -60,7 +60,8 @@ namespace Game {
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
-            
+
+            private Rigidbody rigidbody;
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;
 
@@ -83,6 +84,8 @@ namespace Game {
                 enemyAttackBehaviour.SetupBehaviour(NavMeshAgent, enemyAnimationBehaviour);
                 
                 currentState.Enter();
+                
+                rigidbody = GetComponent<Rigidbody>();
                 
                 targetsInVisionRangeUpdate = new List<Transform>();
                 
@@ -208,9 +211,13 @@ namespace Game {
                 Destroy(gameObject);
             }
 
-            public void DamageTaken()
+            public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
-                // Enemy has taken damage
+                // Knockback
+                Vector3 _knockbackDirection = transform.position - _damagePosition;
+                _knockbackDirection = new Vector3(_knockbackDirection.x, 0, _knockbackDirection.z).normalized;
+                _knockbackDirection *= _knockbackForce;
+                rigidbody.AddForce(_knockbackDirection);
             }
 
             public void VisionRangeEntered(Transform _targetTransform)

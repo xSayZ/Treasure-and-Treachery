@@ -20,6 +20,8 @@ namespace Game {
             [SerializeField] private int damage;
             [SerializeField] private float attackCooldown;
             [SerializeField] private float attackDelay;
+            [Range(0, 2500)]
+            [SerializeField] private float knockbackForce;
             
             private NavMeshAgent navMeshAgent;
             private EnemyAnimationBehaviour enemyAnimationBehaviour;
@@ -71,7 +73,7 @@ namespace Game {
                     // Attack everyone in attack range
                     for (int i = 0; i < targetsInAttackRange.Count; i++)
                     {
-                        targetsInAttackRange[i].Damage(damage);
+                        targetsInAttackRange[i].Damage(damage, transform.position, knockbackForce);
                     }
                 }
             }

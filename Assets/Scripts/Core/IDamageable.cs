@@ -7,6 +7,8 @@
 // ------------------------------*/
 
 
+using UnityEngine;
+
 namespace Game {
     namespace Core {
         public interface IDamageable
@@ -16,9 +18,9 @@ namespace Game {
 
             public void Death();
 
-            public void DamageTaken();
+            public void DamageTaken(Vector3 _damagePosition, float _knockbackForce);
 
-            public bool Damage(int _damage)
+            public bool Damage(int _damage, Vector3 _damagePosition, float _knockbackForce)
             {
                 if (Invincible)
                 {
@@ -33,7 +35,7 @@ namespace Game {
                 }
                 else
                 {
-                    DamageTaken();
+                    DamageTaken(_damagePosition, _knockbackForce);
                     return false;
                 }
             }

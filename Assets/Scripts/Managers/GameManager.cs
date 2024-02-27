@@ -2,10 +2,11 @@
 // --------------------------------
 // Creation Date: 2024-01-29
 // Author: b22feldy
-// Description: Operation_Donken
+// Description: GameManager controlling the Gameloop inside of the levels
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
@@ -16,62 +17,47 @@ using Game.UI;
 namespace Game {
     namespace Backend {
 
+        /// <summary>
+        /// The GameManager class serves as the central hub for managing key game functionalities and configurations.
+        /// It encompasses settings for rounds, timers, local multiplayer, player spawning, and player management.
+        /// </summary>
         public class GameManager : Singleton<GameManager>
         {
             public static UnityEvent<int> OnPlayerDeath = new UnityEvent<int>();
-            
-            [Range(0, 1200)]
-            [Tooltip("Amount of time per round in seconds")]
+
+            [Header("Round Settings")]
+            [Range(0, 1200), Tooltip("Amount of time per round in seconds")]
             public float roundTime;
+    
+            [Header("Timer")]
             public Timer timer;
 
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
-            [SerializeField] private GameObject playerPrefab;
+            public List<GameObject> playerVariants;
 
             [Header("Spawn Variables")]
             [Tooltip("Assign the spawn point where players are to be instantiated from")]
             [SerializeField] public Transform spawnRingCenter;
-            [Range(0.5f, 15f)]
+    
+            [Range(0.5f, 15f), Space]
             [SerializeField] private float spawnRingRadius;
-            [Space]
-            [SerializeField] private PlayerData[] activePlayerPlayerData;
-            
-            public Dictionary<int, PlayerController> activePlayerControllers;
+
+            [Range(1, 4)]
+            [SerializeField] private int playersToSpawn = 1;
+
+            [Header("Player Management")]
+            public Dictionary<int, PlayerController> ActivePlayerControllers;
             private PlayerController focusedPlayerController;
 
-            public List<GameObject> playerVariants;
-            
             [Header("Debug")]
-            [SerializeField] bool debug;
-            [Tooltip("press this for spawning in multiple players for debugging sounds")]
-            public bool soundDebug;
+            [SerializeField] private bool debug;
             private bool isPaused;
-            
-            // Temporary
-            [HideInInspector] public static int nextSceneBuildIndex;
-            
-            // Saved data for restarting scene
-            private static List<StoredPlayerData> storedPlayerDatas;
-            [HideInInspector] public static bool loadStoredPlayerData;
-            
-            private class StoredPlayerData
-            {
-                public int Health;
-                public int Currency;
-                public int Kills;
-                public bool HasMeleeWeapon;
-                public bool HasRangedWeapon;
 
-                public StoredPlayerData(int _health, int _currency, int _kills, bool _hasMeleeWeapon, bool _hasRangedWeapon)
-                {
-                    Health = _health;
-                    Currency = _currency;
-                    Kills = _kills;
-                    HasMeleeWeapon = _hasMeleeWeapon;
-                    HasRangedWeapon = _hasRangedWeapon;
-                }
-            }
+            // TODO: Remove when WorldMap is implemented
+            [HideInInspector] public static int NextSceneBuildIndex;
+            
+            
 
 #region Unity Functions
             private void OnDrawGizmos()  {
@@ -79,8 +65,23 @@ namespace Game {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
-            
-            void Start()  {
+
+            private void Start()
+            {
+                if (CharacterSelectHandler.playerList.Count == 0) {
+                    SetupLocalMultiplayer();
+                }
+            }
+
+#endregion
+
+#region Public Functions
+
+            /// <summary>
+            /// Setup local multiplayer for the current scene
+            /// If this is not called, no players will be spawned
+            /// </summary>
+            public void SetupLocalMultiplayer() {
                 QuestManager.SetUp();
                 
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
@@ -89,17 +90,30 @@ namespace Game {
                 timer = gameObject.AddComponent<Timer>();
                 timer.StartTimer(roundTime);
                 
-                SetupLocalMultiplayer();
-            }
-#endregion
-
-#region Private Functions
-            private void SetupLocalMultiplayer() {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
             }
             
+            /// <summary>
+            /// Toggle the pause state of the game
+            /// It is toggled off by default
+            /// </summary>
+            /// <param name="newFocusedPlayerController">The PlayerController assigned as the controller.</param>
+            public void TogglePauseState(PlayerController newFocusedPlayerController) {
+                focusedPlayerController = newFocusedPlayerController;
+                isPaused = !isPaused;
+
+                ToggleTimeScale();
+                UpdateActivePlayerInputs();
+                SwitchFocusedPlayerControlScheme();
+            }
+#endregion            
+
+#region Private Functions
+            /// <summary>
+            /// Destroy any existing player instances in the scene
+            /// </summary>
             private static void DestroyExistingPlayerInstances() {
 
                 GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
@@ -110,91 +124,40 @@ namespace Game {
                 }
             }
 
+            /// <summary>
+            /// Add players to the scene
+            /// </summary>
             private void AddPlayers() {
                 
-                activePlayerControllers = new Dictionary<int, PlayerController>();
-                
-                string[] _controllers = Input.GetJoystickNames();
-                if (_controllers.Length == 0 && !soundDebug)
-                {
-                    LogWarning("No controllers detected");
-                    SpawnPlayers(0, 1);
-                }
-                // ta bort efter speltest 2
-                if (!debug && !soundDebug)
-                {
-                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(CharacterSelectHandler.staticData[i].playerIndex, CharacterSelectHandler.playerList.Count);
-                    }
-                }
-                if (debug && !soundDebug)
-                {
-                    for (int i = 0; i < _controllers.Length; i++)
-                    {
-                        SpawnPlayers(i, _controllers.Length);
-                    }
-                }
+                ActivePlayerControllers = new Dictionary<int, PlayerController>();
 
-                if (soundDebug)
-                {
-                    for (int i = 0; i < 4; i++) {
-                        SpawnPlayers(i, 4);
+                if (CharacterSelectHandler.playerList.Count == 0) {
+                    LogWarning("No controllers detected; spawning default player.");
+                    for (int i = 0; i < playersToSpawn; i++) {
+                        SpawnPlayers(i, playersToSpawn);
+                    }
+                } else {
+                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
+                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
                     }
                 }
-               
             }
             
+            /// <summary>
+            /// Setup the active players in the scene
+            /// </summary>
             private void SetupActivePlayers()
             {
-                if (!loadStoredPlayerData)
+                for (int i = 0; i < ActivePlayerControllers.Count; i++)
                 {
-                    storedPlayerDatas = new List<StoredPlayerData>();
+                    ActivePlayerControllers[i].SetupPlayer(i);
                 }
-                
-                for (int i = 0; i < activePlayerControllers.Count; i++)
-                {
-                    PlayerData playerData = activePlayerControllers[i].PlayerData;
-                    
-                    if (loadStoredPlayerData)
-                    {
-                        loadStoredPlayerData = false;
-                        
-                        playerData.currentHealth = storedPlayerDatas[i].Health;
-                        playerData.currency = storedPlayerDatas[i].Currency;
-                        playerData.kills = storedPlayerDatas[i].Kills;
-                        playerData.hasMeleeWeapon = storedPlayerDatas[i].HasMeleeWeapon;
-                        playerData.hasRangedWeapon = storedPlayerDatas[i].HasRangedWeapon;
-                    }
-                    else
-                    {
-                        StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
-                        if (i <= storedPlayerDatas.Count)
-                        {
-                            storedPlayerDatas.Add(data);
-                        }
-                        else
-                        {
-                            storedPlayerDatas[i] = data;
-                        }
-                    }
-                    
-                    activePlayerControllers[i].SetupPlayer(i);
-                }
-            }
-
-            public void TogglePauseState(PlayerController newFocusedPlayerController) {
-                focusedPlayerController = newFocusedPlayerController;
-                isPaused = !isPaused;
-
-                ToggleTimeScale();
-                UpdateActivePlayerInputs();
-                SwitchFocusedPlayerControlScheme();
             }
 
             private void UpdateActivePlayerInputs() {
-                for (int i = 0; i < activePlayerControllers.Count; i++) {
-                    if (activePlayerControllers[i] != focusedPlayerController) {
-                        activePlayerControllers[i].SetInputPausedState(isPaused);
+                for (int i = 0; i < ActivePlayerControllers.Count; i++) {
+                    if (ActivePlayerControllers[i] != focusedPlayerController) {
+                        ActivePlayerControllers[i].SetInputPausedState(isPaused);
                     }
                 }
             }
@@ -209,7 +172,12 @@ namespace Game {
                         break;
                 }
             }
-
+            
+            /// <summary>
+            /// Spawns the players in the scene.
+            /// </summary>
+            /// <param name="_playerID">The unique identifier of the player to be spawned.</param>
+            /// <param name="_numberOfPlayers">The total number of players to be spawned.</param>
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
@@ -218,11 +186,25 @@ namespace Game {
                 AddPlayersToActiveList(_playerID, _spawnedPlayer.GetComponent<PlayerController>());
             }
             
+            /// <summary>
+            /// Adds a player to the active player list.
+            /// </summary>
+            /// <param name="_playerIndex">The unique identifier of the player added to the list.</param>
+            /// <param name="newPlayer">The PlayerController assigned to said player.</param>
             private void AddPlayersToActiveList(int _playerIndex, PlayerController newPlayer) {
-                activePlayerControllers[_playerIndex] = newPlayer;
+                ActivePlayerControllers[_playerIndex] = newPlayer;
             }
             
-            // Calculate the position of the players in the ring
+            /// <summary>
+            /// Calculates and returns the position of a player within a ring arrangement.
+            /// </summary>
+            /// <param name="positionID">The unique identifier of the player's position within the ring.</param>
+            /// <param name="numberOfPlayers">The total number of players participating in the ring.</param>
+            /// <returns>
+            /// If there is only one player, returns the center position of the ring.
+            /// Otherwise, calculates the player's position based on the position ID and total number of players,
+            /// and returns the position relative to the ring's center.
+            /// </returns>
             private Vector3 CalculatePositionInRing(int positionID, int numberOfPlayers) {
                 // If there is only one player, return the center of the ring
                 if (numberOfPlayers == 1)
@@ -246,7 +228,7 @@ namespace Game {
             }
             
             private void RemovePlayerFromCurrentPlayersList(int _playerID) {
-                activePlayerControllers.Remove(_playerID);
+                ActivePlayerControllers.Remove(_playerID);
             }
             
             #endregion

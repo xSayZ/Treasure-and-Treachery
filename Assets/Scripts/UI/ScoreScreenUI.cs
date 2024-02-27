@@ -42,7 +42,7 @@ namespace Game {
             {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
-                    LevelManager.Instance.LoadScene(GameManager.nextSceneBuildIndex);
+                    LevelManager.Instance.LoadScene(GameManager.NextSceneBuildIndex);
                 }
             }
         }

@@ -82,7 +82,7 @@ namespace Game {
                 switch (PickupType)
                 {
                     case PickupTypes.QuestItem:
-                        if (!GameManager.Instance.activePlayerControllers[_playerIndex].PlayerData.canPickUp)
+                        if (!GameManager.Instance.ActivePlayerControllers[_playerIndex].PlayerData.canPickUp)
                         {
                             return;
                         }

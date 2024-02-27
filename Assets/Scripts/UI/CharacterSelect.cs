@@ -22,15 +22,18 @@ namespace Game
         public class CharacterSelect : MonoBehaviour
         {
             [SerializeField] private Image Image;
-            
+            [SerializeField] private Image arrowImages;
             [SerializeField] private float inputDelay;
+            
             public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
             
             private Sprite cachedSprite;
             private int cachedId = 10;
+            public float currentDelay;
             public  static PlayerData data;
+            
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
@@ -42,7 +45,7 @@ namespace Game
 
             private void Start()
             {
-                
+                currentDelay = inputDelay;
                 playerInputs = GetComponent<PlayerInput>();
 
                 Image.sprite = characterSelectHandler.ImagesBackup[0];
@@ -55,8 +58,6 @@ namespace Game
                     
                 }
                 SetPlayerImagePosition();
-                
-                inputDelay = 0.01f;
                 cachedId = id;
                 
             }
@@ -75,25 +76,27 @@ namespace Game
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
 
                 Vector2 value = context.ReadValue<Vector2>();
+                
                 switch (value.x)
                 {
-                    case > 0.8f:
+                    
+                    case > .9f:
                     {
-                        inputDelay -= Time.deltaTime;
-                        if (inputDelay <0)
+                        currentDelay -= 0.005f;
+                        if (currentDelay <0)
                         {
                             id++;
-                            inputDelay = 0.02f;
+                            currentDelay = inputDelay;
                         }
                         break;
                     }
-                    case < -0.8f:
+                    case < -0.9f:
                     {
-                        inputDelay -= Time.deltaTime;
-                        if(inputDelay <0)
+                        currentDelay -= 0.005f;
+                        if(currentDelay <0)
                         {
-                            id--;
-                            inputDelay = 0.02f; 
+                            id--;  
+                            currentDelay = inputDelay;
                         }
                         break;
                     }
@@ -177,7 +180,8 @@ namespace Game
                 Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
-                
+                transform.rotation = targetTransform.rotation;
+
             }
 
             private void PlayerBlurOut()

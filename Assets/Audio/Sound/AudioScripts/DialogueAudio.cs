@@ -89,7 +89,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.activePlayerControllers;
                     var playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-                    PlayDialogue(_playerID, damageAudioInstance);
+                    PlayDialogue(_playerID, playerAttackAudioInstance);
                 }
                 catch (Exception e)
                 {

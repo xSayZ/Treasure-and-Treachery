@@ -23,7 +23,7 @@ namespace Game
         {
             [Header("References")] 
             public List<Transform> imagePosition = new List<Transform>();
-
+            
             public List<PlayerData> Datas;
 
             public List<PlayerData> SelectedData;
@@ -76,7 +76,7 @@ namespace Game
             }
             private void OnDisable()
             {
-                joinAction.Disable();
+                joinAction.Disable();   
                 joinAction.performed -= context => JoinAction(context);
                 leaveAction.Disable();
                 leaveAction.performed -= context => LeaveAction(context);

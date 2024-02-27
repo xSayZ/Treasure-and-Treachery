@@ -90,6 +90,9 @@ namespace Game {
 
 #region Private Functions
             
+            /// <summary>
+            /// Destroy any existing player instances in the scene
+            /// </summary>
             private static void DestroyExistingPlayerInstances() {
 
                 GameObject[] _playersAlreadyInScene = GameObject.FindGameObjectsWithTag("Player");
@@ -100,6 +103,9 @@ namespace Game {
                 }
             }
 
+            /// <summary>
+            /// Add players to the scene
+            /// </summary>
             private void AddPlayers() {
                 
                 activePlayerControllers = new Dictionary<int, PlayerController>();
@@ -108,6 +114,10 @@ namespace Game {
                     LogWarning("No controllers detected; spawning default player.");
                     for (int i = 0; i < playersToSpawn - 1; i++) {
                         SpawnPlayers(i, playersToSpawn);
+                    }
+                } else {
+                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
+                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
                     }
                 }
             }

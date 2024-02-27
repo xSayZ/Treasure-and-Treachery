@@ -36,6 +36,8 @@ namespace Game {
             [SerializeField] private float spawnRingRadius;
             [Space]
             [SerializeField] private PlayerData[] activePlayerPlayerData;
+            [Range(1, 4)]
+            [SerializeField] private int playersToSpawn = 1;
             
             public Dictionary<int, PlayerController> activePlayerControllers;
             private PlayerController focusedPlayerController;
@@ -44,34 +46,12 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] bool debug;
-            [Tooltip("press this for spawning in multiple players for debugging sounds")]
-            public bool soundDebug;
             private bool isPaused;
             
-            // Temporary
+            // TODO: Remove when WorldMap is implemented
             [HideInInspector] public static int nextSceneBuildIndex;
             
-            // Saved data for restarting scene
-            private static List<StoredPlayerData> storedPlayerDatas;
-            [HideInInspector] public static bool loadStoredPlayerData;
             
-            private class StoredPlayerData
-            {
-                public int Health;
-                public int Currency;
-                public int Kills;
-                public bool HasMeleeWeapon;
-                public bool HasRangedWeapon;
-
-                public StoredPlayerData(int _health, int _currency, int _kills, bool _hasMeleeWeapon, bool _hasRangedWeapon)
-                {
-                    Health = _health;
-                    Currency = _currency;
-                    Kills = _kills;
-                    HasMeleeWeapon = _hasMeleeWeapon;
-                    HasRangedWeapon = _hasRangedWeapon;
-                }
-            }
 
 #region Unity Functions
             private void OnDrawGizmos()  {
@@ -79,8 +59,11 @@ namespace Game {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
-            
-            void Start()  {
+#endregion
+
+#region Public Functions
+
+            public void SetupLocalMultiplayer() {
                 QuestManager.SetUp();
                 
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
@@ -89,16 +72,23 @@ namespace Game {
                 timer = gameObject.AddComponent<Timer>();
                 timer.StartTimer(roundTime);
                 
-                SetupLocalMultiplayer();
-            }
-#endregion
-
-#region Private Functions
-            private void SetupLocalMultiplayer() {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
             }
+            
+            public void TogglePauseState(PlayerController newFocusedPlayerController) {
+                focusedPlayerController = newFocusedPlayerController;
+                isPaused = !isPaused;
+
+                ToggleTimeScale();
+                UpdateActivePlayerInputs();
+                SwitchFocusedPlayerControlScheme();
+            }
+
+#endregion            
+
+#region Private Functions
             
             private static void DestroyExistingPlayerInstances() {
 
@@ -113,82 +103,23 @@ namespace Game {
             private void AddPlayers() {
                 
                 activePlayerControllers = new Dictionary<int, PlayerController>();
-                
-                string[] _controllers = Input.GetJoystickNames();
-                if (_controllers.Length == 0 && !soundDebug)
-                {
-                    LogWarning("No controllers detected");
-                    SpawnPlayers(0, 1);
-                }
-                // ta bort efter speltest 2
-                if (!debug && !soundDebug)
-                {
-                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(CharacterSelectHandler.staticData[i].playerIndex, CharacterSelectHandler.playerList.Count);
-                    }
-                }
-                if (debug && !soundDebug)
-                {
-                    for (int i = 0; i < _controllers.Length; i++)
-                    {
-                        SpawnPlayers(i, _controllers.Length);
-                    }
-                }
 
-                if (soundDebug)
-                {
-                    for (int i = 0; i < 4; i++) {
-                        SpawnPlayers(i, 4);
+                if (CharacterSelectHandler.playerList.Count == 0) {
+                    LogWarning("No controllers detected; spawning default player.");
+                    for (int i = 0; i < playersToSpawn - 1; i++) {
+                        SpawnPlayers(i, playersToSpawn);
                     }
                 }
-               
             }
             
             private void SetupActivePlayers()
             {
-                if (!loadStoredPlayerData)
-                {
-                    storedPlayerDatas = new List<StoredPlayerData>();
-                }
-                
                 for (int i = 0; i < activePlayerControllers.Count; i++)
                 {
                     PlayerData playerData = activePlayerControllers[i].PlayerData;
                     
-                    if (loadStoredPlayerData)
-                    {
-                        loadStoredPlayerData = false;
-                        
-                        playerData.currentHealth = storedPlayerDatas[i].Health;
-                        playerData.currency = storedPlayerDatas[i].Currency;
-                        playerData.kills = storedPlayerDatas[i].Kills;
-                        playerData.hasMeleeWeapon = storedPlayerDatas[i].HasMeleeWeapon;
-                        playerData.hasRangedWeapon = storedPlayerDatas[i].HasRangedWeapon;
-                    }
-                    else
-                    {
-                        StoredPlayerData data = new StoredPlayerData(playerData.currentHealth, playerData.currency, playerData.kills, playerData.hasMeleeWeapon, playerData.hasRangedWeapon);
-                        if (i <= storedPlayerDatas.Count)
-                        {
-                            storedPlayerDatas.Add(data);
-                        }
-                        else
-                        {
-                            storedPlayerDatas[i] = data;
-                        }
-                    }
-                    
                     activePlayerControllers[i].SetupPlayer(i);
                 }
-            }
-
-            public void TogglePauseState(PlayerController newFocusedPlayerController) {
-                focusedPlayerController = newFocusedPlayerController;
-                isPaused = !isPaused;
-
-                ToggleTimeScale();
-                UpdateActivePlayerInputs();
-                SwitchFocusedPlayerControlScheme();
             }
 
             private void UpdateActivePlayerInputs() {
@@ -209,7 +140,8 @@ namespace Game {
                         break;
                 }
             }
-
+            
+            // Spawn the players
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;

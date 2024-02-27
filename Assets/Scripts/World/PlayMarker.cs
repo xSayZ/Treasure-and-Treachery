@@ -6,14 +6,33 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.WorldMap;
 using UnityEngine;
 
 
 namespace Game {
     namespace World {
-        public class PlayMarker : MonoBehaviour {
+        public class PlayMarker : MonoBehaviour
+        {
+            public class LevelData
+            {
+                public string levelName;
+                public string levelDescription;
+                public Sprite levelImage;
+                
+                LevelData (string levelName, string levelDescription, Sprite levelImage)
+                {
+                    this.levelName = levelName;
+                    this.levelDescription = levelDescription;
+                    this.levelImage = levelImage;
+                }
+            }
+
+            public LevelDataSO LevelDataSo;
             
-            [SerializeField] private int levelIndex = 0;
+            [SerializeField] private string levelName = null;
+
+            [SerializeField] private GameObject obstacle;
 
             [Header("Map Marker Options")]
             public bool isLocked;
@@ -25,6 +44,11 @@ namespace Game {
             [SerializeField] private GameObject unlockedImage = null;
             
             private void Start() {
+                
+                LevelDataSo.levelName = levelName;
+                LevelDataSo.levelDescription = "This is a level description";
+                LevelDataSo.levelImage = null;
+                
                 if (isLocked) {
                     unlockedObject.SetActive(false);
                 }
@@ -39,9 +63,7 @@ namespace Game {
 
                 if (!isLocked) {
                     unlockedImage.SetActive(true);
-                    if (other.gameObject.GetComponent<Racer.CarriageRacer>().GetSubmitPressed()){
-                        SwitchScene();
-                    }
+                    
                 }
                 
             }
@@ -52,7 +74,7 @@ namespace Game {
             
             private void SwitchScene() {
                 if (!isLocked) {
-                    Managers.LevelManager.Instance.LoadScene(levelIndex);
+                    //Managers.LevelManager.Instance.LoadScene();
                 }
             }
         }

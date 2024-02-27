@@ -140,8 +140,7 @@ namespace Game
 
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
             /// <summary>
-            /// This is called from PlayerInput; when a joystick or arrow keys has been pushed.
-            /// It stores the input Vector as a Vector3 to then be used by the smoothing function.
+            /// This is called from PlayerInput, corresponds with player movement.
             /// </summary>
             public void OnMovement(InputAction.CallbackContext value)
             { 
@@ -150,7 +149,7 @@ namespace Game
             }
 
             /// <summary>
-            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Dash' action.
+            /// This is called from PlayerInput, corresponds with player dash.
             /// </summary>
             public void OnDash(InputAction.CallbackContext value)
             {
@@ -161,33 +160,22 @@ namespace Game
             }
 
             /// <summary>
-            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Ranged' action.
+            /// This is called from PlayerInput, corresponds with player attack.
             /// </summary>
-            public void OnRanged(InputAction.CallbackContext value)
+            public void OnAttack(InputAction.CallbackContext value)
             {
                 if (value.started)
                 {
-                    PlayerAttackBehaviour.Aim(true);
+                    PlayerAttackBehaviour.Attack(true);
                 }
-                else if (value.canceled)
+                else if (value.canceled) 
                 {
-                    PlayerAttackBehaviour.Aim(false);
+                    PlayerAttackBehaviour.Attack(false);
                 }
             }
 
             /// <summary>
-            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Melee' action.
-            /// </summary>
-            public void OnMelee(InputAction.CallbackContext value)
-            {
-                if (value.started)
-                {
-                    PlayerAttackBehaviour.Melee();
-                }
-            }
-
-            /// <summary>
-            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'Interact' action.
+            /// This is called from PlayerInput, corresponds with player interact.
             /// </summary>
             public void OnInteract(InputAction.CallbackContext value)
             {
@@ -202,19 +190,9 @@ namespace Game
             }
 
             /// <summary>
-            /// This is called from PlayerInput, when a button has been pushed, that is corresponds with the 'TogglePause' action.
+            /// This is called from PlayerInput, corresponds with player UI.
             /// </summary>
-            public void OnTogglePause(InputAction.CallbackContext value)
-            {
-                if (value.started)
-                {
-                    // Remove after pause has been implemented
-                    return;
-                    // GameManager.Instance.TogglePauseState(this);
-                }
-            }
-
-            public void OnTogglePlayerUI(InputAction.CallbackContext value)
+            public void OnPlayerUI(InputAction.CallbackContext value)
             {
                 if (value.started)
                 {
@@ -225,7 +203,7 @@ namespace Game
                 }
             }
 
-            // SWITCHING INPUT ACTION MAPS
+            // Switching input action maps
             public void EnableEventControls()
             {
                 playerInput.SwitchCurrentActionMap("Events");

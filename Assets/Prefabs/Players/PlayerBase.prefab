@@ -413,6 +413,7 @@ MonoBehaviour:
   waveProjectile: {fileID: 525304689459795212, guid: d02f11a91afacf342aa310e8ddfef0b2, type: 3}
   aimLineLeft: {fileID: 2687902810199753418}
   aimLineRight: {fileID: 6410334721102978561}
+  attackType: 0
   meleeAttackDamage: 1
   meleeAttackCooldown: 0.5
   meleeAttackDuration: 0.2
@@ -514,54 +515,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnRanged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
-    m_ActionName: Player/Attack[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1130416177640512929}
-        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnMelee
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
-    m_ActionName: Player/MeleeAttack[/XInputControllerWindows1/buttonWest,/XInputControllerWindows/buttonWest]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1130416177640512929}
-        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnTogglePause
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
-    m_ActionName: Player/TogglePause[/XInputControllerWindows1/buttonEast,/XInputControllerWindows/buttonEast]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1130416177640512929}
-        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
         m_MethodName: OnInteract
         m_Mode: 0
         m_Arguments:
@@ -606,7 +559,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
-        m_MethodName: OnTogglePlayerUI
+        m_MethodName: OnPlayerUI
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -620,12 +573,24 @@ MonoBehaviour:
     m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: de04f6f6-3097-4213-aaff-05f25c5a8c08
-    m_ActionName: Player/TempRestartButton[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
     m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnAttack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: da24d66e-0079-4c4b-a4af-6a7ea14a5767
+    m_ActionName: Player/Attack[/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

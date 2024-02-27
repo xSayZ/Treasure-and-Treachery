@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Game.Player;
@@ -64,6 +65,14 @@ namespace Game {
                     Utility.Gizmos.GizmosExtra.DrawCircle(spawnRingCenter.position, spawnRingRadius);
                 }
             }
+
+            private void Start()
+            {
+                if (CharacterSelectHandler.playerList.Count == 0) {
+                    SetupLocalMultiplayer();
+                }
+            }
+
 #endregion
 
 #region Public Functions

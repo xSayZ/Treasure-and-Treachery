@@ -9,6 +9,8 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -18,11 +20,18 @@ namespace Game {
         {
             public string levelName;
             public string levelDescription;
-            public Sprite levelImage;
+            public Image levelImage;
             public bool isCompleted;
-            public bool deleteObject;
             
-            public List<string> prerequisites = new List<string>();
+            private UnityEvent onLevelCompleted;
+            
+            public List<LevelDataSO> prerequisites = new List<LevelDataSO>();
+            
+            public UnityEvent OnLevelCompleted
+            {
+                get => onLevelCompleted;
+                set => onLevelCompleted = value;
+            }
         }
     }
 }

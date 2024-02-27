@@ -14,43 +14,38 @@ namespace Game {
         [CreateAssetMenu(fileName = "World Map Manager", menuName = "World Map/Manager", order = 0)]
         public class WorldMapManager : ScriptableObject
         {
-
             public List<LevelDataSO> completedLevels = new List<LevelDataSO>();
             
-            public void MarkLevelAsCompleted(string levelName)
-            {
-                LevelDataSO level = completedLevels.Find(l => l.levelName == levelName);
-                if (level == null) {
-                    level = CreateInstance<LevelDataSO>();
-                    level.levelName = levelName;
-                    level.isCompleted = true;
-                    completedLevels.Add(level);
+            public void MarkLevelAsCompleted(LevelDataSO level) {
+                if (level == null)
+                    return;
+                
+                level.isCompleted = true;
+                completedLevels.Add(level);
                     
-                    // Additional Logic
-                    HandlePrerequisites(level);
-                    HandleLevelCompleted(level);
-                }
+                // Additional Logic
+                HandlePrerequisites(level);
+                HandleLevelCompleted(level);
             }
             
             private void HandlePrerequisites(LevelDataSO completedLevel)
             {
-                foreach (string preReq in completedLevel.prerequisites)
+                foreach (LevelDataSO _preReq in completedLevel.prerequisites)
                 {
-                    LevelDataSO preReqLevel = completedLevels.Find(l => l.levelName == preReq);
+                    LevelDataSO _preReqLevel = completedLevels.Find(l => l.isCompleted == _preReq.isCompleted);
                    
-                    if (preReqLevel != null && !preReqLevel.isCompleted)
+                    if (_preReqLevel != null && !_preReqLevel.isCompleted)
                     {
-                        MarkLevelAsCompleted(preReq);
+                        MarkLevelAsCompleted(_preReqLevel);
                     }
                 }
             }
             
             private void HandleLevelCompleted(LevelDataSO completedLevel)
             {
-                if (completedLevel.deleteObject) {
-                    
-                }
+                completedLevel.OnLevelCompleted.Invoke();
             }
+
         }
     }
 }

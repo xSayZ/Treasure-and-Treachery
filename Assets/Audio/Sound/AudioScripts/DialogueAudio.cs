@@ -54,7 +54,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
                     PlayDialogue(_playerID, damageAudioInstance);
                 }
@@ -68,7 +68,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var cartEnterInstance = RuntimeManager.CreateInstance(cartEnterAudio);
                     //PlayDialogue(_playerID, cartEnterInstance);
                 }
@@ -87,7 +87,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
                     PlayDialogue(_playerID, playerAttackAudioInstance);
                 }
@@ -101,7 +101,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
                     PlayDialogue(_playerID, deathDialogueInstance);
                 
@@ -120,7 +120,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
                     PlayDialogue(_playerID, shovelPickupInstance);
                 }
@@ -134,7 +134,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
                     PlayDialogue(_playerID, shovelReactInstance);
                 }
@@ -148,7 +148,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
                     PlayDialogue(_playerID, goldPickupInstance);
                     
@@ -167,7 +167,7 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
                     PlayDialogue(_playerID, goldReactInstance);
                 }
@@ -182,7 +182,7 @@ namespace Game {
                 try
                 {
                     Debug.Log("player " + _playerID + " has something to say");
-                    var _players = GameManager.Instance.activePlayerControllers;
+                    var _players = GameManager.Instance.ActivePlayerControllers;
                     var deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
                     PlayDialogue(_playerID, deathReactioninstance);
                 }
@@ -203,7 +203,7 @@ namespace Game {
                 }
                 
                 // Attach instance to character GameObject and start playing
-                var player = GameManager.Instance.activePlayerControllers[characterID];
+                var player = GameManager.Instance.ActivePlayerControllers[characterID];
                 RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
                 dialogueInstance.setParameterByName("SpeakerCharacter", characterID);
                 dialogueInstance.start();

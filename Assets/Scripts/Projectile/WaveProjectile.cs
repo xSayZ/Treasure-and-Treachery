@@ -23,7 +23,7 @@ namespace Game {
             
             private int damage;
             private PlayerData playerData;
-            private UnityEvent onKill;
+            private UnityEvent onWaveKill;
             private float currentAliveTime;
 
 #region Unity Functions
@@ -50,7 +50,7 @@ namespace Game {
                     {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
-                        onKill.Invoke();
+                        onWaveKill.Invoke();
                         EnemyManager.OnEnemyDeathUI.Invoke();
                     }
                 }
@@ -62,11 +62,11 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, PlayerData _playerData, UnityEvent _onKill)
+            public void Setup(int _damage, PlayerData _playerData, UnityEvent _onWaveKill)
             {
                 damage = _damage;
                 playerData = _playerData;
-                onKill = _onKill;
+                onWaveKill = _onWaveKill;
                 
                 GetComponent<Rigidbody>().velocity = transform.forward * speed;
             }

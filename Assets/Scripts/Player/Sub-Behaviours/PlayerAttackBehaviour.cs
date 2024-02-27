@@ -74,6 +74,7 @@ namespace Game {
             
             // Events
             [HideInInspector] public UnityEvent OnKill = new UnityEvent();
+            [HideInInspector] public UnityEvent OnWaveKill = new UnityEvent();
 
 #region Unity Functions
             private void OnEnable()
@@ -316,7 +317,7 @@ namespace Game {
                     else
                     {
                         GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnWaveKill);
                     }
                 }
             }

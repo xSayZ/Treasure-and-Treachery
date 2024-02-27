@@ -41,7 +41,7 @@ namespace Game {
                         break;
                     
                     case QuestObjective.QuestTypes.Time:
-                        EditorGUILayout.LabelField("Kill Settings", EditorStyles.boldLabel);
+                        EditorGUILayout.LabelField("Time Settings", EditorStyles.boldLabel);
                         var _waitTime = serializedObject.FindProperty("WaitTime");
                         EditorGUILayout.PropertyField(_waitTime);
                         serializedObject.ApplyModifiedProperties();

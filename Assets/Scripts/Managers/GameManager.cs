@@ -133,7 +133,7 @@ namespace Game {
 
                 if (CharacterSelectHandler.playerList.Count == 0) {
                     LogWarning("No controllers detected; spawning default player.");
-                    for (int i = 0; i < playersToSpawn - 1; i++) {
+                    for (int i = 0; i < playersToSpawn; i++) {
                         SpawnPlayers(i, playersToSpawn);
                     }
                 } else {

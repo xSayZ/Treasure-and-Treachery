@@ -14,13 +14,14 @@ namespace Game {
     namespace Managers {
         public class LevelManager : Singleton<LevelManager>
         {
-            public static int nextLevel { get; private set; }
+            public static string nextLevel { get; private set; }
             
             private float target;
             [SerializeField] private string loadingScreenPath = "LoadingScreen";
-            public void LoadScene(int level)
+            public void LoadLoadingScreen(string level)
             {
-               SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);
+               
+               SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Additive);
                nextLevel = level;
                
             }

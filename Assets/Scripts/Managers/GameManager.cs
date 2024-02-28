@@ -34,7 +34,7 @@ namespace Game {
 
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
-            public List<GameObject> playerVariants;
+            public List<GameObject> playerVariants = new List<GameObject>();
 
             [Header("Spawn Variables")]
             [Tooltip("Assign the spawn point where players are to be instantiated from")]
@@ -71,7 +71,7 @@ namespace Game {
 
             private void Start()
             {
-                if (CharacterSelectHandler.playerList.Count == 0)
+                if (CharacterSelectHandler.staticData.Count == 0)
                 {
                     if (autoDetectPlayers)
                     {
@@ -82,8 +82,9 @@ namespace Game {
                         }
                     }
                     
-                    SetupLocalMultiplayer();
+                    
                 }
+                SetupLocalMultiplayer();
             }
 
 #endregion
@@ -102,7 +103,6 @@ namespace Game {
                 
                 timer = gameObject.AddComponent<Timer>();
                 timer.StartTimer(roundTime);
-                
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
@@ -151,20 +151,35 @@ namespace Game {
                     }
                 } else {
                     for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(i, CharacterSelectHandler.playerList.Count);
+                        
+                        SpawnPlayers(CharacterSelectHandler.staticData[i].playerIndex, CharacterSelectHandler.playerList.Count);
+                            
+                        
                     }
                 }
             }
-            
+
             /// <summary>
             /// Setup the active players in the scene
             /// </summary>
+            private List<int> keys = new List<int>();
             private void SetupActivePlayers()
             {
+                var keyCollection = ActivePlayerControllers.Keys;
+                foreach (int key in keyCollection)
+                {
+                    keys.Add(key);
+                    
+                }
+                Debug.Log(keys.Count);
                 for (int i = 0; i < ActivePlayerControllers.Count; i++)
                 {
-                    ActivePlayerControllers[i].SetupPlayer(i);
+                    ActivePlayerControllers[keys[i]].SetupPlayer(keys[i]);   
+
                 }
+
+                
+                
             }
 
             private void UpdateActivePlayerInputs() {
@@ -192,6 +207,7 @@ namespace Game {
             /// <param name="_playerID">The unique identifier of the player to be spawned.</param>
             /// <param name="_numberOfPlayers">The total number of players to be spawned.</param>
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
+                //Debug.Log(_playerID);
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
                 

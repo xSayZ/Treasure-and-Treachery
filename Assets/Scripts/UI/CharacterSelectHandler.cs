@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Backend;
-using Ink.Parsed;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,8 +28,10 @@ namespace Game
 
             public List<PlayerData> SelectedData;
             public static List<PlayerData> staticData = new List<PlayerData>();
-            [SerializeField] private ImageBank bank;
 
+            public List<PlayerData> SelectedPlayerData;
+            [SerializeField] private ImageBank bank;
+            
             [SerializeField] private List<GameObject> PressToJoinText;
 
             [SerializeField] private GameObject StartGameText;
@@ -54,6 +56,7 @@ namespace Game
 
             public void Start()
             {
+                
                 staticData.Clear();
                 for (int i = 0; i < bank.characterImages.Count; i++)
                 {
@@ -118,7 +121,10 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
+                
+                    SelectedData.Sort((d1,d2)=>d1.ControllerID.CompareTo(d2.ControllerID));
                     staticData = SelectedData;
+                    SelectedPlayerData = staticData;
                 }
                 else
                 {

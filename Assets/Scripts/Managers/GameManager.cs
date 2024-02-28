@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Game.Player;
 using Game.Quest;
@@ -51,6 +52,7 @@ namespace Game {
             [Header("Player Management")]
             public Dictionary<int, PlayerController> ActivePlayerControllers;
             private PlayerController focusedPlayerController;
+            private List<int> playerKeys = new List<int>();
 
             [Header("Debug")]
             [SerializeField] private bool debug;
@@ -162,20 +164,16 @@ namespace Game {
             /// <summary>
             /// Setup the active players in the scene
             /// </summary>
-            private List<int> keys = new List<int>();
             private void SetupActivePlayers()
             {
                 var keyCollection = ActivePlayerControllers.Keys;
                 foreach (int key in keyCollection)
                 {
-                    keys.Add(key);
-                    
+                    playerKeys.Add(key);
                 }
-                Debug.Log(keys.Count);
                 for (int i = 0; i < ActivePlayerControllers.Count; i++)
                 {
-                    ActivePlayerControllers[keys[i]].SetupPlayer(keys[i]);   
-
+                    ActivePlayerControllers[playerKeys[i]].SetupPlayer(playerKeys[i]);   
                 }
 
                 
@@ -208,6 +206,7 @@ namespace Game {
             /// <param name="_numberOfPlayers">The total number of players to be spawned.</param>
             private void SpawnPlayers(int _playerID, int _numberOfPlayers) {
                 //Debug.Log(_playerID);
+                
                 Vector3 _spawnPosition = CalculatePositionInRing(_playerID, _numberOfPlayers);
                 Quaternion _spawnRotation = Quaternion.identity;
                 
@@ -240,7 +239,8 @@ namespace Game {
                     return spawnRingCenter.position;
 
                 // Calculate the angle
-                float _angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
+                float _angle = (positionID) + Mathf.PI * 2 / numberOfPlayers;
+                Debug.Log(_angle);
                 // Calculate the position
                 float _x = Mathf.Cos(_angle) * spawnRingRadius;
                 float _z = Mathf.Sin(_angle) * spawnRingRadius;

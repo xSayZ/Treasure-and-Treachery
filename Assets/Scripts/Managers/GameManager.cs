@@ -42,18 +42,21 @@ namespace Game {
     
             [Range(0.5f, 15f), Space]
             [SerializeField] private float spawnRingRadius;
-
+            
+            [SerializeField] private bool autoDetectPlayers = true;
+            
             [Range(1, 4)]
             [SerializeField] private int playersToSpawn = 1;
-
+            
             [Header("Player Management")]
             public Dictionary<int, PlayerController> ActivePlayerControllers;
             private PlayerController focusedPlayerController;
 
             [Header("Debug")]
             [SerializeField] private bool debug;
+            
             private bool isPaused;
-
+            
             // TODO: Remove when WorldMap is implemented
             [HideInInspector] public static int NextSceneBuildIndex;
             
@@ -68,7 +71,17 @@ namespace Game {
 
             private void Start()
             {
-                if (CharacterSelectHandler.playerList.Count == 0) {
+                if (CharacterSelectHandler.playerList.Count == 0)
+                {
+                    if (autoDetectPlayers)
+                    {
+                        playersToSpawn = Input.GetJoystickNames().Length;
+                        if (playersToSpawn == 0)
+                        {
+                            playersToSpawn = 1;
+                        }
+                    }
+                    
                     SetupLocalMultiplayer();
                 }
             }

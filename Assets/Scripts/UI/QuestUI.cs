@@ -15,42 +15,55 @@ namespace Game {
         public class QuestUI : MonoBehaviour
         {
             [Header("Setup")]
-            [SerializeField] private TextMeshProUGUI questText;
-            [SerializeField] private Animator spriteAnimator;
-            [SerializeField] private Animator maskAnimator;
+            [SerializeField] private TextMeshProUGUI mainQuestText;
+            [SerializeField] private Animator mainSpriteAnimator;
+            [SerializeField] private Animator mainMaskAnimator;
             
             [Header("Settings")]
-            [SerializeField] private float showTime;
+            [SerializeField] private float mainShowTime;
             [SerializeField] private string startingText;
             
-            private float showTimeLeft;
+            private float mainShowTimeLeft;
+            private bool mainShowRunning;
 
 #region Unity Functions
             private void Start()
             {
-                questText.text = startingText;
-                showTimeLeft = showTime;
-                questText.gameObject.SetActive(true);
+                DisplayMainScroll();
             }
 
             private void Update()
             {
-                if (showTimeLeft <= 0)
+                if (mainShowTimeLeft <= 0 && mainShowRunning)
                 {
-                    spriteAnimator.SetTrigger("Close");
-                    maskAnimator.SetTrigger("Close");
+                    mainSpriteAnimator.SetTrigger("Close");
+                    mainMaskAnimator.SetTrigger("Close");
+                    mainShowRunning = false;
                 }
-                else
+                else if (mainShowRunning)
                 {
-                    showTimeLeft -= Time.deltaTime;
+                    mainShowTimeLeft -= Time.deltaTime;
                 }
             }
 #endregion
 
 #region Public Functions
-            public void DisplayText(string _text)
+            public void UpdateSideScroll(string _text)
             {
                 
+            }
+#endregion
+
+#region Private Functions
+            private void DisplayMainScroll()
+            {
+                mainQuestText.text = startingText;
+                mainShowTimeLeft = mainShowTime;
+                
+                mainSpriteAnimator.SetTrigger("Open");
+                mainMaskAnimator.SetTrigger("Open");
+                
+                mainShowRunning = true;
             }
 #endregion
         }

@@ -18,8 +18,11 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] private int goldOnDashKill;
+            [SerializeField] private float healInterval;
+            [SerializeField] private int healAmount;
             
             private bool started;
+            private float currentHealInterval;
 
             protected override void Setup()
             {
@@ -29,6 +32,19 @@ namespace Game {
             protected override void OnDashKill(bool _stunned)
             {
                 QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
+            }
+
+            private void Update()
+            {
+                if (currentHealInterval >= healInterval)
+                {
+                    currentHealInterval = 0;
+                    playerController.Heal(healAmount);
+                }
+                else
+                {
+                    currentHealInterval += Time.deltaTime;
+                }
             }
 
             private void OnTriggerStay(Collider _other)

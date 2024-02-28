@@ -19,7 +19,7 @@ using UnityEngine.InputSystem.UI;
 
 namespace Game {
     namespace World {
-        public class WorldInputManager : MonoBehaviour {
+        public class WorldInputManager : Singleton<WorldInputManager> {
             public GameObject menuItem;
             public Canvas canvas;
 
@@ -31,12 +31,30 @@ namespace Game {
             public PlayerInputManager playerInputManager;
             
             private bool test = true;
+            [SerializeField]
+            private bool submitPressed;
             private void Start() {
-                var _players = Input.GetJoystickNames();
+                /*var _players = Input.GetJoystickNames();
                 for (int i = 0; i < _players.Length; i++) {
                     var _player = playerInputManager.JoinPlayer(i, -1, null);
                     playerInputs.Add(_player, i);
+                }*/
+            }
+            
+            public void OnSubmit(InputAction.CallbackContext context)
+            {
+                if (context.performed) {
+                    submitPressed = true;
+                } else if (context.canceled) {
+                    submitPressed = false;
                 }
+            }
+
+            public bool GetSubmitPressed()
+            {
+                bool result = submitPressed;
+                submitPressed = false;
+                return result;
             }
 
             public void JoinNewPlayer(PlayerInput _playerInput) {
@@ -58,6 +76,7 @@ namespace Game {
                 yield return new WaitForEndOfFrame();
                 _inputModule.gameObject.GetComponent<MultiplayerEventSystem>().SetSelectedGameObject(menuItem);
             }
+            
         }
     }
 }

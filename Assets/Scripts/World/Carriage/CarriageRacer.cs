@@ -6,7 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,20 +14,21 @@ namespace Game {
     namespace Racer {
         public class CarriageRacer : MonoBehaviour
         {
+            [Header("Sub Behaviours")]
+            [SerializeField] private CarriageMovementBehaviour carriageMovementBehaviour;
+            [SerializeField] private CarriageAnimationBehaviour carriageAnimationBehaviour;
             
             [Header("Player Inputs")]
             [SerializeField] private List<Vector2> activeLeftStickValues = new List<Vector2>();
             
-            [Header("Sub Behaviours")]
-            [SerializeField] private CarriageMovementBehaviour carriageMovementBehaviour;
-            
-            [SerializeField] private Vector3 averageLeftStickValue;
+            private Vector3 averageLeftStickValue;
 
             private bool submitPressed = false;
 
 #region Unity Functions
             private void Start() {
                 carriageMovementBehaviour.SetupBehaviour();
+                carriageAnimationBehaviour.SetupBehaviour();
             }
 
             private void Update()
@@ -50,29 +50,12 @@ namespace Game {
                 carriageMovementBehaviour.UpdateMovementData(averageLeftStickValue);
             }
 
-            public void OnSubmit(InputAction.CallbackContext context)
-            {
-                if (context.performed) {
-                    submitPressed = true;
-                } else if (context.canceled) {
-                    submitPressed = false;
-                }
-            }
-
-            public bool GetSubmitPressed()
-            {
-                bool result = submitPressed;
-                submitPressed = false;
-                return result;
-            }
-
             private void OnMovement() {
                 // Clear the list of active left stick values
                 activeLeftStickValues.Clear();
                 
                 // Iterate through all gamepads
                 foreach (Gamepad gamepad in Gamepad.all) {
-                    Debug.Log("Gamepad found");
                     // Check if the gamepad is actuated
                     if (gamepad.IsActuated()) {
                         
@@ -86,6 +69,7 @@ namespace Game {
                 
                 // Calculate the average left stick value
                 averageLeftStickValue = CalculateAverageLeftStickValue();
+                carriageAnimationBehaviour.UpdateMovementAnimation(averageLeftStickValue.magnitude);
             }
 
             private Vector3 CalculateAverageLeftStickValue()

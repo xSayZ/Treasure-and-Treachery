@@ -44,6 +44,7 @@ namespace Game {
             private void HandleLevelCompleted(LevelDataSO completedLevel)
             {
                 completedLevel.OnLevelCompleted.Invoke();
+                completedLevel.isCompleted = true;
             }
 
         }

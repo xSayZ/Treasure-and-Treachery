@@ -58,7 +58,6 @@ namespace Game {
 
             public void ToggleHeldItemUI(bool _active)
             {
-                Debug.Log(_active);
                 heldItemCanvas.SetActive(_active);
             }
 

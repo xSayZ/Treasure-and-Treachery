@@ -39,9 +39,12 @@ namespace Game {
             private float currentDecayGracePeriod;
             private float currentDecayTime;
             private bool isEnraged;
+            private float enragedScore;
 
             protected override void Setup()
             {
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
                 playerController.PlayerMovementBehaviour.OnDash.AddListener(Dash);
             }
@@ -77,6 +80,20 @@ namespace Game {
                 else
                 {
                     currentDecayGracePeriod -= Time.deltaTime;
+                }
+                
+                if (isEnraged)
+                {
+                    enragedScore += Time.deltaTime;
+                }
+                
+                while (enragedScore >= 1)
+                {
+                    enragedScore -= 1;
+                    
+                    playerController.PlayerData.personalObjective += 1;
+                    playerController.PlayerData.personalObjectiveThisLevel += 1;
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
                 }
             }
 

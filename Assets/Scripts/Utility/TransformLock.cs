@@ -32,7 +32,7 @@ namespace Utility {
                 if (transform.hasChanged)
                 {
                     transform.hasChanged = false;
-
+                    
                     if (lockPosition)
                     {
                         transform.localPosition = position;
@@ -47,8 +47,6 @@ namespace Utility {
                     {
                         transform.localScale = scale;
                     }
-                    
-                    print("The transform has changed!");
                 }
             }
             #endif

@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
@@ -16,7 +17,6 @@ namespace Game {
         public class VotingButton : MonoBehaviour
         {
             [SerializeField] private List<Image> playerIndicators;
-            [SerializeField] private List<Game.Backend.PlayerData> playerDatas;
             private void Start()
             {
                 foreach (Image playerIndicator in playerIndicators)
@@ -33,6 +33,14 @@ namespace Game {
             public void SetPlayerIndicator(int playerIndex, bool active)
             {
                 playerIndicators[playerIndex].gameObject.SetActive(active);
+            }
+            
+            public void TurnOffAllPlayerIndicators()
+            {
+                foreach (Image playerIndicator in playerIndicators)
+                {
+                    playerIndicator.gameObject.SetActive(false);
+                }
             }
             
             

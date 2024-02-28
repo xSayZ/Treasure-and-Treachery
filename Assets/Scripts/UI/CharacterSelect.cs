@@ -12,7 +12,6 @@ using Game.Backend;
 using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
@@ -25,6 +24,7 @@ namespace Game
             [SerializeField] private Image Image;
             [SerializeField] private Image arrowImages;
             [SerializeField] private float inputDelay;
+            
             public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
@@ -32,11 +32,9 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId = 10;
             public float currentDelay;
-            public  PlayerData data;
+            public  static PlayerData data;
             
             private CharacterSelectHandler characterSelectHandler;
-
-            private static int playerId;
             #region Unity functions
 
             private void Awake()
@@ -127,14 +125,11 @@ namespace Game
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
                         data = characterSelectHandler.Datas[id];
-                       
-                        data.ControllerID = playerInputs.playerIndex;
-                        
+                        data.playerIndex = id;
                         characterSelectHandler.SelectedData.Add(data);
                         cachedId = id;
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);
-                        
                     }
                     PlayersIsReady = true;
                 }
@@ -155,11 +150,11 @@ namespace Game
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                     characterSelectHandler.Images.Add(cachedId,cachedSprite);
+                    characterSelectHandler.SelectedData.Remove(data);
 
                 }
                 
                 PlayersIsReady = false;
-                characterSelectHandler.SelectedData.Remove(data);
 
             }
             #endregion

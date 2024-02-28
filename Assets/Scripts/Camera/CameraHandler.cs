@@ -119,7 +119,8 @@ namespace Game {
                 SetPlayerActiveState(true);
             }
 
-            
+            List<int> keys = new List<int>(); 
+
             private void SetTargetGroupCamera()
             {
                 if (targetGroup == null)  {
@@ -129,16 +130,22 @@ namespace Game {
                 
                 // Create a new array of targets
                 CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
-
+                var keyCollection = targets.Keys;
+                foreach (var key in keyCollection)
+                {
+                    keys.Add(key);
+                }
                 // Loop through the players and add them to the target group
                 for (int _i = 0; _i < targets.Count; _i++)
                 {
-                    _targetsArray[_i] = new CinemachineTargetGroup.Target
-                    {
-                        target = targets[_i].transform,
-                        weight = playerWeight,
-                        radius = playerRadius,
-                    };
+                    
+                        _targetsArray[_i] = new CinemachineTargetGroup.Target
+                        {
+                            target = targets[keys[_i]].transform,
+                            weight = playerWeight,
+                            radius = playerRadius,
+                        };
+                   
                 }
 
                 targetGroup.m_Targets = _targetsArray;

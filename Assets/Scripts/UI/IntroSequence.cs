@@ -101,7 +101,7 @@ namespace Game
                 if (done && elapsedTime > timeBeforeChange && stopUpdating < 1 || (done && skiped))
                 {
                     stopUpdating++;
-                    LevelManager.Instance.LoadScene(levelIndex);
+                    //LevelManager.Instance.LoadScene(levelIndex);
                 }
             }
 

@@ -8,6 +8,7 @@
 
 using System;
 using System.Threading.Tasks;
+using Game.Backend;
 using Game.Managers;
 using UnityEngine.UI;
 using UnityEngine;
@@ -34,7 +35,9 @@ namespace Game {
             {
                 target = 0;
                 progressBar.fillAmount = 0;
+                
                 AsyncOperation scene = SceneManager.LoadSceneAsync(LevelManager.nextLevel,LoadSceneMode.Single);
+
                 Debug.Log(scene);
                 scene.allowSceneActivation = false;
                 loadingScreen.SetActive(true);
@@ -45,11 +48,10 @@ namespace Game {
                 } while (scene.progress <0.9f);
 
                 await Task.Delay(600);
-                SceneManager.UnloadSceneAsync("LoadingScreen");
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                //GameManager.Instance.SetupLocalMultiplayer();
 
                 scene.allowSceneActivation = true;
-                
-                
             }
 
             private void Update()

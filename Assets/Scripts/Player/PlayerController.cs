@@ -25,7 +25,7 @@ namespace Game
             [Header("Player Data")]
             [Tooltip("Player Data Scriptable Object")]
             [SerializeField] public PlayerData PlayerData;
-            [HideInInspector] public int PlayerIndex;
+            public int PlayerIndex;
             
             [field:Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
@@ -98,11 +98,14 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (playerInput.devices.Count > 0)
+                for (int i = 0; i < PlayerInput.all.Count; i++)
                 {
-                    var player = PlayerInput.all[_newPlayerID];
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
+                    var player = PlayerInput.all[i];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[player.playerIndex],user:player.user);
                 }
+                   
+                   
+                
                
             }
 

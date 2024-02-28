@@ -15,27 +15,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "RangedAttack",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "9287a433-221b-4d7d-9971-ae1b56536a61",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(pressPoint=1,behavior=2)",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "MeleeAttack",
-                    "type": "Button",
-                    "id": "2cf468e8-28a3-4f7b-a5b7-d607fa2741d8",
+                    "id": "af0ed68c-5313-4fd6-b759-2ee1333c6dc8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "TogglePause",
+                    "name": "Attack",
                     "type": "Button",
-                    "id": "6d5ae063-0750-49ba-a1e4-0f4e75aeb213",
+                    "id": "da24d66e-0079-4c4b-a4af-6a7ea14a5767",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -51,30 +42,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "af0ed68c-5313-4fd6-b759-2ee1333c6dc8",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "TogglePlayerUIElement",
+                    "name": "PlayerUI",
                     "type": "Button",
                     "id": "8231e1eb-5be5-4a3a-a626-e6b45aeb61b0",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Press(pressPoint=1,behavior=2)",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "TempRestartButton",
-                    "type": "Button",
-                    "id": "de04f6f6-3097-4213-aaff-05f25c5a8c08",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -157,70 +130,48 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "d1ccba21-f0c4-401b-814a-d1061ed09c3a",
-                    "path": "<Keyboard>/1",
+                    "name": "Up",
+                    "id": "caeb2edc-da4c-46d8-bc36-d03f83f00e7c",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "RangedAttack",
+                    "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "df9f1554-d1e2-4328-84ad-ce60df0d7cff",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RangedAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "097363bc-bac2-4339-9bbc-eef866e484a8",
-                    "path": "<Gamepad>/buttonEast",
+                    "name": "Down",
+                    "id": "c4c59d7e-576d-4dda-873a-be6389a316b4",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "MeleeAttack",
+                    "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "189c64c7-060c-4071-a54a-2063056e24c4",
-                    "path": "<Keyboard>/2",
+                    "name": "Left",
+                    "id": "88e846d0-9fad-4773-9db0-ddd244ab9ebf",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "MeleeAttack",
+                    "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "9af55942-85fb-4d78-b4e6-aa024241a9e8",
-                    "path": "<Gamepad>/start",
+                    "name": "Right",
+                    "id": "c8d4c437-09b6-4c52-bdfc-55f00cbb8ae4",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Player1",
-                    "action": "TogglePause",
+                    "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bdb93662-89ff-49c3-b9e9-51681dee2b39",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TogglePause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -246,6 +197,39 @@
                 },
                 {
                     "name": "",
+                    "id": "cf050f9c-3942-48fd-80d0-f7cbcae1c964",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80ad307e-0874-42ec-8fa7-0d80467542c0",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34622065-0966-48a3-b71b-70caf9a8f740",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PlayerUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8cf67aa0-8a29-434e-9dd6-696fa1be9532",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
@@ -257,8 +241,8 @@
                 },
                 {
                     "name": "",
-                    "id": "7049c9c6-1b13-4b25-9993-50a3f05284fb",
-                    "path": "<Keyboard>/3",
+                    "id": "a8a3ea1c-9301-4af5-af9f-bb3fea84430f",
+                    "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -268,45 +252,45 @@
                 },
                 {
                     "name": "",
-                    "id": "34622065-0966-48a3-b71b-70caf9a8f740",
-                    "path": "<Keyboard>/enter",
+                    "id": "30e1572b-f1ea-49da-bb2d-fb8a94b1351a",
+                    "path": "<Keyboard>/ctrl",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TogglePlayerUIElement",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "cf050f9c-3942-48fd-80d0-f7cbcae1c964",
-                    "path": "<Gamepad>/rightShoulder",
+                    "id": "5d798a08-2d48-4c5f-8f17-dfd22ec5a77a",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TogglePlayerUIElement",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "80ad307e-0874-42ec-8fa7-0d80467542c0",
-                    "path": "<Gamepad>/rightTrigger",
+                    "id": "ec8097d7-e8fc-433c-b4d2-19b7830557fe",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TogglePlayerUIElement",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "cf78139d-373a-422d-b378-b0cbacd0397a",
-                    "path": "<Keyboard>/r",
+                    "id": "7d0ac573-fc93-4101-a449-9060658123d7",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TempRestartButton",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

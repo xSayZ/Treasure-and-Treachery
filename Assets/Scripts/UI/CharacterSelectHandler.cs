@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Backend;
+using Ink.Parsed;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,9 +21,13 @@ namespace Game
 
         public class CharacterSelectHandler : MonoBehaviour
         {
-            [Header("References")] public List<PlayerData> Datas;
+            [Header("References")] 
             public List<Transform> imagePosition = new List<Transform>();
+            
+            public List<PlayerData> Datas;
 
+            public List<PlayerData> SelectedData;
+            public static List<PlayerData> staticData = new List<PlayerData>();
             [SerializeField] private ImageBank bank;
 
             [SerializeField] private List<GameObject> PressToJoinText;
@@ -49,6 +54,7 @@ namespace Game
 
             public void Start()
             {
+                staticData.Clear();
                 for (int i = 0; i < bank.characterImages.Count; i++)
                 {
                     Images.Add(i, bank.characterImages[i]);
@@ -70,7 +76,7 @@ namespace Game
             }
             private void OnDisable()
             {
-                joinAction.Disable();
+                joinAction.Disable();   
                 joinAction.performed -= context => JoinAction(context);
                 leaveAction.Disable();
                 leaveAction.performed -= context => LeaveAction(context);
@@ -112,6 +118,7 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
+                    staticData = SelectedData;
                 }
                 else
                 {

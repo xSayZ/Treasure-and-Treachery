@@ -26,6 +26,9 @@
         },
         {
             "m_Id": "30985b734168481184de705c9feba424"
+        },
+        {
+            "m_Id": "2a82ab126fa247e98e079ced0ea0db6e"
         }
     ],
     "m_Keywords": [],
@@ -128,6 +131,9 @@
         },
         {
             "m_Id": "865fd7eaee3840e1b6b9e4fc140a7f38"
+        },
+        {
+            "m_Id": "9b79c09628d8432db443a4d2c17660d9"
         }
     ],
     "m_GroupDatas": [],
@@ -402,21 +408,7 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "a001d03edda14b62a6513ee98f540c39"
-                },
-                "m_SlotId": 0
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "4ec42ed085294892849877813d86ae13"
-                },
-                "m_SlotId": 5
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "bc7d226148e7425fb6768e97efda7353"
+                    "m_Id": "9b79c09628d8432db443a4d2c17660d9"
                 },
                 "m_SlotId": 0
             },
@@ -430,7 +422,7 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
-                    "m_Id": "bc7d226148e7425fb6768e97efda7353"
+                    "m_Id": "9b79c09628d8432db443a4d2c17660d9"
                 },
                 "m_SlotId": 0
             },
@@ -439,6 +431,20 @@
                     "m_Id": "5e22237875a740f5bd10ad576317a3e7"
                 },
                 "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "a001d03edda14b62a6513ee98f540c39"
+                },
+                "m_SlotId": 0
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "4ec42ed085294892849877813d86ae13"
+                },
+                "m_SlotId": 5
             }
         },
         {
@@ -779,7 +785,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 0.07000000029802323,
+    "m_Value": 0.03999999910593033,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -1257,6 +1263,35 @@
         "b": 0.5,
         "a": 1.0
     }
+}
+
+{
+    "m_SGVersion": 3,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
+    "m_ObjectId": "2a82ab126fa247e98e079ced0ea0db6e",
+    "m_Guid": {
+        "m_GuidSerialized": "cc9bdc6e-d71b-4090-938e-8680c496820c"
+    },
+    "m_Name": "Base Color",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Base Color",
+    "m_DefaultReferenceName": "_Base_Color",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+    },
+    "isMainColor": false,
+    "m_ColorMode": 0
 }
 
 {
@@ -1785,7 +1820,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 2.0,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -2274,12 +2309,12 @@
     "m_Guid": {
         "m_GuidSerialized": "aa2a71a3-eb65-40c6-a0a8-356737c6547a"
     },
-    "m_Name": "Base Color",
+    "m_Name": "Diffuse Texture",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Base Color",
-    "m_DefaultReferenceName": "_Base_Color",
+    "m_RefNameGeneratedByDisplayName": "Diffuse Texture",
+    "m_DefaultReferenceName": "_Diffuse_Texture",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_Precision": 0,
@@ -2294,6 +2329,31 @@
     "useTilingAndOffset": false,
     "m_Modifiable": true,
     "m_DefaultType": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
+    "m_ObjectId": "755cba1b795043ce8e8c2ed44858a6e5",
+    "m_Id": 0,
+    "m_DisplayName": "Base Color",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+    },
+    "m_Labels": []
 }
 
 {
@@ -2521,7 +2581,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Texture2DMaterialSlot",
     "m_ObjectId": "936f411ff4ab4ea990f0bbb29c60a69a",
     "m_Id": 0,
-    "m_DisplayName": "Base Color",
+    "m_DisplayName": "Diffuse Texture",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2637,6 +2697,41 @@
         "e31": 0.0,
         "e32": 0.0,
         "e33": 1.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
+    "m_ObjectId": "9b79c09628d8432db443a4d2c17660d9",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Property",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -692.9999389648438,
+            "y": -71.00009155273438,
+            "width": 105.0,
+            "height": 34.00007629394531
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "755cba1b795043ce8e8c2ed44858a6e5"
+        }
+    ],
+    "synonyms": [],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Property": {
+        "m_Id": "2a82ab126fa247e98e079ced0ea0db6e"
     }
 }
 
@@ -3575,6 +3670,9 @@
     "m_ChildObjectList": [
         {
             "m_Id": "74c36bd4ec5549e5a48ba43f7c290a73"
+        },
+        {
+            "m_Id": "2a82ab126fa247e98e079ced0ea0db6e"
         },
         {
             "m_Id": "0fb3abb2054a47a9b8251ebb6a428ea4"

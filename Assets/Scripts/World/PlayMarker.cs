@@ -6,30 +6,43 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.WorldMap;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 
 namespace Game {
     namespace World {
-        public class PlayMarker : MonoBehaviour {
+        public class PlayMarker : MonoBehaviour
+        {
+            [Header("Level Data")]
+            [SerializeField] private LevelDataSO levelData;
             
-            [SerializeField] private int levelIndex = 0;
-
+            [Header("Object Options")]
+            [SerializeField] private GameObject LevelUI;
+            [SerializeField] private GameObject playMarkerObject;
+            
             [Header("Map Marker Options")]
             public bool isLocked;
             
-            [Header("Object Options")]
-            [SerializeField] private GameObject unlockedObject = null;
+            public UnityEvent onLevelCompleted = new UnityEvent();
             
-            [Header("Image Options")]
-            [SerializeField] private GameObject unlockedImage = null;
+            private Image levelImage;
+            private string levelName;
             
             private void Start() {
+                levelData.levelName = levelName;
+                levelData.levelDescription = "This is a level description";
+                levelData.levelImage = levelImage;
+                levelData.OnLevelCompleted = onLevelCompleted;
+                
                 if (isLocked) {
-                    unlockedObject.SetActive(false);
+                    playMarkerObject.SetActive(false);
                 }
                 else {
-                    unlockedObject.SetActive(true);
+                    playMarkerObject.SetActive(true);
                 }
             }
 
@@ -38,22 +51,16 @@ namespace Game {
                     return;
 
                 if (!isLocked) {
-                    unlockedImage.SetActive(true);
-                    if (other.gameObject.GetComponent<Racer.CarriageRacer>().GetSubmitPressed()){
-                        SwitchScene();
-                    }
+                    LevelUI.SetActive(true);
                 }
-                
             }
             
             private void OnTriggerExit(Collider other) {
-                unlockedImage.SetActive(false);
+                LevelUI.SetActive(false);
             }
             
             private void SwitchScene() {
-                if (!isLocked) {
-                    Managers.LevelManager.Instance.LoadScene(levelIndex);
-                }
+                
             }
         }
     }

@@ -294,7 +294,6 @@ namespace Game {
                             playerController.PlayerData.kills += 1;
                             playerController.PlayerData.killsThisLevel += 1;
                             OnKill.Invoke();
-                            EnemyManager.OnEnemyDeathUI.Invoke();
                             
                             try
                             {

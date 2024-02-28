@@ -31,6 +31,8 @@ namespace Game {
             
             [SerializeField] public int points;
             
+            [SerializeField] public int personalObjective;
+            [SerializeField] public int personalObjectiveThisLevel;
             [SerializeField] public int currency;
             [SerializeField] public int currencyThisLevel;
             [SerializeField] public int kills;
@@ -39,9 +41,9 @@ namespace Game {
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
 
-            public int ControllerID;
             public void NewScene()
             {
+                personalObjectiveThisLevel = 0;
                 currencyThisLevel = 0;
                 killsThisLevel = 0;
                 currentItem = null;
@@ -56,6 +58,8 @@ namespace Game {
                 
                 points = 0;
                 
+                personalObjective = 0;
+                personalObjectiveThisLevel = 0;
                 currency = 0;
                 currencyThisLevel = 0;
                 kills = 0;

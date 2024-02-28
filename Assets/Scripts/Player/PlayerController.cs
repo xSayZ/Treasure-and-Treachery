@@ -34,7 +34,7 @@ namespace Game
             [field:SerializeField] public PlayerInteractionBehaviour PlayerInteractionBehaviour { get; private set; }
             [field:SerializeField] public PlayerAnimationBehaviour PlayerAnimationBehaviour { get; private set; }
             [field:SerializeField] public PlayerVisualBehaviour PlayerVisualBehaviour { get; private set; }
-            [field:SerializeField] public PlayerUIDisplayBehaviour PlayerUIDisplayBehaviour { get; private set; }
+            [field:SerializeField] public PlayerOverheadUIBehaviour PlayerOverheadUIBehaviour { get; private set; }
             [field:SerializeField] public PlayerAbilityBehaviour PlayerAbilityBehaviour { get; private set; }
             
             [Header("UI")]
@@ -90,7 +90,7 @@ namespace Game
                 PlayerMovementBehaviour.SetupBehaviour(this);
                 PlayerAnimationBehaviour.SetupBehaviour();
                 PlayerVisualBehaviour.SetupBehaviour(PlayerData);
-                PlayerUIDisplayBehaviour.SetupBehaviour(this);
+                PlayerOverheadUIBehaviour.SetupBehaviour(this);
                 if (PlayerAbilityBehaviour)
                 {
                     PlayerAbilityBehaviour.SetupBehaviour(this);
@@ -200,10 +200,11 @@ namespace Game
             {
                 if (value.started)
                 {
-                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(true);
+                    PlayerOverheadUIBehaviour.ToggleOverheadStatsUI(true);
                 }
-                else if (value.canceled) {
-                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(false);
+                else if (value.canceled)
+                {
+                    PlayerOverheadUIBehaviour.ToggleOverheadStatsUI(false);
                 }
             }
 

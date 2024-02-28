@@ -53,7 +53,6 @@ namespace Game {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         onWaveKill.Invoke();
-                        EnemyManager.OnEnemyDeathUI.Invoke();
                     }
                 }
                 else

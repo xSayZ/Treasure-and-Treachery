@@ -21,7 +21,7 @@ namespace Game {
             [SerializeField] private float pickUpCooldown;
             
             [Header("UI")]
-            [SerializeField] private GameObject itemImage;
+            //[SerializeField] private GameObject itemImage;
             
             private PlayerController playerController;
             private IInteractable closestInteraction;
@@ -179,9 +179,9 @@ namespace Game {
                 InteractRangeExited(_item.Pickup.transform);
                 playerController.PlayerData.currentItem = _item;
                 
-                itemImage.GetComponent<Image>().sprite = _item.Sprite;
-                itemImage.SetActive(true);
-
+                playerController.PlayerOverheadUIBehaviour.SetHeldItemSprite(_item.Sprite);
+                playerController.PlayerOverheadUIBehaviour.ToggleHeldItemUI(true);
+                
                 playerController.PlayerData.canPickUp = false;
                 currentPickUpCooldown = pickUpCooldown;
             }
@@ -196,7 +196,7 @@ namespace Game {
                 if (playerController.PlayerData.currentItem == _item)
                 {
                     playerController.PlayerData.currentItem = null;
-                    itemImage.SetActive(false);
+                    playerController.PlayerOverheadUIBehaviour.ToggleHeldItemUI(false);
                     
                     if (_destroy)
                     {

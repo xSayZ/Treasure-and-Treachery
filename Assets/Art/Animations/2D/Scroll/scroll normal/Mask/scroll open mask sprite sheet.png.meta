@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 666e6a50119591546bbaf07691aa346c
+guid: ec7bf3a582ba1d047af0195019a0d2f4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -67,10 +67,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -101,32 +101,35 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: scroll close sprite sheet_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1152
-        width: 2048
-        height: 1152
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 91fd32e7979f35144bde3c6301c11f88
-      internalID: 502255816
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: scroll close sprite sheet_1
+      name: scroll open mask sprite sheet_0
       rect:
         serializedVersion: 2
         x: 2048
@@ -140,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66391dfd75b0988448a04b41a33a68b9
-      internalID: 882286871
+      spriteID: bba9078916ee06d469519722db6834bb
+      internalID: 826841325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scroll close sprite sheet_2
+      name: scroll open mask sprite sheet_1
       rect:
         serializedVersion: 2
         x: 4096
@@ -161,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 66bc5142be1f03b44b7976a311c35c37
-      internalID: -1995741152
+      spriteID: 82caed052b1a50240aa12bd182a151fc
+      internalID: 181845122
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scroll close sprite sheet_3
+      name: scroll open mask sprite sheet_2
       rect:
         serializedVersion: 2
         x: 0
@@ -182,14 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f87cf5060cb504448546fd2d9c6d53d
-      internalID: 984594132
+      spriteID: ceb2c73cef4e3c14689679b14ee89c77
+      internalID: 1599190280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scroll close sprite sheet_4
+      name: scroll open mask sprite sheet_3
       rect:
         serializedVersion: 2
         x: 2048
@@ -203,14 +206,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9aec913b29127f544a13148db28a8607
-      internalID: -599285160
+      spriteID: 4b453dfc9239b7443abddda6b6298650
+      internalID: 2118484841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: scroll close sprite sheet_5
+      name: scroll open mask sprite sheet_4
       rect:
         serializedVersion: 2
         x: 4096
@@ -224,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9af0f6712211cf74f8f069f4e6d118ab
-      internalID: 1633555610
+      spriteID: c17d4132e904d9b4a96db31beff0246f
+      internalID: -42703250
       vertices: []
       indices: 
       edges: []
@@ -233,7 +236,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: fbb19fb8fda715440ab688291bffcba9
     internalID: 0
     vertices: []
     indices: 
@@ -241,12 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      scroll close sprite sheet_0: 502255816
-      scroll close sprite sheet_1: 882286871
-      scroll close sprite sheet_2: -1995741152
-      scroll close sprite sheet_3: 984594132
-      scroll close sprite sheet_4: -599285160
-      scroll close sprite sheet_5: 1633555610
+      scroll open mask sprite sheet_0: 826841325
+      scroll open mask sprite sheet_1: 181845122
+      scroll open mask sprite sheet_2: 1599190280
+      scroll open mask sprite sheet_3: 2118484841
+      scroll open mask sprite sheet_4: -42703250
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

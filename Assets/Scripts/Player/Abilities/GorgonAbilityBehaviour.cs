@@ -20,7 +20,7 @@ namespace Game {
             {
                 playerController.PlayerAttackBehaviour.MeleeIsStunAttack = true;
                 
-                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
             }
 
             protected override void OnDashKill(bool _stunned)
@@ -31,7 +31,7 @@ namespace Game {
                     
                     playerController.PlayerData.personalObjective += 1;
                     playerController.PlayerData.personalObjectiveThisLevel += 1;
-                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
                 }
             }
         }

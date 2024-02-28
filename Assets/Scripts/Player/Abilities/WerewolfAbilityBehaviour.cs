@@ -43,7 +43,7 @@ namespace Game {
 
             protected override void Setup()
             {
-                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
                 playerController.PlayerMovementBehaviour.OnDash.AddListener(Dash);
@@ -93,7 +93,7 @@ namespace Game {
                     
                     playerController.PlayerData.personalObjective += 1;
                     playerController.PlayerData.personalObjectiveThisLevel += 1;
-                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
                 }
             }
 

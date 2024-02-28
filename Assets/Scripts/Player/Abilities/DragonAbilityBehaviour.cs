@@ -28,7 +28,7 @@ namespace Game {
             {
                 started = true;
                 
-                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
                 QuestManager.OnGoldPickedUp.AddListener(OnGoldPickedUp);
             }
@@ -54,7 +54,7 @@ namespace Game {
                 {
                     playerController.PlayerData.personalObjective += _amount;
                     playerController.PlayerData.personalObjectiveThisLevel += _amount;
-                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective.ToString());
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, _amount);
                 }
             }
 

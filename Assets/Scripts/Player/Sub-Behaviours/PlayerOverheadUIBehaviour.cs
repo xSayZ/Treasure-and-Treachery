@@ -67,9 +67,14 @@ namespace Game {
                 heldItemCanvas.SetActive(false);
             }
 
-            public void UpdatePersonalObjective(string _text)
+            public void UpdatePersonalObjective(int _totalAmount, int _addedAmount)
             {
-                personalObjectiveText.text = _text;
+                personalObjectiveText.text = _totalAmount.ToString();
+                
+                if (_addedAmount > 0)
+                {
+                    PersonalObjectivePopup(_addedAmount);
+                }
             }
 
             public void SetHeldItemSprite(Sprite _sprite)

@@ -115,7 +115,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    LevelManager.Instance.LoadScene(1);
+                    LevelManager.Instance.LoadLoadingScreen("Easy_C");
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;
@@ -125,6 +125,7 @@ namespace Game
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
                         data = characterSelectHandler.Datas[id];
+                        data.playerIndex = id;
                         characterSelectHandler.SelectedData.Add(data);
                         cachedId = id;
                         cachedSprite = sprite;

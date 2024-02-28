@@ -50,7 +50,7 @@ namespace Game {
                 selectedObject = EventSystem.current.currentSelectedGameObject;
                 if (selectedObject == null) return;
                 if (selectedObject.gameObject == UIButtons[0] && isPressed)
-                    LevelManager.Instance.LoadScene(1);
+                    //LevelManager.Instance.LoadScene(1);
                 
                 if (selectedObject.gameObject == UIButtons[1] && isPressed)
                 {

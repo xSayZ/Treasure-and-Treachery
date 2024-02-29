@@ -37,15 +37,15 @@ namespace Game {
                 // Debug.Log("time is" + timer);
 
                 
-                if (timer >= 5)
+                if (timer >= 60)
                 {
                     if (!isPlaying)
                     {
-                        AudioMananger.Instance.WaveStinger(EventsToBePlayed.TimedStinger);
+                       // AudioMananger.Instance.WaveStinger(EventsToBePlayed.TimedStinger);
                         isPlaying = true;
                     }
-                    Debug.Log("played once");
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
+                   // Debug.Log("played once");
+                   // AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
                     
                     
                 }

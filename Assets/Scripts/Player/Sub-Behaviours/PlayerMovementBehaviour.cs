@@ -246,7 +246,7 @@ namespace Game {
             private void MovePlayer()
             {
                 Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
-                playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
+                playerRigidBody.AddForce(_movement, ForceMode.VelocityChange);
             }
 
             private void TurnPlayer()
@@ -283,6 +283,9 @@ namespace Game {
                 currentMaxSpeed = _speed;
                 movementDirection = _direction.normalized;
                 
+                bool _prevoiusCanMove = canMove;
+                bool _prevoiusCanRotate = canRotate;
+                
                 if (_keepFacingRotation)
                 {
                     SetMovementActiveState(true, false);
@@ -290,7 +293,7 @@ namespace Game {
                 
                 yield return new WaitForSeconds(_time);
                 
-                SetMovementActiveState(true, true);
+                SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;
             }

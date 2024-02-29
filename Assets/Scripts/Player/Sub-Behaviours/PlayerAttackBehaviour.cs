@@ -133,12 +133,12 @@ namespace Game {
                     
                     currentAimAngle = Mathf.Clamp(currentAimAngle, rangedAimMinAngle, rangedAimMaxAngle);
                     
-                    Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1.6f);
                     Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
                     aimLineLeft.transform.localPosition = _leftPosition;
                     aimLineLeft.transform.localRotation = _leftRotation;
                     
-                    Vector3 _rightPosition = Quaternion.AngleAxis(currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Vector3 _rightPosition = Quaternion.AngleAxis(currentAimAngle, Vector3.up) * new Vector3(0, 0, 1.6f);
                     Quaternion _rightRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
                     aimLineRight.transform.localPosition = _rightPosition;
                     aimLineRight.transform.localRotation = _rightRotation;
@@ -177,7 +177,7 @@ namespace Game {
 
                         if (isMeleeAttacking)
                         {
-                            _hit.Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
+                            MeleeDamage(_hit);
                         }
                     }
                 }
@@ -265,46 +265,7 @@ namespace Game {
                         continue;
                     }
                     
-                    bool _doNormalMelee = true;
-                    
-                    if (MeleeIsStunAttack)
-                    {
-                        MonoBehaviour _damageableMonoBehaviour = damageableInRange[i] as MonoBehaviour;
-                        if (!_damageableMonoBehaviour)
-                        {
-                            continue; 
-                        }
-                        
-                        if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
-                        {
-                            if (_enemyController.GetCurrentState() != _enemyController.StunnedEnemyState)
-                            {
-                                _doNormalMelee = false;
-                                _enemyController.ChangeState(_enemyController.StunnedEnemyState);
-                            }
-                        }
-                    }
-                    
-                    if (_doNormalMelee)
-                    {
-                        bool killed = damageableInRange[i].Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
-                        
-                        if (killed)
-                        {
-                            playerController.PlayerData.kills += 1;
-                            playerController.PlayerData.killsThisLevel += 1;
-                            OnKill.Invoke();
-                            
-                            try
-                            {
-                                dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
-                            }
-                            catch (Exception e)
-                            {
-                                Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
-                            }
-                        }
-                    }
+                    MeleeDamage(damageableInRange[i]);
                 }
                 
                 try
@@ -322,6 +283,52 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
+            }
+
+            private void MeleeDamage(IDamageable _damageable)
+            {
+                bool _doNormalMelee = true;
+                
+                // Stun melee
+                if (MeleeIsStunAttack)
+                {
+                    MonoBehaviour _damageableMonoBehaviour = _damageable as MonoBehaviour;
+                    if (!_damageableMonoBehaviour)
+                    {
+                        return; 
+                    }
+                    
+                    if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
+                    {
+                        if (_enemyController.GetCurrentState() != _enemyController.StunnedEnemyState)
+                        {
+                            _doNormalMelee = false;
+                            _enemyController.ChangeState(_enemyController.StunnedEnemyState);
+                        }
+                    }
+                }
+                
+                // Normal melee
+                if (_doNormalMelee)
+                {
+                    bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
+                    
+                    if (killed)
+                    {
+                        playerController.PlayerData.kills += 1;
+                        playerController.PlayerData.killsThisLevel += 1;
+                        OnKill.Invoke();
+                        
+                        try
+                        {
+                            dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                        }
+                    }
+                }
             }
 
             private void FireProjectile()

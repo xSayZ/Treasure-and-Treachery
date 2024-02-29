@@ -243,11 +243,11 @@ MonoBehaviour:
   turnSpeed: 1
   dashSpeed: 720
   dashTime: 0.2
-  dashRechargeTime: 5
+  dashRechargeTime: 1
   numberOfDashes: 2
   dashDamage: 1
-  dashPushSpeed: 300
-  dashPushTime: 0.25
+  dashPushSpeed: 360
+  dashPushTime: 0.5
   MoveSpeedMultiplier: 1
   OnDash:
     m_PersistentCalls:
@@ -601,7 +601,7 @@ MonoBehaviour:
   meleeAttackCooldownMultiplier: 0.5
   moveSpeedMultiplier: 2
   dashHealAmount: 2
-  dashHealWrathLost: 25
+  dashHealWrathLost: 100
   _dialogueAudio: {fileID: 0}
 --- !u!1 &534324689859706094
 GameObject:
@@ -1745,7 +1745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7456082212192171173
@@ -2197,8 +2197,8 @@ Transform:
   m_GameObject: {fileID: 2687902810199753418}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1146707117999423080}
   m_RootOrder: 4
@@ -2244,7 +2244,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6a2f8566f9eb6f943aa7715eb32b46e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6cf7e41104c1074abec9898e5f3071f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4430,8 +4430,8 @@ Transform:
   m_GameObject: {fileID: 6410334721102978561}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1146707117999423080}
   m_RootOrder: 5
@@ -4477,7 +4477,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6a2f8566f9eb6f943aa7715eb32b46e7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f789acec494fe934984af5e2b4524ae0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

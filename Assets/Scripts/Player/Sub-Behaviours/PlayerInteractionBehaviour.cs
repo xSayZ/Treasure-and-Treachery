@@ -184,6 +184,8 @@ namespace Game {
                 
                 playerController.PlayerData.canPickUp = false;
                 currentPickUpCooldown = pickUpCooldown;
+
+                playerController.PlayerMovementBehaviour.MoveSpeedItemMultiplier = _item.WeightMultiplier;
             }
             
             private void DropItem(int _playerId, Item _item, bool _destroy)
@@ -205,6 +207,8 @@ namespace Game {
                     
                     _item.Pickup.SetActive(true);
                     _item.Pickup.transform.position = transform.position;
+                    
+                    playerController.PlayerMovementBehaviour.MoveSpeedItemMultiplier = 1f;
                 }
                 else
                 {

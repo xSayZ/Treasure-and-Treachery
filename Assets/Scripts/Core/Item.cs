@@ -13,14 +13,14 @@ namespace Game {
     namespace Core {
         public class Item
         {
-            public int Weight;
+            public float WeightMultiplier;
             public float InteractionTime;
             public GameObject Pickup;
             public Sprite Sprite;
 
-            public Item(int _weight, float _interactionTime, GameObject _pickup, Sprite _sprite)
+            public Item(float _weightMultiplier, float _interactionTime, GameObject _pickup, Sprite _sprite)
             {
-                Weight = _weight;
+                WeightMultiplier = _weightMultiplier;
                 InteractionTime = _interactionTime;
                 Pickup = _pickup;
                 Sprite = _sprite;

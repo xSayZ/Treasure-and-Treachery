@@ -62,6 +62,7 @@ namespace Game {
             private float currentMaxSpeed;
             private bool isForceMoving;
             [HideInInspector] public float MoveSpeedMultiplier = 1f;
+            public float MoveSpeedItemMultiplier { private get; set; } = 1f;
             
             // Dash values
             private float currentNumberOfDashes;
@@ -122,7 +123,9 @@ namespace Game {
                     MovePlayer();
                     ClampPlayerPosition();
                 }
-
+                
+                UpdateMovementAnimationSpeed();
+                
                 if (currentDashRechargeTime <= 0 && currentNumberOfDashes < numberOfDashes)
                 {
                     currentNumberOfDashes++;
@@ -242,8 +245,18 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * movementDirection;
-                playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
+                Vector3 _movement;
+                
+                if (isForceMoving)
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
+                }
+                else
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
+                }
+                
+                playerRigidBody.AddForce(_movement, ForceMode.VelocityChange);
             }
 
             private void TurnPlayer()
@@ -280,6 +293,9 @@ namespace Game {
                 currentMaxSpeed = _speed;
                 movementDirection = _direction.normalized;
                 
+                bool _prevoiusCanMove = canMove;
+                bool _prevoiusCanRotate = canRotate;
+                
                 if (_keepFacingRotation)
                 {
                     SetMovementActiveState(true, false);
@@ -287,7 +303,7 @@ namespace Game {
                 
                 yield return new WaitForSeconds(_time);
                 
-                SetMovementActiveState(true, true);
+                SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;
             }
@@ -326,10 +342,16 @@ namespace Game {
                     }
                 }
             }
-            
+
             private bool IsLeftOfLine(Vector3 _lineStart, Vector3 _lineEnd, Vector3 _point)
             {
                 return (_lineEnd.x - _lineStart.x) * (_point.z - _lineStart.z) - (_lineEnd.z - _lineStart.z) * (_point.x - _lineStart.x) > 0;
+            }
+
+            private void UpdateMovementAnimationSpeed()
+            {
+                float _movementMultiplier = (MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection).magnitude;
+                playerController.PlayerAnimationBehaviour.PlayerAnimator.SetFloat("MovementMultiplier", _movementMultiplier);
             }
 #endregion
         }

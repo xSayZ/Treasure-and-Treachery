@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using Game.Audio;
+using Game.Quest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ namespace Game {
             [SerializeField] private Slider wrathSlider;
             
             [Header("Wrath")]
+            [Range(0f, 100f)]
             [SerializeField] private float percentagePerKill;
             [SerializeField] private float decayGracePeriod;
             [SerializeField] private float decayTime;
@@ -94,6 +96,7 @@ namespace Game {
                     playerController.PlayerData.personalObjective += 1;
                     playerController.PlayerData.personalObjectiveThisLevel += 1;
                     playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
+                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
                 }
             }
 

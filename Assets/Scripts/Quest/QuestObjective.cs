@@ -56,6 +56,8 @@ namespace Game {
             
             // Kill variables
             [HideInInspector] public int WaitTime;
+            [HideInInspector] public string CounterTextBeforeNumber;
+            [HideInInspector] public string CounterTextAfterNumber;
             
             // Interaction variables
             [HideInInspector] public bool[] CanInteractWith { get; set; }
@@ -266,6 +268,11 @@ namespace Game {
             private void EnemyKilled(EnemyController _enemyController)
             {
                 killsSoFar++;
+                
+                if (killsSoFar < RequiredKills)
+                {
+                    QuestManager.OnKillQuestProgress.Invoke(CounterTextBeforeNumber, RequiredKills - killsSoFar, CounterTextAfterNumber);
+                }
             }
 
             private void QuestCompleted()

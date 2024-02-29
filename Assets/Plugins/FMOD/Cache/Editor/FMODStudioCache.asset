@@ -97,7 +97,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638445598268736246
+  lastModified: 638447315445841805
   FileSizes: []
   Exists: 1
 --- !u!114 &-8163000975802733970
@@ -128,6 +128,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 9627
+--- !u!114 &-7941509422221633638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WolfRage
+  m_EditorClassIdentifier: 
+  Name: WolfRage
+  StudioPath: parameter:/WolfRage
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 422907721
+    data2: 4119003010
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-7746962278742302326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,10 +301,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &-6036273507379632022
 MonoBehaviour:
@@ -308,7 +332,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 641
+  Length: 642
 --- !u!114 &-5741555298325032955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,10 +404,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &-4873445948972720855
 MonoBehaviour:
@@ -404,8 +428,8 @@ MonoBehaviour:
     Data3: 1801595818
     Data4: -251461116
   Banks:
-  - {fileID: -8769565089363010458}
   - {fileID: 7828807801416092968}
+  - {fileID: -8769565089363010458}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -491,6 +515,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 45
   Length: 1123
+--- !u!114 &-3227489571197436338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
+  Guid:
+    Data1: 467402269
+    Data2: 1310419798
+    Data3: 9332912
+    Data4: 1697474935
+  Banks:
+  - {fileID: -8769565089363010458}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2571
 --- !u!114 &-2320712763268564638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,14 +643,16 @@ MonoBehaviour:
   - {fileID: 455347131322142936}
   - {fileID: 1088177398494048738}
   - {fileID: 2645632393288105992}
+  - {fileID: -3227489571197436338}
   EditorParameters:
   - {fileID: 8356679643267974491}
   - {fileID: -6767588485907711360}
+  - {fileID: -7941509422221633638}
   MasterBanks:
   - {fileID: -8769565089363010458}
   StringsBanks:
   - {fileID: 8533026204774313432}
-  cacheTime: 638445598270649956
+  cacheTime: 638447315445934673
   cacheVersion: 131609
 --- !u!114 &245166772905721942
 MonoBehaviour:
@@ -626,6 +679,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: 2146016597232504462}
+  - {fileID: 2741445704555596384}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -709,10 +763,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &1088177398494048738
 MonoBehaviour:
@@ -733,8 +787,8 @@ MonoBehaviour:
     Data3: 198427308
     Data4: -2038292595
   Banks:
-  - {fileID: -8769565089363010458}
   - {fileID: 7828807801416092968}
+  - {fileID: -8769565089363010458}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -765,10 +819,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &2430698449488435452
 MonoBehaviour:
@@ -821,6 +875,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 46600
+--- !u!114 &2741445704555596384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_PlayerAttack/WolfRage
+  m_EditorClassIdentifier: 
+  Name: WolfRage
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 422907721
+    data2: 4119003010
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &4040599087147125122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,10 +1247,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &7791377724500460393
 MonoBehaviour:
@@ -1217,7 +1295,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638445598270649956
+  lastModified: 638447314889004849
   FileSizes: []
   Exists: 1
 --- !u!114 &8356679643267974491
@@ -1267,10 +1345,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &8533026204774313432
 MonoBehaviour:
@@ -1287,10 +1365,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638445598268802338
+  lastModified: 638447315445934673
   FileSizes:
   - Name: 
-    Value: 4004
+    Value: 4232
   Exists: 1
 --- !u!114 &8733526065677920414
 MonoBehaviour:
@@ -1315,10 +1393,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &9023982507186248766
 MonoBehaviour:
@@ -1371,10 +1449,10 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1
 --- !u!114 &9123962859133594304
 MonoBehaviour:
@@ -1399,8 +1477,8 @@ MonoBehaviour:
   Type: 2
   IsGlobal: 0
   Labels:
-  - Dragon
   - Wolf
-  - Gorgon
+  - Dragon
   - Witch
+  - Gorgon
   Exists: 1

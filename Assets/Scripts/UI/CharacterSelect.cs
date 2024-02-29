@@ -127,8 +127,9 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         data = characterSelectHandler.Datas[id];
                         data.playerIndex = id;
+                        data.ControllerID = playerInputs.playerIndex;
                         characterSelectHandler.SelectedData.Add(data);
-                        cachedId = id;
+                        cachedId = id; 
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);
                     }

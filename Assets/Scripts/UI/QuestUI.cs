@@ -32,6 +32,7 @@ namespace Game {
             private bool sideShowing;
             private bool sideGoneRunning;
             private float sideGoneTimeLeft;
+            private string sideText;
 
 #region Unity Functions
             private void Start()
@@ -56,9 +57,8 @@ namespace Game {
                 
                 if (sideGoneTimeLeft <= 0 && sideGoneRunning)
                 {
-                    sideSpriteAnimator.SetTrigger("Open");
-                    sideMaskAnimator.SetTrigger("Open");
                     sideGoneRunning = false;
+                    OpenSideScroll();
                 }
                 else if (sideGoneRunning)
                 {
@@ -70,7 +70,7 @@ namespace Game {
 #region Public Functions
             public void UpdateSideScroll(string _text)
             {
-                sideQuestText.text = _text;
+                sideText = _text;
                 
                 if (sideShowing)
                 {
@@ -82,8 +82,7 @@ namespace Game {
                 }
                 else
                 {
-                    sideSpriteAnimator.SetTrigger("Open"); 
-                    sideMaskAnimator.SetTrigger("Open");
+                    OpenSideScroll();
                 }
                 
                 sideShowing = true;
@@ -100,6 +99,14 @@ namespace Game {
                 mainMaskAnimator.SetTrigger("Open");
                 
                 mainShowRunning = true;
+            }
+
+            private void OpenSideScroll()
+            {
+                sideSpriteAnimator.SetTrigger("Open"); 
+                sideMaskAnimator.SetTrigger("Open");
+                    
+                sideQuestText.text = sideText;
             }
 #endregion
         }

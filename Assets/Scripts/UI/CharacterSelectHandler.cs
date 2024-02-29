@@ -26,8 +26,7 @@ namespace Game
             
             public List<PlayerData> Datas;
 
-            public List<PlayerData> SelectedData;
-            public static List<PlayerData> staticData = new List<PlayerData>();
+            public static List<CharacterSelect> staticData = new List<CharacterSelect>();
             [SerializeField] private ImageBank bank;
 
             [SerializeField] private List<GameObject> PressToJoinText;
@@ -36,7 +35,7 @@ namespace Game
 
             //For selectedAmountOfPlayers
             public static List<PlayerInput> playerList { get; } = new List<PlayerInput>();
-            private List<CharacterSelect> selects = new List<CharacterSelect>();
+            [SerializeField]private List<CharacterSelect> selects = new List<CharacterSelect>();
 
             public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
             public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
@@ -46,6 +45,8 @@ namespace Game
             [SerializeField] private InputAction joinAction;
 
             [SerializeField] private InputAction leaveAction;
+            
+            
 
             //EVENTS
             public event System.Action<PlayerInput> PlayerJoinedGame;
@@ -118,7 +119,9 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
-                    staticData = SelectedData;
+                    
+                    selects.Sort((p1,p2)=>p1.deviceID.CompareTo(p2.deviceID));
+                    staticData = selects;
                 }
                 else
                 {

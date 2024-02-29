@@ -91,8 +91,7 @@ public EventInstance SpiritStateAudioUpdate(GameObject enemyObj, EventInstance s
             spiritStateInstance.setParameterByName("SpiritState", 3);
             spiritStateInstance.release();
             break;
-        case 6:
-            spiritStateInstance.setParameterByName("SpiritState", 4);
+        case 4:
             spiritStateInstance.release();
             break;
     }

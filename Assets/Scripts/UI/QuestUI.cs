@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Quest;
 using TMPro;
 using UnityEngine;
 
@@ -36,6 +37,16 @@ namespace Game {
             private string sideText;
 
 #region Unity Functions
+            private void OnEnable()
+            {
+                QuestManager.OnKillQuestProgress.AddListener(UpdateSideScrollText);
+            }
+
+            private void OnDisable()
+            {
+                QuestManager.OnKillQuestProgress.RemoveListener(UpdateSideScrollText);
+            }
+
             private void Start()
             {
                 DisplayMainScroll();
@@ -106,8 +117,13 @@ namespace Game {
             {
                 sideSpriteAnimator.SetTrigger("Open"); 
                 sideMaskAnimator.SetTrigger("Open");
-                    
+                
                 sideQuestText.text = sideText;
+            }
+
+            private void UpdateSideScrollText(string _textBefore, int _amount, string _textAfter)
+            {
+                sideQuestText.text = _textBefore.Trim() + " " + _amount + " " + _textAfter.Trim();
             }
 #endregion
         }

@@ -98,13 +98,14 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                
-                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
-                
-                   
-                   
-                
-               
+
+                var player = PlayerInput.GetPlayerByIndex(PlayerData.ControllerID);
+                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID].device);
+
+
+
+
+
             }
 
 #region Unity Functions

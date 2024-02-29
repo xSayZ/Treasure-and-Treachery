@@ -55,6 +55,7 @@ namespace Game {
                     playerController.PlayerData.personalObjective += _amount;
                     playerController.PlayerData.personalObjectiveThisLevel += _amount;
                     playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, _amount);
+                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
                 }
             }
 

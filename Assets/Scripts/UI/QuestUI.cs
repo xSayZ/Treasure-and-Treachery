@@ -24,7 +24,8 @@ namespace Game {
             
             [Header("Settings")]
             [SerializeField] private float mainShowTime;
-            [SerializeField] private string startingText;
+            [SerializeField] private string mainStartingText;
+            [SerializeField] private string sideStartingText;
             [SerializeField] private float sideGoneTime;
             
             private float mainShowTimeLeft;
@@ -48,7 +49,7 @@ namespace Game {
                     mainMaskAnimator.SetTrigger("Close");
                     mainShowRunning = false;
                     
-                    UpdateSideScroll(startingText);
+                    UpdateSideScroll(sideStartingText);
                 }
                 else if (mainShowRunning)
                 {
@@ -92,7 +93,7 @@ namespace Game {
 #region Private Functions
             private void DisplayMainScroll()
             {
-                mainQuestText.text = startingText;
+                mainQuestText.text = mainStartingText;
                 mainShowTimeLeft = mainShowTime;
                 
                 mainSpriteAnimator.SetTrigger("Open");

@@ -245,7 +245,17 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
+                Vector3 _movement;
+                
+                if (isForceMoving)
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
+                }
+                else
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
+                }
+                
                 playerRigidBody.AddForce(_movement, ForceMode.VelocityChange);
             }
 

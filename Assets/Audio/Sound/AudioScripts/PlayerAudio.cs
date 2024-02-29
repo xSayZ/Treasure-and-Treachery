@@ -62,13 +62,14 @@ public void MeleeAudioPlay(GameObject meleeObj)
     playerMeleeAttackInstance.release();
 }
 
-public void PlayerFootstepPlay(float grassValue, float dirtValue, GameObject footObj)
+public void PlayerFootstepPlay(float grassValue, float dirtValue, float rockValue, GameObject footObj)
 {
     EventInstance playerFootstepInstance = RuntimeManager.CreateInstance(playerFootStep);
     RuntimeManager.AttachInstanceToGameObject(playerFootstepInstance, footObj.transform);
 
     playerFootstepInstance.setParameterByName("Grass", grassValue);
     playerFootstepInstance.setParameterByName("Path", dirtValue);
+    playerFootstepInstance.setParameterByName("Rock", rockValue);
     
     playerFootstepInstance.start();
     playerFootstepInstance.release();

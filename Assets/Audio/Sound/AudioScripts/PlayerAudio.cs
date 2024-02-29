@@ -30,6 +30,10 @@ namespace Game {
             private EventReference projectileSwoosh;
             [SerializeField] 
             private EventReference interactionAudio;
+            [SerializeField] 
+            private EventReference gorgonPetrifyAudio;
+            [SerializeField] 
+            private EventReference gorgonPetrifySmashAudio;
 
             [Header("Player Vox")]
             [SerializeField] 
@@ -53,6 +57,24 @@ namespace Game {
 
 #region Public Functions
 
+public void PetrifySmashAudio(GameObject enemyObj)
+{
+    EventInstance petrifySmashInstance = RuntimeManager.CreateInstance(gorgonPetrifySmashAudio);
+    RuntimeManager.AttachInstanceToGameObject(petrifySmashInstance, enemyObj.transform, enemyObj.GetComponent<Rigidbody>());
+    
+    petrifySmashInstance.start();
+    petrifySmashInstance.release();
+}
+
+public void PetrifyAudio(GameObject enemyObj)
+{
+    EventInstance petrifyInstance = RuntimeManager.CreateInstance(gorgonPetrifyAudio);
+    RuntimeManager.AttachInstanceToGameObject(petrifyInstance, enemyObj.transform, enemyObj.GetComponent<Rigidbody>());
+    
+    petrifyInstance.start();
+    petrifyInstance.release();
+}
+
 public void MeleeAudioPlay(GameObject meleeObj)
 {
     EventInstance playerMeleeAttackInstance = RuntimeManager.CreateInstance(playerMeleeAttack);
@@ -62,13 +84,15 @@ public void MeleeAudioPlay(GameObject meleeObj)
     playerMeleeAttackInstance.release();
 }
 
-public void PlayerFootstepPlay(float grassValue, float dirtValue, GameObject footObj)
+public void PlayerFootstepPlay(float grassValue, float dirtValue, float rockValue, GameObject footObj)
+
 {
     EventInstance playerFootstepInstance = RuntimeManager.CreateInstance(playerFootStep);
     RuntimeManager.AttachInstanceToGameObject(playerFootstepInstance, footObj.transform);
 
     playerFootstepInstance.setParameterByName("Grass", grassValue);
     playerFootstepInstance.setParameterByName("Path", dirtValue);
+    playerFootstepInstance.setParameterByName("Rock", rockValue);
     
     playerFootstepInstance.start();
     playerFootstepInstance.release();

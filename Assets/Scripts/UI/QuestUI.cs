@@ -18,13 +18,20 @@ namespace Game {
             [SerializeField] private TextMeshProUGUI mainQuestText;
             [SerializeField] private Animator mainSpriteAnimator;
             [SerializeField] private Animator mainMaskAnimator;
+            [SerializeField] private TextMeshProUGUI sideQuestText;
+            [SerializeField] private Animator sideSpriteAnimator;
+            [SerializeField] private Animator sideMaskAnimator;
             
             [Header("Settings")]
             [SerializeField] private float mainShowTime;
             [SerializeField] private string startingText;
+            [SerializeField] private float sideGoneTime;
             
             private float mainShowTimeLeft;
             private bool mainShowRunning;
+            private bool sideShowing;
+            private bool sideGoneRunning;
+            private float sideGoneTimeLeft;
 
 #region Unity Functions
             private void Start()
@@ -39,10 +46,23 @@ namespace Game {
                     mainSpriteAnimator.SetTrigger("Close");
                     mainMaskAnimator.SetTrigger("Close");
                     mainShowRunning = false;
+                    
+                    UpdateSideScroll(startingText);
                 }
                 else if (mainShowRunning)
                 {
                     mainShowTimeLeft -= Time.deltaTime;
+                }
+                
+                if (sideGoneTimeLeft <= 0 && sideGoneRunning)
+                {
+                    sideSpriteAnimator.SetTrigger("Open");
+                    sideMaskAnimator.SetTrigger("Open");
+                    sideGoneRunning = false;
+                }
+                else if (sideGoneRunning)
+                {
+                    sideGoneTimeLeft -= Time.deltaTime;
                 }
             }
 #endregion
@@ -50,7 +70,23 @@ namespace Game {
 #region Public Functions
             public void UpdateSideScroll(string _text)
             {
+                sideQuestText.text = _text;
                 
+                if (sideShowing)
+                {
+                    sideSpriteAnimator.SetTrigger("Close");
+                    sideMaskAnimator.SetTrigger("Close");
+                    
+                    sideGoneTimeLeft = sideGoneTime;
+                    sideGoneRunning = true;
+                }
+                else
+                {
+                    sideSpriteAnimator.SetTrigger("Open"); 
+                    sideMaskAnimator.SetTrigger("Open");
+                }
+                
+                sideShowing = true;
             }
 #endregion
 

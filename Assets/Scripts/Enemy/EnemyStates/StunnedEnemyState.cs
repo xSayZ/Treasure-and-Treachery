@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using UnityEngine;
 
 
@@ -30,6 +31,15 @@ namespace Game {
                 animator.speed = 0;
                 meshRenderer.material = stunnedMaterial;
                 enemyController.GetEnemyAttackBehaviour().SetCanAttack(false);
+                
+                try  
+                {
+                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 6);
+                } 
+                catch (Exception e)
+                {
+                    Debug.LogError("[{StunnedEnemyState}]: Error Exception " + e);
+                }
             }
 
             //public override void FixedUpdate(){}

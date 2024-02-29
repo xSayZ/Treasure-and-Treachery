@@ -24,7 +24,8 @@ namespace Game {
             
             [Header("Settings")]
             [SerializeField] private float mainShowTime;
-            [SerializeField] private string startingText;
+            [SerializeField] private string mainStartingText;
+            [SerializeField] private string sideStartingText;
             [SerializeField] private float sideGoneTime;
             
             private float mainShowTimeLeft;
@@ -32,6 +33,7 @@ namespace Game {
             private bool sideShowing;
             private bool sideGoneRunning;
             private float sideGoneTimeLeft;
+            private string sideText;
 
 #region Unity Functions
             private void Start()
@@ -47,7 +49,7 @@ namespace Game {
                     mainMaskAnimator.SetTrigger("Close");
                     mainShowRunning = false;
                     
-                    UpdateSideScroll(startingText);
+                    UpdateSideScroll(sideStartingText);
                 }
                 else if (mainShowRunning)
                 {
@@ -56,9 +58,8 @@ namespace Game {
                 
                 if (sideGoneTimeLeft <= 0 && sideGoneRunning)
                 {
-                    sideSpriteAnimator.SetTrigger("Open");
-                    sideMaskAnimator.SetTrigger("Open");
                     sideGoneRunning = false;
+                    OpenSideScroll();
                 }
                 else if (sideGoneRunning)
                 {
@@ -70,7 +71,7 @@ namespace Game {
 #region Public Functions
             public void UpdateSideScroll(string _text)
             {
-                sideQuestText.text = _text;
+                sideText = _text;
                 
                 if (sideShowing)
                 {
@@ -82,8 +83,7 @@ namespace Game {
                 }
                 else
                 {
-                    sideSpriteAnimator.SetTrigger("Open"); 
-                    sideMaskAnimator.SetTrigger("Open");
+                    OpenSideScroll();
                 }
                 
                 sideShowing = true;
@@ -93,13 +93,21 @@ namespace Game {
 #region Private Functions
             private void DisplayMainScroll()
             {
-                mainQuestText.text = startingText;
+                mainQuestText.text = mainStartingText;
                 mainShowTimeLeft = mainShowTime;
                 
                 mainSpriteAnimator.SetTrigger("Open");
                 mainMaskAnimator.SetTrigger("Open");
                 
                 mainShowRunning = true;
+            }
+
+            private void OpenSideScroll()
+            {
+                sideSpriteAnimator.SetTrigger("Open"); 
+                sideMaskAnimator.SetTrigger("Open");
+                    
+                sideQuestText.text = sideText;
             }
 #endregion
         }

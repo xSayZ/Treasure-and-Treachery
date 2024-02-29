@@ -99,7 +99,7 @@ namespace Game {
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                Debug.Log("local parameter set to" + " "+ paramValue);
+                
             }
             
             

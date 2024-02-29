@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9220182113518681943
+--- !u!114 &-9082103698523214137
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,79 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDamaged
+  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDamaged
+  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
   Guid:
-    Data1: 287453082
-    Data2: 1133526437
-    Data3: -1846111330
-    Data4: -2007583395
+    Data1: 467402269
+    Data2: 1310419798
+    Data3: 9332912
+    Data4: 1697474935
   Banks:
-  - {fileID: -8769565089363010458}
+  - {fileID: 3531234008076186661}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
-  Parameters:
-  - {fileID: 8374588033152577238}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-9061417192876210319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnemyRoam
-  m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnemyRoam
-  Guid:
-    Data1: 1665971019
-    Data2: 1242329725
-    Data3: -992356708
-    Data4: -159320154
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 50
-  Length: 1000
---- !u!114 &-8876582413704829618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_GEN_Footstep/Surface
-  m_EditorClassIdentifier: 
-  Name: Surface
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 3887903347
-    data2: 2708601808
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Grass
-  - Dirt
-  - Rock
-  Exists: 1
---- !u!114 &-8769565089363010458
+  MaxDistance: 20
+  Length: 2871
+--- !u!114 &-9009486603958876372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,15 +37,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
+  m_Name: bank:/Master.strings.bank
   m_EditorClassIdentifier: 
-  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638448252452592772
-  FileSizes: []
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638448252452676404
+  FileSizes:
+  - Name: 
+    Value: 4408
   Exists: 1
---- !u!114 &-8165324634174762587
+--- !u!114 &-8783786666572557789
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -110,24 +57,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  m_Name: event:/Ambiance/AMB_Trees
   m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  Path: event:/Ambiance/AMB_Trees
   Guid:
-    Data1: 1827072503
-    Data2: 1085460244
-    Data3: 1534459817
-    Data4: -1454830557
+    Data1: -1257043467
+    Data2: 1131270637
+    Data3: -569233486
+    Data4: 1864945059
   Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
+  - {fileID: 3531234008076186661}
+  IsStream: 1
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
-  MaxDistance: 9.8
-  Length: 1800
---- !u!114 &-8163000975802733970
+  MaxDistance: 35
+  Length: 2200
+--- !u!114 &-8756611524348124030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -137,278 +84,53 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
+  m_Name: event:/Enemies/EnMY_Spirit_States
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
+  Path: event:/Enemies/EnMY_Spirit_States
   Guid:
-    Data1: 1094806697
-    Data2: 1310562140
-    Data3: 440966023
-    Data4: 1358572135
+    Data1: 748238195
+    Data2: 1227070179
+    Data3: 467766948
+    Data4: -1540445368
   Banks:
-  - {fileID: -8769565089363010458}
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2782141655617462783}
+  MinDistance: 1
+  MaxDistance: 25
+  Length: 13000
+--- !u!114 &-8603213359241406978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_CartEnterReaction
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_CartEnterReaction
+  Guid:
+    Data1: -1568007740
+    Data2: 1227554846
+    Data3: -2089633612
+    Data4: -702944391
+  Banks:
+  - {fileID: 3531234008076186661}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 7688423845503369261}
+  - {fileID: 2176250192523660702}
   MinDistance: 1
   MaxDistance: 20
-  Length: 9627
---- !u!114 &-7941509422221633638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/WolfRage
-  m_EditorClassIdentifier: 
-  Name: WolfRage
-  StudioPath: parameter:/WolfRage
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 422907721
-    data2: 4119003010
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &-7746962278742302326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music/AvatarProg
-  m_EditorClassIdentifier: 
-  Name: AvatarProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 4144428851
-    data2: 1071713729
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-7645771452213190916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
-  Guid:
-    Data1: 1597842329
-    Data2: 1341618427
-    Data3: -612474749
-    Data4: 1306189908
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 60
-  Length: 1191
---- !u!114 &-7312617678657690281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music/MusicProg
-  m_EditorClassIdentifier: 
-  Name: MusicProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 2878851826
-    data2: 2108855987
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-7304287931904455468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Attack
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_GEN_Attack
-  Guid:
-    Data1: 779386042
-    Data2: 1103460210
-    Data3: 2131411853
-    Data4: -1818785855
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1701
---- !u!114 &-6767588485907711360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/BirdLevel
-  m_EditorClassIdentifier: 
-  Name: BirdLevel
-  StudioPath: parameter:/Ambiance/BirdLevel
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 2748064553
-    data2: 43515341
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &-6232882337361566399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_ObjectiveProgReaction/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &-6036273507379632022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Interactables/INT_GoldPickup
-  m_EditorClassIdentifier: 
-  Path: event:/Interactables/INT_GoldPickup
-  Guid:
-    Data1: 2063705782
-    Data2: 1099860792
-    Data3: 43462050
-    Data4: -310073987
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 642
---- !u!114 &-5741555298325032955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/AMB_WindBirds/WindStrength
-  m_EditorClassIdentifier: 
-  Name: WindStrength
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1683709149
-    data2: 2351910085
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &-5741332676714727450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/EnMY_Spirit_States/SpiritState
-  m_EditorClassIdentifier: 
-  Name: SpiritState
-  StudioPath: 
-  Min: 0
-  Max: 4
-  Default: 0
-  ID:
-    data1: 969083656
-    data2: 3464497093
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-5085604405102487708
+  Length: 0
+--- !u!114 &-7683137465813288173
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,38 +158,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &-4873445948972720855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/Gameplay Music
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/Gameplay Music
-  Guid:
-    Data1: 569035522
-    Data2: 1150319660
-    Data3: 1801595818
-    Data4: -251461116
-  Banks:
-  - {fileID: -8769565089363010458}
-  - {fileID: 7828807801416092968}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 4040599087147125122}
-  - {fileID: -7746962278742302326}
-  - {fileID: -7312617678657690281}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 68571
---- !u!114 &-3503999345537260131
+--- !u!114 &-7648595048000261250
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -477,21 +168,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_Footstep/Grass
+  m_Name: parameter:/Gameplay Music/MusicProg
   m_EditorClassIdentifier: 
-  Name: Grass
+  Name: MusicProg
   StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
+  Min: 1
+  Max: 5
+  Default: 1
   ID:
-    data1: 1968568215
-    data2: 1208452939
+    data1: 2878851826
+    data2: 2108855987
   Type: 0
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-3346528318314963062
+--- !u!114 &-7589849723618651705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -501,275 +192,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_GEN_Interact/InteractLooping
+  m_Name: parameter:/AMB_WindBirds/BirdLevel
   m_EditorClassIdentifier: 
-  Name: InteractLooping
+  Name: BirdLevel
   StudioPath: 
   Min: 0
-  Max: 2
+  Max: 3
   Default: 0
   ID:
-    data1: 2934300448
-    data2: 3792148319
+    data1: 2748064553
+    data2: 43515341
   Type: 0
-  IsGlobal: 0
+  IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &-3306506065036617217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Interactables/CarriageDamage
-  m_EditorClassIdentifier: 
-  Path: event:/Interactables/CarriageDamage
-  Guid:
-    Data1: -634866848
-    Data2: 1180533719
-    Data3: 596380828
-    Data4: 2032473119
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 45
-  Length: 1123
---- !u!114 &-3227489571197436338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
-  Guid:
-    Data1: 467402269
-    Data2: 1310419798
-    Data3: 9332912
-    Data4: 1697474935
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2871
---- !u!114 &-2320712763268564638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambiance/AMB_WindBirds
-  m_EditorClassIdentifier: 
-  Path: event:/Ambiance/AMB_WindBirds
-  Guid:
-    Data1: -1155292529
-    Data2: 1246562929
-    Data3: -910430320
-    Data4: 132008940
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 2430698449488435452}
-  - {fileID: -5741555298325032955}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1692532214035946790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
-  Guid:
-    Data1: 699834432
-    Data2: 1340092931
-    Data3: -1290063937
-    Data4: 70993087
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -6232882337361566399}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: 8533026204774313432}
-  - {fileID: -8769565089363010458}
-  - {fileID: 7828807801416092968}
-  EditorEvents:
-  - {fileID: -4873445948972720855}
-  - {fileID: 9023982507186248766}
-  - {fileID: 6434262253643170248}
-  - {fileID: -1692532214035946790}
-  - {fileID: -9061417192876210319}
-  - {fileID: -3306506065036617217}
-  - {fileID: 5427909755138463509}
-  - {fileID: 4625405228516211253}
-  - {fileID: 367281458050746125}
-  - {fileID: 7231913148943927738}
-  - {fileID: 6678620867612986651}
-  - {fileID: 7418356650527479062}
-  - {fileID: -2320712763268564638}
-  - {fileID: -7645771452213190916}
-  - {fileID: -9220182113518681943}
-  - {fileID: -8163000975802733970}
-  - {fileID: -6036273507379632022}
-  - {fileID: 6925047836873083605}
-  - {fileID: -7304287931904455468}
-  - {fileID: 7791377724500460393}
-  - {fileID: 4832505716116719706}
-  - {fileID: 245166772905721942}
-  - {fileID: 7355006292408782037}
-  - {fileID: 5006650673098963942}
-  - {fileID: 455347131322142936}
-  - {fileID: 1088177398494048738}
-  - {fileID: 2645632393288105992}
-  - {fileID: -3227489571197436338}
-  - {fileID: -8165324634174762587}
-  EditorParameters:
-  - {fileID: 8356679643267974491}
-  - {fileID: -6767588485907711360}
-  - {fileID: -7941509422221633638}
-  MasterBanks:
-  - {fileID: -8769565089363010458}
-  StringsBanks:
-  - {fileID: 8533026204774313432}
-  cacheTime: 638448252454228561
-  cacheVersion: 131609
---- !u!114 &245166772905721942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerAttack
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerAttack
-  Guid:
-    Data1: 2076979421
-    Data2: 1109986732
-    Data3: -333449571
-    Data4: 559984891
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 2146016597232504462}
-  - {fileID: 2741445704555596384}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &367281458050746125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
-  Guid:
-    Data1: -81772934
-    Data2: 1222942848
-    Data3: -1869810791
-    Data4: 629442032
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -8876582413704829618}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &455347131322142936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_Footstep
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_Footstep
-  Guid:
-    Data1: -2054864394
-    Data2: 1140817885
-    Data3: 322197404
-    Data4: -1130297824
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4256395797009835690}
-  - {fileID: -3503999345537260131}
-  - {fileID: 7528177932696362853}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &904452867129997802
+--- !u!114 &-7424859570537756585
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -797,7 +234,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &1088177398494048738
+--- !u!114 &-7338874996795864786
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -807,77 +244,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/Timed Stinger
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/Timed Stinger
+  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
   Guid:
-    Data1: -1765121799
-    Data2: 1322447865
-    Data3: 198427308
-    Data4: -2038292595
+    Data1: 1094806697
+    Data2: 1310562140
+    Data3: 440966023
+    Data4: 1358572135
   Banks:
-  - {fileID: -8769565089363010458}
-  - {fileID: 7828807801416092968}
-  IsStream: 1
-  Is3D: 0
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -5421390986348542468}
   MinDistance: 1
   MaxDistance: 20
-  Length: 4285
---- !u!114 &2146016597232504462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerAttack/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &2430698449488435452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/AMB_WindBirds/BirdLevel
-  m_EditorClassIdentifier: 
-  Name: BirdLevel
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 2748064553
-    data2: 43515341
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &2645632393288105992
+  Length: 9627
+--- !u!114 &-7305866853410751238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -887,24 +272,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/HubMusic
+  m_Name: event:/Music Events/Gameplay Music
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/HubMusic
+  Path: event:/Music Events/Gameplay Music
   Guid:
-    Data1: -1949739831
-    Data2: 1135333817
-    Data3: 1448912784
-    Data4: -1024717124
+    Data1: 569035522
+    Data2: 1150319660
+    Data3: 1801595818
+    Data4: -251461116
   Banks:
-  - {fileID: 7828807801416092968}
+  - {fileID: 3531234008076186661}
+  - {fileID: 6843316956230067141}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
-  Parameters: []
+  Parameters:
+  - {fileID: 6366160764025884187}
+  - {fileID: 2430696035556984256}
+  - {fileID: -7648595048000261250}
   MinDistance: 1
   MaxDistance: 20
-  Length: 46600
---- !u!114 &2741445704555596384
+  Length: 68571
+--- !u!114 &-7039077940128389354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  Guid:
+    Data1: 1597842329
+    Data2: 1341618427
+    Data3: -612474749
+    Data4: 1306189908
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 60
+  Length: 1191
+--- !u!114 &-6964546956949137835
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -928,7 +344,7 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &4040599087147125122
+--- !u!114 &-6756743390710150792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -937,24 +353,54 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music/Stinger Switch
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_GoldPickupReaction
   m_EditorClassIdentifier: 
-  Name: Stinger Switch
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3652833795
-    data2: 774979548
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Off
-  - On
-  Exists: 1
---- !u!114 &4256395797009835690
+  Path: event:/Dialogue/VOX/VOX_GoldPickupReaction
+  Guid:
+    Data1: -1904601615
+    Data2: 1130142441
+    Data3: -230914422
+    Data4: -1759236423
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7424859570537756585}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6468945334020705105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_ShovelVoiceline
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_ShovelVoiceline
+  Guid:
+    Data1: 372742679
+    Data2: 1093187185
+    Data3: -1737522512
+    Data4: 717542289
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7683137465813288173}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6097616344882540578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -978,7 +424,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &4625405228516211253
+--- !u!114 &-5953938103926009914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -987,26 +433,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_GEN_Footstep/Surface
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
-  Guid:
-    Data1: 337753718
-    Data2: 1279109942
-    Data3: -640810341
-    Data4: 1359046811
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 9123962859133594304}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &4832505716116719706
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 3887903347
+    data2: 2708601808
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Grass
+  - Dirt
+  - Rock
+  Exists: 1
+--- !u!114 &-5676422893520250492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1015,245 +460,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnemyDetection
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_ObjectiveProgReaction/SpeakerCharacter
   m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnemyDetection
-  Guid:
-    Data1: 897549255
-    Data2: 1327116457
-    Data3: -1942137952
-    Data4: 66596515
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1500
---- !u!114 &5006650673098963942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambiance/AMB_Trees
-  m_EditorClassIdentifier: 
-  Path: event:/Ambiance/AMB_Trees
-  Guid:
-    Data1: -1257043467
-    Data2: 1131270637
-    Data3: -569233486
-    Data4: 1864945059
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 35
-  Length: 2200
---- !u!114 &5427909755138463509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnMY_Spirit_States
-  m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnMY_Spirit_States
-  Guid:
-    Data1: 748238195
-    Data2: 1227070179
-    Data3: 467766948
-    Data4: -1540445368
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -5741332676714727450}
-  MinDistance: 1
-  MaxDistance: 25
-  Length: 13000
---- !u!114 &6434262253643170248
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
-  Guid:
-    Data1: 294073659
-    Data2: 1102772808
-    Data3: -1501118058
-    Data4: 1650866803
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 65
-  Length: 2968
---- !u!114 &6678620867612986651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_GoldPickup
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_GoldPickup
-  Guid:
-    Data1: -918871679
-    Data2: 1320168688
-    Data3: 539038100
-    Data4: 790273705
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 9043599714608678964}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &6925047836873083605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/Music Stingers
-  m_EditorClassIdentifier: 
-  Path: snapshot:/Music Stingers
-  Guid:
-    Data1: 1752635578
-    Data2: 1109141372
-    Data3: -113101664
-    Data4: 156146809
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &7231913148943927738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Interact
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_GEN_Interact
-  Guid:
-    Data1: 796841856
-    Data2: 1236573377
-    Data3: 1087181987
-    Data4: 657126500
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -3346528318314963062}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
---- !u!114 &7355006292408782037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_GoldPickupReaction
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_GoldPickupReaction
-  Guid:
-    Data1: -1904601615
-    Data2: 1130142441
-    Data3: -230914422
-    Data4: -1759236423
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 904452867129997802}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7418356650527479062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_CartEnter
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_CartEnter
-  Guid:
-    Data1: -1632806258
-    Data2: 1211560666
-    Data3: -811677812
-    Data4: 1412046483
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &7528177932696362853
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &-5675560588364533079
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1277,7 +503,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &7688423845503369261
+--- !u!114 &-5421390986348542468
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1305,7 +531,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &7791377724500460393
+--- !u!114 &-5330260870371276875
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1315,43 +541,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_CartEnterReaction
+  m_Name: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_CartEnterReaction
+  Path: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
   Guid:
-    Data1: -1568007740
-    Data2: 1227554846
-    Data3: -2089633612
-    Data4: -702944391
+    Data1: 699834432
+    Data2: 1340092931
+    Data3: -1290063937
+    Data4: 70993087
   Banks:
-  - {fileID: -8769565089363010458}
+  - {fileID: 3531234008076186661}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 8733526065677920414}
+  - {fileID: -5676422893520250492}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &7828807801416092968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Music .bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
-  Name: 'Music '
-  StudioPath: 'bank:/Music '
-  lastModified: 638448252454228561
-  FileSizes: []
-  Exists: 1
---- !u!114 &8356679643267974491
+--- !u!114 &-5320959665046883903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1361,153 +569,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/WindStrength
+  m_Name: parameter:/PLY_GEN_Interact/InteractLooping
   m_EditorClassIdentifier: 
-  Name: WindStrength
-  StudioPath: parameter:/WindStrength
+  Name: InteractLooping
+  StudioPath: 
   Min: 0
-  Max: 3
+  Max: 2
   Default: 0
   ID:
-    data1: 1683709149
-    data2: 2351910085
+    data1: 2934300448
+    data2: 3792148319
   Type: 0
-  IsGlobal: 1
+  IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &8374588033152577238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerDamaged/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &8533026204774313432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638448252452676404
-  FileSizes:
-  - Name: 
-    Value: 4408
-  Exists: 1
---- !u!114 &8733526065677920414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_CartEnterReaction/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &9023982507186248766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_ShovelVoiceline
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_ShovelVoiceline
-  Guid:
-    Data1: 372742679
-    Data2: 1093187185
-    Data3: -1737522512
-    Data4: 717542289
-  Banks:
-  - {fileID: -8769565089363010458}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -5085604405102487708}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &9043599714608678964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_GoldPickup/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &9123962859133594304
+--- !u!114 &-5191962812923115331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1535,3 +611,927 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
+--- !u!114 &-5077161104765434758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Interactables/INT_GoldPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Interactables/INT_GoldPickup
+  Guid:
+    Data1: 2063705782
+    Data2: 1099860792
+    Data3: 43462050
+    Data4: -310073987
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 642
+--- !u!114 &-4800074538079386035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_GoldPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_GoldPickup
+  Guid:
+    Data1: -918871679
+    Data2: 1320168688
+    Data3: 539038100
+    Data4: 790273705
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7930514877390116839}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3983205620123449889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerAttack
+  Guid:
+    Data1: 2076979421
+    Data2: 1109986732
+    Data3: -333449571
+    Data4: 559984891
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6964546956949137835}
+  - {fileID: -284654234749252676}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3521908297754681479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AMB_WindBirds/WindStrength
+  m_EditorClassIdentifier: 
+  Name: WindStrength
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1683709149
+    data2: 2351910085
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-3331583099469183512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  Guid:
+    Data1: 294073659
+    Data2: 1102772808
+    Data3: -1501118058
+    Data4: 1650866803
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 65
+  Length: 2968
+--- !u!114 &-3214837208440471055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BirdLevel
+  m_EditorClassIdentifier: 
+  Name: BirdLevel
+  StudioPath: parameter:/Ambiance/BirdLevel
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2748064553
+    data2: 43515341
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-2782141655617462783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/EnMY_Spirit_States/SpiritState
+  m_EditorClassIdentifier: 
+  Name: SpiritState
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 0
+  ID:
+    data1: 969083656
+    data2: 3464497093
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2473944206750970195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/EnemyDetection
+  m_EditorClassIdentifier: 
+  Path: event:/Enemies/EnemyDetection
+  Guid:
+    Data1: 897549255
+    Data2: 1327116457
+    Data3: -1942137952
+    Data4: 66596515
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
+--- !u!114 &-1881674102158536461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/Music Stingers
+  m_EditorClassIdentifier: 
+  Path: snapshot:/Music Stingers
+  Guid:
+    Data1: 1752635578
+    Data2: 1109141372
+    Data3: -113101664
+    Data4: 156146809
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-1238789338717838896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_Footstep
+  Guid:
+    Data1: -2054864394
+    Data2: 1140817885
+    Data3: 322197404
+    Data4: -1130297824
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6097616344882540578}
+  - {fileID: -5675560588364533079}
+  - {fileID: -632850099079259706}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-632850099079259706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_Footstep/Grass
+  m_EditorClassIdentifier: 
+  Name: Grass
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1968568215
+    data2: 1208452939
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-404107624210631640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Interact
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Interact
+  Guid:
+    Data1: 796841856
+    Data2: 1236573377
+    Data3: 1087181987
+    Data4: 657126500
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -5320959665046883903}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &-284654234749252676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_PlayerAttack/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -9009486603958876372}
+  - {fileID: 3531234008076186661}
+  - {fileID: 6843316956230067141}
+  EditorEvents:
+  - {fileID: -7305866853410751238}
+  - {fileID: -6468945334020705105}
+  - {fileID: -9082103698523214137}
+  - {fileID: -3331583099469183512}
+  - {fileID: -5330260870371276875}
+  - {fileID: 4401580982419693553}
+  - {fileID: 5612166399451309727}
+  - {fileID: -8756611524348124030}
+  - {fileID: 5714232105127245730}
+  - {fileID: 9183320789858805519}
+  - {fileID: -404107624210631640}
+  - {fileID: -4800074538079386035}
+  - {fileID: 6588630770867586147}
+  - {fileID: 4829922514532440426}
+  - {fileID: -7039077940128389354}
+  - {fileID: 8739887478978452341}
+  - {fileID: -7338874996795864786}
+  - {fileID: -5077161104765434758}
+  - {fileID: -1881674102158536461}
+  - {fileID: 4998953097116382586}
+  - {fileID: -8603213359241406978}
+  - {fileID: -2473944206750970195}
+  - {fileID: -3983205620123449889}
+  - {fileID: -6756743390710150792}
+  - {fileID: -8783786666572557789}
+  - {fileID: -1238789338717838896}
+  - {fileID: 1462543405850373818}
+  - {fileID: 6552356753501028644}
+  - {fileID: 647067058527330863}
+  EditorParameters:
+  - {fileID: 8797719750629465085}
+  - {fileID: -3214837208440471055}
+  - {fileID: 8082769015697913303}
+  MasterBanks:
+  - {fileID: 3531234008076186661}
+  StringsBanks:
+  - {fileID: -9009486603958876372}
+  cacheTime: 638448299322379080
+  cacheVersion: 131609
+--- !u!114 &647067058527330863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/HubMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/HubMusic
+  Guid:
+    Data1: -1949739831
+    Data2: 1135333817
+    Data3: 1448912784
+    Data4: -1024717124
+  Banks:
+  - {fileID: 6843316956230067141}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 46600
+--- !u!114 &1462543405850373818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  Guid:
+    Data1: 1827072503
+    Data2: 1085460244
+    Data3: 1534459817
+    Data4: -1454830557
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 9.8
+  Length: 1800
+--- !u!114 &2176250192523660702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_CartEnterReaction/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &2430696035556984256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/AvatarProg
+  m_EditorClassIdentifier: 
+  Name: AvatarProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 4144428851
+    data2: 1071713729
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2872659603071817954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_PlayerDamaged/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &3531234008076186661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638448299321561318
+  FileSizes: []
+  Exists: 1
+--- !u!114 &4401580982419693553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/EnemyRoam
+  m_EditorClassIdentifier: 
+  Path: event:/Enemies/EnemyRoam
+  Guid:
+    Data1: 1665971019
+    Data2: 1242329725
+    Data3: -992356708
+    Data4: -159320154
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 50
+  Length: 1000
+--- !u!114 &4829922514532440426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_WindBirds
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_WindBirds
+  Guid:
+    Data1: -1155292529
+    Data2: 1246562929
+    Data3: -910430320
+    Data4: 132008940
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -7589849723618651705}
+  - {fileID: -3521908297754681479}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4998953097116382586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Attack
+  Guid:
+    Data1: 779386042
+    Data2: 1103460210
+    Data3: 2131411853
+    Data4: -1818785855
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1701
+--- !u!114 &5612166399451309727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Interactables/CarriageDamage
+  m_EditorClassIdentifier: 
+  Path: event:/Interactables/CarriageDamage
+  Guid:
+    Data1: -634866848
+    Data2: 1180533719
+    Data3: 596380828
+    Data4: 2032473119
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 45
+  Length: 1123
+--- !u!114 &5714232105127245730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
+  Guid:
+    Data1: 337753718
+    Data2: 1279109942
+    Data3: -640810341
+    Data4: 1359046811
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5191962812923115331}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6366160764025884187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/Stinger Switch
+  m_EditorClassIdentifier: 
+  Name: Stinger Switch
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3652833795
+    data2: 774979548
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Off
+  - On
+  Exists: 1
+--- !u!114 &6552356753501028644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/Timed Stinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/Timed Stinger
+  Guid:
+    Data1: -1765121799
+    Data2: 1322447865
+    Data3: 198427308
+    Data4: -2038292595
+  Banks:
+  - {fileID: 3531234008076186661}
+  - {fileID: 6843316956230067141}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4285
+--- !u!114 &6588630770867586147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_CartEnter
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_CartEnter
+  Guid:
+    Data1: -1632806258
+    Data2: 1211560666
+    Data3: -811677812
+    Data4: 1412046483
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6843316956230067141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music .bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
+  Name: 'Music '
+  StudioPath: 'bank:/Music '
+  lastModified: 638448299322379080
+  FileSizes: []
+  Exists: 1
+--- !u!114 &7930514877390116839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_GoldPickup/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &8082769015697913303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WolfRage
+  m_EditorClassIdentifier: 
+  Name: WolfRage
+  StudioPath: parameter:/WolfRage
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 422907721
+    data2: 4119003010
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &8739887478978452341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDamaged
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerDamaged
+  Guid:
+    Data1: 287453082
+    Data2: 1133526437
+    Data3: -1846111330
+    Data4: -2007583395
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 2872659603071817954}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8797719750629465085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WindStrength
+  m_EditorClassIdentifier: 
+  Name: WindStrength
+  StudioPath: parameter:/WindStrength
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1683709149
+    data2: 2351910085
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &9183320789858805519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Footstep
+  Guid:
+    Data1: -81772934
+    Data2: 1222942848
+    Data3: -1869810791
+    Data4: 629442032
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5953938103926009914}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0

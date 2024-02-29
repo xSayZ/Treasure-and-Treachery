@@ -54,7 +54,6 @@ namespace Game
                     if (playerInputs.playerIndex == i)
                     {
                         data =  characterSelectHandler.Datas[i];
-                        data.ControllerId = playerInputs.playerIndex;
                     }
                     
                 }

@@ -41,8 +41,6 @@ namespace Game {
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
 
-            public int ControllerId;
-
             public void NewScene()
             {
                 personalObjectiveThisLevel = 0;

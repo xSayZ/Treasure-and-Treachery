@@ -98,9 +98,11 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerId]);
-                
+                for (int i = 0; i < PlayerInput.all.Count; i++)
+                {
+                    var player = PlayerInput.all[i];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[player.playerIndex],user:player.user);
+                }
                    
                    
                 

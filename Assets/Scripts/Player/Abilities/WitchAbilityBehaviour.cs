@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Quest;
 using UnityEngine;
 
 
@@ -47,6 +48,7 @@ namespace Game {
                 playerController.PlayerData.personalObjective += 1;
                 playerController.PlayerData.personalObjectiveThisLevel += 1;
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
+                QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
             }
         }
     }

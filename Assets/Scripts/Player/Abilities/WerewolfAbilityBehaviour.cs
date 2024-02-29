@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using Game.Audio;
+using Game.Quest;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -95,6 +96,7 @@ namespace Game {
                     playerController.PlayerData.personalObjective += 1;
                     playerController.PlayerData.personalObjectiveThisLevel += 1;
                     playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
+                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
                 }
             }
 

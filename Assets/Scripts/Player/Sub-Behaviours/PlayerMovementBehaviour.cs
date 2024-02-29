@@ -62,6 +62,7 @@ namespace Game {
             private float currentMaxSpeed;
             private bool isForceMoving;
             [HideInInspector] public float MoveSpeedMultiplier = 1f;
+            public float MoveSpeedItemMultiplier { private get; set; } = 1f;
             
             // Dash values
             private float currentNumberOfDashes;
@@ -242,7 +243,7 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * movementDirection;
+                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
                 playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
             }
 

@@ -27,8 +27,8 @@ namespace Game {
                 {
                     case Pickup.PickupTypes.QuestItem:
                         EditorGUILayout.LabelField("Quest Settings", EditorStyles.boldLabel);
-                        var _weight = serializedObject.FindProperty("Weight");
-                        EditorGUILayout.PropertyField(_weight);
+                        var _weightMultiplier = serializedObject.FindProperty("WeightMultiplier");
+                        EditorGUILayout.PropertyField(_weightMultiplier);
                         var _interactionTime = serializedObject.FindProperty("InteractionTime");
                         EditorGUILayout.PropertyField(_interactionTime);
                         var _itemSprite = serializedObject.FindProperty("ItemSprite");

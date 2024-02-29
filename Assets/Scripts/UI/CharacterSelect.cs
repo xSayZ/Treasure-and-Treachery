@@ -115,7 +115,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
                 {
-                    LevelManager.Instance.LoadLoadingScreen("Easy_C");
+                    LevelManager.Instance.LoadLoadingScreen(characterSelectHandler.TestLevel);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

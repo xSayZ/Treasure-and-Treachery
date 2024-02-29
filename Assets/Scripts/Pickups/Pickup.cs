@@ -46,7 +46,8 @@ namespace Game {
             [HideInInspector] public Transform InteractionTransform { get; set; }
             
             // Item variables
-            [HideInInspector] public int Weight;
+            [Range(0f, 1f)]
+            [HideInInspector] public float WeightMultiplier;
             [HideInInspector] public float InteractionTime;
             [HideInInspector] public Sprite ItemSprite;
             
@@ -145,7 +146,7 @@ namespace Game {
 #region Private Functions
             private void CreateItem()
             {
-                item = new Item(Weight, InteractionTime, gameObject, ItemSprite);
+                item = new Item(WeightMultiplier, InteractionTime, gameObject, ItemSprite);
             }
 
             private void TriggerPickUpEvent()

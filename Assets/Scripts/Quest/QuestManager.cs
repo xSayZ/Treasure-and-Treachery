@@ -22,6 +22,8 @@ namespace Game {
             public static UnityEvent<int> OnMeleeWeaponPickedUp = new UnityEvent<int>(); // Player Index
             public static UnityEvent<int> OnRagedWeaponPickedUp = new UnityEvent<int>(); // Player Index
             
+            public static UnityEvent<string, int, string> OnKillQuestProgress = new UnityEvent<string, int, string>(); // Player Index
+            
             public static UnityEvent OnRequiredQuestRegistered = new UnityEvent();
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();
             

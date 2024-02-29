@@ -19,6 +19,7 @@ namespace Game {
             [SerializeField] private Slider wrathSlider;
             
             [Header("Wrath")]
+            [Range(0f, 100f)]
             [SerializeField] private float percentagePerKill;
             [SerializeField] private float decayGracePeriod;
             [SerializeField] private float decayTime;

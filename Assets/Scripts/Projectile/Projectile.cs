@@ -68,7 +68,6 @@ namespace Game {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         onKill.Invoke();
-                        EnemyManager.OnEnemyDeathUI.Invoke();
                         
                         try
                         {

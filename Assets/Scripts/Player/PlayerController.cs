@@ -25,7 +25,7 @@ namespace Game
             [Header("Player Data")]
             [Tooltip("Player Data Scriptable Object")]
             [SerializeField] public PlayerData PlayerData;
-            [HideInInspector] public int PlayerIndex;
+            public int PlayerIndex;
             
             [field:Header("Sub Behaviours")]
             [Tooltip("Assign sub behaviours for player")]
@@ -34,7 +34,7 @@ namespace Game
             [field:SerializeField] public PlayerInteractionBehaviour PlayerInteractionBehaviour { get; private set; }
             [field:SerializeField] public PlayerAnimationBehaviour PlayerAnimationBehaviour { get; private set; }
             [field:SerializeField] public PlayerVisualBehaviour PlayerVisualBehaviour { get; private set; }
-            [field:SerializeField] public PlayerUIDisplayBehaviour PlayerUIDisplayBehaviour { get; private set; }
+            [field:SerializeField] public PlayerOverheadUIBehaviour PlayerOverheadUIBehaviour { get; private set; }
             [field:SerializeField] public PlayerAbilityBehaviour PlayerAbilityBehaviour { get; private set; }
             
             [Header("UI")]
@@ -90,7 +90,7 @@ namespace Game
                 PlayerMovementBehaviour.SetupBehaviour(this);
                 PlayerAnimationBehaviour.SetupBehaviour();
                 PlayerVisualBehaviour.SetupBehaviour(PlayerData);
-                PlayerUIDisplayBehaviour.SetupBehaviour(this);
+                PlayerOverheadUIBehaviour.SetupBehaviour(this);
                 if (PlayerAbilityBehaviour)
                 {
                     PlayerAbilityBehaviour.SetupBehaviour(this);
@@ -98,11 +98,12 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (playerInput.devices.Count > 0)
-                {
-                    var player = PlayerInput.all[_newPlayerID];
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerIndex],user:player.user);
-                }
+                
+                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                
+                   
+                   
+                
                
             }
 
@@ -200,10 +201,11 @@ namespace Game
             {
                 if (value.started)
                 {
-                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(true);
+                    PlayerOverheadUIBehaviour.ToggleOverheadStatsUI(true);
                 }
-                else if (value.canceled) {
-                    PlayerUIDisplayBehaviour.TogglePlayerUIElements(false);
+                else if (value.canceled)
+                {
+                    PlayerOverheadUIBehaviour.ToggleOverheadStatsUI(false);
                 }
             }
 

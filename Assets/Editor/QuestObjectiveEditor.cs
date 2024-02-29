@@ -37,6 +37,10 @@ namespace Game {
                         EditorGUILayout.LabelField("Kill Settings", EditorStyles.boldLabel);
                         var _requiredKills = serializedObject.FindProperty("RequiredKills");
                         EditorGUILayout.PropertyField(_requiredKills);
+                        var _counterTextBeforeNumber = serializedObject.FindProperty("CounterTextBeforeNumber");
+                        EditorGUILayout.PropertyField(_counterTextBeforeNumber);
+                        var _counterTextAfterNumber = serializedObject.FindProperty("CounterTextAfterNumber");
+                        EditorGUILayout.PropertyField(_counterTextAfterNumber);
                         serializedObject.ApplyModifiedProperties();
                         break;
                     

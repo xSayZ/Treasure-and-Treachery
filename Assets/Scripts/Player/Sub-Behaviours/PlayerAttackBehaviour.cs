@@ -133,12 +133,12 @@ namespace Game {
                     
                     currentAimAngle = Mathf.Clamp(currentAimAngle, rangedAimMinAngle, rangedAimMaxAngle);
                     
-                    Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1.6f);
                     Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
                     aimLineLeft.transform.localPosition = _leftPosition;
                     aimLineLeft.transform.localRotation = _leftRotation;
                     
-                    Vector3 _rightPosition = Quaternion.AngleAxis(currentAimAngle, Vector3.up) * new Vector3(0, 0, 1);
+                    Vector3 _rightPosition = Quaternion.AngleAxis(currentAimAngle, Vector3.up) * new Vector3(0, 0, 1.6f);
                     Quaternion _rightRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
                     aimLineRight.transform.localPosition = _rightPosition;
                     aimLineRight.transform.localRotation = _rightRotation;
@@ -294,7 +294,6 @@ namespace Game {
                             playerController.PlayerData.kills += 1;
                             playerController.PlayerData.killsThisLevel += 1;
                             OnKill.Invoke();
-                            EnemyManager.OnEnemyDeathUI.Invoke();
                             
                             try
                             {

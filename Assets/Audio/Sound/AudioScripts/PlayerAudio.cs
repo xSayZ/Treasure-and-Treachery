@@ -30,7 +30,7 @@ namespace Game {
             private EventReference projectileSwoosh;
             [SerializeField] 
             private EventReference interactionAudio;
-            
+
             [Header("Player Vox")]
             [SerializeField] 
             private EventReference playerWitchVoxTest;

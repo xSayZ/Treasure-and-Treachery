@@ -10,8 +10,10 @@ using System;
 using Game.Core;
 using Game.Audio;
 using Game.Backend;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 
 
 namespace Game {
@@ -23,6 +25,7 @@ namespace Game {
             [Range(0, 2500)]
             [SerializeField] private float knockbackForce;
             [SerializeField] private float aliveTime;
+            [SerializeField] private GameObject impactVFX;
             
             [Header("Audio")]
             [SerializeField] private GameObject projectileObj;
@@ -78,6 +81,12 @@ namespace Game {
                             Debug.LogError("[{Projectile}]: Error Exception " + e);
                         }
                     }
+                }
+                
+                if (impactVFX)
+                {
+                    GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
+                    Destroy(_spawnedImpactVFX, 5);
                 }
                 
                 Destroy(gameObject);

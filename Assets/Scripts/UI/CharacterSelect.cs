@@ -131,8 +131,6 @@ namespace Game
                         data = characterSelectHandler.Datas[id];
                         data.playerIndex = id;
                         
-                        characterSelectHandler.SelectedData.Add(data);
-                        
                         cachedId = id; 
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);
@@ -156,8 +154,6 @@ namespace Game
                 {
                     transform.GetChild(i).gameObject.SetActive(false);
                     characterSelectHandler.Images.Add(cachedId,cachedSprite);
-                    characterSelectHandler.SelectedData.Remove(data);
-
                 }
                 
                 PlayersIsReady = false;

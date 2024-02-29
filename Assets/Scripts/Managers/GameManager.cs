@@ -240,7 +240,7 @@ namespace Game {
                     return spawnRingCenter.position;
 
                 // Calculate the angle
-                float _angle = (positionID) * Mathf.PI * 2 / numberOfPlayers;
+                float _angle = (positionID) + Mathf.PI * 2 / numberOfPlayers;
                 // Calculate the position
                 float _x = Mathf.Cos(_angle) * spawnRingRadius;
                 float _z = Mathf.Sin(_angle) * spawnRingRadius;

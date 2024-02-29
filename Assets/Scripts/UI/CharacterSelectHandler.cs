@@ -26,7 +26,6 @@ namespace Game
             
             public List<PlayerData> Datas;
 
-            public List<PlayerData> SelectedData;
             public static List<CharacterSelect> staticData = new List<CharacterSelect>();
             [SerializeField] private ImageBank bank;
 
@@ -36,7 +35,7 @@ namespace Game
 
             //For selectedAmountOfPlayers
             public static List<PlayerInput> playerList { get; } = new List<PlayerInput>();
-            private List<CharacterSelect> selects = new List<CharacterSelect>();
+            [SerializeField]private List<CharacterSelect> selects = new List<CharacterSelect>();
 
             public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
             public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
@@ -120,26 +119,8 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
-                    for (int i = 0; i < selects.Count; i++)
-                    {
-                        Debug.Log(selects[i].data);
-                    }
-
                     
-                    selects.Sort(((d1, d2) =>
-                    {
-                        // First, compare based on ControllerID
-                        int controllerIdComparison = d1.deviceID.CompareTo(d2.deviceID);
-
-                        // If ControllerID is equal, compare based on Score
-                        if (controllerIdComparison == 0)
-                        {
-                            return d1.deviceID.CompareTo(d2.deviceID);
-                        }
-
-                        return controllerIdComparison;
-                    }));
-                    
+                    selects.Sort((p1,p2)=>p1.deviceID.CompareTo(p2.deviceID));
                     staticData = selects;
                 }
                 else

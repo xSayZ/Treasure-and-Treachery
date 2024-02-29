@@ -29,7 +29,7 @@ namespace Game {
             
             private static List<QuestObjective> _requiredQuestObjectivesLeft = new List<QuestObjective>();
             
-            private static int _indexOfLeadingPlayer;
+            public static int _indexOfLeadingPlayer { get; private set; }
             private static int _scoreOfLeadingPlayer;
 
             public static void SetUp()

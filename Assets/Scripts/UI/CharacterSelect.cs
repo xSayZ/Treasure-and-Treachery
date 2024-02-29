@@ -34,7 +34,8 @@ namespace Game
             private int cachedId = 10;
             public float currentDelay;
             public  PlayerData data;
-            
+
+            public int deviceID;
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
 
@@ -62,7 +63,7 @@ namespace Game
 
                 SetPlayerImagePosition();
                 cachedId = id;
-                
+                deviceID = playerInputs.playerIndex;
             }
             
             private void Update()    
@@ -116,7 +117,7 @@ namespace Game
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && data.ControllerID == 0)
+                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && deviceID == 0)
                 {
                     LevelManager.Instance.LoadLoadingScreen(characterSelectHandler.TestLevel);
                 }

@@ -27,7 +27,7 @@ namespace Game
             public List<PlayerData> Datas;
 
             public List<PlayerData> SelectedData;
-            public static List<PlayerData> staticData = new List<PlayerData>();
+            public static List<CharacterSelect> staticData = new List<CharacterSelect>();
             [SerializeField] private ImageBank bank;
 
             [SerializeField] private List<GameObject> PressToJoinText;
@@ -120,21 +120,27 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
-                    SelectedData.Sort(((d1, d2) =>
+                    for (int i = 0; i < selects.Count; i++)
+                    {
+                        Debug.Log(selects[i].data);
+                    }
+
+                    
+                    selects.Sort(((d1, d2) =>
                     {
                         // First, compare based on ControllerID
-                        int controllerIdComparison = d1.ControllerID.CompareTo(d2.ControllerID);
+                        int controllerIdComparison = d1.deviceID.CompareTo(d2.deviceID);
 
                         // If ControllerID is equal, compare based on Score
                         if (controllerIdComparison == 0)
                         {
-                            return d1.ControllerID.CompareTo(d2.ControllerID);
+                            return d1.deviceID.CompareTo(d2.deviceID);
                         }
 
                         return controllerIdComparison;
                     }));
                     
-                    staticData = SelectedData;
+                    staticData = selects;
                 }
                 else
                 {

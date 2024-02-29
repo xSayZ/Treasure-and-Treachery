@@ -12,6 +12,7 @@ using Game.Backend;
 using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using UnityEngine.UI;
 using SceneManager = UnityEngine.SceneManagement.SceneManager;
 
@@ -32,7 +33,7 @@ namespace Game
             private Sprite cachedSprite;
             private int cachedId = 10;
             public float currentDelay;
-            public  static PlayerData data;
+            public  PlayerData data;
             
             private CharacterSelectHandler characterSelectHandler;
             #region Unity functions
@@ -58,6 +59,7 @@ namespace Game
                     }
                     
                 }
+
                 SetPlayerImagePosition();
                 cachedId = id;
                 
@@ -114,7 +116,7 @@ namespace Game
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
-                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame())
+                if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && data.ControllerID == 0)
                 {
                     LevelManager.Instance.LoadLoadingScreen(characterSelectHandler.TestLevel);
                 }
@@ -127,8 +129,9 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         data = characterSelectHandler.Datas[id];
                         data.playerIndex = id;
-                        data.ControllerID = playerInputs.playerIndex;
+                        
                         characterSelectHandler.SelectedData.Add(data);
+                        
                         cachedId = id; 
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);

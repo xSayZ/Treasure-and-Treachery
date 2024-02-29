@@ -46,6 +46,8 @@ namespace Game
             [SerializeField] private InputAction joinAction;
 
             [SerializeField] private InputAction leaveAction;
+            
+            
 
             //EVENTS
             public event System.Action<PlayerInput> PlayerJoinedGame;
@@ -118,6 +120,20 @@ namespace Game
                 {
                     BeginGame = true;
                     StartGameText.SetActive(true);
+                    SelectedData.Sort(((d1, d2) =>
+                    {
+                        // First, compare based on ControllerID
+                        int controllerIdComparison = d1.ControllerID.CompareTo(d2.ControllerID);
+
+                        // If ControllerID is equal, compare based on Score
+                        if (controllerIdComparison == 0)
+                        {
+                            return d1.ControllerID.CompareTo(d2.ControllerID);
+                        }
+
+                        return controllerIdComparison;
+                    }));
+                    
                     staticData = SelectedData;
                 }
                 else

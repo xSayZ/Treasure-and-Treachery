@@ -27,7 +27,10 @@ namespace Game {
             public static UnityEvent OnRequiredQuestRegistered = new UnityEvent();
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();
             
-            private static List<QuestObjective> requiredQuestObjectivesLeft = new List<QuestObjective>();
+            private static List<QuestObjective> _requiredQuestObjectivesLeft = new List<QuestObjective>();
+            
+            private static int _indexOfLeadingPlayer;
+            private static int _scoreOfLeadingPlayer;
 
             public static void SetUp()
             {
@@ -37,11 +40,11 @@ namespace Game {
                 {
                     if (_questObjectives[i].GetRequiredStatus())
                     {
-                        requiredQuestObjectivesLeft.Add(_questObjectives[i]);
+                        _requiredQuestObjectivesLeft.Add(_questObjectives[i]);
                     }
                 }
                 
-                if (requiredQuestObjectivesLeft.Count > 0)
+                if (_requiredQuestObjectivesLeft.Count > 0)
                 {
                     OnRequiredQuestRegistered.Invoke();
                 }
@@ -49,16 +52,25 @@ namespace Game {
 
             public static void OnRequiredQuestCompleted(QuestObjective _questObjective)
             {
-                requiredQuestObjectivesLeft.Remove(_questObjective);
-                if (requiredQuestObjectivesLeft.Count <= 0)
+                _requiredQuestObjectivesLeft.Remove(_questObjective);
+                if (_requiredQuestObjectivesLeft.Count <= 0)
                 {
                     OnAllRequiredQuestsCompleted.Invoke();
                 }
             }
- 
-            public static void Reset()
+
+            public static void PersonalObjectiveScoreUpdated(int _playerIndex, int _score)
             {
-                requiredQuestObjectivesLeft = new List<QuestObjective>();
+                if (_score > _scoreOfLeadingPlayer)
+                {
+                    _indexOfLeadingPlayer = _playerIndex;
+                    _scoreOfLeadingPlayer = _score;
+                }
+            }
+ 
+            public static void Reset() // Not used yet and probably not needed either
+            {
+                _requiredQuestObjectivesLeft = new List<QuestObjective>();
             }
         }
     }

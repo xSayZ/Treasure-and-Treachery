@@ -42,7 +42,7 @@ namespace Game
             public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
 
             public bool BeginGame { get; private set; }
-
+            [field: SerializeField] public string TestLevel;
             [SerializeField] private InputAction joinAction;
 
             [SerializeField] private InputAction leaveAction;

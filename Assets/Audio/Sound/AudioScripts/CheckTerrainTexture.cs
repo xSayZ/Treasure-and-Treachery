@@ -51,6 +51,7 @@ namespace Game {
             float[,,] splatMap = terrainObject.terrainData.GetAlphamaps(posX, posZ, 1, 1);
             textureValues[0] = splatMap[0, 0, 0];
             textureValues[1] = splatMap[0, 0, 1];
+            textureValues[2] = splatMap[0, 0, 2];
         }
         
 #endregion
@@ -63,7 +64,7 @@ public void PlayFootStep()
 
     try
     {
-        playerAudio.PlayerFootstepPlay(textureValues[0], textureValues[1], gameObject);
+        playerAudio.PlayerFootstepPlay(textureValues[0], textureValues[1], textureValues[2], gameObject);
     }
     catch (Exception e)
     {

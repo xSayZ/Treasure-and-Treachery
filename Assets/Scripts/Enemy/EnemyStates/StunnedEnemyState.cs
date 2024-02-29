@@ -34,7 +34,7 @@ namespace Game {
                 
                 try  
                 {
-                    enemyController.enemyAudio.SpiritStateAudioUpdate(enemyController.gameObject, enemyController.spiritAudioEventInstance, 6);
+                    enemyController.playerAudio.PetrifyAudio(enemyController.gameObject);
                 } 
                 catch (Exception e)
                 {

@@ -303,7 +303,11 @@ namespace Game {
                 
                 yield return new WaitForSeconds(_time);
                 
-                SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
+                if (_keepFacingRotation)
+                {
+                    SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
+                }
+                
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;
             }

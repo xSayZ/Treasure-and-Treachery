@@ -5325,7 +5325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1081089760
 Transform:
   m_ObjectHideFlags: 0
@@ -8169,18 +8169,6 @@ MonoBehaviour:
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 9287a433-221b-4d7d-9971-ae1b56536a61
-    m_ActionName: Player/RangedAttack[/Keyboard/1]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2cf468e8-28a3-4f7b-a5b7-d607fa2741d8
-    m_ActionName: Player/MeleeAttack[/Keyboard/2]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6d5ae063-0750-49ba-a1e4-0f4e75aeb213
-    m_ActionName: Player/TogglePause[/Keyboard/space]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 361040f6-35d9-40a9-9201-a000d0cf1ada
     m_ActionName: Player/Interact
   - m_PersistentCalls:
@@ -8215,6 +8203,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
     m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: da24d66e-0079-4c4b-a4af-6a7ea14a5767
+    m_ActionName: Player/Attack[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
+    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Menu
@@ -10303,8 +10299,10 @@ GameObject:
   - component: {fileID: 2005292828}
   - component: {fileID: 2005292832}
   - component: {fileID: 2005292833}
+  - component: {fileID: 2005292835}
+  - component: {fileID: 2005292834}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ScoreCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10413,7 +10411,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -10429,17 +10427,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a800e5944906a74b87dcf5aac4b5f1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerScoreCanvasPrefab: {fileID: 3115312641382136148, guid: da4269ba62c7ab14fad169d4f757f2ef, type: 3}
-  renderTextures:
-  - {fileID: 8400000, guid: ce20659d2aa019c4bb72d97a47913828, type: 2}
-  - {fileID: 8400000, guid: af31194db8d0c7d4ab263da0a91b29b2, type: 2}
-  - {fileID: 8400000, guid: 18d8229cbfbff1a4f8cc03cbabc46a8d, type: 2}
-  - {fileID: 8400000, guid: 23fb8f1f0353c034f93dbe296fd5da80, type: 2}
-  playerData:
+  playerScoreCanvasPrefab: {fileID: 369614363999524613, guid: a54ef17de340de94e85341a43513f54d, type: 3}
+  playerImages:
+  - {fileID: 21300000, guid: 63ae5660207c19d4ea2a2c3c61ca2afe, type: 3}
+  - {fileID: 21300000, guid: b9b30f2782a3316459a0c93403119338, type: 3}
+  - {fileID: 21300000, guid: 61d49277c3a40d44a80614538a527112, type: 3}
+  - {fileID: 21300000, guid: f99facef0a7f5784c800a33d3a073bf5, type: 3}
+  personalObjectiveImages:
+  - {fileID: 21300000, guid: 17a31f0e059923f4cb6a6353bd517313, type: 3}
+  - {fileID: 21300000, guid: ebaa12ac3257548468b46da62512809c, type: 3}
+  - {fileID: 21300000, guid: 4c18b1bdc89e7f049a809b157b148a0d, type: 3}
+  - {fileID: 21300000, guid: 9efcc6a0f4b2b96449616a812cca8ba2, type: 3}
+  playerDatas:
   - {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
   - {fileID: 11400000, guid: 0b6f96502618566458bb29c354faf6fa, type: 2}
   - {fileID: 11400000, guid: 57a87fa42cfa0d241b1f6197d8342d38, type: 2}
   - {fileID: 11400000, guid: 71fd036c53d04c64e962113d7b40aa2b, type: 2}
+--- !u!114 &2005292834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005292827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: bceb9adce076a6a4d84a8a975d8c5482, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2005292835
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2005292827}
+  m_CullTransparentMesh: 1
 --- !u!1 &2007113221
 GameObject:
   m_ObjectHideFlags: 0

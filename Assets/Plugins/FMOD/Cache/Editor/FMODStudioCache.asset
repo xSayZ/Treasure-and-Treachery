@@ -97,7 +97,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638448221432990051
+  lastModified: 638448850257213142
   FileSizes: []
   Exists: 1
 --- !u!114 &-8165324634174762587
@@ -125,7 +125,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 9.8
   Length: 1800
 --- !u!114 &-8163000975802733970
 MonoBehaviour:
@@ -155,6 +155,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 9627
+--- !u!114 &-8085674297928498421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_WerewolfAttack/WolfRage
+  m_EditorClassIdentifier: 
+  Name: WolfRage
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 422907721
+    data2: 4119003010
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
 --- !u!114 &-7941509422221633638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,6 +696,7 @@ MonoBehaviour:
   - {fileID: 2645632393288105992}
   - {fileID: -3227489571197436338}
   - {fileID: -8165324634174762587}
+  - {fileID: 269644840023809361}
   EditorParameters:
   - {fileID: 8356679643267974491}
   - {fileID: -6767588485907711360}
@@ -680,7 +705,7 @@ MonoBehaviour:
   - {fileID: -8769565089363010458}
   StringsBanks:
   - {fileID: 8533026204774313432}
-  cacheTime: 638448221433090348
+  cacheTime: 638448850257320380
   cacheVersion: 131609
 --- !u!114 &245166772905721942
 MonoBehaviour:
@@ -711,6 +736,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &269644840023809361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_WerewolfAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_WerewolfAttack
+  Guid:
+    Data1: -1303282659
+    Data2: 1082638306
+    Data3: -707473504
+    Data4: -1618048520
+  Banks:
+  - {fileID: -8769565089363010458}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8085674297928498421}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4924
 --- !u!114 &367281458050746125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,7 +1401,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638448028032931714
+  lastModified: 638448836396316493
   FileSizes: []
   Exists: 1
 --- !u!114 &8356679643267974491
@@ -1418,10 +1471,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638448221433090348
+  lastModified: 638448850257320380
   FileSizes:
   - Name: 
-    Value: 4408
+    Value: 4454
   Exists: 1
 --- !u!114 &8733526065677920414
 MonoBehaviour:

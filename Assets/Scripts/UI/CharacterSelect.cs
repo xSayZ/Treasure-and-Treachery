@@ -10,6 +10,7 @@
 using System;
 using Game.Backend;
 using Game.Managers;
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
@@ -25,6 +26,8 @@ namespace Game
             [SerializeField] private Image Image;
             [SerializeField] private Image arrowImages;
             [SerializeField] private float inputDelay;
+
+            [SerializeField] private LevelDataSO level;
             
             public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
@@ -119,7 +122,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && deviceID == 0)
                 {
-                    LevelManager.Instance.LoadLoadingScreen(characterSelectHandler.TestLevel);
+                    LevelManager.Instance.LoadLevel(level);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

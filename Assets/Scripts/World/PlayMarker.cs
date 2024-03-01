@@ -36,7 +36,7 @@ namespace Game {
             bool canSwitchScene = false;
             
             private void Start() {
-                levelData.levelName = levelName;
+                //levelData.levelName = levelName;
                 levelData.levelDescription = "This is a level description";
                 levelData.levelImage = levelImage;
                 levelData.OnLevelCompleted = onLevelCompleted;
@@ -69,6 +69,7 @@ namespace Game {
                 if (!isLocked) {
                     LevelUI.SetActive(true);
                     canSwitchScene = true;
+                    SwitchScene();
                 }
             }
             
@@ -78,7 +79,7 @@ namespace Game {
             }
             
             private void SwitchScene() {
-                LevelManager.Instance.LoadScene(3);
+                LevelManager.Instance.LoadLevel(levelData);
             }
         }
     }

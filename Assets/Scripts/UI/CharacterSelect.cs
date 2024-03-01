@@ -23,9 +23,7 @@ namespace Game
         public class CharacterSelect : MonoBehaviour
         {
             [SerializeField] private Image Image;
-            [SerializeField] private Image arrowImages;
             [SerializeField] private float inputDelay;
-            
             public bool PlayersIsReady { get; private set; }
             [HideInInspector] public PlayerInput playerInputs;
             private int id;
@@ -130,7 +128,7 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         data = characterSelectHandler.Datas[id];
                         data.playerIndex = id;
-                        
+                        data.ControllerID = playerInputs.playerIndex;
                         cachedId = id; 
                         cachedSprite = sprite;
                         characterSelectHandler.Images.Remove(id);

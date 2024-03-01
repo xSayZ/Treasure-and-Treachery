@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Core;
@@ -28,24 +29,29 @@ namespace Game {
             [SerializeField] private Sprite emptyDashSprite;
             
             [Header("Movement Settings")]
-            [Tooltip("Base Movement Speed of the player. This is the speed the player moves at when not dashing.")]
+            [Tooltip("Base Movement Speed of the player.")]
             [SerializeField] private float movementSpeed;
             [Tooltip("How fast the player turns.")]
             [SerializeField] private float turnSpeed;
             
             [Header("Dash Settings")]
-            [Tooltip("Addition modifier adds modified speed to the dash speed.")]
+            [Tooltip("Speed of the dash.")]
             [SerializeField] private float dashSpeed;
-            [Tooltip("How long should you be able to dash.")]
+            [Tooltip("How long time the dash speed is applied for.")]
             [Range(0, 3)]
             [SerializeField] private float dashTime;
-            [Tooltip("How long should the cooldown be for the dash.")]
+            [Tooltip("How long the dash cooldown is.")]
             [Range(0, 30)]
             [SerializeField] private float dashRechargeTime;
             [Tooltip("Number of dashes the player has.")]
             [SerializeField] private int numberOfDashes;
             [Tooltip("How much damage the dash deals to enemies.")]
             [SerializeField] private int dashDamage;
+            [Tooltip("Speed of the push.")]
+            [SerializeField] private float dashPushSpeed;
+            [Tooltip("How long time the push speed is applied for.")]
+            [Range(0, 3)]
+            [SerializeField] private float dashPushTime;
             
             // References
             private Rigidbody playerRigidBody;
@@ -56,6 +62,7 @@ namespace Game {
             private float currentMaxSpeed;
             private bool isForceMoving;
             [HideInInspector] public float MoveSpeedMultiplier = 1f;
+            public float MoveSpeedItemMultiplier { private get; set; } = 1f;
             
             // Dash values
             private float currentNumberOfDashes;
@@ -116,7 +123,9 @@ namespace Game {
                     MovePlayer();
                     ClampPlayerPosition();
                 }
-
+                
+                UpdateMovementAnimationSpeed();
+                
                 if (currentDashRechargeTime <= 0 && currentNumberOfDashes < numberOfDashes)
                 {
                     currentNumberOfDashes++;
@@ -179,7 +188,7 @@ namespace Game {
                 {
                     if (_transform.TryGetComponent(out IDamageable _hit))
                     {
-                        bool _killed = _hit.Damage(dashDamage);
+                        bool _killed = _hit.Damage(dashDamage, transform.position, 0);
                         if (_killed)
                         {
                             bool _stunKill = false;
@@ -203,7 +212,27 @@ namespace Game {
                     }
                 }
             }
-
+            
+            public void DashPushEntered(Transform _transform)
+            {
+                if (!IsDashing)
+                {
+                    return;
+                }
+                
+                if (_transform.CompareTag("Player"))
+                {
+                    Vector3 _pushDirection = transform.right;
+                    
+                    if (IsLeftOfLine(transform.position, transform.position + transform.forward, _transform.position))
+                    {
+                        _pushDirection = -transform.right;
+                    }
+                    
+                    _transform.GetComponent<PlayerController>().PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
+                }
+            }
+            
             public float TurnSpeed {
                 get {
                     return turnSpeed;
@@ -216,8 +245,18 @@ namespace Game {
 #region Private Functions
             private void MovePlayer()
             {
-                Vector3 _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * movementDirection;
-                playerRigidBody.AddForce(_movement,ForceMode.VelocityChange);
+                Vector3 _movement;
+                
+                if (isForceMoving)
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * movementDirection;
+                }
+                else
+                {
+                    _movement = Time.deltaTime * currentMaxSpeed * MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection;
+                }
+                
+                playerRigidBody.AddForce(_movement, ForceMode.VelocityChange);
             }
 
             private void TurnPlayer()
@@ -254,6 +293,9 @@ namespace Game {
                 currentMaxSpeed = _speed;
                 movementDirection = _direction.normalized;
                 
+                bool _prevoiusCanMove = canMove;
+                bool _prevoiusCanRotate = canRotate;
+                
                 if (_keepFacingRotation)
                 {
                     SetMovementActiveState(true, false);
@@ -261,7 +303,7 @@ namespace Game {
                 
                 yield return new WaitForSeconds(_time);
                 
-                SetMovementActiveState(true, true);
+                SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;
             }
@@ -299,6 +341,17 @@ namespace Game {
                         dashImages[i].sprite = emptyDashSprite;
                     }
                 }
+            }
+
+            private bool IsLeftOfLine(Vector3 _lineStart, Vector3 _lineEnd, Vector3 _point)
+            {
+                return (_lineEnd.x - _lineStart.x) * (_point.z - _lineStart.z) - (_lineEnd.z - _lineStart.z) * (_point.x - _lineStart.x) > 0;
+            }
+
+            private void UpdateMovementAnimationSpeed()
+            {
+                float _movementMultiplier = (MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection).magnitude;
+                playerController.PlayerAnimationBehaviour.PlayerAnimator.SetFloat("MovementMultiplier", _movementMultiplier);
             }
 #endregion
         }

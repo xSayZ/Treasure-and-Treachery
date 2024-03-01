@@ -18,6 +18,8 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] private float speed;
+            [Range(0, 2500)]
+            [SerializeField] private float knockbackForce;
             [SerializeField] private float aliveTime;
             [SerializeField] private float aliveTimePerHit;
             
@@ -42,7 +44,7 @@ namespace Game {
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
-                    bool killed = _hit.Damage(damage);
+                    bool killed = _hit.Damage(damage, transform.position, knockbackForce);
                     
                     currentAliveTime -= aliveTimePerHit;
                     
@@ -51,7 +53,6 @@ namespace Game {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         onWaveKill.Invoke();
-                        EnemyManager.OnEnemyDeathUI.Invoke();
                     }
                 }
                 else

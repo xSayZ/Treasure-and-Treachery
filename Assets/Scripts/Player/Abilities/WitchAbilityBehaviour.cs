@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Quest;
 using UnityEngine;
 
 
@@ -18,6 +19,8 @@ namespace Game {
             
             protected override void Setup()
             {
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
+                
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
                 playerController.PlayerAttackBehaviour.OnWaveKill.AddListener(WaveKill);
             }
@@ -42,7 +45,10 @@ namespace Game {
             
             private void WaveKill()
             {
-                // Give extra souls here
+                playerController.PlayerData.personalObjective += 1;
+                playerController.PlayerData.personalObjectiveThisLevel += 1;
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
+                QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
             }
         }
     }

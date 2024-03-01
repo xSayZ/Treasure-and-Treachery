@@ -10,6 +10,8 @@ using FMOD.Studio;
 using FMODUnity;
 using Game.Backend;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
+using System;
 
 
 namespace Game {
@@ -19,12 +21,13 @@ namespace Game {
 
             private float timer;
             private EventsToBePlayed eventsToBePlayed;
-
+            private bool isPlaying = false;
+            
 #region Unity Functions
             // Start is called before the first frame update
             void Start()
             {
-                
+                isPlaying = false;
             }
     
             // Update is called once per frame
@@ -36,12 +39,22 @@ namespace Game {
                 
                 if (timer >= 60)
                 {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
+                    if (!isPlaying)
+                    {
+                       // AudioMananger.Instance.WaveStinger(EventsToBePlayed.TimedStinger);
+                        isPlaying = true;
+                    }
+                   // Debug.Log("played once");
+                   // AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
+                    
+                    
                 }
                 
                 if (timer >= 120)
                 {
+                    
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false, false);
+                    
                 }
                 
 

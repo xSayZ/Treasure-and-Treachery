@@ -10,8 +10,10 @@ using System;
 using Game.Core;
 using Game.Audio;
 using Game.Backend;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 
 
 namespace Game {
@@ -20,7 +22,10 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] private float speed;
+            [Range(0, 2500)]
+            [SerializeField] private float knockbackForce;
             [SerializeField] private float aliveTime;
+            [SerializeField] private GameObject impactVFX;
             
             [Header("Audio")]
             [SerializeField] private GameObject projectileObj;
@@ -59,14 +64,13 @@ namespace Game {
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
-                    bool killed = _hit.Damage(damage);
+                    bool killed = _hit.Damage(damage, transform.position, knockbackForce);
                     
                     if (killed)
                     {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
                         onKill.Invoke();
-                        EnemyManager.OnEnemyDeathUI.Invoke();
                         
                         try
                         {
@@ -77,6 +81,12 @@ namespace Game {
                             Debug.LogError("[{Projectile}]: Error Exception " + e);
                         }
                     }
+                }
+                
+                if (impactVFX)
+                {
+                    GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
+                    Destroy(_spawnedImpactVFX, 5);
                 }
                 
                 Destroy(gameObject);

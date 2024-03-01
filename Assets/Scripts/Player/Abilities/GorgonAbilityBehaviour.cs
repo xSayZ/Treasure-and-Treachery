@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Quest;
 using UnityEngine;
 
 
@@ -19,6 +20,8 @@ namespace Game {
             protected override void Setup()
             {
                 playerController.PlayerAttackBehaviour.MeleeIsStunAttack = true;
+                
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
             }
 
             protected override void OnDashKill(bool _stunned)
@@ -26,6 +29,11 @@ namespace Game {
                 if (_stunned)
                 {
                     playerController.Heal(healthOnStunnedDashKill);
+                    
+                    playerController.PlayerData.personalObjective += 1;
+                    playerController.PlayerData.personalObjectiveThisLevel += 1;
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 1);
+                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
                 }
             }
         }

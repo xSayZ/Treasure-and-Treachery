@@ -18,17 +18,58 @@ namespace Game {
         {
             [Header("Settings")]
             [SerializeField] private int goldOnDashKill;
+            [SerializeField] private float healInterval;
+            [SerializeField] private int healAmount;
             
             private bool started;
+            private float currentHealInterval;
 
             protected override void Setup()
             {
                 started = true;
+                
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
+                
+                QuestManager.OnGoldPickedUp.AddListener(OnGoldPickedUp);
+            }
+
+            protected override void OnDisable()
+            {
+                base.OnDisable();
+                
+                if (playerController)
+                {
+                    QuestManager.OnGoldPickedUp.RemoveListener(OnGoldPickedUp);
+                }
             }
 
             protected override void OnDashKill(bool _stunned)
             {
                 QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
+            }
+
+            private void OnGoldPickedUp(int _playerIndex, int _amount)
+            {
+                if (_playerIndex == playerController.PlayerData.playerIndex)
+                {
+                    playerController.PlayerData.personalObjective += _amount;
+                    playerController.PlayerData.personalObjectiveThisLevel += _amount;
+                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, _amount);
+                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
+                }
+            }
+
+            private void Update()
+            {
+                if (currentHealInterval >= healInterval)
+                {
+                    currentHealInterval = 0;
+                    playerController.Heal(healAmount);
+                }
+                else
+                {
+                    currentHealInterval += Time.deltaTime;
+                }
             }
 
             private void OnTriggerStay(Collider _other)

@@ -43,7 +43,7 @@ namespace Game {
 
             private void Start()
             {
-                musicBus = RuntimeManager.GetBus("Bus:/Music Bus");
+                musicBus = RuntimeManager.GetBus("Bus:/PreMaster/Music Bus");
                 /*musicBus.getPaused(out bool state);
                 Debug.Log("Music Bus state is" + state); */
                 

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 8927853945209056646}
   - component: {fileID: 5497136243249406499}
   - component: {fileID: 7758918206955099881}
-  - component: {fileID: 6415462533469606981}
-  - component: {fileID: 4019169730140787946}
+  - component: {fileID: 3293401034747426346}
   m_Layer: 0
   m_Name: Fir_FAB
   m_TagString: Untagged
@@ -85,31 +84,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6415462533469606981
-MeshCollider:
+--- !u!205 &3293401034747426346
+LODGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8119369385525720892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2722621214781166313, guid: 805aea28ec939144c98e5549e711c9d1, type: 3}
---- !u!136 &4019169730140787946
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8119369385525720892}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 7758918206955099881}
   m_Enabled: 1
-  m_Radius: 0.8677759
-  m_Height: 4.478303
-  m_Direction: 1
-  m_Center: {x: -0.033853054, y: 2.1859288, z: 0.03624332}

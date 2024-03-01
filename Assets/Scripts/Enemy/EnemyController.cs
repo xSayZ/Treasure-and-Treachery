@@ -56,11 +56,13 @@ namespace Game {
             
             [Header("Audio")] 
             [SerializeField] public EnemyAudio enemyAudio;
+            [SerializeField] public PlayerAudio playerAudio;
             public EventInstance spiritAudioEventInstance;
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
-            
+
+            private Rigidbody rigidbody;
             private EnemyState currentState;
             private List<Transform> targetsInVisionRangeUpdate;
 
@@ -83,6 +85,8 @@ namespace Game {
                 enemyAttackBehaviour.SetupBehaviour(NavMeshAgent, enemyAnimationBehaviour);
                 
                 currentState.Enter();
+                
+                rigidbody = GetComponent<Rigidbody>();
                 
                 targetsInVisionRangeUpdate = new List<Transform>();
                 
@@ -195,22 +199,41 @@ namespace Game {
             public void Death()
             {
                 EnemyManager.OnEnemyDeath.Invoke(this);
-                
-                try
+
+                if (currentState == StunnedEnemyState)
                 {
-                    enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 3);
-                } 
-                catch (Exception e)
+                    try
+                    {
+                        playerAudio.PetrifySmashAudio(gameObject);
+                        enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 4);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                    }
+                }
+                else
                 {
-                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                    try
+                    {
+                        enemyAudio.SpiritStateAudioUpdate(gameObject, spiritAudioEventInstance, 3);
+                    } 
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                    }
                 }
                 
                 Destroy(gameObject);
             }
 
-            public void DamageTaken()
+            public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
-                // Enemy has taken damage
+                // Knockback
+                Vector3 _knockbackDirection = transform.position - _damagePosition;
+                _knockbackDirection = new Vector3(_knockbackDirection.x, 0, _knockbackDirection.z).normalized;
+                _knockbackDirection *= _knockbackForce;
+                rigidbody.AddForce(_knockbackDirection);
             }
 
             public void VisionRangeEntered(Transform _targetTransform)

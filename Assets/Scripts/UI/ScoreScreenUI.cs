@@ -8,28 +8,41 @@
 
 using System.Collections.Generic;
 using Game.Backend;
-using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 
 
 namespace Game {
     namespace UI {
         public class ScoreScreenUI : MonoBehaviour
         {
+            [Header("Setup")]
             [SerializeField] private GameObject playerScoreCanvasPrefab;
-            [SerializeField] private List<RenderTexture> renderTextures;
-            [SerializeField] private List<PlayerData> playerData; // Temporary
-
-            private int playersDoneCountingUp;
+            [SerializeField] private List<Sprite> playerImages;
+            [SerializeField] private List<Sprite> personalObjectiveImages;
             
+            [Header("Debug")]
+            [SerializeField] private List<PlayerData> playerDatas;
+            
+            private int playersDoneCountingUp;
+
             private void Start()
             {
-                for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+                if (CharacterSelectHandler.staticData.Count > 0)
                 {
-                    PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
-                    playerScoreUI.SetupUI(renderTextures[i], playerData[i]);
+                    foreach (CharacterSelect _characterSelect in CharacterSelectHandler.staticData)
+                    {
+                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
+                        playerScoreUI.SetupUI(_characterSelect.data, playerImages[_characterSelect.data.playerIndex], personalObjectiveImages[_characterSelect.data.playerIndex]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+                    {
+                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
+                        playerScoreUI.SetupUI(playerDatas[i], playerImages[i], personalObjectiveImages[i]);
+                    }
                 }
             }
 
@@ -42,7 +55,7 @@ namespace Game {
             {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
-                    //LevelManager.Instance.LoadScene(GameManager.NextSceneBuildIndex);
+                    // Load map
                 }
             }
         }

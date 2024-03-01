@@ -22,6 +22,7 @@ namespace Game {
             [SerializeField] public Color playerMaterialColor;
             [SerializeField] public bool hasStartingMeleeWeapon;
             [SerializeField] public bool hasStartingRangedWeapon;
+            [SerializeField] public int personalObjectiveMultiplier;
             
             [Header("Debug")]
             [SerializeField] public int playerIndex;

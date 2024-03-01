@@ -7,7 +7,6 @@
 // ------------------------------*/
 
 using System.Collections;
-using System.Collections.Generic;
 using Game.Backend;
 using TMPro;
 using UnityEngine;
@@ -19,51 +18,54 @@ namespace Game {
         public class PlayerScoreUI : MonoBehaviour
         {
             [Header("Setup")]
-            [SerializeField] private TextMeshProUGUI pointsText;
+            [SerializeField] private Image playerImage;
+            [SerializeField] private Image personalObjectiveImage;
             [SerializeField] private TextMeshProUGUI coinsText;
             [SerializeField] private TextMeshProUGUI killsText;
-            [SerializeField] private RawImage playerImage;
-            
-            [Header("Delays")]
+            [SerializeField] private TextMeshProUGUI personalObjectiveText;
+            [SerializeField] private TextMeshProUGUI pointsText;
+
+            [Header("Settings")]
+            [SerializeField] private string pointsPrefix;
             [SerializeField] private float startDelay;
-            [SerializeField] private float pointsDelay;
-            [SerializeField] private float coinsDelay;
-            [SerializeField] private float killsDelay;
+            [SerializeField] private float countUpTime;
             
-            [Header("Points")]
+            [Header("Multipliers")]
             [SerializeField] private int coinPointMultiplier;
             [SerializeField] private int killPointMultiplier;
-
+            
             private int coroutinesRunning;
             private bool done;
 
-            public void SetupUI(RenderTexture _renderTexture, PlayerData _playerData)
+            public void SetupUI(PlayerData _playerData, Sprite _playerImage, Sprite _personalObjectiveImage)
             {
-                playerImage.texture = _renderTexture;
+                playerImage.sprite = _playerImage;
+                personalObjectiveImage.sprite = _personalObjectiveImage;
                 
-                int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier;
+                int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier + _playerData.personalObjectiveThisLevel * _playerData.personalObjectiveMultiplier;
                 _playerData.points += _pointsThisLevel;
                 
-                pointsText.text = (_playerData.points - _pointsThisLevel).ToString();
                 coinsText.text = (_playerData.currency - _playerData.currencyThisLevel).ToString();
                 killsText.text = (_playerData.kills - _playerData.killsThisLevel).ToString();
+                personalObjectiveText.text = (_playerData.personalObjective - _playerData.personalObjectiveThisLevel).ToString();
+                pointsText.text = pointsPrefix + (_playerData.points - _pointsThisLevel);
                 
-                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, pointsDelay));
-                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency, coinsDelay));
-                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, killsDelay));
+                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency, countUpTime / _playerData.currencyThisLevel));
+                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, countUpTime / _playerData.killsThisLevel));
+                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective, countUpTime / _playerData.personalObjectiveThisLevel));
+                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, countUpTime / _pointsThisLevel, pointsPrefix));
             }
 
             private void Update()
             {
                 if (coroutinesRunning <= 0 && !done)
                 {
-                    Debug.Log("Done");
                     done = true;
                     FindObjectOfType<ScoreScreenUI>().DoneCountingUp();
                 }
             }
 
-            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay)
+            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay, string _prefix = "")
             {
                 coroutinesRunning += 1;
                 
@@ -74,7 +76,7 @@ namespace Game {
                 while (_currentValue < _endValue)
                 {
                     _currentValue += 1;
-                    _textMesh.text = _currentValue.ToString();
+                    _textMesh.text = _prefix + _currentValue;
                     yield return new WaitForSeconds(_delay);
                 }
                 

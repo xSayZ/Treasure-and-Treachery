@@ -28,7 +28,6 @@ namespace Game
             [SerializeField] private PlayerInput Input;
 
             [SerializeField] private int levelIndex;
-            //public Transform endPoint;
             [Header("Timer Before next intro slide")]
             public float timeBeforeChange;
 

@@ -27,10 +27,10 @@ namespace Game {
             public static UnityEvent OnRequiredQuestRegistered = new UnityEvent();
             public static UnityEvent OnAllRequiredQuestsCompleted = new UnityEvent();
             
-            private static List<QuestObjective> _requiredQuestObjectivesLeft = new List<QuestObjective>();
-            
-            public static int _indexOfLeadingPlayer { get; private set; }
+            public static int IndexOfLeadingPlayer { get; private set; }
             private static int _scoreOfLeadingPlayer;
+            
+            private static List<QuestObjective> _requiredQuestObjectivesLeft = new List<QuestObjective>();
 
             public static void SetUp()
             {
@@ -63,7 +63,7 @@ namespace Game {
             {
                 if (_score > _scoreOfLeadingPlayer)
                 {
-                    _indexOfLeadingPlayer = _playerIndex;
+                    IndexOfLeadingPlayer = _playerIndex;
                     _scoreOfLeadingPlayer = _score;
                 }
             }

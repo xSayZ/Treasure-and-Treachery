@@ -7,12 +7,14 @@
 // ------------------------------*/
 
 using System;
+using System.Numerics;
 using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
 using FMOD.Studio;
 using Ink.Parsed;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
+using Vector3 = UnityEngine.Vector3;
 
 
 namespace Game {
@@ -24,6 +26,7 @@ namespace Game {
             GamePlayMusic,
             AmbienceTrees,
             AmbienceWind,
+            TimedStinger,
         }
         
         public enum Action
@@ -37,9 +40,8 @@ namespace Game {
         public class AudioMananger : Singleton<AudioMananger>
         {
             [Header("New Event references")]
-            [SerializeField] private EventReference[] musicReferences = new EventReference [4];
-            private EventInstance[] musicInstances = new EventInstance [4];
-            
+            [SerializeField] private EventReference[] musicReferences = new EventReference [5];
+            private EventInstance[] musicInstances = new EventInstance [5];
             
             
             #region Public Functions
@@ -97,7 +99,7 @@ namespace Game {
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                Debug.Log("local parameter set to" + " "+ paramValue);
+                
             }
             
             
@@ -118,13 +120,26 @@ namespace Game {
                 //skickar ut värdet om isActive boolen är true eller false
                 return isActive;
             }
-            
-            
-    #endregion
+
+            public void WaveStinger(EventsToBePlayed eventsToBePlayed)
+            {
+                //konvertar enum namn till ints (letar upp events)
+                int num = Convert.ToInt32(eventsToBePlayed);
+                
+                musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
+                musicInstances[num].start();
+                musicInstances[num].release();
+                Debug.Log("played music event" + num);
+                
+            }
+
+
+            #endregion
 
     #region Private Functions
 
     #endregion
         }
     }
+    
 }

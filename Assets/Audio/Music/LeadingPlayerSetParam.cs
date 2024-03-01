@@ -31,6 +31,7 @@ namespace Game {
                 if (leadingPlayer == 0)
                 {
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", 2f, false,false);
+                    Debug.Log("Leadingplayer was run on Dragon");
                     
                 }
 

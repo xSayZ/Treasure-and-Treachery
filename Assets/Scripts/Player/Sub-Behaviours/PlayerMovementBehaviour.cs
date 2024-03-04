@@ -305,7 +305,14 @@ namespace Game {
                 
                 if (_keepFacingRotation)
                 {
-                    SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
+                    if (canMove == _prevoiusCanMove && canRotate == _prevoiusCanRotate)
+                    {
+                        SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
+                    }
+                    else
+                    {
+                        SetMovementActiveState(true, true);
+                    }
                 }
                 
                 currentMaxSpeed = movementSpeed;

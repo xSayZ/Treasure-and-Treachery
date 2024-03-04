@@ -14,6 +14,7 @@ using Game.Managers;
 using UnityEngine;
 using Game.Quest;
 using Game.Player;
+using Game.WorldMap;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -32,6 +33,8 @@ namespace Game {
 
             [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
+
+            [SerializeField] private LevelDataSO scoreScreen;
             
             // Interaction variables
             public bool[] CanInteractWith { get; set; }
@@ -89,9 +92,8 @@ namespace Game {
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
                     {
                         // All players are in carriage, time to end level
-                        
-                        GameManager.NextSceneBuildIndex = nextSceneBuildIndex;
-                        LevelManager.Instance.LoadScoreScreen();
+                        GameManager.Instance.LevelCompleted();
+                        LevelManager.Instance.LoadLevel(scoreScreen);
                     }
                 }
             }

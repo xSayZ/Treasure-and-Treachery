@@ -25,8 +25,12 @@ namespace Game {
             [SerializeField] private float decayGracePeriod;
             [SerializeField] private float decayTime;
             [SerializeField] private float decayAmount;
-            
+
             [Header("Enraged")]
+            [Range(0f, 100f)]
+            [SerializeField] private float percentageToBecomeEnraged;
+            [Range(0f, 100f)]
+            [SerializeField] private float percentageToLoseEnraged;
             [SerializeField] private float meleeAttackCooldownMultiplier;
             [SerializeField] private float moveSpeedMultiplier;
             
@@ -108,15 +112,13 @@ namespace Game {
                 wrathPercentage = Mathf.Clamp(wrathPercentage, 0f, 100f);
                 wrathSlider.value = wrathPercentage / 100f;
                 
-                if (wrathPercentage >= 50)
+                if (wrathPercentage >= percentageToBecomeEnraged)
                 {
                     SetEnraged(true);
-                    isEnraged = true;
                 }
-                else if (wrathPercentage <= 0)
+                else if (wrathPercentage <= percentageToLoseEnraged)
                 {
                     SetEnraged(false);
-                    isEnraged = false;
                 }
             }
 
@@ -124,14 +126,28 @@ namespace Game {
             {
                 if (_active)
                 {
-                    playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = meleeAttackCooldownMultiplier;
-                    playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = moveSpeedMultiplier;
+                    if (!isEnraged)
+                    {
+                        Debug.Log("Became Enraged");
+                        // Became enraged
+                        playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = meleeAttackCooldownMultiplier;
+                        playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = moveSpeedMultiplier;
+                        playerController.PlayerMovementBehaviour.DisableDashMove = true;
+                    }
                 }
                 else
                 {
-                    playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = 1f;
-                    playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = 1f;
+                    if (isEnraged)
+                    {
+                        Debug.Log("Lost Enraged");
+                        // Lost enraged
+                        playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = 1f;
+                        playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = 1f;
+                        playerController.PlayerMovementBehaviour.DisableDashMove = false;
+                    }
                 }
+                
+                isEnraged = _active;
             }
 
             private void EnemyKilled()

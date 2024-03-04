@@ -76,14 +76,14 @@ namespace Game
 
             public void SetupPlayer(int _newPlayerID)
             {
+                PlayerData.NewScene();
+                
                 PlayerData.playerIndex = _newPlayerID;
                 PlayerIndex = _newPlayerID;
                
                 Health = PlayerData.currentHealth;
 
                 rigidbody = GetComponent<Rigidbody>();
-                
-                PlayerData.NewScene();
                 
                 playerInput.SwitchCurrentControlScheme(Keyboard.current);
                 
@@ -98,15 +98,11 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-
-                var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
-                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
-               
-
-
-
-
-
+                if (Input.GetJoystickNames().Length >0)
+                {
+                    var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                }
             }
 
 #region Unity Functions

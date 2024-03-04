@@ -78,11 +78,23 @@ namespace Game {
                     return Vector2.zero;
                 
                 Vector2 average = Vector2.zero;
+
+                int notZeroCount = 0;
                 
-                foreach (var value in activeLeftStickValues) {
+                foreach (var value in activeLeftStickValues)
+                {
                     average += value;
+                    if (value != Vector2.zero)
+                    {
+                        notZeroCount++;
+                    }
                 }
 
+                if (notZeroCount > 0)
+                {
+                    average /= notZeroCount;
+                }
+                
                 averageLeftStickValue = new Vector3(average.x, 0, average.y);
                 return averageLeftStickValue / activeLeftStickValues.Count;
             }

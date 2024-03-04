@@ -12,53 +12,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Game {
-    namespace Utility {
-        [ExecuteInEditMode] 
-        public class EmissionController : MonoBehaviour
+namespace Utility {
+    [ExecuteInEditMode] 
+    public class EmissionController : MonoBehaviour
+    {
+        public List<GameObject> emissiveGameObjects = new List<GameObject>();
+        private List<Material> emissiveMaterials = new List<Material>();
+        
+        [SerializeField] private Color _emissionColorValue;
+        [Tooltip("Starting emissionMap color")]
+        private List<Color> emissionColor = new List<Color>();
+        [Range(0.1f,100f)]
+        public float intensity;
+
+        [SerializeField] private bool clearGameObjects;
+
+        public void Update()
         {
-            public List<GameObject> emissiveGameObjects = new List<GameObject>();
-            private List<Material> emissiveMaterials = new List<Material>();
+            emissiveMaterials.Clear();
+            EmissionChanger();
+            RemoveAllGameObjects();
             
-            [SerializeField] private Color _emissionColorValue;
-            [Tooltip("Starting emissionMap color")]
-            private List<Color> emissionColor = new List<Color>();
-            [Range(0.1f,100f)]
-            public float intensity;
+        }
 
-            [SerializeField] private bool clearGameObjects;
+        #region Private
 
-            public void Update()
+        private void EmissionChanger()
+        {
+            for (int i = 0; i < emissiveGameObjects.Count; i++)
             {
-                emissiveMaterials.Clear();
-                EmissionChanger();
-                RemoveAllGameObjects();
+                emissiveMaterials.Add(emissiveGameObjects[i].GetComponent<Renderer>().sharedMaterial);
+                emissiveMaterials[i].SetVector("_EmissionColor", _emissionColorValue*intensity);
                 
             }
-
-            #region Private
-
-            private void EmissionChanger()
-            {
-                for (int i = 0; i < emissiveGameObjects.Count; i++)
-                {
-                    emissiveMaterials.Add(emissiveGameObjects[i].GetComponent<Renderer>().sharedMaterial);
-                    emissiveMaterials[i].SetVector("_EmissionColor", _emissionColorValue*intensity);
-                    
-                }
-            }
-            
-            private void RemoveAllGameObjects()
-            {
-                if (clearGameObjects)
-                {
-                    emissiveGameObjects.Clear();
-                    clearGameObjects = false;
-                }
-            }
-
-            #endregion
-           
         }
+        
+        private void RemoveAllGameObjects()
+        {
+            if (clearGameObjects)
+            {
+                emissiveGameObjects.Clear();
+                clearGameObjects = false;
+            }
+        }
+
+        #endregion
+       
     }
 }

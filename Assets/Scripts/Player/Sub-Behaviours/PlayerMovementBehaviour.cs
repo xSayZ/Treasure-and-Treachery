@@ -68,6 +68,9 @@ namespace Game {
             private float currentDashRechargeTime;
             public bool IsDashing { get; private set; }
             
+            // Werewolf dash
+            public bool DisableDashMove;
+            
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
             
@@ -158,7 +161,11 @@ namespace Game {
                     UpdateDashUI();
                     
                     OnDash.Invoke();
-                    StartCoroutine(DashMove());
+                    
+                    if (!DisableDashMove)
+                    {
+                        StartCoroutine(DashMove());
+                    }
                 }
             }
 

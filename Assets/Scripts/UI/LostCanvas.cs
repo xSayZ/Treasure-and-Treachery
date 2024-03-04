@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -36,7 +37,7 @@ namespace Game {
                     // Triggers button pressed color
                     ExecuteEvents.Execute(retryButton.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
                     
-                    // Reload level here
+                    LevelManager.Instance.ReloadLevel();
                 }
             }
         }

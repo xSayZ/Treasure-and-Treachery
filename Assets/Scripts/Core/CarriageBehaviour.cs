@@ -31,7 +31,6 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private string allPlayersDiedText;
             [SerializeField] private string carriageDestroyedText;
-            [SerializeField] private int nextSceneBuildIndex; // Temporary, should be removed since map decides next level
             
             [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
@@ -188,7 +187,6 @@ namespace Game {
             {
                 levelOver = true;
                 
-                GameManager.NextSceneBuildIndex = nextSceneBuildIndex;
                 LevelManager.Instance.LoadScoreScreen();
             }
 

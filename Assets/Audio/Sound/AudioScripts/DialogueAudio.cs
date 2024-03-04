@@ -32,6 +32,11 @@ namespace Game {
             //EventReferences
             [SerializeField]
             private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio;
+
+            [Header("QuestDialogue")] 
+            
+            public EventReference logicalThinkingAudio;
+            public EventInstance logicalThinkingInstance;
             
             private int playerIndex;
 
@@ -77,7 +82,6 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
-
             public void UpdateWereWolfRageAudio(float rageAmount)
             {
                 playerAttackAudioInstance.setParameterByName("WolfRage", rageAmount);
@@ -143,7 +147,6 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
-
             private void GoldPickupDialogue(int _playerID, int amount)
             {
                 try
@@ -191,6 +194,48 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
+
+            public void LogicalThinkingSequence(int _playerID, List<EventReference> dialogues)
+            {
+                
+            }
+
+            public IEnumerator LogicalThinkingCorroutine(int _playerID, List<EventReference> dialogues)
+            {
+                foreach (var dialogueRef in dialogues)
+                {
+                    var player = GameManager.Instance.ActivePlayerControllers[_playerID];
+                    var dialogueInstance = RuntimeManager.CreateInstance(dialogueRef);
+                    RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+                    dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
+                    dialogueInstance.start();
+
+                    while (IsPlaying(dialogueInstance))
+                    {
+                        yield return null;
+                    }
+                    
+                    dialogueInstance.release();
+                }
+            }
+            
+            public void LogicalThinkingDialogue()
+            {
+                try
+                {
+                    var _players = GameManager.Instance.ActivePlayerControllers;
+                    logicalThinkingInstance = RuntimeManager.CreateInstance(logicalThinkingAudio);
+                    PlayQuestDialogue(1, logicalThinkingInstance);
+                    DialogueAudioWrapper.Instance.PlayQuestResponseDialogue(0, logicalThinkingInstance, logicalThinkingAudio);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+                
+            }
+            
+            
 #endregion
 
 #region Private Functions
@@ -211,6 +256,16 @@ namespace Game {
                 // Update the dictionary with the new dialogue instance
                 currentDialogues[characterID] = dialogueInstance;
             }
+            
+            private void PlayQuestDialogue(int characterID, EventInstance dialogueInstance)
+            {
+                var player = GameManager.Instance.ActivePlayerControllers[characterID];
+                
+                RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+                dialogueInstance.setParameterByName("SpeakerCharacter", characterID);
+                dialogueInstance.start();
+                dialogueInstance.release();
+            }
 
             private void StopDialogue(int characterID)
             {
@@ -218,7 +273,7 @@ namespace Game {
                 if (currentDialogues.TryGetValue(characterID, out EventInstance dialogueInstance)) {
                     // Stop the dialogue instance and remove it from the dictionary
                     dialogueInstance.stop(STOP_MODE.ALLOWFADEOUT);
-                    dialogueInstance.release();
+                    
                     currentDialogues.Remove(characterID);
                 }
             }
@@ -229,7 +284,20 @@ namespace Game {
                 {
                     yield return null;
                 }
+                askerInstance.release();
                 GetRandomPlayerAndPlayResponse(_playerID, _players, context);
+            }
+            
+            public IEnumerator WaitForQuestResponseAudio(int _playerID, EventInstance askerInstance, EventReference eventRef)
+            {
+                while (IsPlaying(askerInstance))
+                {
+                    yield return null;
+                    Debug.Log("waiting");
+                }
+                askerInstance.release();
+                askerInstance = RuntimeManager.CreateInstance(eventRef);
+                PlayQuestDialogue(_playerID, askerInstance);
             }
 
             private bool IsPlaying(EventInstance _instance)

@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638448252452676404
+  lastModified: 638451577059572503
   FileSizes:
   - Name: 
-    Value: 4408
+    Value: 4614
   Exists: 1
 --- !u!114 &-8783786666572557789
 MonoBehaviour:
@@ -130,6 +130,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-8078038320973306067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_DRAG_Crossbow/RangeCharge
+  m_EditorClassIdentifier: 
+  Name: RangeCharge
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 37816804
+    data2: 668158678
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-7683137465813288173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,6 +393,34 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: -7424859570537756585}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6692746725743713364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/VOX_Q_LogicalThinking
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/VOX_Q_LogicalThinking
+  Guid:
+    Data1: 189425913
+    Data2: 1307086687
+    Data3: 634279826
+    Data4: -1528173646
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1887262212619848349}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -666,6 +718,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-4340265872048802807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  Guid:
+    Data1: 10501635
+    Data2: 1245782177
+    Data3: -2078868817
+    Data4: -921583314
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -8078038320973306067}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4046
 --- !u!114 &-3983205620123449889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,7 +822,8 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: 3983338796214462530}
   MinDistance: 1
   MaxDistance: 65
   Length: 2968
@@ -1004,6 +1085,8 @@ MonoBehaviour:
   - {fileID: 1462543405850373818}
   - {fileID: 6552356753501028644}
   - {fileID: 647067058527330863}
+  - {fileID: -4340265872048802807}
+  - {fileID: -6692746725743713364}
   EditorParameters:
   - {fileID: 8797719750629465085}
   - {fileID: -3214837208440471055}
@@ -1012,7 +1095,7 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   StringsBanks:
   - {fileID: -9009486603958876372}
-  cacheTime: 638448299322379080
+  cacheTime: 638451577061301724
   cacheVersion: 131609
 --- !u!114 &647067058527330863
 MonoBehaviour:
@@ -1068,6 +1151,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 9.8
   Length: 1800
+--- !u!114 &1887262212619848349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_LogicalThinking/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
 --- !u!114 &2176250192523660702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,8 +1274,32 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638448299321561318
+  lastModified: 638451577059482720
   FileSizes: []
+  Exists: 1
+--- !u!114 &3983338796214462530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_WITCH_ATTACKS_Ranged/ShootType
+  m_EditorClassIdentifier: 
+  Name: ShootType
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3723771462
+    data2: 3648904892
+  Type: 0
+  IsGlobal: 0
+  Labels: []
   Exists: 1
 --- !u!114 &4401580982419693553
 MonoBehaviour:
@@ -1400,7 +1535,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638448299322379080
+  lastModified: 638451577061301724
   FileSizes: []
   Exists: 1
 --- !u!114 &7930514877390116839

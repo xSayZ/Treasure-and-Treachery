@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15601,6 +15601,95 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d518c60c3272667479638f03133094fd, type: 3}
+--- !u!1 &1714631750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1714631753}
+  - component: {fileID: 1714631752}
+  - component: {fileID: 1714631751}
+  m_Layer: 0
+  m_Name: AudioQuestTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1714631751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714631750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f42adac4cf85c2b45a6e5f02b06f7ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activateOnIsTrigger: 0
+  triggerEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+        m_TargetAssemblyTypeName: Game.Audio.DialogueAudio, Assembly-CSharp
+        m_MethodName: LogicalThinkingDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1714631750}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  triggerExit:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!65 &1714631752
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714631750}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.239723, y: 4.7786427, z: 5.1001244}
+  m_Center: {x: 0.41085434, y: 1.8893213, z: 0.21294403}
+--- !u!4 &1714631753
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1714631750}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 36, y: 0.52, z: 22.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1715318706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8990636121731613765, guid: 52c71d45397c7fa43888401d5f3c2d74, type: 3}
@@ -17908,15 +17997,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000047683716
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.999999
+      value: -10.000001
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -17932,15 +18021,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000047683716
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.999999
+      value: -10.000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
@@ -18166,12 +18255,24 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 5163045971416493727, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163045971416493727, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}
+      propertyPath: playersToSpawn
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163045971416493727, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}
       propertyPath: spawnRingCenter
       value: 
       objectReference: {fileID: 2078248933}
     - target: {fileID: 5163045971416493727, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}
       propertyPath: spawnRingRadius
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5163045971416493727, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}
+      propertyPath: autoDetectPlayers
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e41566a19093a4b9d5e78ed5b23610, type: 3}

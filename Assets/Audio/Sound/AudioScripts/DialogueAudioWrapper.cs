@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FMOD.Studio;
+using FMODUnity;
 using Game.Audio;
 using Game.Player;
 using UnityEngine;
@@ -26,5 +27,10 @@ public class DialogueAudioWrapper : MonoBehaviour
     public void PlayResponseDialogue(EventInstance askerInstance, int _playerID, Dictionary<int, PlayerController> _players, string context)
     {
         StartCoroutine(dialogueAudio.WaitForResponseAudio(askerInstance, _playerID, _players, context));
+    }
+    
+    public void PlayQuestResponseDialogue(int _playerID, EventInstance askerInstance, EventReference eventRef)
+    {
+        StartCoroutine(dialogueAudio.WaitForQuestResponseAudio(_playerID, askerInstance, eventRef));
     }
 }

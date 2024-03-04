@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638451577059572503
+  lastModified: 638451735058892029
   FileSizes:
   - Name: 
-    Value: 4614
+    Value: 4808
   Exists: 1
 --- !u!114 &-8783786666572557789
 MonoBehaviour:
@@ -151,6 +151,30 @@ MonoBehaviour:
     data1: 37816804
     data2: 668158678
   Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7962402028661527727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_LOG_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
   IsGlobal: 0
   Labels: []
   Exists: 1
@@ -305,8 +329,8 @@ MonoBehaviour:
     Data3: 1801595818
     Data4: -251461116
   Banks:
-  - {fileID: 3531234008076186661}
   - {fileID: 6843316956230067141}
+  - {fileID: 3531234008076186661}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -393,34 +417,6 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: -7424859570537756585}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-6692746725743713364
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/VOX_Q_LogicalThinking
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/VOX_Q_LogicalThinking
-  Guid:
-    Data1: 189425913
-    Data2: 1307086687
-    Data3: 634279826
-    Data4: -1528173646
-  Banks:
-  - {fileID: 3531234008076186661}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 1887262212619848349}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
@@ -929,6 +925,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-1377704247945433866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
+  Guid:
+    Data1: 832414698
+    Data2: 1210755422
+    Data3: -1659627334
+    Data4: -1182456700
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2000
 --- !u!114 &-1238789338717838896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1109,10 @@ MonoBehaviour:
   - {fileID: 6552356753501028644}
   - {fileID: 647067058527330863}
   - {fileID: -4340265872048802807}
-  - {fileID: -6692746725743713364}
+  - {fileID: 5612259016464850348}
+  - {fileID: 8689014382197026112}
+  - {fileID: 3945443155231584219}
+  - {fileID: -1377704247945433866}
   EditorParameters:
   - {fileID: 8797719750629465085}
   - {fileID: -3214837208440471055}
@@ -1095,7 +1121,7 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   StringsBanks:
   - {fileID: -9009486603958876372}
-  cacheTime: 638451577061301724
+  cacheTime: 638451735058892029
   cacheVersion: 131609
 --- !u!114 &647067058527330863
 MonoBehaviour:
@@ -1151,34 +1177,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 9.8
   Length: 1800
---- !u!114 &1887262212619848349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_LogicalThinking/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
 --- !u!114 &2176250192523660702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1274,9 +1272,36 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638451577059482720
+  lastModified: 638451735058801410
   FileSizes: []
   Exists: 1
+--- !u!114 &3945443155231584219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  Guid:
+    Data1: 1118517551
+    Data2: 1330108979
+    Data3: -2002450534
+    Data4: 1369806711
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5168
 --- !u!114 &3983338796214462530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1411,6 +1436,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 45
   Length: 1123
+--- !u!114 &5612259016464850348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Dragon
+  Guid:
+    Data1: 94934430
+    Data2: 1255715484
+    Data3: -671749967
+    Data4: 578091214
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7962402028661527727}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1876
 --- !u!114 &5714232105127245730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1484,8 +1537,8 @@ MonoBehaviour:
     Data3: 198427308
     Data4: -2038292595
   Banks:
-  - {fileID: 3531234008076186661}
   - {fileID: 6843316956230067141}
+  - {fileID: 3531234008076186661}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -1566,6 +1619,30 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
+--- !u!114 &8005397966092556126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_LOG_Wolf/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &8082769015697913303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1590,6 +1667,34 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &8689014382197026112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
+  Guid:
+    Data1: -204024924
+    Data2: 1299150911
+    Data3: 732235400
+    Data4: 457387680
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 8005397966092556126}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3988
 --- !u!114 &8739887478978452341
 MonoBehaviour:
   m_ObjectHideFlags: 0

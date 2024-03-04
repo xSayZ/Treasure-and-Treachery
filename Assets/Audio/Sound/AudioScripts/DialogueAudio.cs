@@ -38,7 +38,6 @@ namespace Game {
             public EventReference logicalThinkingAudio;
             public EventInstance logicalThinkingInstance;
             
-            private int playerIndex;
 
             private void OnEnable()
             {
@@ -195,38 +194,14 @@ namespace Game {
                 }
             }
 
-            public void LogicalThinkingSequence(int _playerID, List<EventReference> dialogues)
-            {
-                
-            }
-
-            public IEnumerator LogicalThinkingCorroutine(int _playerID, List<EventReference> dialogues)
-            {
-                foreach (var dialogueRef in dialogues)
-                {
-                    var player = GameManager.Instance.ActivePlayerControllers[_playerID];
-                    var dialogueInstance = RuntimeManager.CreateInstance(dialogueRef);
-                    RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
-                    dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
-                    dialogueInstance.start();
-
-                    while (IsPlaying(dialogueInstance))
-                    {
-                        yield return null;
-                    }
-                    
-                    dialogueInstance.release();
-                }
-            }
-            
-            public void LogicalThinkingDialogue()
+            public void LogicalThinkingDialogue(bool playing)
             {
                 try
-                {
+                { 
                     var _players = GameManager.Instance.ActivePlayerControllers;
-                    logicalThinkingInstance = RuntimeManager.CreateInstance(logicalThinkingAudio);
-                    PlayQuestDialogue(1, logicalThinkingInstance);
-                    DialogueAudioWrapper.Instance.PlayQuestResponseDialogue(0, logicalThinkingInstance, logicalThinkingAudio);
+                   logicalThinkingInstance = RuntimeManager.CreateInstance(logicalThinkingAudio);
+                   PlayQuestDialogue(1, logicalThinkingInstance); 
+                   DialogueAudioWrapper.Instance.PlayQuestResponseDialogue(0, logicalThinkingInstance, logicalThinkingAudio);
                 }
                 catch (Exception e)
                 {
@@ -234,9 +209,8 @@ namespace Game {
                 }
                 
             }
-            
-            
-#endregion
+
+            #endregion
 
 #region Private Functions
             private void PlayDialogue(int characterID, EventInstance dialogueInstance)
@@ -293,12 +267,12 @@ namespace Game {
                 while (IsPlaying(askerInstance))
                 {
                     yield return null;
-                    Debug.Log("waiting");
                 }
                 askerInstance.release();
                 askerInstance = RuntimeManager.CreateInstance(eventRef);
                 PlayQuestDialogue(_playerID, askerInstance);
             }
+
 
             private bool IsPlaying(EventInstance _instance)
             {

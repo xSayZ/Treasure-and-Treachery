@@ -117,7 +117,8 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && deviceID == 0)
                 {
-                    LevelManager.Instance.LoadLoadingScreen(characterSelectHandler.TestLevel);
+                    //TEMP
+                    LevelManager.Instance.LoadLevel(characterSelectHandler.Level);
                 }
                 
                 if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;

@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,9 +33,10 @@ namespace Game {
             
             private Image levelImage;
             private string levelName;
+            bool canSwitchScene = false;
             
             private void Start() {
-                levelData.levelName = levelName;
+                //levelData.levelName = levelName;
                 levelData.levelDescription = "This is a level description";
                 levelData.levelImage = levelImage;
                 levelData.OnLevelCompleted = onLevelCompleted;
@@ -46,21 +49,37 @@ namespace Game {
                 }
             }
 
+            private void Update() {
+                if (canSwitchScene) {
+                    if (WorldInputManager.Instance.GetSubmitPressed()) {
+                        SwitchScene();
+                    }
+                }
+                
+                if(levelData.isCompleted) {
+                    isLocked = false;
+                    playMarkerObject.SetActive(true);
+                }
+            }
+
             private void OnTriggerEnter(Collider other) {
                 if (!other.CompareTag("Carriage"))
                     return;
 
                 if (!isLocked) {
                     LevelUI.SetActive(true);
+                    canSwitchScene = true;
+                    SwitchScene();
                 }
             }
             
             private void OnTriggerExit(Collider other) {
                 LevelUI.SetActive(false);
+                canSwitchScene = false;
             }
             
             private void SwitchScene() {
-                
+                LevelManager.Instance.LoadLevel(levelData);
             }
         }
     }

@@ -128,7 +128,6 @@ namespace Game {
                 {
                     if (!isEnraged)
                     {
-                        Debug.Log("Became Enraged");
                         // Became enraged
                         playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = meleeAttackCooldownMultiplier;
                         playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = moveSpeedMultiplier;
@@ -139,7 +138,6 @@ namespace Game {
                 {
                     if (isEnraged)
                     {
-                        Debug.Log("Lost Enraged");
                         // Lost enraged
                         playerController.PlayerAttackBehaviour.MeleeAttackCooldownMultiplier = 1f;
                         playerController.PlayerMovementBehaviour.MoveSpeedMultiplier = 1f;

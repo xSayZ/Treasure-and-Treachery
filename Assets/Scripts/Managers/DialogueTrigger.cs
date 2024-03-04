@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using Game.Backend;
 using UnityEngine;
 
 
@@ -26,12 +27,12 @@ namespace Game {
                     TriggerDialogue();
                 }
             }
-
             private void TriggerDialogue() {
                 if (currentDialogueSO.StoryJSON == null) {
                     Debug.LogError("No story JSON file assigned to the current dialogue SO.");
                     return;
                 }
+                
                 Debug.Log("Triggering dialogue");
                 dialogueManager.StartDialogue(currentDialogueSO.StoryJSON, currentDialogueSO.TypingSpeed);
             }

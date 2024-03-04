@@ -54,13 +54,13 @@ namespace Game {
                 bool isActive = CheckActiveState(musicInstances[num]);
                 if (isActive == false)
                 {
-                    Debug.Log("event not active before. Activating");
+                    //Debug.Log("event not active before. Activating");
                     //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum "EventsToBePlayed" (men utgår från plats i enumet (int istället för namn)
                     //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
                     musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                     musicInstances[num].start();
                                     
-                    Debug.Log("played music event" + num);
+                   // Debug.Log("played music event" + num);
                 }
             }
             
@@ -81,7 +81,7 @@ namespace Game {
                 }
                 
                 musicInstances[num].release();
-                Debug.Log("stopped music event" +" "+ num);
+               // Debug.Log("stopped music event" +" "+ num);
             }
             
 

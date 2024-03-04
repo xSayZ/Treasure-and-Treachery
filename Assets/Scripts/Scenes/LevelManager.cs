@@ -7,8 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
-using Game.Backend;
-using Game.UI;
+
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,17 +20,45 @@ namespace Game {
             
             [SerializeField] private string loadingScreenPath = "LoadingScreen";
             public WorldMapManager worldMapManager;
-            
-            public void LoadLevel(LevelDataSO _levelData) {
+            private static WorldMapManager _manager;
+
+            protected override void SingletonAwakened()
+            {
+                if (FindObjectsByType<LevelManager>(FindObjectsSortMode.None).Length > 1)
+                {
+                    Destroy(gameObject);
+                }
                 
+                DontDestroyOnLoad(gameObject);
+                
+                base.SingletonAwakened();
+                DontDestroyOnLoad(this);
+            }
+
+            public void LoadLevel(LevelDataSO _levelData)
+            {
                 StartCoroutine(LoadLoadingScreen(_levelData));
             }
+
+            public void ReloadLevel()
+            {
+                LoadLevel(worldMapManager.levelToLoad);
+            }
             
-            private IEnumerator LoadLoadingScreen(LevelDataSO _levelData) {
+            private IEnumerator LoadLoadingScreen(LevelDataSO _levelData)
+            {
+               
                 worldMapManager.levelToLoad = null;
                 yield return new WaitForSeconds(0.1f);
                 worldMapManager.levelToLoad = _levelData;
-                SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Additive);
+                Debug.Log(worldMapManager.levelToLoad.levelName);
+                SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);
+                
+            }
+            
+            public void LoadScoreScreen()
+            {
+                SceneManager.LoadScene("ScoreScreen",LoadSceneMode.Single);
             }
         }
     }

@@ -28,7 +28,8 @@ namespace Game {
             private float target;
             public void Start()
             {
-                LoadSceneAsync(worldMapManager.levelToLoad);
+                
+                LoadSceneAsync(LevelManager.Instance.worldMapManager.levelToLoad);
             }
             
             private async void LoadSceneAsync(LevelDataSO _levelData)

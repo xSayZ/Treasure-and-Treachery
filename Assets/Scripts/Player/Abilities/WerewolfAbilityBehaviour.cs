@@ -45,6 +45,8 @@ namespace Game {
 
             protected override void Setup()
             {
+                base.Setup();
+                
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);

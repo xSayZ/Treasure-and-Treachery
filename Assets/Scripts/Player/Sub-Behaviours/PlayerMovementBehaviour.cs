@@ -23,10 +23,8 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private CapsuleCollider playerCollider;
             [SerializeField] private CapsuleCollider dashObjectCollider;
-            [SerializeField] private GameObject dashCanvas;
-            [SerializeField] private GameObject dashUIPrefab;
-            [SerializeField] private Sprite fullDashSprite;
-            [SerializeField] private Sprite emptyDashSprite;
+            [SerializeField] private GameObject fullDashImage;
+            [SerializeField] private GameObject halfDashImage;
             
             [Header("Movement Settings")]
             [Tooltip("Base Movement Speed of the player.")]
@@ -44,6 +42,7 @@ namespace Game {
             [Range(0, 30)]
             [SerializeField] private float dashRechargeTime;
             [Tooltip("Number of dashes the player has.")]
+            [Range(0, 2)]
             [SerializeField] private int numberOfDashes;
             [Tooltip("How much damage the dash deals to enemies.")]
             [SerializeField] private int dashDamage;
@@ -67,8 +66,10 @@ namespace Game {
             // Dash values
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
-            private List<Image> dashImages;
             public bool IsDashing { get; private set; }
+            
+            // Werewolf dash
+            public bool DisableDashMove;
             
             public bool canMove { get; private set; } = true;
             private bool canRotate = true;
@@ -83,13 +84,6 @@ namespace Game {
                 playerRigidBody = GetComponent<Rigidbody>();
                 currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
-                
-                dashImages = new List<Image>();
-                
-                for (int i = 0; i < numberOfDashes; i++)
-                {
-                    dashImages.Add(Instantiate(dashUIPrefab, dashCanvas.transform).GetComponent<Image>());
-                }
                 
                 UpdateDashUI();
             }
@@ -162,12 +156,20 @@ namespace Game {
             {
                 if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming && canMove)
                 {
-                    currentNumberOfDashes--;
-                    currentDashRechargeTime = dashRechargeTime;
-                    UpdateDashUI();
+                    // Stops werewolf from losing dash when enraged and has full health
+                    if (!(DisableDashMove && playerController.PlayerData.currentHealth == playerController.PlayerData.startingHealth))
+                    {
+                        currentNumberOfDashes--;
+                        currentDashRechargeTime = dashRechargeTime;
+                        UpdateDashUI();
+                    }
+                    
+                    if (!DisableDashMove)
+                    {
+                        StartCoroutine(DashMove());
+                    }
                     
                     OnDash.Invoke();
-                    StartCoroutine(DashMove());
                 }
             }
 
@@ -341,17 +343,8 @@ namespace Game {
 
             private void UpdateDashUI()
             {
-                for (int i = dashImages.Count - 1; i >= 0; i--)
-                {
-                    if (i < currentNumberOfDashes)
-                    {
-                        dashImages[i].sprite = fullDashSprite;
-                    }
-                    else
-                    {
-                        dashImages[i].sprite = emptyDashSprite;
-                    }
-                }
+                halfDashImage.SetActive(currentNumberOfDashes >= 1);
+                fullDashImage.SetActive(currentNumberOfDashes >= 2);
             }
 
             private bool IsLeftOfLine(Vector3 _lineStart, Vector3 _lineEnd, Vector3 _point)

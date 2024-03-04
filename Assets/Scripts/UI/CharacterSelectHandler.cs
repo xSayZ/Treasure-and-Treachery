@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Backend;
+using Game.WorldMap;
 using Ink.Parsed;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,9 +24,11 @@ namespace Game
         {
             [Header("References")] 
             public List<Transform> imagePosition = new List<Transform>();
-            
             public List<PlayerData> Datas;
-
+            public LevelDataSO Level;
+            
+            
+            
             public static List<CharacterSelect> staticData = new List<CharacterSelect>();
             [SerializeField] private ImageBank bank;
 

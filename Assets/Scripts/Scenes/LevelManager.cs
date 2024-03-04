@@ -6,35 +6,59 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections;
+
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
 namespace Game {
     namespace Managers {
-        public class LevelManager : Singleton<LevelManager>
-        {
-            public static string nextLevel { get; private set; }
+        public class LevelManager : Singleton<LevelManager> {
             
-            private float target;
+            
             [SerializeField] private string loadingScreenPath = "LoadingScreen";
-            public void LoadLoadingScreen(string level)
+            public WorldMapManager worldMapManager;
+            private static WorldMapManager _manager;
+
+            protected override void SingletonAwakened()
             {
-               
-               SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Additive);
-               nextLevel = level;
-               
+                if (FindObjectsByType<LevelManager>(FindObjectsSortMode.None).Length > 1)
+                {
+                    Destroy(gameObject);
+                }
+                
+                DontDestroyOnLoad(gameObject);
+                
+                base.SingletonAwakened();
+                DontDestroyOnLoad(this);
+            }
+
+            public void LoadLevel(LevelDataSO _levelData)
+            {
+                StartCoroutine(LoadLoadingScreen(_levelData));
+            }
+
+            public void ReloadLevel()
+            {
+                LoadLevel(worldMapManager.levelToLoad);
             }
             
-
-            public void LoadGameplayScene(int level)    
+            private IEnumerator LoadLoadingScreen(LevelDataSO _levelData)
             {
-                SceneManager.LoadScene(level, LoadSceneMode.Single);
+               
+                worldMapManager.levelToLoad = null;
+                yield return new WaitForSeconds(0.1f);
+                worldMapManager.levelToLoad = _levelData;
+                Debug.Log(worldMapManager.levelToLoad.levelName);
+                SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);
+                
             }
             
             public void LoadScoreScreen()
             {
-                SceneManager.LoadSceneAsync("ScoreScreen");
+                SceneManager.LoadScene("ScoreScreen",LoadSceneMode.Single);
             }
         }
     }

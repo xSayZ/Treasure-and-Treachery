@@ -156,9 +156,13 @@ namespace Game {
             {
                 if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming && canMove)
                 {
-                    currentNumberOfDashes--;
-                    currentDashRechargeTime = dashRechargeTime;
-                    UpdateDashUI();
+                    // Stops werewolf from losing dash when enraged and has full health
+                    if (!(DisableDashMove && playerController.PlayerData.currentHealth == playerController.PlayerData.startingHealth))
+                    {
+                        currentNumberOfDashes--;
+                        currentDashRechargeTime = dashRechargeTime;
+                        UpdateDashUI();
+                    }
                     
                     if (!DisableDashMove)
                     {

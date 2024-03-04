@@ -98,9 +98,12 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-
-                var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
-                InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                if (Input.GetJoystickNames().Length >0)
+                {
+                    var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                }
+               
                
 
 

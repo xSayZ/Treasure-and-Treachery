@@ -26,8 +26,11 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
-            
+            [SerializeField] private GameObject lostCanvas;
+
             [Header("Settings")]
+            [SerializeField] private string allPlayersDiedText;
+            [SerializeField] private string carriageDestroyedText;
             [SerializeField] private int nextSceneBuildIndex; // Temporary, should be removed since map decides next level
             
             [Header("Audio")]
@@ -82,10 +85,7 @@ namespace Game {
                 // All players are dead
                 if (GameManager.Instance.ActivePlayerControllers.Count == 0)
                 {
-                    levelOver = true;
-                    
-                    // All players died, level lost
-                    Debug.Log("All players died, you lost");
+                    LevelLost(allPlayersDiedText);
                 }
                 
                 // All players in carriage
@@ -112,7 +112,6 @@ namespace Game {
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
                     {
-                        levelOver = true;
                         LevelCompleted();
                     }
                 }
@@ -140,8 +139,10 @@ namespace Game {
                 
                 healthBar.value = 0;
                 
-                // Carriage was destroyed, level lost
-                Debug.Log("Carriage destroyed, you lost");
+                if (!levelOver)
+                {
+                    LevelLost(carriageDestroyedText);
+                }
             }
 
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
@@ -185,8 +186,18 @@ namespace Game {
 
             private void LevelCompleted()
             {
+                levelOver = true;
+                
                 GameManager.NextSceneBuildIndex = nextSceneBuildIndex;
                 LevelManager.Instance.LoadScoreScreen();
+            }
+
+            private void LevelLost(string _reason)
+            {
+                levelOver = true;
+                
+                lostCanvas.SetActive(true);
+                lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
             }
 #endregion
         }

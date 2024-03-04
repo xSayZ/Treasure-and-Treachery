@@ -111,7 +111,7 @@ namespace Game {
                 
                 //Skriver ut playback state i vår lokala variabel "state" som jämförs nedan i if satsen
                 eInstance.getPlaybackState(out PLAYBACK_STATE state);
-                Debug.Log("checking active state" + state);
+                //Debug.Log("checking active state" + state);
                 
                 if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
                 {
@@ -129,7 +129,7 @@ namespace Game {
                 musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                 musicInstances[num].start();
                 musicInstances[num].release();
-                Debug.Log("played music event" + num);
+                //Debug.Log("played music event" + num);
                 
             }
 

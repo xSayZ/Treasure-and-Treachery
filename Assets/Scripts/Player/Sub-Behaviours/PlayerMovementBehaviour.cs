@@ -160,12 +160,12 @@ namespace Game {
                     currentDashRechargeTime = dashRechargeTime;
                     UpdateDashUI();
                     
-                    OnDash.Invoke();
-                    
                     if (!DisableDashMove)
                     {
                         StartCoroutine(DashMove());
                     }
+                    
+                    OnDash.Invoke();
                 }
             }
 

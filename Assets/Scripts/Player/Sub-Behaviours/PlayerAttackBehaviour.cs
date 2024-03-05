@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FMOD.Studio;
 using Game.Audio;
 using Game.Backend;
 using Game.Core;
@@ -78,6 +79,7 @@ namespace Game {
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
             [SerializeField] private DialogueAudio dialogueAudio;
+            private EventInstance dragonShootinstance;
             
             // Melee
             private List<IDamageable> damageableInRange;
@@ -243,6 +245,16 @@ namespace Game {
                                 
                     playerController.PlayerMovementBehaviour.TurnSpeed /= 2;
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(false, true);
+                    
+                    try
+                    {
+                        Debug.Log("poopie");
+                        playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                    }
                 }
                 else if (IsAiming)
                 {
@@ -258,6 +270,16 @@ namespace Game {
                     playerController.PlayerMovementBehaviour.TurnSpeed *= 2;
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
+
+                    try
+                    {
+                        Debug.Log("poop");
+                        playerAudio.DragonShoot(playerObj, false, dragonShootinstance);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                    }
                 }
             }
 

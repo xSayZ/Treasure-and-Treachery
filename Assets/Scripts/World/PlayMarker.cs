@@ -12,6 +12,10 @@ using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -51,12 +55,6 @@ namespace Game {
             }
 
             private void Update() {
-                if (canSwitchScene) {
-                    if (WorldInputManager.Instance.GetSubmitPressed()) {
-                        SwitchScene();
-                    }
-                }
-
                 for (int i = 0; i < levelData.prerequisites.Count; i++)
                 {
                     if(levelData.prerequisites.All(data => data.isCompleted ))
@@ -65,6 +63,8 @@ namespace Game {
                         playMarkerObject.SetActive(true);
                     }
                 }
+                
+                
                 
                 
             }
@@ -76,7 +76,19 @@ namespace Game {
                 if (!isLocked) {
                     LevelUI.SetActive(true);
                     canSwitchScene = true;
-                    SwitchScene();
+
+
+                    InputSystem.onAnyButtonPress.Call(ctrl =>
+                    {
+                        if (ctrl.device is not Gamepad pad || !canSwitchScene) return;
+                        
+                        if (ctrl == pad.buttonSouth)
+                        {
+                            canSwitchScene = false;
+                            SwitchScene();
+                        }
+                    });
+
                 }
             }
             

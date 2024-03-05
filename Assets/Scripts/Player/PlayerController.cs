@@ -139,6 +139,13 @@ namespace Game
                     Invincible = false;
                 }
             }
+
+            private void OnDestroy()
+            {
+                playerHealthBar.UpdateHealthBar(Health);
+                PlayerInteractionBehaviour.OnDeath();
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+            }
 #endregion
 
 #region Input System Actions // INPUT SYSTEM ACTION METHODS
@@ -241,9 +248,6 @@ namespace Game
             
             public void Death()
             {
-                PlayerInteractionBehaviour.OnDeath();
-                playerHealthBar.UpdateHealthBar(Health);
-                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 Destroy(gameObject);
             }
             

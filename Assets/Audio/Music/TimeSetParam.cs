@@ -37,12 +37,12 @@ namespace Game {
                 // Debug.Log("time is" + timer);
 
                 
-                if (timer >= 5)
+                if (timer >= 60)
                 {
                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
                 }
                 
-                if (timer >= 10)
+                if (timer >= 120)
                 {
                     
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false, false);
@@ -50,13 +50,13 @@ namespace Game {
                 }
                 
 
-                if (timer >= 15)
+                if (timer >= 180)
                 {
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 4f, false, false);
                 }
                 
 
-                if (timer >= 20)
+                if (timer >= 240)
                 {
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 5f, false, false);
                 }

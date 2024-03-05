@@ -9,10 +9,12 @@
 using System;
 using System.Collections;
 using Game.Managers;
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -20,9 +22,10 @@ namespace Game {
     namespace UI {
         public class MenuSelect : MonoBehaviour
         {
-            
+            [Header("References")]
             public PlayerInput _input;
-            
+            public LevelDataSO level;
+
             [Header("Menu Button")]
             [SerializeField] private GameObject[] UIButtons;
 
@@ -34,14 +37,11 @@ namespace Game {
             [SerializeField] private Slider[] VolumeSlider;
 
             private GameObject _cachedSelectedObject;
-
             private void Start()
             {
                 
                 StartCoroutine(SelectFirstChoice()); 
             }
-            
-            //public void OnNavigation(InputAction.CallbackContext context) { }
             
             public void OnSubmit(InputAction.CallbackContext context)
             {
@@ -49,8 +49,14 @@ namespace Game {
                 bool isPressed = context.action.WasPressedThisFrame();
                 selectedObject = EventSystem.current.currentSelectedGameObject;
                 if (selectedObject == null) return;
+                
+                CanvasSwapper(isPressed);
+            }
+
+            private void CanvasSwapper(bool isPressed)
+            {
                 if (selectedObject.gameObject == UIButtons[0] && isPressed)
-                    //LevelManager.Instance.LoadScene(1);
+                    LevelManager.Instance.LoadLevel(level);
                 
                 if (selectedObject.gameObject == UIButtons[1] && isPressed)
                 {
@@ -60,7 +66,7 @@ namespace Game {
                     Canvases[1].SetActive(true);
                     Canvases[0].SetActive(false);
                 }
-                if ( Canvases[0].activeSelf &&selectedObject.gameObject == UIButtons[3] && isPressed)
+                if ( Canvases[0].activeSelf && selectedObject.gameObject == UIButtons[3] && isPressed)
                 {
                     #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
@@ -77,6 +83,7 @@ namespace Game {
                     {
                         StartCoroutine(SelectFirstChoice());
                         StopCoroutine(SelectFirstSlider());
+                        
                         Canvases[0].SetActive(true);
                         Canvases[1].SetActive(false);
                         Canvases[2].SetActive(false);

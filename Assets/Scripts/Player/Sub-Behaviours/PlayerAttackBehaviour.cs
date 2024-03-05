@@ -18,6 +18,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using WaitForSeconds = UnityEngine.WaitForSeconds;
 
 
 namespace Game {
@@ -255,6 +256,8 @@ namespace Game {
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
+                yield return new WaitForSeconds(meleeChargeTime);
+                playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 
                 // Loop through all enemies in range
                 for (int i = damageableInRange.Count - 1; i >= 0; i--)
@@ -283,6 +286,9 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
+                
+                yield return new WaitForSeconds(meleeChargeTime);
+                playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
             }
 
             private void MeleeDamage(IDamageable _damageable)

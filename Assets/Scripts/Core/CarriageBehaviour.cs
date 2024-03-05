@@ -192,6 +192,9 @@ namespace Game {
             private void LevelCompleted()
             {
                 levelOver = true;
+                var levelData = LevelManager.Instance.worldMapManager.levelToLoad;
+                levelData.isCompleted = true;
+                levelData.OnLevelCompleted.Invoke();
                 
                 LevelManager.Instance.LoadScoreScreen();
             }

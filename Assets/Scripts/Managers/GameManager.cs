@@ -13,6 +13,8 @@ using Game.Player;
 using Game.Quest;
 using UnityEngine.Events;
 using Game.UI;
+using Game.WorldMap;
+using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Backend {
@@ -28,10 +30,7 @@ namespace Game {
             [Header("Round Settings")]
             [Range(0, 1200), Tooltip("Amount of time per round in seconds")]
             public float roundTime;
-    
-            [Header("Timer")]
-            public Timer timer;
-
+            
             [Header("Local Multiplayer")]
             [Tooltip("Player Prefabs needs to be assigned")]
             public List<GameObject> playerVariants = new List<GameObject>();
@@ -51,14 +50,16 @@ namespace Game {
             [Header("Player Management")]
             public Dictionary<int, PlayerController> ActivePlayerControllers;
             private PlayerController focusedPlayerController;
+            
+            public WorldMapManager worldMapManager;
 
             [Header("Debug")]
             [SerializeField] private bool debug;
             
             private bool isPaused;
+            public LevelDataSO level;
+            [HideInInspector] public Timer timer;
             
-            // TODO: Remove when WorldMap is implemented
-            [HideInInspector] public static int NextSceneBuildIndex;
             
             
 
@@ -71,6 +72,8 @@ namespace Game {
 
             private void Start()
             {
+                level = worldMapManager.levelToLoad;
+                
                 if (CharacterSelectHandler.staticData.Count == 0)
                 {
                     if (autoDetectPlayers)
@@ -84,7 +87,16 @@ namespace Game {
                     
                     
                 }
-                SetupLocalMultiplayer();
+
+                if (!level) // Null check
+                {
+                    SetupLocalMultiplayer();
+                    LogWarning("Level variable is not set, spawning players anyways");
+                }
+                else if (level.isGameplayScene)
+                {
+                    SetupLocalMultiplayer();
+                }
             }
 
 #endregion
@@ -121,6 +133,11 @@ namespace Game {
                 UpdateActivePlayerInputs();
                 SwitchFocusedPlayerControlScheme();
             }
+
+            public void LevelCompleted() {
+                level.isCompleted = true;
+                level.OnLevelCompleted.Invoke();
+            }
 #endregion            
 
 #region Private Functions
@@ -151,10 +168,7 @@ namespace Game {
                     }
                 } else {
                     for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        
                         SpawnPlayers(CharacterSelectHandler.staticData[i].data.playerIndex, CharacterSelectHandler.playerList.Count);
-                            
-                        
                     }
                 }
             }
@@ -177,9 +191,6 @@ namespace Game {
                     ActivePlayerControllers[keys[i]].SetupPlayer(keys[i]);   
 
                 }
-
-                
-                
             }
 
             private void UpdateActivePlayerInputs() {
@@ -260,6 +271,15 @@ namespace Game {
                 ActivePlayerControllers.Remove(_playerID);
             }
             
+            private void DestroyExistingInputInstances() {
+                GameObject[] _inputsAlreadyInScene = GameObject.FindGameObjectsWithTag("Input");
+                if (_inputsAlreadyInScene.Length >= 1) {
+                    foreach (GameObject _inputInstances in _inputsAlreadyInScene) {
+                        Destroy(_inputInstances);
+                    }
+                }
+            }
+            
             #endregion
 
             private void Log(string msg) {
@@ -269,7 +289,7 @@ namespace Game {
 
             private void LogWarning(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+msg);
+                Debug.LogWarning("[GameManager]: "+msg);
             }
         }
     }

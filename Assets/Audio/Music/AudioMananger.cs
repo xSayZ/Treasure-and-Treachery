@@ -7,12 +7,14 @@
 // ------------------------------*/
 
 using System;
+using System.Numerics;
 using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
 using FMOD.Studio;
 using Ink.Parsed;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
+using Vector3 = UnityEngine.Vector3;
 
 
 namespace Game {
@@ -24,6 +26,7 @@ namespace Game {
             GamePlayMusic,
             AmbienceTrees,
             AmbienceWind,
+            TimedStinger,
         }
         
         public enum Action
@@ -37,9 +40,8 @@ namespace Game {
         public class AudioMananger : Singleton<AudioMananger>
         {
             [Header("New Event references")]
-            [SerializeField] private EventReference[] musicReferences = new EventReference [4];
-            private EventInstance[] musicInstances = new EventInstance [4];
-            
+            [SerializeField] private EventReference[] musicReferences = new EventReference [5];
+            private EventInstance[] musicInstances = new EventInstance [5];
             
             
             #region Public Functions
@@ -52,13 +54,13 @@ namespace Game {
                 bool isActive = CheckActiveState(musicInstances[num]);
                 if (isActive == false)
                 {
-                    Debug.Log("event not active before. Activating");
+                    //Debug.Log("event not active before. Activating");
                     //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum "EventsToBePlayed" (men utgår från plats i enumet (int istället för namn)
                     //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
                     musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                     musicInstances[num].start();
                                     
-                    Debug.Log("played music event" + num);
+                   // Debug.Log("played music event" + num);
                 }
             }
             
@@ -79,7 +81,7 @@ namespace Game {
                 }
                 
                 musicInstances[num].release();
-                Debug.Log("stopped music event" +" "+ num);
+               // Debug.Log("stopped music event" +" "+ num);
             }
             
 
@@ -97,7 +99,7 @@ namespace Game {
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                Debug.Log("local parameter set to" + " "+ paramValue);
+                Debug.Log("parameter set to " + paramName + paramValue);
             }
             
             
@@ -109,7 +111,7 @@ namespace Game {
                 
                 //Skriver ut playback state i vår lokala variabel "state" som jämförs nedan i if satsen
                 eInstance.getPlaybackState(out PLAYBACK_STATE state);
-                Debug.Log("checking active state" + state);
+                //Debug.Log("checking active state" + state);
                 
                 if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
                 {
@@ -118,13 +120,26 @@ namespace Game {
                 //skickar ut värdet om isActive boolen är true eller false
                 return isActive;
             }
-            
-            
-    #endregion
+
+            public void WaveStinger(EventsToBePlayed eventsToBePlayed)
+            {
+                //konvertar enum namn till ints (letar upp events)
+                int num = Convert.ToInt32(eventsToBePlayed);
+                
+                musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
+                musicInstances[num].start();
+                musicInstances[num].release();
+                //Debug.Log("played music event" + num);
+                
+            }
+
+
+            #endregion
 
     #region Private Functions
 
     #endregion
         }
     }
+    
 }

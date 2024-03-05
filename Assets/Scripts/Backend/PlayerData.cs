@@ -22,6 +22,7 @@ namespace Game {
             [SerializeField] public Color playerMaterialColor;
             [SerializeField] public bool hasStartingMeleeWeapon;
             [SerializeField] public bool hasStartingRangedWeapon;
+            [SerializeField] public int personalObjectiveMultiplier;
             
             [Header("Debug")]
             [SerializeField] public int playerIndex;
@@ -40,10 +41,12 @@ namespace Game {
             
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
-
+            
             public int ControllerID;
+
             public void NewScene()
             {
+                currentHealth = startingHealth;
                 personalObjectiveThisLevel = 0;
                 currencyThisLevel = 0;
                 killsThisLevel = 0;

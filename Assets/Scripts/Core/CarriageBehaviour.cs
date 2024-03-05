@@ -26,10 +26,12 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
-            
-            [Header("Settings")]
-            [SerializeField] private int nextSceneBuildIndex;
+            [SerializeField] private GameObject lostCanvas;
 
+            [Header("Settings")]
+            [SerializeField] private string allPlayersDiedText;
+            [SerializeField] private string carriageDestroyedText;
+            
             [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
             
@@ -44,6 +46,7 @@ namespace Game {
             
             private bool canLeave = true;
             private int playersInCarriage;
+            private bool levelOver;
 
 #region Unity Functions
             private void OnEnable()
@@ -51,13 +54,13 @@ namespace Game {
                 QuestManager.OnRequiredQuestRegistered.AddListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.AddListener(AllRequiredQuestsCompleted);
             }
-            
+
             private void OnDisable()
             {
                 QuestManager.OnRequiredQuestRegistered.RemoveListener(RequiredQuestRegistered);
                 QuestManager.OnAllRequiredQuestsCompleted.RemoveListener(AllRequiredQuestsCompleted);
             }
-            
+
             private void Awake()
             {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
@@ -67,8 +70,28 @@ namespace Game {
                 }
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
-
+                
                 Health = carriageData.currentHealth;
+            }
+
+            private void Update()
+            {
+                if (levelOver)
+                {
+                    return;
+                }
+                
+                // All players are dead
+                if (GameManager.Instance.ActivePlayerControllers.Count == 0)
+                {
+                    LevelLost(allPlayersDiedText);
+                }
+                
+                // All players in carriage
+                else if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
+                {
+                    LevelCompleted();
+                }
             }
 #endregion
 
@@ -88,18 +111,15 @@ namespace Game {
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
                     {
-                        // All players are in carriage, time to end level
-                        
-                        GameManager.NextSceneBuildIndex = nextSceneBuildIndex;
-                        LevelManager.Instance.LoadScoreScreen();
+                        LevelCompleted();
                     }
                 }
             }
-            
+
             public void ToggleInteractionUI(int _playerIndex, bool _active)
             {
                 PlayersThatWantsToInteract[_playerIndex] = _active;
-
+                
                 bool _displayUI = false;
                 for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
                 {
@@ -111,24 +131,26 @@ namespace Game {
                 
                 interactionUI.SetActive(_displayUI);
             }
-            
+
             public void Death()
             {
                 carriageData.currentHealth = 0;
                 
                 healthBar.value = 0;
                 
-                // Carriage was destroyed, level lost
-                Debug.Log("Carriage destroyed, you lost");
+                if (!levelOver)
+                {
+                    LevelLost(carriageDestroyedText);
+                }
             }
-            
+
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
                 carriageData.currentHealth = Health;
                 
                 float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
                 healthBar.value = _currentProgress;
-
+                
                 try
                 {
                     interactablesAudio.CarriageHitAudio(gameObject);
@@ -150,7 +172,7 @@ namespace Game {
                     CanInteractWith[i] = false;
                 }
             }
-            
+
             private void AllRequiredQuestsCompleted()
             {
                 canLeave = true;
@@ -159,6 +181,21 @@ namespace Game {
                 {
                     CanInteractWith[i] = true;
                 }
+            }
+
+            private void LevelCompleted()
+            {
+                levelOver = true;
+                
+                LevelManager.Instance.LoadScoreScreen();
+            }
+
+            private void LevelLost(string _reason)
+            {
+                levelOver = true;
+                
+                lostCanvas.SetActive(true);
+                lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
             }
 #endregion
         }

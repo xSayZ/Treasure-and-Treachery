@@ -22,6 +22,8 @@ namespace Game {
             public string levelDescription;
             public Image levelImage;
             public bool isCompleted;
+
+            public bool isGameplayScene = true;
             
             private UnityEvent onLevelCompleted;
             

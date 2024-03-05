@@ -10,6 +10,7 @@ using System;
 using System.Threading.Tasks;
 using Game.Backend;
 using Game.Managers;
+using Game.WorldMap;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,21 +23,21 @@ namespace Game {
             
             public GameObject loadingScreen;
             public Image progressBar;
+            public WorldMapManager worldMapManager;
 
             private float target;
             public void Start()
             {
-                loadingScreen.SetActive(true);
-                LoadSceneAsync();
-
+                
+                LoadSceneAsync(LevelManager.Instance.worldMapManager.levelToLoad);
             }
             
-            private async void LoadSceneAsync()
+            private async void LoadSceneAsync(LevelDataSO _levelData)
             {
                 target = 0;
                 progressBar.fillAmount = 0;
                 
-                AsyncOperation scene = SceneManager.LoadSceneAsync(LevelManager.nextLevel,LoadSceneMode.Single);
+                AsyncOperation scene = SceneManager.LoadSceneAsync(_levelData.levelName ,LoadSceneMode.Single);
 
                 Debug.Log(scene);
                 scene.allowSceneActivation = false;
@@ -49,9 +50,10 @@ namespace Game {
 
                 await Task.Delay(600);
                 SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-                //GameManager.Instance.SetupLocalMultiplayer();
+
 
                 scene.allowSceneActivation = true;
+                
             }
 
             private void Update()

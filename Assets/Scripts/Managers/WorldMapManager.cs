@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +16,11 @@ namespace Game {
         public class WorldMapManager : ScriptableObject
         {
             public List<LevelDataSO> completedLevels = new List<LevelDataSO>();
-            
+            public LevelDataSO levelToLoad;
+
+            private void OnEnable() {
+                levelToLoad = null;
+            }
             public void MarkLevelAsCompleted(LevelDataSO level) {
                 if (level == null)
                     return;
@@ -44,6 +49,7 @@ namespace Game {
             private void HandleLevelCompleted(LevelDataSO completedLevel)
             {
                 completedLevel.OnLevelCompleted.Invoke();
+                completedLevel.isCompleted = true;
             }
 
         }

@@ -20,7 +20,7 @@ namespace Game {
         public class AudioZoneSettings : MonoBehaviour
         {
             private Bus musicBus;
-            private bool isMuted;
+            public bool musicCrossOver = false;
             
             [System.Serializable]
             public struct AudioSettings
@@ -52,11 +52,17 @@ namespace Game {
 
             private void OnDisable()
             {
-               musicBus.stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-               Debug.Log("Unity Scene changed-Music Bus stopped");
-               /*musicBus.getPaused(out bool state);
-               Debug.Log("Music Bus state is" + state); 
-               */
+                if (musicCrossOver==true)
+                {
+                    Debug.Log("MusicContinued into next scene");
+                    return;
+                }
+                musicBus.stopAllEvents(STOP_MODE.ALLOWFADEOUT);
+                Debug.Log("Unity Scene changed-Music Bus stopped");
+                /*musicBus.getPaused(out bool state);
+                Debug.Log("Music Bus state is" + state);
+                */
+              
             }
 
             public void RunAudioSettings()

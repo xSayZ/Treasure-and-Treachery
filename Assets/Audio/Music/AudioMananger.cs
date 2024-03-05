@@ -90,8 +90,8 @@ namespace Game {
                 if (paramIsGlobal)
                 {
                     RuntimeManager.StudioSystem.setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                    Debug.Log("global param set to" +" "+ paramValue);
-                    return;
+                    //Debug.Log("global param set to" +" "+ paramValue);
+                    
                 }
                 
                 
@@ -99,7 +99,7 @@ namespace Game {
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                Debug.Log("parameter set to " + paramName + paramValue);
+                //Debug.Log("parameter set to " + paramName + paramValue);
             }
             
             

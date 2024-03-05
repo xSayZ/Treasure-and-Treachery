@@ -100,8 +100,8 @@ namespace Game
 
                 if (Input.GetJoystickNames().Length >0)
                 {
-                    var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                    var player = PlayerInput.all[PlayerData.ControllerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID],player.user);
                 }
             }
 
@@ -138,6 +138,13 @@ namespace Game
                 {
                     Invincible = false;
                 }
+            }
+
+            private void OnDestroy()
+            {
+                playerHealthBar.UpdateHealthBar(Health);
+                PlayerInteractionBehaviour.OnDeath();
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
             }
 #endregion
 
@@ -241,9 +248,6 @@ namespace Game
             
             public void Death()
             {
-                PlayerInteractionBehaviour.OnDeath();
-                playerHealthBar.UpdateHealthBar(Health);
-                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 Destroy(gameObject);
             }
             

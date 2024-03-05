@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Linq;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
@@ -55,11 +56,17 @@ namespace Game {
                         SwitchScene();
                     }
                 }
-                
-                if(levelData.isCompleted) {
-                    isLocked = false;
-                    playMarkerObject.SetActive(true);
+
+                for (int i = 0; i < levelData.prerequisites.Count; i++)
+                {
+                    if(levelData.prerequisites.All(data => data.isCompleted ))
+                    {
+                        isLocked = false;
+                        playMarkerObject.SetActive(true);
+                    }
                 }
+                
+                
             }
 
             private void OnTriggerEnter(Collider other) {

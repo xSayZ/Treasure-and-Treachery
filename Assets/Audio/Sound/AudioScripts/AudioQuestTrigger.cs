@@ -37,7 +37,7 @@ namespace Game {
             {
                 if (!other.isTrigger || activateOnIsTrigger)
                 {
-                    dialogueAudioWrapper.speakerAfterWolf = setSpeakerAfterWolf;
+                     dialogueAudioWrapper.speakerAfterWolf = setSpeakerAfterWolf;
                     dialogueAudioWrapper.speakerAfterDragon = setSpeakerAfterDragon;
                     dialogueAudioWrapper.speakerAfterWitch = setSpeakerAfterWitch;
                     dialogueAudioWrapper.speakerAfterGorgon = setSpeakerAfterGorgon;

@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638452544817601574
+  lastModified: 638452556587774903
   FileSizes:
   - Name: 
-    Value: 6202
+    Value: 6304
   Exists: 1
 --- !u!114 &-8783786666572557789
 MonoBehaviour:
@@ -225,7 +225,7 @@ MonoBehaviour:
   Name: RangeCharge
   StudioPath: 
   Min: 0
-  Max: 3
+  Max: 1
   Default: 0
   ID:
     data1: 37816804
@@ -390,6 +390,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2669
+--- !u!114 &-7433313351524722863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_Return/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
 --- !u!114 &-7424859570537756585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,6 +867,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-5330453738211759637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
+  Guid:
+    Data1: 641864790
+    Data2: 1303164654
+    Data3: -1434340176
+    Data4: 69571933
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 803
 --- !u!114 &-5330260870371276875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1104,12 +1159,12 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters:
   - {fileID: -8078038320973306067}
   MinDistance: 1
   MaxDistance: 20
-  Length: 4046
+  Length: 1400
 --- !u!114 &-4290990800169595955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,6 +1406,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-2552013747846076521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/GameOverStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/GameOverStinger
+  Guid:
+    Data1: 1779950225
+    Data2: 1310528959
+    Data3: 1713555612
+    Data4: -1895475207
+  Banks:
+  - {fileID: 6843316956230067141}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3428
 --- !u!114 &-2473944206750970195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1587,33 +1669,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-614432552960283950
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/GameOverStinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/GameOverStinger
-  Guid:
-    Data1: 1779950225
-    Data2: 1310528959
-    Data3: 1713555612
-    Data4: -1895475207
-  Banks:
-  - {fileID: 6843316956230067141}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3428
 --- !u!114 &-404107624210631640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1799,7 +1854,9 @@ MonoBehaviour:
   - {fileID: 378548278346567744}
   - {fileID: 607504619296616184}
   - {fileID: -3008028568816725563}
-  - {fileID: -614432552960283950}
+  - {fileID: -5330453738211759637}
+  - {fileID: 1020535760327334098}
+  - {fileID: -2552013747846076521}
   EditorParameters:
   - {fileID: 8797719750629465085}
   - {fileID: -3214837208440471055}
@@ -1808,7 +1865,7 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   StringsBanks:
   - {fileID: -9009486603958876372}
-  cacheTime: 638452548243158419
+  cacheTime: 638452556589810188
   cacheVersion: 131609
 --- !u!114 &368680421742607407
 MonoBehaviour:
@@ -1965,6 +2022,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 46600
+--- !u!114 &1020535760327334098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
+  Guid:
+    Data1: -1352638639
+    Data2: 1218809879
+    Data3: 1003455155
+    Data4: -1842090599
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7433313351524722863}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &1462543405850373818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2211,7 +2296,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638452544817510328
+  lastModified: 638452556587644513
   FileSizes: []
   Exists: 1
 --- !u!114 &3569601190000534869
@@ -2865,7 +2950,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638452548243158419
+  lastModified: 638452556589810188
   FileSizes: []
   Exists: 1
 --- !u!114 &7539155215299999005

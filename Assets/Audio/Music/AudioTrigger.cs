@@ -39,7 +39,7 @@ namespace Game {
         {
           if (other.CompareTag("Player"))
           {
-           AudioMananger.Instance.GameOverStinger(); 
+            
             //Foreach loopen, går igenom alla elements i vår struct "AudioSettings" när den går igenom hela vår array "triggerEnterAudioSettings" och
             //uppdaterar varibalers innehåll/info beroende på vad vi skrivit i Inspectorn. Detta sker vid varje "OnTriggerEnter" om "Other" har tag "Player"
             foreach (AudioSettings i in triggerEnterAudioSettings)

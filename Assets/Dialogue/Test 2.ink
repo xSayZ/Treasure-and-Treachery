@@ -1,3 +1,5 @@
+EXTERNAL changeCurrency(amount)
+
 -> paragraph_1
 
 === paragraph_1 ===
@@ -15,6 +17,7 @@ Whilst riding in the carriage you suddenly hear a loud meowing sound coming from
     * [Communicate with the cat] -> communicate
 
 === cat_helped ===
+~ changeCurrency(10)
 You all collaborate to climb the tree and bring the cat down. With a little convincing, Orange and Purple make a human tower, allowing Blue to use them as a makeshift ladder to climb the tree. Green stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
 
 The plan goes perfect until it's time for blue to grab the cat. The cat, terrified by the blue scaly creature, scratches Blue which makes them fall. Blue lands on top of Purple which then results in them both falling on top of Orange. 

@@ -100,8 +100,8 @@ namespace Game
 
                 if (Input.GetJoystickNames().Length >0)
                 {
-                    var player = PlayerInput.GetPlayerByIndex(PlayerData.playerIndex);
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID]);
+                    var player = PlayerInput.all[PlayerData.ControllerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID],player.user);
                 }
             }
 

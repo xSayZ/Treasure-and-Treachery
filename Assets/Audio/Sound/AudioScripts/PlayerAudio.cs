@@ -9,6 +9,7 @@
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 
 namespace Game {
@@ -34,7 +35,13 @@ namespace Game {
             private EventReference gorgonPetrifyAudio;
             [SerializeField] 
             private EventReference gorgonPetrifySmashAudio;
+            [SerializeField] 
+            private EventReference dragonShootAudio;
+            [SerializeField] 
+            private EventReference dragonArrowAudio;
 
+
+            private EventInstance dragonShootInstance;
             [Header("Player Vox")]
             [SerializeField] 
             private EventReference playerWitchVoxTest;
@@ -73,6 +80,33 @@ public void PetrifyAudio(GameObject enemyObj)
     
     petrifyInstance.start();
     petrifyInstance.release();
+}
+
+public EventInstance DragonShoot(GameObject shootObj, bool isCharging, EventInstance dragonShootinstance)
+{
+    
+    if (isCharging == true)
+    {
+        EventInstance dragonShootInstance = RuntimeManager.CreateInstance(dragonShootAudio);
+        dragonShootInstance.setParameterByName("RangeCharge", 0);
+        RuntimeManager.AttachInstanceToGameObject(dragonShootInstance, shootObj.transform);
+        dragonShootInstance.start();
+    }
+
+    if (isCharging == false)
+    {
+        dragonShootinstance.stop(STOP_MODE.IMMEDIATE);
+    }
+    dragonShootInstance.release();
+    return dragonShootInstance;
+}
+
+public void DragonArrowAudio(GameObject arrowObj)
+{
+    EventInstance dragonArrowInstance = RuntimeManager.CreateInstance(dragonArrowAudio);
+    RuntimeManager.AttachInstanceToGameObject(dragonArrowInstance, arrowObj.transform);
+    dragonArrowInstance.start();
+    dragonArrowInstance.release();
 }
 
 public void MeleeAudioPlay(GameObject meleeObj)

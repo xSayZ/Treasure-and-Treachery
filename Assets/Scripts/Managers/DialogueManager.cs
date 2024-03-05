@@ -12,6 +12,7 @@ using Ink.Runtime;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Game.Backend;
 using Game.Managers;
 using Game.Racer;
 using UnityEngine.EventSystems;
@@ -23,6 +24,9 @@ namespace Game {
             [Header("Params")]
             [SerializeField] private float typingSpeed;
             
+            [Header("Ink Story")]
+            private Story story;
+            
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private TextMeshProUGUI dialogueText;
@@ -31,8 +35,7 @@ namespace Game {
             [SerializeField] private GameObject[] choices;
             private TextMeshProUGUI[] choicesText;
             
-            [Header("Ink Story")]
-            private Story story;
+            [SerializeField] private List<PlayerData> playerDatas = new List<PlayerData>();
             
             // Internal Bools
             private bool dialogueIsPlaying;
@@ -90,8 +93,13 @@ namespace Game {
                 dialogueIsPlaying = true;
                 story = new Story(storyJSON.text);
                 
-                story.BindExternalFunction("giveGold", (int amount) => {
-                    Debug.Log("Player received " + amount + " gold.");
+                story.BindExternalFunction("changeCurrency", (int _amount) => {
+                    foreach (var _player in playerDatas) {
+                        _player.currency += _amount;
+                        if (_player.currency < 0) {
+                            _player.currency = 0;
+                        }
+                    }
                 });
                 story.BindExternalFunction("giveItem", (string itemName) => {
                     Debug.Log("Player received " + itemName + ".");

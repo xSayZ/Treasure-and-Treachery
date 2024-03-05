@@ -62,7 +62,10 @@ namespace Game {
                 }
                 
                 
-                
+                if (GameManager.Instance.ActivePlayerControllers.Count == 0)
+                {
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", 1f,false,false);
+                }
             }
 #endregion
 

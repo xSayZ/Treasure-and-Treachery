@@ -21,7 +21,11 @@ namespace Game {
             public int setSpeakerAfterWitch;
             public int setSpeakerAfterGorgon;
             
-            public int setdialogueProgresion;
+            public int setdialogueProgresionWolf;
+            public int setdialogueProgresionDragon;
+            public int setdialogueProgresionWitch;
+            public int setdialogueProgresionGorgon;
+            
             [Header("Settings")]
             [SerializeField] private bool activateOnIsTrigger;
             
@@ -37,7 +41,10 @@ namespace Game {
                     dialogueAudioWrapper.speakerAfterDragon = setSpeakerAfterDragon;
                     dialogueAudioWrapper.speakerAfterWitch = setSpeakerAfterWitch;
                     dialogueAudioWrapper.speakerAfterGorgon = setSpeakerAfterGorgon;
-                    dialogueAudioWrapper.dialogueProgression = setdialogueProgresion;
+                    dialogueAudioWrapper.dialogueProgressionWolf = setdialogueProgresionWolf;
+                    dialogueAudioWrapper.dialogueProgressionDragon = setdialogueProgresionDragon;
+                    dialogueAudioWrapper.dialogueProgressionWitch = setdialogueProgresionWitch;
+                    dialogueAudioWrapper.dialogueProgressionGorgon = setdialogueProgresionGorgon;
                     triggerEnter.Invoke(other.transform);
                 }
             }

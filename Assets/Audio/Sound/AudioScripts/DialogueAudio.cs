@@ -32,8 +32,12 @@ namespace Game {
             //EventReferences
             [SerializeField]
             private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio;
+
+            [Header("QuestDialogue")] 
             
-            private int playerIndex;
+            public EventReference logicalThinkingAudio;
+            public EventInstance logicalThinkingInstance;
+            
 
             private void OnEnable()
             {
@@ -77,7 +81,6 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
-
             public void UpdateWereWolfRageAudio(float rageAmount)
             {
                 playerAttackAudioInstance.setParameterByName("WolfRage", rageAmount);
@@ -143,7 +146,6 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
-
             private void GoldPickupDialogue(int _playerID, int amount)
             {
                 try
@@ -191,7 +193,24 @@ namespace Game {
                     Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
                 }
             }
-#endregion
+
+            public void LogicalThinkingDialogue(bool playing)
+            {
+                try
+                { 
+                    var _players = GameManager.Instance.ActivePlayerControllers;
+                   logicalThinkingInstance = RuntimeManager.CreateInstance(logicalThinkingAudio);
+                   PlayQuestDialogue(1, logicalThinkingInstance); 
+                   DialogueAudioWrapper.Instance.PlayQuestResponseDialogue(0, logicalThinkingInstance, logicalThinkingAudio);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+                
+            }
+
+            #endregion
 
 #region Private Functions
             private void PlayDialogue(int characterID, EventInstance dialogueInstance)
@@ -211,6 +230,16 @@ namespace Game {
                 // Update the dictionary with the new dialogue instance
                 currentDialogues[characterID] = dialogueInstance;
             }
+            
+            private void PlayQuestDialogue(int characterID, EventInstance dialogueInstance)
+            {
+                var player = GameManager.Instance.ActivePlayerControllers[characterID];
+                
+                RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+                dialogueInstance.setParameterByName("SpeakerCharacter", characterID);
+                dialogueInstance.start();
+                dialogueInstance.release();
+            }
 
             private void StopDialogue(int characterID)
             {
@@ -218,7 +247,7 @@ namespace Game {
                 if (currentDialogues.TryGetValue(characterID, out EventInstance dialogueInstance)) {
                     // Stop the dialogue instance and remove it from the dictionary
                     dialogueInstance.stop(STOP_MODE.ALLOWFADEOUT);
-                    dialogueInstance.release();
+                    
                     currentDialogues.Remove(characterID);
                 }
             }
@@ -229,8 +258,21 @@ namespace Game {
                 {
                     yield return null;
                 }
+                askerInstance.release();
                 GetRandomPlayerAndPlayResponse(_playerID, _players, context);
             }
+            
+            public IEnumerator WaitForQuestResponseAudio(int _playerID, EventInstance askerInstance, EventReference eventRef)
+            {
+                while (IsPlaying(askerInstance))
+                {
+                    yield return null;
+                }
+                askerInstance.release();
+                askerInstance = RuntimeManager.CreateInstance(eventRef);
+                PlayQuestDialogue(_playerID, askerInstance);
+            }
+
 
             private bool IsPlaying(EventInstance _instance)
             {

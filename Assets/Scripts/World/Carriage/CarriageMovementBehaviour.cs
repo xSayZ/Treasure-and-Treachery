@@ -27,10 +27,15 @@ namespace Game {
             }
             
 #region Unity Functions
-
-            private void FixedUpdate() {
+            private void FixedUpdate()
+            {
                 Move();
                 Steer();
+            }
+
+            private void OnDisable()
+            {
+                rb.velocity = Vector3.zero;
             }
 #endregion
 

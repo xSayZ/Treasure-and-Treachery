@@ -22,7 +22,7 @@ namespace Game {
 
         public enum EventsToBePlayed
         {
-            HubMusic,
+            WorldMap,
             GamePlayMusic,
             AmbienceTrees,
             AmbienceWind,

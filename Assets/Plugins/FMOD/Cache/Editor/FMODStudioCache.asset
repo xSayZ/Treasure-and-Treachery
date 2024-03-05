@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638451735058892029
+  lastModified: 638452390208052800
   FileSizes:
   - Name: 
-    Value: 4808
+    Value: 4856
   Exists: 1
 --- !u!114 &-8783786666572557789
 MonoBehaviour:
@@ -329,8 +329,8 @@ MonoBehaviour:
     Data3: 1801595818
     Data4: -251461116
   Banks:
-  - {fileID: 6843316956230067141}
   - {fileID: 3531234008076186661}
+  - {fileID: 6843316956230067141}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1113,6 +1113,7 @@ MonoBehaviour:
   - {fileID: 8689014382197026112}
   - {fileID: 3945443155231584219}
   - {fileID: -1377704247945433866}
+  - {fileID: 6473222682498965484}
   EditorParameters:
   - {fileID: 8797719750629465085}
   - {fileID: -3214837208440471055}
@@ -1121,7 +1122,7 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   StringsBanks:
   - {fileID: -9009486603958876372}
-  cacheTime: 638451735058892029
+  cacheTime: 638452391336722666
   cacheVersion: 131609
 --- !u!114 &647067058527330863
 MonoBehaviour:
@@ -1257,6 +1258,30 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
+--- !u!114 &3137013325833212023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/GameplayMusic2/MusicProg
+  m_EditorClassIdentifier: 
+  Name: MusicProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 2878851826
+    data2: 2108855987
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &3531234008076186661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1272,7 +1297,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638451735058801410
+  lastModified: 638452390207970064
   FileSizes: []
   Exists: 1
 --- !u!114 &3945443155231584219
@@ -1518,6 +1543,34 @@ MonoBehaviour:
   - Off
   - On
   Exists: 1
+--- !u!114 &6473222682498965484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/GameplayMusic2
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/GameplayMusic2
+  Guid:
+    Data1: 562968693
+    Data2: 1238331431
+    Data3: 9995911
+    Data4: 1001226845
+  Banks:
+  - {fileID: 6843316956230067141}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 3137013325833212023}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 104285
 --- !u!114 &6552356753501028644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1537,8 +1590,8 @@ MonoBehaviour:
     Data3: 198427308
     Data4: -2038292595
   Banks:
-  - {fileID: 6843316956230067141}
   - {fileID: 3531234008076186661}
+  - {fileID: 6843316956230067141}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -1588,7 +1641,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638451577061301724
+  lastModified: 638452391336722666
   FileSizes: []
   Exists: 1
 --- !u!114 &7930514877390116839

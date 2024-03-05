@@ -80,7 +80,9 @@ namespace Game {
 
                     InputSystem.onAnyButtonPress.Call(ctrl =>
                     {
-                        if (ctrl.device is Gamepad pad && canSwitchScene)
+                        if (ctrl.device is not Gamepad pad || !canSwitchScene) return;
+                        
+                        if (ctrl == pad.buttonSouth)
                         {
                             canSwitchScene = false;
                             SwitchScene();

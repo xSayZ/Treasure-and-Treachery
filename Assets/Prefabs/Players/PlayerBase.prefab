@@ -357,7 +357,7 @@ MonoBehaviour:
   aimLineRight: {fileID: 6410334721102978561}
   attackType: 0
   meleeAttackDamage: 1
-  meleeAttackCooldown: 0.5
+  meleeAttackCooldown: 1
   meleeAttackDuration: 0.2
   meleeAttackDelay: 0.1
   meleeChargeSpeed: 300
@@ -683,8 +683,8 @@ MonoBehaviour:
   decayTime: 0.1
   decayAmount: 1
   percentageToBecomeEnraged: 50
-  percentageToLoseEnraged: 0
-  meleeAttackCooldownMultiplier: 0.5
+  percentageToLoseEnraged: 50
+  meleeAttackCooldownMultiplier: 0.8
   moveSpeedMultiplier: 2
   dashHealAmount: 2
   dashHealWrathLost: 100
@@ -1886,7 +1886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldOnDashKill: 5
-  healInterval: 30
+  healInterval: 5
   healAmount: 1
 --- !u!1 &2336297635653789683
 GameObject:

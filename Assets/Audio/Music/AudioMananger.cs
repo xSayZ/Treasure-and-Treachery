@@ -42,7 +42,9 @@ namespace Game {
             [Header("New Event references")]
             [SerializeField] private EventReference[] musicReferences = new EventReference [5];
             private EventInstance[] musicInstances = new EventInstance [5];
+
             
+           [SerializeField] private EventReference gameOverStinger;
             
             #region Public Functions
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
@@ -133,12 +135,21 @@ namespace Game {
                 
             }
 
+            public void GameOverStinger()
+            {
+                EventInstance gameoverstingerInstance = RuntimeManager.CreateInstance(gameOverStinger);
+                gameoverstingerInstance.start();
+                gameoverstingerInstance.release();
+                Debug.Log("played gameover");
+
+            }
+
 
             #endregion
 
-    #region Private Functions
+            #region Private Functions
 
-    #endregion
+            #endregion
         }
     }
     

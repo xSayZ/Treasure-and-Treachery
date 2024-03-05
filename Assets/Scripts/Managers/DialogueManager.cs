@@ -13,6 +13,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Game.Managers;
+using Game.Racer;
 using UnityEngine.EventSystems;
 
 
@@ -42,12 +43,15 @@ namespace Game {
             private bool isPaused;
 
             private Coroutine displayLineCoroutine;
+
+            private CarriageRacer carriageRacer;
             
 #region Unity Functions
 
             
             void Start()
             {
+                carriageRacer = GameObject.FindGameObjectWithTag("Carriage").GetComponent<CarriageRacer>();
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
             }
@@ -64,6 +68,8 @@ namespace Game {
             #region Public Functions
 
             public void StartDialogue(TextAsset storyJSON, float _typingSpeed) {
+                carriageRacer.SetCarriageActive(false);
+                
                 typingSpeed = _typingSpeed;
                 
                 choicesText = new TextMeshProUGUI[choices.Length];
@@ -152,6 +158,7 @@ namespace Game {
             }
 
             private void ExitDialogueMode(){
+                carriageRacer.SetCarriageActive(true);
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";

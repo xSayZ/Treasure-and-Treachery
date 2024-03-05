@@ -18,6 +18,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
+using WaitForSeconds = UnityEngine.WaitForSeconds;
 
 
 namespace Game {
@@ -46,6 +47,7 @@ namespace Game {
             [SerializeField] private float meleeAttackDelay;
             [SerializeField] private float meleeChargeSpeed;
             [SerializeField] private float meleeChargeTime;
+            [SerializeField] private float meleeStunTime;
             [Range(0, 2500)]
             [SerializeField] private float meleeKnockbackForce;
             
@@ -283,6 +285,10 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
+                
+                playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
+                yield return new WaitForSeconds(meleeStunTime);
+                playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
             }
 
             private void MeleeDamage(IDamageable _damageable)

@@ -112,9 +112,13 @@ namespace Game {
                 
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;
-                
-                timer = gameObject.AddComponent<Timer>();
+
+                if (!timer)
+                {
+                    timer = gameObject.AddComponent<Timer>();
+                }
                 timer.StartTimer(roundTime);
+                
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();

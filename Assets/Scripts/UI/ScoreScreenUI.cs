@@ -8,6 +8,8 @@
 
 using System.Collections.Generic;
 using Game.Backend;
+using Game.Managers;
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -23,6 +25,8 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] private List<PlayerData> playerDatas;
+
+            [SerializeField] private LevelDataSO worldMap;
             
             private int playersDoneCountingUp;
 
@@ -56,6 +60,7 @@ namespace Game {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
                     // Load map
+                    LevelManager.Instance.LoadLevel(worldMap);
                 }
             }
         }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Game.Audio;
 using Game.Backend;
 using Game.Managers;
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -27,10 +28,10 @@ namespace Game
 
             [SerializeField] private PlayerInput Input;
 
-            [SerializeField] private int levelIndex;
             [Header("Timer Before next intro slide")]
             public float timeBeforeChange;
 
+            public LevelDataSO level;
             private float currentTime;
             private float elapsedTime;
             private int index;
@@ -100,7 +101,7 @@ namespace Game
                 if (done && elapsedTime > timeBeforeChange && stopUpdating < 1 || (done && skiped))
                 {
                     stopUpdating++;
-                    //LevelManager.Instance.LoadScene(levelIndex);
+                    LevelManager.Instance.LoadLevel(level);
                 }
             }
 

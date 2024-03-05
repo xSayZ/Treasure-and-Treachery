@@ -10,15 +10,18 @@ using System;
 using UnityEngine;
 
 
-
 namespace Game {
     namespace Enemy {
         [System.Serializable]
         public class StunnedEnemyState : EnemyState
         {
+            [SerializeField] private float stunTime;
             [SerializeField] private Animator animator;
             [SerializeField] private SkinnedMeshRenderer meshRenderer;
             [SerializeField] private Material stunnedMaterial;
+            
+            private float currentStunTime;
+            private Material previousMaterial;
 
 #region State Machine Functions
             protected override void SetUp()
@@ -28,11 +31,13 @@ namespace Game {
 
             public override void Enter()
             {
+                currentStunTime = 0;
                 animator.speed = 0;
+                previousMaterial = meshRenderer.material;
                 meshRenderer.material = stunnedMaterial;
                 enemyController.GetEnemyAttackBehaviour().SetCanAttack(false);
                 
-                try  
+                try
                 {
                     enemyController.playerAudio.PetrifyAudio(enemyController.gameObject);
                 } 
@@ -42,7 +47,19 @@ namespace Game {
                 }
             }
 
-            //public override void FixedUpdate(){}
+            public override void FixedUpdate()
+            {
+                currentStunTime += Time.fixedDeltaTime;
+                
+                if (currentStunTime >= stunTime)
+                {
+                    animator.speed = 1;
+                    meshRenderer.material = previousMaterial;
+                    enemyController.GetEnemyAttackBehaviour().SetCanAttack(true);
+                    
+                    enemyController.ChangeState(enemyController.AlertEnemyState);
+                }
+            }
 
             //public override void Exit(){}
 #endregion

@@ -127,11 +127,14 @@ namespace Game
                     for (int i = 0; i < transform.childCount; i++)
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
+                        
                         data = characterSelectHandler.Datas[id];
                         data.playerIndex = id;
                         data.ControllerID = playerInputs.playerIndex;
+                        
                         cachedId = id; 
                         cachedSprite = sprite;
+                        
                         characterSelectHandler.Images.Remove(id);
                     }
                     PlayersIsReady = true;
@@ -161,7 +164,9 @@ namespace Game
             #endregion
             
             #region Private
-
+            
+            
+            
             private int Wrap(int Target, int LowerBounds, int UpperBounds)
             {
                 int dif = UpperBounds - LowerBounds;

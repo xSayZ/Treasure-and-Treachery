@@ -54,13 +54,13 @@ namespace Game {
                 bool isActive = CheckActiveState(musicInstances[num]);
                 if (isActive == false)
                 {
-                    Debug.Log("event not active before. Activating");
+                    //Debug.Log("event not active before. Activating");
                     //Låten som ska spelas (instansen) är = "num". Num är = "eventsToBePlayed" och "eventsToBePlayed" är det vi valt i vårt enum "EventsToBePlayed" (men utgår från plats i enumet (int istället för namn)
                     //ex plats 2 i enumet blir då event 2 i vår "musicReferences" array
                     musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                     musicInstances[num].start();
                                     
-                    Debug.Log("played music event" + num);
+                   // Debug.Log("played music event" + num);
                 }
             }
             
@@ -81,7 +81,7 @@ namespace Game {
                 }
                 
                 musicInstances[num].release();
-                Debug.Log("stopped music event" +" "+ num);
+               // Debug.Log("stopped music event" +" "+ num);
             }
             
 
@@ -99,7 +99,7 @@ namespace Game {
                 int num = Convert.ToInt32(eventsToBePlayed);
 
                 musicInstances[num].setParameterByName(paramName, paramValue, ignoreSeekSpeed);
-                
+                Debug.Log("parameter set to " + paramName + paramValue);
             }
             
             
@@ -111,7 +111,7 @@ namespace Game {
                 
                 //Skriver ut playback state i vår lokala variabel "state" som jämförs nedan i if satsen
                 eInstance.getPlaybackState(out PLAYBACK_STATE state);
-                Debug.Log("checking active state" + state);
+                //Debug.Log("checking active state" + state);
                 
                 if (state == PLAYBACK_STATE.STOPPED || state == PLAYBACK_STATE.STOPPING)
                 {
@@ -129,7 +129,7 @@ namespace Game {
                 musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
                 musicInstances[num].start();
                 musicInstances[num].release();
-                Debug.Log("played music event" + num);
+                //Debug.Log("played music event" + num);
                 
             }
 

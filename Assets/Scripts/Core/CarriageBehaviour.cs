@@ -138,6 +138,12 @@ namespace Game {
                 
                 healthBar.value = 0;
                 
+                // Destroy all players
+                for (int i = GameManager.Instance.ActivePlayerControllers.Count - 1; i >= 0; i--)
+                {
+                    Destroy(GameManager.Instance.ActivePlayerControllers[i].gameObject);
+                }
+                
                 if (!levelOver)
                 {
                     LevelLost(carriageDestroyedText);

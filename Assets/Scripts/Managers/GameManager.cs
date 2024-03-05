@@ -87,7 +87,14 @@ namespace Game {
                     
                     
                 }
-                if (level.isGameplayScene) {
+
+                if (!level) // Null check
+                {
+                    SetupLocalMultiplayer();
+                    LogWarning("Level variable is not set, spawning players anyways");
+                }
+                else if (level.isGameplayScene)
+                {
                     SetupLocalMultiplayer();
                 }
             }
@@ -282,7 +289,7 @@ namespace Game {
 
             private void LogWarning(string msg) {
                 if (!debug) return;
-                Debug.Log("[GameManager]: "+msg);
+                Debug.LogWarning("[GameManager]: "+msg);
             }
         }
     }

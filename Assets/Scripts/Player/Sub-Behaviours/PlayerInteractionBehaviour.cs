@@ -200,6 +200,8 @@ namespace Game {
                     playerController.PlayerData.currentItem = null;
                     playerController.PlayerOverheadUIBehaviour.ToggleHeldItemUI(false);
                     
+                    playerController.PlayerMovementBehaviour.MoveSpeedItemMultiplier = 1f;
+                    
                     if (_destroy)
                     {
                         return;
@@ -207,8 +209,6 @@ namespace Game {
                     
                     _item.Pickup.SetActive(true);
                     _item.Pickup.transform.position = transform.position;
-                    
-                    playerController.PlayerMovementBehaviour.MoveSpeedItemMultiplier = 1f;
                 }
                 else
                 {

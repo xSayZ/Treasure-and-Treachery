@@ -47,7 +47,7 @@ namespace Game {
             [SerializeField] private float meleeChargeSpeed;
             [SerializeField] private float meleeChargeTime;
             [Range(0, 2500)]
-            [SerializeField] private float meleeKncokbackForce;
+            [SerializeField] private float meleeKnockbackForce;
             
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
@@ -311,7 +311,7 @@ namespace Game {
                 // Normal melee
                 if (_doNormalMelee)
                 {
-                    bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKncokbackForce);
+                    bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKnockbackForce);
                     
                     if (killed)
                     {

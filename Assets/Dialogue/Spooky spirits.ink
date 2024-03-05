@@ -1,4 +1,7 @@
+EXTERNAL changeCurrency(amount)
+
 -> paragraph_1
+
 === paragraph_1===
 A group of spirits looks to be in a heated argument in the middle of the road. You slow down the carriage and ask them what the matter seems to be. The spirits tell you that they’re in a heated debate trying to decide who is the scariest of them. Seeing as you guys should be unbiased, the spirits now want you to be the jury!
 
@@ -21,15 +24,18 @@ You all earn <b><color=\#8F00FF>+1 reputation of being a horrible decision maker
 Better luck next time! -> END
 
 ===long_term_commitment===
+~ changeCurrency(5)
+
 You tell them that the scariest spirit by far is the spirit looking for long term commitment. The spirit in question looks a little sad about it but the rest of them seem to actually agree with you.
 
 “That's true, most spirits just aint ready for that yet.” One of the spirits says, whilst patting the relationship ready spirit on the back. 
 
 You tell the, now sad, spirit to keep her head up and that she will find the right ghoul for her! She thanks you for your kind words and offers all of you some gold as a thanks.
 
-You all gain <b><color=\#00FF00>+5 gold</color></b> -> END
+You all gain <b><color=\#ECBD00>+5 gold</color></b> -> END
 
 ===pick_gorilla===
+~ changeCurrency(-5)
 You tell them that the spirit in the gorilla costume is the scariest one by far. The spirits all look confusedly at you, seemingly not understanding what you mean.
 
 “Gorilla costume-?” The spirit has just the time to finish his sentence before he gets gruesomely mauled by the, very real, gorilla. Too stunned to act, you all stand helplessly by as the gorilla brutally murders all of the spirits. Once happy with his ghastly murder the gorilla seems to be looking at you next!
@@ -38,16 +44,17 @@ Through the power of colleagues you all manage to fend off the gorilla long enou
 
 How did the gorilla enter purgatory in the first place? You have no clue.
 
-You all lose <b><color=\#D30000>-5 HP</color></b> whilst fighting the gorilla, but you also gain <b><color=\#8F00FF>+1 angry gorilla on your tail!</color></b>
+You all lose <b><color=\#D30000>-5 gold</color></b> whilst fighting the gorilla, but you also gain <b><color=\#8F00FF>+1 angry gorilla on your tail!</color></b>
 
 Exciting! -> END
 
 ===show_them===
+~ changeCurrency(5)
 These losers? Fuck no! The scariest spirits are clearly you guys! You decide to prove it the only way you know how; by running the group of spirits over. 
 
 The ride is loud and bumpy, each ‘thump’ paired with a new spirit’s agonizing screams as they are painfully crushed by the giant armadillo driven carriage. 
 
 Once the screams have quieted down, you all look out through the carriage's back window. Where the group of spirits once stood, now lies only a pile of gold, spirit dust, and a little blood?. Yucky!
 
-Your murderous actions reward you each with <b><color=\#00FF00>+5 gold</color></b> and <b><color=\#8F00FF> +1 title of “The Scariest Spirits”.</color></b> Rad! -> END
+Your murderous actions reward you each with <b><color=\#ECBD00>+5 gold</color></b> and <b><color=\#8F00FF> +1 title of “The Scariest Spirits”.</color></b> Rad! -> END
 

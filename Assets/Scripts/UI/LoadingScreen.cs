@@ -18,42 +18,58 @@ namespace Game {
     namespace UI {
         public class LoadingScreen : MonoBehaviour
         {
-            public GameObject loadingScreen;
+            [Header("Setup")]
             public Slider progressBar;
             public WorldMapManager worldMapManager;
             
-            private float sceneProgress;
+            [Header("Settings")]
+            [SerializeField] private float minSceneLoadTime;
+            [SerializeField] private float maxSceneLoadTime;
+            
+            private float actualSceneProgress;
+            private float fakeSceneProgress;
+            private float fakeSceneLoadTime;
+            private AsyncOperation scene;
 
             public void Start()
             {
-                LoadSceneAsync(LevelManager.Instance.worldMapManager.levelToLoad);
-            }
-
-            private async void LoadSceneAsync(LevelDataSO _levelData)
-            {
-                sceneProgress = 0;
                 progressBar.value = 0;
-                
-                AsyncOperation scene = SceneManager.LoadSceneAsync(_levelData.levelName ,LoadSceneMode.Single);
-                
-                Debug.Log(scene);
-                scene.allowSceneActivation = false;
-                loadingScreen.SetActive(true);
-                do
-                {
-                    sceneProgress = scene.progress;
-                    
-                } while (scene.progress <0.9f);
-                
-                await Task.Delay(600);
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-                
-                scene.allowSceneActivation = true;
+                fakeSceneLoadTime = Random.Range(minSceneLoadTime, maxSceneLoadTime);
+                LoadSceneAsync(LevelManager.Instance.worldMapManager.levelToLoad);
             }
 
             private void Update()
             {
-                progressBar.value = Mathf.MoveTowards(progressBar.value, sceneProgress, 3 * Time.deltaTime);
+                actualSceneProgress = scene.progress;
+                fakeSceneProgress += Time.deltaTime / fakeSceneLoadTime;
+                
+                if (fakeSceneProgress < actualSceneProgress || scene.progress >= 0.9f)
+                {
+                    progressBar.value = Mathf.MoveTowards(progressBar.value, fakeSceneProgress, 3 * Time.deltaTime);
+                }
+                else
+                {
+                    progressBar.value = Mathf.MoveTowards(progressBar.value, actualSceneProgress, 3 * Time.deltaTime);
+                }
+                
+                if (fakeSceneProgress >= 1f && scene.progress >= 0.9f)
+                {
+                    DoneLoadingScene();
+                }
+            }
+
+            private async void LoadSceneAsync(LevelDataSO _levelData)
+            {
+                scene = SceneManager.LoadSceneAsync(_levelData.levelName, LoadSceneMode.Single);
+                
+                scene.allowSceneActivation = false;
+            }
+
+            private void DoneLoadingScene()
+            {
+                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+                
+                scene.allowSceneActivation = true;
             }
         }
     }

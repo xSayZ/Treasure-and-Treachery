@@ -20,6 +20,7 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private Image playerImage;
             [SerializeField] private Image personalObjectiveImage;
+            [SerializeField] private Image backgroundImage;
             [SerializeField] private TextMeshProUGUI coinsText;
             [SerializeField] private TextMeshProUGUI killsText;
             [SerializeField] private TextMeshProUGUI personalObjectiveText;
@@ -41,6 +42,10 @@ namespace Game {
             {
                 playerImage.sprite = _playerImage;
                 personalObjectiveImage.sprite = _personalObjectiveImage;
+                
+                Color _color = _playerData.playerMaterialColor;
+                _color.a = backgroundImage.color.a;
+                backgroundImage.color = _color;
                 
                 int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier + _playerData.personalObjectiveThisLevel * _playerData.personalObjectiveMultiplier;
                 _playerData.points += _pointsThisLevel;

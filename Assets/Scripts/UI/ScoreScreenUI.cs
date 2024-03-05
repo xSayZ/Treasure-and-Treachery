@@ -22,12 +22,11 @@ namespace Game {
             [SerializeField] private GameObject playerScoreCanvasPrefab;
             [SerializeField] private List<Sprite> playerImages;
             [SerializeField] private List<Sprite> personalObjectiveImages;
+            [SerializeField] private LevelDataSO worldMap;
             
             [Header("Debug")]
             [SerializeField] private List<PlayerData> playerDatas;
 
-            [SerializeField] private LevelDataSO worldMap;
-            
             private int playersDoneCountingUp;
 
             private void Start()
@@ -59,7 +58,6 @@ namespace Game {
             {
                 if (playersDoneCountingUp == Input.GetJoystickNames().Length)
                 {
-                    // Load map
                     LevelManager.Instance.LoadLevel(worldMap);
                 }
             }

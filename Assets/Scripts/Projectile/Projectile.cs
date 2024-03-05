@@ -31,6 +31,13 @@ namespace Game {
             [SerializeField] private GameObject projectileObj;
             [SerializeField] private PlayerAudio playerAudio;
             
+            [SerializeField] private CharacterType characterType;
+            private enum CharacterType
+            {
+                Witch,
+                Dragon
+            }
+
             private int damage;
             private PlayerData playerData;
             private UnityEvent onKill;
@@ -41,7 +48,15 @@ namespace Game {
             {
                 try
                 {
-                    playerAudio.PlayerRangedAudio(projectileObj);
+                    if (characterType == CharacterType.Witch)
+                    {
+                       playerAudio.PlayerRangedAudio(projectileObj); 
+                    }
+                    if (characterType == CharacterType.Dragon)
+                    {
+                        playerAudio.DragonArrowAudio(projectileObj);
+                    }
+                    
                 }
                 catch (Exception e)
                 {

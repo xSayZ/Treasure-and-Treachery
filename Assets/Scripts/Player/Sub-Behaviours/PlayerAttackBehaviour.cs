@@ -47,6 +47,7 @@ namespace Game {
             [SerializeField] private float meleeAttackDelay;
             [SerializeField] private float meleeChargeSpeed;
             [SerializeField] private float meleeChargeTime;
+            [SerializeField] private float meleeStunTime;
             [Range(0, 2500)]
             [SerializeField] private float meleeKnockbackForce;
             
@@ -256,8 +257,6 @@ namespace Game {
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
-                yield return new WaitForSeconds(meleeChargeTime);
-                playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 
                 // Loop through all enemies in range
                 for (int i = damageableInRange.Count - 1; i >= 0; i--)
@@ -287,7 +286,8 @@ namespace Game {
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
                 
-                yield return new WaitForSeconds(meleeChargeTime);
+                playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
+                yield return new WaitForSeconds(meleeStunTime);
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
             }
 

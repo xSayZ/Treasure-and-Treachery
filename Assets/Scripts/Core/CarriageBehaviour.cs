@@ -205,6 +205,7 @@ namespace Game {
                 
                 lostCanvas.SetActive(true);
                 lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
+                AudioMananger.Instance.GameOverStinger();
             }
 #endregion
         }

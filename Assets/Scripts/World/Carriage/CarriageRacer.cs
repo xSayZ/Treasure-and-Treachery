@@ -40,9 +40,12 @@ namespace Game {
                 UpdateCarriageMovement();
             }
 #endregion
-            
-#region Public Functions
 
+#region Public Functions
+            public void SetCarriageActive(bool _active)
+            {
+                carriageMovementBehaviour.enabled = _active;
+            }
 #endregion
 
 #region Private Functions

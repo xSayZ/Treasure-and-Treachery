@@ -18,7 +18,8 @@ namespace Game {
             public Animator PlayerAnimator;
 
             private int playerMovementAnimationID;
-            private int playerMeleeAttackAnimationID;
+            private int playerAttackAnimationID;
+            private int playerChargeAnimationID;
             private int playerInteractAnimationID;
 
 #region Unity Functions
@@ -30,19 +31,24 @@ namespace Game {
 
             void SetupAnimationIDs() {
                 playerMovementAnimationID = Animator.StringToHash("Movement");
-                playerMeleeAttackAnimationID = Animator.StringToHash("MeleeAttack");
+                playerAttackAnimationID = Animator.StringToHash("Attack");
+                playerChargeAnimationID = Animator.StringToHash("AttackCharge");
                 playerInteractAnimationID = Animator.StringToHash("Interact");
             }
 #endregion
 
 #region Public Functions
 
-            public void UpdateMovementAnimation(float movementBlendValue) {
-                PlayerAnimator.SetFloat(playerMovementAnimationID, movementBlendValue);
+            public void UpdateMovementAnimation(float _movementBlendValue) {
+                PlayerAnimator.SetFloat(playerMovementAnimationID, _movementBlendValue);
             }
 
-            public void PlayMeleeAttackAnimation() {
-                PlayerAnimator.SetTrigger(playerMeleeAttackAnimationID);
+            public void UpdateAttackChargeAnimation(float _movementBlendValue) {
+                PlayerAnimator.SetFloat(playerChargeAnimationID, _movementBlendValue);
+            }
+
+            public void PlayAttackAnimation() {
+                PlayerAnimator.SetTrigger(playerAttackAnimationID);
             }
 
 #endregion

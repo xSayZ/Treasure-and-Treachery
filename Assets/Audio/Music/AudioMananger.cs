@@ -27,6 +27,7 @@ namespace Game {
             AmbienceTrees,
             AmbienceWind,
             TimedStinger,
+            HubMusic,
         }
         
         public enum Action
@@ -40,8 +41,8 @@ namespace Game {
         public class AudioMananger : Singleton<AudioMananger>
         {
             [Header("New Event references")]
-            [SerializeField] private EventReference[] musicReferences = new EventReference [5];
-            private EventInstance[] musicInstances = new EventInstance [5];
+            [SerializeField] private EventReference[] musicReferences = new EventReference [6];
+            private EventInstance[] musicInstances = new EventInstance [6];
 
             
            [SerializeField] private EventReference gameOverStinger;

@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using UnityEngine;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -19,8 +20,10 @@ namespace Game {
             
             [Header("Params")]
             [SerializeField] private float typingSpeed = 0.05f;
+
+            [SerializeField] private Image eventImage;
             
-            [SerializeField] private bool hasBeenRead = false;
+            private bool hasBeenRead = false;
             
             public TextAsset StoryJSON
             {
@@ -38,6 +41,12 @@ namespace Game {
             {
                 get => hasBeenRead;
                 set => hasBeenRead = value;
+            }
+            
+            public Image EventImage
+            {
+                get => eventImage;
+                set => eventImage = value;
             }
         }
     }

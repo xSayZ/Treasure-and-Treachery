@@ -195,7 +195,6 @@ namespace Game {
                 levelOver = true;
                 LevelDataSO _levelData = LevelManager.Instance.worldMapManager.levelToLoad;
                 _levelData.isCompleted = true;
-                _levelData.OnLevelCompleted.Invoke();
                 
                 LevelManager.Instance.LoadScoreScreen();
             }

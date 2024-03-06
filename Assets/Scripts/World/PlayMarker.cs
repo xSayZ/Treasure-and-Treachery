@@ -49,13 +49,16 @@ namespace Game {
                 levelImage.sprite = levelData.levelImage;
                 levelDescription.text = levelData.levelDescription;
                 levelName.text = levelData.levelName;
-                levelData.OnLevelCompleted.AddListener(InvokeEvent);
                 
                 if (isLocked) {
                     playMarkerObject.SetActive(false);
                 }
                 else {
                     playMarkerObject.SetActive(true);
+                }
+
+                if (levelData.isCompleted) {
+                    onLevelCompleted.Invoke();
                 }
             }
 
@@ -95,10 +98,6 @@ namespace Game {
             private void OnTriggerExit(Collider _other) {
                 levelDescriptionUI.SetActive(false);
                 canSwitchScene = false;
-            }
-            
-            void InvokeEvent() {
-                onLevelCompleted.Invoke();
             }
             
             private void SwitchScene() {

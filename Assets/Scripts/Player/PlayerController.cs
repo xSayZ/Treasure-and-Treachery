@@ -86,6 +86,8 @@ namespace Game
 
                 rigidbody = GetComponent<Rigidbody>();
                 
+                playerInput.SwitchCurrentControlScheme(Keyboard.current);
+                
                 PlayerMovementBehaviour.SetupBehaviour(this);
                 PlayerAnimationBehaviour.SetupBehaviour();
                 //PlayerVisualBehaviour.SetupBehaviour(PlayerData);

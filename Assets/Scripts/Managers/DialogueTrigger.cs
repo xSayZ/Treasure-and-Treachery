@@ -41,7 +41,7 @@ namespace Game {
                 }
                 
                 Debug.Log("UI open");
-                dialogueManager.StartDialogue(currentDialogueSO.StoryJSON, currentDialogueSO.TypingSpeed);
+                dialogueManager.StartDialogue(currentDialogueSO.StoryJSON, currentDialogueSO.TypingSpeed, currentDialogueSO.EventImage);
             }
         }
     }

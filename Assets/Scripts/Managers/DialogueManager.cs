@@ -16,6 +16,7 @@ using Game.Backend;
 using Game.Managers;
 using Game.Racer;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -29,6 +30,7 @@ namespace Game {
             
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
+            [SerializeField] private Image eventImage;
             [SerializeField] private TextMeshProUGUI dialogueText;
 
             [Header("Choices UI")]
@@ -70,9 +72,10 @@ namespace Game {
 
             #region Public Functions
 
-            public void StartDialogue(TextAsset storyJSON, float _typingSpeed) {
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Image _eventImage) {
                 carriageRacer.SetCarriageActive(false);
                 
+                eventImage = _eventImage;
                 typingSpeed = _typingSpeed;
                 
                 choicesText = new TextMeshProUGUI[choices.Length];
@@ -91,7 +94,7 @@ namespace Game {
                 TogglePauseState();
                 
                 dialogueIsPlaying = true;
-                story = new Story(storyJSON.text);
+                story = new Story(_storyJSON.text);
                 
                 story.BindExternalFunction("changeCurrency", (int _amount) => {
                     foreach (var _player in playerDatas) {

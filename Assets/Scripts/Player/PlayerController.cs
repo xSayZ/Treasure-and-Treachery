@@ -102,7 +102,7 @@ namespace Game
                 if (Input.GetJoystickNames().Length > 0)
                 {
                     // PlayerInput _playerInput = PlayerInput.all[PlayerData.ControllerID];
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID], playerInput.user);
+                    //InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID], playerInput.user,InputUserPairingOptions.UnpairCurrentDevicesFromUser);
                 }
             }
 

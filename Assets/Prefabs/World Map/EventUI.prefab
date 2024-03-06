@@ -707,7 +707,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3210799117202452012}
   - component: {fileID: 3210799117202452003}
-  - component: {fileID: 6661039013406642429}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -744,27 +743,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typingSpeed: 0.05
   dialoguePanel: {fileID: 3210799117108313020}
+  eventImage: {fileID: 3210799118046333349}
   dialogueText: {fileID: 3210799118901077415}
   choices:
   - {fileID: 3210799117200990566}
   - {fileID: 3210799118196229617}
   - {fileID: 3210799117026585066}
   - {fileID: 3210799116881956629}
---- !u!114 &6661039013406642429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3210799117202452002}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f4b25ca5257c4f4da67d26e7be1289b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  votingButtons: []
-  playerInputs: []
-  playerInputsAsset: {fileID: 0}
+  playerDatas:
+  - {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
+  - {fileID: 11400000, guid: 0b6f96502618566458bb29c354faf6fa, type: 2}
+  - {fileID: 11400000, guid: 57a87fa42cfa0d241b1f6197d8342d38, type: 2}
+  - {fileID: 11400000, guid: 71fd036c53d04c64e962113d7b40aa2b, type: 2}
 --- !u!1 &3210799117322296835
 GameObject:
   m_ObjectHideFlags: 0

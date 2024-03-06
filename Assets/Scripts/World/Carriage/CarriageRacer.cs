@@ -101,7 +101,7 @@ namespace Game {
                 }
                 
                 averageLeftStickValue = new Vector3(average.x, 0, average.y);
-                return averageLeftStickValue / activeLeftStickValues.Count;
+                return averageLeftStickValue;
             }
 #endregion
         }

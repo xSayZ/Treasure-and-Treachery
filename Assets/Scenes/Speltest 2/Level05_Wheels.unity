@@ -4052,6 +4052,7 @@ GameObject:
   - component: {fileID: 286639411}
   - component: {fileID: 286639412}
   - component: {fileID: 286639413}
+  - component: {fileID: 286639414}
   m_Layer: 17
   m_Name: ButtonTrigger
   m_TagString: Untagged
@@ -4139,9 +4140,33 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 286639414}
+        m_TargetAssemblyTypeName: Game.Audio.ObjectiveStinger, Assembly-CSharp
+        m_MethodName: CallObjectiveStinger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   triggerExit:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &286639414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286639410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb19a2c5c9e40684cb0879add48899fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &287598858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4822753137849867078, guid: d8ef2b98acb0d9d419b04a5bfca6da88, type: 3}
@@ -8387,8 +8412,9 @@ GameObject:
   - component: {fileID: 641942934}
   - component: {fileID: 641942936}
   - component: {fileID: 641942935}
+  - component: {fileID: 641942937}
   m_Layer: 17
-  m_Name: ButtonTrigger
+  m_Name: ButtonTrigger 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8461,6 +8487,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 641942937}
+        m_TargetAssemblyTypeName: Game.Audio.ObjectiveStinger, Assembly-CSharp
+        m_MethodName: CallObjectiveStinger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   triggerExit:
     m_PersistentCalls:
       m_Calls: []
@@ -8477,6 +8515,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.751744
   m_Center: {x: -0.06233722, y: 0.10069394, z: -0.113815784}
+--- !u!114 &641942937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641942933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb19a2c5c9e40684cb0879add48899fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &644144370 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4822753137849867078, guid: d8ef2b98acb0d9d419b04a5bfca6da88, type: 3}

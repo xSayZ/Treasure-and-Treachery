@@ -45,6 +45,7 @@ namespace Game {
 
             
            [SerializeField] private EventReference gameOverStinger;
+           [SerializeField] private EventReference completeObjStinger;
             
             #region Public Functions
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
@@ -144,9 +145,11 @@ namespace Game {
 
             }
 
-            public void ObjectiveStinger()
+            public void CompleteObjectiveStinger()
             {
-                
+                EventInstance ObjStinger1 = RuntimeManager.CreateInstance(completeObjStinger);
+                ObjStinger1.start();
+                ObjStinger1.release();
             }
 
 

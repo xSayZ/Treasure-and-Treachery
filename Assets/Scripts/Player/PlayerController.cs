@@ -99,11 +99,6 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (Input.GetJoystickNames().Length > 0)
-                {
-                    // PlayerInput _playerInput = PlayerInput.all[PlayerData.ControllerID];
-                    //InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID], playerInput.user,InputUserPairingOptions.UnpairCurrentDevicesFromUser);
-                }
             }
 
 #region Unity Functions

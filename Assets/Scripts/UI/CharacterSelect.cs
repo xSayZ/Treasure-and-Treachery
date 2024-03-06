@@ -54,6 +54,8 @@ namespace Game
                     {
                         data = characterSelectHandler.Datas[i];
                         data.ControllerID = playerInput.playerIndex;
+                        //Debug.Log(Gamepad.current.deviceId);
+                        data.ControllerID = Gamepad.current.deviceId;
                     }
                 }
 
@@ -72,34 +74,39 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                Gamepad gamepad = Gamepad.all[deviceID];
-
+                
                 if (PlayersIsReady) return;
+                
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
 
                 Vector2 value = context.ReadValue<Vector2>();
                 
-                if (gamepad.leftStick.IsActuated() || gamepad.dpad.IsActuated())
-                {
-                    float movementThreshold = 0.9f;
-                    float adjustmentValue = 0.005f;
-
-                    if (value.x > movementThreshold || value.x < -movementThreshold)
+                    switch (value.x)
                     {
-                        currentDelay -= adjustmentValue;
-
-                        if (currentDelay < 0)
+                    
+                        case > .9f:
                         {
-                            id += (gamepad.leftStick.IsActuated()) ? 1 : 0;
-                          
-
-                            if (gamepad.leftStick.IsActuated())
+                            currentDelay -= 0.005f;
+                            if (currentDelay <0)
+                            {
+                                id++;
                                 currentDelay = inputDelay;
+                            }
+                            break;
                         }
-                        id += (gamepad.dpad.IsActuated()) ? 1 : 0;
+                        case < -0.9f:
+                        {
+                            currentDelay -= 0.005f;
+                            if(currentDelay <0)
+                            {
+                                id--;  
+                                currentDelay = inputDelay;
+                            }
+                            break;
+                        }
                     }
-                }
                 
+               
                 
                 id = Wrap(id, 0, 4);
                 if (id < 0) id += amountOfImages;

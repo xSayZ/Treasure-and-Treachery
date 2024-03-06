@@ -25,7 +25,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
+  MaxDistance: 30
   Length: 2871
 --- !u!114 &-9009486603958876372
 MonoBehaviour:
@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638453398063651527
+  lastModified: 638453443471270645
   FileSizes:
   - Name: 
-    Value: 6304
+    Value: 6780
   Exists: 1
 --- !u!114 &-8864415780318981875
 MonoBehaviour:
@@ -280,7 +280,7 @@ MonoBehaviour:
   - {fileID: -8493196108331378807}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 5866
 --- !u!114 &-8112778660950900754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ MonoBehaviour:
   - {fileID: 3572980546767885296}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 1950
 --- !u!114 &-8078038320973306067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,8 +512,8 @@ MonoBehaviour:
     Data3: 1801595818
     Data4: -251461116
   Banks:
-  - {fileID: 3531234008076186661}
   - {fileID: 6843316956230067141}
+  - {fileID: 3531234008076186661}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -524,6 +524,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 68571
+--- !u!114 &-7302386396119385363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/CompleteObjStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/CompleteObjStinger
+  Guid:
+    Data1: 958461050
+    Data2: 1243916956
+    Data3: -8936520
+    Data4: -434498900
+  Banks:
+  - {fileID: 6843316956230067141}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2621
 --- !u!114 &-7294398848673327603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,6 +813,33 @@ MonoBehaviour:
   - Dirt
   - Rock
   Exists: 1
+--- !u!114 &-5948132075760012048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/HighSnapshot
+  m_EditorClassIdentifier: 
+  Path: snapshot:/HighSnapshot
+  Guid:
+    Data1: -1366727845
+    Data2: 1185153834
+    Data3: -2079244152
+    Data4: -578763996
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-5676422893520250492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,7 +919,7 @@ MonoBehaviour:
   - {fileID: -6707388200217449003}
   MinDistance: 1
   MaxDistance: 20
-  Length: 3735
+  Length: 3635
 --- !u!114 &-5421390986348542468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,7 +974,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3428
+  Length: 3478
 --- !u!114 &-5330260870371276875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1495,7 +1549,7 @@ MonoBehaviour:
   - {fileID: -8274050973292898446}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 7520
 --- !u!114 &-1881674102158536461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1550,7 +1604,7 @@ MonoBehaviour:
   - {fileID: -4546815054877339247}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 3832
 --- !u!114 &-1377704247945433866
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1578,7 +1632,7 @@ MonoBehaviour:
   - {fileID: 2587891297274386354}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 4998
 --- !u!114 &-1252076917965491186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1688,7 +1742,7 @@ MonoBehaviour:
   - {fileID: 6373597622959610541}
   MinDistance: 1
   MaxDistance: 20
-  Length: 7015
+  Length: 7215
 --- !u!114 &-404107624210631640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,6 +1907,9 @@ MonoBehaviour:
   - {fileID: -1401611131097674467}
   - {fileID: -2397278451905340065}
   - {fileID: -5348569008012865101}
+  - {fileID: -5948132075760012048}
+  - {fileID: -7302386396119385363}
+  - {fileID: 8643725029852189210}
   EditorParameters:
   - {fileID: 8797719750629465085}
   - {fileID: -3214837208440471055}
@@ -1861,7 +1918,7 @@ MonoBehaviour:
   - {fileID: 3531234008076186661}
   StringsBanks:
   - {fileID: -9009486603958876372}
-  cacheTime: 638453398064366282
+  cacheTime: 638453443471270645
   cacheVersion: 131609
 --- !u!114 &288115031343942158
 MonoBehaviour:
@@ -1995,7 +2052,7 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 9.8
+  MaxDistance: 30
   Length: 1800
 --- !u!114 &1481976135489512229
 MonoBehaviour:
@@ -2048,7 +2105,7 @@ MonoBehaviour:
   - {fileID: 7356781736056255889}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 2688
 --- !u!114 &2176250192523660702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2264,7 +2321,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638453398063631141
+  lastModified: 638453443471120688
   FileSizes: []
   Exists: 1
 --- !u!114 &3572980546767885296
@@ -2369,7 +2426,7 @@ MonoBehaviour:
   - {fileID: -4084475697468001430}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2454
+  Length: 2800
 --- !u!114 &4401580982419693553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2424,7 +2481,7 @@ MonoBehaviour:
   - {fileID: 7015145613171479737}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
+  Length: 7128
 --- !u!114 &4829922514532440426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2772,8 +2829,8 @@ MonoBehaviour:
     Data3: 198427308
     Data4: -2038292595
   Banks:
-  - {fileID: 3531234008076186661}
   - {fileID: 6843316956230067141}
+  - {fileID: 3531234008076186661}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2850,7 +2907,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638453398064366282
+  lastModified: 638453403336662221
   FileSizes: []
   Exists: 1
 --- !u!114 &7009853375698873009
@@ -3109,6 +3166,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &8643725029852189210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
+  Guid:
+    Data1: -372764520
+    Data2: 1141140790
+    Data3: -889652813
+    Data4: 1942296518
+  Banks:
+  - {fileID: 3531234008076186661}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 614
 --- !u!114 &8689014382197026112
 MonoBehaviour:
   m_ObjectHideFlags: 0

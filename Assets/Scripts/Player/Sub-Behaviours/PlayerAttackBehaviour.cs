@@ -41,6 +41,7 @@ namespace Game {
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
             [SerializeField] private VisualEffect[] meleeVisualEffects;
+            [SerializeField] private GameObject meleeImpactVFX;
             
             [Header("Attack Type")]
             [SerializeField] private AttackTypes attackType;
@@ -365,6 +366,16 @@ namespace Game {
                 if (_doNormalMelee)
                 {
                     bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKnockbackForce);
+                    
+                    if (meleeImpactVFX)
+                    {
+                        MonoBehaviour _damageableMonoBehaviour = _damageable as MonoBehaviour;
+                        if (_damageableMonoBehaviour)
+                        {
+                            GameObject _spawnedImpactVFX = Instantiate(meleeImpactVFX, _damageableMonoBehaviour.transform.position, Quaternion.identity);
+                            Destroy(_spawnedImpactVFX, 5);
+                        }
+                    }
                     
                     if (killed)
                     {

@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using Game.Managers;
 using Game.WorldMap;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -33,23 +34,23 @@ namespace Game {
             [SerializeField] private GameObject levelUI;
             [Tooltip("Set this for the visualization when a level is playable. This is automatically turned off if the level is locked.")]
             [SerializeField] private GameObject playMarkerObject;
+            [SerializeField] private Image levelImage;
+            [SerializeField] private TextMeshProUGUI levelDescription;
+            [SerializeField] private TextMeshProUGUI levelName;
             
             [Header("Events")]
             [Tooltip("When the level of this play marker is completed, this event will be called. This can be used to change the world map.")]
             public UnityEvent onLevelCompleted = new UnityEvent();
             
             // Internal Variables
-            private Image levelImage;
-            private string levelDescription;
-            private string levelName;
-            
             private bool canSwitchScene = false;
             private bool isLocked;
             
             private void Start() {
                 // Set the level data
-                levelData.levelDescription = "This is a level description";
-                levelData.levelImage = levelImage;
+                levelData.levelImage = levelImage.sprite;
+                levelData.levelDescription = levelDescription.ToString();
+                levelData.levelName = levelName.ToString();
                 levelData.OnLevelCompleted = onLevelCompleted;
                 
                 if (isLocked) {
@@ -63,32 +64,27 @@ namespace Game {
             private void Update() {
                 for (int i = 0; i < levelData.prerequisites.Count; i++)
                 {
-                    if(levelData.prerequisites.All(data => data.isCompleted ))
+                    if(levelData.prerequisites.All(_data => _data.isCompleted ))
                     {
                         isLocked = false;
                         playMarkerObject.SetActive(true);
                     }
                 }
-                
-                
-                
-                
             }
 
-            private void OnTriggerEnter(Collider other) {
-                if (!other.CompareTag("Carriage"))
+            private void OnTriggerEnter(Collider _other) {
+                if (!_other.CompareTag("Carriage"))
                     return;
 
                 if (!isLocked) {
                     levelUI.SetActive(true);
                     canSwitchScene = true;
 
-
-                    InputSystem.onAnyButtonPress.Call(ctrl =>
+                    InputSystem.onAnyButtonPress.Call(_ctrl =>
                     {
-                        if (ctrl.device is not Gamepad pad || !canSwitchScene) return;
+                        if (_ctrl.device is not Gamepad _pad || !canSwitchScene) return;
                         
-                        if (ctrl == pad.buttonSouth)
+                        if (_ctrl == _pad.buttonSouth)
                         {
                             canSwitchScene = false;
                             SwitchScene();
@@ -98,7 +94,7 @@ namespace Game {
                 }
             }
             
-            private void OnTriggerExit(Collider other) {
+            private void OnTriggerExit(Collider _other) {
                 levelUI.SetActive(false);
                 canSwitchScene = false;
             }

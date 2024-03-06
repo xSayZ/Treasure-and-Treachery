@@ -42,20 +42,14 @@ namespace Game {
             public List<LevelDataSO> prerequisites = new List<LevelDataSO>();
 
             // Internal Events
-            private UnityEvent onLevelCompleted;
-            
+
             private void OnEnable() {
                 isCompleted = false;
             }
 
             public UnityEvent OnLevelCompleted {
-                get {
-                    return onLevelCompleted;
-                }
-                set {
-                    onLevelCompleted = value;
-                }
-            }
+                get;
+            } = new UnityEvent();
         }
     }
 }

@@ -6,7 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using Game.Managers;
 using Game.WorldMap;
@@ -15,7 +15,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -26,6 +25,7 @@ namespace Game {
             [Header("Level Data")]
             [Tooltip("The level data of the level. This is used to load the level scene.")]
             [SerializeField] private LevelDataSO levelData;
+            [SerializeField] private List<GameObject> gameObjectsForWorldChange = new List<GameObject>();
             
             [Header("Object Options")]
             [Tooltip("The level UI object. This is used to display the level UI.")]
@@ -49,7 +49,7 @@ namespace Game {
                 levelImage.sprite = levelData.levelImage;
                 levelDescription.text = levelData.levelDescription;
                 levelName.text = levelData.levelName;
-                onLevelCompleted.AddListener(() => isLocked = false);
+                levelData.OnLevelCompleted.AddListener(InvokeEvent);
                 
                 if (isLocked) {
                     playMarkerObject.SetActive(false);
@@ -73,7 +73,7 @@ namespace Game {
             private void OnTriggerEnter(Collider _other) {
                 if (!_other.CompareTag("Carriage"))
                     return;
-
+                
                 if (!isLocked) {
                     levelDescriptionUI.SetActive(true);
                     canSwitchScene = true;
@@ -95,6 +95,10 @@ namespace Game {
             private void OnTriggerExit(Collider _other) {
                 levelDescriptionUI.SetActive(false);
                 canSwitchScene = false;
+            }
+            
+            void InvokeEvent() {
+                onLevelCompleted.Invoke();
             }
             
             private void SwitchScene() {

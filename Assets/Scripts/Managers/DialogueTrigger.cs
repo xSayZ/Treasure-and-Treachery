@@ -7,14 +7,16 @@
 // ------------------------------*/
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Game {
     namespace Dialogue {
         public class DialogueTrigger : MonoBehaviour
         {
+            [FormerlySerializedAs("currentDialogueSO")]
             [Header("Ink Story")]
-            [SerializeField] private CurrentDialogueSO currentDialogueSO;
+            [SerializeField] public CurrentDialogueSO CurrentDialogueSO;
             
             private DialogueManager dialogueManager;
 
@@ -27,21 +29,21 @@ namespace Game {
             {
                 if(other.gameObject.CompareTag("Carriage"))
                 {
-                    if (currentDialogueSO.HasBeenRead) return;
+                    if (CurrentDialogueSO.HasBeenRead) return;
                     TriggerDialogue();
                 }
             }
 
             private void TriggerDialogue()
             {
-                if (currentDialogueSO.StoryJSON == null)
+                if (CurrentDialogueSO.StoryJSON == null)
                 {
                     Debug.LogError("No story JSON file assigned to the current dialogue SO.");
                     return;
                 }
                 
                 Debug.Log("UI open");
-                dialogueManager.StartDialogue(currentDialogueSO.StoryJSON, currentDialogueSO.TypingSpeed);
+                dialogueManager.StartDialogue(CurrentDialogueSO.StoryJSON, CurrentDialogueSO.TypingSpeed, CurrentDialogueSO.EventImage, this);
             }
         }
     }

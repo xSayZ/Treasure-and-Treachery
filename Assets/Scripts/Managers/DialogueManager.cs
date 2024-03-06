@@ -16,6 +16,7 @@ using Game.Backend;
 using Game.Managers;
 using Game.Racer;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -29,6 +30,7 @@ namespace Game {
             
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
+            [SerializeField] private Image eventImage;
             [SerializeField] private TextMeshProUGUI dialogueText;
 
             [Header("Choices UI")]
@@ -44,6 +46,7 @@ namespace Game {
             private bool typing = false;
             private bool hasMadeAChoice = false;
             private bool isPaused;
+            private DialogueTrigger currentTrigger;
 
             private Coroutine displayLineCoroutine;
 
@@ -70,10 +73,13 @@ namespace Game {
 
             #region Public Functions
 
-            public void StartDialogue(TextAsset storyJSON, float _typingSpeed) {
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger) {
                 carriageRacer.SetCarriageActive(false);
-                
+                if (_eventImage != null) {
+                    eventImage.sprite = _eventImage;
+                }
                 typingSpeed = _typingSpeed;
+                currentTrigger = _trigger;
                 
                 choicesText = new TextMeshProUGUI[choices.Length];
                 int index = 0;
@@ -91,7 +97,7 @@ namespace Game {
                 TogglePauseState();
                 
                 dialogueIsPlaying = true;
-                story = new Story(storyJSON.text);
+                story = new Story(_storyJSON.text);
                 
                 story.BindExternalFunction("changeCurrency", (int _amount) => {
                     foreach (var _player in playerDatas) {
@@ -170,6 +176,7 @@ namespace Game {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
+                currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 TogglePauseState();
                 HideChoices();
             }

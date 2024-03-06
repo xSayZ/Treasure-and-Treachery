@@ -130,9 +130,8 @@ public class DialogueAudioWrapper : MonoBehaviour
 
     public void ReturnToCart()
     {
-        Debug.Log("benis");
         var _players = GameManager.Instance.ActivePlayerControllers;
-        dialogueAudio.GetRandomPlayerAndPlayDialogue(8,_players,"return");
+        dialogueAudio.GetRandomPlayerAndPlayDialogue(_players,"return");
     }
 
 }

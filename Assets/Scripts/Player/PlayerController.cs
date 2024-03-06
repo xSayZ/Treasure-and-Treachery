@@ -73,13 +73,14 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
+            private bool hasBeenSetup;
 
             public void SetupPlayer(int _newPlayerID)
             {
+                hasBeenSetup = true;
                 PlayerData.NewScene();
                 
-                PlayerData.playerIndex = _newPlayerID;
-                PlayerIndex = _newPlayerID;
+                PlayerIndex = PlayerData.playerIndex;
                
                 Health = PlayerData.currentHealth;
 
@@ -89,7 +90,7 @@ namespace Game
                 
                 PlayerMovementBehaviour.SetupBehaviour(this);
                 PlayerAnimationBehaviour.SetupBehaviour();
-                PlayerVisualBehaviour.SetupBehaviour(PlayerData);
+                //PlayerVisualBehaviour.SetupBehaviour(PlayerData);
                 PlayerOverheadUIBehaviour.SetupBehaviour(this);
                 if (PlayerAbilityBehaviour)
                 {
@@ -98,10 +99,10 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (Input.GetJoystickNames().Length >0)
+                if (Input.GetJoystickNames().Length > 0)
                 {
-                    var player = PlayerInput.all[PlayerData.ControllerID];
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID],player.user);
+                    // PlayerInput _playerInput = PlayerInput.all[PlayerData.ControllerID];
+                    //InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID], playerInput.user,InputUserPairingOptions.UnpairCurrentDevicesFromUser);
                 }
             }
 
@@ -142,6 +143,11 @@ namespace Game
 
             private void OnDestroy()
             {
+                if (!hasBeenSetup)
+                {
+                    return;
+                }
+                
                 playerHealthBar.UpdateHealthBar(Health);
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);

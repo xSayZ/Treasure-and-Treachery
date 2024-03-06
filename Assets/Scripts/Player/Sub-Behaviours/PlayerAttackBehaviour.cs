@@ -145,6 +145,7 @@ namespace Game {
                     }
                     
                     currentAimAngle = Mathf.Clamp(currentAimAngle, rangedAimMinAngle, rangedAimMaxAngle);
+                    playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(currentAimAngle);
                     
                     Vector3 _leftPosition = Quaternion.AngleAxis(-currentAimAngle, Vector3.up) * new Vector3(0, 0, 1.6f);
                     Quaternion _leftRotation = Quaternion.Euler(aimLineLeft.transform.localRotation.eulerAngles.x, -currentAimAngle, aimLineLeft.transform.localRotation.eulerAngles.z);
@@ -215,7 +216,7 @@ namespace Game {
                             
                 meleeAttackStarted = true;
                             
-                playerController.PlayerAnimationBehaviour.PlayMeleeAttackAnimation(); 
+                playerController.PlayerAnimationBehaviour.PlayAttackAnimation(); 
                             
                 StartCoroutine(MeleeAttack());
             }
@@ -266,6 +267,9 @@ namespace Game {
                     currentRangedCooldown = rangedAttackCooldown;
                                 
                     FireProjectile();
+                    playerController.PlayerAnimationBehaviour.PlayAttackAnimation();
+                    playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(0);
+                    
                                 
                     playerController.PlayerMovementBehaviour.TurnSpeed *= 2;
                     playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);

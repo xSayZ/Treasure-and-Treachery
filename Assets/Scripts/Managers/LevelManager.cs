@@ -51,7 +51,7 @@ namespace Game {
                 worldMapManager.levelToLoad = null;
                 yield return new WaitForSeconds(0.1f);
                 worldMapManager.levelToLoad = _levelData;
-                Debug.Log(worldMapManager.levelToLoad.levelName);
+                Debug.Log(worldMapManager.levelToLoad.levelPath);
                 SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);
                 
             }

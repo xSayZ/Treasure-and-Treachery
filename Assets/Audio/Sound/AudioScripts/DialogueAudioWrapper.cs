@@ -84,7 +84,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf));
         
         dialogueProgressionWolf++;
-        speakerAfterWolf = 0;
+        speakerAfterWolf = 4;
     }
     public void DragonQuestDialogue()
     {

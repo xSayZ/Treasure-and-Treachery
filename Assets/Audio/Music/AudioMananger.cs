@@ -144,6 +144,11 @@ namespace Game {
 
             }
 
+            public void ObjectiveStinger()
+            {
+                
+            }
+
 
             #endregion
 

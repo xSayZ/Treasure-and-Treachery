@@ -187,13 +187,11 @@ namespace Game {
                 foreach (int key in keyCollection)
                 {
                     keys.Add(key);
-                    
                 }
-                Debug.Log(keys.Count);
+                
                 for (int i = 0; i < ActivePlayerControllers.Count; i++)
                 {
                     ActivePlayerControllers[keys[i]].SetupPlayer(keys[i]);   
-
                 }
             }
 

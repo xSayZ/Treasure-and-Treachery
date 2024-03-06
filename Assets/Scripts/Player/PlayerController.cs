@@ -80,8 +80,7 @@ namespace Game
                 hasBeenSetup = true;
                 PlayerData.NewScene();
                 
-                PlayerData.playerIndex = _newPlayerID;
-                PlayerIndex = _newPlayerID;
+                PlayerIndex = PlayerData.playerIndex;
                
                 Health = PlayerData.currentHealth;
 
@@ -100,10 +99,10 @@ namespace Game
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
-                if (Input.GetJoystickNames().Length >0)
+                if (Input.GetJoystickNames().Length > 0)
                 {
-                    var player = PlayerInput.all[PlayerData.ControllerID];
-                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID],player.user);
+                    // PlayerInput _playerInput = PlayerInput.all[PlayerData.ControllerID];
+                    InputUser.PerformPairingWithDevice(Gamepad.all[PlayerData.ControllerID], playerInput.user);
                 }
             }
 

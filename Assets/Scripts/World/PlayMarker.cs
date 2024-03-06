@@ -48,9 +48,9 @@ namespace Game {
             
             private void Start() {
                 // Set the level data
-                levelData.levelImage = levelImage.sprite;
-                levelData.levelDescription = levelDescription.ToString();
-                levelData.levelName = levelName.ToString();
+                levelImage.sprite = levelData.levelImage;
+                levelDescription.text = levelData.levelDescription;
+                levelName.text = levelData.levelName;
                 levelData.OnLevelCompleted = onLevelCompleted;
                 
                 if (isLocked) {

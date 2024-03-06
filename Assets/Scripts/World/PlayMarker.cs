@@ -49,7 +49,7 @@ namespace Game {
                 levelImage.sprite = levelData.levelImage;
                 levelDescription.text = levelData.levelDescription;
                 levelName.text = levelData.levelName;
-                levelData.OnLevelCompleted = onLevelCompleted;
+                onLevelCompleted.AddListener(() => isLocked = false);
                 
                 if (isLocked) {
                     playMarkerObject.SetActive(false);

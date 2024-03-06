@@ -3499,6 +3499,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1237801313}
     m_Modifications:
     - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: bossDialogue.Path
+      value: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
       propertyPath: wolfDialogue.Path
       value: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Wolf
       objectReference: {fileID: 0}
@@ -3513,6 +3517,22 @@ PrefabInstance:
     - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
       propertyPath: gorgonDialogue.Path
       value: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Gorgon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: bossDialogue.Guid.Data1
+      value: -349184796
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: bossDialogue.Guid.Data2
+      value: 1218768850
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: bossDialogue.Guid.Data3
+      value: -1486878293
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: bossDialogue.Guid.Data4
+      value: -1494159806
       objectReference: {fileID: 0}
     - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
       propertyPath: wolfDialogue.Guid.Data1
@@ -12478,6 +12498,10 @@ PrefabInstance:
       value: AudioQuestTriggerStart
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setSpeakerAfterBoss
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: setSpeakerAfterWolf
       value: 2
       objectReference: {fileID: 0}
@@ -12503,7 +12527,7 @@ PrefabInstance:
       objectReference: {fileID: 2000813212}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GorgonQuestDialogue
+      value: BossQuestDialogue
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName

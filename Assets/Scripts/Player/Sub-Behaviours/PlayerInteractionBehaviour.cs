@@ -137,7 +137,7 @@ namespace Game {
                 // Drop item
                 if (inInteractRange.Count <= 0 && playerController.PlayerData.currentItem != null && _pressed)
                 {
-                    DropItem(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
+                    QuestManager.OnItemDropped.Invoke(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
                 }
                 
                 // Interact with closest interaction
@@ -157,7 +157,7 @@ namespace Game {
                 
                 if (playerController.PlayerData.currentItem != null)
                 {
-                    DropItem(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
+                    QuestManager.OnItemDropped.Invoke(playerController.PlayerIndex, playerController.PlayerData.currentItem, false);
                 }
             }
 #endregion
@@ -172,7 +172,7 @@ namespace Game {
                 
                 if (playerController.PlayerData.currentItem != null)
                 {
-                    DropItem(_playerId, playerController.PlayerData.currentItem, false);
+                    QuestManager.OnItemDropped.Invoke(_playerId, playerController.PlayerData.currentItem, false);
                 }
                 
                 _item.Pickup.SetActive(false);

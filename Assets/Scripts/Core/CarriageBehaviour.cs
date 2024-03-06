@@ -72,6 +72,7 @@ namespace Game {
                 InteractionTransform = transform;
                 
                 Health = carriageData.currentHealth;
+                UpdateHealthBar();
             }
 
             private void Update()
@@ -154,8 +155,7 @@ namespace Game {
             {
                 carriageData.currentHealth = Health;
                 
-                float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
-                healthBar.value = _currentProgress;
+                UpdateHealthBar();
                 
                 try
                 {
@@ -206,6 +206,16 @@ namespace Game {
                 lostCanvas.SetActive(true);
                 lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
                 AudioMananger.Instance.GameOverStinger();
+                
+                // Reset carriage health
+                Invincible = true;
+                carriageData.currentHealth = carriageData.startingHealth;
+            }
+
+            private void UpdateHealthBar()
+            {
+                float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
+                healthBar.value = _currentProgress;
             }
 #endregion
         }

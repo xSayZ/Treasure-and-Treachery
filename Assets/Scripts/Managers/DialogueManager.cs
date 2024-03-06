@@ -46,6 +46,7 @@ namespace Game {
             private bool typing = false;
             private bool hasMadeAChoice = false;
             private bool isPaused;
+            private DialogueTrigger currentTrigger;
 
             private Coroutine displayLineCoroutine;
 
@@ -72,11 +73,13 @@ namespace Game {
 
             #region Public Functions
 
-            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Image _eventImage) {
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger) {
                 carriageRacer.SetCarriageActive(false);
-                
-                eventImage = _eventImage;
+                if (_eventImage != null) {
+                    eventImage.sprite = _eventImage;
+                }
                 typingSpeed = _typingSpeed;
+                currentTrigger = _trigger;
                 
                 choicesText = new TextMeshProUGUI[choices.Length];
                 int index = 0;
@@ -173,6 +176,7 @@ namespace Game {
                 dialogueIsPlaying = false;
                 dialoguePanel.SetActive(false);
                 dialogueText.text = "";
+                currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 TogglePauseState();
                 HideChoices();
             }

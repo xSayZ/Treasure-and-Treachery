@@ -32,7 +32,9 @@ namespace Game {
             }
             
             [Header("Component References")]
+            [Tooltip("Assign the weapon collider here.")]
             [SerializeField] private CapsuleCollider weaponCollider;
+            [Tooltip("Assign the projectiles here.")]
             [SerializeField] private GameObject normalProjectile;
             [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
@@ -42,14 +44,21 @@ namespace Game {
             [SerializeField] private AttackTypes attackType;
             
             [Header("Melee Attack Settings")]
+            [Tooltip("The damage the melee attack does.")]
             [SerializeField] private int meleeAttackDamage;
+            [Tooltip("The cooldown of the melee attack.")]
             [SerializeField] private float meleeAttackCooldown;
+            [Tooltip("The duration of the melee attack.")]
             [SerializeField] private float meleeAttackDuration;
+            [Tooltip("The delay of the melee attack. The delay before the attack starts.")]
             [SerializeField] private float meleeAttackDelay;
+            [Tooltip("The speed of the charge that occurs during the melee attack.")]
             [SerializeField] private float meleeChargeSpeed;
+            [Tooltip("The time the charge lasts.")]
             [SerializeField] private float meleeChargeTime;
             [SerializeField] private float meleeStunTime;
             [Range(0, 2500)]
+            [Tooltip("The force of the knockback of the melee attack.")]
             [SerializeField] private float meleeKnockbackForce;
             
             [Header("Ranged Attack Settings")]

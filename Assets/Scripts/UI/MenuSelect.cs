@@ -39,7 +39,6 @@ namespace Game {
             private GameObject _cachedSelectedObject;
             private void Start()
             {
-                
                 StartCoroutine(SelectFirstChoice()); 
             }
             

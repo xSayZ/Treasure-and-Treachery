@@ -66,8 +66,12 @@ namespace Game
                 }
 
                 playerList.Clear();
-                PlayerInputManager.instance.JoinPlayer(0, -1, null);
+                if (Input.GetJoystickNames().Length >0)
+                {
+                    PlayerInputManager.instance.JoinPlayer(0, -1, null);
 
+                }
+                
               
             }
 

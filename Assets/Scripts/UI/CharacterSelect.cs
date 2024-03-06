@@ -166,11 +166,7 @@ namespace Game
             #endregion
             
             #region Private
-
-            private void NavigationInputs(bool controls)
-            {
-                
-            }
+            
             
             private int Wrap(int Target, int LowerBounds, int UpperBounds)
             {
@@ -193,6 +189,7 @@ namespace Game
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
                 transform.rotation = targetTransform.rotation;
+                transform.localScale = targetTransform.GetChild(0).localScale;
 
             }
 

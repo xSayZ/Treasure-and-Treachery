@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Managers;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,7 @@ namespace Game {
 
 #region Unity Functions
             private void Start() {
+                transform.position = LevelManager.Instance.worldMapManager.carriagePosition;
                 carriageMovementBehaviour.SetupBehaviour();
                 carriageAnimationBehaviour.SetupBehaviour();
             }

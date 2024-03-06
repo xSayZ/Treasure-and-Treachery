@@ -25,23 +25,29 @@ namespace Game {
         public class PlayMarker : MonoBehaviour
         {
             [Header("Level Data")]
+            [Tooltip("The level data of the level. This is used to load the level scene.")]
             [SerializeField] private LevelDataSO levelData;
             
             [Header("Object Options")]
-            [SerializeField] private GameObject LevelUI;
+            [Tooltip("The level UI object. This is used to display the level UI.")]
+            [SerializeField] private GameObject levelUI;
+            [Tooltip("Set this for the visualization when a level is playable. This is automatically turned off if the level is locked.")]
             [SerializeField] private GameObject playMarkerObject;
             
-            [Header("Map Marker Options")]
-            public bool isLocked;
-            
+            [Header("Events")]
+            [Tooltip("When the level of this play marker is completed, this event will be called. This can be used to change the world map.")]
             public UnityEvent onLevelCompleted = new UnityEvent();
             
+            // Internal Variables
             private Image levelImage;
+            private string levelDescription;
             private string levelName;
-            bool canSwitchScene = false;
+            
+            private bool canSwitchScene = false;
+            private bool isLocked;
             
             private void Start() {
-                //levelData.levelName = levelName;
+                // Set the level data
                 levelData.levelDescription = "This is a level description";
                 levelData.levelImage = levelImage;
                 levelData.OnLevelCompleted = onLevelCompleted;
@@ -74,7 +80,7 @@ namespace Game {
                     return;
 
                 if (!isLocked) {
-                    LevelUI.SetActive(true);
+                    levelUI.SetActive(true);
                     canSwitchScene = true;
 
 
@@ -93,11 +99,12 @@ namespace Game {
             }
             
             private void OnTriggerExit(Collider other) {
-                LevelUI.SetActive(false);
+                levelUI.SetActive(false);
                 canSwitchScene = false;
             }
             
             private void SwitchScene() {
+                LevelManager.Instance.worldMapManager.carriagePosition = transform.position;
                 LevelManager.Instance.LoadLevel(levelData);
             }
         }

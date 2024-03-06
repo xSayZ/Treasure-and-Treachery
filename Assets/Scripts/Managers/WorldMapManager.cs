@@ -16,9 +16,13 @@ namespace Game {
         public class WorldMapManager : ScriptableObject
         {
             public List<LevelDataSO> completedLevels = new List<LevelDataSO>();
+            
             public LevelDataSO levelToLoad;
 
+            [HideInInspector] public Vector3 carriagePosition;
+
             private void OnEnable() {
+                carriagePosition = new Vector3(62.75653f, 2f, 143.5298f);
                 levelToLoad = null;
             }
             public void MarkLevelAsCompleted(LevelDataSO level) {

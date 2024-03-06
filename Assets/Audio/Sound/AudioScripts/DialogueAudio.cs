@@ -304,7 +304,7 @@ namespace Game {
                 }
             }
             
-            public void GetRandomPlayerAndPlayDialogue(int _playerID, Dictionary<int, PlayerController> _players, string context) 
+            public void GetRandomPlayerAndPlayDialogue(Dictionary<int, PlayerController> _players, string context) 
             { 
                 var _randomPlayer = _players[Random.Range(0, _players.Count)];
                 if (context == "return")

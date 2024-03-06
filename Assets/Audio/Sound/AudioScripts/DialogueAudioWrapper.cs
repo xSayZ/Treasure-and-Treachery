@@ -76,6 +76,7 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WolfQuestDialogue()
     {
+        Debug.Log("fis");
         wolfDialogueInstance.release();
         wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
         wolfDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWolf);
@@ -101,7 +102,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         witchDialogueInstance.release();
         witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
         witchDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWitch);
-        PlayDialogue(1, witchDialogueInstance);
+        PlayDialogue(2, witchDialogueInstance);
         StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch));
 
         dialogueProgressionWitch++;
@@ -109,10 +110,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void GorgonQuestDialogue()
     {
+        Debug.Log("prutt");
         gorgonDialogueInstance.release();
         gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
         gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
-        PlayDialogue(1, gorgonDialogueInstance);
+        PlayDialogue(3, gorgonDialogueInstance);
         StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon));   
         
         dialogueProgressionGorgon++;

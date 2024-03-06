@@ -27,6 +27,7 @@ namespace Game {
             [SerializeField] private float mainShowTime;
             [SerializeField] private string mainStartingText;
             [SerializeField] private string sideStartingText;
+            [SerializeField] private float sideStartingDelay;
             [SerializeField] private float sideGoneTime;
             
             private float mainShowTimeLeft;
@@ -35,6 +36,8 @@ namespace Game {
             private bool sideGoneRunning;
             private float sideGoneTimeLeft;
             private string sideText;
+            private bool currentSideStartingDelayRunning;
+            private float currentSideStartingDelay;
 
 #region Unity Functions
             private void OnEnable()
@@ -59,12 +62,24 @@ namespace Game {
                     mainSpriteAnimator.SetTrigger("Close");
                     mainMaskAnimator.SetTrigger("Close");
                     mainShowRunning = false;
+
+                    currentSideStartingDelayRunning = true;
                     
-                    UpdateSideScroll(sideStartingText);
                 }
                 else if (mainShowRunning)
                 {
                     mainShowTimeLeft -= Time.deltaTime;
+                }
+                
+                if (currentSideStartingDelayRunning)
+                {
+                    currentSideStartingDelay += Time.deltaTime;
+                    
+                    if (currentSideStartingDelay >= sideStartingDelay)
+                    {
+                        currentSideStartingDelayRunning = false;
+                        UpdateSideScroll(sideStartingText);
+                    }
                 }
                 
                 if (sideGoneTimeLeft <= 0 && sideGoneRunning)

@@ -31,7 +31,7 @@ namespace Game {
             
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio;
+            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio, returnCartAudio;
 
             [Header("QuestDialogue")] 
             
@@ -194,14 +194,13 @@ namespace Game {
                 }
             }
 
-            public void LogicalThinkingDialogue(bool playing)
+            public void ReturnToCartDialogue(int _playerID)
             {
                 try
-                { 
-                    var _players = GameManager.Instance.ActivePlayerControllers;
-                   logicalThinkingInstance = RuntimeManager.CreateInstance(logicalThinkingAudio);
-                   PlayQuestDialogue(1, logicalThinkingInstance); 
-                   DialogueAudioWrapper.Instance.PlayQuestResponseDialogue(0, logicalThinkingInstance, logicalThinkingAudio);
+                {
+                    EventInstance returnToCartInstance = RuntimeManager.CreateInstance(returnCartAudio);
+                   PlayDialogue(_playerID, returnToCartInstance); 
+                   
                 }
                 catch (Exception e)
                 {
@@ -281,7 +280,7 @@ namespace Game {
                 return state != PLAYBACK_STATE.STOPPED;
             }
 
-            private void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, string context) 
+            public void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, string context) 
             { 
                 var _randomPlayer = _players[Random.Range(0, _players.Count)];
                 
@@ -295,12 +294,27 @@ namespace Game {
                     {
                         DeathReactionAudio(_randomPlayer.PlayerIndex);
                     }
+                    else if (context == "return")
+                    {
+                        ReturnToCartDialogue(_randomPlayer.PlayerIndex);
+                    }
                 }
                 else {
                     GetRandomPlayerAndPlayResponse(_playerID, _players, context);
                 }
             }
-#endregion
+            
+            public void GetRandomPlayerAndPlayDialogue(int _playerID, Dictionary<int, PlayerController> _players, string context) 
+            { 
+                var _randomPlayer = _players[Random.Range(0, _players.Count)];
+                if (context == "return")
+                {
+                        ReturnToCartDialogue(_randomPlayer.PlayerIndex);
+                }
+               
+                
+            }
+        #endregion
         }
     }
 }

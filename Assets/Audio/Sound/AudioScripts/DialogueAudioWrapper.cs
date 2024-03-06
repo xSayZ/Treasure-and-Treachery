@@ -15,10 +15,10 @@ public class DialogueAudioWrapper : MonoBehaviour
 
     public DialogueAudio dialogueAudio;
 
-    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue;
-    private EventInstance wolfDialogueInstance, dragonDialogueInstance, witchDialogueInstance, gorgonDialogueInstance;
-    public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon;
-    public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon;
+    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue, bossDialogue;
+    private EventInstance wolfDialogueInstance, dragonDialogueInstance, witchDialogueInstance, gorgonDialogueInstance, bossDialogueInstance;
+    public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon, dialogueProgressionBoss;
+    public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon, speakerAfterBoss;
 
     private void Awake()
     {
@@ -76,7 +76,6 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WolfQuestDialogue()
     {
-        Debug.Log("fis");
         wolfDialogueInstance.release();
         wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
         wolfDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWolf);
@@ -110,7 +109,6 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void GorgonQuestDialogue()
     {
-        Debug.Log("prutt");
         gorgonDialogueInstance.release();
         gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
         gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
@@ -119,6 +117,19 @@ public class DialogueAudioWrapper : MonoBehaviour
         
         dialogueProgressionGorgon++;
         speakerAfterGorgon = 4;
+    }
+    
+    public void BossQuestDialogue()
+    {
+        bossDialogueInstance.release();
+        bossDialogueInstance = RuntimeManager.CreateInstance(bossDialogue);
+        bossDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
+        bossDialogueInstance.start();
+        bossDialogueInstance.release();
+        StartCoroutine(QueNextDialogue(bossDialogueInstance, speakerAfterBoss));   
+        
+        dialogueProgressionBoss++;
+        speakerAfterBoss = 4;
     }
     private void PlayDialogue(int _playerID, EventInstance dialogueInstance)
     {

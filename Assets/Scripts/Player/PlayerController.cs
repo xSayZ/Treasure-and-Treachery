@@ -73,9 +73,11 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
+            private bool hasBeenSetup;
 
             public void SetupPlayer(int _newPlayerID)
             {
+                hasBeenSetup = true;
                 PlayerData.NewScene();
                 
                 PlayerData.playerIndex = _newPlayerID;
@@ -142,6 +144,11 @@ namespace Game
 
             private void OnDestroy()
             {
+                if (!hasBeenSetup)
+                {
+                    return;
+                }
+                
                 playerHealthBar.UpdateHealthBar(Health);
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);

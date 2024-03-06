@@ -8,7 +8,7 @@ What do you do?
 
 * [Suggest a blood sacrifice!] -> Blood_sacrifice
 * [Show them your sick party moves!] -> Party_moves
-* [Make orange howl his self composed song!] ->Howl_song
+* [Make Rusty howl his self composed song!] ->Howl_song
 * [Enjoy the chill vibe!] -> Chill
 
 === Blood_sacrifice===
@@ -23,7 +23,7 @@ You all lose <b><color=\#D30000>-5 gold</color></b> -> END
 
 ===Party_moves===
 ~ changeCurrency(10)
-You all unleash your inner party animals! Blue quickly does a keg stand, Purple uses their magic to put on a firework show, and both Orange and Green whip out some epic dance moves!
+You all unleash your inner party animals! Cobalt quickly does a keg stand, Violet uses their magic to put on a firework show, and both Rusty and Jade whip out some epic dance moves!
 
 You all greatly impress the undead partygoers, inspiring them to join you making the party turn a lot more rowdy! 
 
@@ -33,9 +33,9 @@ You all gain <b><color=\#ECBD00>+10 gold</color></b> -> END
 
 ===Howl_song===
 ~ changeCurrency(15)
-With a little convincing by the rest of the group, Orange agrees to howl his self composed song!
+With a little convincing by the rest of the group, Rusty agrees to howl his self composed song!
 
-The night gets filled with Oranges wolfish wails. It’s a moving piece about love, loss, and the bravery of being yourself in spite of the people trying to tear you down. Once the song has finished you see many of the vamps wiping their tear stained cheeks. The vampires thank him for his bravery and reward you all with gold!
+The night gets filled with Rustys wolfish wails. It’s a moving piece about love, loss, and the bravery of being yourself in spite of the people trying to tear you down. Once the song has finished you see many of the vamps wiping their tear stained cheeks. The vampires thank him for his bravery and reward you all with gold!
 
 You all gain <b><color=\#ECBD00>+15 gold</color></b> each! -> END
 

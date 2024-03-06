@@ -9,6 +9,7 @@
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Game {
     namespace Audio {
@@ -48,6 +49,7 @@ namespace Game {
                 */
               
             }
+            
 
 #region Unity Functions
             // Start is called before the first frame update

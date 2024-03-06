@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2204,7 +2204,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: dialogueAudioWrapper
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: setSpeakerAfterWitch
       value: 4
@@ -2228,7 +2228,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: WolfQuestDialogue
@@ -2237,13 +2237,29 @@ PrefabInstance:
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
       objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.x
+      value: 12.234726
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.z
+      value: 15.689394
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.x
+      value: 0.18153381
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.z
+      value: 2.1718855
+      objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2251,7 +2267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 13.76
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3778,7 +3794,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599602
+  m_Name: pb_Mesh512852
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4236,159 +4252,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeeac9df393d344caf763c279a10453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &284513546
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 299319627}
-    m_Modifications:
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: wolfDialogue.Path
-      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: witchDialogue.Path
-      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: dragonDialogue.Path
-      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: gorgonDialogue.Path
-      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: wolfDialogue.Guid.Data1
-      value: -454605380
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: wolfDialogue.Guid.Data2
-      value: 1117968698
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: wolfDialogue.Guid.Data3
-      value: -1251359067
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: wolfDialogue.Guid.Data4
-      value: -554727106
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: witchDialogue.Guid.Data1
-      value: 865878476
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: witchDialogue.Guid.Data2
-      value: 1245272455
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: witchDialogue.Guid.Data3
-      value: 402962878
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: witchDialogue.Guid.Data4
-      value: -1411717567
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: dragonDialogue.Guid.Data1
-      value: -210138337
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: dragonDialogue.Guid.Data2
-      value: 1203077714
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: dragonDialogue.Guid.Data3
-      value: 879353488
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: dragonDialogue.Guid.Data4
-      value: 33715759
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: gorgonDialogue.Guid.Data1
-      value: -1393665621
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: gorgonDialogue.Guid.Data2
-      value: 1100378121
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: gorgonDialogue.Guid.Data3
-      value: 1362736281
-      objectReference: {fileID: 0}
-    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: gorgonDialogue.Guid.Data4
-      value: -775045058
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_RootOrder
-      value: 19
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -59.764835
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.2647295
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -18.565094
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9146796558190942246, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-      propertyPath: m_Name
-      value: AudioMananger
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
---- !u!4 &284513547 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-  m_PrefabInstance: {fileID: 284513546}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &284513548 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
-  m_PrefabInstance: {fileID: 284513546}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be40d9ab775b248b6afe4954b0ff698e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &299319626
 GameObject:
   m_ObjectHideFlags: 0
@@ -4436,7 +4299,6 @@ Transform:
   - {fileID: 1974824690}
   - {fileID: 969433552}
   - {fileID: 646736795}
-  - {fileID: 284513547}
   - {fileID: 1923302915}
   m_Father: {fileID: 0}
   m_RootOrder: 26
@@ -5489,7 +5351,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: dialogueAudioWrapper
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: setSpeakerAfterWitch
       value: 0
@@ -5521,7 +5383,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DragonQuestDialogue
@@ -5529,6 +5391,22 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.x
+      value: 8.139468
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.z
+      value: 6.108885
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.x
+      value: 0.4241414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.z
+      value: -0.2914362
       objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: m_RootOrder
@@ -5856,6 +5734,86 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: wolfDialogue.Path
+      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: witchDialogue.Path
+      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: dragonDialogue.Path
+      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: gorgonDialogue.Path
+      value: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: wolfDialogue.Guid.Data1
+      value: -454605380
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: wolfDialogue.Guid.Data2
+      value: 1117968698
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: wolfDialogue.Guid.Data3
+      value: -1251359067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: wolfDialogue.Guid.Data4
+      value: -554727106
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: witchDialogue.Guid.Data1
+      value: 865878476
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: witchDialogue.Guid.Data2
+      value: 1245272455
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: witchDialogue.Guid.Data3
+      value: 402962878
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: witchDialogue.Guid.Data4
+      value: -1411717567
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: dragonDialogue.Guid.Data1
+      value: -210138337
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: dragonDialogue.Guid.Data2
+      value: 1203077714
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: dragonDialogue.Guid.Data3
+      value: 879353488
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: dragonDialogue.Guid.Data4
+      value: 33715759
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: gorgonDialogue.Guid.Data1
+      value: -1393665621
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: gorgonDialogue.Guid.Data2
+      value: 1100378121
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: gorgonDialogue.Guid.Data3
+      value: 1362736281
+      objectReference: {fileID: 0}
+    - target: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+      propertyPath: gorgonDialogue.Guid.Data4
+      value: -775045058
+      objectReference: {fileID: 0}
     - target: {fileID: 9146796558190942244, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
       propertyPath: m_RootOrder
       value: 30
@@ -6075,6 +6033,7 @@ Transform:
   - {fileID: 1083914032}
   - {fileID: 919616963}
   - {fileID: 651724410}
+  - {fileID: 1667862334}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6688,7 +6647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -6707,6 +6666,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1978963808}
@@ -6723,6 +6686,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 634848360}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_Target
+      value: 
+      objectReference: {fileID: 1667862333}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -6736,6 +6703,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -6755,6 +6726,10 @@ PrefabInstance:
       value: CallObjectiveStinger
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
@@ -6771,11 +6746,19 @@ PrefabInstance:
       value: Game.Audio.ObjectiveStinger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_BoolArgument
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -6796,6 +6779,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727668, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -7053,7 +7040,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh598588
+  m_Name: pb_Mesh511800
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9331,7 +9318,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: dialogueAudioWrapper
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: setSpeakerAfterWitch
       value: 4
@@ -9363,7 +9350,7 @@ PrefabInstance:
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 284513548}
+      objectReference: {fileID: 1574328085}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: WitchQuestDialogue
@@ -9524,7 +9511,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599138
+  m_Name: pb_Mesh512364
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10886,7 +10873,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh598710
+  m_Name: pb_Mesh511932
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11648,6 +11635,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeeac9df393d344caf763c279a10453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1167391690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+  m_PrefabInstance: {fileID: 416997224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1178142558
 GameObject:
   m_ObjectHideFlags: 0
@@ -11924,6 +11916,66 @@ PrefabInstance:
       propertyPath: interactablesAudio
       value: 
       objectReference: {fileID: 11400000, guid: 9d8ee8ae51d2644568515ea4471347e7, type: 2}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1167391690}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1994591441}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2010538355700824014, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
+      propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2010538355700824015, guid: 5d7e92eac1707ee4fa445f4c8a838b9d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -12356,7 +12408,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh598694
+  m_Name: pb_Mesh511916
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -13308,7 +13360,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599446
+  m_Name: pb_Mesh512696
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14558,6 +14610,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8ef2b98acb0d9d419b04a5bfca6da88, type: 3}
+--- !u!114 &1574328085 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1700762153074808951, guid: e3a9873f34eef3f49a953c62de118073, type: 3}
+  m_PrefabInstance: {fileID: 477483419}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be40d9ab775b248b6afe4954b0ff698e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1577987327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14939,7 +15002,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1290556
+  m_Name: pb_Mesh512426
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15785,6 +15848,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8ef2b98acb0d9d419b04a5bfca6da88, type: 3}
+--- !u!1 &1667862333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+  m_PrefabInstance: {fileID: 2087324097}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1667862334 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+  m_PrefabInstance: {fileID: 2087324097}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1669045171 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7053445049306129531, guid: 6dcf447373f4acc4d80dd21928c614a5, type: 3}
@@ -16685,7 +16758,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599354
+  m_Name: pb_Mesh512594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -19144,15 +19217,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000047683716
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.999999
+      value: -10.000001
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19168,15 +19241,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.00000047683716
+      value: -0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.0000009536743
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967263642813, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.999999
+      value: -10.000001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
@@ -19222,7 +19295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783741, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783741, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -53763,6 +53836,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 434282779255395366, guid: 882adda005bf78a4687bd52abdf1cb48, type: 3}
   m_PrefabInstance: {fileID: 452639769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1994591441 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+  m_PrefabInstance: {fileID: 921687489}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1997941304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53826,7 +53904,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599534
+  m_Name: pb_Mesh512784
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -54386,6 +54464,131 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4822753137849867078, guid: d8ef2b98acb0d9d419b04a5bfca6da88, type: 3}
   m_PrefabInstance: {fileID: 1997941304}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2087324097
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 502339688}
+    m_Modifications:
+    - target: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Name
+      value: AudioQuestTriggerGoback
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setSpeakerAfterWolf
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: dialogueAudioWrapper
+      value: 
+      objectReference: {fileID: 1574328085}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setSpeakerAfterWitch
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setSpeakerAfterDragon
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setSpeakerAfterGorgon
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setdialogueProgresionWolf
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setdialogueProgresionWitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setdialogueProgresionDragon
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: setdialogueProgresionGorgon
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1574328085}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReturnToCart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: triggerEnter.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.x
+      value: 10.055012
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Size.z
+      value: 21.395473
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.x
+      value: 2.8184986
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040862, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_Center.z
+      value: 0.7369995
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 19.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
 --- !u!1 &2090712697 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3184358544750225017, guid: 120a3b7da909f674b834b60d646f46c6, type: 3}
@@ -55822,7 +56025,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599668
+  m_Name: pb_Mesh512918
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

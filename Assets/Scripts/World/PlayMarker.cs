@@ -14,8 +14,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -31,7 +29,7 @@ namespace Game {
             
             [Header("Object Options")]
             [Tooltip("The level UI object. This is used to display the level UI.")]
-            [SerializeField] private GameObject levelUI;
+            [SerializeField] private GameObject levelDescriptionUI;
             [Tooltip("Set this for the visualization when a level is playable. This is automatically turned off if the level is locked.")]
             [SerializeField] private GameObject playMarkerObject;
             [SerializeField] private Image levelImage;
@@ -77,7 +75,7 @@ namespace Game {
                     return;
 
                 if (!isLocked) {
-                    levelUI.SetActive(true);
+                    levelDescriptionUI.SetActive(true);
                     canSwitchScene = true;
 
                     InputSystem.onAnyButtonPress.Call(_ctrl =>
@@ -95,7 +93,7 @@ namespace Game {
             }
             
             private void OnTriggerExit(Collider _other) {
-                levelUI.SetActive(false);
+                levelDescriptionUI.SetActive(false);
                 canSwitchScene = false;
             }
             

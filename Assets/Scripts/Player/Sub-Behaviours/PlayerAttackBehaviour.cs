@@ -40,7 +40,7 @@ namespace Game {
             [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
-            [SerializeField] private VisualEffect meleeVisualEffect;
+            [SerializeField] private VisualEffect[] meleeVisualEffects;
             
             [Header("Attack Type")]
             [SerializeField] private AttackTypes attackType;
@@ -292,10 +292,10 @@ namespace Game {
             private IEnumerator MeleeAttack()
             {
                 yield return new WaitForSeconds(meleeAttackDelay);
-
-                if (meleeVisualEffect)
+                
+                foreach (VisualEffect _meleeVisualEffect in meleeVisualEffects)
                 {
-                    meleeVisualEffect.Play();
+                    _meleeVisualEffect.Play();
                 }
                 
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);

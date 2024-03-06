@@ -89,7 +89,7 @@ namespace Game
                 
                 PlayerMovementBehaviour.SetupBehaviour(this);
                 PlayerAnimationBehaviour.SetupBehaviour();
-                PlayerVisualBehaviour.SetupBehaviour(PlayerData);
+                //PlayerVisualBehaviour.SetupBehaviour(PlayerData);
                 PlayerOverheadUIBehaviour.SetupBehaviour(this);
                 if (PlayerAbilityBehaviour)
                 {

@@ -60,7 +60,7 @@ namespace Game {
 
             private async void LoadSceneAsync(LevelDataSO _levelData)
             {
-                scene = SceneManager.LoadSceneAsync(_levelData.levelName, LoadSceneMode.Single);
+                scene = SceneManager.LoadSceneAsync(_levelData.levelPath, LoadSceneMode.Single);
                 
                 scene.allowSceneActivation = false;
             }

@@ -16,56 +16,18 @@ using System;
 
 namespace Game {
     namespace Audio {
-        public class TimeSetParam : MonoBehaviour
-        {
-
+        public class TimeSetParam : MonoBehaviour {
+            [SerializeField] private bool useTimer = true;
             private float timer;
             private EventsToBePlayed eventsToBePlayed;
             
-            
 #region Unity Functions
-            // Start is called before the first frame update
-            void Start()
-            {
-               
-            }
-    
-            // Update is called once per frame
             void Update()
             {
-                timer = GameManager.Instance.timer.GetCurrentTime();
-                // Debug.Log("time is" + timer);
+                if (useTimer) {
+                    SetParamByTime();
+                }
 
-                
-                if (timer >= 60)
-                {
-                   AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 2f, false, false);
-                }
-                
-                if (timer >= 120)
-                {
-                    
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 3f, false, false);
-                    
-                }
-                
-
-                if (timer >= 180)
-                {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 4f, false, false);
-                }
-                
-
-                if (timer >= 240)
-                {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic,"MusicProg", 5f, false, false);
-                }
-                
-                
-                if (GameManager.Instance.ActivePlayerControllers.Count == 0)
-                {
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", 1f,false,false);
-                }
             }
 #endregion
 
@@ -77,11 +39,27 @@ namespace Game {
 
         private void SetParamByTime()
         {
-            
+            timer = GameManager.Instance.timer.GetCurrentTime();
+                
+            // Set the parameter of the music event based on the timer
+            int[] _thresholds = { 60, 120, 180, 240 };
+            float[] _musicParameters = { 2f, 3f, 4f, 5f };
 
+            // Set the parameter of the music event based on the timer
+            for (int i = 0; i < _thresholds.Length; i++)
+            {
+                if (timer >= _thresholds[i])
+                {
+                    // Set the parameter of the music event
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", _musicParameters[i], false, false);
+                }
+            }
 
+            if (GameManager.Instance.ActivePlayerControllers.Count == 0)
+            {
+                AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", 1f, false, false);
+            }
         }
-
 #endregion
         }
     }

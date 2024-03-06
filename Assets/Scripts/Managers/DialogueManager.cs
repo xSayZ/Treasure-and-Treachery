@@ -32,6 +32,9 @@ namespace Game {
             [SerializeField] private GameObject dialoguePanel;
             [SerializeField] private Image eventImage;
             [SerializeField] private TextMeshProUGUI dialogueText;
+            
+            // EventDialogueAudioManager
+            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -109,6 +112,11 @@ namespace Game {
                 });
                 story.BindExternalFunction("giveItem", (string itemName) => {
                     Debug.Log("Player received " + itemName + ".");
+                });
+                
+                story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
+                    // Play Sound
+                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
                 });
                 
                 StartCoroutine(OnAdvanceStory());

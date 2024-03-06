@@ -74,35 +74,34 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
+                Gamepad gamepad = Gamepad.all[deviceID];
+
                 if (PlayersIsReady) return;
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
 
                 Vector2 value = context.ReadValue<Vector2>();
                 
-                switch (value.x)
+                if (gamepad.leftStick.IsActuated() || gamepad.dpad.IsActuated())
                 {
-                    
-                    case > .9f:
+                    float movementThreshold = 0.9f;
+                    float adjustmentValue = 0.005f;
+
+                    if (value.x > movementThreshold || value.x < -movementThreshold)
                     {
-                        currentDelay -= 0.005f;
-                        if (currentDelay <0)
+                        currentDelay -= adjustmentValue;
+
+                        if (currentDelay < 0)
                         {
-                            id++;
-                            currentDelay = inputDelay;
+                            id += (gamepad.leftStick.IsActuated()) ? 1 : 0;
+                          
+
+                            if (gamepad.leftStick.IsActuated())
+                                currentDelay = inputDelay;
                         }
-                        break;
-                    }
-                    case < -0.9f:
-                    {
-                        currentDelay -= 0.005f;
-                        if(currentDelay <0)
-                        {
-                            id--;  
-                            currentDelay = inputDelay;
-                        }
-                        break;
+                        id += (gamepad.dpad.IsActuated()) ? 1 : 0;
                     }
                 }
+                
                 
                 id = Wrap(id, 0, 4);
                 if (id < 0) id += amountOfImages;
@@ -112,6 +111,9 @@ namespace Game
                     Image.sprite = sprite;
                     cachedId = id;
             }
+            
+            
+            
 
             public void OnConfirm(InputAction.CallbackContext context)
             {
@@ -164,8 +166,11 @@ namespace Game
             #endregion
             
             #region Private
-            
-            
+
+            private void NavigationInputs(bool controls)
+            {
+                
+            }
             
             private int Wrap(int Target, int LowerBounds, int UpperBounds)
             {

@@ -69,10 +69,7 @@ namespace Game
                 if (Input.GetJoystickNames().Length >0)
                 {
                     PlayerInputManager.instance.JoinPlayer(0, -1, null);
-
                 }
-                
-              
             }
 
             private void OnEnable()

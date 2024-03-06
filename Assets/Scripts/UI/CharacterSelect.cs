@@ -25,7 +25,7 @@ namespace Game
             [SerializeField] private Image Image;
             [SerializeField] private float inputDelay;
             public bool PlayersIsReady { get; private set; }
-            [HideInInspector] public PlayerInput playerInputs;
+            [HideInInspector] public PlayerInput playerInput;
             private int id;
             
             private Sprite cachedSprite;
@@ -40,28 +40,26 @@ namespace Game
             private void Awake()
             {
                 characterSelectHandler = FindObjectOfType<CharacterSelectHandler>();
-
             }
 
             private void Start()
             {
                 currentDelay = inputDelay;
-                playerInputs = GetComponent<PlayerInput>();
+                playerInput = GetComponent<PlayerInput>();
 
                 Image.sprite = characterSelectHandler.ImagesBackup[0];
-                for (int i = 0; i <  characterSelectHandler.Datas.Count-1; i++)
+                for (int i = 0; i < characterSelectHandler.Datas.Count-1; i++)
                 {
-                    if (playerInputs.playerIndex == i)
+                    if (playerInput.playerIndex == i)
                     {
-                        data =  characterSelectHandler.Datas[i];
-                        data.ControllerID = playerInputs.playerIndex;
+                        data = characterSelectHandler.Datas[i];
+                        data.ControllerID = playerInput.playerIndex;
                     }
-                    
                 }
 
                 SetPlayerImagePosition();
                 cachedId = id;
-                deviceID = playerInputs.playerIndex;
+                deviceID = playerInput.playerIndex;
             }
             
             private void Update()    
@@ -119,11 +117,11 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && deviceID == 0)
                 {
-                    //TEMP
                     LevelManager.Instance.LoadLevel(characterSelectHandler.Level);
                 }
                 
-                if ((!context.action.WasPerformedThisFrame() || PlayersIsReady)) return;
+                if (!context.action.WasPerformedThisFrame() || PlayersIsReady) return;
+                
                 if (characterSelectHandler.Images.TryGetValue(id, out Sprite sprite))
                 {
                     for (int i = 0; i < transform.childCount; i++)
@@ -131,8 +129,7 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         
                         data = characterSelectHandler.Datas[id];
-                        data.playerIndex = id;
-                        data.ControllerID = playerInputs.playerIndex;
+                        data.ControllerID = playerInput.playerIndex;
                         
                         cachedId = id; 
                         cachedSprite = sprite;
@@ -184,8 +181,8 @@ namespace Game
 
             private void SetPlayerImagePosition()
             {
-                Debug.Log(playerInputs.playerIndex);
-                Transform targetTransform = characterSelectHandler.imagePosition[playerInputs.playerIndex];
+                Debug.Log(playerInput.playerIndex);
+                Transform targetTransform = characterSelectHandler.imagePosition[playerInput.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
                 transform.rotation = targetTransform.rotation;

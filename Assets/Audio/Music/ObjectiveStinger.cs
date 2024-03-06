@@ -31,10 +31,10 @@ namespace Game {
 
 #region Public Functions
 
-        public void callObjectiveStinger()
+        public void CallObjectiveStinger()
         {
-          //  AudioMananger.Instance.GameOverStinger();
-           // Debug.Log("log was removed stinger played");
+            AudioMananger.Instance.CompleteObjectiveStinger();
+           Debug.Log("log was removed stinger played");
             
         }
 

@@ -17,6 +17,7 @@ using Game.Enemy;
 using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using WaitForSeconds = UnityEngine.WaitForSeconds;
@@ -39,6 +40,7 @@ namespace Game {
             [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
+            [SerializeField] private VisualEffect meleeVisualEffect;
             
             [Header("Attack Type")]
             [SerializeField] private AttackTypes attackType;
@@ -290,6 +292,11 @@ namespace Game {
             private IEnumerator MeleeAttack()
             {
                 yield return new WaitForSeconds(meleeAttackDelay);
+
+                if (meleeVisualEffect)
+                {
+                    meleeVisualEffect.Play();
+                }
                 
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
                 
@@ -320,6 +327,11 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
+                
+                if (meleeChargeTime > meleeAttackDuration)
+                {
+                    yield return new WaitForSeconds(meleeChargeTime - meleeAttackDuration);
+                }
                 
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 yield return new WaitForSeconds(meleeStunTime);

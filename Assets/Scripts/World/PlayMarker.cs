@@ -44,7 +44,10 @@ namespace Game {
             private bool canSwitchScene = false;
             private bool isLocked;
             
-            private void Start() {
+            private void Start()
+            {
+                isLocked = true;
+                
                 // Set the level data
                 levelImage.sprite = levelData.levelImage;
                 levelDescription.text = levelData.levelDescription;
@@ -65,11 +68,17 @@ namespace Game {
             private void Update() {
                 for (int i = 0; i < levelData.prerequisites.Count; i++)
                 {
-                    if(levelData.prerequisites.All(_data => _data.isCompleted ))
+                    if(levelData.prerequisites.All(_data => _data.isCompleted))
                     {
                         isLocked = false;
                         playMarkerObject.SetActive(true);
                     }
+                }
+
+                if (levelData.prerequisites.Count == 0)
+                {
+                    isLocked = false;
+                    playMarkerObject.SetActive(true);
                 }
             }
 

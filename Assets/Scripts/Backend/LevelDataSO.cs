@@ -41,15 +41,9 @@ namespace Game {
             [Tooltip("This is used to check if the level is locked. If it is locked, the game will not load the level scene.")]
             public List<LevelDataSO> prerequisites = new List<LevelDataSO>();
 
-            // Internal Events
-
             private void OnEnable() {
                 isCompleted = false;
             }
-
-            public UnityEvent OnLevelCompleted {
-                get;
-            } = new UnityEvent();
         }
     }
 }

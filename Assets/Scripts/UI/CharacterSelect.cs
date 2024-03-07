@@ -22,6 +22,7 @@ namespace Game
     {
         public class CharacterSelect : MonoBehaviour
         {
+            [Header("Player Settings")]
             [SerializeField] private Image Image;
             [SerializeField] private float inputDelay;
             public bool PlayersIsReady { get; private set; }
@@ -48,11 +49,11 @@ namespace Game
                 playerInput = GetComponent<PlayerInput>();
 
                 Image.sprite = characterSelectHandler.ImagesBackup[0];
-                for (int i = 0; i < characterSelectHandler.Datas.Count-1; i++)
+                for (int i = 0; i < characterSelectHandler.PlayerDatas.Count-1; i++)
                 {
                     if (playerInput.playerIndex == i)
                     {
-                        data = characterSelectHandler.Datas[i];
+                        data = characterSelectHandler.PlayerDatas[i];
                         data.ControllerID = playerInput.playerIndex;
                     }
                 }
@@ -117,7 +118,7 @@ namespace Game
             {
                 if (characterSelectHandler.BeginGame && context.action.WasPerformedThisFrame() && deviceID == 0)
                 {
-                    LevelManager.Instance.LoadLevel(characterSelectHandler.Level);
+                    LevelManager.Instance.LoadLevel(characterSelectHandler.LevelToLoad);
                 }
                 
                 if (!context.action.WasPerformedThisFrame() || PlayersIsReady) return;
@@ -128,7 +129,7 @@ namespace Game
                     {
                         transform.GetChild(i).gameObject.SetActive(true);
                         
-                        data = characterSelectHandler.Datas[id];
+                        data = characterSelectHandler.PlayerDatas[id];
                         data.ControllerID = playerInput.playerIndex;
                         
                         cachedId = id; 
@@ -181,8 +182,7 @@ namespace Game
 
             private void SetPlayerImagePosition()
             {
-                Debug.Log(playerInput.playerIndex);
-                Transform targetTransform = characterSelectHandler.imagePosition[playerInput.playerIndex];
+                Transform targetTransform = characterSelectHandler.ImagePosition[playerInput.playerIndex];
                 transform.SetParent(targetTransform);
                 transform.position = targetTransform.position;
                 transform.rotation = targetTransform.rotation;

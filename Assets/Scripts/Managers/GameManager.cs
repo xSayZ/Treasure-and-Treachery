@@ -74,7 +74,7 @@ namespace Game {
             {
                 level = worldMapManager.levelToLoad;
                 
-                if (CharacterSelectHandler.staticData.Count == 0)
+                if (CharacterSelectHandler.StaticData.Count == 0)
                 {
                     if (autoDetectPlayers)
                     {
@@ -137,11 +137,6 @@ namespace Game {
                 UpdateActivePlayerInputs();
                 SwitchFocusedPlayerControlScheme();
             }
-
-            public void LevelCompleted() {
-                level.isCompleted = true;
-                level.OnLevelCompleted.Invoke();
-            }
 #endregion            
 
 #region Private Functions
@@ -165,14 +160,14 @@ namespace Game {
                 
                 ActivePlayerControllers = new Dictionary<int, PlayerController>();
 
-                if (CharacterSelectHandler.playerList.Count == 0) {
+                if (CharacterSelectHandler.PlayerList.Count == 0) {
                     LogWarning("No controllers detected; spawning default player.");
                     for (int i = 0; i < playersToSpawn; i++) {
                         SpawnPlayers(i, playersToSpawn);
                     }
                 } else {
-                    for (int i = 0; i < CharacterSelectHandler.playerList.Count; i++) {
-                        SpawnPlayers(CharacterSelectHandler.staticData[i].data.playerIndex, CharacterSelectHandler.playerList.Count);
+                    for (int i = 0; i < CharacterSelectHandler.PlayerList.Count; i++) {
+                        SpawnPlayers(CharacterSelectHandler.StaticData[i].data.playerIndex, CharacterSelectHandler.PlayerList.Count);
                     }
                 }
             }

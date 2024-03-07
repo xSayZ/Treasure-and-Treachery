@@ -14,6 +14,7 @@ using Game.WorldMap;
 using Ink.Parsed;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Game
 {
@@ -23,49 +24,58 @@ namespace Game
         public class CharacterSelectHandler : MonoBehaviour
         {
             [Header("References")] 
-            public List<Transform> imagePosition = new List<Transform>();
-            public List<PlayerData> Datas;
-            public LevelDataSO Level;
-            
-            
-            
-            public static List<CharacterSelect> staticData = new List<CharacterSelect>();
+            // This is the level that will be loaded when the character select is done
+            public LevelDataSO LevelToLoad;
+            // This is the image bank that holds all the character images
             [SerializeField] private ImageBank bank;
+            // This is the text that will be displayed when the game is ready to start
+            [SerializeField] private GameObject startGameText;
+            
+            [FormerlySerializedAs("imagePosition")]
+            [Space]
+            [Header("Lists")]
+            [SerializeField] public List<Transform> ImagePosition = new List<Transform>();
+            [FormerlySerializedAs("PressToJoinText")]
+            [SerializeField] private List<GameObject> pressToJoinText;
+            [FormerlySerializedAs("Datas")]
+            [SerializeField] public List<PlayerData> PlayerDatas = new List<PlayerData>();
+            [Space]
+            
+            // Public Static Lists
+            public static List<CharacterSelect> StaticData = new List<CharacterSelect>();
+            public static List<PlayerInput> PlayerList { get; } = new List<PlayerInput>();
 
-            [SerializeField] private List<GameObject> PressToJoinText;
-
-            [SerializeField] private GameObject StartGameText;
-
+            [Header("Character Selects")]
             //For selectedAmountOfPlayers
-            public static List<PlayerInput> playerList { get; } = new List<PlayerInput>();
             [SerializeField]private List<CharacterSelect> selects = new List<CharacterSelect>();
 
+            [Space]
+            // Input Actions
+            [SerializeField] private InputAction joinAction;
+            [SerializeField] private InputAction leaveAction;
+            
+            // Public Dictionaries
             public Dictionary<int, Sprite> Images = new Dictionary<int, Sprite>();
             public Dictionary<int, Sprite> ImagesBackup = new Dictionary<int, Sprite>();
 
+            // Public Booleans
             public bool BeginGame { get; private set; }
-            [field: SerializeField] public string TestLevel;
-            [SerializeField] private InputAction joinAction;
-
-            [SerializeField] private InputAction leaveAction;
-            
-            
 
             //EVENTS
             public event System.Action<PlayerInput> PlayerJoinedGame;
             public event System.Action<PlayerInput> PlayerLeaveGame;
-
-
+            
+#region Unity Functions
             public void Start()
             {
-                staticData.Clear();
+                StaticData.Clear();
                 for (int i = 0; i < bank.characterImages.Count; i++)
                 {
                     Images.Add(i, bank.characterImages[i]);
                     ImagesBackup.Add(i, bank.characterImages[i]);
                 }
 
-                playerList.Clear();
+                PlayerList.Clear();
                 if (Input.GetJoystickNames().Length >0)
                 {
                     PlayerInputManager.instance.JoinPlayer(0, -1, null);
@@ -75,30 +85,31 @@ namespace Game
             private void OnEnable()
             {
                 joinAction.Enable();
-                joinAction.performed += context => JoinAction(context);
+                joinAction.performed += JoinActionOnPerformed;
                 leaveAction.Enable();
-                leaveAction.performed += context => LeaveAction(context);
+                leaveAction.performed += LeaveActionOnPerformed;
             }
             private void OnDisable()
             {
                 joinAction.Disable();   
-                joinAction.performed -= context => JoinAction(context);
+                joinAction.performed -= JoinActionOnPerformed;
                 leaveAction.Disable();
-                leaveAction.performed -= context => LeaveAction(context);
+                leaveAction.performed -= LeaveActionOnPerformed;
             }
-
-
+            
             private void Update()
             {
+                // Expensive Method - Can we change this?
                 StartGame();
             }
+  #endregion
 
-            #region PlayerManagerInput
+#region PlayerManagerInput
 
             public void OnPlayerJoin(PlayerInput player)
             {
-                playerList.Add(player);
-                PressToJoinText[player.playerIndex].gameObject.SetActive(false);
+                PlayerList.Add(player);
+                pressToJoinText[player.playerIndex].gameObject.SetActive(false);
                 selects.Add(player.GetComponent<CharacterSelect>());
                 if (PlayerJoinedGame != null)
                 {
@@ -112,25 +123,23 @@ namespace Game
             }
 
             #endregion
-
-            #region private
-
             
+#region Private Functions
             
             private void StartGame()
             {
                 if (selects.All(p => p.PlayersIsReady))
                 {
                     BeginGame = true;
-                    StartGameText.SetActive(true);
+                    startGameText.SetActive(true);
                     
                     selects.Sort((p1,p2)=>p1.deviceID.CompareTo(p2.deviceID));
-                    staticData = selects;
+                    StaticData = selects;
                 }
                 else
                 {
                     BeginGame = false;
-                    StartGameText.SetActive(false);
+                    startGameText.SetActive(false);
                 }
             }
 
@@ -141,9 +150,9 @@ namespace Game
 
             private void LeaveAction(InputAction.CallbackContext context)
             {
-                if (playerList.Count > 1)
+                if (PlayerList.Count > 1)
                 {
-                    foreach (PlayerInput player in playerList)
+                    foreach (PlayerInput player in PlayerList)
                     {
                         foreach (InputDevice device in player.devices)
                         {
@@ -158,8 +167,8 @@ namespace Game
             private void UnregisterPlayer(PlayerInput player)
             {
                 selects.Remove(player.GetComponent<CharacterSelect>());
-                PressToJoinText[player.playerIndex].SetActive(true);
-                playerList.Remove(player);
+                pressToJoinText[player.playerIndex].SetActive(true);
+                PlayerList.Remove(player);
                 if (PlayerLeaveGame != null)
                 {
                     PlayerLeftGame(player);
@@ -170,6 +179,14 @@ namespace Game
 
             private void PlayerLeftGame(PlayerInput player)
             {
+                // ???
+            }
+            
+            private void LeaveActionOnPerformed(InputAction.CallbackContext _context) {
+                LeaveAction(_context);
+            }
+            private void JoinActionOnPerformed(InputAction.CallbackContext _context) {
+                JoinAction(_context);
             }
 
             #endregion

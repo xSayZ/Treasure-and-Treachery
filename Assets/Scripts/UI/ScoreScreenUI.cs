@@ -31,9 +31,9 @@ namespace Game {
 
             private void Start()
             {
-                if (CharacterSelectHandler.staticData.Count > 0)
+                if (CharacterSelectHandler.StaticData.Count > 0)
                 {
-                    foreach (CharacterSelect _characterSelect in CharacterSelectHandler.staticData)
+                    foreach (CharacterSelect _characterSelect in CharacterSelectHandler.StaticData)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(_characterSelect.data, playerImages[_characterSelect.data.playerIndex], personalObjectiveImages[_characterSelect.data.playerIndex]);

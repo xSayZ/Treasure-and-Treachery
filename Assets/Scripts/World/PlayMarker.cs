@@ -111,6 +111,7 @@ namespace Game {
             
             private void SwitchScene() {
                 LevelManager.Instance.worldMapManager.carriagePosition = transform.position;
+                LevelManager.Instance.worldMapManager.carriageRotation = transform.rotation;
                 LevelManager.Instance.LoadLevel(levelData);
             }
         }

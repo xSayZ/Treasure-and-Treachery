@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
@@ -133,12 +134,19 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     private void PlayDialogue(int _playerID, EventInstance dialogueInstance)
     {
-        var player = GameManager.Instance.ActivePlayerControllers[_playerID];
-                
-        RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
-        dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
-        dialogueInstance.start();
-        dialogueInstance.release();
+        try
+        {
+            var player = GameManager.Instance.ActivePlayerControllers[_playerID];
+            
+            RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+            dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
+            dialogueInstance.start();
+            dialogueInstance.release();
+        }
+        catch (Exception e)
+        {
+            // Temp
+        }
     }
 
     public void ReturnToCart()

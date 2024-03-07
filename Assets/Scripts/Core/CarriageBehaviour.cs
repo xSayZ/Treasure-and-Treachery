@@ -14,6 +14,7 @@ using Game.Managers;
 using UnityEngine;
 using Game.Quest;
 using Game.Player;
+using Game.WorldMap;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -192,9 +193,8 @@ namespace Game {
             private void LevelCompleted()
             {
                 levelOver = true;
-                var levelData = LevelManager.Instance.worldMapManager.levelToLoad;
-                levelData.isCompleted = true;
-                levelData.OnLevelCompleted.Invoke();
+                LevelDataSO _levelData = LevelManager.Instance.worldMapManager.levelToLoad;
+                _levelData.isCompleted = true;
                 
                 LevelManager.Instance.LoadScoreScreen();
             }

@@ -781,7 +781,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 06c587f9f43220f4d9255ac7ccf02666, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -3183,10 +3183,6 @@ PrefabInstance:
       value: 60
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
-      propertyPath: waveProjectile
-      value: 
-      objectReference: {fileID: 525304689459795212, guid: 6e5b08050c63f2145b2ea2c575dc58fb, type: 3}
-    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: rangedAimShrink
       value: 0
       objectReference: {fileID: 0}
@@ -3196,7 +3192,7 @@ PrefabInstance:
       objectReference: {fileID: 525304689459795212, guid: 422e54b32c0839548be44b94590df01f, type: 3}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: rangedAttackCooldown
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 288723119442727232, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_RootOrder
@@ -3384,11 +3380,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3396,7 +3392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1.9
       objectReference: {fileID: 0}
     - target: {fileID: 7347125998203325181, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: popupPersonalObjectiveSprite

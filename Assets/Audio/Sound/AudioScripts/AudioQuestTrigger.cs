@@ -20,11 +20,15 @@ namespace Game {
             public int setSpeakerAfterDragon;
             public int setSpeakerAfterWitch;
             public int setSpeakerAfterGorgon;
+            public int setSpeakerAfterBoss;
             
+            [Header("Set Dialogue Progression")]
             public int setdialogueProgresionWolf;
             public int setdialogueProgresionDragon;
             public int setdialogueProgresionWitch;
             public int setdialogueProgresionGorgon;
+            public int setdialogueProgresionBoss;
+            
             
             [Header("Settings")]
             [SerializeField] private bool activateOnIsTrigger;
@@ -37,14 +41,16 @@ namespace Game {
             {
                 if (!other.isTrigger || activateOnIsTrigger)
                 {
-                     dialogueAudioWrapper.speakerAfterWolf = setSpeakerAfterWolf;
+                    dialogueAudioWrapper.speakerAfterWolf = setSpeakerAfterWolf;
                     dialogueAudioWrapper.speakerAfterDragon = setSpeakerAfterDragon;
                     dialogueAudioWrapper.speakerAfterWitch = setSpeakerAfterWitch;
                     dialogueAudioWrapper.speakerAfterGorgon = setSpeakerAfterGorgon;
+                    dialogueAudioWrapper.speakerAfterBoss = setSpeakerAfterBoss;
                     dialogueAudioWrapper.dialogueProgressionWolf = setdialogueProgresionWolf;
                     dialogueAudioWrapper.dialogueProgressionDragon = setdialogueProgresionDragon;
                     dialogueAudioWrapper.dialogueProgressionWitch = setdialogueProgresionWitch;
                     dialogueAudioWrapper.dialogueProgressionGorgon = setdialogueProgresionGorgon;
+                    dialogueAudioWrapper.dialogueProgressionBoss = setdialogueProgresionBoss;
                     triggerEnter.Invoke(other.transform);
                 }
             }

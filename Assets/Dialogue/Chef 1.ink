@@ -1,8 +1,10 @@
 EXTERNAL changeCurrency(amount)
+EXTERNAL PlayEventAudio(index)
 
 -> paragraph_1
 
 === paragraph_1 ===
+~ PlayEventAudio(0)
 “Well hello employees!” from a puff of red smoke, your boss shows up!
 
 It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with Mr. Red is that he is now a king!

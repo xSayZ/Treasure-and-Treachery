@@ -17,6 +17,7 @@ using Game.Enemy;
 using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.VFX;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using WaitForSeconds = UnityEngine.WaitForSeconds;
@@ -39,6 +40,8 @@ namespace Game {
             [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
+            [SerializeField] private VisualEffect[] meleeVisualEffects;
+            [SerializeField] private GameObject meleeImpactVFX;
             
             [Header("Attack Type")]
             [SerializeField] private AttackTypes attackType;
@@ -291,6 +294,11 @@ namespace Game {
             {
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
+                foreach (VisualEffect _meleeVisualEffect in meleeVisualEffects)
+                {
+                    _meleeVisualEffect.Play();
+                }
+                
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
                 
                 // Loop through all enemies in range
@@ -320,6 +328,11 @@ namespace Game {
                 
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
+                
+                if (meleeChargeTime > meleeAttackDuration)
+                {
+                    yield return new WaitForSeconds(meleeChargeTime - meleeAttackDuration);
+                }
                 
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 yield return new WaitForSeconds(meleeStunTime);
@@ -353,6 +366,16 @@ namespace Game {
                 if (_doNormalMelee)
                 {
                     bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKnockbackForce);
+                    
+                    if (meleeImpactVFX)
+                    {
+                        MonoBehaviour _damageableMonoBehaviour = _damageable as MonoBehaviour;
+                        if (_damageableMonoBehaviour)
+                        {
+                            GameObject _spawnedImpactVFX = Instantiate(meleeImpactVFX, _damageableMonoBehaviour.transform.position, Quaternion.identity);
+                            Destroy(_spawnedImpactVFX, 5);
+                        }
+                    }
                     
                     if (killed)
                     {

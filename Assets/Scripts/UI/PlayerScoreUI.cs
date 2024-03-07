@@ -55,10 +55,10 @@ namespace Game {
                 personalObjectiveText.text = (_playerData.personalObjective - _playerData.personalObjectiveThisLevel).ToString();
                 pointsText.text = pointsPrefix + (_playerData.points - _pointsThisLevel);
                 
-                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency, countUpTime / _playerData.currencyThisLevel));
-                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, countUpTime / _playerData.killsThisLevel));
-                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective, countUpTime / _playerData.personalObjectiveThisLevel));
-                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, countUpTime / _pointsThisLevel, pointsPrefix));
+                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency, countUpTime / _playerData.currencyThisLevel, true));
+                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, countUpTime / _playerData.killsThisLevel, true));
+                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective, countUpTime / _playerData.personalObjectiveThisLevel, true));
+                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, countUpTime / _pointsThisLevel, false, pointsPrefix));
             }
 
             private void Update()
@@ -70,9 +70,12 @@ namespace Game {
                 }
             }
 
-            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay, string _prefix = "")
+            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay, bool _lock, string _prefix = "")
             {
-                coroutinesRunning += 1;
+                if (_lock) // TEMP
+                {
+                    coroutinesRunning += 1;
+                }
                 
                 yield return new WaitForSeconds(startDelay);
                 
@@ -84,8 +87,11 @@ namespace Game {
                     _textMesh.text = _prefix + _currentValue;
                     yield return new WaitForSeconds(_delay);
                 }
-                
-                coroutinesRunning -= 1;
+
+                if (_lock)
+                {
+                    coroutinesRunning -= 1;
+                }
             }
         }
     }

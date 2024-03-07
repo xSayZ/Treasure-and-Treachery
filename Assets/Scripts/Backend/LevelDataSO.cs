@@ -29,7 +29,7 @@ namespace Game {
             [Tooltip("The description of the level. This is used to display the level description in the UI.")]
             public string levelDescription;
             [Tooltip("The image of the level. This is used to display the level image in the UI.")]
-            public Image levelImage;
+            public Sprite levelImage;
             
             [Header("Level Status")]
             [Tooltip("Don't change this value. This is used to check if the level is completed.")]
@@ -42,20 +42,14 @@ namespace Game {
             public List<LevelDataSO> prerequisites = new List<LevelDataSO>();
 
             // Internal Events
-            private UnityEvent onLevelCompleted;
-            
+
             private void OnEnable() {
                 isCompleted = false;
             }
 
             public UnityEvent OnLevelCompleted {
-                get {
-                    return onLevelCompleted;
-                }
-                set {
-                    onLevelCompleted = value;
-                }
-            }
+                get;
+            } = new UnityEvent();
         }
     }
 }

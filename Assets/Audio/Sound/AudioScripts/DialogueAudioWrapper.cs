@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
@@ -15,10 +16,10 @@ public class DialogueAudioWrapper : MonoBehaviour
 
     public DialogueAudio dialogueAudio;
 
-    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue;
-    private EventInstance wolfDialogueInstance, dragonDialogueInstance, witchDialogueInstance, gorgonDialogueInstance;
-    public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon;
-    public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon;
+    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue, bossDialogue;
+    private EventInstance wolfDialogueInstance, dragonDialogueInstance, witchDialogueInstance, gorgonDialogueInstance, bossDialogueInstance;
+    public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon, dialogueProgressionBoss;
+    public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon, speakerAfterBoss;
 
     private void Awake()
     {
@@ -83,7 +84,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf));
         
         dialogueProgressionWolf++;
-        speakerAfterWolf = 0;
+        speakerAfterWolf = 4;
     }
     public void DragonQuestDialogue()
     {
@@ -101,7 +102,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         witchDialogueInstance.release();
         witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
         witchDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWitch);
-        PlayDialogue(1, witchDialogueInstance);
+        PlayDialogue(2, witchDialogueInstance);
         StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch));
 
         dialogueProgressionWitch++;
@@ -112,20 +113,40 @@ public class DialogueAudioWrapper : MonoBehaviour
         gorgonDialogueInstance.release();
         gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
         gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
-        PlayDialogue(1, gorgonDialogueInstance);
+        PlayDialogue(3, gorgonDialogueInstance);
         StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon));   
         
         dialogueProgressionGorgon++;
         speakerAfterGorgon = 4;
     }
+    
+    public void BossQuestDialogue()
+    {
+        bossDialogueInstance.release();
+        bossDialogueInstance = RuntimeManager.CreateInstance(bossDialogue);
+        bossDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
+        bossDialogueInstance.start();
+        bossDialogueInstance.release();
+        StartCoroutine(QueNextDialogue(bossDialogueInstance, speakerAfterBoss));   
+        
+        dialogueProgressionBoss++;
+        speakerAfterBoss = 4;
+    }
     private void PlayDialogue(int _playerID, EventInstance dialogueInstance)
     {
-        var player = GameManager.Instance.ActivePlayerControllers[_playerID];
-                
-        RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
-        dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
-        dialogueInstance.start();
-        dialogueInstance.release();
+        try
+        {
+            var player = GameManager.Instance.ActivePlayerControllers[_playerID];
+            
+            RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
+            dialogueInstance.setParameterByName("SpeakerCharacter", _playerID);
+            dialogueInstance.start();
+            dialogueInstance.release();
+        }
+        catch (Exception e)
+        {
+            // Temp
+        }
     }
 
     public void ReturnToCart()

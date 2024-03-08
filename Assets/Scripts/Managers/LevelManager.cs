@@ -20,8 +20,7 @@ namespace Game {
             
             [SerializeField] private string loadingScreenPath = "LoadingScreen";
             public WorldMapManager worldMapManager;
-            private static WorldMapManager _manager;
-
+            
             protected override void SingletonAwakened()
             {
                 if (FindObjectsByType<LevelManager>(FindObjectsSortMode.None).Length > 1)
@@ -47,7 +46,6 @@ namespace Game {
             
             private IEnumerator LoadLoadingScreen(LevelDataSO _levelData)
             {
-               
                 worldMapManager.levelToLoad = null;
                 yield return new WaitForSeconds(0.1f);
                 worldMapManager.levelToLoad = _levelData;

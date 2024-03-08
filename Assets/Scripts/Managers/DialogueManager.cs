@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using Game.Backend;
 using Game.Managers;
 using Game.Racer;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -24,14 +25,15 @@ namespace Game {
         public class DialogueManager : MonoBehaviour {
             [Header("Params")]
             [SerializeField] private float typingSpeed;
+            [SerializeField] private bool hasRacer = true;
             
             [Header("Ink Story")]
             private Story story;
             
             [Header("Dialogue UI")]
             [SerializeField] private GameObject dialoguePanel;
-            [SerializeField] private Image eventImage;
-            [SerializeField] private TextMeshProUGUI dialogueText;
+            [SerializeField] public Image eventImage;
+            [SerializeField] public TextMeshProUGUI dialogueText;
             
             // EventDialogueAudioManager
             // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
@@ -40,7 +42,9 @@ namespace Game {
             [SerializeField] private GameObject[] choices;
             private TextMeshProUGUI[] choicesText;
             
-            [SerializeField] private List<PlayerData> playerDatas = new List<PlayerData>();
+            [SerializeField] public List<PlayerData> playerDatas = new List<PlayerData>();
+            
+            [SerializeField] private UnityEvent OnDialogueEnd = new UnityEvent();
             
             // Internal Bools
             private bool dialogueIsPlaying;
@@ -60,9 +64,14 @@ namespace Game {
             
             void Start()
             {
-                carriageRacer = GameObject.FindGameObjectWithTag("Carriage").GetComponent<CarriageRacer>();
+                if (hasRacer) {
+                    carriageRacer = GameObject.FindGameObjectWithTag("Carriage").GetComponent<CarriageRacer>();
+                }
+                if(dialoguePanel != null)
+                    dialoguePanel.SetActive(false);
+                
                 dialogueIsPlaying = false;
-                dialoguePanel.SetActive(false);
+                
             }
 
             private void Update()
@@ -72,12 +81,14 @@ namespace Game {
                     canContinueToNextLine = true;
                 } 
             }
-            #endregion
+#endregion
 
-            #region Public Functions
+#region Public Functions
 
-            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger) {
-                carriageRacer.SetCarriageActive(false);
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null) {
+                if (hasRacer) {
+                    carriageRacer.SetCarriageActive(false);
+                }
                 if (_eventImage != null) {
                     eventImage.sprite = _eventImage;
                 }
@@ -150,7 +161,8 @@ namespace Game {
 #region Private Functions
 
             IEnumerator OnAdvanceStory() {
-                dialoguePanel.SetActive(true);
+                if(dialoguePanel != null)
+                    dialoguePanel.SetActive(true);
                 if (story.canContinue)
                 {
                     while (story.canContinue)
@@ -180,11 +192,16 @@ namespace Game {
             }
 
             private void ExitDialogueMode(){
-                carriageRacer.SetCarriageActive(true);
+                if(carriageRacer != null)
+                    carriageRacer.SetCarriageActive(true);
                 dialogueIsPlaying = false;
-                dialoguePanel.SetActive(false);
+                if(dialoguePanel != null)
+                    dialoguePanel.SetActive(false);
                 dialogueText.text = "";
-                currentTrigger.CurrentDialogueSO.HasBeenRead = true;
+                if (currentTrigger != null)
+                    currentTrigger.CurrentDialogueSO.HasBeenRead = true;
+                
+                OnDialogueEnd.Invoke();
                 TogglePauseState();
                 HideChoices();
             }

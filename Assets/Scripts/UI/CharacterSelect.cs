@@ -55,6 +55,8 @@ namespace Game
                     {
                         data = characterSelectHandler.PlayerDatas[i];
                         data.ControllerID = playerInput.playerIndex;
+                        //Debug.Log(Gamepad.current.deviceId);
+                        data.ControllerID = Gamepad.current.deviceId;
                     }
                 }
 
@@ -73,8 +75,8 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                Gamepad gamepad = Gamepad.all[deviceID];
-
+                Gamepad gamepad = Gamepad.current;
+               
                 if (PlayersIsReady) return;
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
 
@@ -101,6 +103,7 @@ namespace Game
                     }
                 }
                 
+               
                 
                 id = Wrap(id, 0, 4);
                 if (id < 0) id += amountOfImages;
@@ -130,7 +133,7 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         
                         data = characterSelectHandler.PlayerDatas[id];
-                        data.ControllerID = playerInput.playerIndex;
+                        data.ControllerID = Gamepad.current.deviceId;
                         
                         cachedId = id; 
                         cachedSprite = sprite;

@@ -192,11 +192,13 @@ namespace Game {
 
             private void LevelCompleted()
             {
-                levelOver = true;
-                LevelDataSO _levelData = LevelManager.Instance.worldMapManager.levelToLoad;
-                _levelData.isCompleted = true;
+                var _levelManager = LevelManager.Instance;
+                LevelDataSO _levelData = _levelManager.worldMapManager.levelToLoad;
+
+                levelOver = true; 
                 
-                LevelManager.Instance.LoadScoreScreen();
+                _levelManager.worldMapManager.MarkLevelAsCompleted(_levelData);
+                _levelManager.LoadScoreScreen();
             }
 
             private void LevelLost(string _reason)

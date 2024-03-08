@@ -29,6 +29,7 @@ namespace Game {
 #region Unity Functions
             private void Start() {
                 transform.position = LevelManager.Instance.worldMapManager.carriagePosition;
+                transform.rotation = LevelManager.Instance.worldMapManager.carriageRotation;
                 carriageMovementBehaviour.SetupBehaviour();
                 carriageAnimationBehaviour.SetupBehaviour();
             }

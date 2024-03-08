@@ -20,26 +20,30 @@ namespace Game {
             public LevelDataSO levelToLoad;
 
             [HideInInspector] public Vector3 carriagePosition;
+            [HideInInspector] public Quaternion carriageRotation;
 
             private void OnEnable() {
                 carriagePosition = new Vector3(62.75653f, 2f, 143.5298f);
+                carriageRotation = new Quaternion();
                 levelToLoad = null;
-            }
-            public void MarkLevelAsCompleted(LevelDataSO level) {
-                if (level == null)
-                    return;
-                
-                level.isCompleted = true;
-                completedLevels.Add(level);
-                    
-                // Additional Logic
-                HandlePrerequisites(level);
-                HandleLevelCompleted(level);
+                completedLevels.Clear();
             }
             
-            private void HandlePrerequisites(LevelDataSO completedLevel)
+            public void MarkLevelAsCompleted(LevelDataSO _level) {
+                if (_level == null)
+                    return;
+                
+                _level.isCompleted = true;
+                completedLevels.Add(_level);
+                    
+                // Additional Logic
+                HandlePrerequisites(_level);
+                HandleLevelCompleted(_level);
+            }
+            
+            private void HandlePrerequisites(LevelDataSO _completedLevel)
             {
-                foreach (LevelDataSO _preReq in completedLevel.prerequisites)
+                foreach (LevelDataSO _preReq in _completedLevel.prerequisites)
                 {
                     LevelDataSO _preReqLevel = completedLevels.Find(l => l.isCompleted == _preReq.isCompleted);
                    
@@ -50,10 +54,9 @@ namespace Game {
                 }
             }
             
-            private void HandleLevelCompleted(LevelDataSO completedLevel)
+            private void HandleLevelCompleted(LevelDataSO _completedLevel)
             {
-                completedLevel.OnLevelCompleted.Invoke();
-                completedLevel.isCompleted = true;
+                _completedLevel.isCompleted = true;
             }
 
         }

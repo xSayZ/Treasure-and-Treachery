@@ -521,14 +521,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrathSlider: {fileID: 1541625689130935793}
-  percentagePerKill: 10
+  percentagePerKill: 5
   decayGracePeriod: 1
   decayTime: 0.1
   decayAmount: 1
-  percentageToBecomeEnraged: 50
-  percentageToLoseEnraged: 50
+  percentageToBecomeEnraged: 90
+  percentageToLoseEnraged: 90
   meleeAttackCooldownMultiplier: 0.8
-  moveSpeedMultiplier: 2
+  moveSpeedMultiplier: 1.5
   dashHealAmount: 2
   dashHealWrathLost: 100
   _dialogueAudio: {fileID: 0}
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldOnDashKill: 5
-  healInterval: 5
+  healInterval: 15
   healAmount: 1
 --- !u!1 &2434292314320904349
 GameObject:
@@ -1166,10 +1166,10 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: d63f844f0ea270e43854b7b5bf2a247b, type: 2}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.8037322
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: -0.029758036, y: 1, z: 0}
 --- !u!114 &4287932559299347334
 MonoBehaviour:
   m_ObjectHideFlags: 0

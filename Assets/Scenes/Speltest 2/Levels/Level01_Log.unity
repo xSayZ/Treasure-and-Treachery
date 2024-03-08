@@ -5271,7 +5271,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh86354
+  m_Name: pb_Mesh104910
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6483,7 +6483,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh86634
+  m_Name: pb_Mesh105222
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6857,7 +6857,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh86880
+  m_Name: pb_Mesh105522
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7021,7 +7021,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-53298
+  m_Name: pb_Mesh-327008
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8181,7 +8181,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-53284
+  m_Name: pb_Mesh-326994
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14415,8 +14415,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 834722698}
     m_Modifications:
     - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
-      propertyPath: objectiveTransforms.Array.size
+      propertyPath: objectiveStages.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: objectiveTransforms.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: objectiveTransforms.Array.data[0].Zoom
@@ -14453,6 +14457,18 @@ PrefabInstance:
     - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: objectiveTransforms.Array.data[2].TimeUntilNextObjective
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: objectiveStages.Array.data[0].objectiveTransforms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: objectiveStages.Array.data[1].objectiveTransforms.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
+      propertyPath: objectiveStages.Array.data[2].objectiveTransforms.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1492422455, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: objectiveTransforms.Array.data[0].CameraMoveSpeedToObjective
@@ -17196,15 +17212,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727664, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727664, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727664, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727664, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

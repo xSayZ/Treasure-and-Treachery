@@ -19,7 +19,7 @@ namespace Game {
             [Header("Enemy Count")]
             [SerializeField] private int maxEnemies = 10;
             
-            private List<EnemyController> enemies;
+            [HideInInspector] public List<EnemyController> enemies;
             
             public static UnityEvent<EnemyController> OnEnemyDeath = new UnityEvent<EnemyController>();
             

@@ -200,13 +200,13 @@ MonoBehaviour:
   playerHealthBar: {fileID: 5371476867704334821}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 25
-  invincibilityTime: 2
+  invincibilityTime: 0.5
   meshRenderer: {fileID: 0}
   defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
   damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
-  lowFrequency: 0
-  highFrequency: 0
-  duration: 0
+  lowFrequency: 1
+  highFrequency: 1
+  duration: 100
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
   debug: 0
 --- !u!114 &8393427140100816367
@@ -521,8 +521,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrathSlider: {fileID: 1541625689130935793}
-  percentagePerKill: 5
-  decayGracePeriod: 3
+  percentagePerKill: 15
+  decayGracePeriod: 5
   decayTime: 0.1
   decayAmount: 1
   percentageToBecomeEnraged: 90

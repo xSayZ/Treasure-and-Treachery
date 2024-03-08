@@ -75,7 +75,7 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                Gamepad gamepad = Gamepad.current;
+                Gamepad gamepad = Gamepad.all[playerInput.playerIndex];
                
                 if (PlayersIsReady) return;
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
@@ -94,12 +94,17 @@ namespace Game
                         if (currentDelay < 0)
                         {
                             id += (gamepad.leftStick.IsActuated()) ? 1 : 0;
-                          
+                            
 
                             if (gamepad.leftStick.IsActuated())
                                 currentDelay = inputDelay;
                         }
-                        id += (gamepad.dpad.IsActuated()) ? 1 : 0;
+
+                        if (gamepad.dpad.IsActuated())
+                        {
+                            id++;
+                            currentDelay = inputDelay;
+                        }
                     }
                 }
                 

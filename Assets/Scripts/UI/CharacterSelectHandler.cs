@@ -78,8 +78,15 @@ namespace Game
                 PlayerList.Clear();
                 if (Input.GetJoystickNames().Length >0)
                 {
-                    PlayerInputManager.instance.JoinPlayer(0, -1, null);
+                    
+                    // temp Solution 
+                    for (int i = 0; i < Gamepad.all.Count; i++)
+                    {
+                        
+                        PlayerInputManager.instance.JoinPlayer(i, -1, null);
+                    }
                 }
+
             }
 
             private void OnEnable()

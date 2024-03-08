@@ -75,37 +75,33 @@ namespace Game
             
             public void OnNavigation(InputAction.CallbackContext context)
             {
-                
+                Gamepad gamepad = Gamepad.current;
+               
                 if (PlayersIsReady) return;
-                
                 int amountOfImages =  characterSelectHandler.ImagesBackup.Count;
 
                 Vector2 value = context.ReadValue<Vector2>();
                 
-                    switch (value.x)
+                if (gamepad.leftStick.IsActuated() || gamepad.dpad.IsActuated())
+                {
+                    float movementThreshold = 0.9f;
+                    float adjustmentValue = 0.005f;
+
+                    if (value.x > movementThreshold || value.x < -movementThreshold)
                     {
-                    
-                        case > .9f:
+                        currentDelay -= adjustmentValue;
+
+                        if (currentDelay < 0)
                         {
-                            currentDelay -= 0.005f;
-                            if (currentDelay <0)
-                            {
-                                id++;
+                            id += (gamepad.leftStick.IsActuated()) ? 1 : 0;
+                          
+
+                            if (gamepad.leftStick.IsActuated())
                                 currentDelay = inputDelay;
-                            }
-                            break;
                         }
-                        case < -0.9f:
-                        {
-                            currentDelay -= 0.005f;
-                            if(currentDelay <0)
-                            {
-                                id--;  
-                                currentDelay = inputDelay;
-                            }
-                            break;
-                        }
+                        id += (gamepad.dpad.IsActuated()) ? 1 : 0;
                     }
+                }
                 
                
                 
@@ -137,7 +133,7 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         
                         data = characterSelectHandler.PlayerDatas[id];
-                        data.ControllerID = playerInput.playerIndex;
+                        data.ControllerID = Gamepad.current.deviceId;
                         
                         cachedId = id; 
                         cachedSprite = sprite;

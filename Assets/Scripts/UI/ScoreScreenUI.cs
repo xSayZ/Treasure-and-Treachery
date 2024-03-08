@@ -56,7 +56,7 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                if (playersDoneCountingUp == Input.GetJoystickNames().Length)
+                if (playersDoneCountingUp == CharacterSelectHandler.PlayerList.Count)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);
                 }

@@ -53,8 +53,9 @@ namespace Game {
             
             // Gold variables
             [HideInInspector] public int Amount;
-
+            
             private Item item;
+            private bool isPickedUp;
             private bool hasBeenPickedUpOnce;
 
 #region Unity Functions
@@ -75,13 +76,14 @@ namespace Game {
 #region Public Functions
             public void Interact(int _playerIndex, bool _start)
             {
-                if (!_start)
+                if (!_start || isPickedUp)
                 {
                     return;
                 }
                 
                 switch (PickupType)
                 {
+                    // Quest item
                     case PickupTypes.QuestItem:
                         if (!GameManager.Instance.ActivePlayerControllers[_playerIndex].PlayerData.canPickUp)
                         {
@@ -90,7 +92,8 @@ namespace Game {
                         QuestManager.OnItemPickedUp.Invoke(_playerIndex, item);
                         TriggerPickUpEvent();
                         break;
-                        
+                    
+                    // Gold
                     case PickupTypes.Gold:
                         QuestManager.OnGoldPickedUp.Invoke(_playerIndex, Amount);
                         TriggerPickUpEvent();
@@ -107,12 +110,14 @@ namespace Game {
                         Destroy(gameObject);
                         break;
                     
+                    // Melee weapon
                     case PickupTypes.MeleeWeapon:
                         QuestManager.OnMeleeWeaponPickedUp.Invoke(_playerIndex);
                         TriggerPickUpEvent();
                         Destroy(gameObject);
                         break;
                     
+                    // Ranged weapon
                     case PickupTypes.RangedWeapon:
                         QuestManager.OnRagedWeaponPickedUp.Invoke(_playerIndex);
                         TriggerPickUpEvent();
@@ -120,11 +125,16 @@ namespace Game {
                         break;
                 }
             }
-            
+
+            public void ItemDropped()
+            {
+                isPickedUp = false;
+            }
+
             public void ToggleInteractionUI(int _playerIndex, bool _active)
             {
                 PlayersThatWantsToInteract[_playerIndex] = _active;
-
+                
                 bool _displayUI = false;
                 for (int i = 0; i < PlayersThatWantsToInteract.Length; i++)
                 {
@@ -146,11 +156,13 @@ namespace Game {
 #region Private Functions
             private void CreateItem()
             {
-                item = new Item(WeightMultiplier, InteractionTime, gameObject, ItemSprite);
+                item = new Item(WeightMultiplier, InteractionTime, this, gameObject, ItemSprite);
             }
 
             private void TriggerPickUpEvent()
             {
+                isPickedUp = true;
+                
                 if (!hasBeenPickedUpOnce)
                 {
                     hasBeenPickedUpOnce = true;

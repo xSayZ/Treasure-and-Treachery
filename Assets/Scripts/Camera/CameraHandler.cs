@@ -98,7 +98,7 @@ namespace Game {
             public void CameraZoomEvent(int _stage = 0) {
                 // Get the active player controllers
                 targets = GameManager.Instance.ActivePlayerControllers;
-                if (objectiveTransforms.Length > 0) {
+                if (objectiveStages.Length > 0) {
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else {

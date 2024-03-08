@@ -110,6 +110,7 @@ namespace Game {
                     _transform.position = playerTeleportPosition.transform.position;
                     _transform.localScale = new Vector3(0,0,0);
                     
+                    
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
                     {

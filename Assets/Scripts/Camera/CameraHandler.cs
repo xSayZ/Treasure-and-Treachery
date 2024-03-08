@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Game.Backend;
+using Game.Enemy;
 using Game.Player;
 using Vector3 = UnityEngine.Vector3;
 // ReSharper disable Unity.PerformanceCriticalCodeCameraMain
@@ -23,12 +24,14 @@ namespace Game {
         {
 
             [Header("Objective Camera Settings")]
+            [SerializeField] private bool useObjectiveCameraOnStart;
             [SerializeField] private float initialWaitTime;
-            [SerializeField] private ObjectiveTransform[] objectiveTransforms;
+            [SerializeField] private ObjectiveStages[] objectiveStages;
+            private ObjectiveTransform[] objectiveTransforms;
             
             [Header("Camera Behaviour Settings")]
             [Range(10f, 20f)]
-            [SerializeField] private float maxZoomOut;
+            [SerializeField] public float maxZoomOut;
             [Range(1, 5)]
             [SerializeField] private int playerWeight;
             [Range(1, 20)]
@@ -46,14 +49,25 @@ namespace Game {
             private bool canZoom = false;
 
             [Serializable]
+            private class ObjectiveStages {
+                public ObjectiveTransform[] objectiveTransforms;
+                
+                public ObjectiveStages(ObjectiveTransform[] _objectiveTransforms) {
+                    objectiveTransforms = _objectiveTransforms;
+                }
+            }
+            
+            [Serializable]
             private class ObjectiveTransform {
                 public Transform Transform;
+                public int Stage;
                 public int Zoom;
                 public int CameraMoveSpeedToObjective;
                 public int TimeUntilNextObjective;
                 
-                public ObjectiveTransform(Transform _transform, int _zoom, int _cameraMoveSpeed, int _timeUntilNextObjective) {
+                public ObjectiveTransform(Transform _transform, int _stage, int _zoom, int _cameraMoveSpeed, int _timeUntilNextObjective) {
                     Transform = _transform;
+                    Stage = _stage;
                     Zoom = _zoom;
                     CameraMoveSpeedToObjective = _cameraMoveSpeed;
                     TimeUntilNextObjective = _timeUntilNextObjective;
@@ -61,22 +75,11 @@ namespace Game {
             }
             
             #region Unity Functions
+            private void Awake() {
+                SetupCamera();
+            }
             private void Start() {
-                transform.position = GameManager.Instance.spawnRingCenter.position;
-                
-                targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
-                targetGroup.transform.position = GameManager.Instance.spawnRingCenter.position;
-                // Get the active player controllers
-                targets = GameManager.Instance.ActivePlayerControllers;
-                if (objectiveTransforms.Length > 0) {
-                    StartCoroutine(MoveCameraToObjectives());
-                }
-                else {
-                    // Set the camera to zoom and update the player movement
-                    canZoom = true;
-                    SetTargetGroupCamera();
-                }
-                
+                CameraZoomEvent();
             }
 
             private void Update() {
@@ -90,13 +93,47 @@ namespace Game {
     
             #endregion
 
+#region Public Functions
+
+            public void CameraZoomEvent(int _stage = 0) {
+                // Get the active player controllers
+                targets = GameManager.Instance.ActivePlayerControllers;
+                if (objectiveTransforms.Length > 0) {
+                    StartCoroutine(MoveCameraToObjectives(_stage));
+                }
+                else {
+                    // Set the camera to zoom and update the player movement
+                    canZoom = true;
+                    SetTargetGroupCamera();
+                }
+            }
+
+            public void SetCameraZoom(float _zoom) {
+                maxZoomOut = _zoom;
+            }
+            
+  #endregion
+
             #region Private Functions
 
-            private IEnumerator MoveCameraToObjectives() {
+            private void SetupCamera() {
+                transform.position = GameManager.Instance.spawnRingCenter.position;
+                targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
+                targetGroup.transform.position = transform.position;
+            }
+            
+            private IEnumerator MoveCameraToObjectives(int _stage) {
                 SetPlayerActiveState(false);
+                var _enemies = EnemyManager.Instance.enemies;
+
+                foreach (EnemyController _enemy in _enemies) {
+                    _enemy.enabled = false;
+                }
                 
                 yield return new WaitForSeconds(initialWaitTime);
                 
+                // Get the objective transforms for the current stage
+                objectiveTransforms = objectiveStages[_stage].objectiveTransforms;
                 // Loop through the objective transforms
                 foreach (ObjectiveTransform _objective in objectiveTransforms) {
                     Vector3 _initialPosition = this.transform.position;
@@ -116,6 +153,9 @@ namespace Game {
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
                 SetTargetGroupCamera();
+                foreach (EnemyController _enemy in _enemies) {
+                    _enemy.enabled = true;
+                }
                 SetPlayerActiveState(true);
             }
 
@@ -138,7 +178,6 @@ namespace Game {
                 // Loop through the players and add them to the target group
                 for (int _i = 0; _i < targets.Count; _i++)
                 {
-                    
                         _targetsArray[_i] = new CinemachineTargetGroup.Target
                         {
                             target = targets[keys[_i]].transform,

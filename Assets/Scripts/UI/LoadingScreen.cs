@@ -6,8 +6,6 @@
 // --------------------------------
 // ------------------------------*/
 
-using System.Threading.Tasks;
-using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,8 +17,8 @@ namespace Game {
         public class LoadingScreen : MonoBehaviour
         {
             [Header("Setup")]
-            public Slider progressBar;
-            public WorldMapManager worldMapManager;
+            [SerializeField] private Slider progressBar;
+            [SerializeField] private WorldMapManager worldMapManager;
             
             [Header("Settings")]
             [SerializeField] private float minSceneLoadTime;
@@ -35,7 +33,7 @@ namespace Game {
             {
                 progressBar.value = 0;
                 fakeSceneLoadTime = Random.Range(minSceneLoadTime, maxSceneLoadTime);
-                LoadSceneAsync(LevelManager.Instance.worldMapManager.levelToLoad);
+                LoadSceneAsync(worldMapManager.levelToLoad);
             }
 
             private void Update()
@@ -58,7 +56,7 @@ namespace Game {
                 }
             }
 
-            private async void LoadSceneAsync(LevelDataSO _levelData)
+            private void LoadSceneAsync(LevelDataSO _levelData)
             {
                 scene = SceneManager.LoadSceneAsync(_levelData.levelPath, LoadSceneMode.Single);
                 

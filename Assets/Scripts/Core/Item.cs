@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.Scene;
 using UnityEngine;
 
 
@@ -15,14 +16,16 @@ namespace Game {
         {
             public float WeightMultiplier;
             public float InteractionTime;
-            public GameObject Pickup;
+            public Pickup Pickup;
+            public GameObject PickupObject;
             public Sprite Sprite;
 
-            public Item(float _weightMultiplier, float _interactionTime, GameObject _pickup, Sprite _sprite)
+            public Item(float _weightMultiplier, float _interactionTime, Pickup _pickup, GameObject _pickupObject, Sprite _sprite)
             {
                 WeightMultiplier = _weightMultiplier;
                 InteractionTime = _interactionTime;
                 Pickup = _pickup;
+                PickupObject = _pickupObject;
                 Sprite = _sprite;
             }
         }

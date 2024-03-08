@@ -20,9 +20,6 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private float pickUpCooldown;
             
-            [Header("UI")]
-            //[SerializeField] private GameObject itemImage;
-            
             private PlayerController playerController;
             private IInteractable closestInteraction;
             private List<IInteractable> inInteractRange = new List<IInteractable>();
@@ -36,7 +33,7 @@ namespace Game {
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
             }
-            
+
             private void OnDisable()
             {
                 // Unsubscribe from events
@@ -44,12 +41,12 @@ namespace Game {
                 QuestManager.OnItemDropped.AddListener(DropItem);
                 QuestManager.OnGoldPickedUp.AddListener(PickUpGold);
             }
-            
+
             private void Start()
             {
                 playerController = GetComponent<PlayerController>();
             }
-            
+
             private void Update()
             {
                 if (currentPickUpCooldown > 0)
@@ -122,7 +119,7 @@ namespace Game {
                 
                 inInteractRange.Add(_interactable);
             }
-            
+
             public void InteractRangeExited(Transform _transform)
             {
                 if (_transform.TryGetComponent(out IInteractable _interactable))
@@ -175,8 +172,8 @@ namespace Game {
                     QuestManager.OnItemDropped.Invoke(_playerId, playerController.PlayerData.currentItem, false);
                 }
                 
-                _item.Pickup.SetActive(false);
-                InteractRangeExited(_item.Pickup.transform);
+                _item.PickupObject.SetActive(false);
+                InteractRangeExited(_item.PickupObject.transform);
                 playerController.PlayerData.currentItem = _item;
                 
                 playerController.PlayerOverheadUIBehaviour.SetHeldItemSprite(_item.Sprite);
@@ -184,10 +181,10 @@ namespace Game {
                 
                 playerController.PlayerData.canPickUp = false;
                 currentPickUpCooldown = pickUpCooldown;
-
+                
                 playerController.PlayerMovementBehaviour.MoveSpeedItemMultiplier = _item.WeightMultiplier;
             }
-            
+
             private void DropItem(int _playerId, Item _item, bool _destroy)
             {
                 if (playerController.PlayerIndex != _playerId)
@@ -207,15 +204,16 @@ namespace Game {
                         return;
                     }
                     
-                    _item.Pickup.SetActive(true);
-                    _item.Pickup.transform.position = transform.position;
+                    _item.Pickup.ItemDropped();
+                    _item.PickupObject.SetActive(true);
+                    _item.PickupObject.transform.position = transform.position;
                 }
                 else
                 {
-                    Debug.LogWarning("Cant remove item from player inventory since player does not have that item in their inventory"); 
+                    Debug.LogWarning("Can't remove item from player inventory since player doesn't have that item in their inventory");
                 }
             }
-            
+
             private void PickUpGold(int _playerId, int pickUpGold)
             {
                 if (playerController.PlayerIndex == _playerId)

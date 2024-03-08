@@ -80,6 +80,7 @@ namespace Game {
             private Dictionary<Item, QuestStatus> requiredItems;
             private int killsSoFar;
             private float currentWaitTime;
+            private List<Item>[] heldQuestItems;
 
 #region Unity Functions
             private void OnEnable()
@@ -100,6 +101,11 @@ namespace Game {
                 CanInteractWith = new bool[4]; // Hard coded to max 4 players
                 PlayersThatWantsToInteract = new bool[4]; // Hard coded to max 4 players
                 InteractionTransform = transform;
+                heldQuestItems = new List<Item>[4]; // Hard coded to max 4 players
+                for (int i = 0; i < 4; i++) // Hard coded to max 4 players
+                {
+                    heldQuestItems[i] = new List<Item>();
+                }
             }
 
             private void Start()
@@ -253,15 +259,25 @@ namespace Game {
             {
                 if (requiredItems.ContainsKey(_item))
                 {
-                    CanInteractWith[_playerIndex] = true;
+                    heldQuestItems[_playerIndex].Add(_item);
+                    
+                    if (heldQuestItems[_playerIndex].Count > 0)
+                    {
+                        CanInteractWith[_playerIndex] = true;
+                    }
                 }
             }
 
             private void ItemDropped(int _playerIndex, Item _item, bool _destroy)
             {
-                if (requiredItems.ContainsKey(_item))
+                if (heldQuestItems[_playerIndex].Contains(_item))
                 {
-                    CanInteractWith[_playerIndex] = false;
+                    heldQuestItems[_playerIndex].Remove(_item);
+                    
+                    if (heldQuestItems[_playerIndex].Count <= 0)
+                    {
+                        CanInteractWith[_playerIndex] = false;
+                    }
                 }
             }
 

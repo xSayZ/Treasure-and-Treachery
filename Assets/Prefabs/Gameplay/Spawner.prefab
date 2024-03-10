@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4123210250389098721}
-  - component: {fileID: 4123210250389098720}
+  - component: {fileID: 559057178880434243}
+  - component: {fileID: 1401224430396324678}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4123210250389098720
+--- !u!114 &559057178880434243
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,4 +45,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aeeac9df393d344caf763c279a10453, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allowForSpawn: 0
+  spawnRate: 60
+  maxEnemies: 5
+  enemyPrefab: {fileID: 5827580885617249925, guid: f36a275c79c52584c8f73e52c4d23a4c, type: 3}
+  allowSpawnInsideOfCamera: 1
+  allowForSpawn: 1
+--- !u!65 &1401224430396324678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4123210250389098727}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 1, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -6,57 +6,33 @@
 // --------------------------------
 // ------------------------------*/
 
+
 using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 using Random = UnityEngine.Random;
 
 
 namespace Game {
-    namespace Backend {
+    namespace Enemy {
         public class SpawnManager : Singleton<SpawnManager>
         {
-            [Header("Time Curve")]
-            [Tooltip("Curve for modifying the spawn time")]
-            [SerializeField] public AnimationCurve timeCurve;
-            
-            [Header("Spawn Variables")]
-            [Tooltip("Time between enemy spawns")]
-            [SerializeField] public float spawnTime = 20f;
-            [HideInInspector] public float spawnTimeModifier;
-            
-            [Header("Assignable Lists")]
-            [Tooltip("Assign the enemy prefabs to be spawned")]
-            [SerializeField] public GameObject[] enemyPrefabs;
-            [Tooltip("Assign the spawn points for the enemies")]
-            [SerializeField] private Spawner[] spawnPoints;
-
             [Header("Internal Variables")]
             private UnityEngine.Camera sceneCamera;
-
-            private Timer timer;
-            float percentage = 0f;
+            private Systems.Spawner[] spawnPoints;
             
-            private void Start()
+            private void Awake()
             {
                 sceneCamera = UnityEngine.Camera.main;
-                timer = GameManager.Instance.GetComponent<Timer>();
+                spawnPoints = Array.Empty<Systems.Spawner>();
+                spawnPoints = FindObjectsOfType<Systems.Spawner>();
             }
 
             private void Update()
             {
-                // Get the percentage of the curve
-                spawnTimeModifier = timeCurve.Evaluate(percentage);
-                
-                if (percentage < 1f)
-                {
-                    // Get the percentage of the current time
-                    percentage = timer.GetCurrentTime() / GameManager.Instance.roundTime;
-                }
-                
                 foreach (var _spawnPoint in spawnPoints)
                 {
+                    if (_spawnPoint.allowSpawnInsideOfCamera) continue;
                     // Get the view position of the spawn point
                     Vector3 _viewPos = sceneCamera.WorldToViewportPoint(_spawnPoint.transform.position);
                     
@@ -72,9 +48,7 @@ namespace Game {
             // Function for spawning enemies
             private void SpawnEnemy(Transform _spawnPointIndex)
             {
-                int _enemyIndex = Random.Range(0, enemyPrefabs.Length);
-                var _enemy = Instantiate(enemyPrefabs[_enemyIndex], _spawnPointIndex.position, Quaternion.identity);
-                EnemyManager.Instance.AddEnemy(_enemy.GetComponent<Game.Enemy.EnemyController>());
+
             }
         }
         

@@ -14,6 +14,7 @@ using Cinemachine;
 using Game.Backend;
 using Game.Enemy;
 using Game.Player;
+using UnityEngine.Events;
 using Vector3 = UnityEngine.Vector3;
 // ReSharper disable Unity.PerformanceCriticalCodeCameraMain
 
@@ -41,6 +42,7 @@ namespace Game {
             [SerializeField] private UnityEngine.Camera uiCamera;
             [SerializeField] private CinemachineVirtualCamera virtualCamera;
             
+            
             // Private Variables
             private Dictionary<int, PlayerController> targets = new Dictionary<int, PlayerController>();
             private CinemachineTargetGroup targetGroup;
@@ -52,8 +54,14 @@ namespace Game {
             private class ObjectiveStages {
                 public ObjectiveTransform[] objectiveTransforms;
                 
-                public ObjectiveStages(ObjectiveTransform[] _objectiveTransforms) {
+                [Header("Camera Events")]
+                public UnityEvent cameraZoomStartEvent;
+                public UnityEvent cameraZoomEndEvent;
+                
+                public ObjectiveStages(ObjectiveTransform[] _objectiveTransforms, UnityEvent _cameraZoomStartEvent, UnityEvent _cameraZoomEndEvent) {
                     objectiveTransforms = _objectiveTransforms;
+                    cameraZoomStartEvent = _cameraZoomStartEvent;
+                    cameraZoomEndEvent = _cameraZoomEndEvent;
                 }
             }
             
@@ -64,6 +72,7 @@ namespace Game {
                 public int Zoom;
                 public int CameraMoveSpeedToObjective;
                 public int TimeUntilNextObjective;
+                
                 
                 public ObjectiveTransform(Transform _transform, int _stage, int _zoom, int _cameraMoveSpeed, int _timeUntilNextObjective) {
                     Transform = _transform;
@@ -112,6 +121,14 @@ namespace Game {
                 maxZoomOut = _zoom;
             }
             
+            public void SetEnemiesActiveState(bool _active) {
+                var _enemies = Enemy.Systems.EnemyManager.Instance.enemies;
+
+                foreach (EnemyController _enemy in _enemies) {
+                    _enemy.enabled = _active;
+                }
+            }
+            
   #endregion
 
             #region Private Functions
@@ -124,11 +141,8 @@ namespace Game {
             
             private IEnumerator MoveCameraToObjectives(int _stage) {
                 SetPlayerActiveState(false);
-                var _enemies = EnemyManager.Instance.enemies;
-
-                foreach (EnemyController _enemy in _enemies) {
-                    _enemy.enabled = false;
-                }
+                
+                objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 
                 yield return new WaitForSeconds(initialWaitTime);
                 
@@ -152,10 +166,8 @@ namespace Game {
                 
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
+                objectiveStages[_stage].cameraZoomEndEvent.Invoke();
                 SetTargetGroupCamera();
-                foreach (EnemyController _enemy in _enemies) {
-                    _enemy.enabled = true;
-                }
                 SetPlayerActiveState(true);
             }
 

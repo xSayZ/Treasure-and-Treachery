@@ -13,7 +13,7 @@ using UnityEngine.InputSystem;
 
 
 namespace Game {
-    namespace NAME {
+    namespace Player {
         [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
         public class InputReader : ScriptableObject,PlayerControls.IPlayerActions,PlayerControls.IEventsActions
         {

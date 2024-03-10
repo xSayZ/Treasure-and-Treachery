@@ -11,7 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
-using Game.Backend;
 using Game.Enemy;
 using Game.Player;
 using UnityEngine.Events;
@@ -106,7 +105,7 @@ namespace Game {
 
             public void CameraZoomEvent(int _stage = 0) {
                 // Get the active player controllers
-                targets = GameManager.Instance.ActivePlayerControllers;
+                targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 if (objectiveStages.Length > 0) {
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
@@ -134,7 +133,7 @@ namespace Game {
             #region Private Functions
 
             private void SetupCamera() {
-                transform.position = GameManager.Instance.spawnRingCenter.position;
+                transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
                 targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 targetGroup.transform.position = transform.position;
             }

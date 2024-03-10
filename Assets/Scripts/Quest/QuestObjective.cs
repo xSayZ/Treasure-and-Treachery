@@ -87,7 +87,7 @@ namespace Game {
             {
                 QuestManager.OnItemPickedUp.AddListener(ItemPickedUp);
                 QuestManager.OnItemDropped.AddListener(ItemDropped);
-                EnemyManager.OnEnemyDeath.AddListener(EnemyKilled);
+                Enemy.Systems.EnemyManager.OnEnemyDeath.AddListener(EnemyKilled);
             }
 
             private void OnDisable()

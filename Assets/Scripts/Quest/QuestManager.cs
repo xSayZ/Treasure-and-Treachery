@@ -35,12 +35,10 @@ namespace Game {
             public static void SetUp()
             {
                 QuestObjective[] _questObjectives = Object.FindObjectsByType<QuestObjective>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-                
-                for (int i = 0; i < _questObjectives.Length; i++)
-                {
-                    if (_questObjectives[i].GetRequiredStatus())
-                    {
-                        _requiredQuestObjectivesLeft.Add(_questObjectives[i]);
+
+                foreach (var objective in _questObjectives) {
+                    if (objective.GetRequiredStatus()) {
+                        _requiredQuestObjectivesLeft.Add(objective);
                     }
                 }
                 

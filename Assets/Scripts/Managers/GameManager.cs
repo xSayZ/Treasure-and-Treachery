@@ -58,7 +58,7 @@ namespace Game {
             
             private bool isPaused;
             public LevelDataSO level;
-            [HideInInspector] public Timer timer;
+            [HideInInspector] public Utility.Timer timer;
             
             
             
@@ -115,7 +115,7 @@ namespace Game {
 
                 if (!timer)
                 {
-                    timer = gameObject.AddComponent<Timer>();
+                    timer = gameObject.AddComponent<Utility.Timer>();
                 }
                 timer.StartTimer(roundTime);
                 

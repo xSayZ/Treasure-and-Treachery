@@ -18,6 +18,7 @@ namespace Game {
         public class PlayerData : ScriptableObject
         {
             [Header("Settings")]
+            public Sprite characterImage;
             [SerializeField] public int startingHealth;
             [SerializeField] public Color playerMaterialColor;
             [SerializeField] public bool hasStartingMeleeWeapon;

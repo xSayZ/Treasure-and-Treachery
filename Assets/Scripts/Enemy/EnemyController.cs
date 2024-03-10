@@ -198,7 +198,7 @@ namespace Game {
 
             public void Death()
             {
-                EnemyManager.OnEnemyDeath.Invoke(this);
+                Enemy.Systems.EnemyManager.OnEnemyDeath.Invoke(this);
 
                 if (currentState == StunnedEnemyState)
                 {

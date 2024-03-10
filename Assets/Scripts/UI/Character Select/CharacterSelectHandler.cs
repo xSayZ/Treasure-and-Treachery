@@ -6,12 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Backend;
 using Game.WorldMap;
-using Ink.Parsed;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -20,16 +18,14 @@ namespace Game
 {
     namespace UI
     {
-
         public class CharacterSelectHandler : MonoBehaviour
         {
             [Header("References")] 
             // This is the level that will be loaded when the character select is done
             public LevelDataSO LevelToLoad;
-            // This is the image bank that holds all the character images
-            [SerializeField] private ImageBank bank;
             // This is the text that will be displayed when the game is ready to start
             [SerializeField] private GameObject startGameText;
+
             
             [FormerlySerializedAs("imagePosition")]
             [Space]
@@ -69,10 +65,10 @@ namespace Game
             public void Start()
             {
                 StaticData.Clear();
-                for (int i = 0; i < bank.characterImages.Count; i++)
+                for (int i = 0; i < PlayerDatas.Count; i++)
                 {
-                    Images.Add(i, bank.characterImages[i]);
-                    ImagesBackup.Add(i, bank.characterImages[i]);
+                    Images.Add(i, PlayerDatas[i].characterImage);
+                    ImagesBackup.Add(i, PlayerDatas[i].characterImage);
                 }
 
                 PlayerList.Clear();

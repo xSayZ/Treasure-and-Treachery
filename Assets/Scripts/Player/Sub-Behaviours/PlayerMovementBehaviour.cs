@@ -355,7 +355,7 @@ namespace Game {
             private void UpdateMovementAnimationSpeed()
             {
                 float _movementMultiplier = (MoveSpeedMultiplier * MoveSpeedItemMultiplier * movementDirection).magnitude;
-                playerController.PlayerAnimationBehaviour.PlayerAnimator.SetFloat("MovementMultiplier", _movementMultiplier);
+                //playerController.PlayerAnimationBehaviour.PlayerAnimator.SetFloat("MovementMultiplier", _movementMultiplier);
             }
 #endregion
         }

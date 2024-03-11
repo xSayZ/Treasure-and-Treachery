@@ -82,7 +82,7 @@ namespace Game {
                     elapsedTime += Time.deltaTime;
                     
                     return elapsedTime > spawnInterval
-                        && EnemyManager.Instance.GetCurrentEnemyCount() < maxEnemies 
+                        && EnemyManager.Instance.GetMaxEnemyCount() < maxEnemies 
                         && currentEnemies < maxEnemies 
                         && allowForSpawn;
                 }

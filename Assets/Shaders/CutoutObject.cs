@@ -23,6 +23,8 @@ namespace Game
             [SerializeField] private LayerMask wallMask;
 
             [SerializeField] private float CutTime;
+            
+            [SerializeField] private Vector3 cutoutSize;
            
 
             private UnityEngine.Camera cam;
@@ -63,27 +65,15 @@ namespace Game
                         out hit,Vector3.Distance(target.position,cam.transform.position),wallMask))
                     
                 {
-                    target.transform.localScale = Vector3.Lerp(target.transform.localScale,new Vector3(2, 2, 2),Time.deltaTime*CutTime);
+                    target.transform.localScale = Vector3.Lerp(target.transform.localScale,cutoutSize,Time.deltaTime*CutTime);
                 }
                 else
                 {
                     target.transform.localScale = Vector3.Lerp(target.transform.localScale,new Vector3(0, 0, 0),Time.deltaTime*CutTime);
 
                 }
-                
-
             }
-
-            private void OnDrawGizmos(){
             
-                Gizmos.color = Color.black;
-                //Gizmos.DrawRay(cam.transform.position,target.transform.position-cam.transform.position);
-                
-                
-            }
-
-           
-
             #endregion
         }
     }

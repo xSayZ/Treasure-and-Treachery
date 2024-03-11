@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,12 +28,13 @@ namespace Game {
                 
                 private float elapsedTime;
                 private int currentEnemies;
+                private List<EnemyController> enemies;
 
 #region Unity Functions
                 
                 private void Start()
                 {
-                    EnemyManager.OnEnemyDeath.AddListener((_a) => currentEnemies--);
+                    EnemyManager.OnEnemyDeath.AddListener(RemoveEnemy);
                     allowForSpawn = true;
                 }
                 
@@ -67,8 +69,9 @@ namespace Game {
                 {
                     if (CanSpawn()) {
                         if (EnemyManager.Instance.GetCurrentEnemyCount() < EnemyManager.Instance.GetMaxEnemyCount()) {
-                            var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-                            EnemyManager.Instance.AddEnemy(enemy.GetComponent<EnemyController>());
+                            var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyController>();
+                            enemies.Add(enemy);
+                            EnemyManager.Instance.AddEnemy(enemy);
                             currentEnemies++;
                         
                             // Reset the timer after spawning an enemy
@@ -86,6 +89,12 @@ namespace Game {
                         && EnemyManager.Instance.GetMaxEnemyCount() > maxEnemies 
                         && currentEnemies < maxEnemies 
                         && allowForSpawn;
+                }
+                
+                private void RemoveEnemy(EnemyController _enemy)
+                {
+                    enemies.Remove(_enemy);
+                    currentEnemies--;
                 }
             }
         }

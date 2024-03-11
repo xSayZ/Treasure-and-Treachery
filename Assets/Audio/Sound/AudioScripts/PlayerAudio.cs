@@ -140,10 +140,11 @@ public void PlayerRangedAudio(GameObject weaponObj)
     playerRangedInstance.release();
 }
 
-public void ProjectileHitAudio(GameObject projectileObj)
+public void ProjectileHitAudio(GameObject projectileObj, int type)
 {
     EventInstance projectileHitInstance = RuntimeManager.CreateInstance(projectileHit);
     RuntimeManager.AttachInstanceToGameObject(projectileHitInstance, projectileObj.transform);
+    projectileHitInstance.setParameterByName("ParticleType", type);
     projectileHitInstance.start();
     projectileHitInstance.release();
 }

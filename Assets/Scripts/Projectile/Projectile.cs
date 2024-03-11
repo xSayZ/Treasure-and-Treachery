@@ -89,7 +89,14 @@ namespace Game {
                         
                         try
                         {
-                            playerAudio.ProjectileHitAudio(gameObject);
+                            if (characterType == CharacterType.Witch)
+                            {
+                                playerAudio.ProjectileHitAudio(gameObject, 0); 
+                            }
+                            if (characterType == CharacterType.Dragon)
+                            {
+                                playerAudio.ProjectileHitAudio(gameObject, 1);
+                            }
                         }
                         catch (Exception e)
                         {

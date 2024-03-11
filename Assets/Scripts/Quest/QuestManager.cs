@@ -34,8 +34,11 @@ namespace Game {
 
             public static void SetUp()
             {
+                Reset();
+                
+                // Get all required quests
                 QuestObjective[] _questObjectives = Object.FindObjectsByType<QuestObjective>(FindObjectsInactive.Include, FindObjectsSortMode.None);
-
+                
                 foreach (var objective in _questObjectives) {
                     if (objective.GetRequiredStatus()) {
                         _requiredQuestObjectivesLeft.Add(objective);
@@ -65,8 +68,8 @@ namespace Game {
                     _scoreOfLeadingPlayer = _score;
                 }
             }
- 
-            public static void Reset() // Not used yet and probably not needed either
+
+            private static void Reset()
             {
                 _requiredQuestObjectivesLeft = new List<QuestObjective>();
             }

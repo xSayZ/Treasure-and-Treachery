@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Game.Backend;
+using Game.Managers;
 using Game.Player;
 using Game.WorldMap;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Game {
             [Header("Pause Stuff")]
             [SerializeField] private GameObject pauseCanvas;
             public GameObject[] UIButtons;
-            [SerializeField]private LevelDataSO[] _dataSos;
+            [SerializeField] private LevelDataSO level;
             
             private PlayerController playerController;
             private bool isActive;
@@ -34,19 +35,12 @@ namespace Game {
 
             private void Start()
             {
-                StartCoroutine(SelectFirstChoice());
-            }
-            
-
-            // Update is called once per frame
-
-            private void Update()
-            {
-                
+                StartCoroutine(SelectFirstChoice(playerController));
             }
 
             public void StartPause(bool pressed, PlayerController controller)
             {
+                playerController = controller;
                 if (pressed && !isActive)
                 {
                     pauseCanvas.SetActive(true);
@@ -57,12 +51,17 @@ namespace Game {
 
             public void UnPause(bool pressed, PlayerController controller)
             {
-                if (pressed && isActive)
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && controller)
                 {
-                    
                     isActive = false;
                     pauseCanvas.SetActive(false);
-                    controller.SetInputPausedState(controller);
+                    GameManager.Instance.TogglePauseState(controller);
+                }
+
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject)
+                {
+                    LevelManager.Instance.LoadLevel(level);
+                    GameManager.Instance.TogglePauseState(controller);
                 }
             }
 #endregion
@@ -72,15 +71,17 @@ namespace Game {
 #endregion
 
 #region Private Functions
-        private IEnumerator SelectFirstChoice() 
-{
+        private IEnumerator SelectFirstChoice(PlayerController controller) 
+        {
     // Event System requires we clear it first, then wait
     // for at least one frame before we set the current selected object.
-    EventSystem.current.SetSelectedGameObject(null);
-    yield return new WaitForEndOfFrame();
-    EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
-                
-}
+            
+            EventSystem.current.SetSelectedGameObject(null);
+            yield return new WaitForEndOfFrame();
+            EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
+            
+           
+        }
 #endregion
         }
     }

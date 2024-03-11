@@ -81,7 +81,7 @@ namespace Game
             {
                 hasBeenSetup = true;
                 PlayerData.NewScene();
-                
+                pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;
                
                 Health = PlayerData.currentHealth;
@@ -217,13 +217,12 @@ namespace Game
 
             public void OnPause(InputAction.CallbackContext value)
             {
-                
                 pauseMenu.StartPause(value.started,this);
             }
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
-                
+                pauseMenu.UnPause(value.started,this);
             }
 
             // Switching input action maps

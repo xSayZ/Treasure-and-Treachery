@@ -24,7 +24,6 @@ namespace Game {
 
             void Start()
             {
-                var one = 1;
                 foreach (var actionMap in playerInputsAsset.actionMaps) {
                     foreach (var action in actionMap.actions) {
                         action.Enable();

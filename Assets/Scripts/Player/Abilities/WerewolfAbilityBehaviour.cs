@@ -49,8 +49,6 @@ namespace Game {
 
             protected override void Setup()
             {
-                base.Setup();
-                
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
                 playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
@@ -70,7 +68,7 @@ namespace Game {
 
             protected override void OnDashKill(bool _stunned)
             {
-                EnemyKilled();
+                EnemyKilled(_stunned);
             }
 
             private void Update()
@@ -148,7 +146,7 @@ namespace Game {
                 isEnraged = _active;
             }
 
-            private void EnemyKilled()
+            private void EnemyKilled(bool _stunned)
             {
                 currentDecayGracePeriod = decayGracePeriod;
                 currentDecayTime = decayTime;

@@ -145,7 +145,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         }
         catch (Exception e)
         {
-            // Temp
+            Debug.LogWarning(e);
         }
     }
 

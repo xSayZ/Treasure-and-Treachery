@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -26,18 +27,21 @@ namespace Game {
                 [HideInInspector] public bool allowForSpawn = true;
                 
                 private float elapsedTime;
-                private int currentEnemies;
+                public int currentEnemies;
+                public List<EnemyController> enemies;
 
 #region Unity Functions
                 
                 private void Start()
                 {
+                    EnemyManager.OnEnemyDeath.AddListener(RemoveEnemy);
                     allowForSpawn = true;
                 }
                 
                 private void Update()
                 {
                     SpawnEnemy();
+                    elapsedTime += Time.deltaTime;
                 }
 
                 private void OnTriggerEnter(Collider other)
@@ -65,26 +69,35 @@ namespace Game {
                 private void SpawnEnemy()
                 {
                     if (CanSpawn()) {
-                        if (EnemyManager.Instance.GetCurrentEnemyCount() < EnemyManager.Instance.GetMaxEnemyCount()) {
-                            var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-                            EnemyManager.Instance.AddEnemy(enemy.GetComponent<EnemyController>());
-                            currentEnemies++;
+                        var _enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+                        var _enemyController = _enemy.GetComponent<EnemyController>();
+                        enemies.Add(_enemyController);
+                        EnemyManager.Instance.AddEnemy(_enemyController);
+                        currentEnemies++;
                         
-                            // Reset the timer after spawning an enemy
-                            elapsedTime = 0f;
-                        }
+                        // Reset the timer after spawning an enemy
+                        elapsedTime = 0f;
                     }
                 }
                 
                 private bool CanSpawn()
                 {
-                    float spawnInterval = 60 / spawnRate;
-                    elapsedTime += Time.deltaTime;
+                    float _spawnInterval = 60 / spawnRate;
+
+                    if (elapsedTime > _spawnInterval
+                        && EnemyManager.Instance.GetMaxEnemyCount() > EnemyManager.Instance.GetCurrentEnemyCount()
+                        && currentEnemies < maxEnemies
+                        && allowForSpawn) return true;
+
+                    return false;
+                }
+                
+                private void RemoveEnemy(EnemyController _enemy) {
+                    if (!enemies.Contains(_enemy))
+                        return;
                     
-                    return elapsedTime > spawnInterval
-                        && EnemyManager.Instance.GetCurrentEnemyCount() < maxEnemies 
-                        && currentEnemies < maxEnemies 
-                        && allowForSpawn;
+                    enemies.Remove(_enemy);
+                    currentEnemies--;
                 }
             }
         }

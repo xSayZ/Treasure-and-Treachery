@@ -30,7 +30,6 @@ namespace Game {
             
             public PlayerInputManager playerInputManager;
             
-            private bool test = true;
             [SerializeField]
             private bool submitPressed;
             private void Start() {

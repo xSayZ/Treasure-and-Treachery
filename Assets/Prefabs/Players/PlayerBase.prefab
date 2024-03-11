@@ -263,6 +263,7 @@ MonoBehaviour:
   meleeImpactVFX: {fileID: 0}
   attackType: 0
   meleeAttackDamage: 1
+  meleeMaxAttackTargets: 2
   meleeAttackCooldown: 1
   meleeAttackDuration: 0.2
   meleeAttackDelay: 0.1
@@ -521,12 +522,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wrathSlider: {fileID: 1541625689130935793}
-  percentagePerKill: 15
-  decayGracePeriod: 5
-  decayTime: 0.1
+  percentagePerKill: 100
+  decayGracePeriod: 0
+  decayTime: 0.02
   decayAmount: 1
-  percentageToBecomeEnraged: 90
-  percentageToLoseEnraged: 89.5
+  percentageToBecomeEnraged: 10
+  percentageToLoseEnraged: 9.5
   meleeAttackCooldownMultiplier: 1
   moveSpeedMultiplier: 1.5
   dashHealAmount: 2
@@ -774,7 +775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7456082212192171173

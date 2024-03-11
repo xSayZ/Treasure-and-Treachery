@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FMOD.Studio;
 using Game.Audio;
 using Game.Backend;
@@ -49,6 +50,8 @@ namespace Game {
             [Header("Melee Attack Settings")]
             [Tooltip("The damage the melee attack does.")]
             [SerializeField] private int meleeAttackDamage;
+            [Tooltip("The max number of targets that can be damaged in one melee attack.")]
+            [SerializeField] private int meleeMaxAttackTargets;
             [Tooltip("The cooldown of the melee attack.")]
             [SerializeField] private float meleeAttackCooldown;
             [Tooltip("The duration of the melee attack.")]
@@ -89,6 +92,8 @@ namespace Game {
             private float currentMeleeCooldown;
             private bool isMeleeAttacking;
             private bool meleeAttackStarted;
+            private int currentMaxMeleeTargets;
+            private int currentMeleeTargets;
             [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
             [HideInInspector] public bool MeleeIsStunAttack;
             
@@ -101,8 +106,8 @@ namespace Game {
             private bool canAttack = true;
             
             // Events
-            [HideInInspector] public UnityEvent OnKill = new UnityEvent();
-            [HideInInspector] public UnityEvent OnWaveKill = new UnityEvent();
+            [HideInInspector] public UnityEvent<bool> OnKill = new UnityEvent<bool>();
+            [HideInInspector] public UnityEvent<bool> OnWaveKill = new UnityEvent<bool>();
 
 #region Unity Functions
             private void OnEnable()
@@ -120,6 +125,8 @@ namespace Game {
             private void Awake()
             {
                 damageableInRange = new List<IDamageable>();
+                
+                currentMaxMeleeTargets = meleeMaxAttackTargets;
                 
                 playerController = GetComponent<PlayerController>();
             }
@@ -216,11 +223,11 @@ namespace Game {
                 {
                     return;
                 }
-                            
+                
                 meleeAttackStarted = true;
-                            
+                
                 playerController.PlayerAnimationBehaviour.PlayAttackAnimation(); 
-                            
+                
                 StartCoroutine(MeleeAttack());
             }
 
@@ -252,7 +259,6 @@ namespace Game {
                     
                     try
                     {
-                        Debug.Log("poopie");
                         playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
                     }
                     catch (Exception e)
@@ -280,7 +286,6 @@ namespace Game {
 
                     try
                     {
-                        Debug.Log("poop");
                         playerAudio.DragonShoot(playerObj, false, dragonShootinstance);
                     }
                     catch (Exception e)
@@ -292,27 +297,44 @@ namespace Game {
 
             private IEnumerator MeleeAttack()
             {
+                currentMeleeTargets = 0;
+                
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
+                // Play melee attack vfx
                 foreach (VisualEffect _meleeVisualEffect in meleeVisualEffects)
                 {
                     _meleeVisualEffect.Play();
                 }
                 
+                // Apply charge force
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
                 
-                // Loop through all enemies in range
+                // Get all enemies in range as mono behaviours
+                List<MonoBehaviour> _damageableMonoBehaviourInRange = new List<MonoBehaviour>();
                 for (int i = damageableInRange.Count - 1; i >= 0; i--)
                 {
-                    if (!(damageableInRange[i] as Object)) // Null check
+                    MonoBehaviour _damageableMonoBehaviour = damageableInRange[i] as MonoBehaviour;
+                    if (_damageableMonoBehaviour)
+                    {
+                        _damageableMonoBehaviourInRange.Add(_damageableMonoBehaviour);
+                    }
+                    else
                     {
                         damageableInRange.Remove(damageableInRange[i]);
-                        continue;
                     }
-                    
-                    MeleeDamage(damageableInRange[i]);
                 }
                 
+                // Sort mono behaviours after distance from player
+                _damageableMonoBehaviourInRange = _damageableMonoBehaviourInRange.OrderBy(monoBehaviour => Vector3.Distance(transform.position, monoBehaviour.transform.position)).ToList();
+                
+                // Attack enemies
+                foreach (MonoBehaviour _damageableMonoBehaviour in _damageableMonoBehaviourInRange)
+                {
+                    MeleeDamage(_damageableMonoBehaviour.GetComponent<IDamageable>());
+                }
+                
+                // Play attack audio
                 try
                 {
                     playerAudio.MeleeAudioPlay(playerObj);
@@ -322,18 +344,22 @@ namespace Game {
                     Debug.LogError("[{PlayerController}]: Error Exception " + e);
                 }
                 
+                // Run melee attack for a while longer
                 isMeleeAttacking = true;
                 yield return new WaitForSeconds(meleeAttackDuration);
                 isMeleeAttacking = false;
                 
+                // Reset melee attack
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
                 
+                // Wait longer if attack duration is les than charge time
                 if (meleeChargeTime > meleeAttackDuration)
                 {
                     yield return new WaitForSeconds(meleeChargeTime - meleeAttackDuration);
                 }
                 
+                // Melee stun
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 yield return new WaitForSeconds(meleeStunTime);
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
@@ -341,6 +367,11 @@ namespace Game {
 
             private void MeleeDamage(IDamageable _damageable)
             {
+                if (currentMeleeTargets >= currentMaxMeleeTargets)
+                {
+                    return;
+                }
+                
                 bool _doNormalMelee = true;
                 
                 // Stun melee
@@ -358,6 +389,7 @@ namespace Game {
                         {
                             _doNormalMelee = false;
                             _enemyController.ChangeState(_enemyController.StunnedEnemyState);
+                            currentMeleeTargets++;
                         }
                     }
                 }
@@ -366,6 +398,7 @@ namespace Game {
                 if (_doNormalMelee)
                 {
                     bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKnockbackForce);
+                    currentMeleeTargets++;
                     
                     if (meleeImpactVFX)
                     {
@@ -379,9 +412,25 @@ namespace Game {
                     
                     if (killed)
                     {
+                        // Update player data
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
-                        OnKill.Invoke();
+                        
+                        // Check if stun kill
+                        bool _stunKill = false;
+                        MonoBehaviour _damageableMonoBehaviour = _damageable as MonoBehaviour;
+                        if (_damageableMonoBehaviour)
+                        {
+                            if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
+                            {
+                                if (_enemyController.GetCurrentState() == _enemyController.StunnedEnemyState)
+                                {
+                                    _stunKill = true;
+                                }
+                            }
+                        }
+                        
+                        OnKill.Invoke(_stunKill);
                         
                         try
                         {

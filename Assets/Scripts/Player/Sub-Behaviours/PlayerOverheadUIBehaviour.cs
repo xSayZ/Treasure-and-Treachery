@@ -111,7 +111,7 @@ namespace Game {
                 activePopups[_sprite] = _playerPopupUI;
             }
 
-            private void KillPopup()
+            private void KillPopup(bool _stunned)
             {
                 Popup(1, popupKillSprite);
             }

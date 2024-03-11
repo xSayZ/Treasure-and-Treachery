@@ -38,12 +38,12 @@ namespace Game {
             
             // protected override void OnDashKill(bool _stunned) {}
             
-            private void EnemyKilled()
+            private void EnemyKilled(bool _stunned)
             {
                 playerController.Heal(healPerNormalKill);
             }
             
-            private void WaveKill()
+            private void WaveKill(bool _stunned)
             {
                 playerController.PlayerData.personalObjective += 1;
                 playerController.PlayerData.personalObjectiveThisLevel += 1;

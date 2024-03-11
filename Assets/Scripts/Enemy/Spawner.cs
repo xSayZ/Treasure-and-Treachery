@@ -69,10 +69,10 @@ namespace Game {
                 private void SpawnEnemy()
                 {
                     if (CanSpawn()) {
-                        var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-                        var enemyController = enemy.GetComponent<EnemyController>();
-                        enemies.Add(enemyController);
-                        EnemyManager.Instance.AddEnemy(enemyController);
+                        var _enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+                        var _enemyController = _enemy.GetComponent<EnemyController>();
+                        enemies.Add(_enemyController);
+                        EnemyManager.Instance.AddEnemy(_enemyController);
                         currentEnemies++;
                         
                         // Reset the timer after spawning an enemy
@@ -92,8 +92,10 @@ namespace Game {
                     return false;
                 }
                 
-                private void RemoveEnemy(EnemyController _enemy)
-                {
+                private void RemoveEnemy(EnemyController _enemy) {
+                    if (!enemies.Contains(_enemy))
+                        return;
+                    
                     enemies.Remove(_enemy);
                     currentEnemies--;
                 }

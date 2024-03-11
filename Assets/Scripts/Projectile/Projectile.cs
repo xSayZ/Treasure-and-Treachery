@@ -79,6 +79,15 @@ namespace Game {
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
+                    MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
+                    if (_hitMonoBehaviour)
+                    {
+                        if (!_hitMonoBehaviour.CompareTag("Enemy"))
+                        {
+                            return;
+                        }
+                    }
+                    
                     bool killed = _hit.Damage(damage, transform.position, knockbackForce);
                     
                     if (killed)

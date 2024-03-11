@@ -25,7 +25,7 @@ namespace Game {
             
             private int damage;
             private PlayerData playerData;
-            private UnityEvent onWaveKill;
+            private UnityEvent<bool> onWaveKill;
             private float currentAliveTime;
             private Rigidbody rigidbody;
 
@@ -65,7 +65,7 @@ namespace Game {
                     {
                         playerData.kills += 1;
                         playerData.killsThisLevel += 1;
-                        onWaveKill.Invoke();
+                        onWaveKill.Invoke(false); // Doesn't actually check if enemy is stunned since gorgon doesn't have a ranged attack
                     }
                 }
                 else
@@ -76,7 +76,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, PlayerData _playerData, UnityEvent _onWaveKill)
+            public void Setup(int _damage, PlayerData _playerData, UnityEvent<bool> _onWaveKill)
             {
                 damage = _damage;
                 playerData = _playerData;

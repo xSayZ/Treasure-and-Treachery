@@ -21,6 +21,7 @@ public class DialogueAudioWrapper : MonoBehaviour
     public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon, dialogueProgressionBoss;
     public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon, speakerAfterBoss;
 
+    [SerializeField] private GameObject wolfIcon, dragonIcon, witchIcon, gorgonIcon, bossIcon;
     private void Awake()
     {
         // Ensure only one instance of DialogueAudioWrapper exists
@@ -43,7 +44,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         StartCoroutine(dialogueAudio.WaitForQuestResponseAudio(_playerID, askerInstance, eventRef));
     }
 
-    private IEnumerator QueNextDialogue(EventInstance previousSpeakerInstance, int nextSpeaker)
+    private IEnumerator QueNextDialogue(EventInstance previousSpeakerInstance, int nextSpeaker, GameObject icon)
     {
         while (IsPlaying(previousSpeakerInstance))
         {
@@ -77,44 +78,48 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WolfQuestDialogue()
     {
+        wolfIcon.SetActive(true);
         wolfDialogueInstance.release();
         wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
         wolfDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWolf);
         PlayDialogue(0, wolfDialogueInstance);
-        StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf));
+        StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf, wolfIcon));
         
         dialogueProgressionWolf++;
         speakerAfterWolf = 4;
     }
     public void DragonQuestDialogue()
     {
+        dragonIcon.SetActive(true);
         dragonDialogueInstance.release();
         dragonDialogueInstance = RuntimeManager.CreateInstance(dragonDialogue);
         dragonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionDragon);
         PlayDialogue(1, dragonDialogueInstance);
-        StartCoroutine(QueNextDialogue(dragonDialogueInstance, speakerAfterDragon));
+        StartCoroutine(QueNextDialogue(dragonDialogueInstance, speakerAfterDragon, dragonIcon));
         
         dialogueProgressionDragon++;
         speakerAfterDragon = 4;
     }
     public void WitchQuestDialogue()
     {
+        witchIcon.SetActive(true);
         witchDialogueInstance.release();
         witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
         witchDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWitch);
         PlayDialogue(2, witchDialogueInstance);
-        StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch));
+        StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch, witchIcon));
 
         dialogueProgressionWitch++;
         speakerAfterWitch = 4;
     }
     public void GorgonQuestDialogue()
     {
+        gorgonIcon.SetActive(true);
         gorgonDialogueInstance.release();
         gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
         gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
         PlayDialogue(3, gorgonDialogueInstance);
-        StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon));   
+        StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
         
         dialogueProgressionGorgon++;
         speakerAfterGorgon = 4;
@@ -122,12 +127,13 @@ public class DialogueAudioWrapper : MonoBehaviour
     
     public void BossQuestDialogue()
     {
+        bossIcon.SetActive(true);
         bossDialogueInstance.release();
         bossDialogueInstance = RuntimeManager.CreateInstance(bossDialogue);
         bossDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
         bossDialogueInstance.start();
         bossDialogueInstance.release();
-        StartCoroutine(QueNextDialogue(bossDialogueInstance, speakerAfterBoss));   
+        StartCoroutine(QueNextDialogue(bossDialogueInstance, speakerAfterBoss, bossIcon));   
         
         dialogueProgressionBoss++;
         speakerAfterBoss = 4;

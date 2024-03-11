@@ -51,7 +51,6 @@ namespace Game {
             private bool submitPressed;
             private bool canContinueToNextLine = true;
             private bool typing = false;
-            private bool hasMadeAChoice = false;
             private bool isPaused;
             private DialogueTrigger currentTrigger;
 
@@ -151,7 +150,6 @@ namespace Game {
             
             public void ChooseChoiceIndex(int choiceIndex) {
                 story.ChooseChoiceIndex(choiceIndex);
-                hasMadeAChoice = true;
                 HideChoices();
                 StartCoroutine(OnAdvanceStory());
             }

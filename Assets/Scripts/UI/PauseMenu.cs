@@ -18,29 +18,32 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 
-namespace Game {
-    namespace UI {
+namespace Game
+{
+    namespace UI
+    {
         public class PauseMenu : MonoBehaviour
         {
-            [Header("Pause Stuff")]
-            [SerializeField] private GameObject pauseCanvas;
+            [Header("Pause Stuff")] [SerializeField]
+            private GameObject pauseCanvas;
+
             public GameObject[] UIButtons;
             [SerializeField] private LevelDataSO level;
-            
-            private PlayerController playerController;
+
             private bool isActive;
-            
-#region Unity Functions
+            private bool isPaused;
+            private Gamepad focusedPad;
+            #region Unity Functions
+
             // Start is called before the first frame update
 
             private void Start()
             {
-                StartCoroutine(SelectFirstChoice(playerController));
+                StartCoroutine(SelectFirstChoice());
             }
 
-            public void StartPause(bool pressed, PlayerController controller)
+            public void StartPauseGameplay(bool pressed, PlayerController controller)
             {
-                playerController = controller;
                 if (pressed && !isActive)
                 {
                     pauseCanvas.SetActive(true);
@@ -49,9 +52,9 @@ namespace Game {
                 }
             }
 
-            public void UnPause(bool pressed, PlayerController controller)
+            public void UnPauseGameplay(bool pressed, PlayerController controller)
             {
-                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && controller)
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject)
                 {
                     isActive = false;
                     pauseCanvas.SetActive(false);
@@ -64,25 +67,64 @@ namespace Game {
                     GameManager.Instance.TogglePauseState(controller);
                 }
             }
-#endregion
 
-#region Public Functions
+            public void PauseOverWorld(bool pressed, Gamepad gamepad)
+            {
+                if (pressed && !isActive)
+                {
+                    focusedPad = gamepad;
+                    isActive = true;
+                    isPaused = true;
+                    pauseCanvas.SetActive(true);
+                    ToggleTimeScale();
+                }
+            }
 
-#endregion
+            public void UnPauseOverWorld(bool pressed,Gamepad gamepad)
+            {
+                if (pressed && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && gamepad == focusedPad)
+                {
+                    isActive = false;
+                    isPaused = false;
+                    pauseCanvas.SetActive(false);
+                    ToggleTimeScale();
+                }
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject)
+                {
+                    LevelManager.Instance.LoadLevel(level);
+                    isActive = false;
+                    isPaused = false;
+                    ToggleTimeScale();
+                }
+            }
 
-#region Private Functions
-        private IEnumerator SelectFirstChoice(PlayerController controller) 
-        {
-    // Event System requires we clear it first, then wait
-    // for at least one frame before we set the current selected object.
-            
-            EventSystem.current.SetSelectedGameObject(null);
-            yield return new WaitForEndOfFrame();
-            EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
-            
-           
-        }
-#endregion
+            #endregion
+
+            #region Private Functions
+
+            private void ToggleTimeScale()
+            {
+                float _newTimeScale = isPaused switch
+                {
+                    true => 0f,
+                    false => 1f
+                };
+
+                Time.timeScale = _newTimeScale;
+            }
+
+
+            public IEnumerator SelectFirstChoice()
+            {
+                // Event System requires we clear it first, then wait
+                // for at least one frame before we set the current selected object.
+
+                EventSystem.current.SetSelectedGameObject(null);
+                yield return new WaitForEndOfFrame();
+                EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
+            }
+
+            #endregion
         }
     }
 }

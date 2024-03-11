@@ -217,12 +217,12 @@ namespace Game
 
             public void OnPause(InputAction.CallbackContext value)
             {
-                pauseMenu.StartPause(value.started,this);
+                pauseMenu.StartPauseGameplay(value.started,this);
             }
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
-                pauseMenu.UnPause(value.started,this);
+                pauseMenu.UnPauseGameplay(value.started,this);
             }
 
             // Switching input action maps

@@ -53,6 +53,7 @@ namespace Game {
                         if (!_hitMonoBehaviour.CompareTag("Enemy"))
                         {
                             Destroy(gameObject);
+                            return;
                         }
                     }
                     

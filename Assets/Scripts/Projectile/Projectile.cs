@@ -82,27 +82,25 @@ namespace Game {
                     MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
                     if (_hitMonoBehaviour)
                     {
-                        if (!_hitMonoBehaviour.CompareTag("Enemy"))
+                        if (_hitMonoBehaviour.CompareTag("Enemy"))
                         {
-                            return;
-                        }
-                    }
-                    
-                    bool killed = _hit.Damage(damage, transform.position, knockbackForce);
-                    
-                    if (killed)
-                    {
-                        playerData.kills += 1;
-                        playerData.killsThisLevel += 1;
-                        onKill.Invoke();
-                        
-                        try
-                        {
-                            playerAudio.ProjectileHitAudio(gameObject);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError("[{Projectile}]: Error Exception " + e);
+                            bool killed = _hit.Damage(damage, transform.position, knockbackForce);
+                            
+                            if (killed)
+                            {
+                                playerData.kills += 1;
+                                playerData.killsThisLevel += 1;
+                                onKill.Invoke();
+                                
+                                try
+                                {
+                                    playerAudio.ProjectileHitAudio(gameObject);
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.LogError("[{Projectile}]: Error Exception " + e);
+                                }
+                            }
                         }
                     }
                 }

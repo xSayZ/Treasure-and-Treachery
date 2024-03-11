@@ -39,6 +39,11 @@ namespace Game {
             protected override void OnDashKill(bool _stunned)
             {
                 EnemyKilled(_stunned);
+                
+                if (_stunned)
+                {
+                    playerController.PlayerMovementBehaviour.UpdateCurrentNumberOfDashes(1);
+                }
             }
 
             private void EnemyKilled(bool _stunned)

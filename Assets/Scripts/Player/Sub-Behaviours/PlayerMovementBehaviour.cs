@@ -234,7 +234,14 @@ namespace Game {
                     _transform.GetComponent<PlayerController>().PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
                 }
             }
-            
+
+            public void UpdateCurrentNumberOfDashes(int _amount)
+            {
+                currentNumberOfDashes += _amount;
+                currentNumberOfDashes = Mathf.Clamp(currentNumberOfDashes, 0, numberOfDashes);
+                UpdateDashUI();
+            }
+
             public float TurnSpeed {
                 get {
                     return turnSpeed;

@@ -32,6 +32,7 @@ namespace Game {
                 
                 private void Start()
                 {
+                    EnemyManager.OnEnemyDeath.AddListener((_a) => currentEnemies--);
                     allowForSpawn = true;
                 }
                 
@@ -82,7 +83,7 @@ namespace Game {
                     elapsedTime += Time.deltaTime;
                     
                     return elapsedTime > spawnInterval
-                        && EnemyManager.Instance.GetMaxEnemyCount() < maxEnemies 
+                        && EnemyManager.Instance.GetMaxEnemyCount() > maxEnemies 
                         && currentEnemies < maxEnemies 
                         && allowForSpawn;
                 }

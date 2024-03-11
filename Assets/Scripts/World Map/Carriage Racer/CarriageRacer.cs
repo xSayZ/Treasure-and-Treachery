@@ -24,8 +24,6 @@ namespace Game {
             
             private Vector3 averageLeftStickValue;
 
-            private bool submitPressed = false;
-
 #region Unity Functions
             private void Start() {
                 transform.position = LevelManager.Instance.worldMapManager.carriagePosition;

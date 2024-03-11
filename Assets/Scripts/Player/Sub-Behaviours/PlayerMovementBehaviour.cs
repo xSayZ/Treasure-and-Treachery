@@ -325,20 +325,18 @@ namespace Game {
             {
                 UnityEngine.Camera camera = UnityEngine.Camera.main;
                 
-                Vector3 playerPosition = camera.WorldToViewportPoint(playerRigidBody.transform.position);
+                Vector3 playerViewportPosition = camera.WorldToViewportPoint(transform.position);
                 
                 // Clamp the player's position to be within the camera's viewport (0 to 1)
+                float clampedX = Mathf.Clamp(playerViewportPosition.x, 0.05f, 0.95f);
+                float clampedY = Mathf.Clamp(playerViewportPosition.y, 0.05f, 0.90f);
                 
-                float clampedX = Mathf.Clamp01(playerPosition.x);
-                float clampedY = Mathf.Clamp01(playerPosition.y);
-
-                if (clampedY > 0.9f) clampedY = 0.9f;
+                Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerViewportPosition.z));
                 
-                if (clampedX > 0.95f) clampedX = 0.95f;
-                if (clampedX < 0.05f) clampedX = 0.05f;
-                
-                Vector3 newPosition = camera.ViewportToWorldPoint(new Vector3(clampedX, clampedY, playerPosition.z));
-                playerRigidBody.position = new Vector3(newPosition.x, playerRigidBody.position.y, newPosition.z);
+                if (playerViewportPosition.x != clampedX || playerViewportPosition.y != clampedY)
+                {
+                    transform.position = new Vector3(newPosition.x, transform.position.y, newPosition.z);
+                }
             }
 
             private void UpdateDashUI()

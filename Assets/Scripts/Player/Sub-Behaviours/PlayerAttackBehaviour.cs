@@ -49,6 +49,8 @@ namespace Game {
             [Header("Melee Attack Settings")]
             [Tooltip("The damage the melee attack does.")]
             [SerializeField] private int meleeAttackDamage;
+            [Tooltip("The max number of targets that can be damaged in one melee attack.")]
+            [SerializeField] private int meleeMaxAttackTargets;
             [Tooltip("The cooldown of the melee attack.")]
             [SerializeField] private float meleeAttackCooldown;
             [Tooltip("The duration of the melee attack.")]
@@ -89,6 +91,8 @@ namespace Game {
             private float currentMeleeCooldown;
             private bool isMeleeAttacking;
             private bool meleeAttackStarted;
+            private int currentMaxMeleeTargets;
+            private int currentMeleeTargets;
             [HideInInspector] public float MeleeAttackCooldownMultiplier = 1f;
             [HideInInspector] public bool MeleeIsStunAttack;
             
@@ -120,6 +124,8 @@ namespace Game {
             private void Awake()
             {
                 damageableInRange = new List<IDamageable>();
+                
+                currentMaxMeleeTargets = meleeMaxAttackTargets;
                 
                 playerController = GetComponent<PlayerController>();
             }
@@ -216,11 +222,11 @@ namespace Game {
                 {
                     return;
                 }
-                            
+                
                 meleeAttackStarted = true;
-                            
+                
                 playerController.PlayerAnimationBehaviour.PlayAttackAnimation(); 
-                            
+                
                 StartCoroutine(MeleeAttack());
             }
 
@@ -292,6 +298,8 @@ namespace Game {
 
             private IEnumerator MeleeAttack()
             {
+                currentMeleeTargets = 0;
+                
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
                 foreach (VisualEffect _meleeVisualEffect in meleeVisualEffects)
@@ -341,6 +349,11 @@ namespace Game {
 
             private void MeleeDamage(IDamageable _damageable)
             {
+                if (currentMeleeTargets >= currentMaxMeleeTargets)
+                {
+                    return;
+                }
+                
                 bool _doNormalMelee = true;
                 
                 // Stun melee
@@ -358,6 +371,7 @@ namespace Game {
                         {
                             _doNormalMelee = false;
                             _enemyController.ChangeState(_enemyController.StunnedEnemyState);
+                            currentMeleeTargets++;
                         }
                     }
                 }
@@ -366,6 +380,7 @@ namespace Game {
                 if (_doNormalMelee)
                 {
                     bool killed = _damageable.Damage(meleeAttackDamage, transform.position, meleeKnockbackForce);
+                    currentMeleeTargets++;
                     
                     if (meleeImpactVFX)
                     {

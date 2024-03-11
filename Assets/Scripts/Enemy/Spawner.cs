@@ -27,8 +27,8 @@ namespace Game {
                 [HideInInspector] public bool allowForSpawn = true;
                 
                 private float elapsedTime;
-                private int currentEnemies;
-                private List<EnemyController> enemies;
+                public int currentEnemies;
+                public List<EnemyController> enemies;
 
 #region Unity Functions
                 
@@ -41,6 +41,7 @@ namespace Game {
                 private void Update()
                 {
                     SpawnEnemy();
+                    elapsedTime += Time.deltaTime;
                 }
 
                 private void OnTriggerEnter(Collider other)
@@ -68,9 +69,10 @@ namespace Game {
                 private void SpawnEnemy()
                 {
                     if (CanSpawn()) {
-                        var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyController>();
-                        enemies.Add(enemy);
-                        EnemyManager.Instance.AddEnemy(enemy);
+                        var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+                        var enemyController = enemy.GetComponent<EnemyController>();
+                        enemies.Add(enemyController);
+                        EnemyManager.Instance.AddEnemy(enemyController);
                         currentEnemies++;
                         
                         // Reset the timer after spawning an enemy
@@ -80,13 +82,14 @@ namespace Game {
                 
                 private bool CanSpawn()
                 {
-                    float spawnInterval = 60 / spawnRate;
-                    elapsedTime += Time.deltaTime;
-                    
-                    return elapsedTime > spawnInterval
-                        && EnemyManager.Instance.GetMaxEnemyCount() > EnemyManager.Instance.GetCurrentEnemyCount() 
-                        && currentEnemies < maxEnemies 
-                        && allowForSpawn;
+                    float _spawnInterval = 60 / spawnRate;
+
+                    if (elapsedTime > _spawnInterval
+                        && EnemyManager.Instance.GetMaxEnemyCount() > EnemyManager.Instance.GetCurrentEnemyCount()
+                        && currentEnemies < maxEnemies
+                        && allowForSpawn) return true;
+
+                    return false;
                 }
                 
                 private void RemoveEnemy(EnemyController _enemy)

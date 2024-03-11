@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using FMOD.Studio;
 using Game.Audio;
 using Game.Backend;
@@ -258,7 +259,6 @@ namespace Game {
                     
                     try
                     {
-                        Debug.Log("poopie");
                         playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
                     }
                     catch (Exception e)
@@ -286,7 +286,6 @@ namespace Game {
 
                     try
                     {
-                        Debug.Log("poop");
                         playerAudio.DragonShoot(playerObj, false, dragonShootinstance);
                     }
                     catch (Exception e)
@@ -302,25 +301,40 @@ namespace Game {
                 
                 yield return new WaitForSeconds(meleeAttackDelay);
                 
+                // Play melee attack vfx
                 foreach (VisualEffect _meleeVisualEffect in meleeVisualEffects)
                 {
                     _meleeVisualEffect.Play();
                 }
                 
+                // Apply charge force
                 playerController.PlayerMovementBehaviour.ApplyForce(meleeChargeSpeed, transform.forward, meleeChargeTime);
                 
-                // Loop through all enemies in range
+                // Get all enemies in range as mono behaviours
+                List<MonoBehaviour> _damageableMonoBehaviourInRange = new List<MonoBehaviour>();
                 for (int i = damageableInRange.Count - 1; i >= 0; i--)
                 {
-                    if (!(damageableInRange[i] as Object)) // Null check
+                    MonoBehaviour _damageableMonoBehaviour = damageableInRange[i] as MonoBehaviour;
+                    if (_damageableMonoBehaviour)
+                    {
+                        _damageableMonoBehaviourInRange.Add(_damageableMonoBehaviour);
+                    }
+                    else
                     {
                         damageableInRange.Remove(damageableInRange[i]);
-                        continue;
                     }
-                    
-                    MeleeDamage(damageableInRange[i]);
                 }
                 
+                // Sort mono behaviours after distance from player
+                _damageableMonoBehaviourInRange = _damageableMonoBehaviourInRange.OrderBy(monoBehaviour => Vector3.Distance(transform.position, monoBehaviour.transform.position)).ToList();
+                
+                // Attack enemies
+                foreach (MonoBehaviour _damageableMonoBehaviour in _damageableMonoBehaviourInRange)
+                {
+                    MeleeDamage(_damageableMonoBehaviour.GetComponent<IDamageable>());
+                }
+                
+                // Play attack audio
                 try
                 {
                     playerAudio.MeleeAudioPlay(playerObj);
@@ -330,18 +344,22 @@ namespace Game {
                     Debug.LogError("[{PlayerController}]: Error Exception " + e);
                 }
                 
+                // Run melee attack for a while longer
                 isMeleeAttacking = true;
                 yield return new WaitForSeconds(meleeAttackDuration);
                 isMeleeAttacking = false;
                 
+                // Reset melee attack
                 currentMeleeCooldown = meleeAttackCooldown * MeleeAttackCooldownMultiplier;
                 meleeAttackStarted = false;
                 
+                // Wait longer if attack duration is les than charge time
                 if (meleeChargeTime > meleeAttackDuration)
                 {
                     yield return new WaitForSeconds(meleeChargeTime - meleeAttackDuration);
                 }
                 
+                // Melee stun
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
                 yield return new WaitForSeconds(meleeStunTime);
                 playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);

@@ -13,6 +13,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
+using Game.UI;
 using UnityEngine.InputSystem.Users;
 
 
@@ -39,6 +40,7 @@ namespace Game
             
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
+            [SerializeField] private PauseMenu pauseMenu;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
@@ -213,15 +215,26 @@ namespace Game
                 }
             }
 
+            public void OnPause(InputAction.CallbackContext value)
+            {
+                
+                pauseMenu.StartPause(value.started,this);
+            }
+
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                
+            }
+
             // Switching input action maps
             public void EnableEventControls()
             {
-                playerInput.SwitchCurrentActionMap("Events");
+                playerInput.SwitchCurrentActionMap("Menu");
             }
 
             public void EnableGamePlayControls()
             {
-                playerInput.SwitchCurrentActionMap("Players");
+                playerInput.SwitchCurrentActionMap("Player");
             }
 
             public void SetInputPausedState(bool _paused)

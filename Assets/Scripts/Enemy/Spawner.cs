@@ -68,15 +68,13 @@ namespace Game {
                 private void SpawnEnemy()
                 {
                     if (CanSpawn()) {
-                        if (EnemyManager.Instance.GetCurrentEnemyCount() < EnemyManager.Instance.GetMaxEnemyCount()) {
-                            var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyController>();
-                            enemies.Add(enemy);
-                            EnemyManager.Instance.AddEnemy(enemy);
-                            currentEnemies++;
+                        var enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity).GetComponent<EnemyController>();
+                        enemies.Add(enemy);
+                        EnemyManager.Instance.AddEnemy(enemy);
+                        currentEnemies++;
                         
-                            // Reset the timer after spawning an enemy
-                            elapsedTime = 0f;
-                        }
+                        // Reset the timer after spawning an enemy
+                        elapsedTime = 0f;
                     }
                 }
                 
@@ -86,7 +84,7 @@ namespace Game {
                     elapsedTime += Time.deltaTime;
                     
                     return elapsedTime > spawnInterval
-                        && EnemyManager.Instance.GetMaxEnemyCount() > maxEnemies 
+                        && EnemyManager.Instance.GetMaxEnemyCount() > EnemyManager.Instance.GetCurrentEnemyCount() 
                         && currentEnemies < maxEnemies 
                         && allowForSpawn;
                 }

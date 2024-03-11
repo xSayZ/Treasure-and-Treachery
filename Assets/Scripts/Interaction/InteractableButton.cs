@@ -28,7 +28,7 @@ namespace Game {
 
             private void Start()
             {
-                _renderer = this.gameObject.GetComponent<Renderer>();
+                _renderer = GetComponentInChildren<Renderer>();
                 originalColor = _renderer.material.color;
                 buttons.Add(this);
                 foreach (var _button in buttons) {
@@ -61,8 +61,7 @@ namespace Game {
                 foreach (var _button in buttons) {
                     if (!_button.isPressed) return false;
                 }
-                // All buttons are pressed
-                Debug.Log("All buttons are pressed!");
+
                 return true;
             }
         }

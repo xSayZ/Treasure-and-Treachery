@@ -106,8 +106,8 @@ namespace Game {
             private bool canAttack = true;
             
             // Events
-            [HideInInspector] public UnityEvent OnKill = new UnityEvent();
-            [HideInInspector] public UnityEvent OnWaveKill = new UnityEvent();
+            [HideInInspector] public UnityEvent<bool> OnKill = new UnityEvent<bool>();
+            [HideInInspector] public UnityEvent<bool> OnWaveKill = new UnityEvent<bool>();
 
 #region Unity Functions
             private void OnEnable()
@@ -412,9 +412,25 @@ namespace Game {
                     
                     if (killed)
                     {
+                        // Update player data
                         playerController.PlayerData.kills += 1;
                         playerController.PlayerData.killsThisLevel += 1;
-                        OnKill.Invoke();
+                        
+                        // Check if stun kill
+                        bool _stunKill = false;
+                        MonoBehaviour _damageableMonoBehaviour = _damageable as MonoBehaviour;
+                        if (_damageableMonoBehaviour)
+                        {
+                            if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
+                            {
+                                if (_enemyController.GetCurrentState() == _enemyController.StunnedEnemyState)
+                                {
+                                    _stunKill = true;
+                                }
+                            }
+                        }
+                        
+                        OnKill.Invoke(_stunKill);
                         
                         try
                         {

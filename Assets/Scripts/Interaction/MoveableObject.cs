@@ -27,7 +27,8 @@ namespace Game {
             private void Start()
             {
                 startTransform = transform.position;
-                collider.gameObject.SetActive(false);
+                if(collider!= null)
+                    collider.gameObject.SetActive(false);
             }
             private void Update()
             {
@@ -51,7 +52,8 @@ namespace Game {
                 }
                 else {
                     transform.position = Vector3.Lerp(transform.position, startTransform, speed * Time.deltaTime);
-                    collider.gameObject.SetActive(true);
+                    if(collider!= null)
+                        collider.gameObject.SetActive(true);
                 }
             }
             

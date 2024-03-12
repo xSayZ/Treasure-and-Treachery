@@ -37,23 +37,24 @@ namespace Game {
 
 #region Unity Functions
             private void Start() {
-                Setup();
+                if (buttonSpawn == null) {
+                    Setup();               
+                }
             }
 #endregion
 
 #region Private Functions
 
-            private void Setup() {
+            public void Setup() {
                 SetMaterial();
-                buttons.Add(this);
-                buttonSpawn = GetComponentInParent<DynamicButtonSpawn>();
 
                 for (int i = buttons.Count - 1; i >= 0; i--) {
                     buttons[i].isPressed = false;
-                    if (!buttons[i].isActiveAndEnabled) {
-                        buttons.Remove(buttons[i]);
+                    if (!buttons[i].gameObject.activeSelf) {
+                        buttons.RemoveAt(i);
                     }
                 }
+                buttons.Add(this);
             }
             private void SetMaterial() {
                 renderer = GetComponentInChildren<Renderer>();
@@ -68,7 +69,8 @@ namespace Game {
                 isPressed = true;
                 renderer.materials[1].color = pressedColor;
                 if (CheckAllButtonsPressed()) { 
-                    buttonSpawn.allButtonsPressed.Invoke();
+                    if (buttonSpawn != null)
+                        buttonSpawn.allButtonsPressed.Invoke();
                 }
             }
             
@@ -78,11 +80,8 @@ namespace Game {
                 
                 isPressed = false;
                 renderer.materials[1].color = originalColor;
-                buttonSpawn.offButtonPressed.Invoke();
-            }
-
-            public void RemoveFromList(int button) {
-                buttons.RemoveAt(button);
+                if(buttonSpawn != null)
+                    buttonSpawn.offButtonPressed.Invoke();
             }
             
             private bool CheckAllButtonsPressed() {

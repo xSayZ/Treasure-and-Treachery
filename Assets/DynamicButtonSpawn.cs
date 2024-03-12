@@ -7,10 +7,9 @@ using UnityEngine.Events;
 
 namespace Game {
     namespace Scene {
-        public class DynamicButtonSpawn : MonoBehaviour
-        {
+        public class DynamicButtonSpawn : MonoBehaviour {
             public List<InteractableButton> buttons;
-            
+
             [Header("Events")]
             [Tooltip("Event that triggers when all buttons are pressed at the same time.")]
             [SerializeField] public UnityEvent allButtonsPressed = new UnityEvent();
@@ -23,8 +22,12 @@ namespace Game {
                         continue;
                     
                     buttons[i].gameObject.SetActive(false);
-                    foreach (InteractableButton _button in buttons) {
-                        _button.RemoveFromList(i - 1);
+                    
+                }
+                foreach (var button in buttons) {
+                    if(button.gameObject.activeSelf) {
+                        Debug.Log("Button: " + button + " is active");
+                        button.Setup();
                     }
                 }
             }

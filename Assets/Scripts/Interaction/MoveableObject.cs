@@ -27,7 +27,10 @@ namespace Game {
             
             private void Start()
             {
-                startTransform = transform;
+                startTransform = new GameObject().transform;
+                startTransform.position = transform.position;
+                startTransform.rotation = transform.rotation;
+                
                 if(collider!= null)
                     collider.gameObject.SetActive(false);
             }
@@ -48,21 +51,21 @@ namespace Game {
             
             private void InterpolatePosition()
             {
-                Transform _transform;
                 if (isMoving) {
-                    (_transform = transform).position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
+                    transform.position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
                     if(allowRotation)
-                        transform.rotation = Quaternion.Lerp(_transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
+                        transform.rotation = Quaternion.Lerp(transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
                 }
                 else {
-                    (_transform = transform).position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
-                    if (allowRotation)
-                        transform.rotation = Quaternion.Lerp(_transform.rotation, startTransform.rotation, speed * Time.deltaTime);
-                    if(collider!= null)
+                    transform.position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
+                    if (allowRotation) {
+                        transform.rotation = Quaternion.Lerp(transform.rotation, startTransform.rotation, speed * Time.deltaTime);
+                    }
+                    if (collider != null) {
                         collider.gameObject.SetActive(true);
+                    }
                 }
             }
-            
         }
     }
 }

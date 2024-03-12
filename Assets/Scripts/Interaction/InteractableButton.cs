@@ -15,21 +15,24 @@ namespace Game {
     namespace Interactable {
         public class InteractableButton : MonoBehaviour
         {
-            public List<InteractableButton> buttons;
-            public bool isPressed;
+            [SerializeField] public List<InteractableButton> buttons;
+            [SerializeField] public bool isPressed;
             
-            public Color pressedColor;
+            [SerializeField] public Color pressedColor;
             
-            public UnityEvent allButtonsPressed = new UnityEvent();
-            public UnityEvent OffButtonPressed = new UnityEvent();
+            [SerializeField] public UnityEvent allButtonsPressed = new UnityEvent();
+            [SerializeField] public UnityEvent offButtonPressed = new UnityEvent();
             
             private Color originalColor;
-            private Renderer _renderer;
+            private Renderer renderer;
+ 
+            private Material[] materials;
 
             private void Start()
             {
-                _renderer = GetComponentInChildren<Renderer>();
-                originalColor = _renderer.material.color;
+                renderer = GetComponentInChildren<Renderer>();
+                materials = renderer.materials;
+                originalColor = materials[1].color;
                 buttons.Add(this);
                 foreach (var _button in buttons) {
                     _button.isPressed = false;
@@ -40,7 +43,7 @@ namespace Game {
             {
                 if (other.CompareTag("Player")) {
                     isPressed = true;
-                    _renderer.material.color = pressedColor;
+                    materials[1].color = pressedColor;
                     if (CheckAllButtonsPressed()) {
                         allButtonsPressed.Invoke();
                     }
@@ -51,8 +54,8 @@ namespace Game {
             {
                 if (other.CompareTag("Player")) {
                     isPressed = false;
-                    _renderer.material.color = originalColor;
-                    OffButtonPressed.Invoke();
+                    materials[1].color = originalColor;
+                    offButtonPressed.Invoke();
                 }
             }
             

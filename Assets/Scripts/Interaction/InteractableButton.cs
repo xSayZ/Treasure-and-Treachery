@@ -26,7 +26,7 @@ namespace Game {
             [SerializeField] private Color pressedColor;
             
             [Header("Debug")]
-            [SerializeField] private bool isPressed;
+            [SerializeField] public bool isPressed;
             
             // Private Variables
             private Color originalColor;
@@ -47,9 +47,12 @@ namespace Game {
                 SetMaterial();
                 buttons.Add(this);
                 buttonSpawn = GetComponentInParent<DynamicButtonSpawn>();
-                
-                foreach (InteractableButton _button in buttons) {
-                    _button.isPressed = false;
+
+                for (int i = buttons.Count - 1; i >= 0; i--) {
+                    buttons[i].isPressed = false;
+                    if (!buttons[i].isActiveAndEnabled) {
+                        buttons.Remove(buttons[i]);
+                    }
                 }
             }
             private void SetMaterial() {
@@ -75,6 +78,7 @@ namespace Game {
                 
                 isPressed = false;
                 renderer.materials[1].color = originalColor;
+                buttonSpawn.offButtonPressed.Invoke();
             }
 
             public void RemoveFromList(int button) {

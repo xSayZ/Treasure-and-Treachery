@@ -142,9 +142,9 @@ namespace Game {
                 healthBar.value = 0;
                 
                 // Destroy all players
-                for (int i = GameManager.Instance.ActivePlayerControllers.Count - 1; i >= 0; i--)
+                foreach (var _kvp in GameManager.Instance.ActivePlayerControllers)
                 {
-                    Destroy(GameManager.Instance.ActivePlayerControllers[i].gameObject);
+                    Destroy(_kvp.Value.gameObject);
                 }
                 
                 if (!levelOver)

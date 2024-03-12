@@ -17,8 +17,9 @@ namespace Game {
             [Header("References")]
             [Tooltip("Add all buttons to work together for the event to trigger. Do not add this one to the list as it is added automatically.")]
             [SerializeField] private List<InteractableButton> buttons;
-            
+
             [Header("Settings")]
+            [SerializeField] private bool toggle;
             [SerializeField] private Color pressedColor;
             
             [Header("Events")]
@@ -70,7 +71,7 @@ namespace Game {
             }
             
             private void OnTriggerExit(Collider other) {
-                if (!other.CompareTag("Player"))
+                if (!other.CompareTag("Player") || toggle)
                     return;
                 
                 isPressed = false;

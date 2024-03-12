@@ -141,10 +141,13 @@ namespace Game {
                 
                 healthBar.value = 0;
                 
-                // Destroy all players
-                foreach (var _kvp in GameManager.Instance.ActivePlayerControllers)
+                // Kill all players
+                for (int i = 0; i < 4; i++) // Hard coded to max 4 players
                 {
-                    Destroy(_kvp.Value.gameObject);
+                    if (GameManager.Instance.ActivePlayerControllers.ContainsKey(i))
+                    {
+                        GameManager.Instance.ActivePlayerControllers[i].Death();
+                    }
                 }
                 
                 if (!levelOver)

@@ -13,7 +13,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
-using UnityEngine.InputSystem.Users;
 
 
 namespace Game
@@ -305,7 +304,7 @@ namespace Game
 
             private void UpdatePlayerAnimationMovement()
             {
-                if (!PlayerMovementBehaviour.canMove)
+                if (!PlayerMovementBehaviour.CanMove())
                 {
                     PlayerAnimationBehaviour.UpdateMovementAnimation(0);
                 }

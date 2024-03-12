@@ -27,7 +27,7 @@ namespace Game {
             private PlayerData playerData;
             private UnityEvent<bool> onWaveKill;
             private float currentAliveTime;
-            private Rigidbody rigidbody;
+            private new Rigidbody rigidbody;
 
 #region Unity Functions
             // Destroy bullet after specified time

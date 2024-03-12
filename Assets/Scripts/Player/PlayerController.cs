@@ -76,8 +76,10 @@ namespace Game
             
             private Rigidbody rigidbody;
 
-            public void SetupPlayer(int _newPlayerID)
+            public void SetupPlayer(InputDevice _inputDevice)
             {
+                playerInput.SwitchCurrentControlScheme(_inputDevice);
+                
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;

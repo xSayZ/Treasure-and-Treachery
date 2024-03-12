@@ -176,18 +176,11 @@ namespace Game {
             /// <summary>
             /// Setup the active players in the scene
             /// </summary>
-            private List<int> keys = new List<int>();
             private void SetupActivePlayers()
             {
-                var keyCollection = ActivePlayerControllers.Keys;
-                foreach (int key in keyCollection)
+                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
                 {
-                    keys.Add(key);
-                }
-                
-                for (int i = 0; i < ActivePlayerControllers.Count; i++)
-                {
-                    ActivePlayerControllers[keys[i]].SetupPlayer(keys[i]);   
+                    ActivePlayerControllers[_kvp.Value.playerIndex].SetupPlayer(_kvp.Key);
                 }
             }
 

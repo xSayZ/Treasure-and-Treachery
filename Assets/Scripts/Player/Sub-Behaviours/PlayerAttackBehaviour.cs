@@ -12,14 +12,12 @@ using System.Collections.Generic;
 using System.Linq;
 using FMOD.Studio;
 using Game.Audio;
-using Game.Backend;
 using Game.Core;
 using Game.Enemy;
 using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.VFX;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 using WaitForSeconds = UnityEngine.WaitForSeconds;
 
@@ -254,8 +252,8 @@ namespace Game {
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);
                                 
-                    playerController.PlayerMovementBehaviour.TurnSpeed /= 2;
-                    playerController.PlayerMovementBehaviour.SetMovementActiveState(false, true);
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed /= 2;
+                    playerController.PlayerMovementBehaviour.AimMoveLock = true;
                     
                     try
                     {
@@ -280,8 +278,8 @@ namespace Game {
                     playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(0);
                     
                                 
-                    playerController.PlayerMovementBehaviour.TurnSpeed *= 2;
-                    playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed *= 2;
+                    playerController.PlayerMovementBehaviour.AimMoveLock = false;
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
 
                     try
@@ -360,9 +358,9 @@ namespace Game {
                 }
                 
                 // Melee stun
-                playerController.PlayerMovementBehaviour.SetMovementActiveState(false, false);
+                playerController.PlayerMovementBehaviour.AttackStunMoveRotateLock = true;
                 yield return new WaitForSeconds(meleeStunTime);
-                playerController.PlayerMovementBehaviour.SetMovementActiveState(true, true);
+                playerController.PlayerMovementBehaviour.AttackStunMoveRotateLock = false;
             }
 
             private void MeleeDamage(IDamageable _damageable)

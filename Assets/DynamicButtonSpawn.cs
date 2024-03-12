@@ -1,13 +1,19 @@
+using System;
 using System.Collections.Generic;
 using Game.Backend;
 using Game.Interactable;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game {
     namespace Scene {
         public class DynamicButtonSpawn : MonoBehaviour
         {
             public List<InteractableButton> buttons;
+            
+            [Header("Events")]
+            [Tooltip("Event that triggers when all buttons are pressed at the same time.")]
+            [SerializeField] public UnityEvent allButtonsPressed = new UnityEvent();
 
             private void Start() {
                 var _playerCount = GameManager.Instance.ActivePlayerControllers.Count;
@@ -20,6 +26,10 @@ namespace Game {
                         _button.RemoveFromList(i - 1);
                     }
                 }
+            }
+
+            private void Update() {
+                
             }
         }
     }

@@ -38,12 +38,12 @@ namespace Game
             [Space]
             
             // Public Static Lists
-            public static List<CharacterSelect> StaticData = new List<CharacterSelect>();
+            public static List<CharacterSelectOld> StaticData = new List<CharacterSelectOld>();
             public static List<PlayerInput> PlayerList { get; } = new List<PlayerInput>();
 
             [Header("Character Selects")]
             //For selectedAmountOfPlayers
-            [SerializeField]private List<CharacterSelect> selects = new List<CharacterSelect>();
+            [SerializeField]private List<CharacterSelectOld> selects = new List<CharacterSelectOld>();
 
             [Space]
             // Input Actions
@@ -113,7 +113,7 @@ namespace Game
             {
                 PlayerList.Add(player);
                 pressToJoinText[player.playerIndex].gameObject.SetActive(false);
-                selects.Add(player.GetComponent<CharacterSelect>());
+                selects.Add(player.GetComponent<CharacterSelectOld>());
                 if (PlayerJoinedGame != null)
                 {
                     PlayerJoinedGame(player);
@@ -169,7 +169,7 @@ namespace Game
 
             private void UnregisterPlayer(PlayerInput player)
             {
-                selects.Remove(player.GetComponent<CharacterSelect>());
+                selects.Remove(player.GetComponent<CharacterSelectOld>());
                 pressToJoinText[player.playerIndex].SetActive(true);
                 PlayerList.Remove(player);
                 if (PlayerLeaveGame != null)

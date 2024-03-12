@@ -74,7 +74,7 @@ namespace Game {
             {
                 level = worldMapManager.levelToLoad;
                 
-                if (CharacterSelectHandler.StaticData.Count == 0)
+                if (CharacterSelect.CharacterSelect.selectedCharacters.Count == 0)
                 {
                     if (autoDetectPlayers)
                     {
@@ -160,14 +160,15 @@ namespace Game {
                 
                 ActivePlayerControllers = new Dictionary<int, PlayerController>();
 
-                if (CharacterSelectHandler.PlayerList.Count == 0) {
+                if (CharacterSelect.CharacterSelect.selectedCharacters.Count == 0) {
                     LogWarning("No controllers detected; spawning default player.");
                     for (int i = 0; i < playersToSpawn; i++) {
                         SpawnPlayers(i, playersToSpawn);
                     }
                 } else {
-                    for (int i = 0; i < CharacterSelectHandler.PlayerList.Count; i++) {
-                        SpawnPlayers(CharacterSelectHandler.StaticData[i].data.playerIndex, CharacterSelectHandler.PlayerList.Count);
+                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
+                    {
+                        SpawnPlayers(_kvp.Value.playerIndex, CharacterSelect.CharacterSelect.selectedCharacters.Count);
                     }
                 }
             }

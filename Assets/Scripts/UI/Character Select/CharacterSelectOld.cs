@@ -20,7 +20,7 @@ namespace Game
 {
     namespace UI
     {
-        public class CharacterSelect : MonoBehaviour
+        public class CharacterSelectOld : MonoBehaviour
         {
             [Header("Player Settings")]
             [SerializeField] private Image Image;

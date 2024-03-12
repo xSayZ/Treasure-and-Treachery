@@ -31,12 +31,12 @@ namespace Game {
 
             private void Start()
             {
-                if (CharacterSelectHandler.StaticData.Count > 0)
+                if (CharacterSelect.CharacterSelect.selectedCharacters.Count > 0)
                 {
-                    foreach (CharacterSelect _characterSelect in CharacterSelectHandler.StaticData)
+                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
-                        playerScoreUI.SetupUI(_characterSelect.data, playerImages[_characterSelect.data.playerIndex], personalObjectiveImages[_characterSelect.data.playerIndex]);
+                        playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
                     }
                 }
                 else
@@ -56,7 +56,7 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                if (playersDoneCountingUp == CharacterSelectHandler.PlayerList.Count)
+                if (playersDoneCountingUp == CharacterSelect.CharacterSelect.selectedCharacters.Count)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);
                 }

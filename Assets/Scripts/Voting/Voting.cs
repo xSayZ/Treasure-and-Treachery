@@ -35,7 +35,7 @@ namespace Game {
             void Update()
             {
                 // Access input values for each player
-                for (int i = 1; i <= CharacterSelectHandler.PlayerList.Count; i++)
+                for (int i = 1; i <= CharacterSelect.CharacterSelect.selectedCharacters.Count; i++)
                 {
                     Debug.Log("Test");
                 }

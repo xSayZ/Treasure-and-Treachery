@@ -317,7 +317,7 @@ namespace Game
 
             private void UpdatePlayerAnimationMovement()
             {
-                if (!PlayerMovementBehaviour.canMove)
+                if (!PlayerMovementBehaviour.CanMove())
                 {
                     PlayerAnimationBehaviour.UpdateMovementAnimation(0);
                 }

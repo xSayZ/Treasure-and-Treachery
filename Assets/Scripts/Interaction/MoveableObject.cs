@@ -20,6 +20,8 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private float speed = 5f;
             [SerializeField] private bool allowRotation = false;
+            [SerializeField] private bool allowInterpolation = true;
+
             
             private bool isMoving = false;
             private Transform targetPosition;
@@ -43,6 +45,10 @@ namespace Game {
             {
                 targetPosition = _targetPosition;
             }
+
+            public void AllowInterpolation(bool _allowInterpolation) {
+                allowInterpolation = _allowInterpolation;
+            }
             
             public void IsMoving(bool _isMoving)
             {
@@ -51,18 +57,20 @@ namespace Game {
             
             private void InterpolatePosition()
             {
-                if (isMoving) {
-                    transform.position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
-                    if(allowRotation)
-                        transform.rotation = Quaternion.Lerp(transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
-                }
-                else {
-                    transform.position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
-                    if (allowRotation) {
-                        transform.rotation = Quaternion.Lerp(transform.rotation, startTransform.rotation, speed * Time.deltaTime);
+                if (allowInterpolation) {
+                    if (isMoving) {
+                        transform.position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
+                        if(allowRotation)
+                            transform.rotation = Quaternion.Lerp(transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
                     }
-                    if (collider != null) {
-                        collider.gameObject.SetActive(true);
+                    else {
+                        transform.position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
+                        if (allowRotation) {
+                            transform.rotation = Quaternion.Lerp(transform.rotation, startTransform.rotation, speed * Time.deltaTime);
+                        }
+                        if (collider != null) {
+                            collider.gameObject.SetActive(true);
+                        }
                     }
                 }
             }

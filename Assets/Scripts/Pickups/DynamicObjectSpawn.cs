@@ -14,15 +14,15 @@ using UnityEngine;
 
 namespace Game {
     namespace Scene {
-        public class DynamicPickupSpawn : MonoBehaviour
+        public class DynamicObjectSpawn : MonoBehaviour
         {
-            public List<GameObject> pickups;
+            public List<GameObject> objects;
 
             private void Start() {
                 var playerCount = GameManager.Instance.ActivePlayerControllers.Count;
-                for (int i = 0; i < pickups.Count; i++) {
+                for (int i = 0; i < objects.Count; i++) {
                     if (i > playerCount - 1) {
-                        pickups[i].SetActive(false);
+                        objects[i].SetActive(false);
                     }
                 }
             }

@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -49,6 +50,7 @@ namespace Game {
             private void Setup() {
                 SetMaterial();
                 buttons.Add(this);
+                
                 foreach (InteractableButton _button in buttons) {
                     _button.isPressed = false;
                 }
@@ -65,7 +67,7 @@ namespace Game {
                 
                 isPressed = true;
                 renderer.materials[1].color = pressedColor;
-                if (CheckAllButtonsPressed()) {
+                if (CheckAllButtonsPressed()) { 
                     allButtonsPressed.Invoke();
                 }
             }
@@ -77,6 +79,10 @@ namespace Game {
                 isPressed = false;
                 renderer.materials[1].color = originalColor;
                 offButtonPressed.Invoke();
+            }
+
+            public void RemoveFromList(int button) {
+                buttons.RemoveAt(button);
             }
             
             private bool CheckAllButtonsPressed() {

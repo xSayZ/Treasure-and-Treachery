@@ -19,14 +19,15 @@ namespace Game {
             
             [Header("Settings")]
             [SerializeField] private float speed = 5f;
+            [SerializeField] private bool allowRotation = false;
             
             private bool isMoving = false;
             private Transform targetPosition;
-            private Vector3 startTransform;
+            private Transform startTransform;
             
             private void Start()
             {
-                startTransform = transform.position;
+                startTransform = transform;
                 if(collider!= null)
                     collider.gameObject.SetActive(false);
             }
@@ -47,11 +48,16 @@ namespace Game {
             
             private void InterpolatePosition()
             {
+                Transform _transform;
                 if (isMoving) {
-                    transform.position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
+                    (_transform = transform).position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
+                    if(allowRotation)
+                        transform.rotation = Quaternion.Lerp(_transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
                 }
                 else {
-                    transform.position = Vector3.Lerp(transform.position, startTransform, speed * Time.deltaTime);
+                    (_transform = transform).position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
+                    if (allowRotation)
+                        transform.rotation = Quaternion.Lerp(_transform.rotation, startTransform.rotation, speed * Time.deltaTime);
                     if(collider!= null)
                         collider.gameObject.SetActive(true);
                 }

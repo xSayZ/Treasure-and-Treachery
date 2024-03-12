@@ -6,11 +6,14 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game.Core;
 using Game.Enemy;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 
 namespace Game {
@@ -56,41 +59,31 @@ namespace Game {
             // Movement values
             private Vector3 movementDirection;
             private float currentMaxSpeed;
+            private bool isForceMoving;
             [HideInInspector] public float MoveSpeedMultiplier = 1f;
             public float MoveSpeedItemMultiplier { private get; set; } = 1f;
-            private bool isForceMoving;
             
             // Dash values
             private float currentNumberOfDashes;
             private float currentDashRechargeTime;
             public bool IsDashing { get; private set; }
             
-            // Movement and rotation lock variables
-            public bool CameraMoveRotateLock { private get; set; }
-            public bool QuestMoveRotateLock { private get; set; }
-            public bool AttackStunMoveRotateLock { private get; set; }
-            
-            public bool AimMoveLock { private get; set; }
-            
-            private bool forceMoveRotateLock; // Locks rotation not movement, name is a bit misleading
-            
-            // Turn speed
-            [HideInInspector] public float CurrentTurnSpeed;
-            
             // Werewolf dash
-            [HideInInspector] public bool DisableDashMove;
+            public bool DisableDashMove;
+            
+            public bool canMove { get; private set; } = true;
+            private bool canRotate = true;
             
             // Events
             [HideInInspector] public UnityEvent OnDash = new UnityEvent();
             [HideInInspector] public UnityEvent<bool> OnDashKill = new UnityEvent<bool>();
-
+            
             public void SetupBehaviour(PlayerController _playerController)
             {
                 playerController = _playerController;
                 playerRigidBody = GetComponent<Rigidbody>();
                 currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
-                CurrentTurnSpeed = turnSpeed;
                 
                 UpdateDashUI();
             }
@@ -110,16 +103,16 @@ namespace Game {
                 }
             }
 #endregion
-
+            
 #region Unity Functions
             private void FixedUpdate()
             {
-                if (CanRotate())
+                if (canRotate)
                 {
                     TurnPlayer();
                 }
                 
-                if (CanMove())
+                if (canMove)
                 {
                     MovePlayer();
                     ClampPlayerPosition();
@@ -145,16 +138,6 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public bool CanMove()
-            {
-                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || AimMoveLock);
-            }
-
-            public bool CanRotate()
-            {
-                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || forceMoveRotateLock);
-            }
-
             public void UpdateMovementData(Vector3  _newMovementDirection)
             {
                 if (!isForceMoving && !IsDashing)
@@ -163,9 +146,15 @@ namespace Game {
                 }
             }
 
+            public void SetMovementActiveState(bool _movement, bool _rotate)
+            {
+                canMove = _movement;
+                canRotate = _rotate;
+            }
+
             public void Dash()
             {
-                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming && CanMove())
+                if (currentNumberOfDashes > 0 && !IsDashing && !playerController.PlayerAttackBehaviour.IsAiming && canMove)
                 {
                     // Stops werewolf from losing dash when enraged and has full health
                     if (!(DisableDashMove && playerController.PlayerData.currentHealth == playerController.PlayerData.startingHealth))
@@ -225,7 +214,7 @@ namespace Game {
                     }
                 }
             }
-
+            
             public void DashPushEntered(Transform _transform)
             {
                 if (!IsDashing)
@@ -252,6 +241,14 @@ namespace Game {
                 currentNumberOfDashes = Mathf.Clamp(currentNumberOfDashes, 0, numberOfDashes);
                 UpdateDashUI();
             }
+
+            public float TurnSpeed {
+                get {
+                    return turnSpeed;
+                } set {
+                    turnSpeed = value;
+                }
+            }
 #endregion
 
 #region Private Functions
@@ -275,7 +272,7 @@ namespace Game {
             {
                 if (movementDirection.sqrMagnitude > 0.01f && movementDirection != Vector3.zero)
                 {
-                    var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), CurrentTurnSpeed);
+                    var _rotation = Quaternion.Slerp(playerRigidBody.rotation, Quaternion.LookRotation(movementDirection), turnSpeed);
                     playerRigidBody.rotation = _rotation;
                 }
             }
@@ -305,11 +302,27 @@ namespace Game {
                 currentMaxSpeed = _speed;
                 movementDirection = _direction.normalized;
                 
-                forceMoveRotateLock = _keepFacingRotation;
+                bool _prevoiusCanMove = canMove;
+                bool _prevoiusCanRotate = canRotate;
+                
+                if (_keepFacingRotation)
+                {
+                    SetMovementActiveState(true, false);
+                }
                 
                 yield return new WaitForSeconds(_time);
                 
-                forceMoveRotateLock = false;
+                if (_keepFacingRotation)
+                {
+                    if (canMove == _prevoiusCanMove && canRotate == _prevoiusCanRotate)
+                    {
+                        SetMovementActiveState(_prevoiusCanMove, _prevoiusCanRotate);
+                    }
+                    else
+                    {
+                        SetMovementActiveState(true, true);
+                    }
+                }
                 
                 currentMaxSpeed = movementSpeed;
                 isForceMoving = false;

@@ -156,8 +156,8 @@ namespace Game {
                             {
                                 item.Value.ProgressBar.gameObject.SetActive(false);
                                 _itemsToRemove.Add(item.Key);
-
-                                GameManager.Instance.ActivePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = false;
+                                
+                                GameManager.Instance.ActivePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
                                 CanInteractWith[item.Value.PlayerIndex] = false;
                                 
                                 try  
@@ -223,8 +223,8 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
-
-                    GameManager.Instance.ActivePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = _start;
+                    
+                    GameManager.Instance.ActivePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
                     
                     if (_start == true)
                     {

@@ -75,11 +75,9 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
-            private bool hasBeenSetup;
 
             public void SetupPlayer(int _newPlayerID)
             {
-                hasBeenSetup = true;
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;
@@ -134,18 +132,6 @@ namespace Game
                 {
                     Invincible = false;
                 }
-            }
-
-            private void OnDestroy()
-            {
-                if (!hasBeenSetup)
-                {
-                    return;
-                }
-                
-                playerHealthBar.UpdateHealthBar(Health);
-                PlayerInteractionBehaviour.OnDeath();
-                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
             }
 #endregion
 
@@ -259,6 +245,10 @@ namespace Game
             
             public void Death()
             {
+                playerHealthBar.UpdateHealthBar(0);
+                PlayerInteractionBehaviour.OnDeath();
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                
                 Destroy(gameObject);
             }
             

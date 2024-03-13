@@ -151,7 +151,7 @@ namespace Game {
                 {
                     for (int i = 0; i < playersToSpawn; i++)
                     {
-                        SpawnPlayers(playerVariants[i], i, playersToSpawn);
+                        SpawnPlayers(playerVariants[i], playerVariants[i].GetComponent<PlayerController>().PlayerData.playerIndex, playersToSpawn);
                     }
                 }
                 else
@@ -170,9 +170,9 @@ namespace Game {
             {
                 if (CharacterSelect.selectedCharacters.Count == 0)
                 {
-                    for (int i = 0; i < playersToSpawn; i++)
+                    foreach (KeyValuePair<int, PlayerController> _kvp in ActivePlayerControllers)
                     {
-                        ActivePlayerControllers[i].SetupPlayer(null);
+                        _kvp.Value.SetupPlayer(null);
                     }
                 }
                 else
@@ -186,11 +186,11 @@ namespace Game {
 
             private void UpdateActivePlayerInputs()
             {
-                for (int i = 0; i < ActivePlayerControllers.Count; i++)
+                foreach (KeyValuePair<int, PlayerController> _kvp in ActivePlayerControllers)
                 {
-                    if (ActivePlayerControllers[i] != focusedPlayerController)
+                    if (_kvp.Value != focusedPlayerController)
                     {
-                        ActivePlayerControllers[i].SetInputPausedState(isPaused);
+                        _kvp.Value.SetInputPausedState(isPaused);
                     }
                 }
             }

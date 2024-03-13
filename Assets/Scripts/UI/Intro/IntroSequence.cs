@@ -46,10 +46,17 @@ namespace Game
 
             private void Awake()
             {
-                // TEMPORARY
+                // Get all player inputs
+                List<InputDevice> inputDevices = new List<InputDevice>();
                 foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                 {
-                    playerInput.SwitchCurrentControlScheme(_kvp.Key);
+                    inputDevices.Add(_kvp.Key);
+                }
+                
+                // First player controls intro sequence
+                if (inputDevices.Count > 0)
+                { 
+                    playerInput.SwitchCurrentControlScheme(inputDevices[0]);
                 }
             }
 

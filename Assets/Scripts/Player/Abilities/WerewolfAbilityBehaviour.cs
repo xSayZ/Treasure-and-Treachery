@@ -66,11 +66,6 @@ namespace Game {
                 }
             }
 
-            protected override void OnDashKill(bool _stunned)
-            {
-                EnemyKilled(_stunned);
-            }
-
             private void Update()
             {
                 if (currentDecayGracePeriod <= 0)

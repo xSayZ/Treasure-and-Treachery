@@ -67,8 +67,8 @@ namespace Game
                 StaticData.Clear();
                 for (int i = 0; i < PlayerDatas.Count; i++)
                 {
-                    Images.Add(i, PlayerDatas[i].characterImage);
-                    ImagesBackup.Add(i, PlayerDatas[i].characterImage);
+                    Images.Add(i, PlayerDatas[i].characterSelectImage);
+                    ImagesBackup.Add(i, PlayerDatas[i].characterSelectImage);
                 }
 
                 PlayerList.Clear();

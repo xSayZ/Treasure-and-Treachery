@@ -36,7 +36,7 @@ namespace Game {
                 characterSelect = FindObjectOfType<CharacterSelect>();
                 previousMoveValue = new Vector2();
                 
-                characterImage.sprite = playerDatas[currentSelectedCharacter].characterImage;
+                characterImage.sprite = playerDatas[currentSelectedCharacter].characterSelectImage;
                 
                 // Set parent, position, rotation and scale
                 Transform _playerImageTransform = characterSelect.PlayerImageTransforms[playerInput.playerIndex];
@@ -79,7 +79,7 @@ namespace Game {
                 currentSelectedCharacter = (currentSelectedCharacter + increment + 4) % 4;
                 
                 // Update image
-                characterImage.sprite = playerDatas[currentSelectedCharacter].characterImage;
+                characterImage.sprite = playerDatas[currentSelectedCharacter].characterSelectImage;
                 
                 // Update previous move value
                 previousMoveValue = _context.ReadValue<Vector2>();

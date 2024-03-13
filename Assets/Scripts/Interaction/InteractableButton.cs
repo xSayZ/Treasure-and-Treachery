@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Game.Scene;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Game {
     namespace Interactable {
@@ -22,9 +23,9 @@ namespace Game {
             [SerializeField] private DynamicButtonSpawn buttonSpawn;
 
             [Header("Settings")]
-            [SerializeField] private bool toggle;
-            [SerializeField] private Color pressedColor;
+            [SerializeField] private bool isToggle;
             [SerializeField] private bool isTimed;
+            [SerializeField] private Color pressedColor;
             [SerializeField] private float timeForButtonToReset;
             
             [Header("Debug")]
@@ -33,6 +34,7 @@ namespace Game {
             // Private Variables
             private Color originalColor;
             private new Renderer renderer;
+            private bool coroutineRunning = false;
             
             // Private Arrays
             private Material[] materials;
@@ -69,6 +71,7 @@ namespace Game {
                     return;
                 
                 isPressed = true;
+                
                 renderer.materials[1].color = pressedColor;
                 
                 if (CheckAllButtonsPressed()) { 
@@ -78,17 +81,17 @@ namespace Game {
             }
             
             private void OnTriggerExit(Collider other) {
-                if (!other.CompareTag("Player") || toggle)
+                if (!other.CompareTag("Player") || isToggle)
                     return;
 
-                if (isTimed) {
+                if (isTimed && !coroutineRunning) {
                     StartCoroutine(ResetButton());
-                } else {
+                } else if (!isTimed) {
                     isPressed = false;
                     renderer.materials[1].color = originalColor;
+                    if(buttonSpawn != null)
+                        buttonSpawn.offButtonPressed.Invoke();
                 }
-                if(buttonSpawn != null)
-                    buttonSpawn.offButtonPressed.Invoke();
             }
             
             private bool CheckAllButtonsPressed() {
@@ -98,13 +101,17 @@ namespace Game {
 
                 return true;
             }
-            
+
             private IEnumerator ResetButton() {
+                coroutineRunning = true;
                 yield return new WaitForSeconds(timeForButtonToReset);
                 isPressed = false;
                 renderer.materials[1].color = originalColor;
+                coroutineRunning = false;
+                if(buttonSpawn != null)
+                    buttonSpawn.offButtonPressed.Invoke();
             }
-            
+
 #endregion
         }
     }

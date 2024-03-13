@@ -98,6 +98,7 @@ namespace Game
                 {
                     PlayerAbilityBehaviour.SetupBehaviour(this);
                 }
+                PlayerAttackBehaviour.SetupBehaviour(this, PlayerMovementBehaviour.CurrentTurnSpeed);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 

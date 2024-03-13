@@ -36,15 +36,13 @@ namespace Game {
                 Witch,
                 Dragon
             }
-
+            
             private int damage;
             private int maxKillAmount;
             private PlayerData playerData;
             private UnityEvent<bool> onKill;
             private float currentAliveTime;
             private float currentKillAmount;
-            private Vector3 travelDirection;
-            private Rigidbody rb;
 
 #region Unity Functions
             private void Start()
@@ -59,7 +57,6 @@ namespace Game {
                     {
                         playerAudio.DragonArrowAudio(projectileObj);
                     }
-                    
                 }
                 catch (Exception e)
                 {
@@ -78,10 +75,8 @@ namespace Game {
                 }
             }
 
-            private void OnCollisionEnter(Collision other)
+            private void OnTriggerEnter(Collider other)
             {
-                rb.velocity = travelDirection * speed;
-                
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
                     MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
@@ -108,14 +103,18 @@ namespace Game {
                                 }
                             }
                         }
-                        else
-                        {
-                            DestroyBullet();
-                        }
                     }
                 }
                 
                 if (currentKillAmount >= maxKillAmount)
+                {
+                    DestroyBullet();
+                }
+            }
+
+            private void OnCollisionEnter(Collision other)
+            {
+                if (!other.collider.isTrigger)
                 {
                     DestroyBullet();
                 }
@@ -143,9 +142,7 @@ namespace Game {
                 playerData = _playerData;
                 onKill = _onKill;
                 
-                rb = GetComponent<Rigidbody>();
-                travelDirection = transform.forward;
-                rb.velocity = travelDirection * speed;
+                GetComponent<Rigidbody>().velocity = transform.forward * speed;
             }
 #endregion
         }

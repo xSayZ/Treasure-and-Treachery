@@ -478,7 +478,7 @@ namespace Game {
                     Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                     
                     // Calculate penetration
-                    int _penetration = 0;
+                    int _penetration = 1;
                     if (currentAimAngle <= rangedAimMinAngle)
                     {
                         _penetration = rangedAttackFullAimPenetrationAmount;
@@ -492,7 +492,7 @@ namespace Game {
                     if (currentAimAngle < rangedAimMaxAngle || playerController.Health <= rangedWaveHealthCost)
                     {
                         GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, 0, playerController.PlayerData, OnKill);
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, 1, playerController.PlayerData, OnKill);
                     }
                     else
                     {

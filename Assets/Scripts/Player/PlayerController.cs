@@ -14,7 +14,6 @@ using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
 using Game.UI;
-using UnityEngine.InputSystem.Users;
 
 
 namespace Game
@@ -76,8 +75,13 @@ namespace Game
             
             private Rigidbody rigidbody;
 
-            public void SetupPlayer(int _newPlayerID)
+            public void SetupPlayer(InputDevice _inputDevice)
             {
+                if (_inputDevice != null)
+                {
+                    playerInput.SwitchCurrentControlScheme(_inputDevice);
+                }
+                
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;

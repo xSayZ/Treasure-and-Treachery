@@ -8,6 +8,7 @@
 
 using Game.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Game {
@@ -18,12 +19,13 @@ namespace Game {
         public class PlayerData : ScriptableObject
         {
             [Header("Settings")]
-            public Sprite characterImage;
             [SerializeField] public int startingHealth;
             [SerializeField] public Color playerMaterialColor;
             [SerializeField] public bool hasStartingMeleeWeapon;
             [SerializeField] public bool hasStartingRangedWeapon;
             [SerializeField] public int personalObjectiveMultiplier;
+            [SerializeField] public Sprite characterSelectImage;
+            [SerializeField] public GameObject playerPrefab;
             
             [Header("Debug")]
             [SerializeField] public int playerIndex;
@@ -42,8 +44,6 @@ namespace Game {
             
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
-            
-            public int ControllerID;
 
             public void NewScene()
             {

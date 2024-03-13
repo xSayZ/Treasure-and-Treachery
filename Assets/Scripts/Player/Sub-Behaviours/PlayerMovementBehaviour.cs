@@ -9,6 +9,7 @@
 using System.Collections;
 using Game.Core;
 using Game.Enemy;
+using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -243,7 +244,14 @@ namespace Game {
                         _pushDirection = -transform.right;
                     }
                     
-                    _transform.GetComponent<PlayerController>().PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
+                    PlayerController _otherPlayerController = _transform.GetComponent<PlayerController>();
+                    _otherPlayerController.PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
+                    
+                    // Make other player drop held item
+                    if (_otherPlayerController.PlayerData.currentItem != null)
+                    {
+                        QuestManager.OnItemDropped.Invoke(_otherPlayerController.PlayerIndex, _otherPlayerController.PlayerData.currentItem, false);
+                    }
                 }
             }
 

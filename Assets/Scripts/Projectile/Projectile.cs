@@ -86,6 +86,7 @@ namespace Game {
                         {
                             bool killed = _hit.Damage(damage, transform.position, knockbackForce);
                             currentHitAmount++;
+                            PlayImpactVFX();
                             
                             if (killed)
                             {
@@ -124,13 +125,18 @@ namespace Game {
 #region Public Functions
             private void DestroyBullet()
             {
+                PlayImpactVFX();
+                
+                Destroy(gameObject);
+            }
+
+            private void PlayImpactVFX()
+            {
                 if (impactVFX)
                 {
                     GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
                     Destroy(_spawnedImpactVFX, 5);
                 }
-                
-                Destroy(gameObject);
             }
 #endregion
 

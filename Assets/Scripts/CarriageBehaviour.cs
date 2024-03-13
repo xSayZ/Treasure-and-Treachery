@@ -48,6 +48,7 @@ namespace Game {
             private bool canLeave = true;
             private int playersInCarriage;
             private bool levelOver;
+            private Utility.Timer timer;
 
 #region Unity Functions
             private void OnEnable()
@@ -76,8 +77,16 @@ namespace Game {
                 UpdateHealthBar();
             }
 
+            private void Start() {
+                timer = GameManager.Instance.timer;
+            }
+
             private void Update()
             {
+                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver) {
+                    LevelLost("You ran out of time!");
+                }
+                
                 if (levelOver)
                 {
                     return;
@@ -86,7 +95,9 @@ namespace Game {
                 // All players are dead
                 if (GameManager.Instance.ActivePlayerControllers.Count == 0)
                 {
-                    LevelLost(allPlayersDiedText);
+                    if (!levelOver) {
+                        LevelLost(allPlayersDiedText);
+                    }
                 }
                 
                 // All players in carriage
@@ -140,15 +151,6 @@ namespace Game {
                 carriageData.currentHealth = 0;
                 
                 healthBar.value = 0;
-                
-                // Kill all players
-                for (int i = 0; i < 4; i++) // Hard coded to max 4 players
-                {
-                    if (GameManager.Instance.ActivePlayerControllers.ContainsKey(i))
-                    {
-                        GameManager.Instance.ActivePlayerControllers[i].Death();
-                    }
-                }
                 
                 if (!levelOver)
                 {
@@ -208,7 +210,7 @@ namespace Game {
             private void LevelLost(string _reason)
             {
                 levelOver = true;
-                
+                KillAllPlayers();
                 lostCanvas.SetActive(true);
                 lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
                 AudioMananger.Instance.GameOverStinger();
@@ -222,6 +224,17 @@ namespace Game {
             {
                 float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
                 healthBar.value = _currentProgress;
+            }
+            
+            private void KillAllPlayers() {
+
+                for (int i = 0; i < 4; i++) // Hard coded to max 4 players
+                {
+                    if (GameManager.Instance.ActivePlayerControllers.ContainsKey(i))
+                    {
+                        GameManager.Instance.ActivePlayerControllers[i].Death();
+                    }
+                }
             }
 #endregion
         }

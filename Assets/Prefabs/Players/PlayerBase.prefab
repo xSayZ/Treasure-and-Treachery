@@ -236,6 +236,7 @@ MonoBehaviour:
   dashPushSpeed: 360
   dashPushTime: 0.5
   MoveSpeedMultiplier: 1
+  CurrentTurnSpeed: 0
   DisableDashMove: 0
   OnDash:
     m_PersistentCalls:
@@ -435,10 +436,6 @@ MonoBehaviour:
     m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
     m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
-    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/r]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
@@ -470,6 +467,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: dac5d031-871d-4fdc-a6a0-a4c20397c5b7
     m_ActionName: Player/PauseMenu[/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
+    m_ActionName: Menu/Pause
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -804,7 +805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7456082212192171173

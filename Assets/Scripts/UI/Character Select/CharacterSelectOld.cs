@@ -20,7 +20,7 @@ namespace Game
 {
     namespace UI
     {
-        public class CharacterSelect : MonoBehaviour
+        public class CharacterSelectOld : MonoBehaviour
         {
             [Header("Player Settings")]
             [SerializeField] private Image Image;
@@ -54,9 +54,9 @@ namespace Game
                     if (playerInput.playerIndex == i)
                     {
                         data = characterSelectHandler.PlayerDatas[i];
-                        data.ControllerID = playerInput.playerIndex;
+                        // data.ControllerID = playerInput.playerIndex;
                         //Debug.Log(Gamepad.current.deviceId);
-                        data.ControllerID = Gamepad.current.deviceId;
+                        // data.ControllerID = Gamepad.current.deviceId;
                     }
                 }
 
@@ -138,7 +138,7 @@ namespace Game
                         transform.GetChild(i).gameObject.SetActive(true);
                         
                         data = characterSelectHandler.PlayerDatas[id];
-                        data.ControllerID = Gamepad.current.deviceId;
+                        // data.ControllerID = Gamepad.current.deviceId;
                         
                         cachedId = id; 
                         cachedSprite = sprite;

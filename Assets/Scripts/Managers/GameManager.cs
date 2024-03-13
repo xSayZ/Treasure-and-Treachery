@@ -73,7 +73,7 @@ namespace Game {
                     {
                         playersToSpawn = Input.GetJoystickNames().Length + 1; // +1 is for the keyboard
                         
-                        if (playersToSpawn < 4)
+                        if (playersToSpawn > 4)
                         {
                             playersToSpawn = 4;
                         }

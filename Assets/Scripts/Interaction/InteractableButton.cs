@@ -24,6 +24,8 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private bool toggle;
             [SerializeField] private Color pressedColor;
+            [SerializeField] private bool isTimed;
+            [SerializeField] private float timeForButtonToReset;
             
             [Header("Debug")]
             [SerializeField] public bool isPressed;
@@ -68,6 +70,7 @@ namespace Game {
                 
                 isPressed = true;
                 renderer.materials[1].color = pressedColor;
+                
                 if (CheckAllButtonsPressed()) { 
                     if (buttonSpawn != null)
                         buttonSpawn.allButtonsPressed.Invoke();
@@ -77,9 +80,13 @@ namespace Game {
             private void OnTriggerExit(Collider other) {
                 if (!other.CompareTag("Player") || toggle)
                     return;
-                
-                isPressed = false;
-                renderer.materials[1].color = originalColor;
+
+                if (isTimed) {
+                    StartCoroutine(ResetButton());
+                } else {
+                    isPressed = false;
+                    renderer.materials[1].color = originalColor;
+                }
                 if(buttonSpawn != null)
                     buttonSpawn.offButtonPressed.Invoke();
             }
@@ -90,6 +97,12 @@ namespace Game {
                 }
 
                 return true;
+            }
+            
+            private IEnumerator ResetButton() {
+                yield return new WaitForSeconds(timeForButtonToReset);
+                isPressed = false;
+                renderer.materials[1].color = originalColor;
             }
             
 #endregion

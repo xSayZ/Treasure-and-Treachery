@@ -38,9 +38,11 @@ namespace Game {
             }
 
             private int damage;
+            private int maxKillAmount;
             private PlayerData playerData;
             private UnityEvent<bool> onKill;
             private float currentAliveTime;
+            private float currentKillAmount;
 
 #region Unity Functions
             private void Start()
@@ -87,6 +89,7 @@ namespace Game {
                             
                             if (killed)
                             {
+                                currentKillAmount++;
                                 playerData.kills += 1;
                                 playerData.killsThisLevel += 1;
                                 onKill.Invoke(false); // Doesn't actually check if enemy is stunned since gorgon doesn't have a ranged attack
@@ -104,20 +107,24 @@ namespace Game {
                     }
                 }
                 
-                if (impactVFX)
+                if (currentKillAmount >= maxKillAmount)
                 {
-                    GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
-                    Destroy(_spawnedImpactVFX, 5);
+                    if (impactVFX)
+                    {
+                        GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
+                        Destroy(_spawnedImpactVFX, 5);
+                    }
+                    
+                    Destroy(gameObject);
                 }
-                
-                Destroy(gameObject);
             }
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, PlayerData _playerData, UnityEvent<bool> _onKill)
+            public void Setup(int _damage, int _maxKillAmount, PlayerData _playerData, UnityEvent<bool> _onKill)
             {
                 damage = _damage;
+                maxKillAmount = _maxKillAmount;
                 playerData = _playerData;
                 onKill = _onKill;
                 

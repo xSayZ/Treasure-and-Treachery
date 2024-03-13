@@ -69,8 +69,10 @@ namespace Game {
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] private float rangedAttackCooldown;
-            [SerializeField] private float rangedKnockbackSpeed;
-            [SerializeField] private float rangedKnockbackTime;
+            [SerializeField] private float rangedMinKnockbackSpeed;
+            [SerializeField] private float rangedMaxKnockbackSpeed;
+            [SerializeField] private float rangedMinKnockbackTime;
+            [SerializeField] private float rangedMaxKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
             [SerializeField] private int rangedWaveHealthCost;
             
@@ -278,21 +280,36 @@ namespace Game {
                 else if (IsAiming)
                 {
                     IsAiming = false;
-                                
+                    
                     aimLineLeft.SetActive(false);
                     aimLineRight.SetActive(false);
                     aimLineMiddle.SetActive(false);
-                                
+                    
                     currentRangedCooldown = rangedAttackCooldown;
-                                
+                    
                     FireProjectile();
                     playerController.PlayerAnimationBehaviour.PlayAttackAnimation();
                     playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(0);
                     
                     playerController.PlayerMovementBehaviour.CurrentTurnSpeed = turnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = false;
-                    playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
-
+                    
+                    // Calculate aim progress
+                    float _aimProgress;
+                    if (rangedAimShrink)
+                    {
+                        _aimProgress =  (currentAimAngle - rangedAimMinAngle) / (rangedAimMaxAngle - rangedAimMinAngle);
+                    }
+                    else
+                    {
+                        _aimProgress =  (rangedAimMaxAngle - currentAimAngle) / (rangedAimMaxAngle - rangedAimMinAngle);
+                    }
+                    
+                    // Calculate knockback
+                    float _knockbackSpeed = ((rangedMaxKnockbackSpeed - rangedMinKnockbackSpeed) * _aimProgress) + rangedMinKnockbackSpeed;
+                    float _knockbackTime = ((rangedMaxKnockbackTime - rangedMinKnockbackTime) * _aimProgress) + rangedMinKnockbackTime;
+                    playerController.PlayerMovementBehaviour.ApplyForce(_knockbackSpeed, -transform.forward, _knockbackTime, true);
+                    
                     try
                     {
                         playerAudio.DragonShoot(playerObj, false, dragonShootinstance);

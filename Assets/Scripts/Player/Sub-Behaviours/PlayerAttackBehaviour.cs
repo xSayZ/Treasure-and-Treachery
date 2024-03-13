@@ -74,6 +74,7 @@ namespace Game {
             [SerializeField] private float rangedAimMaxAngle;
             [SerializeField] private bool rangedAimShrink;
             [SerializeField] private float rangedAimSpeed;
+            [SerializeField] private float rangedTurnSpeed = 0.5f;
             [SerializeField] private float rangedKnockbackSpeed;
             [SerializeField] private float rangedKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
@@ -229,8 +230,9 @@ namespace Game {
                 StartCoroutine(MeleeAttack());
             }
 
-            private void Aim(bool _aiming)
-            {
+            private void Aim(bool _aiming) {
+                float _currentTurnSpeed = playerController.PlayerMovementBehaviour.CurrentTurnSpeed;
+                
                 if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0 || !canAttack)
                 {
                     return;
@@ -252,7 +254,7 @@ namespace Game {
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);
                                 
-                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed /= 2;
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = rangedTurnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = true;
                     
                     try
@@ -278,7 +280,7 @@ namespace Game {
                     playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(0);
                     
                                 
-                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed *= 2;
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = _currentTurnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = false;
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
 

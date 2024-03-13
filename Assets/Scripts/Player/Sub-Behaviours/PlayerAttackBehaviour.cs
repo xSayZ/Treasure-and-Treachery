@@ -99,6 +99,7 @@ namespace Game {
             // Ranged
             private float currentRangedCooldown;
             private float currentAimAngle;
+            private float turnSpeed;
             public bool IsAiming { get; private set; }
             
             private PlayerController playerController;
@@ -128,6 +129,8 @@ namespace Game {
                 currentMaxMeleeTargets = meleeMaxAttackTargets;
                 
                 playerController = GetComponent<PlayerController>();
+                
+                turnSpeed = playerController.PlayerMovementBehaviour.CurrentTurnSpeed;
             }
 
             private void Update()
@@ -231,7 +234,6 @@ namespace Game {
             }
 
             private void Aim(bool _aiming) {
-                float _currentTurnSpeed = playerController.PlayerMovementBehaviour.CurrentTurnSpeed;
                 
                 if (playerController.PlayerData.currentItem != null || !playerController.PlayerData.hasRangedWeapon || currentRangedCooldown > 0 || !canAttack)
                 {
@@ -279,8 +281,7 @@ namespace Game {
                     playerController.PlayerAnimationBehaviour.PlayAttackAnimation();
                     playerController.PlayerAnimationBehaviour.UpdateAttackChargeAnimation(0);
                     
-                                
-                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = _currentTurnSpeed;
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = turnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = false;
                     playerController.PlayerMovementBehaviour.ApplyForce(rangedKnockbackSpeed, -transform.forward, rangedKnockbackTime, true);
 

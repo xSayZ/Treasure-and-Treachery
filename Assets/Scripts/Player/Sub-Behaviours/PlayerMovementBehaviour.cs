@@ -220,6 +220,7 @@ namespace Game {
                                 }
                             }
                             
+                            playerController.PlayerAttackBehaviour.OnKill.Invoke(_stunKill);
                             OnDashKill.Invoke(_stunKill);
                         }
                     }

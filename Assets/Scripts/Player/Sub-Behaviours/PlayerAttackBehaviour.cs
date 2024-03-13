@@ -39,6 +39,7 @@ namespace Game {
             [SerializeField] private GameObject waveProjectile;
             [SerializeField] private GameObject aimLineLeft;
             [SerializeField] private GameObject aimLineRight;
+            [SerializeField] private GameObject aimLineMiddle;
             [SerializeField] private VisualEffect[] meleeVisualEffects;
             [SerializeField] private GameObject meleeImpactVFX;
             
@@ -68,17 +69,19 @@ namespace Game {
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] private float rangedAttackCooldown;
+            [SerializeField] private float rangedKnockbackSpeed;
+            [SerializeField] private float rangedKnockbackTime;
+            [SerializeField] private Transform projectileSpawnPoint;
+            [SerializeField] private int rangedWaveHealthCost;
+            
+            [Header("Ranged Aim Settings")]
             [Range(0f, 180f)]
             [SerializeField] private float rangedAimMinAngle;
             [Range(0f, 180f)]
             [SerializeField] private float rangedAimMaxAngle;
             [SerializeField] private bool rangedAimShrink;
             [SerializeField] private float rangedAimSpeed;
-            [SerializeField] private float rangedTurnSpeed = 0.5f;
-            [SerializeField] private float rangedKnockbackSpeed;
-            [SerializeField] private float rangedKnockbackTime;
-            [SerializeField] private Transform projectileSpawnPoint;
-            [SerializeField] private int rangedWaveHealthCost;
+            [SerializeField] private float rangedAimTurnSpeed;
             
             [Header("Audio")]
             [SerializeField] private GameObject playerObj;
@@ -109,6 +112,15 @@ namespace Game {
             [HideInInspector] public UnityEvent<bool> OnKill = new UnityEvent<bool>();
             [HideInInspector] public UnityEvent<bool> OnWaveKill = new UnityEvent<bool>();
 
+            public void SetupBehaviour(PlayerController _playerController, float _turnSpeed)
+            {
+                damageableInRange = new List<IDamageable>();
+                currentMaxMeleeTargets = meleeMaxAttackTargets;
+                
+                playerController = _playerController;
+                turnSpeed = _turnSpeed;
+            }
+
 #region Unity Functions
             private void OnEnable()
             {
@@ -120,14 +132,6 @@ namespace Game {
             {
                 QuestManager.OnMeleeWeaponPickedUp.RemoveListener(ActivateMeleeWeapon);
                 QuestManager.OnRagedWeaponPickedUp.RemoveListener(ActivateRangedWeapon);
-            }
-
-            public void SetupBehaviour(PlayerController _playerController, float _turnSpeed) {
-                damageableInRange = new List<IDamageable>();
-                currentMaxMeleeTargets = meleeMaxAttackTargets;
-                
-                playerController = _playerController;
-                turnSpeed = _turnSpeed;
             }
 
             private void Update()
@@ -147,6 +151,11 @@ namespace Game {
                     if (rangedAimShrink)
                     {
                         currentAimAngle -= Time.deltaTime * rangedAimSpeed;
+                        
+                        if (currentAimAngle <= rangedAimMinAngle)
+                        {
+                            aimLineMiddle.SetActive(true);
+                        }
                     }
                     else
                     {
@@ -253,7 +262,7 @@ namespace Game {
                     aimLineLeft.SetActive(true);
                     aimLineRight.SetActive(true);
                                 
-                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = rangedTurnSpeed;
+                    playerController.PlayerMovementBehaviour.CurrentTurnSpeed = rangedAimTurnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = true;
                     
                     try
@@ -271,6 +280,7 @@ namespace Game {
                                 
                     aimLineLeft.SetActive(false);
                     aimLineRight.SetActive(false);
+                    aimLineMiddle.SetActive(false);
                                 
                     currentRangedCooldown = rangedAttackCooldown;
                                 

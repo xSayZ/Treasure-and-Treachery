@@ -345,6 +345,7 @@ MonoBehaviour:
   waveProjectile: {fileID: 525304689459795212, guid: 6e5b08050c63f2145b2ea2c575dc58fb, type: 3}
   aimLineLeft: {fileID: 2687902810199753418}
   aimLineRight: {fileID: 6410334721102978561}
+  aimLineMiddle: {fileID: 3241907070955695441}
   meleeVisualEffects: []
   meleeImpactVFX: {fileID: 0}
   attackType: 0
@@ -359,15 +360,15 @@ MonoBehaviour:
   meleeKnockbackForce: 1000
   rangedAttackDamage: 2
   rangedAttackCooldown: 1
-  rangedAimMinAngle: 0
-  rangedAimMaxAngle: 45
-  rangedAimShrink: 1
-  rangedAimSpeed: 30
-  rangedTurnSpeed: 0.1
   rangedKnockbackSpeed: 100
   rangedKnockbackTime: 0.1
   projectileSpawnPoint: {fileID: 7878444258247842620}
   rangedWaveHealthCost: 2
+  rangedAimMinAngle: 0
+  rangedAimMaxAngle: 45
+  rangedAimShrink: 1
+  rangedAimSpeed: 30
+  rangedAimTurnSpeed: 0.5
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
@@ -1464,12 +1465,12 @@ GameObject:
   - component: {fileID: 1732640305956423831}
   - component: {fileID: 3371828307716095700}
   m_Layer: 0
-  m_Name: AimMid
+  m_Name: AimLineMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1732640305956423831
 Transform:
   m_ObjectHideFlags: 0

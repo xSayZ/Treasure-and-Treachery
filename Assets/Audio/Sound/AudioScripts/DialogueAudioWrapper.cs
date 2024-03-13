@@ -51,6 +51,7 @@ public class DialogueAudioWrapper : MonoBehaviour
             yield return null;
         }
         previousSpeakerInstance.release();
+        icon.SetActive(false);
         switch (nextSpeaker)
         {
             case 0:

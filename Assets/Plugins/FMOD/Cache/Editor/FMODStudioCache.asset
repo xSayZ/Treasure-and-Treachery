@@ -51,10 +51,38 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
-  Parameters: []
+  Parameters:
+  - {fileID: -6283230875041865578}
   MinDistance: 1
   MaxDistance: 60
   Length: 1191
+--- !u!114 &-8826678389336869936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_Gorg_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_Gorg_Attack
+  Guid:
+    Data1: -1875168644
+    Data2: 1146878813
+    Data3: -1199030896
+    Data4: 2080769582
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1352
 --- !u!114 &-8656905203962451614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +263,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -313,34 +341,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-7848121896117127121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/GameplayMusic2
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/GameplayMusic2
-  Guid:
-    Data1: 562968693
-    Data2: 1238331431
-    Data3: 9995911
-    Data4: 1001226845
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -6777557746940688858}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 104285
 --- !u!114 &-7792080103867606088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,10 +408,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638455033460835747
+  lastModified: 638457672170631531
   FileSizes:
   - Name: 
-    Value: 6996
+    Value: 7102
   Exists: 1
 --- !u!114 &-7097680099533784200
 MonoBehaviour:
@@ -555,30 +555,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3700
---- !u!114 &-6777557746940688858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/GameplayMusic2/MusicProg
-  m_EditorClassIdentifier: 
-  Name: MusicProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 2878851826
-    data2: 2108855987
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &-6721155285740334795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -631,6 +607,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-6283230875041865578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_WITCH_ATTACKS_RangedHit/ParticleType
+  m_EditorClassIdentifier: 
+  Name: ParticleType
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1793654672
+    data2: 1314916863
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-6279668439592964516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,6 +797,34 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
+--- !u!114 &-5830147173142638721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/GameplayMusic2
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/GameplayMusic2
+  Guid:
+    Data1: 562968693
+    Data2: 1238331431
+    Data3: 9995911
+    Data4: 1001226845
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 9098358187272933705}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 104285
 --- !u!114 &-5791695084280937843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,7 +1109,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1188,7 +1216,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -1346,6 +1374,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-2753284276587230398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/CompleteObjStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/CompleteObjStinger
+  Guid:
+    Data1: 958461050
+    Data2: 1243916956
+    Data3: -8936520
+    Data4: -434498900
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2621
 --- !u!114 &-2676405039967518239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,7 +1455,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 13336
+  Length: 11100
 --- !u!114 &-2161718506807366625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1695,33 +1750,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5167
---- !u!114 &-193541512916698096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/HubMusic
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/HubMusic
-  Guid:
-    Data1: -1949739831
-    Data2: 1135333817
-    Data3: 1448912784
-    Data4: -1024717124
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 46600
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,16 +1828,17 @@ MonoBehaviour:
   - {fileID: 6848450980306393736}
   - {fileID: 6008208085931780880}
   - {fileID: -5791695084280937843}
-  - {fileID: 171810772237571833}
-  - {fileID: -7848121896117127121}
-  - {fileID: 2451419208506888488}
-  - {fileID: 8914069601062485804}
-  - {fileID: -193541512916698096}
   - {fileID: -6928312184170521338}
   - {fileID: 6162658075903484030}
   - {fileID: -2615796868166831777}
   - {fileID: -8602823584341295238}
   - {fileID: 1335787978591809420}
+  - {fileID: -8826678389336869936}
+  - {fileID: 4803050850247695510}
+  - {fileID: -5830147173142638721}
+  - {fileID: -2753284276587230398}
+  - {fileID: 5631766324961748265}
+  - {fileID: 4482596354117198226}
   EditorParameters:
   - {fileID: -7972935009264820889}
   - {fileID: -4143830335723778254}
@@ -1818,7 +1847,7 @@ MonoBehaviour:
   - {fileID: 905318259331715633}
   StringsBanks:
   - {fileID: -7310315156745985617}
-  cacheTime: 638455033460835747
+  cacheTime: 638457672175416814
   cacheVersion: 131609
 --- !u!114 &126045514305349450
 MonoBehaviour:
@@ -1844,33 +1873,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &171810772237571833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/WorldMap1
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/WorldMap1
-  Guid:
-    Data1: -267178231
-    Data2: 1250246085
-    Data3: -865191234
-    Data4: 959808066
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 58181
 --- !u!114 &362228550562807161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1958,7 +1960,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638455033460745807
+  lastModified: 638457672170512067
   FileSizes: []
   Exists: 1
 --- !u!114 &1058297615500628065
@@ -2364,33 +2366,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &2451419208506888488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/CompleteObjStinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/CompleteObjStinger
-  Guid:
-    Data1: 958461050
-    Data2: 1243916956
-    Data3: -8936520
-    Data4: -434498900
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2621
 --- !u!114 &2590869960879033927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2770,6 +2745,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &4482596354117198226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/HubMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/HubMusic
+  Guid:
+    Data1: -1949739831
+    Data2: 1135333817
+    Data3: 1448912784
+    Data4: -1024717124
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 46600
 --- !u!114 &4649219807036770416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2826,6 +2828,33 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
+--- !u!114 &4803050850247695510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/WorldMap1
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/WorldMap1
+  Guid:
+    Data1: -267178231
+    Data2: 1250246085
+    Data3: -865191234
+    Data4: 959808066
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 58181
 --- !u!114 &4942478692163398895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,6 +2964,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 642
+--- !u!114 &5631766324961748265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/GameOverStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/GameOverStinger
+  Guid:
+    Data1: 1779950225
+    Data2: 1310528959
+    Data3: 1713555612
+    Data4: -1895475207
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3478
 --- !u!114 &5889486010121159668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3276,7 +3332,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638455033008106713
+  lastModified: 638457672175416814
   FileSizes: []
   Exists: 1
 --- !u!114 &7878979555101615698
@@ -3327,7 +3383,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters:
   - {fileID: 1930196754821664538}
@@ -3414,7 +3470,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &8914069601062485804
+--- !u!114 &9098358187272933705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3423,24 +3479,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/GameOverStinger
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/GameplayMusic2/MusicProg
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/GameOverStinger
-  Guid:
-    Data1: 1779950225
-    Data2: 1310528959
-    Data3: 1713555612
-    Data4: -1895475207
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3478
+  Name: MusicProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 2878851826
+    data2: 2108855987
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &9101386831118286560
 MonoBehaviour:
   m_ObjectHideFlags: 0

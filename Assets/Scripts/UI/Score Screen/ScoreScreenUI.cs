@@ -27,17 +27,21 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] private List<PlayerData> playerDatas;
-
+            
+            private int playersInScoreScreen;
             private int playersDoneCountingUp;
 
             private void Start()
             {
+                playersInScoreScreen = 0;
+                
                 if (CharacterSelect.selectedCharacters.Count > 0)
                 {
                     foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
+                        playersInScoreScreen++;
                     }
                 }
                 else
@@ -46,6 +50,7 @@ namespace Game {
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(playerDatas[i], playerImages[i], personalObjectiveImages[i]);
+                        playersInScoreScreen++;
                     }
                 }
             }
@@ -57,7 +62,7 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                if (playersDoneCountingUp == CharacterSelect.selectedCharacters.Count)
+                if (playersDoneCountingUp == playersInScoreScreen)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);
                 }

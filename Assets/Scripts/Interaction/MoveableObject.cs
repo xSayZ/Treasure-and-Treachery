@@ -19,15 +19,20 @@ namespace Game {
             
             [Header("Settings")]
             [SerializeField] private float speed = 5f;
+            [SerializeField] private bool allowRotation = false;
             
             private bool isMoving = false;
             private Transform targetPosition;
-            private Vector3 startTransform;
+            private Transform startTransform;
             
             private void Start()
             {
-                startTransform = transform.position;
-                collider.gameObject.SetActive(false);
+                startTransform = new GameObject().transform;
+                startTransform.position = transform.position;
+                startTransform.rotation = transform.rotation;
+                
+                if(collider!= null)
+                    collider.gameObject.SetActive(false);
             }
             private void Update()
             {
@@ -48,13 +53,19 @@ namespace Game {
             {
                 if (isMoving) {
                     transform.position = Vector3.Lerp(transform.position, targetPosition.position, speed * Time.deltaTime);
+                    if(allowRotation)
+                        transform.rotation = Quaternion.Lerp(transform.rotation, targetPosition.rotation, speed * Time.deltaTime);
                 }
                 else {
-                    transform.position = Vector3.Lerp(transform.position, startTransform, speed * Time.deltaTime);
-                    collider.gameObject.SetActive(true);
+                    transform.position = Vector3.Lerp(transform.position, startTransform.position, speed * Time.deltaTime);
+                    if (allowRotation) {
+                        transform.rotation = Quaternion.Lerp(transform.rotation, startTransform.rotation, speed * Time.deltaTime);
+                    }
+                    if (collider != null) {
+                        collider.gameObject.SetActive(true);
+                    }
                 }
             }
-            
         }
     }
 }

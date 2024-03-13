@@ -6,7 +6,9 @@
 // --------------------------------
 // ------------------------------*/
 
+using System.Collections;
 using System.Collections.Generic;
+using Game.Scene;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -17,19 +19,14 @@ namespace Game {
             [Header("References")]
             [Tooltip("Add all buttons to work together for the event to trigger. Do not add this one to the list as it is added automatically.")]
             [SerializeField] private List<InteractableButton> buttons;
+            [SerializeField] private DynamicButtonSpawn buttonSpawn;
 
             [Header("Settings")]
             [SerializeField] private bool toggle;
             [SerializeField] private Color pressedColor;
             
-            [Header("Events")]
-            [Tooltip("Event that triggers when all buttons are pressed at the same time.")]
-            [SerializeField] private UnityEvent allButtonsPressed = new UnityEvent();
-            [Tooltip("Event that triggers when this button is released.")]
-            [SerializeField] private UnityEvent offButtonPressed = new UnityEvent();
-            
             [Header("Debug")]
-            [SerializeField] private bool isPressed;
+            [SerializeField] public bool isPressed;
             
             // Private Variables
             private Color originalColor;
@@ -40,18 +37,24 @@ namespace Game {
 
 #region Unity Functions
             private void Start() {
-                Setup();
+                if (buttonSpawn == null) {
+                    Setup();               
+                }
             }
 #endregion
 
 #region Private Functions
 
-            private void Setup() {
+            public void Setup() {
                 SetMaterial();
-                buttons.Add(this);
-                foreach (InteractableButton _button in buttons) {
-                    _button.isPressed = false;
+
+                for (int i = buttons.Count - 1; i >= 0; i--) {
+                    buttons[i].isPressed = false;
+                    if (!buttons[i].gameObject.activeSelf) {
+                        buttons.RemoveAt(i);
+                    }
                 }
+                buttons.Add(this);
             }
             private void SetMaterial() {
                 renderer = GetComponentInChildren<Renderer>();
@@ -65,8 +68,9 @@ namespace Game {
                 
                 isPressed = true;
                 renderer.materials[1].color = pressedColor;
-                if (CheckAllButtonsPressed()) {
-                    allButtonsPressed.Invoke();
+                if (CheckAllButtonsPressed()) { 
+                    if (buttonSpawn != null)
+                        buttonSpawn.allButtonsPressed.Invoke();
                 }
             }
             
@@ -76,7 +80,8 @@ namespace Game {
                 
                 isPressed = false;
                 renderer.materials[1].color = originalColor;
-                offButtonPressed.Invoke();
+                if(buttonSpawn != null)
+                    buttonSpawn.offButtonPressed.Invoke();
             }
             
             private bool CheckAllButtonsPressed() {

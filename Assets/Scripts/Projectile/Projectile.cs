@@ -38,11 +38,11 @@ namespace Game {
             }
             
             private int damage;
-            private int maxKillAmount;
+            private int maxHitAmount;
             private PlayerData playerData;
             private UnityEvent<bool> onKill;
             private float currentAliveTime;
-            private float currentKillAmount;
+            private float currentHitAmount;
 
 #region Unity Functions
             private void Start()
@@ -85,10 +85,10 @@ namespace Game {
                         if (_hitMonoBehaviour.CompareTag("Enemy"))
                         {
                             bool killed = _hit.Damage(damage, transform.position, knockbackForce);
+                            currentHitAmount++;
                             
                             if (killed)
                             {
-                                currentKillAmount++;
                                 playerData.kills += 1;
                                 playerData.killsThisLevel += 1;
                                 onKill.Invoke(false); // Doesn't actually check if enemy is stunned since gorgon doesn't have a ranged attack
@@ -106,7 +106,7 @@ namespace Game {
                     }
                 }
                 
-                if (currentKillAmount >= maxKillAmount)
+                if (currentHitAmount >= maxHitAmount)
                 {
                     DestroyBullet();
                 }
@@ -135,10 +135,10 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, int _maxKillAmount, PlayerData _playerData, UnityEvent<bool> _onKill)
+            public void Setup(int _damage, int _maxHitAmount, PlayerData _playerData, UnityEvent<bool> _onKill)
             {
                 damage = _damage;
-                maxKillAmount = _maxKillAmount;
+                maxHitAmount = _maxHitAmount;
                 playerData = _playerData;
                 onKill = _onKill;
                 

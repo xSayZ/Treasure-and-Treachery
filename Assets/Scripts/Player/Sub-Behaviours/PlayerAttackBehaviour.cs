@@ -122,15 +122,12 @@ namespace Game {
                 QuestManager.OnRagedWeaponPickedUp.RemoveListener(ActivateRangedWeapon);
             }
 
-            private void Awake()
-            {
+            public void SetupBehaviour(PlayerController _playerController, float _turnSpeed) {
                 damageableInRange = new List<IDamageable>();
-                
                 currentMaxMeleeTargets = meleeMaxAttackTargets;
                 
-                playerController = GetComponent<PlayerController>();
-                
-                turnSpeed = playerController.PlayerMovementBehaviour.CurrentTurnSpeed;
+                playerController = _playerController;
+                turnSpeed = _turnSpeed;
             }
 
             private void Update()

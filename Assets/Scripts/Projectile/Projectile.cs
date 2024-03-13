@@ -43,6 +43,8 @@ namespace Game {
             private UnityEvent<bool> onKill;
             private float currentAliveTime;
             private float currentKillAmount;
+            private Vector3 travelDirection;
+            private Rigidbody rb;
 
 #region Unity Functions
             private void Start()
@@ -78,6 +80,8 @@ namespace Game {
 
             private void OnCollisionEnter(Collision other)
             {
+                rb.velocity = travelDirection * speed;
+                
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
                     MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
@@ -104,19 +108,30 @@ namespace Game {
                                 }
                             }
                         }
+                        else
+                        {
+                            DestroyBullet();
+                        }
                     }
                 }
                 
                 if (currentKillAmount >= maxKillAmount)
                 {
-                    if (impactVFX)
-                    {
-                        GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
-                        Destroy(_spawnedImpactVFX, 5);
-                    }
-                    
-                    Destroy(gameObject);
+                    DestroyBullet();
                 }
+            }
+#endregion
+
+#region Public Functions
+            private void DestroyBullet()
+            {
+                if (impactVFX)
+                {
+                    GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
+                    Destroy(_spawnedImpactVFX, 5);
+                }
+                
+                Destroy(gameObject);
             }
 #endregion
 
@@ -128,7 +143,9 @@ namespace Game {
                 playerData = _playerData;
                 onKill = _onKill;
                 
-                GetComponent<Rigidbody>().velocity = transform.forward * speed;
+                rb = GetComponent<Rigidbody>();
+                travelDirection = transform.forward;
+                rb.velocity = travelDirection * speed;
             }
 #endregion
         }

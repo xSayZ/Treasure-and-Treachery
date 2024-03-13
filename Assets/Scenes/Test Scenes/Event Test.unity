@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2123,6 +2123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typingSpeed: 0.05
+  hasRacer: 1
   dialoguePanel: {fileID: 159671975}
   eventImage: {fileID: 0}
   dialogueText: {fileID: 761061802}
@@ -2132,6 +2133,9 @@ MonoBehaviour:
   - {fileID: 1267521513}
   - {fileID: 1817589998}
   playerDatas: []
+  OnDialogueEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1807608039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2612,7 +2616,7 @@ MonoBehaviour:
       Data2: 1135333817
       Data3: 1448912784
       Data4: -1024717124
-    Path: event:/Music Events/HubMusic
+    Path: event:/Music Events/IntroScene
   Event: 
   PlayEvent: 1
   StopEvent: 2

@@ -6,13 +6,12 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections.Generic;
+using Game.CharacterSelection;
 using UnityEngine;
 using Game.Player;
 using Game.Quest;
 using UnityEngine.Events;
-using Game.UI;
 using Game.WorldMap;
 using UnityEngine.InputSystem;
 
@@ -74,7 +73,7 @@ namespace Game {
             {
                 level = worldMapManager.levelToLoad;
                 
-                if (CharacterSelect.CharacterSelect.selectedCharacters.Count == 0)
+                if (CharacterSelect.selectedCharacters.Count == 0)
                 {
                     if (autoDetectPlayers)
                     {
@@ -160,15 +159,15 @@ namespace Game {
                 
                 ActivePlayerControllers = new Dictionary<int, PlayerController>();
 
-                if (CharacterSelect.CharacterSelect.selectedCharacters.Count == 0) {
+                if (CharacterSelect.selectedCharacters.Count == 0) {
                     LogWarning("No controllers detected; spawning default player.");
                     for (int i = 0; i < playersToSpawn; i++) {
                         SpawnPlayers(i, playersToSpawn);
                     }
                 } else {
-                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
+                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
-                        SpawnPlayers(_kvp.Value.playerIndex, CharacterSelect.CharacterSelect.selectedCharacters.Count);
+                        SpawnPlayers(_kvp.Value.playerIndex, CharacterSelect.selectedCharacters.Count);
                     }
                 }
             }
@@ -178,7 +177,7 @@ namespace Game {
             /// </summary>
             private void SetupActivePlayers()
             {
-                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
+                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                 {
                     ActivePlayerControllers[_kvp.Value.playerIndex].SetupPlayer(_kvp.Key);
                 }

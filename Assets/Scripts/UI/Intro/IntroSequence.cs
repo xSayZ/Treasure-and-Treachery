@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
@@ -46,7 +47,7 @@ namespace Game
             private void Awake()
             {
                 // TEMPORARY
-                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
+                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                 {
                     playerInput.SwitchCurrentControlScheme(_kvp.Key);
                 }

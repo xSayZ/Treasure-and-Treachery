@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
@@ -31,9 +32,9 @@ namespace Game {
 
             private void Start()
             {
-                if (CharacterSelect.CharacterSelect.selectedCharacters.Count > 0)
+                if (CharacterSelect.selectedCharacters.Count > 0)
                 {
-                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.CharacterSelect.selectedCharacters)
+                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
@@ -56,7 +57,7 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                if (playersDoneCountingUp == CharacterSelect.CharacterSelect.selectedCharacters.Count)
+                if (playersDoneCountingUp == CharacterSelect.selectedCharacters.Count)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);
                 }

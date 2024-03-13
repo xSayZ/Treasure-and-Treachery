@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.CharacterSelection;
 using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,7 +36,7 @@ namespace Game {
             void Update()
             {
                 // Access input values for each player
-                for (int i = 1; i <= CharacterSelect.CharacterSelect.selectedCharacters.Count; i++)
+                for (int i = 1; i <= CharacterSelect.selectedCharacters.Count; i++)
                 {
                     Debug.Log("Test");
                 }

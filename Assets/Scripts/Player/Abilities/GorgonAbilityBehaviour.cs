@@ -22,9 +22,31 @@ namespace Game {
                 playerController.PlayerAttackBehaviour.MeleeIsStunAttack = true;
                 
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
+                
+                playerController.PlayerAttackBehaviour.OnKill.AddListener(EnemyKilled);
+            }
+
+            protected override void OnDisable()
+            {
+                base.OnDisable();
+                
+                if (playerController)
+                {
+                    playerController.PlayerAttackBehaviour.OnKill.RemoveListener(EnemyKilled);
+                }
             }
 
             protected override void OnDashKill(bool _stunned)
+            {
+                EnemyKilled(_stunned);
+                
+                if (_stunned)
+                {
+                    playerController.PlayerMovementBehaviour.UpdateCurrentNumberOfDashes(1);
+                }
+            }
+
+            private void EnemyKilled(bool _stunned)
             {
                 if (_stunned)
                 {

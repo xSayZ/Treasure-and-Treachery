@@ -15,7 +15,6 @@ using Game.Enemy;
 using Game.Player;
 using UnityEngine.Events;
 using Vector3 = UnityEngine.Vector3;
-// ReSharper disable Unity.PerformanceCriticalCodeCameraMain
 
 
 namespace Game {
@@ -238,8 +237,9 @@ namespace Game {
             }
             
             private void SetPlayerActiveState(bool _active) {
-                foreach (var player in targets) {
-                    player.Value.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(_active, _active);
+                foreach (var player in targets)
+                {
+                    player.Value.GetComponent<PlayerMovementBehaviour>().CameraMoveRotateLock = !_active;
                     player.Value.GetComponent<PlayerAttackBehaviour>().SetAttackActiveState(_active);
                 }
             }

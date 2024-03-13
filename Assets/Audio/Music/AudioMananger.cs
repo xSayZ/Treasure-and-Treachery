@@ -139,18 +139,30 @@ namespace Game {
 
             public void GameOverStinger()
             {
-                EventInstance gameoverstingerInstance = RuntimeManager.CreateInstance(gameOverStinger);
-                gameoverstingerInstance.start();
-                gameoverstingerInstance.release();
-                Debug.Log("played gameover");
-
+                try 
+                {
+                    EventInstance gameoverstingerInstance = RuntimeManager.CreateInstance(gameOverStinger);
+                    gameoverstingerInstance.start();
+                    gameoverstingerInstance.release();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{AudioManager}]: Error Exception " + e);
+                }
             }
 
             public void CompleteObjectiveStinger()
             {
-                EventInstance ObjStinger1 = RuntimeManager.CreateInstance(completeObjStinger);
-                ObjStinger1.start();
-                ObjStinger1.release();
+                try 
+                {
+                    EventInstance ObjStinger1 = RuntimeManager.CreateInstance(completeObjStinger);
+                    ObjStinger1.start();
+                    ObjStinger1.release();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{AudioManager}]: Error Exception " + e);
+                }
             }
 
 

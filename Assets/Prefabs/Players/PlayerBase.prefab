@@ -198,6 +198,7 @@ MonoBehaviour:
   <PlayerOverheadUIBehaviour>k__BackingField: {fileID: 7347125998203325181}
   <PlayerAbilityBehaviour>k__BackingField: {fileID: 0}
   playerHealthBar: {fileID: 5371476867704334821}
+  pauseMenu: {fileID: 0}
   playerInput: {fileID: 3622730775527207118}
   movementSmoothingSpeed: 25
   invincibilityTime: 0.5
@@ -235,6 +236,7 @@ MonoBehaviour:
   dashPushSpeed: 360
   dashPushTime: 0.5
   MoveSpeedMultiplier: 1
+  CurrentTurnSpeed: 0
   DisableDashMove: 0
   OnDash:
     m_PersistentCalls:
@@ -263,6 +265,7 @@ MonoBehaviour:
   meleeImpactVFX: {fileID: 0}
   attackType: 0
   meleeAttackDamage: 1
+  meleeMaxAttackTargets: 2
   meleeAttackCooldown: 1
   meleeAttackDuration: 0.2
   meleeAttackDelay: 0.1
@@ -397,7 +400,19 @@ MonoBehaviour:
     m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
     m_ActionName: Menu/MenuNavigation
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnSubmit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
     m_ActionName: Menu/Confirm
   - m_PersistentCalls:
@@ -421,10 +436,6 @@ MonoBehaviour:
     m_ActionId: 8231e1eb-5be5-4a3a-a626-e6b45aeb61b0
     m_ActionName: Player/TogglePlayerUIElement[/Keyboard/enter]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
-    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/r]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1130416177640512929}
         m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
@@ -440,6 +451,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: da24d66e-0079-4c4b-a4af-6a7ea14a5767
     m_ActionName: Player/Attack[/SwitchProControllerHID/buttonWest,/SwitchProControllerHID1/buttonWest,/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1130416177640512929}
+        m_TargetAssemblyTypeName: Game.Player.PlayerController, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dac5d031-871d-4fdc-a6a0-a4c20397c5b7
+    m_ActionName: Player/PauseMenu[/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
+    m_ActionName: Menu/Pause
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -525,8 +556,8 @@ MonoBehaviour:
   decayGracePeriod: 0
   decayTime: 0.02
   decayAmount: 1
-  percentageToBecomeEnraged: 10
-  percentageToLoseEnraged: 9.5
+  percentageToBecomeEnraged: 0.5
+  percentageToLoseEnraged: 0
   meleeAttackCooldownMultiplier: 1
   moveSpeedMultiplier: 1.5
   dashHealAmount: 2
@@ -2735,7 +2766,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 288723119442727232}
   m_RootOrder: 6
@@ -2806,7 +2837,8 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 4096
-  CutTime: 2
+  CutTime: 10
+  cutoutSize: {x: 5, y: 5, z: 5}
 --- !u!1 &8834325220454283334
 GameObject:
   m_ObjectHideFlags: 0

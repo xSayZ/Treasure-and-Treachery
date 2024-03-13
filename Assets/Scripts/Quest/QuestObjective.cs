@@ -38,6 +38,7 @@ namespace Game {
             
             [Header("Quest Settings")]
             [SerializeField] private bool requiredQuest;
+            [SerializeField] private bool setRequiredPickupsDynamically;
             public QuestTypes QuestType;
             
             [Header("Quest Events")]
@@ -106,11 +107,24 @@ namespace Game {
                 {
                     heldQuestItems[i] = new List<Item>();
                 }
+                
             }
 
             private void Start()
             {
                 requiredItems = new Dictionary<Item, QuestStatus>();
+                
+                if (setRequiredPickupsDynamically) {
+                    // Remove from RequiredPickups if players are not on
+                    int playerCount = GameManager.Instance.ActivePlayerControllers.Count;
+                    for (int i = 0; i < RequiredPickups.Count; i++) {
+                        if (i <= playerCount - 1)
+                            continue;
+                        
+                        RequiredPickups.RemoveAt(i);
+                        i--;
+                    }
+                }
                 
                 if (QuestType == QuestTypes.Fetch)
                 {
@@ -142,8 +156,8 @@ namespace Game {
                             {
                                 item.Value.ProgressBar.gameObject.SetActive(false);
                                 _itemsToRemove.Add(item.Key);
-                                
-                                GameManager.Instance.ActivePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(true, true);
+
+                                GameManager.Instance.ActivePlayerControllers[item.Value.PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = false;
                                 CanInteractWith[item.Value.PlayerIndex] = false;
                                 
                                 try  
@@ -158,11 +172,7 @@ namespace Game {
                         }
                     }
                     
-                    for (int i = 0; i < _itemsToRemove.Count; i++)
-                    {
-                        QuestManager.OnItemDropped.Invoke(requiredItems[_itemsToRemove[i]].PlayerIndex, _itemsToRemove[i], true);
-                        requiredItems.Remove(_itemsToRemove[i]);
-                    }
+                    RemoveRequiredItemFromList(_itemsToRemove);
                     
                     if (requiredItems.Count <= 0)
                     {
@@ -186,6 +196,15 @@ namespace Game {
                     }
                 }
             }
+            private void RemoveRequiredItemFromList(List<Item> _itemsToRemove) {
+
+                for (int i = 0; i < _itemsToRemove.Count; i++)
+                {
+                    Debug.Log("Item removed: " + _itemsToRemove[i]);
+                    QuestManager.OnItemDropped.Invoke(requiredItems[_itemsToRemove[i]].PlayerIndex, _itemsToRemove[i], true);
+                    requiredItems.Remove(_itemsToRemove[i]);
+                }
+            }
 #endregion
 
 #region Public Functions
@@ -204,8 +223,8 @@ namespace Game {
                     requiredItems[_playerData.currentItem].PlayerIndex = _playerIndex;
                     
                     requiredItems[_playerData.currentItem].ProgressBar.gameObject.SetActive(true);
-                    
-                    GameManager.Instance.ActivePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().SetMovementActiveState(!_start, !_start);
+
+                    GameManager.Instance.ActivePlayerControllers[_playerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = _start;
                     
                     if (_start == true)
                     {

@@ -13,7 +13,6 @@ using Game.Backend;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.VFX;
 
 
 namespace Game {
@@ -40,7 +39,7 @@ namespace Game {
 
             private int damage;
             private PlayerData playerData;
-            private UnityEvent onKill;
+            private UnityEvent<bool> onKill;
             private float currentAliveTime;
 
 #region Unity Functions
@@ -79,28 +78,28 @@ namespace Game {
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
-                    bool killed = _hit.Damage(damage, transform.position, knockbackForce);
-                    
-                    if (killed)
+                    MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
+                    if (_hitMonoBehaviour)
                     {
-                        playerData.kills += 1;
-                        playerData.killsThisLevel += 1;
-                        onKill.Invoke();
-                        
-                        try
+                        if (_hitMonoBehaviour.CompareTag("Enemy"))
                         {
-                            if (characterType == CharacterType.Witch)
+                            bool killed = _hit.Damage(damage, transform.position, knockbackForce);
+                            
+                            if (killed)
                             {
-                                playerAudio.ProjectileHitAudio(gameObject, 0); 
+                                playerData.kills += 1;
+                                playerData.killsThisLevel += 1;
+                                onKill.Invoke(false); // Doesn't actually check if enemy is stunned since gorgon doesn't have a ranged attack
+                                
+                                try
+                                {
+                                    playerAudio.ProjectileHitAudio(gameObject);
+                                }
+                                catch (Exception e)
+                                {
+                                    Debug.LogError("[{Projectile}]: Error Exception " + e);
+                                }
                             }
-                            if (characterType == CharacterType.Dragon)
-                            {
-                                playerAudio.ProjectileHitAudio(gameObject, 1);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError("[{Projectile}]: Error Exception " + e);
                         }
                     }
                 }
@@ -116,7 +115,7 @@ namespace Game {
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, PlayerData _playerData, UnityEvent _onKill)
+            public void Setup(int _damage, PlayerData _playerData, UnityEvent<bool> _onKill)
             {
                 damage = _damage;
                 playerData = _playerData;

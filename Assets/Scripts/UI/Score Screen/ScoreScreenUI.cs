@@ -8,6 +8,7 @@
 
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
@@ -26,17 +27,21 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] private List<PlayerData> playerDatas;
-
+            
+            private int playersInScoreScreen;
             private int playersDoneCountingUp;
 
             private void Start()
             {
-                if (CharacterSelectHandler.StaticData.Count > 0)
+                playersInScoreScreen = 0;
+                
+                if (CharacterSelect.selectedCharacters.Count > 0)
                 {
-                    foreach (CharacterSelect _characterSelect in CharacterSelectHandler.StaticData)
+                    foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
-                        playerScoreUI.SetupUI(_characterSelect.data, playerImages[_characterSelect.data.playerIndex], personalObjectiveImages[_characterSelect.data.playerIndex]);
+                        playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
+                        playersInScoreScreen++;
                     }
                 }
                 else
@@ -45,6 +50,7 @@ namespace Game {
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(playerDatas[i], playerImages[i], personalObjectiveImages[i]);
+                        playersInScoreScreen++;
                     }
                 }
             }
@@ -56,7 +62,7 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                if (playersDoneCountingUp == CharacterSelectHandler.PlayerList.Count)
+                if (playersDoneCountingUp == playersInScoreScreen)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);
                 }

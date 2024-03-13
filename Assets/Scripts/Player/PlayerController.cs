@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
-using UnityEngine.InputSystem.Users;
+using Game.UI;
 
 
 namespace Game
@@ -39,6 +39,7 @@ namespace Game
             
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
+            [SerializeField] private PauseMenu pauseMenu;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
@@ -73,13 +74,16 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
-            private bool hasBeenSetup;
 
-            public void SetupPlayer(int _newPlayerID)
+            public void SetupPlayer(InputDevice _inputDevice)
             {
-                hasBeenSetup = true;
-                PlayerData.NewScene();
+                if (_inputDevice != null)
+                {
+                    playerInput.SwitchCurrentControlScheme(_inputDevice);
+                }
                 
+                PlayerData.NewScene();
+                pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;
                
                 Health = PlayerData.currentHealth;
@@ -132,18 +136,6 @@ namespace Game
                 {
                     Invincible = false;
                 }
-            }
-
-            private void OnDestroy()
-            {
-                if (!hasBeenSetup)
-                {
-                    return;
-                }
-                
-                playerHealthBar.UpdateHealthBar(Health);
-                PlayerInteractionBehaviour.OnDeath();
-                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
             }
 #endregion
 
@@ -213,15 +205,25 @@ namespace Game
                 }
             }
 
+            public void OnPause(InputAction.CallbackContext value)
+            {
+                pauseMenu.StartPauseGameplay(value.started,this);
+            }
+
+            public void OnSubmit(InputAction.CallbackContext value)
+            {
+                pauseMenu.UnPauseGameplay(value.started,this);
+            }
+
             // Switching input action maps
             public void EnableEventControls()
             {
-                playerInput.SwitchCurrentActionMap("Events");
+                playerInput.SwitchCurrentActionMap("Menu");
             }
 
             public void EnableGamePlayControls()
             {
-                playerInput.SwitchCurrentActionMap("Players");
+                playerInput.SwitchCurrentActionMap("Player");
             }
 
             public void SetInputPausedState(bool _paused)
@@ -247,6 +249,10 @@ namespace Game
             
             public void Death()
             {
+                playerHealthBar.UpdateHealthBar(0);
+                PlayerInteractionBehaviour.OnDeath();
+                GameManager.OnPlayerDeath.Invoke(PlayerIndex);
+                
                 Destroy(gameObject);
             }
             
@@ -305,7 +311,7 @@ namespace Game
 
             private void UpdatePlayerAnimationMovement()
             {
-                if (!PlayerMovementBehaviour.canMove)
+                if (!PlayerMovementBehaviour.CanMove())
                 {
                     PlayerAnimationBehaviour.UpdateMovementAnimation(0);
                 }

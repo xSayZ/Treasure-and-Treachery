@@ -7,14 +7,12 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
-using Game.Audio;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -22,9 +20,11 @@ namespace Game
 {
     namespace UI
     {
-        public class IntroSequence : MonoBehaviour {
-            
+        public class IntroSequence : MonoBehaviour
+        {
+
             [Header("References")]
+            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private LevelDataSO levelToLoad;
             [SerializeField] private Image introPanel;
             
@@ -43,6 +43,22 @@ namespace Game
             private bool skipped;
 
             #region Unity Functions
+
+            private void Awake()
+            {
+                // Get all player inputs
+                List<InputDevice> inputDevices = new List<InputDevice>();
+                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
+                {
+                    inputDevices.Add(_kvp.Key);
+                }
+                
+                // First player controls intro sequence
+                if (inputDevices.Count > 0)
+                { 
+                    playerInput.SwitchCurrentControlScheme(inputDevices[0]);
+                }
+            }
 
             void Start() {
                 InitializeIntro();

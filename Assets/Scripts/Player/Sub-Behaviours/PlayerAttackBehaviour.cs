@@ -69,6 +69,7 @@ namespace Game {
             [Header("Ranged Attack Settings")]
             [SerializeField] private int rangedAttackDamage;
             [SerializeField] private float rangedAttackCooldown;
+            [SerializeField] private int rangedAttackFullAimPenetrationAmount;
             [SerializeField] private float rangedMinKnockbackSpeed;
             [SerializeField] private float rangedMaxKnockbackSpeed;
             [SerializeField] private float rangedMinKnockbackTime;
@@ -476,15 +477,22 @@ namespace Game {
                 {
                     Quaternion _launchRotation = Quaternion.AngleAxis(Random.Range(0f, currentAimAngle * (Random.Range(0, 2) * 2 - 1)), Vector3.up);
                     
+                    // Calculate penetration
+                    int _penetration = 0;
+                    if (currentAimAngle <= rangedAimMinAngle)
+                    {
+                        _penetration = rangedAttackFullAimPenetrationAmount;
+                    }
+                    
                     GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, _penetration, playerController.PlayerData, OnKill);
                 }
                 else
                 {
                     if (currentAimAngle < rangedAimMaxAngle || playerController.Health <= rangedWaveHealthCost)
                     {
                         GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnKill);
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, 0, playerController.PlayerData, OnKill);
                     }
                     else
                     {

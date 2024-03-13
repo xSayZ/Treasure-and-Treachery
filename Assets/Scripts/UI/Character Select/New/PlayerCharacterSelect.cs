@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections.Generic;
 using Game.Backend;
 using UnityEngine;
@@ -14,12 +15,13 @@ using UnityEngine.UI;
 
 
 namespace Game {
-    namespace CharacterSelect {
+    namespace CharacterSelection {
         public class PlayerCharacterSelect : MonoBehaviour
         {
             [Header("Setup")]
             [SerializeField] private PlayerInput playerInput;
             [SerializeField] private Image characterImage;
+            [SerializeField] private GameObject selectedIndicator;
             [SerializeField] private List<PlayerData> playerDatas;
             
             private CharacterSelect characterSelect;
@@ -29,7 +31,7 @@ namespace Game {
             private Vector2 previousMoveValue;
 
 #region Unity Functions
-            private void Awake()
+            private void OnEnable()
             {
                 characterSelect = FindObjectOfType<CharacterSelect>();
                 previousMoveValue = new Vector2();
@@ -42,6 +44,13 @@ namespace Game {
                 transform.position = _playerImageTransform.position;
                 transform.rotation = _playerImageTransform.rotation;
                 transform.localScale = _playerImageTransform.GetChild(0).localScale;
+                
+                characterSelect.UpdateImageTint.AddListener(UpdateImageTint);
+            }
+
+            private void OnDisable()
+            {
+                characterSelect.UpdateImageTint.RemoveListener(UpdateImageTint);
             }
 #endregion
 
@@ -74,12 +83,15 @@ namespace Game {
                 
                 // Update previous move value
                 previousMoveValue = _context.ReadValue<Vector2>();
+                
+                UpdateImageTint();
             }
 
             public void OnSubmit(InputAction.CallbackContext _context)
             {
                 if (!_context.started || !canSelectCharacter)
                 {
+                    UpdateImageTint();
                     canSelectCharacter = true; // Stops input from triggering when joining
                     return;
                 }
@@ -93,6 +105,11 @@ namespace Game {
                 
                 // Select character
                 hasSelectedCharacter = characterSelect.SelectCharacter(playerInput.devices[0], playerDatas[currentSelectedCharacter]);
+                
+                if (hasSelectedCharacter)
+                {
+                    selectedIndicator.SetActive(true);
+                }
             }
 
             public void OnCancel(InputAction.CallbackContext _context)
@@ -104,6 +121,7 @@ namespace Game {
                 
                 // Deselect character
                 characterSelect.DeselectCharacter(playerInput.devices[0]);
+                selectedIndicator.SetActive(false);
                 
                 // Leave
                 if (!hasSelectedCharacter)
@@ -112,6 +130,20 @@ namespace Game {
                 }
                 
                 hasSelectedCharacter = false;
+            }
+#endregion
+
+#region Private Functions
+            private void UpdateImageTint()
+            {
+                if (CharacterSelect.selectedCharacters.ContainsValue(playerDatas[currentSelectedCharacter]))
+                {
+                    characterImage.color = Color.gray;
+                }
+                else
+                {
+                    characterImage.color = Color.white;
+                }
             }
 #endregion
         }

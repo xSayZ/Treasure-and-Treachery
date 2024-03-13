@@ -11,20 +11,23 @@ using Game.Backend;
 using Game.Managers;
 using Game.WorldMap;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
 namespace Game {
-    namespace CharacterSelect {
+    namespace CharacterSelection {
         public class CharacterSelect : MonoBehaviour
         {
             [Header("Setup")]
             [SerializeField] private GameObject startGameIcon;
             [SerializeField] private LevelDataSO levelToLoad;
             
-            public List<Transform> PlayerImageTransforms;
+            [SerializeField] public List<Transform> PlayerImageTransforms;
             
-            public static Dictionary<InputDevice, PlayerData> selectedCharacters; // Input device, selected character player data
+            [HideInInspector] public UnityEvent UpdateImageTint;
+            
+            public static Dictionary<InputDevice, PlayerData> selectedCharacters { get; private set; } = new Dictionary<InputDevice, PlayerData>(); // Input device, selected character player data
             
             private int joinedPlayerCount;
 
@@ -67,6 +70,8 @@ namespace Game {
                 
                 UpdateStartUI();
                 
+                UpdateImageTint.Invoke();
+                
                 return true;
             }
 
@@ -77,7 +82,10 @@ namespace Game {
                 {
                     Debug.Log($"Input device {_inputDevice.deviceId} deselected {selectedCharacters[_inputDevice].name}");
                     selectedCharacters.Remove(_inputDevice);
+                    
                     UpdateStartUI();
+                    
+                    UpdateImageTint.Invoke();
                 }
             }
 

@@ -27,7 +27,8 @@ namespace Game {
             private PlayerData playerData;
             private UnityEvent<bool> onWaveKill;
             private float currentAliveTime;
-            private new Rigidbody rigidbody;
+            private Vector3 travelDirection;
+            private Rigidbody rb;
 
 #region Unity Functions
             // Destroy bullet after specified time
@@ -43,7 +44,7 @@ namespace Game {
 
             private void OnCollisionEnter(Collision other)
             {
-                rigidbody.velocity = transform.forward * speed;
+                rb.velocity = travelDirection * speed;
                 
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
@@ -82,8 +83,9 @@ namespace Game {
                 playerData = _playerData;
                 onWaveKill = _onWaveKill;
                 
-                rigidbody = GetComponent<Rigidbody>();
-                rigidbody.velocity = transform.forward * speed;
+                rb = GetComponent<Rigidbody>();
+                travelDirection = transform.forward;
+                rb.velocity = travelDirection * speed;
             }
 #endregion
         }

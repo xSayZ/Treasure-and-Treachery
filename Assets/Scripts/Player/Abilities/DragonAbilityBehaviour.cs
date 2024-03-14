@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using Game.Core;
+using Game.Enemy;
 using Game.Quest;
 using Game.Scene;
 using UnityEngine;
@@ -30,6 +31,7 @@ namespace Game {
                 
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
+                playerController.PlayerMovementBehaviour.OnDashThroughEnemy.AddListener(OnDashThroughEnemy);
                 QuestManager.OnGoldPickedUp.AddListener(OnGoldPickedUp);
             }
 
@@ -39,13 +41,17 @@ namespace Game {
                 
                 if (playerController)
                 {
+                    playerController.PlayerMovementBehaviour.OnDashThroughEnemy.AddListener(OnDashThroughEnemy);
                     QuestManager.OnGoldPickedUp.RemoveListener(OnGoldPickedUp);
                 }
             }
 
-            protected override void OnDashKill(bool _stunned)
+            private void OnDashThroughEnemy(EnemyController _enemyController)
             {
-                QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
+                if (_enemyController.TryStealGold())
+                {
+                    QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
+                }
             }
 
             private void OnGoldPickedUp(int _playerIndex, int _amount)

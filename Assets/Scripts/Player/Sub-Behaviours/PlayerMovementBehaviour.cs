@@ -85,6 +85,7 @@ namespace Game {
             // Events
             [HideInInspector] public UnityEvent OnDash = new UnityEvent();
             [HideInInspector] public UnityEvent<bool> OnDashKill = new UnityEvent<bool>();
+            [HideInInspector] public UnityEvent<EnemyController> OnDashThroughEnemy = new UnityEvent<EnemyController>();
 
             public void SetupBehaviour(PlayerController _playerController)
             {
@@ -206,17 +207,20 @@ namespace Game {
                     if (_transform.TryGetComponent(out IDamageable _hit))
                     {
                         bool _killed = _hit.Damage(dashDamage, transform.position, 0);
+                        
+                        MonoBehaviour _damageableMonoBehaviour = _hit as MonoBehaviour;
+                        EnemyController _enemyController = null;
+                        
+                        if (_damageableMonoBehaviour)
+                        {
+                            _damageableMonoBehaviour.TryGetComponent(out _enemyController);
+                        }
+                        
                         if (_killed)
                         {
                             bool _stunKill = false;
                             
-                            MonoBehaviour _damageableMonoBehaviour = _hit as MonoBehaviour;
-                            if (!_damageableMonoBehaviour)
-                            {
-                                return;
-                            }
-                            
-                            if (_damageableMonoBehaviour.TryGetComponent(out EnemyController _enemyController))
+                            if (_enemyController != null)
                             {
                                 if (_enemyController.GetCurrentState() == _enemyController.StunnedEnemyState)
                                 {
@@ -226,6 +230,11 @@ namespace Game {
                             
                             playerController.PlayerAttackBehaviour.OnKill.Invoke(_stunKill);
                             OnDashKill.Invoke(_stunKill);
+                        }
+                        
+                        if (_enemyController != null)
+                        {
+                            OnDashThroughEnemy.Invoke(_enemyController);
                         }
                     }
                 }

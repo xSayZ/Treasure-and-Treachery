@@ -41,7 +41,7 @@ public class DialogueAudioWrapper : MonoBehaviour
     
     public void PlayQuestResponseDialogue(int _playerID, EventInstance askerInstance, EventReference eventRef)
     {
-        StartCoroutine(dialogueAudio.WaitForQuestResponseAudio(_playerID, askerInstance, eventRef));
+        StartCoroutine(dialogueAudio.WaitForLongResponseAudio(_playerID, askerInstance, eventRef));
     }
 
     private IEnumerator QueNextDialogue(EventInstance previousSpeakerInstance, int nextSpeaker, GameObject icon)

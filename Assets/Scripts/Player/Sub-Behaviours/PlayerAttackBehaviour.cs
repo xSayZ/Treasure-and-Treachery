@@ -459,16 +459,18 @@ namespace Game {
                         }
                         
                         OnKill.Invoke(_stunKill);
-                        
-                        try
-                        {
-                            dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
-                        }
+
                     }
+                    
+                }
+                try
+                {
+                    dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
+                    Debug.Log("playerId is: " + playerController.PlayerIndex);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
                 }
             }
 

@@ -94,6 +94,7 @@ namespace Game {
             [SerializeField] private GameObject playerObj;
             [SerializeField] private PlayerAudio playerAudio;
             [SerializeField] private DialogueAudio dialogueAudio;
+            [SerializeField] private string characterType;
             private EventInstance dragonShootinstance;
             
             // Melee
@@ -367,7 +368,7 @@ namespace Game {
                 // Play attack audio
                 try
                 {
-                    playerAudio.MeleeAudioPlay(playerObj);
+                    playerAudio.MeleeAudioPlay(playerObj, characterType);
                 }
                 catch (Exception e)
                 {

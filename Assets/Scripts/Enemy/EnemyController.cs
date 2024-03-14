@@ -61,9 +61,10 @@ namespace Game {
             
             [HideInInspector] public List<Transform> targetsInVisionRange;
             [HideInInspector] public List<Transform> targetsInHearingRange;
-
+            
             private Rigidbody rigidbody;
             private EnemyState currentState;
+            private bool goldHasBeenStolen;
             private List<Transform> targetsInVisionRangeUpdate;
 
 #region Unity Functions
@@ -194,6 +195,17 @@ namespace Game {
             public EnemyAttackBehaviour GetEnemyAttackBehaviour()
             {
                 return enemyAttackBehaviour;
+            }
+
+            public bool TryStealGold()
+            {
+                if (goldHasBeenStolen)
+                {
+                    return false;
+                }
+                
+                goldHasBeenStolen = true;
+                return true;
             }
 
             public void Death()

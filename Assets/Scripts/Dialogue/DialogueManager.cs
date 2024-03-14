@@ -136,10 +136,10 @@ namespace Game {
                 // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
                 story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
                     var _player = playerDatas[_playerIndex];
-                    _player.currentHealth += _amount;
+                    _player.startingHealth += _amount;
                     _player.test = true;
-                    if (_player.currentHealth < 0) { 
-                        _player.currentHealth = 0;
+                    if (_player.startingHealth < 0) { 
+                        _player.startingHealth = 0;
                     }
                 });
                 

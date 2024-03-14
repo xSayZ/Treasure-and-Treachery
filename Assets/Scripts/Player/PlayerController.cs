@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System;
+using System.Collections;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -51,6 +52,12 @@ namespace Game
             [Header("Invincibility")]
             [SerializeField] private float invincibilityTime;
             private float currentInvincibilityTime;
+            
+            [Header("Damage flash")]
+            [SerializeField] private Material playerMaterial;
+            [SerializeField] private Color damageFlashColor;
+            [SerializeField] private int numberOfDamageFlashes;
+            [SerializeField] private float DamageFlashTime;
             
             // Health variables
             public int Health { get; set; }
@@ -98,6 +105,7 @@ namespace Game
                 {
                     PlayerAbilityBehaviour.SetupBehaviour(this);
                 }
+                PlayerAttackBehaviour.SetupBehaviour(this, PlayerMovementBehaviour.CurrentTurnSpeed);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
 
@@ -112,6 +120,12 @@ namespace Game
             private void OnDisable()
             {
                 playerInput.deviceLostEvent.Invoke(playerInput);
+                
+                // Reset material color
+                if (damagedMaterial)
+                {
+                    damagedMaterial.color = Color.white;
+                }
             }
 
             private void FixedUpdate()
@@ -267,6 +281,8 @@ namespace Game
                 Invincible = true;
                 currentInvincibilityTime = invincibilityTime;
                 
+                StartCoroutine(DamageFlash());
+                
                 RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
@@ -318,6 +334,28 @@ namespace Game
                 else
                 {
                     PlayerAnimationBehaviour.UpdateMovementAnimation(smoothInputMovement.magnitude);
+                }
+            }
+
+            private IEnumerator DamageFlash()
+            {
+                if (!playerMaterial)
+                {
+                    yield return null;
+                }
+                
+                float _flashTime = DamageFlashTime / numberOfDamageFlashes;
+                
+                int _currentNumberOfDamageFlashes = 0;
+                while (_currentNumberOfDamageFlashes < numberOfDamageFlashes)
+                {
+                    playerMaterial.color = damageFlashColor;
+                    yield return new WaitForSeconds(_flashTime / 2f);
+                    
+                    playerMaterial.color = Color.white;
+                    yield return new WaitForSeconds(_flashTime / 2f);
+                    
+                    _currentNumberOfDamageFlashes++;
                 }
             }
 

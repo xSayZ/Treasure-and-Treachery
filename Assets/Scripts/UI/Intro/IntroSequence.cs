@@ -42,22 +42,10 @@ namespace Game
 
             private bool skipped;
 
-            #region Unity Functions
-
+#region Unity Functions
             private void Awake()
             {
-                // Get all player inputs
-                List<InputDevice> inputDevices = new List<InputDevice>();
-                foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
-                {
-                    inputDevices.Add(_kvp.Key);
-                }
-                
-                // First player controls intro sequence
-                if (inputDevices.Count > 0)
-                { 
-                    playerInput.SwitchCurrentControlScheme(inputDevices[0]);
-                }
+                playerInput.SwitchCurrentControlScheme(CharacterSelect.GetFirstInputDevice());
             }
 
             void Start() {
@@ -75,8 +63,7 @@ namespace Game
                 ChangeScene();
                 HandleSkipIntro();
             }
-
-            #endregion
+#endregion
 
             public void OnSkip(InputAction.CallbackContext context) {
                 if (context.action.WasPerformedThisFrame())
@@ -88,8 +75,7 @@ namespace Game
                     skipped = false;
             }
             
-            #region Private Functionn
-
+#region Private Functionn
             private void ChangeImage() {
                 currentTime -= Time.deltaTime;
                 
@@ -120,8 +106,7 @@ namespace Game
                     skipped = false;
                 }            
             }
-
-            #endregion
+#endregion
         }
     }
 }

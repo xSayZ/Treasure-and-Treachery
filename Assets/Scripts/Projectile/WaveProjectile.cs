@@ -27,7 +27,6 @@ namespace Game {
             private PlayerData playerData;
             private UnityEvent<bool> onWaveKill;
             private float currentAliveTime;
-            private new Rigidbody rigidbody;
 
 #region Unity Functions
             // Destroy bullet after specified time
@@ -41,10 +40,8 @@ namespace Game {
                 }
             }
 
-            private void OnCollisionEnter(Collision other)
+            private void OnTriggerEnter(Collider other)
             {
-                rigidbody.velocity = transform.forward * speed;
-                
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
                     MonoBehaviour _hitMonoBehaviour = _hit as MonoBehaviour;
@@ -52,7 +49,6 @@ namespace Game {
                     {
                         if (!_hitMonoBehaviour.CompareTag("Enemy"))
                         {
-                            Destroy(gameObject);
                             return;
                         }
                     }
@@ -68,10 +64,11 @@ namespace Game {
                         onWaveKill.Invoke(false); // Doesn't actually check if enemy is stunned since gorgon doesn't have a ranged attack
                     }
                 }
-                else
-                {
-                    Destroy(gameObject);
-                }
+            }
+
+            private void OnCollisionEnter(Collision other)
+            {
+                Destroy(gameObject);
             }
 #endregion
 
@@ -82,8 +79,7 @@ namespace Game {
                 playerData = _playerData;
                 onWaveKill = _onWaveKill;
                 
-                rigidbody = GetComponent<Rigidbody>();
-                rigidbody.velocity = transform.forward * speed;
+                GetComponent<Rigidbody>().velocity = transform.forward * speed;
             }
 #endregion
         }

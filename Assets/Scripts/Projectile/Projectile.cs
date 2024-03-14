@@ -36,11 +36,13 @@ namespace Game {
                 Witch,
                 Dragon
             }
-
+            
             private int damage;
+            private int maxHitAmount;
             private PlayerData playerData;
             private UnityEvent<bool> onKill;
             private float currentAliveTime;
+            private float currentHitAmount;
 
 #region Unity Functions
             private void Start()
@@ -55,7 +57,6 @@ namespace Game {
                     {
                         playerAudio.DragonArrowAudio(projectileObj);
                     }
-                    
                 }
                 catch (Exception e)
                 {
@@ -74,7 +75,7 @@ namespace Game {
                 }
             }
 
-            private void OnCollisionEnter(Collision other)
+            private void OnTriggerEnter(Collider other)
             {
                 if (other.gameObject.TryGetComponent(out IDamageable _hit))
                 {
@@ -84,6 +85,8 @@ namespace Game {
                         if (_hitMonoBehaviour.CompareTag("Enemy"))
                         {
                             bool killed = _hit.Damage(damage, transform.position, knockbackForce);
+                            currentHitAmount++;
+                            PlayImpactVFX();
                             
                             if (killed)
                             {
@@ -111,20 +114,44 @@ namespace Game {
                     }
                 }
                 
+                if (currentHitAmount >= maxHitAmount)
+                {
+                    DestroyBullet();
+                }
+            }
+
+            private void OnCollisionEnter(Collision other)
+            {
+                if (!other.collider.isTrigger)
+                {
+                    DestroyBullet();
+                }
+            }
+#endregion
+
+#region Public Functions
+            private void DestroyBullet()
+            {
+                PlayImpactVFX();
+                
+                Destroy(gameObject);
+            }
+
+            private void PlayImpactVFX()
+            {
                 if (impactVFX)
                 {
                     GameObject _spawnedImpactVFX = Instantiate(impactVFX, transform.position, quaternion.identity);
                     Destroy(_spawnedImpactVFX, 5);
                 }
-                
-                Destroy(gameObject);
             }
 #endregion
 
 #region Public Functions
-            public void Setup(int _damage, PlayerData _playerData, UnityEvent<bool> _onKill)
+            public void Setup(int _damage, int _maxHitAmount, PlayerData _playerData, UnityEvent<bool> _onKill)
             {
                 damage = _damage;
+                maxHitAmount = _maxHitAmount;
                 playerData = _playerData;
                 onKill = _onKill;
                 

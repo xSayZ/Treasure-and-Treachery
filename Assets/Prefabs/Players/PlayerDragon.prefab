@@ -14,31 +14,35 @@ PrefabInstance:
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: normalProjectile
       value: 
-      objectReference: {fileID: 525304689459795212, guid: 4768dcd7c99842c46b3dcb4e95db9c83, type: 3}
+      objectReference: {fileID: 815355766401729541, guid: 4d0f7b9e8813d2643aed33ed22a0e8e9, type: 3}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: rangedAimMaxAngle
       value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
-      propertyPath: rangedAttackDamage
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: rangedKnockbackTime
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
-      propertyPath: rangedAttackCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: rangedKnockbackSpeed
       value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: rangedMinKnockbackTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: rangedMaxKnockbackSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: rangedMinKnockbackSpeed
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 176376125082526448, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f6cf7e41104c1074abec9898e5f3071f, type: 3}
+      objectReference: {fileID: 21300000, guid: 3d22c5509279dc2488798e2837c9cf78, type: 3}
     - target: {fileID: 288723119442727232, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -103,6 +107,10 @@ PrefabInstance:
       propertyPath: dialogueAudio
       value: 
       objectReference: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: playerMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5082eb32a0a5e93489a41e5a92f653af, type: 2}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: <PlayerAbilityBehaviour>k__BackingField
       value: 
@@ -210,7 +218,7 @@ PrefabInstance:
     - target: {fileID: 2904671374037165607, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f789acec494fe934984af5e2b4524ae0, type: 3}
+      objectReference: {fileID: 21300000, guid: 946725a9304ab8b4eab3b782d31d3b5b, type: 3}
     - target: {fileID: 3116252459362775413, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -231,6 +239,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ebaa12ac3257548468b46da62512809c, type: 3}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622730775527207118, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: Menu/Pause
+      objectReference: {fileID: 0}
     - target: {fileID: 5907184605641278585, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -269,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y

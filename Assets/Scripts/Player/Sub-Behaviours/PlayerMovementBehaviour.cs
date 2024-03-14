@@ -9,6 +9,7 @@
 using System.Collections;
 using Game.Core;
 using Game.Enemy;
+using Game.Quest;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -20,6 +21,7 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private CapsuleCollider playerCollider;
             [SerializeField] private CapsuleCollider dashObjectCollider;
+            [SerializeField] private CapsuleCollider dashKillCollider;
             [SerializeField] private GameObject fullDashImage;
             [SerializeField] private GameObject halfDashImage;
             
@@ -91,6 +93,8 @@ namespace Game {
                 currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
                 CurrentTurnSpeed = turnSpeed;
+                
+                dashKillCollider.enabled = false;
                 
                 UpdateDashUI();
             }
@@ -220,6 +224,7 @@ namespace Game {
                                 }
                             }
                             
+                            playerController.PlayerAttackBehaviour.OnKill.Invoke(_stunKill);
                             OnDashKill.Invoke(_stunKill);
                         }
                     }
@@ -242,7 +247,14 @@ namespace Game {
                         _pushDirection = -transform.right;
                     }
                     
-                    _transform.GetComponent<PlayerController>().PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
+                    PlayerController _otherPlayerController = _transform.GetComponent<PlayerController>();
+                    _otherPlayerController.PlayerMovementBehaviour.ApplyForce(dashPushSpeed, _pushDirection, dashPushTime);
+                    
+                    // Make other player drop held item
+                    if (_otherPlayerController.PlayerData.currentItem != null)
+                    {
+                        QuestManager.OnItemDropped.Invoke(_otherPlayerController.PlayerIndex, _otherPlayerController.PlayerData.currentItem, false);
+                    }
                 }
             }
 
@@ -289,11 +301,13 @@ namespace Game {
                 
                 playerCollider.isTrigger = true;
                 dashObjectCollider.enabled = true;
+                dashKillCollider.enabled = true;
                 
                 yield return new WaitForSeconds(dashTime);
                 
                 playerCollider.isTrigger = false;
                 dashObjectCollider.enabled = false;
+                dashKillCollider.enabled = false;
                 
                 currentMaxSpeed = movementSpeed;
                 IsDashing = false;

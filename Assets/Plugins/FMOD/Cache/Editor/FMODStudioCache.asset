@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9179382758763518525
+--- !u!114 &-9167214340264086075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10,58 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_WHEEL_Witch/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-9049790985541612274
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_CartEnter
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_CartEnter
-  Guid:
-    Data1: -1632806258
-    Data2: 1211560666
-    Data3: -811677812
-    Data4: 1412046483
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-8976243016085211985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerAttack/SpeakerCharacter
+  m_Name: parameter:/VOX_ObjectiveProgReaction/SpeakerCharacter
   m_EditorClassIdentifier: 
   Name: SpeakerCharacter
   StudioPath: 
@@ -79,7 +28,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &-8895469780930998752
+--- !u!114 &-9127750809887388272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,26 +38,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambiance/AMB_WindBirds
+  m_Name: snapshot:/CaveSnapshot
   m_EditorClassIdentifier: 
-  Path: event:/Ambiance/AMB_WindBirds
+  Path: snapshot:/CaveSnapshot
   Guid:
-    Data1: -1155292529
-    Data2: 1246562929
-    Data3: -910430320
-    Data4: 132008940
+    Data1: 783272311
+    Data2: 1135331550
+    Data3: -1296647518
+    Data4: -753206180
   Banks:
   - {fileID: 905318259331715633}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 0
-  Parameters:
-  - {fileID: 5490913287214122227}
-  - {fileID: 6634654009764463474}
-  MinDistance: 1
-  MaxDistance: 20
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
   Length: 0
---- !u!114 &-8534706354744144712
+--- !u!114 &-9057587437444957175
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,25 +65,96 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Wolf
+  m_Name: event:/Dialogue/VOX/Boss_Im back
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Wolf
+  Path: event:/Dialogue/VOX/Boss_Im back
   Guid:
-    Data1: 840250369
-    Data2: 1256230030
-    Data3: -479512436
-    Data4: -657075052
+    Data1: -832256020
+    Data2: 1098888369
+    Data3: 678334624
+    Data4: -4961097
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
-  Parameters:
-  - {fileID: -5455044720315411638}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3356
---- !u!114 &-8480436520904425222
+  Length: 4102
+--- !u!114 &-8720750932965622398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_BUB_Wolf/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-8594213585741414770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_MUSH_Gorgon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-8263728591717677071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FUN_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-8188142580575800114
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,25 +164,97 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Wolf
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Witch
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Wolf
+  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Witch
   Guid:
-    Data1: -1668984596
-    Data2: 1259050413
-    Data3: -1809503059
-    Data4: -229260603
+    Data1: 902871286
+    Data2: 1254792082
+    Data3: -997616984
+    Data4: -616722098
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 3387749057554247390}
+  - {fileID: 2713734977998203467}
   MinDistance: 1
   MaxDistance: 20
-  Length: 5339
---- !u!114 &-8354882357359034324
+  Length: 7520
+--- !u!114 &-8007123329321951773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FINAL_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7821176545834228454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/AMB_WindBirds/WindStrength
+  m_EditorClassIdentifier: 
+  Name: WindStrength
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1683709149
+    data2: 2351910085
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-7689364136645580690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_WHEEL_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-7512659085943733452
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,31 +281,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 45
   Length: 1123
---- !u!114 &-8076428988197533184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FINAL_Gorgon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-7848121896117127121
+--- !u!114 &-7472144731418904394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,52 +291,51 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/GameplayMusic2
+  m_Name: event:/UI/UI_Ping
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/GameplayMusic2
+  Path: event:/UI/UI_Ping
   Guid:
-    Data1: 562968693
-    Data2: 1238331431
-    Data3: 9995911
-    Data4: 1001226845
-  Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -6777557746940688858}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 104285
---- !u!114 &-7739472133125141246
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Interact
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_GEN_Interact
-  Guid:
-    Data1: 796841856
-    Data2: 1236573377
-    Data3: 1087181987
-    Data4: 657126500
+    Data1: 767509443
+    Data2: 1231178791
+    Data3: 1436090794
+    Data4: -674951538
   Banks:
   - {fileID: 905318259331715633}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -2743615018171284254}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 500
+  Length: 1324
+--- !u!114 &-7316715817860790099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Wolf
+  Guid:
+    Data1: 542730109
+    Data2: 1292808426
+    Data3: -2064331107
+    Data4: -971777342
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 199049478085898684}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4573
 --- !u!114 &-7310315156745985617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,12 +351,12 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638459377594024580
+  lastModified: 638460199929757635
   FileSizes:
   - Name: 
-    Value: 6830
+    Value: 7458
   Exists: 1
---- !u!114 &-7025804300430269260
+--- !u!114 &-7216419479034929153
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,46 +365,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FUN_Dragon/DialogueProgression
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Boss
   m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-6990315076829291070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_WITCH_ATTACKS_Ranged/ShootType
-  m_EditorClassIdentifier: 
-  Name: ShootType
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3723771462
-    data2: 3648904892
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-6955266070701727293
+  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Boss
+  Guid:
+    Data1: 2052570938
+    Data2: 1123441979
+    Data3: -1715165559
+    Data4: -166458486
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -5233573625137637815}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7163753187074455223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -363,81 +408,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-6777557746940688858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/GameplayMusic2/MusicProg
-  m_EditorClassIdentifier: 
-  Name: MusicProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 2878851826
-    data2: 2108855987
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-6602655864253914164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music-OUTDATED/Stinger Switch
-  m_EditorClassIdentifier: 
-  Name: Stinger Switch
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 3652833795
-    data2: 774979548
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Off
-  - On
-  Exists: 1
---- !u!114 &-6557560061121493193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_Footstep/Grass
-  m_EditorClassIdentifier: 
-  Name: Grass
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 1968568215
-    data2: 1208452939
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-6519760035066263702
+--- !u!114 &-6990175273909781509
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,25 +418,131 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnMY_Spirit_States
+  m_Name: event:/Music Events/Gameplay Music
   m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnMY_Spirit_States
+  Path: event:/Music Events/Gameplay Music
   Guid:
-    Data1: 748238195
-    Data2: 1227070179
-    Data3: 467766948
-    Data4: -1540445368
+    Data1: 569035522
+    Data2: 1150319660
+    Data3: 1801595818
+    Data4: -251461116
+  Banks:
+  - {fileID: 905318259331715633}
+  - {fileID: 7722191027823445999}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -967304506162759160}
+  - {fileID: -2161718506807366625}
+  - {fileID: 3623557655187973837}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 68571
+--- !u!114 &-6977099949029450538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_BUB_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6801390141955958320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_GoldPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_GoldPickup
+  Guid:
+    Data1: -918871679
+    Data2: 1320168688
+    Data3: 539038100
+    Data4: 790273705
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters:
-  - {fileID: 7459159746288454580}
+  - {fileID: 5601215385382009638}
   MinDistance: 1
-  MaxDistance: 25
-  Length: 13000
---- !u!114 &-6495095437480966949
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6750048026009261733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Interactables/INT_GoldPickup
+  m_EditorClassIdentifier: 
+  Path: event:/Interactables/INT_GoldPickup
+  Guid:
+    Data1: 2063705782
+    Data2: 1099860792
+    Data3: 43462050
+    Data4: -310073987
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 642
+--- !u!114 &-6316444269518605302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_WHEEL_Wolf/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-6309323342573559314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -489,66 +566,11 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters:
-  - {fileID: -6432341268099062344}
+  - {fileID: -4809839777283404345}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-6432341268099062344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_GEN_Footstep/Surface
-  m_EditorClassIdentifier: 
-  Name: Surface
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 3887903347
-    data2: 2708601808
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Grass
-  - Dirt
-  - Rock
-  Exists: 1
---- !u!114 &-6268348784944528505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerDeathDialogueReaction/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &-6117872976921762264
+--- !u!114 &-5830147173142638721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -558,99 +580,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  m_Name: event:/Music Events/GameplayMusic2
   m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  Path: event:/Music Events/GameplayMusic2
   Guid:
-    Data1: 1827072503
-    Data2: 1085460244
-    Data3: 1534459817
-    Data4: -1454830557
+    Data1: 562968693
+    Data2: 1238331431
+    Data3: 9995911
+    Data4: 1001226845
   Banks:
-  - {fileID: 905318259331715633}
+  - {fileID: 7722191027823445999}
   IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 30
-  Length: 1800
---- !u!114 &-5948694632468779423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
-  Guid:
-    Data1: 294073659
-    Data2: 1102772808
-    Data3: -1501118058
-    Data4: 1650866803
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
+  Is3D: 0
+  IsOneShot: 0
   Parameters:
-  - {fileID: -6990315076829291070}
+  - {fileID: 9098358187272933705}
   MinDistance: 1
-  MaxDistance: 65
-  Length: 2968
---- !u!114 &-5814312134063971762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_GAP_Gorgon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-5800898066092697700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/WolfRage
-  m_EditorClassIdentifier: 
-  Name: WolfRage
-  StudioPath: parameter:/WolfRage
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 422907721
-    data2: 4119003010
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
+  MaxDistance: 20
+  Length: 104285
 --- !u!114 &-5791695084280937843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,55 +626,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4285
---- !u!114 &-5455044720315411638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FINAL_Wolf/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-5125626803592152299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_WHEEL_Wolf/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-4806793764022793787
+--- !u!114 &-5733353934264736238
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -737,79 +636,54 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Witch
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Witch
   Guid:
-    Data1: 1118517551
-    Data2: 1330108979
-    Data3: -2002450534
-    Data4: 1369806711
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 5231
---- !u!114 &-4591279961105946823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnemyRoam
-  m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnemyRoam
-  Guid:
-    Data1: 1665971019
-    Data2: 1242329725
-    Data3: -992356708
-    Data4: -159320154
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 50
-  Length: 1000
---- !u!114 &-4574323116334266476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Witch
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Witch
-  Guid:
-    Data1: -1081501434
-    Data2: 1184601868
-    Data3: -1091387202
-    Data4: -1789033282
+    Data1: 356834267
+    Data2: 1192616676
+    Data3: -1767950405
+    Data4: 276188095
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 2232859927953126195}
+  - {fileID: -4844185308629931457}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
---- !u!114 &-4504475547135898220
+  Length: 0
+--- !u!114 &-5306708012073999027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerAttack
+  Guid:
+    Data1: 2076979421
+    Data2: 1109986732
+    Data3: -333449571
+    Data4: 559984891
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6961579058279871949}
+  - {fileID: 8092955770057712072}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5233573625137637815
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -819,25 +693,126 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerDamaged/SpeakerCharacter
+  m_Name: parameter:/VOX_Q_FINAL_Boss/DialogueProgression
   m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
+  Name: DialogueProgression
   StudioPath: 
   Min: 0
-  Max: 3
+  Max: 10
   Default: 0
   ID:
-    data1: 1760367425
-    data2: 2972608440
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-5097813679460432132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_Gorg_Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_Gorg_Attack
+  Guid:
+    Data1: -1875168644
+    Data2: 1146878813
+    Data3: -1199030896
+    Data4: 2080769582
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1352
+--- !u!114 &-5095617823964964714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_Trees
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_Trees
+  Guid:
+    Data1: -1257043467
+    Data2: 1131270637
+    Data3: -569233486
+    Data4: 1864945059
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 35
+  Length: 2200
+--- !u!114 &-4844185308629931457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_WHEEL_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-4809839777283404345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_GEN_Footstep/Surface
+  m_EditorClassIdentifier: 
+  Name: Surface
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 3887903347
+    data2: 2708601808
   Type: 2
   IsGlobal: 0
   Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
+  - Grass
+  - Dirt
+  - Rock
   Exists: 1
---- !u!114 &-4419615349121025278
+--- !u!114 &-4802472857880042629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -847,28 +822,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/Gameplay Music-OUTDATED
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/Gameplay Music-OUTDATED
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
   Guid:
-    Data1: 569035522
-    Data2: 1150319660
-    Data3: 1801595818
-    Data4: -251461116
+    Data1: 832414698
+    Data2: 1210755422
+    Data3: -1659627334
+    Data4: -1182456700
   Banks:
   - {fileID: 905318259331715633}
-  - {fileID: 7722191027823445999}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
-  IsOneShot: 0
+  IsOneShot: 1
   Parameters:
-  - {fileID: -6602655864253914164}
-  - {fileID: -1291437417281932168}
-  - {fileID: 201991093153322095}
+  - {fileID: 3741666485815347089}
   MinDistance: 1
   MaxDistance: 20
-  Length: 68571
---- !u!114 &-4017484535442007064
+  Length: 4998
+--- !u!114 &-4541290392057029083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -878,25 +850,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Gorgon
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Attack
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Gorgon
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Attack
   Guid:
-    Data1: -1228634484
-    Data2: 1136050778
-    Data3: -1661953398
-    Data4: 1802401946
+    Data1: 779386042
+    Data2: 1103460210
+    Data3: 2131411853
+    Data4: -1818785855
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 4310337445187077357}
+  - {fileID: 2101269378236102791}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2610
---- !u!114 &-3872142486743482106
+  Length: 1352
+--- !u!114 &-3990759934335150708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -906,100 +878,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/IntroScene
+  m_Name: event:/Dialogue/VOX/VOX_CartEnter
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/IntroScene
+  Path: event:/Dialogue/VOX/VOX_CartEnter
   Guid:
-    Data1: -1949739831
-    Data2: 1135333817
-    Data3: 1448912784
-    Data4: -1024717124
+    Data1: -1632806258
+    Data2: 1211560666
+    Data3: -811677812
+    Data4: 1412046483
   Banks:
-  - {fileID: 7722191027823445999}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 46600
---- !u!114 &-3780467433049154713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Gorgon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Gorgon
-  Guid:
-    Data1: -854181736
-    Data2: 1199019003
-    Data3: -1305632592
-    Data4: -2019045263
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -5814312134063971762}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 7015
---- !u!114 &-3533157993284172766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_DRAG_Crossbow/RangeCharge
-  m_EditorClassIdentifier: 
-  Name: RangeCharge
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 37816804
-    data2: 668158678
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-3436639567234960704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_LOG_Witch/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-3411164905745132619
+  Length: 0
+--- !u!114 &-3984795383355085132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1027,7 +923,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &-3314934369090237887
+--- !u!114 &-3804790099515195968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1037,652 +933,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
+  m_Name: snapshot:/Music Stingers
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
+  Path: snapshot:/Music Stingers
   Guid:
-    Data1: 865878476
-    Data2: 1245272455
-    Data3: 402962878
-    Data4: -1411717567
+    Data1: 1752635578
+    Data2: 1109141372
+    Data3: -113101664
+    Data4: 156146809
   Banks:
   - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4059821509513671761}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &-3124659319372137937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_WHEEL_Dragon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-3116092689510893131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
-  Guid:
-    Data1: 1597842329
-    Data2: 1341618427
-    Data3: -612474749
-    Data4: 1306189908
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 60
-  Length: 1191
---- !u!114 &-3016280615142594502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDamaged
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDamaged
-  Guid:
-    Data1: 287453082
-    Data2: 1133526437
-    Data3: -1846111330
-    Data4: -2007583395
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -4504475547135898220}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2856119524338249582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_MUSH_Witch/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-2743615018171284254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_GEN_Interact/InteractLooping
-  m_EditorClassIdentifier: 
-  Name: InteractLooping
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 2934300448
-    data2: 3792148319
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-2422566881825299144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
-  Guid:
-    Data1: -1352638639
-    Data2: 1218809879
-    Data3: 1003455155
-    Data4: -1842090599
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4033650169238850796}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-2395948763785441800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Witch
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Witch
-  Guid:
-    Data1: 356834267
-    Data2: 1192616676
-    Data3: -1767950405
-    Data4: 276188095
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -9179382758763518525}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &-1545352212457909583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
-  Guid:
-    Data1: 699834432
-    Data2: 1340092931
-    Data3: -1290063937
-    Data4: 70993087
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4528734529935498798}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-1366603651937122265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_BUB_Wolf/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-1291437417281932168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music-OUTDATED/AvatarProg
-  m_EditorClassIdentifier: 
-  Name: AvatarProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 4144428851
-    data2: 1071713729
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-1006071743404146336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_GoldPickup
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_GoldPickup
-  Guid:
-    Data1: -918871679
-    Data2: 1320168688
-    Data3: 539038100
-    Data4: 790273705
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4266067864189598502}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &-229672993157657471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/BirdLevel
-  m_EditorClassIdentifier: 
-  Name: BirdLevel
-  StudioPath: parameter:/Ambiance/BirdLevel
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 2748064553
-    data2: 43515341
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &-192886340725893970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FUN_Gorgon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &-402257506453388
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambiance/AMB_Trees
-  m_EditorClassIdentifier: 
-  Path: event:/Ambiance/AMB_Trees
-  Guid:
-    Data1: -1257043467
-    Data2: 1131270637
-    Data3: -569233486
-    Data4: 1864945059
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 35
-  Length: 2200
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
-  m_Name: FMODStudioCache
-  m_EditorClassIdentifier: 
-  EditorBanks:
-  - {fileID: -7310315156745985617}
-  - {fileID: 905318259331715633}
-  - {fileID: 7722191027823445999}
-  EditorEvents:
-  - {fileID: -5791695084280937843}
-  - {fileID: 171810772237571833}
-  - {fileID: -7848121896117127121}
-  - {fileID: 2451419208506888488}
-  - {fileID: 8914069601062485804}
-  - {fileID: 3433800820435136488}
-  - {fileID: -8534706354744144712}
-  - {fileID: -4419615349121025278}
-  - {fileID: 8001469051760884500}
-  - {fileID: -4574323116334266476}
-  - {fileID: 5280914794624136333}
-  - {fileID: 5120991642920383552}
-  - {fileID: 4826122162959142524}
-  - {fileID: -4806793764022793787}
-  - {fileID: 5987565320022925743}
-  - {fileID: -5948694632468779423}
-  - {fileID: -1545352212457909583}
-  - {fileID: -4591279961105946823}
-  - {fileID: 1949020073005885162}
-  - {fileID: -2422566881825299144}
-  - {fileID: 7557220313196154216}
-  - {fileID: 6517448405412156029}
-  - {fileID: -8354882357359034324}
-  - {fileID: -6519760035066263702}
-  - {fileID: 8289093408789552123}
-  - {fileID: -6495095437480966949}
-  - {fileID: 4369284043135658708}
-  - {fileID: 7707872547386859472}
-  - {fileID: -7739472133125141246}
-  - {fileID: -1006071743404146336}
-  - {fileID: -4017484535442007064}
-  - {fileID: -9049790985541612274}
-  - {fileID: -8895469780930998752}
-  - {fileID: 1113907755222674600}
-  - {fileID: 4282923834501424276}
-  - {fileID: 1374948550646854535}
-  - {fileID: -3780467433049154713}
-  - {fileID: -3116092689510893131}
-  - {fileID: -3016280615142594502}
-  - {fileID: 6958165255932027816}
-  - {fileID: 2820008725723891257}
-  - {fileID: 5586331227995445006}
-  - {fileID: 6738405030384637004}
-  - {fileID: 4715170127006950144}
-  - {fileID: 5985980239117910332}
-  - {fileID: 6886553548379111907}
-  - {fileID: 4518312357889495225}
-  - {fileID: 6469613529067315528}
-  - {fileID: 6597743129947188970}
-  - {fileID: 8326738959329664866}
-  - {fileID: 2894574050251707455}
-  - {fileID: 3469403110664098500}
-  - {fileID: -3314934369090237887}
-  - {fileID: 6682161496613651586}
-  - {fileID: 1937552266211258035}
-  - {fileID: -2395948763785441800}
-  - {fileID: 5310526049103938752}
-  - {fileID: 7461168673635905654}
-  - {fileID: -8480436520904425222}
-  - {fileID: 4103576291499864939}
-  - {fileID: 2660303357843392289}
-  - {fileID: -402257506453388}
-  - {fileID: 157345937966064127}
-  - {fileID: 6782601872043792329}
-  - {fileID: -6117872976921762264}
-  - {fileID: 9221630305882255204}
-  - {fileID: -3872142486743482106}
-  EditorParameters:
-  - {fileID: 6499268571108536343}
-  - {fileID: -229672993157657471}
-  - {fileID: -5800898066092697700}
-  MasterBanks:
-  - {fileID: 905318259331715633}
-  StringsBanks:
-  - {fileID: -7310315156745985617}
-  cacheTime: 638459377597126176
-  cacheVersion: 131609
---- !u!114 &125975539516122601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_Footstep/Path
-  m_EditorClassIdentifier: 
-  Name: Path
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 2932200583
-    data2: 1854189062
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &157345937966064127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_Footstep
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_Footstep
-  Guid:
-    Data1: -2054864394
-    Data2: 1140817885
-    Data3: 322197404
-    Data4: -1130297824
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 125975539516122601}
-  - {fileID: 7302308162547641575}
-  - {fileID: -6557560061121493193}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &171810772237571833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/WorldMap1
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/WorldMap1
-  Guid:
-    Data1: -267178231
-    Data2: 1250246085
-    Data3: -865191234
-    Data4: 959808066
-  Banks:
-  - {fileID: 7722191027823445999}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
   Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 58181
---- !u!114 &201991093153322095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Gameplay Music-OUTDATED/MusicProg
-  m_EditorClassIdentifier: 
-  Name: MusicProg
-  StudioPath: 
-  Min: 1
-  Max: 5
-  Default: 1
-  ID:
-    data1: 2878851826
-    data2: 2108855987
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &850427538902690331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FINAL_Witch/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &905318259331715633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
-  Name: Master
-  StudioPath: bank:/Master
-  lastModified: 638459377593924869
-  FileSizes: []
-  Exists: 1
---- !u!114 &1056469582412356357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_WHEEL_Gorgon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &1113907755222674600
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
+--- !u!114 &-3784576803085187708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1692,235 +960,79 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Dragon
+  m_Name: event:/Dialogue/VOX/Boss_Heyguys
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Dragon
+  Path: event:/Dialogue/VOX/Boss_Heyguys
   Guid:
-    Data1: 1749459601
-    Data2: 1150007907
-    Data3: 665065344
-    Data4: 390049519
+    Data1: 1468752894
+    Data2: 1324650355
+    Data3: 306449314
+    Data4: -983852477
   Banks:
   - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -7025804300430269260}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4158
---- !u!114 &1188621996373781806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_GAP_Dragon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &1374948550646854535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
-  Guid:
-    Data1: -372764520
-    Data2: 1141140790
-    Data3: -889652813
-    Data4: 1942296518
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 614
---- !u!114 &1847875170644462775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_BUB_Gorgon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &1937552266211258035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Gorgon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Gorgon
-  Guid:
-    Data1: 1820661206
-    Data2: 1245781918
-    Data3: 41258942
-    Data4: -714929771
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -192886340725893970}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 5167
---- !u!114 &1949020073005885162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Wolf
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Wolf
-  Guid:
-    Data1: 925706319
-    Data2: 1225261794
-    Data3: 1606112148
-    Data4: 1560087047
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -5125626803592152299}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4196
---- !u!114 &2232859927953126195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_GAP_Witch/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &2278749501263019424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_CartEnterReaction/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
-  Exists: 1
---- !u!114 &2451419208506888488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/CompleteObjStinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/CompleteObjStinger
-  Guid:
-    Data1: 958461050
-    Data2: 1243916956
-    Data3: -8936520
-    Data4: -434498900
-  Banks:
-  - {fileID: 7722191027823445999}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 2621
---- !u!114 &2660303357843392289
+  Length: 1941
+--- !u!114 &-3294445448401162679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/EnemyRoam
+  m_EditorClassIdentifier: 
+  Path: event:/Enemies/EnemyRoam
+  Guid:
+    Data1: 1665971019
+    Data2: 1242329725
+    Data3: -992356708
+    Data4: -159320154
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 50
+  Length: 1000
+--- !u!114 &-3271718567232539106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Witch
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Witch
+  Guid:
+    Data1: 464146839
+    Data2: 1092548519
+    Data3: 1547773313
+    Data4: -638445048
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8007123329321951773}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5866
+--- !u!114 &-3067337774882625466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1944,65 +1056,11 @@ MonoBehaviour:
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: -2856119524338249582}
+  - {fileID: -2480263173792607061}
   MinDistance: 1
   MaxDistance: 20
-  Length: 2000
---- !u!114 &2820008725723891257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
-  Guid:
-    Data1: -204024924
-    Data2: 1299150911
-    Data3: 732235400
-    Data4: 457387680
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4068
---- !u!114 &2894574050251707455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Enemies/EnemyDetection
-  m_EditorClassIdentifier: 
-  Path: event:/Enemies/EnemyDetection
-  Guid:
-    Data1: 897549255
-    Data2: 1327116457
-    Data3: -1942137952
-    Data4: 66596515
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1500
---- !u!114 &3387749057554247390
+  Length: 3832
+--- !u!114 &-2993561942070626145
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2012,7 +1070,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FUN_Wolf/DialogueProgression
+  m_Name: parameter:/VOX_Q_FUN_Gorgon/DialogueProgression
   m_EditorClassIdentifier: 
   Name: DialogueProgression
   StudioPath: 
@@ -2026,63 +1084,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &3433800820435136488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Gorgon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Gorgon
-  Guid:
-    Data1: 1030053376
-    Data2: 1205723730
-    Data3: -1438313805
-    Data4: 663815803
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -8076428988197533184}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 5041
---- !u!114 &3469403110664098500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Dragon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Dragon
-  Guid:
-    Data1: -1422177077
-    Data2: 1299152080
-    Data3: -1763643462
-    Data4: -660363780
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 1188621996373781806}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3635
---- !u!114 &3497373213834950658
+--- !u!114 &-2960636333643869491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2092,49 +1094,49 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_MUSH_Wolf/DialogueProgression
+  m_Name: parameter:/AMB_WindBirds/BirdLevel
   m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &3823589036149065098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_ShovelVoiceline/SpeakerCharacter
-  m_EditorClassIdentifier: 
-  Name: SpeakerCharacter
+  Name: BirdLevel
   StudioPath: 
   Min: 0
   Max: 3
   Default: 0
   ID:
-    data1: 1760367425
-    data2: 2972608440
-  Type: 2
-  IsGlobal: 0
-  Labels:
-  - Wolf
-  - Dragon
-  - Witch
-  - Gorgon
+    data1: 2748064553
+    data2: 43515341
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
---- !u!114 &4033650169238850796
+--- !u!114 &-2875913608067568867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Wolf
+  Guid:
+    Data1: 1272984956
+    Data2: 1265292080
+    Data3: 1961216901
+    Data4: 424939464
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7537554864516606030}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2800
+--- !u!114 &-2779227918601082245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2162,7 +1164,613 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &4059821509513671761
+--- !u!114 &-2753284276587230398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/CompleteObjStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/CompleteObjStinger
+  Guid:
+    Data1: 958461050
+    Data2: 1243916956
+    Data3: -8936520
+    Data4: -434498900
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2621
+--- !u!114 &-2696358332876927333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Dragon
+  Guid:
+    Data1: 1749459601
+    Data2: 1150007907
+    Data3: 665065344
+    Data4: 390049519
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8263728591717677071}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4158
+--- !u!114 &-2638523979800403829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Dragon
+  Guid:
+    Data1: -1120974026
+    Data2: 1206586854
+    Data3: -158915148
+    Data4: -1210753896
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7163753187074455223}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3603
+--- !u!114 &-2559036299376726828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
+  Guid:
+    Data1: 1094806697
+    Data2: 1310562140
+    Data3: 440966023
+    Data4: 1358572135
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4932878453962916502}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 9627
+--- !u!114 &-2505752882644702201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Smash
+  Guid:
+    Data1: 1827072503
+    Data2: 1085460244
+    Data3: 1534459817
+    Data4: -1454830557
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 30
+  Length: 1800
+--- !u!114 &-2480263173792607061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_MUSH_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2475276087905554855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/BirdLevel
+  m_EditorClassIdentifier: 
+  Name: BirdLevel
+  StudioPath: parameter:/Ambiance/BirdLevel
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2748064553
+    data2: 43515341
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-2469539460286212303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FINAL_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-2196341725925372090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Dragon
+  Guid:
+    Data1: -569581360
+    Data2: 1282642900
+    Data3: 985404824
+    Data4: -471458748
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -7689364136645580690}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2161718506807366625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/AvatarProg
+  m_EditorClassIdentifier: 
+  Name: AvatarProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 4144428851
+    data2: 1071713729
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1802990043615314286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Wolf
+  Guid:
+    Data1: 840250369
+    Data2: 1256230030
+    Data3: -479512436
+    Data4: -657075052
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6584218724669311600}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3356
+--- !u!114 &-1786965801947887304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_BUB_Gorgon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1747470725244597144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Dragon
+  Guid:
+    Data1: 419688643
+    Data2: 1094499656
+    Data3: -2112556130
+    Data4: 1830781257
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2469539460286212303}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2406
+--- !u!114 &-1340756066495381346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/EnemyDetection
+  m_EditorClassIdentifier: 
+  Path: event:/Enemies/EnemyDetection
+  Guid:
+    Data1: 897549255
+    Data2: 1327116457
+    Data3: -1942137952
+    Data4: 66596515
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
+--- !u!114 &-1306869972150800966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Witch
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Witch
+  Guid:
+    Data1: -1081501434
+    Data2: 1184601868
+    Data3: -1091387202
+    Data4: -1789033282
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6516795837903955256}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1950
+--- !u!114 &-1196144796872342162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_Footstep/Path
+  m_EditorClassIdentifier: 
+  Name: Path
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2932200583
+    data2: 1854189062
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1190320508512850434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/Boss_EventDialogue
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/Boss_EventDialogue
+  Guid:
+    Data1: 706033245
+    Data2: 1172407001
+    Data3: -219071837
+    Data4: -1453777654
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6527487288772368708}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1128725341029372321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
+  Guid:
+    Data1: 337753718
+    Data2: 1279109942
+    Data3: -640810341
+    Data4: 1359046811
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6085435387737801732}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-999679102702047494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
+  Guid:
+    Data1: 641864790
+    Data2: 1303164654
+    Data3: -1434340176
+    Data4: 69571933
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 803
+--- !u!114 &-967304506162759160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/Stinger Switch
+  m_EditorClassIdentifier: 
+  Name: Stinger Switch
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3652833795
+    data2: 774979548
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Off
+  - On
+  Exists: 1
+--- !u!114 &-884160095732668031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Gorgon
+  Guid:
+    Data1: -1228634484
+    Data2: 1136050778
+    Data3: -1661953398
+    Data4: 1802401946
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8594213585741414770}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2610
+--- !u!114 &-758239213047385912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FINAL_Gorgon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-659747413870446493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/WolfRage
+  m_EditorClassIdentifier: 
+  Name: WolfRage
+  StudioPath: parameter:/WolfRage
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 422907721
+    data2: 4119003010
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-595018685264400396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2186,7 +1794,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &4103576291499864939
+--- !u!114 &-208818517557991592
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2196,25 +1804,185 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_GoldPickupReaction
+  m_Name: event:/Dialogue/VOX/VOX_CartEnterReaction
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_GoldPickupReaction
+  Path: event:/Dialogue/VOX/VOX_CartEnterReaction
   Guid:
-    Data1: -1904601615
-    Data2: 1130142441
-    Data3: -230914422
-    Data4: -1759236423
+    Data1: -1568007740
+    Data2: 1227554846
+    Data3: -2089633612
+    Data4: -702944391
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5900770647611552353}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-48561411495218339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Wolf
+  Guid:
+    Data1: -1668984596
+    Data2: 1259050413
+    Data3: -1809503059
+    Data4: -229260603
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 8660151625773974337}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5339
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -7310315156745985617}
+  - {fileID: 905318259331715633}
+  - {fileID: 7722191027823445999}
+  EditorEvents:
+  - {fileID: -6990175273909781509}
+  - {fileID: -5791695084280937843}
+  - {fileID: 4803050850247695510}
+  - {fileID: -5830147173142638721}
+  - {fileID: -2753284276587230398}
+  - {fileID: 5631766324961748265}
+  - {fileID: 4482596354117198226}
+  - {fileID: 1784838076184879682}
+  - {fileID: -1802990043615314286}
+  - {fileID: 2149112503924693328}
+  - {fileID: -1306869972150800966}
+  - {fileID: 7799488411649569815}
+  - {fileID: 7026252049684160994}
+  - {fileID: 4704091108692053089}
+  - {fileID: 3375540183047727186}
+  - {fileID: -2638523979800403829}
+  - {fileID: -7216419479034929153}
+  - {fileID: 8399515781438890248}
+  - {fileID: 7982328178472974778}
+  - {fileID: -3294445448401162679}
+  - {fileID: 1637868338035603322}
+  - {fileID: 4889309646216383539}
+  - {fileID: -999679102702047494}
+  - {fileID: 6752530980896736974}
+  - {fileID: -1190320508512850434}
+  - {fileID: -7512659085943733452}
+  - {fileID: 860780260370014434}
+  - {fileID: -1128725341029372321}
+  - {fileID: -9127750809887388272}
+  - {fileID: -6309323342573559314}
+  - {fileID: -5097813679460432132}
+  - {fileID: -2875913608067568867}
+  - {fileID: -7316715817860790099}
+  - {fileID: 8666594376671017615}
+  - {fileID: 127825156194161553}
+  - {fileID: -6801390141955958320}
+  - {fileID: 7748731175796319579}
+  - {fileID: -884160095732668031}
+  - {fileID: -3990759934335150708}
+  - {fileID: 2584170395494986300}
+  - {fileID: -2696358332876927333}
+  - {fileID: -3271718567232539106}
+  - {fileID: 2903773071991943240}
+  - {fileID: 6397874010621920455}
+  - {fileID: 5732087567095565205}
+  - {fileID: 6764387396319776571}
+  - {fileID: 7235276323945521744}
+  - {fileID: 1149417338691551415}
+  - {fileID: -2559036299376726828}
+  - {fileID: 826083844843243873}
+  - {fileID: -6750048026009261733}
+  - {fileID: -3804790099515195968}
+  - {fileID: -4541290392057029083}
+  - {fileID: 8291862146512869839}
+  - {fileID: -7472144731418904394}
+  - {fileID: -1747470725244597144}
+  - {fileID: -208818517557991592}
+  - {fileID: 1150013106049460342}
+  - {fileID: -1340756066495381346}
+  - {fileID: 8944958802713584787}
+  - {fileID: 2146347904965890883}
+  - {fileID: -2196341725925372090}
+  - {fileID: 3105859254301452673}
+  - {fileID: -5733353934264736238}
+  - {fileID: -5306708012073999027}
+  - {fileID: 2340658924463846132}
+  - {fileID: 3472341156584613007}
+  - {fileID: -4802472857880042629}
+  - {fileID: -48561411495218339}
+  - {fileID: -9057587437444957175}
+  - {fileID: 7736806383790098264}
+  - {fileID: -3067337774882625466}
+  - {fileID: -5095617823964964714}
+  - {fileID: 1590195609072236557}
+  - {fileID: -8188142580575800114}
+  - {fileID: -2505752882644702201}
+  - {fileID: -3784576803085187708}
+  EditorParameters:
+  - {fileID: 6245408976692304784}
+  - {fileID: -2475276087905554855}
+  - {fileID: -659747413870446493}
+  MasterBanks:
+  - {fileID: 905318259331715633}
+  StringsBanks:
+  - {fileID: -7310315156745985617}
+  cacheTime: 638460199935964909
+  cacheVersion: 131609
+--- !u!114 &127825156194161553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Interact
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_GEN_Interact
+  Guid:
+    Data1: 796841856
+    Data2: 1236573377
+    Data3: 1087181987
+    Data4: 657126500
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 1
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters:
-  - {fileID: -3411164905745132619}
+  - {fileID: 5337552798377406046}
   MinDistance: 1
   MaxDistance: 20
-  Length: 0
---- !u!114 &4245425810428414688
+  Length: 500
+--- !u!114 &199049478085898684
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2224,7 +1992,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_BUB_Dragon/DialogueProgression
+  m_Name: parameter:/VOX_Q_MUSH_Wolf/DialogueProgression
   m_EditorClassIdentifier: 
   Name: DialogueProgression
   StudioPath: 
@@ -2238,7 +2006,925 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &4266067864189598502
+--- !u!114 &826083844843243873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
+  Guid:
+    Data1: -1393665621
+    Data2: 1100378121
+    Data3: 1362736281
+    Data4: -775045058
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1786965801947887304}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4887
+--- !u!114 &860780260370014434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Enemies/EnMY_Spirit_States
+  m_EditorClassIdentifier: 
+  Path: event:/Enemies/EnMY_Spirit_States
+  Guid:
+    Data1: 748238195
+    Data2: 1227070179
+    Data3: 467766948
+    Data4: -1540445368
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 2639359839927055520}
+  MinDistance: 1
+  MaxDistance: 25
+  Length: 13000
+--- !u!114 &905318259331715633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638460199929544874
+  FileSizes: []
+  Exists: 1
+--- !u!114 &1149417338691551415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Wolf
+  Guid:
+    Data1: -204024924
+    Data2: 1299150911
+    Data3: 732235400
+    Data4: 457387680
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4068
+--- !u!114 &1150013106049460342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Gorgon
+  Guid:
+    Data1: -1161786
+    Data2: 1165093971
+    Data3: -22514288
+    Data4: -958488046
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4652431004237637235}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1547693722173038937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_WITCH_ATTACKS_RangedHit/ParticleType
+  m_EditorClassIdentifier: 
+  Name: ParticleType
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1793654672
+    data2: 1314916863
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &1590195609072236557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_GENERIC/PLY_Footstep
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_GENERIC/PLY_Footstep
+  Guid:
+    Data1: -2054864394
+    Data2: 1140817885
+    Data3: 322197404
+    Data4: -1130297824
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1196144796872342162}
+  - {fileID: 3600449031256679273}
+  - {fileID: 6737208217904341753}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1637868338035603322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Wolf
+  Guid:
+    Data1: 925706319
+    Data2: 1225261794
+    Data3: 1606112148
+    Data4: 1560087047
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6316444269518605302}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1784838076184879682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Gorgon
+  Guid:
+    Data1: 1030053376
+    Data2: 1205723730
+    Data3: -1438313805
+    Data4: 663815803
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -758239213047385912}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5041
+--- !u!114 &2101269378236102791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_GEN_Attack/MeleeType
+  m_EditorClassIdentifier: 
+  Name: MeleeType
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3494365154
+    data2: 2977518888
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2146347904965890883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Witch
+  Guid:
+    Data1: 865878476
+    Data2: 1245272455
+    Data3: 402962878
+    Data4: -1411717567
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -595018685264400396}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7128
+--- !u!114 &2149112503924693328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  Guid:
+    Data1: 10501635
+    Data2: 1245782177
+    Data3: -2078868817
+    Data4: -921583314
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5040522579556180131}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1400
+--- !u!114 &2340658924463846132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/PirateDiss
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/PirateDiss
+  Guid:
+    Data1: 769056483
+    Data2: 1105639141
+    Data3: -1236468047
+    Data4: -1710849795
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 11100
+--- !u!114 &2584170395494986300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_WindBirds
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_WindBirds
+  Guid:
+    Data1: -1155292529
+    Data2: 1246562929
+    Data3: -910430320
+    Data4: 132008940
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -2960636333643869491}
+  - {fileID: -7821176545834228454}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2639359839927055520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/EnMY_Spirit_States/SpiritState
+  m_EditorClassIdentifier: 
+  Name: SpiritState
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 0
+  ID:
+    data1: 969083656
+    data2: 3464497093
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2713734977998203467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FUN_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2903773071991943240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossHit
+  Guid:
+    Data1: -372764520
+    Data2: 1141140790
+    Data3: -889652813
+    Data4: 1942296518
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 614
+--- !u!114 &3105859254301452673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Gorgon
+  Guid:
+    Data1: 1820661206
+    Data2: 1245781918
+    Data3: 41258942
+    Data4: -714929771
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2993561942070626145}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5167
+--- !u!114 &3375540183047727186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Gorgon
+  Guid:
+    Data1: 1118517551
+    Data2: 1330108979
+    Data3: -2002450534
+    Data4: 1369806711
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 5231
+--- !u!114 &3378781197894033763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_ShovelVoiceline/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &3472341156584613007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Boss
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Boss
+  Guid:
+    Data1: -349184796
+    Data2: 1218768850
+    Data3: -1486878293
+    Data4: -1494159806
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3700
+--- !u!114 &3600449031256679273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_Footstep/Rock
+  m_EditorClassIdentifier: 
+  Name: Rock
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1417791014
+    data2: 669771846
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3623557655187973837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Gameplay Music/MusicProg
+  m_EditorClassIdentifier: 
+  Name: MusicProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 2878851826
+    data2: 2108855987
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3741666485815347089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_LOG_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &3855562156758831378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_PlayerDamaged/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &4482596354117198226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/HubMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/HubMusic
+  Guid:
+    Data1: -1949739831
+    Data2: 1135333817
+    Data3: 1448912784
+    Data4: -1024717124
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 46600
+--- !u!114 &4542946153576777851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_GAP_Dragon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4652431004237637235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_WHEEL_Gorgon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &4704091108692053089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
+  Guid:
+    Data1: -210138337
+    Data2: 1203077714
+    Data3: 879353488
+    Data4: 33715759
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -6977099949029450538}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2669
+--- !u!114 &4803050850247695510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/WorldMap1
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/WorldMap1
+  Guid:
+    Data1: -267178231
+    Data2: 1250246085
+    Data3: -865191234
+    Data4: 959808066
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 58181
+--- !u!114 &4889309646216383539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/VOX_Q_Return/VOX_Q_Return
+  Guid:
+    Data1: -1352638639
+    Data2: 1218809879
+    Data3: 1003455155
+    Data4: -1842090599
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2779227918601082245}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4932878453962916502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_PlayerDeathDialogueReaction/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &4990868365308217872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_GAP_Gorgon/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &5040522579556180131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_DRAG_Crossbow/RangeCharge
+  m_EditorClassIdentifier: 
+  Name: RangeCharge
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 37816804
+    data2: 668158678
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &5337552798377406046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_GEN_Interact/InteractLooping
+  m_EditorClassIdentifier: 
+  Name: InteractLooping
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2934300448
+    data2: 3792148319
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &5601215385382009638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2266,7 +2952,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &4282923834501424276
+--- !u!114 &5631766324961748265
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2276,25 +2962,52 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Witch
+  m_Name: event:/Music Events/GameOverStinger
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Witch
+  Path: event:/Music Events/GameOverStinger
   Guid:
-    Data1: 464146839
-    Data2: 1092548519
-    Data3: 1547773313
-    Data4: -638445048
+    Data1: 1779950225
+    Data2: 1310528959
+    Data3: 1713555612
+    Data4: -1895475207
+  Banks:
+  - {fileID: 7722191027823445999}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3478
+--- !u!114 &5732087567095565205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_RangedHit
+  Guid:
+    Data1: 1597842329
+    Data2: 1341618427
+    Data3: -612474749
+    Data4: 1306189908
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 850427538902690331}
+  - {fileID: 1547693722173038937}
   MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &4310337445187077357
+  MaxDistance: 60
+  Length: 1191
+--- !u!114 &5771649690189987168
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2304,77 +3017,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_MUSH_Gorgon/DialogueProgression
+  m_Name: parameter:/PLY_WITCH_ATTACKS_Ranged/ShootType
   m_EditorClassIdentifier: 
-  Name: DialogueProgression
+  Name: ShootType
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 1
   Default: 0
   ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
+    data1: 3723771462
+    data2: 3648904892
+  Type: 0
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &4369284043135658708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Wolf
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Wolf
-  Guid:
-    Data1: 1272984956
-    Data2: 1265292080
-    Data3: 1961216901
-    Data4: 424939464
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 6276630994554670402}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2800
---- !u!114 &4518312357889495225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
-  Guid:
-    Data1: -454605380
-    Data2: 1117968698
-    Data3: -1251359067
-    Data4: -554727106
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -1366603651937122265}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4196
---- !u!114 &4528734529935498798
+--- !u!114 &5900770647611552353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2384,7 +3041,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_ObjectiveProgReaction/SpeakerCharacter
+  m_Name: parameter:/VOX_CartEnterReaction/SpeakerCharacter
   m_EditorClassIdentifier: 
   Name: SpeakerCharacter
   StudioPath: 
@@ -2402,246 +3059,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &4715170127006950144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Interactables/INT_GoldPickup
-  m_EditorClassIdentifier: 
-  Path: event:/Interactables/INT_GoldPickup
-  Guid:
-    Data1: 2063705782
-    Data2: 1099860792
-    Data3: 43462050
-    Data4: -310073987
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 642
---- !u!114 &4826122162959142524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Dragon
-  Guid:
-    Data1: -210138337
-    Data2: 1203077714
-    Data3: 879353488
-    Data4: 33715759
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4245425810428414688}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2669
---- !u!114 &4982843131657546054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FINAL_Dragon/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &5120991642920383552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
-  Guid:
-    Data1: 467402269
-    Data2: 1310419798
-    Data3: 9332912
-    Data4: 1697474935
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 30
-  Length: 2871
---- !u!114 &5280914794624136333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_ShovelVoiceline
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_ShovelVoiceline
-  Guid:
-    Data1: 372742679
-    Data2: 1093187185
-    Data3: -1737522512
-    Data4: 717542289
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 3823589036149065098}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5310526049103938752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerAttack
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerAttack
-  Guid:
-    Data1: 2076979421
-    Data2: 1109986732
-    Data3: -333449571
-    Data4: 559984891
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 5528150055744513970}
-  - {fileID: -8976243016085211985}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &5490913287214122227
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/AMB_WindBirds/BirdLevel
-  m_EditorClassIdentifier: 
-  Name: BirdLevel
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 2748064553
-    data2: 43515341
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &5528150055744513970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_PlayerAttack/WolfRage
-  m_EditorClassIdentifier: 
-  Name: WolfRage
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 422907721
-    data2: 4119003010
-  Type: 0
-  IsGlobal: 1
-  Labels: []
-  Exists: 1
---- !u!114 &5586331227995445006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogueReaction
-  Guid:
-    Data1: 1094806697
-    Data2: 1310562140
-    Data3: 440966023
-    Data4: 1358572135
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -6268348784944528505}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 9627
---- !u!114 &5646057244594821911
+--- !u!114 &6085435387737801732
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2669,114 +3087,7 @@ MonoBehaviour:
   - Witch
   - Gorgon
   Exists: 1
---- !u!114 &5985980239117910332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: snapshot:/Music Stingers
-  m_EditorClassIdentifier: 
-  Path: snapshot:/Music Stingers
-  Guid:
-    Data1: 1752635578
-    Data2: 1109141372
-    Data3: -113101664
-    Data4: 156146809
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
-  Length: 0
---- !u!114 &5987565320022925743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Dragon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Dragon
-  Guid:
-    Data1: -1120974026
-    Data2: 1206586854
-    Data3: -158915148
-    Data4: -1210753896
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -6955266070701727293}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3603
---- !u!114 &6276630994554670402
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_GAP_Wolf/DialogueProgression
-  m_EditorClassIdentifier: 
-  Name: DialogueProgression
-  StudioPath: 
-  Min: 0
-  Max: 10
-  Default: 0
-  ID:
-    data1: 1277462785
-    data2: 2166814880
-  Type: 1
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &6469613529067315528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Dragon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/The final count-up/VOX_Q_FINAL_Dragon
-  Guid:
-    Data1: 419688643
-    Data2: 1094499656
-    Data3: -2112556130
-    Data4: 1830781257
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 4982843131657546054}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2406
---- !u!114 &6499268571108536343
+--- !u!114 &6245408976692304784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2800,7 +3111,131 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &6517448405412156029
+--- !u!114 &6397874010621920455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Gorgon
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Gorgon
+  Guid:
+    Data1: -854181736
+    Data2: 1199019003
+    Data3: -1305632592
+    Data4: -2019045263
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4990868365308217872}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 7215
+--- !u!114 &6516795837903955256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_GAP_Witch/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6527487288772368708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Boss_EventDialogue/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6584218724669311600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FINAL_Wolf/DialogueProgression
+  m_EditorClassIdentifier: 
+  Name: DialogueProgression
+  StudioPath: 
+  Min: 0
+  Max: 10
+  Default: 0
+  ID:
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6737208217904341753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/PLY_Footstep/Grass
+  m_EditorClassIdentifier: 
+  Name: Grass
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 1968568215
+    data2: 1208452939
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &6752530980896736974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2827,7 +3262,7 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &6597743129947188970
+--- !u!114 &6764387396319776571
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2837,25 +3272,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_CartEnterReaction
+  m_Name: event:/Dialogue/VOX/VOX_PlayerDamaged
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_CartEnterReaction
+  Path: event:/Dialogue/VOX/VOX_PlayerDamaged
   Guid:
-    Data1: -1568007740
-    Data2: 1227554846
-    Data3: -2089633612
-    Data4: -702944391
+    Data1: 287453082
+    Data2: 1133526437
+    Data3: -1846111330
+    Data4: -2007583395
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters:
-  - {fileID: 2278749501263019424}
+  - {fileID: 3855562156758831378}
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &6634654009764463474
+--- !u!114 &6961579058279871949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2865,21 +3300,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/AMB_WindBirds/WindStrength
+  m_Name: parameter:/VOX_PlayerAttack/WolfRage
   m_EditorClassIdentifier: 
-  Name: WindStrength
+  Name: WolfRage
   StudioPath: 
   Min: 0
-  Max: 3
+  Max: 1
   Default: 0
   ID:
-    data1: 1683709149
-    data2: 2351910085
+    data1: 422907721
+    data2: 4119003010
   Type: 0
   IsGlobal: 1
   Labels: []
   Exists: 1
---- !u!114 &6682161496613651586
+--- !u!114 &7026252049684160994
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2889,98 +3324,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Dragon
+  m_Name: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
   m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Dragon
+  Path: event:/Players/PLY_Gorgon/PLY_Gorgon_Petrify
   Guid:
-    Data1: -569581360
-    Data2: 1282642900
-    Data3: 985404824
-    Data4: -471458748
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -3124659319372137937}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3192
---- !u!114 &6738405030384637004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Gorgon
-  Guid:
-    Data1: -1393665621
-    Data2: 1100378121
-    Data3: 1362736281
-    Data4: -775045058
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 1847875170644462775}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4887
---- !u!114 &6782601872043792329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Witch
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Let's have some fun, guys/VOX_Q_FUN_Witch
-  Guid:
-    Data1: 902871286
-    Data2: 1254792082
-    Data3: -997616984
-    Data4: -616722098
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 7857652054676846510}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &6886553548379111907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_GENERIC/PLY_GEN_Attack
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_GENERIC/PLY_GEN_Attack
-  Guid:
-    Data1: 779386042
-    Data2: 1103460210
-    Data3: 2131411853
-    Data4: -1818785855
+    Data1: 467402269
+    Data2: 1310419798
+    Data3: 9332912
+    Data4: 1697474935
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
@@ -2988,9 +3339,9 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
-  MaxDistance: 20
-  Length: 1701
---- !u!114 &6958165255932027816
+  MaxDistance: 30
+  Length: 2871
+--- !u!114 &7235276323945521744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3011,13 +3362,13 @@ MonoBehaviour:
   Banks:
   - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 1
+  Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
   Length: 1927
---- !u!114 &7302308162547641575
+--- !u!114 &7537554864516606030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3027,127 +3378,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_Footstep/Rock
+  m_Name: parameter:/VOX_Q_GAP_Wolf/DialogueProgression
   m_EditorClassIdentifier: 
-  Name: Rock
+  Name: DialogueProgression
   StudioPath: 
   Min: 0
-  Max: 1
+  Max: 10
   Default: 0
   ID:
-    data1: 1417791014
-    data2: 669771846
-  Type: 0
+    data1: 1277462785
+    data2: 2166814880
+  Type: 1
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &7459159746288454580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/EnMY_Spirit_States/SpiritState
-  m_EditorClassIdentifier: 
-  Name: SpiritState
-  StudioPath: 
-  Min: 0
-  Max: 4
-  Default: 0
-  ID:
-    data1: 969083656
-    data2: 3464497093
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
---- !u!114 &7461168673635905654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Log-Ical thinking/VOX_Q_LOG_Witch
-  Guid:
-    Data1: 832414698
-    Data2: 1210755422
-    Data3: -1659627334
-    Data4: -1182456700
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -3436639567234960704}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 2000
---- !u!114 &7557220313196154216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
-  m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_DRAGON/PLY_DRAG_CrossbowArrow
-  Guid:
-    Data1: 641864790
-    Data2: 1303164654
-    Data3: -1434340176
-    Data4: 69571933
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 803
---- !u!114 &7707872547386859472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Wolf
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Not mush-breathing room/VOX_Q_MUSH_Wolf
-  Guid:
-    Data1: 542730109
-    Data2: 1292808426
-    Data3: -2064331107
-    Data4: -971777342
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 3497373213834950658}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4573
 --- !u!114 &7722191027823445999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3163,10 +3407,121 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638459377597126176
+  lastModified: 638460199935964909
   FileSizes: []
   Exists: 1
---- !u!114 &7857652054676846510
+--- !u!114 &7736806383790098264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_GoldPickupReaction
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_GoldPickupReaction
+  Guid:
+    Data1: -1904601615
+    Data2: 1130142441
+    Data3: -230914422
+    Data4: -1759236423
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -3984795383355085132}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7748731175796319579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/UI/UI_ScrollClose
+  m_EditorClassIdentifier: 
+  Path: event:/UI/UI_ScrollClose
+  Guid:
+    Data1: -239091071
+    Data2: 1240093092
+    Data3: -649598830
+    Data4: 799094863
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1023
+--- !u!114 &7799488411649569815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_ShovelVoiceline
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_ShovelVoiceline
+  Guid:
+    Data1: 372742679
+    Data2: 1093187185
+    Data3: -1737522512
+    Data4: 717542289
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 3378781197894033763}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7982328178472974778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_ObjectiveProgReaction
+  Guid:
+    Data1: 699834432
+    Data2: 1340092931
+    Data3: -1290063937
+    Data4: 70993087
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -9167214340264086075}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &8092955770057712072
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3176,7 +3531,91 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/VOX_Q_FUN_Witch/DialogueProgression
+  m_Name: parameter:/VOX_PlayerAttack/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
+--- !u!114 &8291862146512869839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/VOX_Quest/Bubble Trouble/VOX_Q_BUB_Wolf
+  Guid:
+    Data1: -454605380
+    Data2: 1117968698
+    Data3: -1251359067
+    Data4: -554727106
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8720750932965622398}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4196
+--- !u!114 &8399515781438890248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_WITCH/PLY_WITCH_ATTACKS/PLY_WITCH_ATTACKS_Ranged
+  Guid:
+    Data1: 294073659
+    Data2: 1102772808
+    Data3: -1501118058
+    Data4: 1650866803
+  Banks:
+  - {fileID: 905318259331715633}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 5771649690189987168}
+  MinDistance: 1
+  MaxDistance: 65
+  Length: 2968
+--- !u!114 &8660151625773974337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VOX_Q_FUN_Wolf/DialogueProgression
   m_EditorClassIdentifier: 
   Name: DialogueProgression
   StudioPath: 
@@ -3190,7 +3629,7 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &8001469051760884500
+--- !u!114 &8666594376671017615
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3200,108 +3639,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  m_Name: event:/UI/UI_ScrollOpen
   m_EditorClassIdentifier: 
-  Path: event:/Players/PLY_DRAGON/PLY_DRAG_Crossbow
+  Path: event:/UI/UI_ScrollOpen
   Guid:
-    Data1: 10501635
-    Data2: 1245782177
-    Data3: -2078868817
-    Data4: -921583314
+    Data1: 1552572030
+    Data2: 1313621099
+    Data3: -1661384314
+    Data4: 770589898
   Banks:
   - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -3533157993284172766}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1400
---- !u!114 &8289093408789552123
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_PlayerDeathDialogue
-  Guid:
-    Data1: 337753718
-    Data2: 1279109942
-    Data3: -640810341
-    Data4: 1359046811
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 5646057244594821911}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &8326738959329664866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Gorgon
-  m_EditorClassIdentifier: 
-  Path: event:/Dialogue/VOX/VOX_Quest/Wheeling back to consciousness/VOX_Q_WHEEL_Gorgon
-  Guid:
-    Data1: -1161786
-    Data2: 1165093971
-    Data3: -22514288
-    Data4: -958488046
-  Banks:
-  - {fileID: 905318259331715633}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 1056469582412356357}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 8821
---- !u!114 &8914069601062485804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/GameOverStinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/GameOverStinger
-  Guid:
-    Data1: 1779950225
-    Data2: 1310528959
-    Data3: 1713555612
-    Data4: -1895475207
-  Banks:
-  - {fileID: 7722191027823445999}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3478
---- !u!114 &9221630305882255204
+  Length: 1340
+--- !u!114 &8944958802713584787
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3311,20 +3666,45 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/MainTheme
+  m_Name: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Dragon
   m_EditorClassIdentifier: 
-  Path: event:/Music Events/MainTheme
+  Path: event:/Dialogue/VOX/VOX_Quest/Bridging the gap/VOX_Q_GAP_Dragon
   Guid:
-    Data1: -1383027000
-    Data2: 1308435432
-    Data3: -1536589895
-    Data4: 1119495703
+    Data1: -1422177077
+    Data2: 1299152080
+    Data3: -1763643462
+    Data4: -660363780
   Banks:
-  - {fileID: 7722191027823445999}
+  - {fileID: 905318259331715633}
   IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4542946153576777851}
   MinDistance: 1
   MaxDistance: 20
-  Length: 72100
+  Length: 3635
+--- !u!114 &9098358187272933705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/GameplayMusic2/MusicProg
+  m_EditorClassIdentifier: 
+  Name: MusicProg
+  StudioPath: 
+  Min: 1
+  Max: 5
+  Default: 1
+  ID:
+    data1: 2878851826
+    data2: 2108855987
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1

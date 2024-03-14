@@ -35,8 +35,12 @@ namespace Game {
             [SerializeField] public Image eventImage;
             [SerializeField] public TextMeshProUGUI dialogueText;
             
-            [Header("Audio")]
-            [SerializeField] private DialogueAudioWrapper eventDialogueAudioManager;
+            [Header("References")]
+            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private Slider progress;
+            
+            // EventDialogueAudioManager
+            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -48,11 +52,14 @@ namespace Game {
             
             // Internal Bools
             private bool dialogueIsPlaying;
+            private bool holdDownIsDone;
             private bool submitPressed;
             private bool canContinueToNextLine = true;
             private bool typing = false;
             private bool isPaused;
             private DialogueTrigger currentTrigger;
+            private float holdTime = 0f;
+            private float holdThreshold = 1f; // Set this to the desired hold time in seconds
 
             private Coroutine displayLineCoroutine;
 
@@ -85,6 +92,8 @@ namespace Game {
 #region Public Functions
 
             public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null) {
+                playerInput.SwitchCurrentActionMap("Menu");
+                
                 if (hasRacer) {
                     carriageRacer.SetCarriageActive(false);
                 }
@@ -126,7 +135,7 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    eventDialogueAudioManager.BossEventDialogue(eventIndex);
+                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
                 });
                 
                 StartCoroutine(OnAdvanceStory());
@@ -136,15 +145,20 @@ namespace Game {
                 if (value.started)
                 {
                     submitPressed = true;
-                } else if (value.canceled) {
+                    StartCoroutine(IncrementHoldTime());
+                } 
+                else if (value.canceled) 
+                {
                     submitPressed = false;
+                    progress.value = 0f; // Reset progress bar
+                    holdTime = 0f; // Reset hold time
                 }
             }
 
             public bool GetSubmitPressed() 
             {
-                bool result = submitPressed;
-                submitPressed = false;
+                bool result = holdDownIsDone;
+                holdDownIsDone = false;
                 return result;
             }
             
@@ -179,8 +193,7 @@ namespace Game {
                         DisplayChoices();
                         yield return new WaitForSeconds(0.5f);
                     } else {
-                        Debug.Log("Change scene");
-                        yield return new WaitForSeconds(5);
+                        yield return new WaitForSeconds(2);
                         ExitDialogueMode();
                     }
                 } else  {
@@ -199,6 +212,7 @@ namespace Game {
                 if (currentTrigger != null)
                     currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 
+                playerInput.SwitchCurrentActionMap("World Map");
                 OnDialogueEnd.Invoke();
                 TogglePauseState();
                 HideChoices();
@@ -286,8 +300,19 @@ namespace Game {
                 Time.timeScale = _newTimeScale;
             }
             
-            private void ToggleInputState() {
-                
+            private IEnumerator IncrementHoldTime()
+            {
+                while (submitPressed)
+                {
+                    holdTime += Time.deltaTime;
+                    progress.value = holdTime / holdThreshold;
+                    if (holdTime >= holdThreshold)
+                    {
+                        holdDownIsDone = true;
+                        break;
+                    }
+                    yield return null;
+                }
             }
             
 #endregion

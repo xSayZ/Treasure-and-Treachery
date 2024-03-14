@@ -32,6 +32,7 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private string allPlayersDiedText;
             [SerializeField] private string carriageDestroyedText;
+            [SerializeField] private string timeRanOutText;
             
             [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
@@ -83,8 +84,9 @@ namespace Game {
 
             private void Update()
             {
-                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver) {
-                    LevelLost("You ran out of time!");
+                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver)
+                {
+                    LevelLost(timeRanOutText);
                 }
                 
                 if (levelOver)

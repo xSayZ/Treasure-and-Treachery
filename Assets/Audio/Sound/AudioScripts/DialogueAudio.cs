@@ -31,7 +31,7 @@ namespace Game {
             
             //EventReferences
             [SerializeField]
-            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio, returnCartAudio;
+            private EventReference shovelPickup, goldPickupAudio, goldReactAudio, objectiveProgressionReaction, deathAudio, damageAudio, playerAttackAudio, deathReactAudio, cartEnterAudio, returnCartAudio, wolfAttackRef, dragonAttackRef, witchAttackRef, gorgonAttackRef;
 
             [Header("QuestDialogue")] 
             
@@ -60,7 +60,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var damageAudioInstance = RuntimeManager.CreateInstance(damageAudio);
-                    PlayDialogue(_playerID, damageAudioInstance);
+                    PlayDialogue(_playerID, damageAudioInstance, true);
                 }
                 catch (Exception e)
                 {
@@ -90,9 +90,24 @@ namespace Game {
             {
                 try
                 {
-                    var _players = GameManager.Instance.ActivePlayerControllers;
-                    var playerAttackAudioInstance = RuntimeManager.CreateInstance(playerAttackAudio);
-                    PlayDialogue(_playerID, playerAttackAudioInstance);
+                    switch (_playerID)
+                    {
+                        case 0:
+                            playerAttackAudioInstance = RuntimeManager.CreateInstance(wolfAttackRef);
+                            break;
+                        case 1:
+                            playerAttackAudioInstance = RuntimeManager.CreateInstance(dragonAttackRef);
+                            break;
+                        case 2:
+                            Debug.Log("hej");
+                            playerAttackAudioInstance = RuntimeManager.CreateInstance(witchAttackRef);
+                            break;
+                        case 3:
+                            Debug.Log("ansknkd");
+                            playerAttackAudioInstance = RuntimeManager.CreateInstance(gorgonAttackRef);
+                            break;
+                    }
+                    PlayDialogue(_playerID, playerAttackAudioInstance, false);
                 }
                 catch (Exception e)
                 {
@@ -106,7 +121,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var deathDialogueInstance = RuntimeManager.CreateInstance(deathAudio);
-                    PlayDialogue(_playerID, deathDialogueInstance);
+                    PlayDialogue(_playerID, deathDialogueInstance, true);
                 
                     if (_players.Count > 1)
                     {
@@ -125,7 +140,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var shovelPickupInstance = RuntimeManager.CreateInstance(shovelPickup);
-                    PlayDialogue(_playerID, shovelPickupInstance);
+                    PlayDialogue(_playerID, shovelPickupInstance, true);
                 }
                 catch (Exception e)
                 {
@@ -139,7 +154,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var shovelReactInstance = RuntimeManager.CreateInstance(objectiveProgressionReaction);
-                    PlayDialogue(_playerID, shovelReactInstance);
+                    PlayDialogue(_playerID, shovelReactInstance, true);
                 }
                 catch (Exception e)
                 {
@@ -152,7 +167,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var goldPickupInstance = RuntimeManager.CreateInstance(goldPickupAudio);
-                    PlayDialogue(_playerID, goldPickupInstance);
+                    PlayDialogue(_playerID, goldPickupInstance, true);
                     
                     if (_players.Count > 1)
                     {
@@ -171,7 +186,7 @@ namespace Game {
                 {
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var goldReactInstance = RuntimeManager.CreateInstance(goldReactAudio);
-                    PlayDialogue(_playerID, goldReactInstance);
+                    PlayDialogue(_playerID, goldReactInstance, true);
                 }
                 catch (Exception e)
                 {
@@ -186,7 +201,7 @@ namespace Game {
                     Debug.Log("player " + _playerID + " has something to say");
                     var _players = GameManager.Instance.ActivePlayerControllers;
                     var deathReactioninstance = RuntimeManager.CreateInstance(deathReactAudio);
-                    PlayDialogue(_playerID, deathReactioninstance);
+                    PlayDialogue(_playerID, deathReactioninstance, true);
                 }
                 catch (Exception e)
                 {
@@ -199,7 +214,7 @@ namespace Game {
                 try
                 {
                     EventInstance returnToCartInstance = RuntimeManager.CreateInstance(returnCartAudio);
-                   PlayDialogue(_playerID, returnToCartInstance); 
+                   PlayDialogue(_playerID, returnToCartInstance, true); 
                    
                 }
                 catch (Exception e)
@@ -212,14 +227,14 @@ namespace Game {
             #endregion
 
 #region Private Functions
-            private void PlayDialogue(int characterID, EventInstance dialogueInstance)
+            private void PlayDialogue(int characterID, EventInstance dialogueInstance, bool cutOff)
             {
                 // Check if there's already a dialogue instance playing for this character
-                if (currentDialogues.ContainsKey(characterID)) {
+                if (currentDialogues.ContainsKey(characterID) && cutOff == true) {
                     // If so, stop the current dialogue instance
                     StopDialogue(characterID);
                 }
-                
+
                 // Attach instance to character GameObject and start playing
                 var player = GameManager.Instance.ActivePlayerControllers[characterID];
                 RuntimeManager.AttachInstanceToGameObject(dialogueInstance, player.gameObject.transform);
@@ -230,7 +245,7 @@ namespace Game {
                 currentDialogues[characterID] = dialogueInstance;
             }
             
-            private void PlayQuestDialogue(int characterID, EventInstance dialogueInstance)
+            private void PlayLongDialogue(int characterID, EventInstance dialogueInstance)
             {
                 var player = GameManager.Instance.ActivePlayerControllers[characterID];
                 
@@ -261,7 +276,7 @@ namespace Game {
                 GetRandomPlayerAndPlayResponse(_playerID, _players, context);
             }
             
-            public IEnumerator WaitForQuestResponseAudio(int _playerID, EventInstance askerInstance, EventReference eventRef)
+            public IEnumerator WaitForLongResponseAudio(int _playerID, EventInstance askerInstance, EventReference eventRef)
             {
                 while (IsPlaying(askerInstance))
                 {
@@ -269,7 +284,7 @@ namespace Game {
                 }
                 askerInstance.release();
                 askerInstance = RuntimeManager.CreateInstance(eventRef);
-                PlayQuestDialogue(_playerID, askerInstance);
+                PlayLongDialogue(_playerID, askerInstance);
             }
 
 

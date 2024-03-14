@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _input: {fileID: 1035058854}
-  level: {fileID: 11400000, guid: 79a149d18282f88488f705580d2f1998, type: 2}
+  level: {fileID: 11400000, guid: c6337da9e64fd35429320fb3a1208b43, type: 2}
   UIButtons:
   - {fileID: 223521414}
   - {fileID: 556194962}
@@ -1952,14 +1952,18 @@ MonoBehaviour:
     m_ActionName: Menu/Cancel[/DualSenseGamepadHID/buttonEast,/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6a8defd2-5122-4836-a267-e170e91cff61
-    m_ActionName: TemporaryRestartMamap/Restart[/Keyboard/insert]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: da24d66e-0079-4c4b-a4af-6a7ea14a5767
     m_ActionName: Player/Attack[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dac5d031-871d-4fdc-a6a0-a4c20397c5b7
+    m_ActionName: Player/PauseMenu[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
+    m_ActionName: Menu/Pause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Player1
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Menu
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

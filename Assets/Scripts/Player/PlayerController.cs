@@ -115,6 +115,12 @@ namespace Game
             private void OnEnable()
             {
                 playerInput.deviceRegainedEvent.Invoke(playerInput);
+                
+                // Reset material color
+                if (damagedMaterial)
+                {
+                    damagedMaterial.color = Color.white;
+                }
             }
 
             private void OnDisable()

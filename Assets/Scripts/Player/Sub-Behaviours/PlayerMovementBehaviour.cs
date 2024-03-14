@@ -21,6 +21,7 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private CapsuleCollider playerCollider;
             [SerializeField] private CapsuleCollider dashObjectCollider;
+            [SerializeField] private CapsuleCollider dashKillCollider;
             [SerializeField] private GameObject fullDashImage;
             [SerializeField] private GameObject halfDashImage;
             
@@ -92,6 +93,8 @@ namespace Game {
                 currentNumberOfDashes = numberOfDashes;
                 currentMaxSpeed = movementSpeed;
                 CurrentTurnSpeed = turnSpeed;
+                
+                dashKillCollider.enabled = false;
                 
                 UpdateDashUI();
             }
@@ -298,11 +301,13 @@ namespace Game {
                 
                 playerCollider.isTrigger = true;
                 dashObjectCollider.enabled = true;
+                dashKillCollider.enabled = true;
                 
                 yield return new WaitForSeconds(dashTime);
                 
                 playerCollider.isTrigger = false;
                 dashObjectCollider.enabled = false;
+                dashKillCollider.enabled = false;
                 
                 currentMaxSpeed = movementSpeed;
                 IsDashing = false;

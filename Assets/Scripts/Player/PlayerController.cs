@@ -117,9 +117,9 @@ namespace Game
                 playerInput.deviceRegainedEvent.Invoke(playerInput);
                 
                 // Reset material color
-                if (damagedMaterial)
+                if (playerMaterial)
                 {
-                    damagedMaterial.color = Color.white;
+                    playerMaterial.color = Color.white;
                 }
             }
 
@@ -128,9 +128,9 @@ namespace Game
                 playerInput.deviceLostEvent.Invoke(playerInput);
                 
                 // Reset material color
-                if (damagedMaterial)
+                if (playerMaterial)
                 {
-                    damagedMaterial.color = Color.white;
+                    playerMaterial.color = Color.white;
                 }
             }
 

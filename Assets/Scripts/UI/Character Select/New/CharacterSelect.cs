@@ -29,6 +29,8 @@ namespace Game {
             
             public static Dictionary<InputDevice, PlayerData> selectedCharacters { get; private set; } = new Dictionary<InputDevice, PlayerData>(); // Input device, selected character player data
             
+            private static InputDevice firstInputDevice;
+            
             private int joinedPlayerCount;
 
 #region Unity Functions
@@ -94,8 +96,34 @@ namespace Game {
                 if (selectedCharacters.Count == joinedPlayerCount && joinedPlayerCount > 0)
                 {
                     Debug.Log("Starting game");
+                    firstInputDevice = null;
                     LevelManager.Instance.LoadLevel(levelToLoad);
                 }
+            }
+
+            public static InputDevice GetFirstInputDevice()
+            {
+                if (firstInputDevice == null)
+                {
+                    foreach (InputDevice _inputDevice in InputSystem.devices)
+                    {
+                        if (selectedCharacters.Count == 0)
+                        {
+                            if (_inputDevice is Keyboard or Gamepad)
+                            {
+                                firstInputDevice = _inputDevice;
+                                break;
+                            }
+                        }
+                        else if(selectedCharacters.ContainsKey(_inputDevice))
+                        {
+                            firstInputDevice = _inputDevice;
+                            break;
+                        }
+                    }
+                }
+                
+                return firstInputDevice;
             }
 #endregion
 

@@ -298,6 +298,13 @@ namespace Game {
                         CanInteractWith[_playerIndex] = false;
                     }
                 }
+                
+                // Stop progress if player is interacting
+                if (requiredItems.ContainsKey(_item))
+                {
+                    GameManager.Instance.ActivePlayerControllers[requiredItems[_item].PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = false;
+                    requiredItems[_item].IsInteracting = false;
+                }
             }
 
             private void EnemyKilled(EnemyController _enemyController)

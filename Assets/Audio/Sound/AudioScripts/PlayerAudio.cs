@@ -109,9 +109,17 @@ public void DragonArrowAudio(GameObject arrowObj)
     dragonArrowInstance.release();
 }
 
-public void MeleeAudioPlay(GameObject meleeObj)
+public void MeleeAudioPlay(GameObject meleeObj, string characterType)
 {
     EventInstance playerMeleeAttackInstance = RuntimeManager.CreateInstance(playerMeleeAttack);
+    if (characterType == "gorgon")
+    {
+        playerMeleeAttackInstance.setParameterByName("MeleeType", 1);
+    }
+    else if (characterType == "wolf")
+    {
+        playerMeleeAttackInstance.setParameterByName("MeleeType", 0);
+    }
     RuntimeManager.AttachInstanceToGameObject(playerMeleeAttackInstance, meleeObj.transform, meleeObj.GetComponent<Rigidbody>());
     
     playerMeleeAttackInstance.start();
@@ -140,10 +148,11 @@ public void PlayerRangedAudio(GameObject weaponObj)
     playerRangedInstance.release();
 }
 
-public void ProjectileHitAudio(GameObject projectileObj)
+public void ProjectileHitAudio(GameObject projectileObj, int type)
 {
     EventInstance projectileHitInstance = RuntimeManager.CreateInstance(projectileHit);
     RuntimeManager.AttachInstanceToGameObject(projectileHitInstance, projectileObj.transform);
+    projectileHitInstance.setParameterByName("ParticleType", type);
     projectileHitInstance.start();
     projectileHitInstance.release();
 }

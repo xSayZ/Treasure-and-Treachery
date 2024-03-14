@@ -35,8 +35,8 @@ namespace Game {
             [SerializeField] public Image eventImage;
             [SerializeField] public TextMeshProUGUI dialogueText;
             
-            // EventDialogueAudioManager
-            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
+            [Header("Audio")]
+            [SerializeField] private DialogueAudioWrapper eventDialogueAudioManager;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -126,7 +126,7 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
+                    eventDialogueAudioManager.BossEventDialogue(eventIndex);
                 });
                 
                 StartCoroutine(OnAdvanceStory());

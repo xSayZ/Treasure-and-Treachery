@@ -29,6 +29,7 @@ namespace Game {
             [Header("Audio")]
             [SerializeField] private GameObject projectileObj;
             [SerializeField] private PlayerAudio playerAudio;
+            [SerializeField] private DialogueAudio dialogueAudio;
             
             [SerializeField] private CharacterType characterType;
             private enum CharacterType
@@ -96,7 +97,16 @@ namespace Game {
                                 
                                 try
                                 {
-                                    playerAudio.ProjectileHitAudio(gameObject);
+                                    if (characterType == CharacterType.Witch)
+                                    {
+                                        playerAudio.ProjectileHitAudio(gameObject, 0); 
+                                        dialogueAudio.PlayerAttackAudio(2);
+                                    }
+                                    if (characterType == CharacterType.Dragon)
+                                    {
+                                        playerAudio.ProjectileHitAudio(gameObject, 1);
+                                        dialogueAudio.PlayerAttackAudio(1);
+                                    }
                                 }
                                 catch (Exception e)
                                 {

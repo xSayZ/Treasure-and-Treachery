@@ -25,9 +25,17 @@ namespace Game {
                 playerInput.SwitchCurrentControlScheme(_inputDevice);
             }
 
-            public void OnMovement(InputAction.CallbackContext _context)
+            public void OnMove(InputAction.CallbackContext _context)
             {
                 carriageRacer.OnMoveInput(playerInput.user.index, _context.ReadValue<Vector2>());
+            }
+
+            public void OnSubmit(InputAction.CallbackContext _context)
+            {
+                if (_context.started)
+                {
+                    carriageRacer.OnSelectPlayMarker();
+                }
             }
         }
     }

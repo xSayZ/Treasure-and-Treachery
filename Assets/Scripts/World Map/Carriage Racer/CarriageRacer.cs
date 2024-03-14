@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using Game.Backend;
 using Game.CharacterSelection;
 using Game.Managers;
+using Game.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +30,7 @@ namespace Game {
             [SerializeField] private List<Vector2> activeLeftStickValues = new List<Vector2>();
             
             private Vector3 averageLeftStickValue;
+            private PlayMarker playMarkerInRange;
 
 #region Unity Functions
             private void Awake()
@@ -53,6 +55,8 @@ namespace Game {
 
             private void Start()
             {
+                playMarkerInRange = null;
+                
                 transform.position = LevelManager.Instance.worldMapManager.carriagePosition;
                 transform.rotation = LevelManager.Instance.worldMapManager.carriageRotation;
                 carriageMovementBehaviour.SetupBehaviour();
@@ -78,6 +82,19 @@ namespace Game {
                 // Calculate the average left stick value
                 averageLeftStickValue = CalculateAverageLeftStickValue();
                 carriageAnimationBehaviour.UpdateMovementAnimation(averageLeftStickValue.magnitude);
+            }
+
+            public void OnSelectPlayMarker()
+            {
+                if (playMarkerInRange != null)
+                {
+                    playMarkerInRange.SwitchScene();
+                }
+            }
+
+            public void SetPlayMarkerInRange(PlayMarker _playMarker)
+            {
+                playMarkerInRange = _playMarker;
             }
 #endregion
 

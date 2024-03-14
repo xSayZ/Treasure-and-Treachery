@@ -120,18 +120,47 @@ namespace Game {
                 
                 dialogueIsPlaying = true;
                 story = new Story(_storyJSON.text);
-                
-                story.BindExternalFunction("changeCurrency", (int _amount) => {
-                    foreach (var _player in playerDatas) {
-                        _player.currency += _amount;
-                        if (_player.currency < 0) {
-                            _player.currency = 0;
-                        }
+
+                #region Ink External Functions
+                // Changes the currency of the player.
+                // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
+                story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.currency += _amount;
+                    if (_player.currency < 0) { 
+                        _player.currency = 0;
                     }
                 });
-                story.BindExternalFunction("giveItem", (string itemName) => {
-                    Debug.Log("Player received " + itemName + ".");
+                
+                // Changes the health of the player.
+                // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
+                story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.currentHealth += _amount;
+                    _player.test = true;
+                    if (_player.currentHealth < 0) { 
+                        _player.currentHealth = 0;
+                    }
                 });
+                
+                // Changes the personal objective of the player.
+                // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
+                story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.personalObjective += _amount;
+                });
+                
+                // Changes the personal objective modifier temporary of the player.
+                // How to use: changePersonalObjectiveModifier(5, 0) - This will add a 5 modifier personal objective modifier to the first player;
+                story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.personalObjectiveMultiplier += _amount;
+                });
+                
+                // Modifier to all players removing movement speed
+                // How to use: changeMovementModifier(-5) - This will remove 5 movement speed from all players;
+                
+  #endregion
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound

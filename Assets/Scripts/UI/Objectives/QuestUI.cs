@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Quest;
 using TMPro;
 using UnityEngine;
@@ -29,7 +31,10 @@ namespace Game {
             [SerializeField] private string sideStartingText;
             [SerializeField] private float sideStartingDelay;
             [SerializeField] private float sideGoneTime;
-            
+
+            [Header("Audio")] 
+            [SerializeField] private UIAudio uiAudio;
+
             private float mainShowTimeLeft;
             private bool mainShowRunning;
             private bool sideShowing;
@@ -64,6 +69,15 @@ namespace Game {
                     mainShowRunning = false;
 
                     currentSideStartingDelayRunning = true;
+
+                    try
+                    {
+                        uiAudio.ScrollCloseAudio();
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                    }
                     
                 }
                 else if (mainShowRunning)
@@ -126,12 +140,32 @@ namespace Game {
                 mainMaskAnimator.SetTrigger("Open");
                 
                 mainShowRunning = true;
+                
+                try
+                {
+                    uiAudio.ScrollOpenAudio();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+
             }
 
             private void OpenSideScroll()
             {
                 sideSpriteAnimator.SetTrigger("Open"); 
                 sideMaskAnimator.SetTrigger("Open");
+                
+                try
+                {
+                    uiAudio.UiPingAudio();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                }
+
                 
                 sideQuestText.text = sideText;
             }

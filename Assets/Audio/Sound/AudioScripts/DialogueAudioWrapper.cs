@@ -16,7 +16,7 @@ public class DialogueAudioWrapper : MonoBehaviour
 
     public DialogueAudio dialogueAudio;
 
-    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue, bossDialogue;
+    public EventReference wolfDialogue, dragonDialogue, witchDialogue, gorgonDialogue, bossDialogue, bossEventDialogue;
     private EventInstance wolfDialogueInstance, dragonDialogueInstance, witchDialogueInstance, gorgonDialogueInstance, bossDialogueInstance;
     public int dialogueProgressionWolf, dialogueProgressionDragon, dialogueProgressionWitch, dialogueProgressionGorgon, dialogueProgressionBoss;
     public int speakerAfterWolf, speakerAfterDragon, speakerAfterWitch, speakerAfterGorgon, speakerAfterBoss;
@@ -124,6 +124,14 @@ public class DialogueAudioWrapper : MonoBehaviour
         
         dialogueProgressionGorgon++;
         speakerAfterGorgon = 4;
+    }
+    
+    public void BossEventDialogue(int dialogueProgressionBoss)
+    {
+        EventInstance bossEventDialogueInstance = RuntimeManager.CreateInstance(bossEventDialogue);
+        bossEventDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
+        bossEventDialogueInstance.start();
+        bossEventDialogueInstance.release();
     }
     
     public void BossQuestDialogue()

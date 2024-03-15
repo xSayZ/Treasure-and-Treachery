@@ -133,12 +133,15 @@ namespace Game {
             #region Private Functions
 
             private void SetupCamera() {
+                // Get the active player controllers
+                targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
                 targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 targetGroup.transform.position = transform.position;
             }
             
             private IEnumerator MoveCameraToObjectives(int _stage) {
+                ClearTargetGroup();
                 SetPlayerActiveState(false);
                 ClearTargetGroup();
                 

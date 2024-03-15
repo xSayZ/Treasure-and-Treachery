@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using Game.Backend;
 using Game.CharacterSelection;
+using Game.Dialogue;
 using Game.Managers;
 using Game.World;
 using UnityEngine;
@@ -21,6 +22,7 @@ namespace Game {
         {
             [Header("Setup")]
             [SerializeField] private GameObject racerPlayerInputPrefab;
+            [SerializeField] private DialogueManager dialogueManager;
             
             [Header("Sub Behaviours")]
             [SerializeField] private CarriageMovementBehaviour carriageMovementBehaviour;
@@ -39,7 +41,8 @@ namespace Game {
                 {
                     foreach (InputDevice _inputDevice in InputSystem.devices)
                     {
-                        Instantiate(racerPlayerInputPrefab).GetComponent<RacerPlayerInput>().Setup(this, _inputDevice);
+                        GameObject _racerPlayerInput = Instantiate(racerPlayerInputPrefab);
+                        _racerPlayerInput.GetComponent<RacerPlayerInput>().Setup(this, dialogueManager, _inputDevice);
                         activeLeftStickValues.Add(new Vector2());
                     }
                 }
@@ -47,7 +50,8 @@ namespace Game {
                 {
                     foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
-                        Instantiate(racerPlayerInputPrefab).GetComponent<RacerPlayerInput>().Setup(this, _kvp.Key);
+                        GameObject _racerPlayerInput = Instantiate(racerPlayerInputPrefab);
+                        _racerPlayerInput.GetComponent<RacerPlayerInput>().Setup(this, dialogueManager, _kvp.Key);
                         activeLeftStickValues.Add(new Vector2());
                     }
                 }

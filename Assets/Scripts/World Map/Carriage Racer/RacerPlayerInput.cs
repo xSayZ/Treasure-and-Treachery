@@ -6,8 +6,11 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.CharacterSelection;
+using Game.Dialogue;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 
 namespace Game {
@@ -16,13 +19,32 @@ namespace Game {
         {
             [Header("Setup")]
             [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private MultiplayerEventSystem multiplayerEventSystem;
+            [SerializeField] private InputSystemUIInputModule inputSystemUIInputModule;
             
-            private CarriageRacer carriageRacer;
+            [HideInInspector] public bool dialogueActice;
 
-            public void Setup(CarriageRacer _carriageRacer, InputDevice _inputDevice)
+            private bool isFirstInput;
+            private CarriageRacer carriageRacer;
+            private DialogueManager dialogueManager;
+
+            public void Setup(CarriageRacer _carriageRacer, DialogueManager _dialogueManager, InputDevice _inputDevice)
             {
+                dialogueActice = false;
+                
                 carriageRacer = _carriageRacer;
+                dialogueManager = _dialogueManager;
                 playerInput.SwitchCurrentControlScheme(_inputDevice);
+                
+                dialogueManager.racerPlayerInputs.Add(this);
+                
+                isFirstInput = _inputDevice == CharacterSelect.GetFirstInputDevice();
+                
+                if (!isFirstInput)
+                {
+                    inputSystemUIInputModule.enabled = false;
+                    multiplayerEventSystem.enabled = false;
+                }
             }
 
             public void OnMove(InputAction.CallbackContext _context)
@@ -32,9 +54,16 @@ namespace Game {
 
             public void OnSubmit(InputAction.CallbackContext _context)
             {
-                if (_context.started)
+                if (!dialogueActice)
                 {
-                    carriageRacer.OnSelectPlayMarker();
+                    if (_context.started)
+                    {
+                        carriageRacer.OnSelectPlayMarker();
+                    }
+                }
+                else if (isFirstInput)
+                {
+                    dialogueManager.SubmitPressed(_context);
                 }
             }
         }

@@ -26,6 +26,8 @@ namespace Game {
             [SerializeField]
             private EventReference playerShoot;
             [SerializeField]
+            private EventReference soulFireAudio;
+            [SerializeField]
             private EventReference projectileHit;
             [SerializeField] 
             private EventReference projectileSwoosh;
@@ -71,6 +73,15 @@ public void PetrifySmashAudio(GameObject enemyObj)
     
     petrifySmashInstance.start();
     petrifySmashInstance.release();
+}
+
+public void SoulFireAudio(GameObject projectileObj)
+{
+    EventInstance soulFireInstance = RuntimeManager.CreateInstance(soulFireAudio);
+    RuntimeManager.AttachInstanceToGameObject(soulFireInstance, projectileObj.transform, projectileObj.GetComponent<Rigidbody>());
+    
+    soulFireInstance.start();
+    soulFireInstance.release();
 }
 
 public void PetrifyAudio(GameObject enemyObj)

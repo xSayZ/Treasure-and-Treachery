@@ -103,9 +103,9 @@ namespace Game {
 #region Public Functions
 
             public void CameraZoomEvent(int _stage = 0) {
-                // Get the active player controllers
-                targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 if (objectiveStages.Length > 0) {
+                    // Get the active player controllers
+                    targets = Backend.GameManager.Instance.ActivePlayerControllers;
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else {
@@ -139,6 +139,7 @@ namespace Game {
             
             private IEnumerator MoveCameraToObjectives(int _stage) {
                 SetPlayerActiveState(false);
+                ClearTargetGroup();
                 
                 objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 
@@ -148,14 +149,14 @@ namespace Game {
                 objectiveTransforms = objectiveStages[_stage].objectiveTransforms;
                 // Loop through the objective transforms
                 foreach (ObjectiveTransform _objective in objectiveTransforms) {
-                    Vector3 _initialPosition = this.transform.position;
+                    Vector3 _initialPosition = transform.position;
                     float _timeElapsed = 0;
                 
                     // Move the camera to the objective transform
                     while (_timeElapsed < _objective.CameraMoveSpeedToObjective) {
                         CinemachineFramingTransposer _framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
                         _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom, _timeElapsed / _objective.CameraMoveSpeedToObjective);
-                        this.transform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        transform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
                         _timeElapsed += Time.deltaTime;
                         yield return null;
                     }
@@ -234,6 +235,10 @@ namespace Game {
                     // Set the camera distance to the average distance between the players
                     virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
+            }
+            
+            private void ClearTargetGroup() {
+                targetGroup.m_Targets = new CinemachineTargetGroup.Target[0];
             }
             
             private void SetPlayerActiveState(bool _active) {

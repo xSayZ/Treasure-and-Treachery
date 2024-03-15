@@ -45,20 +45,16 @@ namespace Game {
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
 
-            public bool test {get ; set;} = false;
-
-            public void NewScene() {
-                if (test) {
-                    currentHealth = startingHealth;
-                }
-                test = false;
+            public void NewScene()
+            {
+                currentHealth = startingHealth;
                 personalObjectiveThisLevel = 0;
                 currencyThisLevel = 0;
                 killsThisLevel = 0;
                 currentItem = null;
                 canPickUp = true;
             }
-            
+
             private void OnEnable()
             {
                 currentHealth = startingHealth;

@@ -143,7 +143,6 @@ namespace Game {
                 story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
                     var _player = playerDatas[_playerIndex];
                     _player.startingHealth += _amount;
-                    _player.test = true;
                     if (_player.startingHealth < 0) { 
                         _player.startingHealth = 0;
                     }
@@ -180,7 +179,8 @@ namespace Game {
                 if (value.started)
                 {
                     submitPressed = true;
-                    StartCoroutine(IncrementHoldTime());
+                    if (dialogueIsPlaying)
+                        StartCoroutine(IncrementHoldTime());
                 } 
                 else if (value.canceled) 
                 {
@@ -192,9 +192,15 @@ namespace Game {
 
             public bool GetSubmitPressed() 
             {
-                bool result = holdDownIsDone;
-                holdDownIsDone = false;
-                return result;
+                if (dialogueIsPlaying) {
+                    bool result = holdDownIsDone;
+                    holdDownIsDone = false;
+                    return result;
+                } else {
+                    bool result = submitPressed;
+                    submitPressed = false;
+                    return result;
+                }
             }
             
             public void ChooseChoiceIndex(int choiceIndex) {

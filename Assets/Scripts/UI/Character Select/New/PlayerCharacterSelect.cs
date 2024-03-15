@@ -34,6 +34,8 @@ namespace Game {
             private void OnEnable()
             {
                 characterSelect = FindObjectOfType<CharacterSelect>();
+                characterSelect.playerInputs.Add(playerInput);
+                
                 previousMoveValue = new Vector2();
                 
                 characterImage.sprite = playerDatas[currentSelectedCharacter].characterSelectImage;
@@ -50,6 +52,7 @@ namespace Game {
 
             private void OnDisable()
             {
+                characterSelect.playerInputs.Remove(playerInput);
                 characterSelect.UpdateImageTint.RemoveListener(UpdateImageTint);
             }
 #endregion

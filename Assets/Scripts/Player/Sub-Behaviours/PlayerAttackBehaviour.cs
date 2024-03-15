@@ -67,7 +67,7 @@ namespace Game {
             [SerializeField] private float meleeKnockbackForce;
             
             [Header("Ranged Attack Settings")]
-            [SerializeField] private int rangedAttackDamage;
+            [SerializeField] private int rangedAttackNormalDamage;
             [SerializeField] private float rangedAttackCooldown;
             [SerializeField] private int rangedAttackFullAimPenetrationAmount;
             [SerializeField] private float rangedMinKnockbackSpeed;
@@ -75,6 +75,9 @@ namespace Game {
             [SerializeField] private float rangedMinKnockbackTime;
             [SerializeField] private float rangedMaxKnockbackTime;
             [SerializeField] private Transform projectileSpawnPoint;
+            
+            [Header("Wave Settings")]
+            [SerializeField] private int rangedAttackWaveDamage;
             [SerializeField] private int rangedWaveHealthCost;
             
             [Header("Ranged Aim Settings")]
@@ -488,19 +491,19 @@ namespace Game {
                     }
                     
                     GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(_launchRotation * transform.forward));
-                    _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, _penetration, playerController.PlayerData, OnKill);
+                    _projectile.GetComponent<Projectile>().Setup(rangedAttackNormalDamage, _penetration, playerController.PlayerData, OnKill);
                 }
                 else
                 {
                     if (currentAimAngle < rangedAimMaxAngle || playerController.Health <= rangedWaveHealthCost)
                     {
                         GameObject _projectile = Instantiate(normalProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<Projectile>().Setup(rangedAttackDamage, 1, playerController.PlayerData, OnKill);
+                        _projectile.GetComponent<Projectile>().Setup(rangedAttackNormalDamage, 1, playerController.PlayerData, OnKill);
                     }
                     else
                     {
                         GameObject _projectile = Instantiate(waveProjectile, projectileSpawnPoint.position, Quaternion.LookRotation(Quaternion.identity * transform.forward));
-                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackDamage, playerController.PlayerData, OnWaveKill);
+                        _projectile.GetComponent<WaveProjectile>().Setup(rangedAttackWaveDamage, playerController.PlayerData, OnWaveKill);
                         (playerController as IDamageable).Damage(rangedWaveHealthCost, new Vector3(), 0);
                     }
                 }

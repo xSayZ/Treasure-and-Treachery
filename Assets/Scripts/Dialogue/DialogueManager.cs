@@ -35,8 +35,12 @@ namespace Game {
             [SerializeField] public Image eventImage;
             [SerializeField] public TextMeshProUGUI dialogueText;
             
-            [Header("Audio")]
-            [SerializeField] private DialogueAudioWrapper eventDialogueAudioManager;
+            [Header("References")]
+            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] private Slider progress;
+            
+            // EventDialogueAudioManager
+            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -48,11 +52,14 @@ namespace Game {
             
             // Internal Bools
             private bool dialogueIsPlaying;
+            private bool holdDownIsDone;
             private bool submitPressed;
             private bool canContinueToNextLine = true;
             private bool typing = false;
             private bool isPaused;
             private DialogueTrigger currentTrigger;
+            private float holdTime = 0f;
+            private float holdThreshold = 1f; // Set this to the desired hold time in seconds
 
             private Coroutine displayLineCoroutine;
 
@@ -85,6 +92,8 @@ namespace Game {
 #region Public Functions
 
             public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null) {
+                playerInput.SwitchCurrentActionMap("Menu");
+                
                 if (hasRacer) {
                     carriageRacer.SetCarriageActive(false);
                 }
@@ -111,22 +120,51 @@ namespace Game {
                 
                 dialogueIsPlaying = true;
                 story = new Story(_storyJSON.text);
-                
-                story.BindExternalFunction("changeCurrency", (int _amount) => {
-                    foreach (var _player in playerDatas) {
-                        _player.currency += _amount;
-                        if (_player.currency < 0) {
-                            _player.currency = 0;
-                        }
+
+                #region Ink External Functions
+                // Changes the currency of the player.
+                // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
+                story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.currency += _amount;
+                    if (_player.currency < 0) { 
+                        _player.currency = 0;
                     }
                 });
-                story.BindExternalFunction("giveItem", (string itemName) => {
-                    Debug.Log("Player received " + itemName + ".");
+                
+                // Changes the health of the player.
+                // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
+                story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.startingHealth += _amount;
+                    _player.test = true;
+                    if (_player.startingHealth < 0) { 
+                        _player.startingHealth = 0;
+                    }
                 });
+                
+                // Changes the personal objective of the player.
+                // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
+                story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.personalObjective += _amount;
+                });
+                
+                // Changes the personal objective modifier temporary of the player.
+                // How to use: changePersonalObjectiveModifier(5, 0) - This will add a 5 modifier personal objective modifier to the first player;
+                story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount, int _playerIndex) => {
+                    var _player = playerDatas[_playerIndex];
+                    _player.personalObjectiveMultiplier += _amount;
+                });
+                
+                // Modifier to all players removing movement speed
+                // How to use: changeMovementModifier(-5) - This will remove 5 movement speed from all players;
+                
+  #endregion
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    eventDialogueAudioManager.BossEventDialogue(eventIndex);
+                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
                 });
                 
                 StartCoroutine(OnAdvanceStory());
@@ -136,15 +174,20 @@ namespace Game {
                 if (value.started)
                 {
                     submitPressed = true;
-                } else if (value.canceled) {
+                    StartCoroutine(IncrementHoldTime());
+                } 
+                else if (value.canceled) 
+                {
                     submitPressed = false;
+                    progress.value = 0f; // Reset progress bar
+                    holdTime = 0f; // Reset hold time
                 }
             }
 
             public bool GetSubmitPressed() 
             {
-                bool result = submitPressed;
-                submitPressed = false;
+                bool result = holdDownIsDone;
+                holdDownIsDone = false;
                 return result;
             }
             
@@ -179,8 +222,7 @@ namespace Game {
                         DisplayChoices();
                         yield return new WaitForSeconds(0.5f);
                     } else {
-                        Debug.Log("Change scene");
-                        yield return new WaitForSeconds(5);
+                        yield return new WaitForSeconds(2);
                         ExitDialogueMode();
                     }
                 } else  {
@@ -199,6 +241,7 @@ namespace Game {
                 if (currentTrigger != null)
                     currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 
+                playerInput.SwitchCurrentActionMap("World Map");
                 OnDialogueEnd.Invoke();
                 TogglePauseState();
                 HideChoices();
@@ -286,8 +329,19 @@ namespace Game {
                 Time.timeScale = _newTimeScale;
             }
             
-            private void ToggleInputState() {
-                
+            private IEnumerator IncrementHoldTime()
+            {
+                while (submitPressed)
+                {
+                    holdTime += Time.deltaTime;
+                    progress.value = holdTime / holdThreshold;
+                    if (holdTime >= holdThreshold)
+                    {
+                        holdDownIsDone = true;
+                        break;
+                    }
+                    yield return null;
+                }
             }
             
 #endregion

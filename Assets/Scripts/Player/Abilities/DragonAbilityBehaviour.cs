@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using Game.Core;
+using Game.Enemy;
 using Game.Quest;
 using Game.Scene;
 using UnityEngine;
@@ -30,7 +31,7 @@ namespace Game {
                 
                 playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, 0);
                 
-                QuestManager.OnGoldPickedUp.AddListener(OnGoldPickedUp);
+                playerController.PlayerMovementBehaviour.OnDashThroughEnemy.AddListener(OnDashThroughEnemy);
             }
 
             protected override void OnDisable()
@@ -39,24 +40,24 @@ namespace Game {
                 
                 if (playerController)
                 {
-                    QuestManager.OnGoldPickedUp.RemoveListener(OnGoldPickedUp);
+                    playerController.PlayerMovementBehaviour.OnDashThroughEnemy.AddListener(OnDashThroughEnemy);
                 }
             }
 
-            protected override void OnDashKill(bool _stunned)
+            private void OnDashThroughEnemy(EnemyController _enemyController)
             {
-                QuestManager.OnGoldPickedUp.Invoke(playerController.PlayerIndex, goldOnDashKill);
-            }
-
-            private void OnGoldPickedUp(int _playerIndex, int _amount)
-            {
-                if (_playerIndex == playerController.PlayerData.playerIndex)
+                if (_enemyController.TryStealGold())
                 {
-                    playerController.PlayerData.personalObjective += _amount;
-                    playerController.PlayerData.personalObjectiveThisLevel += _amount;
-                    playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, _amount);
-                    QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
+                    OnPersonalGoldPickedUp(goldOnDashKill);
                 }
+            }
+
+            private void OnPersonalGoldPickedUp(int _amount)
+            {
+                playerController.PlayerData.personalObjective += _amount;
+                playerController.PlayerData.personalObjectiveThisLevel += _amount;
+                playerController.PlayerOverheadUIBehaviour.UpdatePersonalObjective(playerController.PlayerData.personalObjective, _amount);
+                QuestManager.PersonalObjectiveScoreUpdated(playerController.PlayerIndex, playerController.PlayerData.personalObjective);
             }
 
             private void Update()
@@ -85,10 +86,8 @@ namespace Game {
                     {
                         if (_pickUp.PickupType == Pickup.PickupTypes.Gold)
                         {
-                            if (_other.TryGetComponent(out IInteractable _interactable))
-                            {
-                                _interactable.Interact(playerController.PlayerData.playerIndex, true);
-                            }
+                            OnPersonalGoldPickedUp(_pickUp.Amount);
+                            Destroy(_pickUp.gameObject);
                         }
                     }
                 }

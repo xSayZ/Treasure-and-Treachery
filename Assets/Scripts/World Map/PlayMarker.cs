@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Game.Managers;
+using Game.Racer;
 using Game.WorldMap;
 using TMPro;
 using UnityEngine;
@@ -41,7 +42,6 @@ namespace Game {
             public UnityEvent onLevelCompleted = new UnityEvent();
             
             // Internal Variables
-            private bool canSwitchScene = false;
             private bool isLocked;
             
             private void Start()
@@ -53,19 +53,23 @@ namespace Game {
                 levelDescription.text = levelData.levelDescription;
                 levelName.text = levelData.levelName;
                 
-                if (isLocked) {
+                if (isLocked)
+                {
                     playMarkerObject.SetActive(false);
                 }
-                else {
+                else
+                {
                     playMarkerObject.SetActive(true);
                 }
-
-                if (levelData.isCompleted) {
+                
+                if (levelData.isCompleted)
+                {
                     onLevelCompleted.Invoke();
                 }
             }
 
-            private void Update() {
+            private void Update()
+            {
                 for (int i = 0; i < levelData.prerequisites.Count; i++)
                 {
                     if(levelData.prerequisites.All(_data => _data.isCompleted))
@@ -74,7 +78,7 @@ namespace Game {
                         playMarkerObject.SetActive(true);
                     }
                 }
-
+                
                 if (levelData.prerequisites.Count == 0)
                 {
                     isLocked = false;
@@ -82,34 +86,28 @@ namespace Game {
                 }
             }
 
-            private void OnTriggerEnter(Collider _other) {
-                if (!_other.CompareTag("Carriage"))
-                    return;
-                
-                if (!isLocked) {
+            private void OnTriggerEnter(Collider _other)
+            {
+                if (_other.CompareTag("Carriage"))
+                {
+                    _other.GetComponent<CarriageRacer>().SetPlayMarkerInRange(this);
+                    
                     levelDescriptionUI.SetActive(true);
-                    canSwitchScene = true;
-
-                    InputSystem.onAnyButtonPress.Call(_ctrl =>
-                    {
-                        if (_ctrl.device is not Gamepad _pad || !canSwitchScene) return;
-                        
-                        if (_ctrl == _pad.buttonSouth)
-                        {
-                            canSwitchScene = false;
-                            SwitchScene();
-                        }
-                    });
-
                 }
             }
-            
-            private void OnTriggerExit(Collider _other) {
-                levelDescriptionUI.SetActive(false);
-                canSwitchScene = false;
+
+            private void OnTriggerExit(Collider _other)
+            {
+                if (_other.CompareTag("Carriage"))
+                {
+                    _other.GetComponent<CarriageRacer>().SetPlayMarkerInRange(null);
+                    
+                    levelDescriptionUI.SetActive(false);
+                }
             }
-            
-            public void SwitchScene() {
+
+            public void SwitchScene()
+            {
                 LevelManager.Instance.worldMapManager.carriagePosition = transform.position;
                 LevelManager.Instance.worldMapManager.carriageRotation = transform.rotation;
                 LevelManager.Instance.LoadLevel(levelData);

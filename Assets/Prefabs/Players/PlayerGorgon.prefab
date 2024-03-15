@@ -25,11 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeChargeSpeed
-      value: 600
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeAttackDamage
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeVisualEffect
@@ -37,11 +37,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeAttackCooldown
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeAttackDuration
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: meleeKnockbackForce
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3509399097656645022, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: meleeMaxAttackTargets
@@ -241,7 +245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5877225869525892562, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_Radius
-      value: 0.7813839
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5877225869525892562, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_Center.y
@@ -306,6 +310,14 @@ PrefabInstance:
     - target: {fileID: 7900642331481965957, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393427140100816367, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: dashTime
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8393427140100816367, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: dashSpeed
+      value: 720
       objectReference: {fileID: 0}
     - target: {fileID: 8393427140100816367, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: dashDamage
@@ -478,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6326844903868037125, guid: ac6680b7e8e28eb4cbf184d9978eac66, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6326844903868037125, guid: ac6680b7e8e28eb4cbf184d9978eac66, type: 3}
       propertyPath: m_LocalRotation.w

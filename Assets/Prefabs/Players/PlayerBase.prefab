@@ -333,6 +333,9 @@ MonoBehaviour:
   OnDashKill:
     m_PersistentCalls:
       m_Calls: []
+  OnDashThroughEnemy:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-3509399097656645022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,7 +366,7 @@ MonoBehaviour:
   meleeChargeTime: 0.1
   meleeStunTime: 0.1
   meleeKnockbackForce: 1000
-  rangedAttackDamage: 2
+  rangedAttackNormalDamage: 2
   rangedAttackCooldown: 1
   rangedAttackFullAimPenetrationAmount: 3
   rangedMinKnockbackSpeed: 0
@@ -371,6 +374,7 @@ MonoBehaviour:
   rangedMinKnockbackTime: 0
   rangedMaxKnockbackTime: 0.3
   projectileSpawnPoint: {fileID: 7878444258247842620}
+  rangedAttackWaveDamage: 10
   rangedWaveHealthCost: 2
   rangedAimMinAngle: 0
   rangedAimMaxAngle: 45
@@ -381,6 +385,7 @@ MonoBehaviour:
   playerObj: {fileID: 288723119442727263}
   playerAudio: {fileID: 11400000, guid: 8c714273a6b2f4b6b9dbee83e09028df, type: 2}
   dialogueAudio: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
+  characterType: 
   MeleeAttackCooldownMultiplier: 1
   MeleeIsStunAttack: 0
   OnKill:
@@ -649,7 +654,7 @@ MonoBehaviour:
   wrathSlider: {fileID: 1541625689130935793}
   percentagePerKill: 100
   decayGracePeriod: 0
-  decayTime: 0.02
+  decayTime: 0.04
   decayAmount: 1
   percentageToBecomeEnraged: 0.5
   percentageToLoseEnraged: 0
@@ -900,7 +905,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.5, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7456082212192171173

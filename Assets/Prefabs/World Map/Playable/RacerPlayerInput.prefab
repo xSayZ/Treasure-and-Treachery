@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1358987129748573214}
   - component: {fileID: 1358987129748573212}
   - component: {fileID: 1358987129748573213}
+  - component: {fileID: 5728049724715446647}
+  - component: {fileID: 245067014412038948}
   m_Layer: 0
   m_Name: RacerPlayerInput
   m_TagString: Untagged
@@ -140,3 +142,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1358987129748573212}
+  multiplayerEventSystem: {fileID: 5728049724715446647}
+  inputSystemUIInputModule: {fileID: 245067014412038948}
+  dialogueActice: 0
+--- !u!114 &5728049724715446647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358987129748573215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
+--- !u!114 &245067014412038948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358987129748573215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_PointAction: {fileID: 0}
+  m_MoveAction: {fileID: 7621445577363826327, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_SubmitAction: {fileID: -2643970633390606841, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_CancelAction: {fileID: -5121342136215687753, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0

@@ -106,6 +106,8 @@ namespace Game {
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 if (objectiveStages.Length > 0) {
+                    // Get the active player controllers
+                    targets = Backend.GameManager.Instance.ActivePlayerControllers;
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else {
@@ -139,6 +141,7 @@ namespace Game {
             
             private IEnumerator MoveCameraToObjectives(int _stage) {
                 SetPlayerActiveState(false);
+                ClearTargetGroup();
                 
                 objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 

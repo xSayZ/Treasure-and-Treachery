@@ -13,6 +13,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Managers;
 using Game.Racer;
 using UnityEngine.Events;
@@ -36,7 +37,6 @@ namespace Game {
             [SerializeField] public TextMeshProUGUI dialogueText;
             
             [Header("References")]
-            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private Slider progress;
             
             // EventDialogueAudioManager
@@ -49,6 +49,8 @@ namespace Game {
             [SerializeField] public List<PlayerData> playerDatas = new List<PlayerData>();
             
             [SerializeField] private UnityEvent OnDialogueEnd = new UnityEvent();
+            
+            public List<RacerPlayerInput> racerPlayerInputs;
             
             // Internal Bools
             private bool dialogueIsPlaying;
@@ -66,18 +68,17 @@ namespace Game {
             private CarriageRacer carriageRacer;
             
 #region Unity Functions
-
-            
-            void Start()
+            private void Start()
             {
-                if (hasRacer) {
+                if (hasRacer)
+                {
                     carriageRacer = GameObject.FindGameObjectWithTag("Carriage").GetComponent<CarriageRacer>();
                 }
+                
                 if(dialoguePanel != null)
                     dialoguePanel.SetActive(false);
                 
                 dialogueIsPlaying = false;
-                
             }
 
             private void Update()
@@ -91,8 +92,13 @@ namespace Game {
 
 #region Public Functions
 
-            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null) {
-                playerInput.SwitchCurrentActionMap("Menu");
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null)
+            {
+                // Set inputs to dialogue
+                foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
+                {
+                    _racerPlayerInput.dialogueActice = true;
+                }
                 
                 if (hasRacer) {
                     carriageRacer.SetCarriageActive(false);
@@ -137,7 +143,6 @@ namespace Game {
                 story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
                     var _player = playerDatas[_playerIndex];
                     _player.startingHealth += _amount;
-                    _player.test = true;
                     if (_player.startingHealth < 0) { 
                         _player.startingHealth = 0;
                     }
@@ -241,7 +246,12 @@ namespace Game {
                 if (currentTrigger != null)
                     currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 
-                playerInput.SwitchCurrentActionMap("World Map");
+                // Set inputs to not dialogue
+                foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
+                {
+                    _racerPlayerInput.dialogueActice = false;
+                }
+                
                 OnDialogueEnd.Invoke();
                 TogglePauseState();
                 HideChoices();

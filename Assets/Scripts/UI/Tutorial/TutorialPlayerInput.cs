@@ -33,6 +33,7 @@ namespace Game {
             {
                 if (_context.started && !isDone)
                 {
+                    isDone = true;
                     tutorialScreen.PlayerDone(playerIndex);
                 }
             }

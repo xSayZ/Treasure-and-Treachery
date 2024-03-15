@@ -8,6 +8,7 @@ using Game.Backend;
 using Game.Player;
 using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class DialogueAudioWrapper : MonoBehaviour
 {
@@ -64,6 +65,7 @@ public class DialogueAudioWrapper : MonoBehaviour
                 WitchQuestDialogue();
                 break;
             case 3:
+                Debug.Log("helo");
                 GorgonQuestDialogue();
                 break;
             case 4:

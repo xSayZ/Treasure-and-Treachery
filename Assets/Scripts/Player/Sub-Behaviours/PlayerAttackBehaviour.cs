@@ -469,7 +469,6 @@ namespace Game {
                 try
                 {
                     dialogueAudio.PlayerAttackAudio(playerController.PlayerIndex);
-                    Debug.Log("playerId is: " + playerController.PlayerIndex);
                 }
                 catch (Exception e)
                 {

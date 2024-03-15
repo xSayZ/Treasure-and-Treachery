@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Backend;
 using Game.Interactable;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace Game {
             [SerializeField] public UnityEvent offButtonPressed = new UnityEvent();
 
             private void Start() {
-                var _playerCount = GameManager.Instance.ActivePlayerControllers.Count;
+                int _playerCount = GameManager.Instance.ActivePlayerControllers.Count;
                 SinglePlayerToggle();
                 GameManager.OnPlayerDeath.AddListener(ToggleButtons);
 
@@ -27,11 +28,8 @@ namespace Game {
                     buttons[i].gameObject.SetActive(false);
                     
                 }
-                foreach (var button in buttons) {
-                    if(button.gameObject.activeSelf) {
-                        Debug.Log("Button: " + button + " is active");
-                        button.Setup();
-                    }
+                foreach (InteractableButton button in buttons.Where(button => button.gameObject.activeSelf)) {
+                    button.Setup();
                 }
             }
             
@@ -47,6 +45,10 @@ namespace Game {
                 SinglePlayerToggle();
                 buttons[_playerIndex].isPressed = true;
                 buttons[_playerIndex].isToggle = true;
+            }
+
+            private void OnDisable() {
+                GameManager.OnPlayerDeath.RemoveListener(ToggleButtons);
             }
         }
     }

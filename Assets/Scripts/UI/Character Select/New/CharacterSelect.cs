@@ -26,6 +26,7 @@ namespace Game {
             [SerializeField] public List<Transform> PlayerImageTransforms;
             
             [HideInInspector] public UnityEvent UpdateImageTint;
+            public List<PlayerInput> playerInputs;
             
             public static Dictionary<InputDevice, PlayerData> selectedCharacters { get; private set; } = new Dictionary<InputDevice, PlayerData>(); // Input device, selected character player data
             
@@ -37,6 +38,7 @@ namespace Game {
             private void Awake()
             {
                 selectedCharacters = new Dictionary<InputDevice, PlayerData>();
+                playerInputs = new List<PlayerInput>();
             }
 #endregion
 
@@ -96,7 +98,18 @@ namespace Game {
                 if (selectedCharacters.Count == joinedPlayerCount && joinedPlayerCount > 0)
                 {
                     Debug.Log("Starting game");
-                    firstInputDevice = null;
+                    
+                    // Set first input
+                    PlayerInput _lowestPlayerInput = playerInputs[0];
+                    for (int i = 1; i < playerInputs.Count; i++)
+                    {
+                        if (playerInputs[0].playerIndex < _lowestPlayerInput.playerIndex)
+                        {
+                            _lowestPlayerInput = playerInputs[0];
+                        }
+                    }
+                    firstInputDevice = _lowestPlayerInput.devices[0];
+                    
                     LevelManager.Instance.LoadLevel(levelToLoad);
                 }
             }
@@ -105,20 +118,15 @@ namespace Game {
             {
                 if (firstInputDevice == null)
                 {
-                    foreach (InputDevice _inputDevice in InputSystem.devices)
+                    if (selectedCharacters.Count == 0)
                     {
-                        if (selectedCharacters.Count == 0)
+                        foreach (InputDevice _inputDevice in InputSystem.devices)
                         {
                             if (_inputDevice is Keyboard or Gamepad)
                             {
                                 firstInputDevice = _inputDevice;
                                 break;
                             }
-                        }
-                        else if(selectedCharacters.ContainsKey(_inputDevice))
-                        {
-                            firstInputDevice = _inputDevice;
-                            break;
                         }
                     }
                 }

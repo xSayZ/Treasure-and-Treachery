@@ -103,9 +103,10 @@ namespace Game {
 #region Public Functions
 
             public void CameraZoomEvent(int _stage = 0) {
+                targets = Backend.GameManager.Instance.ActivePlayerControllers;
+
                 if (objectiveStages.Length > 0) {
                     // Get the active player controllers
-                    targets = Backend.GameManager.Instance.ActivePlayerControllers;
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else {

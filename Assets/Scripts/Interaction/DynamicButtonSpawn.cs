@@ -45,8 +45,12 @@ namespace Game {
 
             private void ToggleButtons(int _playerIndex) {
                 SinglePlayerToggle();
-                buttons[_playerIndex].isPressed = true;
-                buttons[_playerIndex].isToggle = true;
+                
+                if (_playerIndex < buttons.Count)
+                {
+                    buttons[_playerIndex].isPressed = true;
+                    buttons[_playerIndex].isToggle = true;
+                }
             }
         }
     }

@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -22,6 +24,9 @@ namespace Game {
             [SerializeField] private float knockbackForce;
             [SerializeField] private float aliveTime;
             [SerializeField] private float aliveTimePerHit;
+
+            [Header("Audio")] 
+            [SerializeField] private PlayerAudio playerAudio;
             
             private int damage;
             private PlayerData playerData;
@@ -29,7 +34,20 @@ namespace Game {
             private float currentAliveTime;
 
 #region Unity Functions
-            // Destroy bullet after specified time
+
+            private void Awake()
+            {
+                try
+                {
+                    playerAudio.SoulFireAudio(gameObject);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                }
+            }
+
+// Destroy bullet after specified time
             private void Update()
             {
                 currentAliveTime += Time.deltaTime;

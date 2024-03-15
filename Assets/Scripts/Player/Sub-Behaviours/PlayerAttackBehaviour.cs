@@ -506,6 +506,7 @@ namespace Game {
                         (playerController as IDamageable).Damage(rangedWaveHealthCost, new Vector3(), 0);
                     }
                 }
+                
             }
 
             private void ActivateMeleeWeapon(int _playerIndex)

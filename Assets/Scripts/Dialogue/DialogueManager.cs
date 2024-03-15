@@ -179,7 +179,8 @@ namespace Game {
                 if (value.started)
                 {
                     submitPressed = true;
-                    StartCoroutine(IncrementHoldTime());
+                    if (dialogueIsPlaying)
+                        StartCoroutine(IncrementHoldTime());
                 } 
                 else if (value.canceled) 
                 {
@@ -191,9 +192,15 @@ namespace Game {
 
             public bool GetSubmitPressed() 
             {
-                bool result = holdDownIsDone;
-                holdDownIsDone = false;
-                return result;
+                if (dialogueIsPlaying) {
+                    bool result = holdDownIsDone;
+                    holdDownIsDone = false;
+                    return result;
+                } else {
+                    bool result = submitPressed;
+                    submitPressed = false;
+                    return result;
+                }
             }
             
             public void ChooseChoiceIndex(int choiceIndex) {

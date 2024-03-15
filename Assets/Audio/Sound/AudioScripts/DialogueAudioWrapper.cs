@@ -81,6 +81,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WolfQuestDialogue()
     {
+        if (!wolfIcon)
+        {
+            return;
+        }
+        
         wolfIcon.SetActive(true);
         wolfDialogueInstance.release();
         wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
@@ -93,6 +98,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void DragonQuestDialogue()
     {
+        if (!dragonIcon)
+        {
+            return;
+        }
+
         dragonIcon.SetActive(true);
         dragonDialogueInstance.release();
         dragonDialogueInstance = RuntimeManager.CreateInstance(dragonDialogue);
@@ -105,6 +115,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WitchQuestDialogue()
     {
+        if (!witchIcon)
+        {
+            return;
+        }
+
         witchIcon.SetActive(true);
         witchDialogueInstance.release();
         witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
@@ -117,6 +132,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void GorgonQuestDialogue()
     {
+        if (!gorgonIcon)
+        {
+            return;
+        }
+
         gorgonIcon.SetActive(true);
         gorgonDialogueInstance.release();
         gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
@@ -138,6 +158,11 @@ public class DialogueAudioWrapper : MonoBehaviour
     
     public void BossQuestDialogue()
     {
+        if (!bossIcon)
+        {
+            return;
+        }
+        
         bossIcon.SetActive(true);
         bossDialogueInstance.release();
         bossDialogueInstance = RuntimeManager.CreateInstance(bossDialogue);

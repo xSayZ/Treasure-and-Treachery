@@ -13,9 +13,9 @@ using TMPro;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using Game.Backend;
-using Game.CharacterSelection;
 using Game.Managers;
 using Game.Racer;
+using Game.ScriptableObjects;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,6 +37,9 @@ namespace Game {
             [SerializeField] public TextMeshProUGUI dialogueText;
             
             [Header("References")]
+            [SerializeField] private EventModifiersSO[] eventModifiers;
+            [SerializeField] public List<PlayerData> playerDatas;
+            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private Slider progress;
             
             // EventDialogueAudioManager
@@ -46,11 +49,7 @@ namespace Game {
             [SerializeField] private GameObject[] choices;
             private TextMeshProUGUI[] choicesText;
             
-            [SerializeField] public List<PlayerData> playerDatas = new List<PlayerData>();
-            
             [SerializeField] private UnityEvent OnDialogueEnd = new UnityEvent();
-            
-            public List<RacerPlayerInput> racerPlayerInputs;
             
             // Internal Bools
             private bool dialogueIsPlaying;
@@ -68,17 +67,18 @@ namespace Game {
             private CarriageRacer carriageRacer;
             
 #region Unity Functions
-            private void Start()
+
+            
+            void Start()
             {
-                if (hasRacer)
-                {
+                if (hasRacer) {
                     carriageRacer = GameObject.FindGameObjectWithTag("Carriage").GetComponent<CarriageRacer>();
                 }
-                
                 if(dialoguePanel != null)
                     dialoguePanel.SetActive(false);
                 
                 dialogueIsPlaying = false;
+                
             }
 
             private void Update()
@@ -92,13 +92,8 @@ namespace Game {
 
 #region Public Functions
 
-            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null)
-            {
-                // Set inputs to dialogue
-                foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
-                {
-                    _racerPlayerInput.dialogueActice = true;
-                }
+            public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null) {
+                playerInput.SwitchCurrentActionMap("Menu");
                 
                 if (hasRacer) {
                     carriageRacer.SetCarriageActive(false);
@@ -131,36 +126,26 @@ namespace Game {
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
                 story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.currency += _amount;
-                    if (_player.currency < 0) { 
-                        _player.currency = 0;
-                    }
+                    eventModifiers[_playerIndex].GoldModifier += _amount;
                 });
                 
                 // Changes the health of the player.
                 // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
                 story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.startingHealth += _amount;
-                    _player.test = true;
-                    if (_player.startingHealth < 0) { 
-                        _player.startingHealth = 0;
-                    }
+                    eventModifiers[_playerIndex].HealthModifier += _amount;
+                    
                 });
                 
                 // Changes the personal objective of the player.
                 // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
                 story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.personalObjective += _amount;
+                    eventModifiers[_playerIndex].PersonObjective += _amount;
                 });
                 
                 // Changes the personal objective modifier temporary of the player.
                 // How to use: changePersonalObjectiveModifier(5, 0) - This will add a 5 modifier personal objective modifier to the first player;
                 story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.personalObjectiveMultiplier += _amount;
+                    eventModifiers[_playerIndex].PersonalObjectiveModifier += _amount;
                 });
                 
                 // Modifier to all players removing movement speed
@@ -247,12 +232,7 @@ namespace Game {
                 if (currentTrigger != null)
                     currentTrigger.CurrentDialogueSO.HasBeenRead = true;
                 
-                // Set inputs to not dialogue
-                foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
-                {
-                    _racerPlayerInput.dialogueActice = false;
-                }
-                
+                playerInput.SwitchCurrentActionMap("World Map");
                 OnDialogueEnd.Invoke();
                 TogglePauseState();
                 HideChoices();

@@ -143,7 +143,6 @@ namespace Game {
                 story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
                     var _player = playerDatas[_playerIndex];
                     _player.startingHealth += _amount;
-                    _player.test = true;
                     if (_player.startingHealth < 0) { 
                         _player.startingHealth = 0;
                     }

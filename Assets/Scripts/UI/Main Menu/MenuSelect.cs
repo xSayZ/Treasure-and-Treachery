@@ -46,7 +46,7 @@ namespace Game {
             {
                 
                 bool isPressed = context.action.WasPressedThisFrame();
-                selectedObject = EventSystem.current.currentSelectedGameObject;
+                    selectedObject = EventSystem.current.currentSelectedGameObject;
                 if (selectedObject == null) return;
                 
                 CanvasSwapper(isPressed);

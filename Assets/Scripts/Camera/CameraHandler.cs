@@ -104,6 +104,8 @@ namespace Game {
 
             public void CameraZoomEvent(int _stage = 0) {
                 if (objectiveStages.Length > 0) {
+                    // Get the active player controllers
+                    targets = Backend.GameManager.Instance.ActivePlayerControllers;
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else {
@@ -130,16 +132,14 @@ namespace Game {
             #region Private Functions
 
             private void SetupCamera() {
-                // Get the active player controllers
-                targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
                 targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
                 targetGroup.transform.position = transform.position;
             }
             
             private IEnumerator MoveCameraToObjectives(int _stage) {
-                ClearTargetGroup();
                 SetPlayerActiveState(false);
+                ClearTargetGroup();
                 
                 objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 

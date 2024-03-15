@@ -130,7 +130,7 @@ namespace Game {
                 #region Ink External Functions
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
-                story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
+                /*story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
                     var _player = playerDatas[_playerIndex];
                     _player.currency += _amount;
                     if (_player.currency < 0) { 
@@ -163,7 +163,7 @@ namespace Game {
                 });
                 
                 // Modifier to all players removing movement speed
-                // How to use: changeMovementModifier(-5) - This will remove 5 movement speed from all players;
+                // How to use: changeMovementModifier(-5) - This will remove 5 movement speed from all players;*/
                 
   #endregion
                 
@@ -192,7 +192,7 @@ namespace Game {
 
             public bool GetSubmitPressed() 
             {
-                if (dialogueIsPlaying) {
+                if (typing) {
                     bool result = holdDownIsDone;
                     holdDownIsDone = false;
                     return result;

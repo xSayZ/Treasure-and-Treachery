@@ -11,6 +11,7 @@ using Game.CharacterSelection;
 using UnityEngine;
 using Game.Player;
 using Game.Quest;
+using Game.ScriptableObjects;
 using UnityEngine.Events;
 using Game.WorldMap;
 using UnityEngine.InputSystem;
@@ -44,6 +45,7 @@ namespace Game {
             [SerializeField] private int playersToSpawn = 1;
             [Tooltip("Player Prefabs needs to be assigned")]
             [SerializeField] private List<GameObject> playerVariants = new List<GameObject>();
+            [SerializeField] private EventModifiersSO eventModifiers;
             
             public Dictionary<int, PlayerController> ActivePlayerControllers;
             [HideInInspector] public Utility.Timer timer;
@@ -73,6 +75,7 @@ namespace Game {
                     {
                         playersToSpawn = Input.GetJoystickNames().Length + 1; // +1 is for the keyboard
                         
+                        // ReSharper disable once ConditionIsAlwaysTrueOrFalse
                         if (playersToSpawn > 4)
                         {
                             playersToSpawn = 4;
@@ -107,6 +110,13 @@ namespace Game {
                 UpdateActivePlayerInputs();
                 SwitchFocusedPlayerControlScheme();
             }
+
+            public void LevelComplete() {
+                timer.StopTimer();
+                foreach (var player in ActivePlayerControllers) {
+                    player.Value.EventModifiers.ResetModifiers();
+                }
+            }
 #endregion
 
 #region Private Functions
@@ -131,7 +141,7 @@ namespace Game {
                 DestroyExistingPlayerInstances();
                 AddPlayers();
                 SetupActivePlayers();
-            }
+            } 
 
             /// <summary>
             /// Destroy any existing player instances in the scene

@@ -8,17 +8,15 @@
 
 using UnityEngine;
 
-
 namespace Game {
     namespace ScriptableObjects {
-        public class EventModifiersSO : MonoBehaviour {
+        [CreateAssetMenu(fileName = "EventModifiers", menuName = "ScriptableObjects/Event Modifiers")]
+        public class EventModifiersSO : ScriptableObject {
             // TODO: Remove SerializeField after testing
             [SerializeField] private int healthModifier;
             [SerializeField] private int goldModifier;
+            [SerializeField] private int personalObjective;
             [SerializeField] private int personalObjectiveModifier;
-            [SerializeField] private int dashModifier;
-            [SerializeField]private float damageModifier;
-            
             public int HealthModifier {
                 get => healthModifier;
                 set => healthModifier = value;
@@ -29,27 +27,20 @@ namespace Game {
                 set => goldModifier = value;
             }
             
+            public int PersonObjective {
+                get => personalObjective;
+                set => personalObjective = value;
+            }
+            
             public int PersonalObjectiveModifier {
                 get => personalObjectiveModifier;
                 set => personalObjectiveModifier = value;
-            }
-            
-            public int DashModifier {
-                get => dashModifier;
-                set => dashModifier = value;
-            }
-            
-            public float DamageModifier {
-                get => damageModifier;
-                set => damageModifier = value;
             }
             
             public void ResetModifiers() {
                 healthModifier = 0;
                 goldModifier = 0;
                 personalObjectiveModifier = 0;
-                dashModifier = 0;
-                damageModifier = 0;
             }
         }
     }

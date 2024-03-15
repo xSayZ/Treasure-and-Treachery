@@ -195,6 +195,7 @@ namespace Game {
             public void ChooseChoiceIndex(int choiceIndex) {
                 story.ChooseChoiceIndex(choiceIndex);
                 HideChoices();
+                canContinueToNextLine = true;
                 StartCoroutine(OnAdvanceStory());
             }
 
@@ -212,11 +213,6 @@ namespace Game {
                         if (!typing && canContinueToNextLine) {
                             StartCoroutine(DisplayLine(story.Continue().Trim()));
                         }
-
-                        while (typing)
-                            yield return null;
-                        if (story.canContinue)
-                            yield return new WaitForSeconds(Mathf.Min(1.0f));
                     }
                     if (story.currentChoices.Count > 0) {
                         yield return new WaitForSeconds(1f);
@@ -263,7 +259,7 @@ namespace Game {
 
             private void DisplayChoices(){
                 List<Choice> currentChoices = story.currentChoices;
-
+                canContinueToNextLine = false;
                 if(currentChoices.Count > choices.Length) {
                     Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
                 }
@@ -315,6 +311,7 @@ namespace Game {
                     }
                 }
 
+                canContinueToNextLine = true;
                 typing = false;
             }
             private IEnumerator SelectFirstChoice() 

@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using UnityEngine;
 
 namespace Game {
@@ -17,6 +18,11 @@ namespace Game {
             [SerializeField] private int goldModifier;
             [SerializeField] private int personalObjective;
             [SerializeField] private int personalObjectiveModifier;
+
+            private void OnEnable() {
+                ResetModifiers();
+            }
+
             public int HealthModifier {
                 get => healthModifier;
                 set => healthModifier = value;
@@ -41,6 +47,7 @@ namespace Game {
                 healthModifier = 0;
                 goldModifier = 0;
                 personalObjectiveModifier = 0;
+                personalObjective = 0;
             }
         }
     }

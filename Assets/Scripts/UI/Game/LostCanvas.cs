@@ -6,10 +6,12 @@
 // --------------------------------
 // ------------------------------*/
 
+using Game.CharacterSelection;
 using Game.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -20,11 +22,13 @@ namespace Game {
             [Header("Setup")]
             [SerializeField] private TextMeshProUGUI lostReasonText;
             [SerializeField] private Button retryButton;
+            [SerializeField] private PlayerInput playerInput;
             
             private bool hasRetried;
 
             public void Setup(string _reason)
             {
+                playerInput.SwitchCurrentControlScheme(CharacterSelect.GetFirstInputDevice());
                 lostReasonText.text = _reason.Trim();
             }
 

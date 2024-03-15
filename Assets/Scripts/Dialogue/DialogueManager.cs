@@ -130,36 +130,25 @@ namespace Game {
                 #region Ink External Functions
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
-                story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.currency += _amount;
-                    if (_player.currency < 0) { 
-                        _player.currency = 0;
-                    }
+                story.BindExternalFunction("changeCurrency", (int _amount) => {
+                    
                 });
                 
                 // Changes the health of the player.
                 // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
-                story.BindExternalFunction("changeHealth", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.startingHealth += _amount;
-                    if (_player.startingHealth < 0) { 
-                        _player.startingHealth = 0;
-                    }
+                story.BindExternalFunction("changeHealth", (int _amount) => { 
                 });
                 
                 // Changes the personal objective of the player.
                 // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
-                story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.personalObjective += _amount;
+                story.BindExternalFunction("changePersonalObjective", (int _amount) => {
+                    
                 });
                 
                 // Changes the personal objective modifier temporary of the player.
                 // How to use: changePersonalObjectiveModifier(5, 0) - This will add a 5 modifier personal objective modifier to the first player;
-                story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount, int _playerIndex) => {
-                    var _player = playerDatas[_playerIndex];
-                    _player.personalObjectiveMultiplier += _amount;
+                story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount) => {
+                    
                 });
                 
                 // Modifier to all players removing movement speed
@@ -192,7 +181,7 @@ namespace Game {
 
             public bool GetSubmitPressed() 
             {
-                if (dialogueIsPlaying) {
+                if (typing) {
                     bool result = holdDownIsDone;
                     holdDownIsDone = false;
                     return result;

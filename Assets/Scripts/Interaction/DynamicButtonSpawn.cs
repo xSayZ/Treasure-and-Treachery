@@ -17,6 +17,9 @@ namespace Game {
 
             private void Start() {
                 var _playerCount = GameManager.Instance.ActivePlayerControllers.Count;
+                SinglePlayerToggle();
+                GameManager.OnPlayerDeath.AddListener(ToggleButtons);
+
                 for (int i = 0; i < buttons.Count; i++) {
                     if (i <= _playerCount - 1)
                         continue;
@@ -30,6 +33,20 @@ namespace Game {
                         button.Setup();
                     }
                 }
+            }
+            
+            private void SinglePlayerToggle() {
+                if (GameManager.Instance.ActivePlayerControllers.Count == 1) {
+                    foreach (var button in buttons) {
+                        button.isToggle = true;
+                    }
+                }
+            }
+
+            private void ToggleButtons(int _playerIndex) {
+                SinglePlayerToggle();
+                buttons[_playerIndex].isPressed = true;
+                buttons[_playerIndex].isToggle = true;
             }
         }
     }

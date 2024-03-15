@@ -23,7 +23,7 @@ namespace Game {
             [SerializeField] private DynamicButtonSpawn buttonSpawn;
 
             [Header("Settings")]
-            [SerializeField] private bool isToggle;
+            [SerializeField] public bool isToggle;
             [SerializeField] private bool isTimed;
             [SerializeField] private Color pressedColor;
             [SerializeField] private float timeForButtonToReset;

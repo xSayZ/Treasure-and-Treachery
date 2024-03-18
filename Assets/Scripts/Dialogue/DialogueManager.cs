@@ -181,13 +181,13 @@ namespace Game {
             public bool GetSubmitPressed() 
             {
                 if (typing) {
-                    bool result = holdDownIsDone;
+                    bool _result = holdDownIsDone;
                     holdDownIsDone = false;
-                    return result;
+                    return _result;
                 } else {
-                    bool result = submitPressed;
+                    bool _result = submitPressed;
                     submitPressed = false;
-                    return result;
+                    return _result;
                 }
             }
             

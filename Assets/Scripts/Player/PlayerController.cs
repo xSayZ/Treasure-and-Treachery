@@ -290,7 +290,7 @@ namespace Game
                 
                 StartCoroutine(DamageFlash());
                 
-                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
+                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration, playerInput.devices[0]);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
                 

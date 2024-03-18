@@ -115,8 +115,11 @@ namespace Game {
                 
                 if (sideShowing)
                 {
-                    sideSpriteAnimator.SetTrigger("Close");
-                    sideMaskAnimator.SetTrigger("Close");
+                    if (!sideGoneRunning)
+                    {
+                        sideSpriteAnimator.SetTrigger("Close");
+                        sideMaskAnimator.SetTrigger("Close");
+                    }
                     
                     sideGoneTimeLeft = sideGoneTime;
                     sideGoneRunning = true;

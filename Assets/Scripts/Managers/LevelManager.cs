@@ -7,7 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
-
+using System.Threading.Tasks;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -42,8 +42,7 @@ namespace Game {
                 }
                 else
                 {
-                    worldMapManager.levelToLoad = _levelData;
-                    SceneManager.LoadScene(_levelData.levelPath,LoadSceneMode.Single);
+                    StartCoroutine(LoadSceneDirectly(_levelData));
                 }
             }
 
@@ -51,11 +50,17 @@ namespace Game {
             {
                 LoadLevel(worldMapManager.levelToLoad);
             }
+
+            private IEnumerator LoadSceneDirectly(LevelDataSO _levelData) {
+                worldMapManager.levelToLoad = _levelData;
+                yield return null;
+                SceneManager.LoadScene(_levelData.levelPath,LoadSceneMode.Single);
+            }
             
             private IEnumerator LoadLoadingScreen(LevelDataSO _levelData)
             {
                 worldMapManager.levelToLoad = null;
-                yield return new WaitForSeconds(0.1f);
+                yield return null;
                 worldMapManager.levelToLoad = _levelData;
                 Debug.Log(worldMapManager.levelToLoad.levelPath);
                 SceneManager.LoadScene(loadingScreenPath,LoadSceneMode.Single);

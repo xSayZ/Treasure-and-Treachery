@@ -18,7 +18,7 @@ namespace Game {
         {
             [Header("Interactables")] 
             [SerializeField]
-            private EventReference goldPickupSound;
+            private EventReference goldPickupSound, buttonPressAudio;
             
             [SerializeField] 
             private EventReference carriageHit;
@@ -47,6 +47,21 @@ namespace Game {
                     RuntimeManager.AttachInstanceToGameObject(carriageHitInstance, goldObj.transform);
                     carriageHitInstance.start();
                     carriageHitInstance.release();
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError("[{InteractablesAudio}]: Error Exception " + e);
+                }
+            }
+
+            public void ButtonPressAudio(GameObject gameObject)
+            {
+                try
+                {
+                    EventInstance buttonPressInstance = RuntimeManager.CreateInstance(buttonPressAudio);
+                    RuntimeManager.AttachInstanceToGameObject(buttonPressInstance, gameObject.transform);
+                    buttonPressInstance.start();
+                    buttonPressInstance.release();
                 }
                 catch (Exception e)
                 {

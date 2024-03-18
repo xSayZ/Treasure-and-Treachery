@@ -36,6 +36,8 @@ namespace Game {
             public bool isCompleted;
             [Tooltip("This is used to check if the level is a gameplay scene. If it is a gameplay scene, the game will load the level scene. If it is not a gameplay scene, the game will load the world map scene.")]
             public bool isGameplayScene = true;
+            [Tooltip("This is used to check if the game should display the loading screen. If it is set to false, the game will not display the loading screen.")]
+            public bool allowLoadingScreen = true;            
             [Space]
             [Header("Prerequisites")]
             [Tooltip("This is used to check if the level is locked. If it is locked, the game will not load the level scene.")]

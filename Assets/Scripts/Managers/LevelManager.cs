@@ -36,7 +36,15 @@ namespace Game {
 
             public void LoadLevel(LevelDataSO _levelData)
             {
-                StartCoroutine(LoadLoadingScreen(_levelData));
+                if (_levelData.allowLoadingScreen)
+                {
+                    StartCoroutine(LoadLoadingScreen(_levelData));
+                }
+                else
+                {
+                    worldMapManager.levelToLoad = _levelData;
+                    SceneManager.LoadScene(_levelData.levelPath,LoadSceneMode.Single);
+                }
             }
 
             public void ReloadLevel()

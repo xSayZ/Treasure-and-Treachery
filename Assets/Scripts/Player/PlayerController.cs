@@ -16,6 +16,7 @@ using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
 using Game.UI;
+using UnityEngine.InputSystem.UI;
 
 
 namespace Game
@@ -43,6 +44,7 @@ namespace Game
             [SerializeField] private PlayerHealthBar playerHealthBar;
             [SerializeField] private PauseMenu pauseMenu;
             
+                 
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
@@ -63,7 +65,7 @@ namespace Game
             [Header("Death")]
             [SerializeField] private List<SkinnedMeshRenderer> skinnedMeshRenderers;
             [SerializeField] private Material deathMaterial;
-            [SerializeField] private float deathWaitTime;
+            [SerializeField] private float deathDuration;
             
             // Health variables
             public int Health { get; set; }
@@ -83,9 +85,14 @@ namespace Game
             
             private Rigidbody rigidbody;
             private bool isDead;
-
+            
+            //pause menu independent Controls
+            private MultiplayerEventSystem multiplayerEventSystem;
+            private InputSystemUIInputModule inputSystemUIInputModule;
+            
             public void SetupPlayer(InputDevice _inputDevice)
             {
+                
                 if (_inputDevice != null)
                 {
                     playerInput.SwitchCurrentControlScheme(_inputDevice);
@@ -93,6 +100,10 @@ namespace Game
                 
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
+
+                multiplayerEventSystem = GetComponent<MultiplayerEventSystem>();
+                inputSystemUIInputModule = GetComponent<InputSystemUIInputModule>();
+                
                 PlayerIndex = PlayerData.playerIndex;
                
                 Health = PlayerData.currentHealth;
@@ -229,12 +240,17 @@ namespace Game
 
             public void OnPause(InputAction.CallbackContext value)
             {
-                pauseMenu.StartPauseGameplay(value.started,this);
+                inputSystemUIInputModule.enabled = true;
+                multiplayerEventSystem.enabled = true;
+                pauseMenu.StartPauseGameplay(value.started,this,multiplayerEventSystem,inputSystemUIInputModule);
+                
             }
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
                 pauseMenu.UnPauseGameplay(value.started,this);
+                inputSystemUIInputModule.enabled = false;
+                multiplayerEventSystem.enabled = false;
             }
 
             // Switching input action maps
@@ -282,15 +298,7 @@ namespace Game
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 
-                if (deathMaterial)
-                {
-                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
-                    {
-                        _skinnedMeshRenderer.material = deathMaterial;
-                    }
-                }
-                
-                Destroy(gameObject, deathWaitTime);
+                StartCoroutine(DeathSequence());
             }
             
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
@@ -397,6 +405,30 @@ namespace Game
                 Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
                 Vector3 _result = _isoMatrix.MultiplyPoint3x4(_vector);
                 return _result;
+            }
+
+            private IEnumerator DeathSequence()
+            {
+                float _currentProgress = 0f;
+                float _progressPerUpdate = 1f / (deathDuration / 0.01f);
+                
+                if (deathMaterial)
+                {
+                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
+                    {
+                        _skinnedMeshRenderer.material = deathMaterial;
+                    }
+                    
+                    while (deathMaterial.GetFloat("_DissolveAmount") < 1)
+                    {
+                        _currentProgress += _progressPerUpdate;
+                        deathMaterial.SetFloat("_DissolveAmount", _currentProgress);
+                        
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                }
+                
+                Destroy(gameObject);
             }
 #endregion
 

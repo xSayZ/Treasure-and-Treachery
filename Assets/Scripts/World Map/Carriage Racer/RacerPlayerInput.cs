@@ -11,6 +11,7 @@ using Game.CharacterSelection;
 using Game.Dialogue;
 using Game.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
@@ -30,6 +31,7 @@ namespace Game {
             private bool isFirstInput;
             private CarriageRacer carriageRacer;
             private DialogueManager dialogueManager;
+            private bool isPaused;
 
             private void Awake()
             {
@@ -74,14 +76,23 @@ namespace Game {
                 {
                     dialogueManager.SubmitPressed(_context);
                 }
+
+                if (isPaused)
+                {
+                    _pauseMenu.UnPauseOverWorld(_context.started,this);
+                    isPaused = false;
+                    inputSystemUIInputModule.enabled = false;
+                    multiplayerEventSystem.enabled = false;
+                }
                 
-                _pauseMenu.UnPauseOverWorld(_context.started,this);
             }
 
             public void OnPause(InputAction.CallbackContext _context)
             {
-               
-                _pauseMenu.PauseOverWorld(_context.started,this);
+                inputSystemUIInputModule.enabled = true;
+                multiplayerEventSystem.enabled = true;
+                isPaused = true;
+                _pauseMenu.PauseOverWorld(_context.started,this,multiplayerEventSystem,inputSystemUIInputModule);
                 
             }
         }

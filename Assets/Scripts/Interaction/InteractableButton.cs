@@ -23,9 +23,10 @@ namespace Game {
             [SerializeField] private DynamicButtonSpawn buttonSpawn;
 
             [Header("Settings")]
+            [SerializeField] private Material defaultMaterial;
+            [SerializeField] private Material pressedMaterial;
             [SerializeField] public bool isToggle;
             [SerializeField] private bool isTimed;
-            [SerializeField] private Color pressedColor;
             [SerializeField] private float timeForButtonToReset;
             
             [Header("Debug")]
@@ -62,8 +63,7 @@ namespace Game {
             }
             private void SetMaterial() {
                 renderer = GetComponentInChildren<Renderer>();
-                materials = renderer.materials;
-                originalColor = materials[1].color;
+                renderer.material = defaultMaterial;
             }
 
             private void OnTriggerEnter(Collider other) {
@@ -72,7 +72,7 @@ namespace Game {
                 
                 isPressed = true;
                 
-                renderer.materials[1].color = pressedColor;
+                renderer.material = pressedMaterial;
                 
                 if (CheckAllButtonsPressed()) { 
                     if (buttonSpawn != null)
@@ -106,7 +106,7 @@ namespace Game {
                 coroutineRunning = true;
                 yield return new WaitForSeconds(timeForButtonToReset);
                 isPressed = false;
-                renderer.materials[1].color = originalColor;
+                renderer.material = defaultMaterial;
                 coroutineRunning = false;
                 if(buttonSpawn != null)
                     buttonSpawn.offButtonPressed.Invoke();

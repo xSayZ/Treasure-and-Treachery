@@ -127,7 +127,6 @@ namespace Game {
                 if (CanMove())
                 {
                     MovePlayer();
-                    ClampPlayerPosition();
                 }
                 
                 UpdateMovementAnimationSpeed();
@@ -145,6 +144,14 @@ namespace Game {
                 else if (currentDashRechargeTime > 0)
                 {
                     currentDashRechargeTime -= Time.deltaTime;
+                }
+            }
+
+            private void Update()
+            {
+                if (CanMove())
+                {
+                    ClampPlayerPosition();
                 }
             }
 #endregion

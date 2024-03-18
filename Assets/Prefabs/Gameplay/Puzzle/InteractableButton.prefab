@@ -49,9 +49,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: []
   buttonSpawn: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
+  pressedMaterial: {fileID: 2100000, guid: 6c8f539016ade264c8186c2c3accfbb9, type: 2}
   isToggle: 0
   isTimed: 0
-  pressedColor: {r: 1, g: 0, b: 0.06557369, a: 0}
   timeForButtonToReset: 0
   isPressed: 0
 --- !u!65 &963350949165092388
@@ -214,13 +215,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
     - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c8f539016ade264c8186c2c3accfbb9, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
     - target: {fileID: -5754084199372789682, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Mesh
       value: 

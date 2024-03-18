@@ -22,17 +22,13 @@ namespace Game
             // Start is called before the first frame update
 
             // Update is called once per frame
-            private void Start()
-            {
-                
-            }
 
             private void Update()
             {
                 foreach (Gamepad pad in Gamepad.all)
                 {
-                    pauseMenu.PauseOverWorld(pad.startButton.isPressed, pad);
-                    pauseMenu.UnPauseOverWorld(pad.aButton.isPressed,pad);
+                    //pauseMenu.PauseOverWorld(pad.startButton.isPressed, pad);
+                    //pauseMenu.UnPauseOverWorld(pad.aButton.isPressed,pad);
 
                 }
                 

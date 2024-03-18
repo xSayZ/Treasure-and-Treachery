@@ -338,7 +338,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638461176947746400
+  lastModified: 638463667595037843
   FileSizes: []
   Exists: 1
 --- !u!114 &-6627330813449302297
@@ -476,6 +476,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 45
   Length: 1123
+--- !u!114 &-6250798937288560225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiance/AMB_Cave
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiance/AMB_Cave
+  Guid:
+    Data1: 397240145
+    Data2: 1243924440
+    Data3: 17558698
+    Data4: 801590628
+  Banks:
+  - {fileID: -6796613496901478413}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 26000
 --- !u!114 &-6205509270521562463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,6 +1947,8 @@ MonoBehaviour:
   - {fileID: -530239210326084008}
   - {fileID: -2860270414706231225}
   - {fileID: -3119006533405264276}
+  - {fileID: -6250798937288560225}
+  - {fileID: 1820540558937355959}
   EditorParameters:
   - {fileID: 806776110565252230}
   - {fileID: 3750933606372616956}
@@ -1928,7 +1957,7 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   StringsBanks:
   - {fileID: 8938361992119362503}
-  cacheTime: 638461176955150339
+  cacheTime: 638463667601379976
   cacheVersion: 131609
 --- !u!114 &113248971625124846
 MonoBehaviour:
@@ -2214,6 +2243,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1820540558937355959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Interactables/INT_PressurePad
+  m_EditorClassIdentifier: 
+  Path: event:/Interactables/INT_PressurePad
+  Guid:
+    Data1: 1184791669
+    Data2: 1295568071
+    Data3: -1617602170
+    Data4: -1251805542
+  Banks:
+  - {fileID: -6796613496901478413}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2966
 --- !u!114 &1845438605534966785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2811,7 +2867,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638461176955150339
+  lastModified: 638463667601379976
   FileSizes: []
   Exists: 1
 --- !u!114 &4408219123511015840
@@ -3867,10 +3923,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638461176947940617
+  lastModified: 638463667595539967
   FileSizes:
   - Name: 
-    Value: 7994
+    Value: 8082
   Exists: 1
 --- !u!114 &9157920777133037557
 MonoBehaviour:

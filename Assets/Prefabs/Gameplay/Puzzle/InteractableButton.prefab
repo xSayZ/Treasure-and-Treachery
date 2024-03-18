@@ -31,6 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5183473060087928512}
+  - {fileID: 5280959786747022951}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,37 +48,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttons: []
-  pressedColor: {r: 0.1485849, g: 0.5, b: 0.22311972, a: 0}
-  allButtonsPressed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Game.Interactable.MoveableObject, Assembly-CSharp
-        m_MethodName: MoveToPosition
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Game.Interactable.MoveableObject, Assembly-CSharp
-        m_MethodName: IsMoving
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  offButtonPressed:
-    m_PersistentCalls:
-      m_Calls: []
+  buttonSpawn: {fileID: 0}
+  defaultMaterial: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
+  pressedMaterial: {fileID: 2100000, guid: 6c8f539016ade264c8186c2c3accfbb9, type: 2}
+  isToggle: 0
+  isTimed: 0
+  timeForButtonToReset: 0
   isPressed: 0
 --- !u!65 &963350949165092388
 BoxCollider:
@@ -92,6 +68,89 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1511819, y: 0.30015832, z: 1.1511819}
   m_Center: {x: 0, y: 0.10069397, z: 0}
+--- !u!1 &3901433250349111668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5280959786747022951}
+  - component: {fileID: 5871806196666373250}
+  - component: {fileID: 3032632957776211528}
+  m_Layer: 0
+  m_Name: Frame
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5280959786747022951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901433250349111668}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4247273783494853023}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &5871806196666373250
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901433250349111668}
+  m_Mesh: {fileID: -6360558719573625917, guid: cd9cf9d704c924c45ad6a98552ce18e7, type: 3}
+--- !u!23 &3032632957776211528
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3901433250349111668}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &4640357113680654635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -156,13 +215,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 413fee83b36e6744a9fbf1629d69175e, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
     - target: {fileID: -7511558181221131132, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 73fc5b29b8d0a8549b06228834ca7c80, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d57e564db9047940a337c063ee8a699, type: 2}
+    - target: {fileID: -5754084199372789682, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3736213754101489272, guid: cd9cf9d704c924c45ad6a98552ce18e7, type: 3}
     - target: {fileID: 919132149155446097, guid: df779b46f9e731345a2ccd5881d48a35, type: 3}
       propertyPath: m_Name
       value: Button_MSH

@@ -108,6 +108,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0b6f96502618566458bb29c354faf6fa, type: 2}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: deathMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d5346ea4643a88449729cf3702a8c07, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: dialogueAudio
       value: 
       objectReference: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
@@ -119,6 +123,22 @@ PrefabInstance:
       propertyPath: playerMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 5082eb32a0a5e93489a41e5a92f653af, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 49419559690274304}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 493911962539791742}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 3054807654482659815}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: <PlayerAbilityBehaviour>k__BackingField
       value: 
@@ -289,19 +309,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7324912950135173755, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7347125998203325181, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: popupPersonalObjectiveSprite
@@ -430,9 +450,24 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 5082eb32a0a5e93489a41e5a92f653af, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5d5f9cc0fc9214ca1cc12d5fcfc785, type: 3}
+--- !u!137 &49419559690274304 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5612592463531267408, guid: ab5d5f9cc0fc9214ca1cc12d5fcfc785, type: 3}
+  m_PrefabInstance: {fileID: 5569965138130981712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &493911962539791742 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5446760255404590638, guid: ab5d5f9cc0fc9214ca1cc12d5fcfc785, type: 3}
+  m_PrefabInstance: {fileID: 5569965138130981712}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &2028564188814372545 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: ab5d5f9cc0fc9214ca1cc12d5fcfc785, type: 3}
+  m_PrefabInstance: {fileID: 5569965138130981712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3054807654482659815 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7433374426853153463, guid: ab5d5f9cc0fc9214ca1cc12d5fcfc785, type: 3}
   m_PrefabInstance: {fileID: 5569965138130981712}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4723453685438770689 stripped

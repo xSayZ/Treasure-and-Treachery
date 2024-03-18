@@ -125,6 +125,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc3e1154659e1e24fb702fca5674bf5b, type: 3}
+--- !u!137 &432255487974701983 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1707490381412840562, guid: bc3e1154659e1e24fb702fca5674bf5b, type: 3}
+  m_PrefabInstance: {fileID: 1318876738644856813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2201414375808365244 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bc3e1154659e1e24fb702fca5674bf5b, type: 3}
@@ -163,6 +168,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerAnimator: {fileID: 4838839408666047100}
+--- !u!137 &3885453892261410871 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2857095109883049946, guid: bc3e1154659e1e24fb702fca5674bf5b, type: 3}
+  m_PrefabInstance: {fileID: 1318876738644856813}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4838839408666047100 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: bc3e1154659e1e24fb702fca5674bf5b, type: 3}
@@ -272,6 +282,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 5fe5c2683f4c24d488b351e1dc7c3ac0, type: 2}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: deathMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 4c527f42b6402d24f90d05db14330ede, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: dialogueAudio
       value: 
       objectReference: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
@@ -283,6 +297,18 @@ PrefabInstance:
       propertyPath: playerMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 56cbaad722f5fea44affe91ddc918106, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 3885453892261410871}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 432255487974701983}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: <PlayerAbilityBehaviour>k__BackingField
       value: 

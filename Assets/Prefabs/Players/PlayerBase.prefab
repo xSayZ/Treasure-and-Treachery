@@ -273,7 +273,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 0}
-  EventModifiers: {fileID: 0}
   PlayerIndex: 0
   <PlayerMovementBehaviour>k__BackingField: {fileID: 8393427140100816367}
   <PlayerAttackBehaviour>k__BackingField: {fileID: -3509399097656645022}
@@ -291,9 +290,9 @@ MonoBehaviour:
   damageFlashColor: {r: 1, g: 0, b: 0, a: 0}
   numberOfDamageFlashes: 3
   DamageFlashTime: 0.5
-  meshRenderer: {fileID: 0}
-  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
+  skinnedMeshRenderers: []
+  deathMaterial: {fileID: 0}
+  deathWaitTime: 1.5
   lowFrequency: 0.305
   highFrequency: 1
   duration: 0.25

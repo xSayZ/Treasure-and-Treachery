@@ -27,11 +27,13 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
-            [SerializeField] private GameObject healthCanvas;
+            [SerializeField] private GameObject healthObject;
+            [SerializeField] private GameObject timerObject;
             [SerializeField] private GameObject lostCanvas;
 
             [Header("Settings")]
             [SerializeField] private bool hasHealth;
+            [SerializeField] private bool hasTimer;
             [SerializeField] private string allPlayersDiedText;
             [SerializeField] private string carriageDestroyedText;
             [SerializeField] private string timeRanOutText;
@@ -81,8 +83,13 @@ namespace Game {
                 
                 if (!hasHealth)
                 {
-                    healthCanvas.SetActive(false);
+                    healthObject.SetActive(false);
                     Invincible = true;
+                }
+                
+                if (!hasTimer)
+                {
+                    timerObject.SetActive(false);
                 }
             }
 
@@ -93,7 +100,7 @@ namespace Game {
 
             private void Update()
             {
-                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver)
+                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver && hasTimer)
                 {
                     LevelLost(timeRanOutText);
                 }
@@ -131,7 +138,6 @@ namespace Game {
                     Transform _transform = _player.transform;
                     _transform.position = playerTeleportPosition.transform.position;
                     _transform.localScale = new Vector3(0,0,0);
-                    
                     
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)

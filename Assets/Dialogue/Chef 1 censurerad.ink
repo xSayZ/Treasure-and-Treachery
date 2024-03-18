@@ -1,4 +1,8 @@
-EXTERNAL changeCurrency(amount)
+EXTERNAL changeCurrency(amount, index)
+EXTERNAL changePersonalObjective(amount, index)
+EXTERNAL changeScore (amonut, index)
+EXTERNAL changeKills (amount, index)
+
 EXTERNAL PlayEventAudio(index)
 
 -> paragraph_1
@@ -28,7 +32,10 @@ What do you do?
 * [Accept your fate] -> accept_fate
 
 ===stick_it===
-~ changeCurrency(10)
+~ changeCurrency(10,0)
+~ changeCurrency(10,1)
+~ changeCurrency(10,2)
+~ changeCurrency(10,3)
 He ain't the boss of you! I mean he literally was a couple of hours ago, but you guys died so now he isnt! 
 
 He can't push you around anymore, and to prove this you all decide to push him! with a satisfying “omph!” The newly crowned king lands straight on his ass.
@@ -39,7 +46,10 @@ You all gain <b><color=\#ECBD00>+10 gold</color></b>
 
 -> END
 ===dont_understand===
-~ changeCurrency(-15)
+~ changeCurrency(-15, 0)
+~ changeCurrency(-15, 1)
+~ changeCurrency(-15, 2)
+~ changeCurrency(-15, 3)
 You explain to him that you didn't fully understand and would like for him to repeat himself. 
 
 ”Oh okey!” He says before he repeats his whole speech from the beginning. It’s not until he has once more finished that he looks up and sees the grin on all of your faces.
@@ -54,7 +64,10 @@ You all spend the next thirty minutes trying to comfort the now hysteric Cobalt.
 
 -> END
 ===no_you===
-~ changeCurrency(15)
+~ changeCurrency(-15, 0)
+~ changeCurrency(-15, 1)
+~ changeCurrency(-15, 2)
+~ changeCurrency(-15, 3)
 You see him physically recoil from the impact of your words! 
 
 “Take that back!” He’s got that look in his face he always gets when someone forgets to refill the ink in the copy machine. Pure anger.
@@ -67,7 +80,10 @@ By winning this battle of wits you feel yourself somehow gain<b><color=\#ECBD00>
 
 -> END
 ===accept_fate===
-~ changeCurrency(5)
+~ changeCurrency(5,0)
+~ changeCurrency(5,1)
+~ changeCurrency(5,2)
+~ changeCurrency(5,3)
 You tell him that you don’t really mind him trying to kill you, if you were in his situation you would probably do the same.
 
 “Wow, I didn't think you guys would be so understanding! You know what , I'll go a little easier on you guys!” His earlier frown turns into a little smile and he gives you all an, slightly awkward, wave before he once more disappears in a new puff of smoke!

@@ -1,4 +1,9 @@
-EXTERNAL changeCurrency(amount)
+EXTERNAL changeCurrency(amount, index)
+EXTERNAL changePersonalObjective(amount, index)
+EXTERNAL changeScore (amonut, index)
+EXTERNAL changeKills (amount, index)
+
+EXTERNAL PlayEventAudio(index)
 
 -> paragraph_1
 
@@ -21,7 +26,10 @@ What do you do?
 * [Punch him!] -> punch_king
 
 === take_deal ===
-~ changeCurrency(5)
+~ changeCurrency(5,0)
+~ changeCurrency(5,1)
+~ changeCurrency(5,2)
+~ changeCurrency(5,3)
 You tell him you accept the deal, if you get one month's pay up front!
 
 “I guess that sounds fair… okey!” The king gives all of you <b><color=\#ECBD00>+5 gold</color></b> each
@@ -51,7 +59,10 @@ You all gain <b><color=\#8F00FF>+1 very sad Cobalt :(</color></b>
 
 -> END
 === refuse ===
-~ changeCurrency(15)
+~ changeCurrency(15,0)
+~ changeCurrency(15,1)
+~ changeCurrency(15,2)
+~ changeCurrency(15,3)
 You politely tell him you are still quite set on killing him and therefore have to refuse the deal.
 
 “Wow, you guys have like integrity now? I respect it!” He pauses and seems to be looking at all of you from a new perspective, maybe you guys just got off on the wrong foot al those years ago, maybe all you needed was- 
@@ -62,7 +73,10 @@ You all gain a new sense of integrity, which roughly translates to <b><color=\#E
 
 -> END
 === punch_king ===
-~ changeCurrency(-10)
+~ changeCurrency(-10,0)
+~ changeCurrency(-10,1)
+~ changeCurrency(-10,2)
+~ changeCurrency(-10,3)
 You all decide to punch him!
 
 As your fists are supposed to make an impact with the king, they instead seem to go straight through him instead!

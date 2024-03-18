@@ -9,15 +9,16 @@
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Game {
     namespace Audio {
-        public class VolumeSliders : MonoBehaviour
-        {
-            public Slider sFXVolumeSlider;
-            public Slider vOXVolumeSlider;
-            public Slider musicVolumeSlider;
+        public class VolumeSliders : MonoBehaviour {
+            public Slider MasterVolumeSlider;
+            public Slider SFXVolumeSlider;
+            public Slider VoiceVolumeSlider;
+            public Slider MusicVolumeSlider;
 
             #region Unity Functions
             // Start is called before the first frame update
@@ -37,17 +38,17 @@ namespace Game {
 
     public void UpdateVolumeSliders()
     {
-        var sFXVolume = sFXVolumeSlider.value;
+        var sFXVolume = SFXVolumeSlider.value;
         string sfxvcaPath = "vca:/SFX_VCA";
         VCA sfxvca = RuntimeManager.GetVCA(sfxvcaPath);
         sfxvca.setVolume(sFXVolume);
 
-        var VOXVolume = vOXVolumeSlider.value;
+        var VOXVolume = VoiceVolumeSlider.value;
         string voxvcaPath = "vca:/VOX_VCA";
         VCA voxvca = RuntimeManager.GetVCA(voxvcaPath);
         voxvca.setVolume(VOXVolume);
         
-        var musicVolume = musicVolumeSlider.value;
+        var musicVolume = MusicVolumeSlider.value;
         string musicvcaPath = "vca:/MUSIC_VCA";
         VCA musicvca = RuntimeManager.GetVCA(musicvcaPath);
         musicvca.setVolume(musicVolume);

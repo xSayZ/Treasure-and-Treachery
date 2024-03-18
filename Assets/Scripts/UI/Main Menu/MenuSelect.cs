@@ -28,6 +28,7 @@ namespace Game {
 
             [Header("Menu Button")]
             [SerializeField] private GameObject[] UIButtons;
+            [SerializeField] public GameObject[] settingsFirstSelect;
 
             public GameObject selectedObject;
             [Header("Canvases")]
@@ -39,12 +40,11 @@ namespace Game {
             private GameObject _cachedSelectedObject;
             private void Start()
             {
-                StartCoroutine(SelectFirstChoice()); 
+                StartCoroutine(SelectFirstChoice(UIButtons)); 
             }
             
             public void OnSubmit(InputAction.CallbackContext context)
             {
-                
                 bool isPressed = context.action.WasPressedThisFrame();
                     selectedObject = EventSystem.current.currentSelectedGameObject;
                 if (selectedObject == null) return;
@@ -59,8 +59,8 @@ namespace Game {
                 
                 if (selectedObject.gameObject == UIButtons[1] && isPressed)
                 {
-                    StartCoroutine(SelectFirstSlider());
-                    StopCoroutine(SelectFirstChoice());
+                    StopCoroutine(SelectFirstChoice(UIButtons));
+                    StartCoroutine(SelectFirstChoice(settingsFirstSelect));
                     selectedObject = EventSystem.current.currentSelectedGameObject;
                     Canvases[1].SetActive(true);
                     Canvases[0].SetActive(false);
@@ -80,7 +80,7 @@ namespace Game {
                 {
                     if (context.action.WasPerformedThisFrame() && Canvases[1])
                     {
-                        StartCoroutine(SelectFirstChoice());
+                        StartCoroutine(SelectFirstChoice(UIButtons));
                         StopCoroutine(SelectFirstSlider());
                         
                         Canvases[0].SetActive(true);
@@ -92,15 +92,16 @@ namespace Game {
                 Debug.Log(EventSystem.current.currentSelectedGameObject);
             }
             
-            private IEnumerator SelectFirstChoice() 
+            private IEnumerator SelectFirstChoice(GameObject[] _UIButtons) 
             {
                 // Event System requires we clear it first, then wait
                 // for at least one frame before we set the current selected object.
                 EventSystem.current.SetSelectedGameObject(null);
                 yield return new WaitForEndOfFrame();
-                EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
+                EventSystem.current.SetSelectedGameObject(_UIButtons[0].gameObject);
                 
             }
+
             private IEnumerator SelectFirstSlider() 
             {
                 // Event System requires we clear it first, then wait

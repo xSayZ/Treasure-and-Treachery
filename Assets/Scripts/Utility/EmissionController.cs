@@ -16,8 +16,8 @@ namespace Utility {
     [ExecuteInEditMode] 
     public class EmissionController : MonoBehaviour
     {
-        public List<GameObject> emissiveGameObjects = new List<GameObject>();
-        private List<Material> emissiveMaterials = new List<Material>();
+        public List<Material> emissiveGameObjects = new List<Material>();
+        //public List<Material> emissiveMaterials = new List<Material>();
         
         [SerializeField] private Color _emissionColorValue;
         [Tooltip("Starting emissionMap color")]
@@ -29,7 +29,7 @@ namespace Utility {
 
         public void Update()
         {
-            emissiveMaterials.Clear();
+            //emissiveMaterials.Clear();
             EmissionChanger();
             RemoveAllGameObjects();
             
@@ -41,8 +41,8 @@ namespace Utility {
         {
             for (int i = 0; i < emissiveGameObjects.Count; i++)
             {
-                emissiveMaterials.Add(emissiveGameObjects[i].GetComponent<Renderer>().sharedMaterial);
-                emissiveMaterials[i].SetVector("_EmissionColor", _emissionColorValue*intensity);
+                //emissiveMaterials.Add(emissiveGameObjects[i].GetComponentInChildren<Renderer>().sharedMaterial);
+                emissiveGameObjects[i].SetVector("_EmissionColor", _emissionColorValue*intensity);
                 
             }
         }

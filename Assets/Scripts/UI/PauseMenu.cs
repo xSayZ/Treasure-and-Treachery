@@ -17,6 +17,7 @@ using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 
 namespace Game
@@ -25,45 +26,44 @@ namespace Game
     {
         public class PauseMenu : MonoBehaviour
         {
-            [Header("Pause Stuff")] [SerializeField]
+            [Header("References")] [SerializeField]
             private GameObject pauseCanvas;
 
             public GameObject[] UIButtons;
             [SerializeField] private LevelDataSO level;
-            private List<PlayerInput> inputs;
-            private bool isActive;
-            private bool isPaused;
-            private PlayerInput focusedPad;
-            #region Unity Functions
-
-            // Start is called before the first frame update
             
-
-            private void Start()
-            {
-                StartCoroutine(SelectFirstChoice());
-            }
-
-            public void StartPauseGameplay(bool pressed, PlayerController controller)
+            private bool isActive;
+            private PlayerInput focusedPad;
+            [SerializeField]private MultiplayerEventSystem multiplayerpauseEventSystem;
+            [SerializeField]private InputSystemUIInputModule uiInputModule;
+            #region Unity Functions
+            
+            public void StartPauseGameplay(bool pressed, PlayerController controller,MultiplayerEventSystem multiplayerEventSystem,InputSystemUIInputModule pauseInput)
             {
                 if (pressed && !isActive)
                 {
                     pauseCanvas.SetActive(true);
+                    focusedPad = controller.GetComponent<PlayerInput>();
+                    uiInputModule = pauseInput;
+                    multiplayerpauseEventSystem = multiplayerEventSystem;
+
+                    StartCoroutine(SelectFirstChoice());
+                    
                     GameManager.Instance.TogglePauseState(controller);
-                    
-                    
                     isActive = true;
+
                 }
             }
 
             public void UnPauseGameplay(bool pressed, PlayerController controller)
             {
-                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject)
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && focusedPad == controller.GetComponent<PlayerInput>())
                 {
                     
                     isActive = false;
                     pauseCanvas.SetActive(false);
                     GameManager.Instance.TogglePauseState(controller);
+
                 }
 
                 if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject)
@@ -73,14 +73,20 @@ namespace Game
                 }
             }
 
-            public void PauseOverWorld(bool pressed, RacerPlayerInput racerPlayerInput)
+            public void PauseOverWorld(bool pressed, RacerPlayerInput racerPlayerInput,MultiplayerEventSystem eventSystem,InputSystemUIInputModule ui)
             {
                 if (pressed && !isActive)
                 {
+
                     focusedPad = racerPlayerInput.playerInput;
+                    multiplayerpauseEventSystem = eventSystem;
+                    uiInputModule = ui;
+
                     isActive = true;
-                    isPaused = true;
                     pauseCanvas.SetActive(true);
+
+                    StartCoroutine(SelectFirstChoice());
+
                     ToggleTimeScale();
 
                 }
@@ -90,8 +96,8 @@ namespace Game
             {
                 if (pressed && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && focusedPad == racerPlayerInput.playerInput)
                 {
+                    
                     isActive = false;
-                    isPaused = false;
                     pauseCanvas.SetActive(false);
                     ToggleTimeScale();
                 }
@@ -99,7 +105,6 @@ namespace Game
                 {
                     LevelManager.Instance.LoadLevel(level);
                     isActive = false;
-                    isPaused = false;
                     ToggleTimeScale();
                 }
             }
@@ -110,7 +115,7 @@ namespace Game
 
             private void ToggleTimeScale()
             {
-                float _newTimeScale = isPaused switch
+                float _newTimeScale = isActive switch
                 {
                     true => 0f,
                     false => 1f

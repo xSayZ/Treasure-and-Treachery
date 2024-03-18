@@ -15,6 +15,7 @@ using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
 using Game.UI;
+using UnityEngine.InputSystem.UI;
 
 
 namespace Game
@@ -41,9 +42,12 @@ namespace Game
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
             [SerializeField] private PauseMenu pauseMenu;
-            
+
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
+            [SerializeField]private MultiplayerEventSystem multiplayerEventSystem;
+            [SerializeField]private InputSystemUIInputModule inputSystemUIInputModule;
+            
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
             [SerializeField] private float movementSmoothingSpeed = 1f;
             private Vector3 rawInputMovement;
@@ -58,6 +62,7 @@ namespace Game
             [SerializeField] private Color damageFlashColor;
             [SerializeField] private int numberOfDamageFlashes;
             [SerializeField] private float DamageFlashTime;
+            
             
             // Health variables
             public int Health { get; set; }
@@ -88,7 +93,9 @@ namespace Game
                 {
                     playerInput.SwitchCurrentControlScheme(_inputDevice);
                 }
-                
+
+                multiplayerEventSystem = GetComponent<MultiplayerEventSystem>();
+                inputSystemUIInputModule = GetComponent<InputSystemUIInputModule>();
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;
@@ -227,12 +234,17 @@ namespace Game
 
             public void OnPause(InputAction.CallbackContext value)
             {
-                pauseMenu.StartPauseGameplay(value.started,this);
+                inputSystemUIInputModule.enabled = true;
+                multiplayerEventSystem.enabled = true;
+                pauseMenu.StartPauseGameplay(value.started,this,multiplayerEventSystem,inputSystemUIInputModule);
+                
             }
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
                 pauseMenu.UnPauseGameplay(value.started,this);
+                inputSystemUIInputModule.enabled = false;
+                multiplayerEventSystem.enabled = false;
             }
 
             // Switching input action maps

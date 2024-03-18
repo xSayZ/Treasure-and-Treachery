@@ -14,7 +14,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
-using Game.ScriptableObjects;
 using Game.UI;
 
 
@@ -27,7 +26,6 @@ namespace Game
             [Header("Player Data")]
             [Tooltip("Player Data Scriptable Object")]
             [SerializeField] public PlayerData PlayerData;
-            [SerializeField] public EventModifiersSO EventModifiers;
             public int PlayerIndex;
             
             [field:Header("Sub Behaviours")]
@@ -86,8 +84,6 @@ namespace Game
 
             public void SetupPlayer(InputDevice _inputDevice)
             {
-                AddEventModifiers();
-                
                 if (_inputDevice != null)
                 {
                     playerInput.SwitchCurrentControlScheme(_inputDevice);
@@ -265,12 +261,6 @@ namespace Game
 #endregion
 
 #region Public Functions
-            public void AddEventModifiers() {
-                PlayerData.startingHealth += EventModifiers.HealthModifier;
-                PlayerData.currency += EventModifiers.GoldModifier;
-                PlayerData.personalObjective += EventModifiers.PersonObjective;
-                PlayerData.personalObjectiveMultiplier += EventModifiers.PersonalObjectiveModifier;
-            }
             
             public void SetInvincibility(float _time)
             {

@@ -63,7 +63,7 @@ namespace Game
             [Header("Death")]
             [SerializeField] private List<SkinnedMeshRenderer> skinnedMeshRenderers;
             [SerializeField] private Material deathMaterial;
-            [SerializeField] private float deathWaitTime;
+            [SerializeField] private float deathDuration;
             
             // Health variables
             public int Health { get; set; }
@@ -282,15 +282,7 @@ namespace Game
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 
-                if (deathMaterial)
-                {
-                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
-                    {
-                        _skinnedMeshRenderer.material = deathMaterial;
-                    }
-                }
-                
-                Destroy(gameObject, deathWaitTime);
+                StartCoroutine(DeathSequence());
             }
             
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
@@ -397,6 +389,30 @@ namespace Game
                 Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
                 Vector3 _result = _isoMatrix.MultiplyPoint3x4(_vector);
                 return _result;
+            }
+
+            private IEnumerator DeathSequence()
+            {
+                float _currentProgress = 0f;
+                float _progressPerUpdate = 1f / (deathDuration / 0.01f);
+                
+                if (deathMaterial)
+                {
+                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
+                    {
+                        _skinnedMeshRenderer.material = deathMaterial;
+                    }
+                    
+                    while (deathMaterial.GetFloat("_DissolveAmount") < 1)
+                    {
+                        _currentProgress += _progressPerUpdate;
+                        deathMaterial.SetFloat("_DissolveAmount", _currentProgress);
+                        
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                }
+                
+                Destroy(gameObject);
             }
 #endregion
 

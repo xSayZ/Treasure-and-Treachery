@@ -25,7 +25,6 @@ namespace Game {
             [SerializeField] private List<PlayerData> playerDatas;
             
             private CharacterSelect characterSelect;
-            private bool canSelectCharacter;
             private bool hasSelectedCharacter;
             private int currentSelectedCharacter;
             private Vector2 previousMoveValue;
@@ -92,10 +91,9 @@ namespace Game {
 
             public void OnSubmit(InputAction.CallbackContext _context)
             {
-                if (!_context.started || !canSelectCharacter)
+                if (!_context.started)
                 {
                     UpdateImageTint();
-                    canSelectCharacter = true; // Stops input from triggering when joining
                     return;
                 }
                 

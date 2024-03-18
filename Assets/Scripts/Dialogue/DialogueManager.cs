@@ -130,36 +130,30 @@ namespace Game {
                 #region Ink External Functions
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
-                story.BindExternalFunction("changeCurrency", (int _amount) => {
-                    
-                });
-                
-                // Changes the health of the player.
-                // How to use: changeHealth(2, 0) - This will add 2 health to the first player;
-                story.BindExternalFunction("changeHealth", (int _amount) => { 
+                story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
+                    playerDatas[_playerIndex].currency += _amount;
                 });
                 
                 // Changes the personal objective of the player.
                 // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
-                story.BindExternalFunction("changePersonalObjective", (int _amount) => {
-                    
+                story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
+                    playerDatas[_playerIndex].personalObjective += _amount;
                 });
                 
-                // Changes the personal objective modifier temporary of the player.
-                // How to use: changePersonalObjectiveModifier(5, 0) - This will add a 5 modifier personal objective modifier to the first player;
-                story.BindExternalFunction("changePersonalObjectiveModifier", (int _amount) => {
-                    
+                story.BindExternalFunction("changeScore", (int _amount, int _playerIndex) => {
+                    playerDatas[_playerIndex].points += _amount;
                 });
                 
-                // Modifier to all players removing movement speed
-                // How to use: changeMovementModifier(-5) - This will remove 5 movement speed from all players;
-                
-  #endregion
+                story.BindExternalFunction("changeKills", (int _amount, int _playerIndex) => {
+                    playerDatas[_playerIndex].kills += _amount;
+                });
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
                     // eventDialogueAudioManager.PlayEventAudio(eventIndex);
                 });
+                
+  #endregion
                 
                 StartCoroutine(OnAdvanceStory());
             }

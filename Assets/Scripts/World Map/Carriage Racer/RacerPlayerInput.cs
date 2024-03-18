@@ -6,8 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using Game.CharacterSelection;
 using Game.Dialogue;
+using Game.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
@@ -18,15 +20,22 @@ namespace Game {
         public class RacerPlayerInput : MonoBehaviour
         {
             [Header("Setup")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] public PlayerInput playerInput;
             [SerializeField] private MultiplayerEventSystem multiplayerEventSystem;
             [SerializeField] private InputSystemUIInputModule inputSystemUIInputModule;
-            
+            [SerializeField] private PauseMenu _pauseMenu;
+
             [HideInInspector] public bool dialogueActice;
 
             private bool isFirstInput;
             private CarriageRacer carriageRacer;
             private DialogueManager dialogueManager;
+
+            private void Awake()
+            {
+                _pauseMenu = FindObjectOfType<PauseMenu>(true);
+
+            }
 
             public void Setup(CarriageRacer _carriageRacer, DialogueManager _dialogueManager, InputDevice _inputDevice)
             {
@@ -65,6 +74,15 @@ namespace Game {
                 {
                     dialogueManager.SubmitPressed(_context);
                 }
+                
+                _pauseMenu.UnPauseOverWorld(_context.started,this);
+            }
+
+            public void OnPause(InputAction.CallbackContext _context)
+            {
+               
+                _pauseMenu.PauseOverWorld(_context.started,this);
+                
             }
         }
     }

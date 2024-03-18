@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Game.Backend;
 using Game.Managers;
 using Game.Player;
+using Game.Racer;
 using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -29,13 +30,14 @@ namespace Game
 
             public GameObject[] UIButtons;
             [SerializeField] private LevelDataSO level;
-
+            private List<PlayerInput> inputs;
             private bool isActive;
             private bool isPaused;
-            private Gamepad focusedPad;
+            private PlayerInput focusedPad;
             #region Unity Functions
 
             // Start is called before the first frame update
+            
 
             private void Start()
             {
@@ -48,6 +50,8 @@ namespace Game
                 {
                     pauseCanvas.SetActive(true);
                     GameManager.Instance.TogglePauseState(controller);
+                    
+                    
                     isActive = true;
                 }
             }
@@ -56,6 +60,7 @@ namespace Game
             {
                 if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject)
                 {
+                    
                     isActive = false;
                     pauseCanvas.SetActive(false);
                     GameManager.Instance.TogglePauseState(controller);
@@ -68,28 +73,29 @@ namespace Game
                 }
             }
 
-            public void PauseOverWorld(bool pressed, Gamepad gamepad)
+            public void PauseOverWorld(bool pressed, RacerPlayerInput racerPlayerInput)
             {
                 if (pressed && !isActive)
                 {
-                    focusedPad = gamepad;
+                    focusedPad = racerPlayerInput.playerInput;
                     isActive = true;
                     isPaused = true;
                     pauseCanvas.SetActive(true);
                     ToggleTimeScale();
+
                 }
             }
 
-            public void UnPauseOverWorld(bool pressed,Gamepad gamepad)
+            public void UnPauseOverWorld(bool pressed,RacerPlayerInput racerPlayerInput)
             {
-                if (pressed && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && gamepad == focusedPad)
+                if (pressed && EventSystem.current.currentSelectedGameObject == UIButtons[0].gameObject && focusedPad == racerPlayerInput.playerInput)
                 {
                     isActive = false;
                     isPaused = false;
                     pauseCanvas.SetActive(false);
                     ToggleTimeScale();
                 }
-                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject)
+                if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject && focusedPad == racerPlayerInput.playerInput)
                 {
                     LevelManager.Instance.LoadLevel(level);
                     isActive = false;

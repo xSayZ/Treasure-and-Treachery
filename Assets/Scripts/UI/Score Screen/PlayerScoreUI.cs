@@ -29,6 +29,7 @@ namespace Game {
             [Header("Settings")]
             [SerializeField] private string pointsPrefix;
             [SerializeField] private float startDelay;
+            [SerializeField] private float countUpInterval;
             [SerializeField] private float countUpTime;
             
             [Header("Multipliers")]
@@ -55,10 +56,10 @@ namespace Game {
                 personalObjectiveText.text = (_playerData.personalObjective - _playerData.personalObjectiveThisLevel).ToString();
                 pointsText.text = pointsPrefix + (_playerData.points - _pointsThisLevel);
                 
-                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency, countUpTime / _playerData.currencyThisLevel, true));
-                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills, countUpTime / _playerData.killsThisLevel, true));
-                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective, countUpTime / _playerData.personalObjectiveThisLevel, true));
-                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, countUpTime / _pointsThisLevel, false, pointsPrefix));
+                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency));
+                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills));
+                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective));
+                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, pointsPrefix));
             }
 
             private void Update()
@@ -70,28 +71,22 @@ namespace Game {
                 }
             }
 
-            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, float _delay, bool _lock, string _prefix = "")
+            private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, string _prefix = "")
             {
-                if (_lock) // TEMP
-                {
-                    coroutinesRunning += 1;
-                }
+                float _valuePerInterval = (_endValue - _startValue) / (countUpTime / countUpInterval);
                 
                 yield return new WaitForSeconds(startDelay);
                 
-                int _currentValue = _startValue;
+                float _currentValue = _startValue;
                 
                 while (_currentValue < _endValue)
                 {
-                    _currentValue += 1;
-                    _textMesh.text = _prefix + _currentValue;
-                    yield return new WaitForSeconds(_delay);
+                    _currentValue += _valuePerInterval;
+                    _textMesh.text = _prefix + (int)Mathf.Floor(_currentValue);
+                    yield return new WaitForSeconds(countUpInterval);
                 }
-
-                if (_lock)
-                {
-                    coroutinesRunning -= 1;
-                }
+                
+                _textMesh.text = _prefix + _endValue;
             }
         }
     }

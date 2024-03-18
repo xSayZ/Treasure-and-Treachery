@@ -21,6 +21,7 @@ namespace Game {
         {
             [Header("Setup")]
             [SerializeField] private GameObject playerScoreCanvasPrefab;
+            [SerializeField] private GameObject playerScoreParent;
             [SerializeField] private List<Sprite> playerImages;
             [SerializeField] private List<Sprite> personalObjectiveImages;
             [SerializeField] private LevelDataSO worldMap;
@@ -39,7 +40,7 @@ namespace Game {
                 {
                     foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
-                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
+                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, playerScoreParent.transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
                         playersInScoreScreen++;
                     }
@@ -48,7 +49,7 @@ namespace Game {
                 {
                     for (int i = 0; i < Input.GetJoystickNames().Length; i++)
                     {
-                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, transform).GetComponent<PlayerScoreUI>();
+                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, playerScoreParent.transform).GetComponent<PlayerScoreUI>();
                         playerScoreUI.SetupUI(playerDatas[i], playerImages[i], personalObjectiveImages[i]);
                         playersInScoreScreen++;
                     }

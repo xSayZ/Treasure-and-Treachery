@@ -140,13 +140,18 @@ namespace Game {
                     playerDatas[_playerIndex].personalObjective += _amount;
                 });
                 
+                // Changes the global score of the player.
+                // How to use: changeScore(100, 1) - This will add 100 score to the second player;
                 story.BindExternalFunction("changeScore", (int _amount, int _playerIndex) => {
                     playerDatas[_playerIndex].points += _amount;
                 });
                 
+                // Changes the kills of the player.
+                // How to use: changeKills(1, 0) - This will add 1 kill to the first player;
                 story.BindExternalFunction("changeKills", (int _amount, int _playerIndex) => {
                     playerDatas[_playerIndex].kills += _amount;
                 });
+                
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
@@ -176,13 +181,13 @@ namespace Game {
             public bool GetSubmitPressed() 
             {
                 if (typing) {
-                    bool result = holdDownIsDone;
+                    bool _result = holdDownIsDone;
                     holdDownIsDone = false;
-                    return result;
+                    return _result;
                 } else {
-                    bool result = submitPressed;
+                    bool _result = submitPressed;
                     submitPressed = false;
-                    return result;
+                    return _result;
                 }
             }
             

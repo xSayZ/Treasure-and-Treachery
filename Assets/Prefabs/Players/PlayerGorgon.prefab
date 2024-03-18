@@ -112,6 +112,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 71fd036c53d04c64e962113d7b40aa2b, type: 2}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: deathMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d014038f13a9be4681bdd7328ff052f, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: dialogueAudio
       value: 
       objectReference: {fileID: 11400000, guid: 813c6f1c5c89549049b6bc315541c1ef, type: 2}
@@ -123,6 +127,22 @@ PrefabInstance:
       propertyPath: playerMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 21bc390ed85338948b358dc4b07eb23e, type: 2}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[0]
+      value: 
+      objectReference: {fileID: 1376661380861499292}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[1]
+      value: 
+      objectReference: {fileID: 7956075176778171936}
+    - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
+      propertyPath: skinnedMeshRenderers.Array.data[2]
+      value: 
+      objectReference: {fileID: 8550416290194374026}
     - target: {fileID: 1130416177640512929, guid: a2e895e811ae4784087aff28f749f186, type: 3}
       propertyPath: <PlayerAbilityBehaviour>k__BackingField
       value: 
@@ -426,6 +446,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc9f5819fca8d2d42a13c053c3bcc843, type: 3}
+--- !u!137 &1376661380861499292 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -286323230485960828, guid: dc9f5819fca8d2d42a13c053c3bcc843, type: 3}
+  m_PrefabInstance: {fileID: 8006314586994028568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &4500979608972037513 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: dc9f5819fca8d2d42a13c053c3bcc843, type: 3}
@@ -469,6 +494,16 @@ MonoBehaviour:
   - 0
   - 1
   - 2
+--- !u!137 &7956075176778171936 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -9118227342787594696, guid: dc9f5819fca8d2d42a13c053c3bcc843, type: 3}
+  m_PrefabInstance: {fileID: 8006314586994028568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &8550416290194374026 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1852398790992006546, guid: dc9f5819fca8d2d42a13c053c3bcc843, type: 3}
+  m_PrefabInstance: {fileID: 8006314586994028568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8017973522899973688
 PrefabInstance:
   m_ObjectHideFlags: 0

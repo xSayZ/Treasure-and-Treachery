@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -15,7 +16,6 @@ using UnityEngine.InputSystem;
 using Game.Audio;
 using Game.NAME;
 using Game.UI;
-using UnityEngine.InputSystem.UI;
 
 
 namespace Game
@@ -42,12 +42,9 @@ namespace Game
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
             [SerializeField] private PauseMenu pauseMenu;
-
+            
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
-            [SerializeField]private MultiplayerEventSystem multiplayerEventSystem;
-            [SerializeField]private InputSystemUIInputModule inputSystemUIInputModule;
-            
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
             [SerializeField] private float movementSmoothingSpeed = 1f;
             private Vector3 rawInputMovement;
@@ -63,15 +60,14 @@ namespace Game
             [SerializeField] private int numberOfDamageFlashes;
             [SerializeField] private float DamageFlashTime;
             
+            [Header("Death")]
+            [SerializeField] private List<SkinnedMeshRenderer> skinnedMeshRenderers;
+            [SerializeField] private Material deathMaterial;
+            [SerializeField] private float deathDuration;
             
             // Health variables
             public int Health { get; set; }
             public bool Invincible { get; set; }
-            
-            [Header("Temporary damage animation")]
-            [SerializeField] private MeshRenderer meshRenderer;
-            [SerializeField] private Material defaultMaterial;
-            [SerializeField] private Material damagedMaterial;
             
             [Header("Rumble Settings")]
             [SerializeField,Range(0,1)] private float lowFrequency;
@@ -86,6 +82,7 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
+            private bool isDead;
 
             public void SetupPlayer(InputDevice _inputDevice)
             {
@@ -93,9 +90,7 @@ namespace Game
                 {
                     playerInput.SwitchCurrentControlScheme(_inputDevice);
                 }
-
-                multiplayerEventSystem = GetComponent<MultiplayerEventSystem>();
-                inputSystemUIInputModule = GetComponent<InputSystemUIInputModule>();
+                
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
                 PlayerIndex = PlayerData.playerIndex;
@@ -234,17 +229,12 @@ namespace Game
 
             public void OnPause(InputAction.CallbackContext value)
             {
-                inputSystemUIInputModule.enabled = true;
-                multiplayerEventSystem.enabled = true;
-                pauseMenu.StartPauseGameplay(value.started,this,multiplayerEventSystem,inputSystemUIInputModule);
-                
+                pauseMenu.StartPauseGameplay(value.started,this);
             }
 
             public void OnSubmit(InputAction.CallbackContext value)
             {
                 pauseMenu.UnPauseGameplay(value.started,this);
-                inputSystemUIInputModule.enabled = false;
-                multiplayerEventSystem.enabled = false;
             }
 
             // Switching input action maps
@@ -273,7 +263,6 @@ namespace Game
 #endregion
 
 #region Public Functions
-            
             public void SetInvincibility(float _time)
             {
                 Invincible = true;
@@ -282,15 +271,27 @@ namespace Game
             
             public void Death()
             {
+                if (isDead)
+                {
+                    return;
+                }
+                
+                isDead = true;
+                
                 playerHealthBar.UpdateHealthBar(0);
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 
-                Destroy(gameObject);
+                StartCoroutine(DeathSequence());
             }
             
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
+                if (isDead)
+                {
+                    return;
+                }
+                
                 // Knockback
                 Vector3 _knockbackDirection = transform.position - _damagePosition;
                 _knockbackDirection = new Vector3(_knockbackDirection.x, 0, _knockbackDirection.z).normalized;
@@ -302,7 +303,7 @@ namespace Game
                 
                 StartCoroutine(DamageFlash());
                 
-                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration);
+                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration, playerInput.devices[0]);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
                 
@@ -388,6 +389,30 @@ namespace Game
                 Matrix4x4 _isoMatrix = Matrix4x4.Rotate(_rotation);
                 Vector3 _result = _isoMatrix.MultiplyPoint3x4(_vector);
                 return _result;
+            }
+
+            private IEnumerator DeathSequence()
+            {
+                float _currentProgress = 0f;
+                float _progressPerUpdate = 1f / (deathDuration / 0.01f);
+                
+                if (deathMaterial)
+                {
+                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
+                    {
+                        _skinnedMeshRenderer.material = deathMaterial;
+                    }
+                    
+                    while (deathMaterial.GetFloat("_DissolveAmount") < 1)
+                    {
+                        _currentProgress += _progressPerUpdate;
+                        deathMaterial.SetFloat("_DissolveAmount", _currentProgress);
+                        
+                        yield return new WaitForSeconds(0.01f);
+                    }
+                }
+                
+                Destroy(gameObject);
             }
 #endregion
 

@@ -1,3 +1,9 @@
+EXTERNAL changeCurrency(amount, index)
+EXTERNAL changePersonalObjective(amount, index)
+EXTERNAL changeScore (amonut, index)
+EXTERNAL changeKills (amount, index)
+
+EXTERNAL PlayEventAudio(index)
 -> paragraph_1
 
 === paragraph_1 ===

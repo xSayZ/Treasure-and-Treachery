@@ -27,9 +27,13 @@ namespace Game {
             [SerializeField] private GameObject interactionUI;
             [SerializeField] private GameObject playerTeleportPosition;
             [SerializeField] private Slider healthBar;
+            [SerializeField] private GameObject healthObject;
+            [SerializeField] private GameObject timerObject;
             [SerializeField] private GameObject lostCanvas;
 
             [Header("Settings")]
+            [SerializeField] private bool hasHealth;
+            [SerializeField] private bool hasTimer;
             [SerializeField] private string allPlayersDiedText;
             [SerializeField] private string carriageDestroyedText;
             [SerializeField] private string timeRanOutText;
@@ -76,15 +80,27 @@ namespace Game {
                 
                 Health = carriageData.currentHealth;
                 UpdateHealthBar();
+                
+                if (!hasHealth)
+                {
+                    healthObject.SetActive(false);
+                    Invincible = true;
+                }
+                
+                if (!hasTimer)
+                {
+                    timerObject.SetActive(false);
+                }
             }
 
-            private void Start() {
+            private void Start()
+            {
                 timer = GameManager.Instance.timer;
             }
 
             private void Update()
             {
-                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver)
+                if (timer.GetCurrentTime() >= GameManager.Instance.roundTime && !levelOver && hasTimer)
                 {
                     LevelLost(timeRanOutText);
                 }
@@ -122,7 +138,6 @@ namespace Game {
                     Transform _transform = _player.transform;
                     _transform.position = playerTeleportPosition.transform.position;
                     _transform.localScale = new Vector3(0,0,0);
-                    
                     
                     playersInCarriage++;
                     if (playersInCarriage >= GameManager.Instance.ActivePlayerControllers.Count)
@@ -229,9 +244,9 @@ namespace Game {
                 float _currentProgress = carriageData.currentHealth / (float)carriageData.startingHealth;
                 healthBar.value = _currentProgress;
             }
-            
-            private void KillAllPlayers() {
 
+            private void KillAllPlayers()
+            {
                 for (int i = 0; i < 4; i++) // Hard coded to max 4 players
                 {
                     if (GameManager.Instance.ActivePlayerControllers.ContainsKey(i))

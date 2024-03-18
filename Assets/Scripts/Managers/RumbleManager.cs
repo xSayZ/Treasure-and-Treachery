@@ -9,59 +9,40 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Haptics;
 
 
 namespace Game
 {
-    namespace NAME
+    namespace Backend
     {
         public class RumbleManager : Singleton<RumbleManager>
-
         {
-            private Gamepad gamePad;
-
-            private Coroutine stopRumbleAfterTimeCoroutine;
-
-            #region Unity Functions
-
-            // Start is called before the first frame update
-            void Start()
-            {
-            }
-
-            // Update is called once per frame
-            void Update()
-            {
-            }
-
-            #endregion
-
             #region Public Functions
 
-            public void RumblePulse(float lowFrequency, float highFrequency, float duration)
+            public void RumblePulse(float _lowFrequency, float _highFrequency, float _duration, InputDevice _device)
             {
-                gamePad = Gamepad.current;
-                if (gamePad == null) return;
-
-                gamePad.SetMotorSpeeds(lowFrequency, highFrequency);
-
-                StartCoroutine(StopRumble(duration, gamePad));
+                if (_device is Gamepad _gamepad)
+                {
+                    _gamepad.SetMotorSpeeds(_lowFrequency, _highFrequency);
+                    StartCoroutine(StopRumble(_duration, _gamepad));
+                }
             }
-
             #endregion
 
             #region Private Functions
 
-            private IEnumerator StopRumble(float duration, Gamepad pad)
+            private static IEnumerator StopRumble(float _duration, IDualMotorRumble _gamepad)
             {
-                float elapsedTime = 0f;
+                float _elapsedTime = 0f;
 
-                while (elapsedTime < duration)
+                while (_elapsedTime < _duration)
                 {
-                    elapsedTime += Time.deltaTime;
+                    _elapsedTime += Time.deltaTime;
                     yield return null;
                 }
-                pad.SetMotorSpeeds(0f, 0f);
+                
+                _gamepad.SetMotorSpeeds(0f, 0f);
             }
 
             #endregion

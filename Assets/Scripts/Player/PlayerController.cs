@@ -8,6 +8,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Game.Backend;
 using Game.Core;
 using UnityEngine;
@@ -59,14 +60,14 @@ namespace Game
             [SerializeField] private int numberOfDamageFlashes;
             [SerializeField] private float DamageFlashTime;
             
+            [Header("Death")]
+            [SerializeField] private List<SkinnedMeshRenderer> skinnedMeshRenderers;
+            [SerializeField] private Material deathMaterial;
+            [SerializeField] private float deathWaitTime;
+            
             // Health variables
             public int Health { get; set; }
             public bool Invincible { get; set; }
-            
-            [Header("Temporary damage animation")]
-            [SerializeField] private MeshRenderer meshRenderer;
-            [SerializeField] private Material defaultMaterial;
-            [SerializeField] private Material damagedMaterial;
             
             [Header("Rumble Settings")]
             [SerializeField,Range(0,1)] private float lowFrequency;
@@ -81,6 +82,7 @@ namespace Game
             [SerializeField] private bool debug;
             
             private Rigidbody rigidbody;
+            private bool isDead;
 
             public void SetupPlayer(InputDevice _inputDevice)
             {
@@ -261,7 +263,6 @@ namespace Game
 #endregion
 
 #region Public Functions
-            
             public void SetInvincibility(float _time)
             {
                 Invincible = true;
@@ -270,15 +271,35 @@ namespace Game
             
             public void Death()
             {
+                if (isDead)
+                {
+                    return;
+                }
+                
+                isDead = true;
+                
                 playerHealthBar.UpdateHealthBar(0);
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 
-                Destroy(gameObject);
+                if (deathMaterial)
+                {
+                    foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
+                    {
+                        _skinnedMeshRenderer.material = deathMaterial;
+                    }
+                }
+                
+                Destroy(gameObject, deathWaitTime);
             }
             
             public void DamageTaken(Vector3 _damagePosition, float _knockbackForce)
             {
+                if (isDead)
+                {
+                    return;
+                }
+                
                 // Knockback
                 Vector3 _knockbackDirection = transform.position - _damagePosition;
                 _knockbackDirection = new Vector3(_knockbackDirection.x, 0, _knockbackDirection.z).normalized;

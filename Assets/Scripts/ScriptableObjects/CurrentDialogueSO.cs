@@ -27,6 +27,10 @@ namespace Game {
             private bool hasBeenRead = false;
 
             private void OnEnable() {
+                Reset();
+            }
+
+            public void Reset() {
                 hasBeenRead = false;
             }
 

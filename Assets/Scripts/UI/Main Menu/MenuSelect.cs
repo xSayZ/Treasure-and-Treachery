@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections;
+using Game.WorldMap;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -35,8 +36,9 @@ namespace Game {
             [Header("Resets")]
             [SerializeField] private WorldMap.WorldMapManager worldMapManager;
             [SerializeField] private Backend.CarriageData carriageData;
-            [SerializeField] private Dialogue.CurrentDialogueSO[] currentDialogueSOs;
+            [SerializeField] private Dialogue.CurrentDialogueSO[] currentDialogueSO;
             [SerializeField] private Backend.PlayerData[] playerDatas;
+            [SerializeField] private LevelDataSO[] levels;
 
             private GameObject cachedSelectedObject;
             
@@ -135,13 +137,17 @@ namespace Game {
 
                 worldMapManager.Reset();
                 carriageData.Reset();
-                foreach (Dialogue.CurrentDialogueSO _currentDialogueSO in currentDialogueSOs)
+                foreach (Dialogue.CurrentDialogueSO _currentDialogueSO in currentDialogueSO)
                 {
                     _currentDialogueSO.Reset();
                 }
                 foreach (Backend.PlayerData _playerData in playerDatas)
                 {
                     _playerData.Reset();
+                }
+                foreach (LevelDataSO _level in levels)
+                {
+                    _level.Reset();
                 }
             }
         }

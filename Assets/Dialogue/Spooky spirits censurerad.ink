@@ -59,9 +59,9 @@ Through the power of colleagues you all manage to fend off the gorilla long enou
 
 The gorilla makes an attempt to follow, but is simply no match for the speed of a magical carriage!
 
-Turns out the gorilla really was the scariest spirit, so scary in fact that 5 souls residing in Violet seems to have fled her body to escape the gorilla
+Turns out the gorilla really was the scariest spirit, so scary in fact that 5 souls residing in <color=\#ac70fe> Violet</color> seems to have fled her body to escape the gorilla
 
-Violet loses  <b><color=\#ac70fe>-5 souls</color></b> and you all gain <b><color=\#fc8ff8>+1 angry gorilla on your tail!</color></b>
+<color=\#ac70fe> Violet</color> loses  <b><color=\#ac70fe>-5 souls</color></b> and you all gain <b><color=\#fc8ff8>+1 angry gorilla on your tail!</color></b>
 
 Exciting! -> END
 
@@ -76,6 +76,6 @@ Yucky!
 
 Your murderous actions reward you each with the title of  <b><color=\#fc8ff8>“The Scariest Spirits”.</color></b> Rad!
 
-Although Jade is usually one to break statues, it seems in this case breaking bones was just as rewarding! Jade gets <b><color=\#96d87d>+5 shatter!</color></b>
+Although <color=\#96d87d> Jade</color> is usually one to break statues, it seems in this case breaking bones was just as rewarding! <color=\#96d87d> Jade</color> gets <b><color=\#96d87d>+5 shatter!</color></b>
  -> END
 

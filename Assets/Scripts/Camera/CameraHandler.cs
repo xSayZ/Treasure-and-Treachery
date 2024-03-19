@@ -43,8 +43,11 @@ namespace Game {
             // Private Variables
             private Dictionary<int, PlayerController> targets = new Dictionary<int, PlayerController>();
             private CinemachineTargetGroup playerTargetGroup;
-            // private CinemachineTargetGroup stationaryTargetGroup;
             private ObjectiveTransform objectiveTransform;
+            private bool isMaxZoom;
+            private Transform[] dummyTransforms;
+            private Transform objectiveFollowTransform;
+            private List<int> targetKeys = new List<int>(); 
             
             private bool canZoom = false;
             
@@ -140,17 +143,31 @@ namespace Game {
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
+                objectiveFollowTransform = new GameObject().transform;
+                
+                // Create dummy transforms
+                dummyTransforms = new Transform[4]; // Hard coded to max 4 players
+                for (int i = 0; i < dummyTransforms.Length; i++)
+                {
+                    Transform _dummyTransform = new GameObject().transform;
+                    dummyTransforms[i] = _dummyTransform;
+                    _dummyTransform.name = "DummyTransform" + i;
+                }
+                
+                // Create target group
                 playerTargetGroup = Instantiate(targetGroupPrefab).GetComponent<CinemachineTargetGroup>();
-                // stationaryTargetGroup = Instantiate(targetGroupPrefab).GetComponent<CinemachineTargetGroup>();
                 playerTargetGroup.transform.position = transform.position;
                 virtualCamera.Follow = playerTargetGroup.transform;
             }
 
             private IEnumerator MoveCameraToObjectives(int _stage)
             {
-                ClearTargetGroup();
+                //ClearTargetGroup();
                 SetPlayerActiveState(false);
-                ClearTargetGroup();
+                //ClearTargetGroup();
+                objectiveFollowTransform.position = playerTargetGroup.transform.position;
+                objectiveFollowTransform.rotation = playerTargetGroup.transform.rotation;
+                virtualCamera.Follow = objectiveFollowTransform;
                 
                 objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 
@@ -161,15 +178,15 @@ namespace Game {
                 // Loop through the objective transforms
                 foreach (ObjectiveTransform _objective in objectiveTransforms)
                 {
-                    Vector3 _initialPosition = transform.position;
+                    Vector3 _initialPosition = objectiveFollowTransform.position;
                     float _timeElapsed = 0;
                     
                     // Move the camera to the objective transform
                     while (_timeElapsed < _objective.CameraMoveSpeedToObjective)
                     {
                         CinemachineFramingTransposer _framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom, _timeElapsed / _objective.CameraMoveSpeedToObjective);
-                        transform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom * 1.5f, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        objectiveFollowTransform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
                         _timeElapsed += Time.deltaTime;
                         yield return null;
                     }
@@ -180,11 +197,11 @@ namespace Game {
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
                 objectiveStages[_stage].cameraZoomEndEvent.Invoke();
-                SetTargetGroupCamera();
+                //SetTargetGroupCamera();
+                
+                virtualCamera.Follow = playerTargetGroup.transform;
                 SetPlayerActiveState(true);
             }
-
-            List<int> keys = new List<int>(); 
 
             private void SetTargetGroupCamera()
             {
@@ -199,15 +216,15 @@ namespace Game {
                 var keyCollection = targets.Keys;
                 foreach (var key in keyCollection)
                 {
-                    keys.Add(key);
+                    targetKeys.Add(key);
                 }
                 
                 // Loop through the players and add them to the target group
-                for (int _i = 0; _i < targets.Count; _i++)
+                for (int i = 0; i < targets.Count; i++)
                 {
-                    _targetsArray[_i] = new CinemachineTargetGroup.Target
+                    _targetsArray[i] = new CinemachineTargetGroup.Target
                     {
-                        target = targets[keys[_i]].transform,
+                        target = targets[targetKeys[i]].transform,
                         weight = playerWeight,
                         radius = playerRadius,
                     };
@@ -215,7 +232,7 @@ namespace Game {
                 
                 playerTargetGroup.m_Targets = _targetsArray;
             }
-
+            
             private void UpdateCameraZoom()
             {
                 int _targetCount = targets.Count;
@@ -254,25 +271,42 @@ namespace Game {
                     // Set the camera distance to the average distance between the players
                     virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
-                /*else if (_targetCount == 0)
-                {
-                    virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = maxZoomOut;
-                }
                 
-                Debug.Log(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance);
-                
+                // Update target group to stop players from dragging each other
                 if (virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance == maxZoomOut)
                 {
-                    if (virtualCamera.Follow != stationaryTargetGroup.transform)
+                    if (!isMaxZoom)
                     {
-                        stationaryTargetGroup.transform.position = playerTargetGroup.transform.position;
-                        virtualCamera.Follow = stationaryTargetGroup.transform;
+                        isMaxZoom = true;
+                        CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
+                        var keyCollection = targets.Keys;
+                        foreach (var key in keyCollection)
+                        {
+                            targetKeys.Add(key);
+                        }
+                        
+                        // Loop through the players and add them to the target group
+                        for (int i = 0; i < targets.Count; i++)
+                        {
+                            Transform _dummyTransform = dummyTransforms[i];
+                            _dummyTransform.position = targets[targetKeys[i]].transform.position;
+                            
+                            _targetsArray[i] = new CinemachineTargetGroup.Target
+                            {
+                                target = _dummyTransform,
+                                weight = playerWeight,
+                                radius = playerRadius,
+                            };
+                        }
+                        
+                        playerTargetGroup.m_Targets = _targetsArray; ;
                     }
                 }
                 else
                 {
-                    virtualCamera.Follow = playerTargetGroup.transform;
-                }*/
+                    isMaxZoom = false;
+                    SetTargetGroupCamera();
+                }
             }
 
             private void ClearTargetGroup()

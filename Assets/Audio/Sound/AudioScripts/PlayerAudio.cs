@@ -106,7 +106,6 @@ public EventInstance DragonShoot(GameObject shootObj, bool isCharging, EventInst
 
     if (isCharging == false)
     {
-        Debug.Log("release");
         dragonShootInstance.stop(STOP_MODE.IMMEDIATE);
         dragonShootInstance.release();
     }

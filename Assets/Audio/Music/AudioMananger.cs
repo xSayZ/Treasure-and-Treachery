@@ -30,6 +30,7 @@ namespace Game {
             IntroScene,
             MainTheme,
             VictoryTheme,
+            CaveAmbiance
         }
         
         public enum Action

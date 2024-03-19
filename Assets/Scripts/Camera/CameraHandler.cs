@@ -216,6 +216,7 @@ namespace Game {
                 playerTargetGroup.m_Targets = _targetsArray;
             }
 
+            private bool isMaxZoom;
             private void UpdateCameraZoom()
             {
                 int _targetCount = targets.Count;
@@ -254,25 +255,52 @@ namespace Game {
                     // Set the camera distance to the average distance between the players
                     virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
-                /*else if (_targetCount == 0)
-                {
-                    virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = maxZoomOut;
-                }
                 
-                Debug.Log(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance);
+                //Debug.Log(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance);
                 
                 if (virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance == maxZoomOut)
                 {
-                    if (virtualCamera.Follow != stationaryTargetGroup.transform)
+                    if (!isMaxZoom)
                     {
-                        stationaryTargetGroup.transform.position = playerTargetGroup.transform.position;
-                        virtualCamera.Follow = stationaryTargetGroup.transform;
+                        isMaxZoom = true;
+                        CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
+                    
+                        // Loop through the players and add them to the target group
+                        for (int _i = 0; _i < targets.Count; _i++)
+                        {
+                            GameObject _dummyPlayer = Instantiate(new GameObject());
+                            _dummyPlayer.transform.position = targets[keys[_i]].transform.position;
+                            
+                            _targetsArray[_i] = new CinemachineTargetGroup.Target
+                            {
+                                target = _dummyPlayer.transform,
+                                weight = playerWeight,
+                                radius = playerRadius,
+                            };
+                        }
+                        
+                        playerTargetGroup.m_Targets = _targetsArray; ;
                     }
                 }
                 else
                 {
-                    virtualCamera.Follow = playerTargetGroup.transform;
-                }*/
+                    isMaxZoom = false;
+                    // Create a new array of targets
+                    CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
+                    
+                    // Loop through the players and add them to the target group
+                    for (int _i = 0; _i < targets.Count; _i++)
+                    {
+                        _targetsArray[_i] = new CinemachineTargetGroup.Target
+                        {
+                            target = targets[keys[_i]].transform,
+                            weight = playerWeight,
+                            radius = playerRadius,
+                        };
+                    }
+                    
+                    playerTargetGroup.m_Targets = _targetsArray;
+                }
             }
 
             private void ClearTargetGroup()

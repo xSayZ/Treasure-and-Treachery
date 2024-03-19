@@ -14,25 +14,22 @@ namespace Game {
     namespace UI {
         public class QualityControl : MonoBehaviour {
 
-            [SerializeField] private Button[] _switchQualityButtons;
-            [SerializeField] private Button[] _qualityButtons;
-            [SerializeField] private Button[] _fullscreenButtons;
-            
-            [SerializeField] private Color unselectedColor;
-            [SerializeField] private Color selectedColor;
-            
-            
-            
+            private bool dynamicQualityUsed;
             public void ToggleFullscreen(bool _fullscreen) {
                 Screen.fullScreen = _fullscreen;
             }
             
             public void SwitchQualityLevel(int _qualityLevel) {
+                if (_qualityLevel == QualitySettings.GetQualityLevel()) return;
+                if (dynamicQualityUsed) return;
+                
                 QualitySettings.SetQualityLevel(_qualityLevel);
+                Debug.Log("Quality Level: " + _qualityLevel);
             }
             
-            public void SwitchQualityDynamicallyLevel(bool useDynamicQuality) {
-                if (useDynamicQuality) {
+            public void SwitchQualityDynamicallyLevel(bool _useDynamicQuality) {
+                dynamicQualityUsed = _useDynamicQuality;
+                if (_useDynamicQuality) {
                     switch (SystemInfo.graphicsMemorySize) {
                         case <= 1024:
                             QualitySettings.SetQualityLevel(0);
@@ -54,6 +51,11 @@ namespace Game {
                             break;
                     }
                 }
+                else {
+                    QualitySettings.SetQualityLevel(3);
+                }
+                
+                Debug.Log("Dynamic Quality Level: " + QualitySettings.GetQualityLevel());
             }
         }
     }

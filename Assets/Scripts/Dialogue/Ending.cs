@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Dialogue;
 using Game.Managers;
 using Game.WorldMap;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Scenes {
-        public class Ending : MonoBehaviour {
+        public class Ending : MonoBehaviour
+        {
             [Header("Ink Story")]
+            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private LevelDataSO level;
             [SerializeField] private List<Dialogue> dialogues = new List<Dialogue>();
             [SerializeField] private DialogueManager dialogueManager;
@@ -28,7 +32,10 @@ namespace Game {
                     hasBeenRead = _hasBeenRead;
                 }
             }
-            void Start() {
+            
+            void Start()
+            {
+                playerInput.SwitchCurrentControlScheme(CharacterSelect.GetFirstInputDevice());
                 StartDialogue(0);
             }
             
@@ -40,12 +47,10 @@ namespace Game {
                 
                 dialogueManager.dialogueText = dialogues[_dialogueIndex].dialogueText;
                 dialogueManager.StartDialogue(
-                    dialogues[_dialogueIndex].dialogueSO.StoryJSON,
+                    dialogues[_dialogueIndex].dialogueSO.StoryJSON, 
                     dialogues[_dialogueIndex].dialogueSO.TypingSpeed, 
                     dialogues[_dialogueIndex].dialogueSO.EventImage);
-                foreach (var dialogue in dialogues) {
-                    dialogue.dialogueSO.HasBeenRead = true;
-                }
+                dialogues[_dialogueIndex].dialogueSO.HasBeenRead = true;
             }
 
             public void GetHighestScore() {
@@ -71,6 +76,14 @@ namespace Game {
                 Debug.Log("Player: " + _playersToRandomize[_highestScore].playerIndex + " Highest score: " + _highestScore);
                 
                 dialogueManager.eventImage.sprite = dialogues[_highestScore + 1].eventImage;
+                
+                for (int i = 0; i < dialogues.Count; i++)
+                {
+                    if (i != _highestScore + 1)
+                    {
+                        dialogues[i].dialogueSO.HasBeenRead = true;
+                    }
+                }
                 StartDialogue(_highestScore + 1);
             }
         }

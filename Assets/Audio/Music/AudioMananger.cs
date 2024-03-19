@@ -44,8 +44,8 @@ namespace Game {
         public class AudioMananger : Singleton<AudioMananger>
         {
             [Header("New Event references")]
-            [SerializeField] private EventReference[] musicReferences = new EventReference [8];
-            private EventInstance[] musicInstances = new EventInstance [8];
+            [SerializeField] private EventReference[] musicReferences = new EventReference [9];
+            private EventInstance[] musicInstances = new EventInstance [9];
 
             
            [SerializeField] private EventReference gameOverStinger;

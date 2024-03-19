@@ -47,7 +47,8 @@ namespace Game {
             private bool isMaxZoom;
             private Transform[] dummyTransforms;
             private Transform objectiveFollowTransform;
-            private List<int> targetKeys = new List<int>(); 
+            private List<int> targetKeys = new List<int>();
+            private CinemachineFramingTransposer framingTransposer;
             
             private bool canZoom = false;
             
@@ -140,6 +141,9 @@ namespace Game {
 #region Private Functions
             private void SetupCamera()
             {
+                // Get framing transposer
+                framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
@@ -162,9 +166,11 @@ namespace Game {
 
             private IEnumerator MoveCameraToObjectives(int _stage)
             {
-                //ClearTargetGroup();
+                float _startingCameraDistance = framingTransposer.m_CameraDistance;
+                
                 SetPlayerActiveState(false);
-                //ClearTargetGroup();
+                
+                // Swap to objective follow transform
                 objectiveFollowTransform.position = playerTargetGroup.transform.position;
                 objectiveFollowTransform.rotation = playerTargetGroup.transform.rotation;
                 virtualCamera.Follow = objectiveFollowTransform;
@@ -184,8 +190,7 @@ namespace Game {
                     // Move the camera to the objective transform
                     while (_timeElapsed < _objective.CameraMoveSpeedToObjective)
                     {
-                        CinemachineFramingTransposer _framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom * 1.5f, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        framingTransposer.m_CameraDistance = Mathf.Lerp(framingTransposer.m_CameraDistance, _objective.Zoom * 1.5f, _timeElapsed / _objective.CameraMoveSpeedToObjective);
                         objectiveFollowTransform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
                         _timeElapsed += Time.deltaTime;
                         yield return null;
@@ -197,9 +202,11 @@ namespace Game {
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
                 objectiveStages[_stage].cameraZoomEndEvent.Invoke();
-                //SetTargetGroupCamera();
                 
+                // Swap back to player target group
                 virtualCamera.Follow = playerTargetGroup.transform;
+                framingTransposer.m_CameraDistance = _startingCameraDistance;
+                SetTargetGroupCamera();
                 SetPlayerActiveState(true);
             }
 
@@ -269,11 +276,11 @@ namespace Game {
                     float _averageDistance = _totalDistance / Mathf.Max(1, _targetCount / 2);
                     
                     // Set the camera distance to the average distance between the players
-                    virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
+                    framingTransposer.m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
                 
                 // Update target group to stop players from dragging each other
-                if (virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance == maxZoomOut)
+                if (framingTransposer.m_CameraDistance == maxZoomOut && _targetCount > 1)
                 {
                     if (!isMaxZoom)
                     {
@@ -302,7 +309,7 @@ namespace Game {
                         playerTargetGroup.m_Targets = _targetsArray; ;
                     }
                 }
-                else
+                else if (isMaxZoom)
                 {
                     isMaxZoom = false;
                     SetTargetGroupCamera();

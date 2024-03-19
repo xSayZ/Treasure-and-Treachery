@@ -258,15 +258,19 @@ namespace Game {
                 {
                     List<float> _distances = new List<float>();
                     
+                    var keyCollection = targets.Keys;
+                    targetKeys.Clear();
+                    foreach (var key in keyCollection)
+                    {
+                        targetKeys.Add(key);
+                    }
+                    
                     // Calculate all distances
                     for (int i = 0; i < _targetCount; i++)
                     {
-                        for (int j = 0; j < _targetCount; j++)
+                        for (int j = i + 1; j < _targetCount; j++)
                         {
-                            if (i != j)
-                            {
-                                _distances.Add(Vector3.Distance(targets[i].transform.position, targets[j].transform.position));
-                            }
+                            _distances.Add(Vector3.Distance(targets[targetKeys[i]].transform.position, targets[targetKeys[j]].transform.position));
                         }
                     }
                     

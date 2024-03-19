@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Cinemachine;
 using FMODUnity;
@@ -29,7 +30,7 @@ namespace Game {
             private ObjectiveTransform[] objectiveTransforms;
             
             [Header("Camera Behaviour Settings")]
-            [Range(10f, 20f)]
+            [Range(10f, 25f)]
             [SerializeField] public float maxZoomOut;
             [Range(1, 5)]
             [SerializeField] private int playerWeight;
@@ -252,38 +253,24 @@ namespace Game {
                 int _targetCount = targets.Count;
                 
                 // If there are more than 1 player, calculate the average distance between the players
-                if (_targetCount > 1) {
-                    float _totalDistance = 0f;
-
-                    // Loop through the players and calculate the distance between them
-                    for (int _i = 0; _i < Mathf.Min(_targetCount, 4); _i += 2)
+                if (_targetCount > 1)
+                {
+                    List<float> _distances = new List<float>();
+                    
+                    // Calculate all distances
+                    for (int i = 0; i < _targetCount; i++)
                     {
-                        // If there are more than 2 players, calculate the distance between the players
-                        if (_i + 1 < _targetCount)
+                        for (int j = 0; j < _targetCount; j++)
                         {
-                            _totalDistance += CalculateAverageDistance(targets, _i, _i + 1);
+                            if (i != j)
+                            {
+                                _distances.Add(Vector3.Distance(targets[i].transform.position, targets[j].transform.position));
+                            }
                         }
                     }
-                    
-                    float CalculateAverageDistance(Dictionary<int, PlayerController> _playerControllers, int _index1, int _index2)
-                    {
-                        if (!_playerControllers.ContainsKey(_index1) || !_playerControllers.ContainsKey(_index2)) {
-                            return 0f;
-                        }
-                        
-                        // Get the transform of the players
-                        Transform _transform1 = _playerControllers[_index1].gameObject.transform;
-                        Transform _transform2 = _playerControllers[_index2].gameObject.transform;
-                        
-                        // Calculate the distance between the players
-                        return Vector3.Distance(_transform1.position, _transform2.position);
-                    }
-                    
-                    // Calculate the average distance between the players
-                    float _averageDistance = _totalDistance / Mathf.Max(1, _targetCount / 2);
                     
                     // Set the camera distance to the average distance between the players
-                    framingTransposer.m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
+                    framingTransposer.m_CameraDistance = Mathf.Clamp(_distances.Max(), 10, maxZoomOut);
                 }
                 
                 // Update target group to stop players from dragging each other

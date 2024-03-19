@@ -3916,19 +3916,43 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
-      propertyPath: triggerEnterAudioSettings.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
-      propertyPath: triggerEnterAudioSettings.Array.data[0].action
+      propertyPath: destroyOnTrigger
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[0].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[1].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[1].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[1].eventsToBePlayed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
       propertyPath: triggerEnterAudioSettings.Array.data[0].eventsToBePlayed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[1].eventsToBePlayed
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5700800240619798450, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
@@ -6813,15 +6837,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.411833
+      value: -6.4118347
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.9207306
+      value: 6.9207344
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -21.623243
+      value: -21.62325
       objectReference: {fileID: 0}
     - target: {fileID: 1756606967132418887, guid: 7c0018949c886fc46a587c9f8321ef22, type: 3}
       propertyPath: m_LocalRotation.w
@@ -25397,6 +25421,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettings.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -31944,6 +31972,22 @@ PrefabInstance:
       propertyPath: nextSceneBuildIndex
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 700492712973292599, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700492712973292599, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700492712973292599, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 700492712973292599, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 857566933646197826, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
       propertyPath: m_Name
       value: Carriage
@@ -32006,6 +32050,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3465775485821368501, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601476803380312635, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601476803380312635, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601476803380312635, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601476803380312635, guid: 376ece5cf4ee7c1438a4ea6ad6063eb6, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

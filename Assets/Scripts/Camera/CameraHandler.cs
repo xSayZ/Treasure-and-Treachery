@@ -205,9 +205,8 @@ namespace Game {
                 
                 // Swap back to player target group
                 virtualCamera.Follow = playerTargetGroup.transform;
-                
                 framingTransposer.m_CameraDistance = _startingCameraDistance;
-                
+                SetTargetGroupCamera();
                 SetPlayerActiveState(true);
             }
 
@@ -281,7 +280,7 @@ namespace Game {
                 }
                 
                 // Update target group to stop players from dragging each other
-                if (framingTransposer.m_CameraDistance == maxZoomOut)
+                if (framingTransposer.m_CameraDistance == maxZoomOut && _targetCount > 1)
                 {
                     if (!isMaxZoom)
                     {
@@ -310,7 +309,7 @@ namespace Game {
                         playerTargetGroup.m_Targets = _targetsArray; ;
                     }
                 }
-                else
+                else if (isMaxZoom)
                 {
                     isMaxZoom = false;
                     SetTargetGroupCamera();

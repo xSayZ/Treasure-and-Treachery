@@ -1,20 +1,15 @@
 // /*------------------------------
 // --------------------------------
 // Creation Date: 2024-02-22
-// Author: c21frejo
-// Description: Stuff For menu
+// Author: c21frejo / b22feldy
+// Description: This class is responsible for handling the main menu interactions in the game.
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections;
-using Game.Managers;
-using Game.WorldMap;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -23,54 +18,73 @@ namespace Game {
         public class MenuSelect : MonoBehaviour
         {
             [Header("References")]
-            public PlayerInput _input;
-            public LevelDataSO level;
+            [SerializeField] private PlayerInput input;
+            [SerializeField] private WorldMap.LevelDataSO levelToLoad;
 
             [Header("Menu Button")]
-            [SerializeField] private GameObject[] UIButtons;
+            [SerializeField] private GameObject[] uiButtons;
             [SerializeField] public GameObject[] settingsFirstSelect;
-
-            public GameObject selectedObject;
+            
             [Header("Canvases")]
-            [SerializeField] private GameObject[] Canvases;
+            [SerializeField] private GameObject[] canvases;
+            private GameObject selectedObject;
 
             [Header("Options")] 
-            [SerializeField] private Slider[] VolumeSlider;
-
-            private GameObject _cachedSelectedObject;
-            private void Start()
-            {
-                StartCoroutine(SelectFirstChoice(UIButtons)); 
-            }
+            [SerializeField] private Slider[] volumeSliders;
             
+            [Header("Resets")]
+            [SerializeField] private WorldMap.WorldMapManager worldMapManager;
+            [SerializeField] private Backend.CarriageData carriageData;
+            [SerializeField] private Dialogue.CurrentDialogueSO[] currentDialogueSOs;
+            [SerializeField] private Backend.PlayerData[] playerDatas;
+
+            private GameObject cachedSelectedObject;
+            
+            
+            public void Setup(PlayerInput _input) {
+                StartCoroutine(SelectFirstChoice(uiButtons));
+                input = _input;
+                input.actions["Submit"].performed += OnSubmit;
+                input.actions["Cancel"].performed += OnCancel;
+            }
+
+            private void OnDisable() {
+                input.actions["Submit"].performed -= OnSubmit;
+                input.actions["Cancel"].performed -= OnCancel;
+            }
+
             public void OnSubmit(InputAction.CallbackContext context)
             {
-                bool isPressed = context.action.WasPressedThisFrame();
+                bool _isPressed = context.action.WasPressedThisFrame();
                     selectedObject = EventSystem.current.currentSelectedGameObject;
                 if (selectedObject == null) return;
                 
-                CanvasSwapper(isPressed);
+                CanvasSwapper(_isPressed);
             }
 
             private void CanvasSwapper(bool isPressed)
             {
-                if (selectedObject.gameObject == UIButtons[0] && isPressed)
-                    LevelManager.Instance.LoadLevel(level);
+                if (selectedObject.gameObject == uiButtons[0] && isPressed) {
+                    Managers.LevelManager.Instance.LoadLevel(levelToLoad);
+                    
+                    //Reset
+                    ResetSO();
+                }
                 
-                if (selectedObject.gameObject == UIButtons[1] && isPressed)
+                if (selectedObject.gameObject == uiButtons[1] && isPressed)
                 {
-                    StopCoroutine(SelectFirstChoice(UIButtons));
+                    StopCoroutine(SelectFirstChoice(uiButtons));
                     StartCoroutine(SelectFirstChoice(settingsFirstSelect));
                     selectedObject = EventSystem.current.currentSelectedGameObject;
-                    Canvases[1].SetActive(true);
-                    Canvases[0].SetActive(false);
+                    canvases[1].SetActive(true);
+                    canvases[0].SetActive(false);
                 }
-                if(selectedObject.gameObject == UIButtons[2] && isPressed)
+                if(selectedObject.gameObject == uiButtons[2] && isPressed)
                 {
-                    Canvases[2].SetActive(true);
-                    Canvases[0].SetActive(false);
+                    canvases[2].SetActive(true);
+                    canvases[0].SetActive(false);
                 }
-                if ( Canvases[0].activeSelf && selectedObject.gameObject == UIButtons[3] && isPressed)
+                if ( canvases[0].activeSelf && selectedObject.gameObject == uiButtons[3] && isPressed)
                 {
                     #if UNITY_EDITOR
                     UnityEditor.EditorApplication.isPlaying = false;
@@ -81,16 +95,16 @@ namespace Game {
 
             public void OnCancel(InputAction.CallbackContext context)
             {
-                if (!Canvases[0].activeSelf)
+                if (!canvases[0].activeSelf)
                 {
-                    if (context.action.WasPerformedThisFrame() && Canvases[1])
+                    if (context.action.WasPerformedThisFrame() && canvases[1])
                     {
-                        StartCoroutine(SelectFirstChoice(UIButtons));
+                        StartCoroutine(SelectFirstChoice(uiButtons));
                         StopCoroutine(SelectFirstSlider());
                         
-                        Canvases[0].SetActive(true);
-                        Canvases[1].SetActive(false);
-                        Canvases[2].SetActive(false);
+                        canvases[0].SetActive(true);
+                        canvases[1].SetActive(false);
+                        canvases[2].SetActive(false);
                     }
                 }
 
@@ -113,10 +127,23 @@ namespace Game {
                 // for at least one frame before we set the current selected object.
                 EventSystem.current.SetSelectedGameObject(null);
                 yield return new WaitForEndOfFrame();
-                EventSystem.current.SetSelectedGameObject(VolumeSlider[0].gameObject);
+                EventSystem.current.SetSelectedGameObject(volumeSliders[0].gameObject);
                 
             }
             
+            private void ResetSO() {
+
+                worldMapManager.Reset();
+                carriageData.Reset();
+                foreach (Dialogue.CurrentDialogueSO _currentDialogueSO in currentDialogueSOs)
+                {
+                    _currentDialogueSO.Reset();
+                }
+                foreach (Backend.PlayerData _playerData in playerDatas)
+                {
+                    _playerData.Reset();
+                }
+            }
         }
     }
 }

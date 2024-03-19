@@ -44,6 +44,10 @@ namespace Game {
             public List<LevelDataSO> prerequisites = new List<LevelDataSO>();
 
             private void OnEnable() {
+                Reset();
+            }
+            
+            public void Reset() {
                 isCompleted = false;
             }
         }

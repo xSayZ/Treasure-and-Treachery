@@ -54,6 +54,7 @@ namespace Game {
             private Transform objectiveFollowTransform;
             private List<int> targetKeys = new List<int>();
             private CinemachineFramingTransposer framingTransposer;
+            float startingCameraDistance;
             
             private bool canZoom = false;
             
@@ -145,9 +146,10 @@ namespace Game {
 
 #region Private Functions
             private void SetupCamera()
-            {
+            { 
                 // Get framing transposer
                 framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                startingCameraDistance = framingTransposer.m_CameraDistance;
                 
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
@@ -174,8 +176,6 @@ namespace Game {
 
             private IEnumerator MoveCameraToObjectives(int _stage)
             {
-                float _startingCameraDistance = framingTransposer.m_CameraDistance;
-                
                 SetPlayerActiveState(false);
                 
                 // Swap to objective follow transform
@@ -213,7 +213,7 @@ namespace Game {
                 
                 // Swap back to player target group
                 virtualCamera.Follow = playerTargetGroup.transform;
-                framingTransposer.m_CameraDistance = _startingCameraDistance;
+                framingTransposer.m_CameraDistance = startingCameraDistance;
                 SetTargetGroupCamera();
                 SetPlayerActiveState(true);
             }
@@ -229,6 +229,7 @@ namespace Game {
                 // Create a new array of targets
                 CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
                 var keyCollection = targets.Keys;
+                targetKeys.Clear();
                 foreach (var key in keyCollection)
                 {
                     targetKeys.Add(key);
@@ -257,20 +258,28 @@ namespace Game {
                 {
                     List<float> _distances = new List<float>();
                     
+                    var keyCollection = targets.Keys;
+                    targetKeys.Clear();
+                    foreach (var key in keyCollection)
+                    {
+                        targetKeys.Add(key);
+                    }
+                    
                     // Calculate all distances
                     for (int i = 0; i < _targetCount; i++)
                     {
-                        for (int j = 0; j < _targetCount; j++)
+                        for (int j = i + 1; j < _targetCount; j++)
                         {
-                            if (i != j)
-                            {
-                                _distances.Add(Vector3.Distance(targets[i].transform.position, targets[j].transform.position));
-                            }
+                            _distances.Add(Vector3.Distance(targets[targetKeys[i]].transform.position, targets[targetKeys[j]].transform.position));
                         }
                     }
                     
                     // Set the camera distance to the average distance between the players
                     framingTransposer.m_CameraDistance = Mathf.Clamp(_distances.Max(), 10, maxZoomOut);
+                }
+                else
+                {
+                    framingTransposer.m_CameraDistance = Mathf.Clamp(startingCameraDistance, 10, maxZoomOut);
                 }
                 
                 // Update target group to stop players from dragging each other
@@ -281,6 +290,7 @@ namespace Game {
                         isMaxZoom = true;
                         CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
                         var keyCollection = targets.Keys;
+                        targetKeys.Clear();
                         foreach (var key in keyCollection)
                         {
                             targetKeys.Add(key);

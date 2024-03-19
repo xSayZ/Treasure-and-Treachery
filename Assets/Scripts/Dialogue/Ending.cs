@@ -40,12 +40,10 @@ namespace Game {
                 
                 dialogueManager.dialogueText = dialogues[_dialogueIndex].dialogueText;
                 dialogueManager.StartDialogue(
-                    dialogues[_dialogueIndex].dialogueSO.StoryJSON,
+                    dialogues[_dialogueIndex].dialogueSO.StoryJSON, 
                     dialogues[_dialogueIndex].dialogueSO.TypingSpeed, 
                     dialogues[_dialogueIndex].dialogueSO.EventImage);
-                foreach (var dialogue in dialogues) {
-                    dialogue.dialogueSO.HasBeenRead = true;
-                }
+                dialogues[_dialogueIndex].dialogueSO.HasBeenRead = true;
             }
 
             public void GetHighestScore() {
@@ -71,6 +69,14 @@ namespace Game {
                 Debug.Log("Player: " + _playersToRandomize[_highestScore].playerIndex + " Highest score: " + _highestScore);
                 
                 dialogueManager.eventImage.sprite = dialogues[_highestScore + 1].eventImage;
+                
+                for (int i = 0; i < dialogues.Count; i++)
+                {
+                    if (i != _highestScore + 1)
+                    {
+                        dialogues[i].dialogueSO.HasBeenRead = true;
+                    }
+                }
                 StartDialogue(_highestScore + 1);
             }
         }

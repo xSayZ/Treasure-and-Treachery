@@ -17,6 +17,7 @@ using Game.Backend;
 using Game.CharacterSelection;
 using Game.Managers;
 using Game.Racer;
+using Game.Scenes;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -80,7 +81,14 @@ namespace Game {
                 if(dialoguePanel != null)
                     dialoguePanel.SetActive(false);
                 
-                dialogueIsPlaying = false;
+                if (TryGetComponent(out Ending _ending))
+                {
+                    dialogueIsPlaying = true;
+                }
+                else
+                {
+                    dialogueIsPlaying = false;
+                }
             }
 
             private void Update()

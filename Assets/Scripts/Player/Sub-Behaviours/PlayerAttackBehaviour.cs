@@ -275,6 +275,7 @@ namespace Game {
                     
                     try
                     {
+                        Debug.Log("chargre");
                         playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
                     }
                     catch (Exception e)
@@ -318,6 +319,7 @@ namespace Game {
                     try
                     {
                         playerAudio.DragonShoot(playerObj, false, dragonShootinstance);
+                        Debug.Log("skjut");
                     }
                     catch (Exception e)
                     {

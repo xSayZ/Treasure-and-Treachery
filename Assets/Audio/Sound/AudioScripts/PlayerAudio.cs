@@ -98,7 +98,7 @@ public EventInstance DragonShoot(GameObject shootObj, bool isCharging, EventInst
     
     if (isCharging == true)
     {
-        EventInstance dragonShootInstance = RuntimeManager.CreateInstance(dragonShootAudio);
+        dragonShootInstance = RuntimeManager.CreateInstance(dragonShootAudio);
         dragonShootInstance.setParameterByName("RangeCharge", 0);
         RuntimeManager.AttachInstanceToGameObject(dragonShootInstance, shootObj.transform);
         dragonShootInstance.start();
@@ -106,9 +106,10 @@ public EventInstance DragonShoot(GameObject shootObj, bool isCharging, EventInst
 
     if (isCharging == false)
     {
-        dragonShootinstance.stop(STOP_MODE.IMMEDIATE);
+        Debug.Log("release");
+        dragonShootInstance.stop(STOP_MODE.IMMEDIATE);
+        dragonShootInstance.release();
     }
-    dragonShootInstance.release();
     return dragonShootInstance;
 }
 

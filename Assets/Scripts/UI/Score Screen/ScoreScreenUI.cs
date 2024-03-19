@@ -41,17 +41,27 @@ namespace Game {
                     foreach (KeyValuePair<InputDevice, PlayerData> _kvp in CharacterSelect.selectedCharacters)
                     {
                         PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, playerScoreParent.transform).GetComponent<PlayerScoreUI>();
-                        playerScoreUI.SetupUI(_kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
+                        playerScoreUI.SetupUI(_kvp.Key, this, _kvp.Value, playerImages[_kvp.Value.playerIndex], personalObjectiveImages[_kvp.Value.playerIndex]);
                         playersInScoreScreen++;
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+                    int _inputIndex = 0;
+                    foreach (InputDevice _inputDevice in InputSystem.devices)
                     {
-                        PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, playerScoreParent.transform).GetComponent<PlayerScoreUI>();
-                        playerScoreUI.SetupUI(playerDatas[i], playerImages[i], personalObjectiveImages[i]);
-                        playersInScoreScreen++;
+                        if (_inputDevice is Keyboard or Gamepad)
+                        {
+                            PlayerScoreUI playerScoreUI = Instantiate(playerScoreCanvasPrefab, playerScoreParent.transform).GetComponent<PlayerScoreUI>();
+                            playerScoreUI.SetupUI(_inputDevice, this, playerDatas[_inputIndex], playerImages[_inputIndex], personalObjectiveImages[_inputIndex]);
+                            playersInScoreScreen++;
+                            
+                            _inputIndex++;
+                            if (_inputIndex >= 4)
+                            {
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -63,6 +73,8 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
+                Debug.Log("Submit");
+                
                 if (playersDoneCountingUp == playersInScoreScreen)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);

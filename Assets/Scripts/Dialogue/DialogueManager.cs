@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
 using UnityEngine;
 using Ink.Runtime;
@@ -40,7 +41,8 @@ namespace Game {
             [SerializeField] private Slider progress;
             
             // EventDialogueAudioManager
-            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
+            [Header("Audio")]
+            [SerializeField] private DialogueAudioWrapper dialogueAudio;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -94,6 +96,8 @@ namespace Game {
 
             public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null)
             {
+                story = new Story(_storyJSON.text);
+                
                 // Set inputs to dialogue
                 foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
                 {
@@ -125,9 +129,8 @@ namespace Game {
                 TogglePauseState();
                 
                 dialogueIsPlaying = true;
-                story = new Story(_storyJSON.text);
 
-                #region Ink External Functions
+#region Ink External Functions
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
                 story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
@@ -155,7 +158,15 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
+                    try
+                    {
+                        dialogueAudio.BossEventDialogue(eventIndex);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{DialogueManager}]: Error Exception " + e);
+                    }
+                    
                 });
                 
   #endregion
@@ -212,6 +223,10 @@ namespace Game {
                         if (!typing && canContinueToNextLine) {
                             StartCoroutine(DisplayLine(story.Continue().Trim()));
                         }
+                        while (typing)
+                            yield return null;
+                        if (story.canContinue)
+                            yield return new WaitForSeconds(1.0f);
                     }
                     if (story.currentChoices.Count > 0) {
                         yield return new WaitForSeconds(1f);

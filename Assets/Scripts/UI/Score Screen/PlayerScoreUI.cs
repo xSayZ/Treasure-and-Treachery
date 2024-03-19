@@ -10,6 +10,7 @@ using System.Collections;
 using Game.Backend;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
@@ -18,6 +19,7 @@ namespace Game {
         public class PlayerScoreUI : MonoBehaviour
         {
             [Header("Setup")]
+            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private Image playerImage;
             [SerializeField] private Image personalObjectiveImage;
             [SerializeField] private Image backgroundImage;
@@ -35,12 +37,17 @@ namespace Game {
             [Header("Multipliers")]
             [SerializeField] private int coinPointMultiplier;
             [SerializeField] private int killPointMultiplier;
-            
+
+            private ScoreScreenUI scoreScreenUI;
             private int coroutinesRunning;
             private bool done;
 
-            public void SetupUI(PlayerData _playerData, Sprite _playerImage, Sprite _personalObjectiveImage)
+            public void SetupUI(InputDevice _inputDevice, ScoreScreenUI _scoreScreenUI, PlayerData _playerData, Sprite _playerImage, Sprite _personalObjectiveImage)
             {
+                playerInput.SwitchCurrentControlScheme(_inputDevice);
+                
+                scoreScreenUI = _scoreScreenUI;
+                
                 playerImage.sprite = _playerImage;
                 personalObjectiveImage.sprite = _personalObjectiveImage;
                 
@@ -62,17 +69,29 @@ namespace Game {
                 StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, pointsPrefix));
             }
 
+            public void OnSubmitPressed(InputAction.CallbackContext _value)
+            {
+                scoreScreenUI.OnSubmitPressed(_value);
+            }
+
             private void Update()
             {
                 if (coroutinesRunning <= 0 && !done)
                 {
                     done = true;
-                    FindObjectOfType<ScoreScreenUI>().DoneCountingUp();
+                    scoreScreenUI.DoneCountingUp();
                 }
             }
 
             private IEnumerator CountUp(TextMeshProUGUI _textMesh, int _startValue, int _endValue, string _prefix = "")
             {
+                if (_startValue == _endValue)
+                {
+                    yield break;
+                }
+                
+                coroutinesRunning += 1;
+                
                 float _valuePerInterval = (_endValue - _startValue) / (countUpTime / countUpInterval);
                 
                 yield return new WaitForSeconds(startDelay);
@@ -87,6 +106,8 @@ namespace Game {
                 }
                 
                 _textMesh.text = _prefix + _endValue;
+                
+                coroutinesRunning -= 1;
             }
         }
     }

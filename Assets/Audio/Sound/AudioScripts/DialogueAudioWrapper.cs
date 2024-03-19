@@ -150,10 +150,18 @@ public class DialogueAudioWrapper : MonoBehaviour
     
     public void BossEventDialogue(int dialogueProgressionBoss)
     {
-        EventInstance bossEventDialogueInstance = RuntimeManager.CreateInstance(bossEventDialogue);
-        bossEventDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
-        bossEventDialogueInstance.start();
-        bossEventDialogueInstance.release();
+        try
+        {
+            EventInstance bossEventDialogueInstance = RuntimeManager.CreateInstance(bossEventDialogue);
+                    bossEventDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionBoss);
+                    bossEventDialogueInstance.start();
+                    bossEventDialogueInstance.release();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[{DialogueAudioWrapper}]: Error Exception " + e);
+        }
+        
     }
     
     public void BossQuestDialogue()
@@ -187,7 +195,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogWarning(e);
+            Debug.LogError("[{DialogueAudioWrapper}]: Error Exception " + e);
         }
     }
 

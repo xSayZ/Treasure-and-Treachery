@@ -65,6 +65,11 @@ namespace Game {
                     Canvases[1].SetActive(true);
                     Canvases[0].SetActive(false);
                 }
+                if(selectedObject.gameObject == UIButtons[2] && isPressed)
+                {
+                    Canvases[2].SetActive(true);
+                    Canvases[0].SetActive(false);
+                }
                 if ( Canvases[0].activeSelf && selectedObject.gameObject == UIButtons[3] && isPressed)
                 {
                     #if UNITY_EDITOR

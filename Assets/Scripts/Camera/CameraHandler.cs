@@ -46,6 +46,7 @@ namespace Game {
             private ObjectiveTransform objectiveTransform;
             private bool isMaxZoom;
             private Transform[] dummyTransforms;
+            private Transform objectiveFollowTransform;
             private List<int> targetKeys = new List<int>(); 
             
             private bool canZoom = false;
@@ -142,6 +143,7 @@ namespace Game {
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
+                objectiveFollowTransform = new GameObject().transform;
                 
                 // Create dummy transforms
                 dummyTransforms = new Transform[4]; // Hard coded to max 4 players
@@ -160,9 +162,12 @@ namespace Game {
 
             private IEnumerator MoveCameraToObjectives(int _stage)
             {
-                ClearTargetGroup();
+                //ClearTargetGroup();
                 SetPlayerActiveState(false);
-                ClearTargetGroup();
+                //ClearTargetGroup();
+                objectiveFollowTransform.position = playerTargetGroup.transform.position;
+                objectiveFollowTransform.rotation = playerTargetGroup.transform.rotation;
+                virtualCamera.Follow = objectiveFollowTransform;
                 
                 objectiveStages[_stage].cameraZoomStartEvent.Invoke();
                 
@@ -173,15 +178,15 @@ namespace Game {
                 // Loop through the objective transforms
                 foreach (ObjectiveTransform _objective in objectiveTransforms)
                 {
-                    Vector3 _initialPosition = transform.position;
+                    Vector3 _initialPosition = objectiveFollowTransform.position;
                     float _timeElapsed = 0;
                     
                     // Move the camera to the objective transform
                     while (_timeElapsed < _objective.CameraMoveSpeedToObjective)
                     {
                         CinemachineFramingTransposer _framingTransposer = virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
-                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom, _timeElapsed / _objective.CameraMoveSpeedToObjective);
-                        transform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        _framingTransposer.m_CameraDistance = Mathf.Lerp(_framingTransposer.m_CameraDistance, _objective.Zoom * 1.5f, _timeElapsed / _objective.CameraMoveSpeedToObjective);
+                        objectiveFollowTransform.position = Vector3.Lerp(_initialPosition, _objective.Transform.position, _timeElapsed / _objective.CameraMoveSpeedToObjective);
                         _timeElapsed += Time.deltaTime;
                         yield return null;
                     }
@@ -192,7 +197,9 @@ namespace Game {
                 // Set the camera to zoom and update the player movement
                 canZoom = true;
                 objectiveStages[_stage].cameraZoomEndEvent.Invoke();
-                SetTargetGroupCamera();
+                //SetTargetGroupCamera();
+                
+                virtualCamera.Follow = playerTargetGroup.transform;
                 SetPlayerActiveState(true);
             }
 

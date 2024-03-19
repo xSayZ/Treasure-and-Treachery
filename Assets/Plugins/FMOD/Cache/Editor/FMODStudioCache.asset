@@ -365,7 +365,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638464500256112417
+  lastModified: 638464555483793804
   FileSizes: []
   Exists: 1
 --- !u!114 &-6627330813449302297
@@ -607,6 +607,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &-5961751636022753063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VictoryScene2/VictoryProg
+  m_EditorClassIdentifier: 
+  Name: VictoryProg
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 707962065
+    data2: 4110440653
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &-5862090554224905889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1584,6 +1608,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1023
+--- !u!114 &-923705099282015423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/VictoryScene2
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/VictoryScene2
+  Guid:
+    Data1: -615877654
+    Data2: 1169048659
+    Data3: -1882922623
+    Data4: -152521563
+  Banks:
+  - {fileID: 4218797353800513367}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 7151773088884886663}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 80857
 --- !u!114 &-734280681172101692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1951,6 +2003,7 @@ MonoBehaviour:
   - {fileID: 1820540558937355959}
   - {fileID: 2244622905682802862}
   - {fileID: -6924749809849436413}
+  - {fileID: 4770556950462195858}
   EditorParameters:
   - {fileID: 806776110565252230}
   - {fileID: 3750933606372616956}
@@ -1959,7 +2012,7 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   StringsBanks:
   - {fileID: 8938361992119362503}
-  cacheTime: 638464500257133066
+  cacheTime: 638464555484335884
   cacheVersion: 131609
 --- !u!114 &113248971625124846
 MonoBehaviour:
@@ -2704,30 +2757,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2406
---- !u!114 &3685729288914326522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/PLY_DRAG_Crossbow/RangeCharge
-  m_EditorClassIdentifier: 
-  Name: RangeCharge
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 37816804
-    data2: 668158678
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
 --- !u!114 &3732259505323501045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2873,7 +2902,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638464500257133066
+  lastModified: 638464555484335884
   FileSizes: []
   Exists: 1
 --- !u!114 &4344160753167907814
@@ -2950,11 +2979,10 @@ MonoBehaviour:
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
-  Parameters:
-  - {fileID: 3685729288914326522}
+  Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1400
+  Length: 1300
 --- !u!114 &4763009242827188846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2982,6 +3010,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1941
+--- !u!114 &4770556950462195858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/VictoryScene2
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/VictoryScene2
+  Guid:
+    Data1: -615877654
+    Data2: 1169048659
+    Data3: -1882922623
+    Data4: -152521563
+  Banks:
+  - {fileID: 4218797353800513367}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -5961751636022753063}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 80857
 --- !u!114 &4828840893300425991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3461,6 +3517,30 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 7215
+--- !u!114 &7151773088884886663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/VictoryScene2/VictoryProg
+  m_EditorClassIdentifier: 
+  Name: VictoryProg
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 707962065
+    data2: 4110440653
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &7189600826541947138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3871,10 +3951,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638464500256144184
+  lastModified: 638464555483859461
   FileSizes:
   - Name: 
-    Value: 8068
+    Value: 8100
   Exists: 1
 --- !u!114 &9157920777133037557
 MonoBehaviour:

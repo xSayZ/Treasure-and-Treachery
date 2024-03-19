@@ -12,13 +12,13 @@ EXTERNAL PlayEventAudio(index)
 “Well hello employees!” from a puff of red smoke, your boss shows up!
 
 It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with Mr. Red is that he is now a king!
-
-“Ew, you guys are like super ugly! I mean, you weren't all that pretty before, but now you're hideous!” He gives each one of you a once over, seemingly more disgusted for each one of you he looks at. 
+~ PlayEventAudio(1)
+“Ew, you guys are like super ugly! I mean, you weren't all that beautiful before, but now you're like super-super ugly!” He gives each one of you a once over, seemingly more disgusted for each one of you he looks at. 
 
 “I quite like this kingdom of mine, but this world seems to have one major flaw…”
 
 “YOU.” 
-
+~ PlayEventAudio(2)
 “I really would rather my new paradise not be infected by my old annoying employees, so if you take so much as a step closer to my magnificent castle, I have decided to end you! You understand don't you?” 
 
 What do you do?

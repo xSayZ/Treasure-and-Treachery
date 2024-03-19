@@ -22,6 +22,10 @@ namespace Game {
             
             private void OnEnable()
             {
+                Reset();
+            }
+
+            public void Reset() {
                 currentHealth = startingHealth;
             }
         }

@@ -23,12 +23,16 @@ namespace Game {
             [HideInInspector] public Quaternion carriageRotation;
 
             private void OnEnable() {
+                Reset();
+            }
+
+            public void Reset() {
                 carriagePosition = new Vector3(62.75653f, 2f, 143.5298f);
                 carriageRotation = new Quaternion();
                 levelToLoad = null;
                 completedLevels.Clear();
             }
-            
+
             public void MarkLevelAsCompleted(LevelDataSO _level) {
                 if (_level == null)
                     return;

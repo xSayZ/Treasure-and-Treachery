@@ -860,7 +860,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 535636948720580365, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: isTimed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 535636948720580365, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: timeForButtonToReset
@@ -868,7 +868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 535636949121628641, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: isTimed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 535636949121628641, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: timeForButtonToReset
@@ -876,7 +876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 535636949668767235, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: isTimed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 535636949668767235, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: timeForButtonToReset
@@ -884,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 535636950658452903, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: isTimed
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 535636950658452903, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: timeForButtonToReset
@@ -16259,6 +16259,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2064079527}
     m_Modifications:
+    - target: {fileID: 535636948720580365, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
+      propertyPath: isToggle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 734214703786929720, guid: 141bd076b6c19e646a5b797e275367ae, type: 3}
       propertyPath: m_Name
       value: ButtonsGate (1)
@@ -26262,8 +26266,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 586e602af63440e479fefbf779a7f5ca, type: 3}
     - target: {fileID: 1835816088228426174, guid: b0bc10dcd07457340874a73be446ff45, type: 3}
+      propertyPath: InteractionTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1835816088228426174, guid: b0bc10dcd07457340874a73be446ff45, type: 3}
       propertyPath: WeightMultiplier
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1835816088228426174, guid: b0bc10dcd07457340874a73be446ff45, type: 3}
       propertyPath: itemPickedUpFirstTime.m_PersistentCalls.m_Calls.Array.size

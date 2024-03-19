@@ -94,6 +94,8 @@ namespace Game {
 
             public void StartDialogue(TextAsset _storyJSON, float _typingSpeed, Sprite _eventImage, DialogueTrigger _trigger=null)
             {
+                story = new Story(_storyJSON.text);
+                
                 // Set inputs to dialogue
                 foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
                 {
@@ -125,9 +127,8 @@ namespace Game {
                 TogglePauseState();
                 
                 dialogueIsPlaying = true;
-                story = new Story(_storyJSON.text);
 
-                #region Ink External Functions
+#region Ink External Functions
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
                 story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
@@ -140,13 +141,18 @@ namespace Game {
                     playerDatas[_playerIndex].personalObjective += _amount;
                 });
                 
+                // Changes the global score of the player.
+                // How to use: changeScore(100, 1) - This will add 100 score to the second player;
                 story.BindExternalFunction("changeScore", (int _amount, int _playerIndex) => {
                     playerDatas[_playerIndex].points += _amount;
                 });
                 
+                // Changes the kills of the player.
+                // How to use: changeKills(1, 0) - This will add 1 kill to the first player;
                 story.BindExternalFunction("changeKills", (int _amount, int _playerIndex) => {
                     playerDatas[_playerIndex].kills += _amount;
                 });
+                
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
@@ -176,13 +182,13 @@ namespace Game {
             public bool GetSubmitPressed() 
             {
                 if (typing) {
-                    bool result = holdDownIsDone;
+                    bool _result = holdDownIsDone;
                     holdDownIsDone = false;
-                    return result;
+                    return _result;
                 } else {
-                    bool result = submitPressed;
+                    bool _result = submitPressed;
                     submitPressed = false;
-                    return result;
+                    return _result;
                 }
             }
             
@@ -207,6 +213,10 @@ namespace Game {
                         if (!typing && canContinueToNextLine) {
                             StartCoroutine(DisplayLine(story.Continue().Trim()));
                         }
+                        while (typing)
+                            yield return null;
+                        if (story.canContinue)
+                            yield return new WaitForSeconds(1.0f);
                     }
                     if (story.currentChoices.Count > 0) {
                         yield return new WaitForSeconds(1f);

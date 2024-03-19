@@ -6,8 +6,10 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using Game.Scene;
 using UnityEngine;
 using UnityEngine.Events;
@@ -31,6 +33,9 @@ namespace Game {
             
             [Header("Debug")]
             [SerializeField] public bool isPressed;
+
+            [Header("Audio")] 
+            [SerializeField] private InteractablesAudio interactAudio;
             
             // Private Variables
             private Color originalColor;
@@ -69,6 +74,18 @@ namespace Game {
             private void OnTriggerEnter(Collider other) {
                 if (!other.CompareTag("Player"))
                     return;
+                
+                if (!isPressed)
+                {
+                    try
+                    {
+                        interactAudio.ButtonPressAudio(gameObject);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{InteractableButton}]: Error Exception " + e);
+                    }
+                } 
                 
                 isPressed = true;
                 

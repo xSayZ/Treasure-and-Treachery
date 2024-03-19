@@ -6,9 +6,12 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using Game.CharacterSelection;
 using Game.Dialogue;
+using Game.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
@@ -18,15 +21,23 @@ namespace Game {
         public class RacerPlayerInput : MonoBehaviour
         {
             [Header("Setup")]
-            [SerializeField] private PlayerInput playerInput;
+            [SerializeField] public PlayerInput playerInput;
             [SerializeField] private MultiplayerEventSystem multiplayerEventSystem;
             [SerializeField] private InputSystemUIInputModule inputSystemUIInputModule;
-            
+            [SerializeField] private PauseMenu _pauseMenu;
+
             [HideInInspector] public bool dialogueActice;
 
             private bool isFirstInput;
             private CarriageRacer carriageRacer;
             private DialogueManager dialogueManager;
+            private bool isPaused;
+
+            private void Awake()
+            {
+                _pauseMenu = FindObjectOfType<PauseMenu>(true);
+
+            }
 
             public void Setup(CarriageRacer _carriageRacer, DialogueManager _dialogueManager, InputDevice _inputDevice)
             {
@@ -65,6 +76,24 @@ namespace Game {
                 {
                     dialogueManager.SubmitPressed(_context);
                 }
+
+                if (isPaused)
+                {
+                    _pauseMenu.UnPauseOverWorld(_context.started,this);
+                    isPaused = false;
+                    inputSystemUIInputModule.enabled = false;
+                    multiplayerEventSystem.enabled = false;
+                }
+                
+            }
+
+            public void OnPause(InputAction.CallbackContext _context)
+            {
+                inputSystemUIInputModule.enabled = true;
+                multiplayerEventSystem.enabled = true;
+                isPaused = true;
+                _pauseMenu.PauseOverWorld(_context.started,this,multiplayerEventSystem,inputSystemUIInputModule);
+                
             }
         }
     }

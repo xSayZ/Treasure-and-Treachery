@@ -231,6 +231,8 @@ GameObject:
   - component: {fileID: 3622730775527207118}
   - component: {fileID: 8039321865252058105}
   - component: {fileID: 1680948932}
+  - component: {fileID: -8185551574871755758}
+  - component: {fileID: -4840653147347276976}
   m_Layer: 7
   m_Name: PlayerBase
   m_TagString: Player
@@ -273,7 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 0}
-  EventModifiers: {fileID: 0}
   PlayerIndex: 0
   <PlayerMovementBehaviour>k__BackingField: {fileID: 8393427140100816367}
   <PlayerAttackBehaviour>k__BackingField: {fileID: -3509399097656645022}
@@ -285,15 +286,17 @@ MonoBehaviour:
   playerHealthBar: {fileID: 5371476867704334821}
   pauseMenu: {fileID: 0}
   playerInput: {fileID: 3622730775527207118}
+  multiplayerEventSystem: {fileID: 0}
+  inputSystemUIInputModule: {fileID: 0}
   movementSmoothingSpeed: 25
   invincibilityTime: 0.5
   playerMaterial: {fileID: 0}
   damageFlashColor: {r: 1, g: 0, b: 0, a: 0}
   numberOfDamageFlashes: 3
   DamageFlashTime: 0.5
-  meshRenderer: {fileID: 0}
-  defaultMaterial: {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  damagedMaterial: {fileID: 2100000, guid: b8ca9e420562f284f8e7caf5d0a9057f, type: 2}
+  skinnedMeshRenderers: []
+  deathMaterial: {fileID: 0}
+  deathDuration: 0.5
   lowFrequency: 0.305
   highFrequency: 1
   duration: 0.25
@@ -437,7 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: -4840653147347276976}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -607,6 +610,52 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &-8185551574871755758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
+--- !u!114 &-4840653147347276976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288723119442727263}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_PointAction: {fileID: 7621445577363826327, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_MoveAction: {fileID: 7621445577363826327, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_SubmitAction: {fileID: -2643970633390606841, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_CancelAction: {fileID: -5121342136215687753, guid: b6f922e9e006d4a41b9632772608a4d6, type: 3}
+  m_LeftClickAction: {fileID: 0}
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: 0}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 2
+  m_CursorLockBehavior: 0
 --- !u!1 &497756980920271079
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +708,7 @@ MonoBehaviour:
   decayAmount: 1
   percentageToBecomeEnraged: 0.5
   percentageToLoseEnraged: 0
-  meleeAttackCooldownMultiplier: 1
+  meleeAttackCooldownMultiplier: 0.5
   moveSpeedMultiplier: 1.5
   dashHealAmount: 2
   dashHealWrathLost: 50
@@ -906,7 +955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7456082212192171173

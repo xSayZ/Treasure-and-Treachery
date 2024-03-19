@@ -43,8 +43,9 @@ namespace Game {
             // Private Variables
             private Dictionary<int, PlayerController> targets = new Dictionary<int, PlayerController>();
             private CinemachineTargetGroup playerTargetGroup;
-            // private CinemachineTargetGroup stationaryTargetGroup;
             private ObjectiveTransform objectiveTransform;
+            private bool isMaxZoom;
+            private Transform[] dummyTransforms;
             
             private bool canZoom = false;
             
@@ -140,8 +141,18 @@ namespace Game {
                 // Get the active player controllers
                 targets = Backend.GameManager.Instance.ActivePlayerControllers;
                 transform.position = Backend.GameManager.Instance.spawnRingCenter.position;
+                
+                // Create dummy transforms
+                dummyTransforms = new Transform[4]; // Hard coded to max 4 players
+                for (int i = 0; i < dummyTransforms.Length; i++)
+                {
+                    Transform _dummyTransform = new GameObject().transform;
+                    dummyTransforms[i] = _dummyTransform;
+                    _dummyTransform.name = "DummyTransform" + i;
+                }
+                
+                // Create target group
                 playerTargetGroup = Instantiate(targetGroupPrefab).GetComponent<CinemachineTargetGroup>();
-                // stationaryTargetGroup = Instantiate(targetGroupPrefab).GetComponent<CinemachineTargetGroup>();
                 playerTargetGroup.transform.position = transform.position;
                 virtualCamera.Follow = playerTargetGroup.transform;
             }
@@ -203,11 +214,11 @@ namespace Game {
                 }
                 
                 // Loop through the players and add them to the target group
-                for (int _i = 0; _i < targets.Count; _i++)
+                for (int i = 0; i < targets.Count; i++)
                 {
-                    _targetsArray[_i] = new CinemachineTargetGroup.Target
+                    _targetsArray[i] = new CinemachineTargetGroup.Target
                     {
-                        target = targets[keys[_i]].transform,
+                        target = targets[keys[i]].transform,
                         weight = playerWeight,
                         radius = playerRadius,
                     };
@@ -215,8 +226,7 @@ namespace Game {
                 
                 playerTargetGroup.m_Targets = _targetsArray;
             }
-
-            private bool isMaxZoom;
+            
             private void UpdateCameraZoom()
             {
                 int _targetCount = targets.Count;
@@ -256,8 +266,7 @@ namespace Game {
                     virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
                 
-                //Debug.Log(virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance);
-                
+                // 
                 if (virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance == maxZoomOut)
                 {
                     if (!isMaxZoom)
@@ -266,14 +275,14 @@ namespace Game {
                         CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
                     
                         // Loop through the players and add them to the target group
-                        for (int _i = 0; _i < targets.Count; _i++)
+                        for (int i = 0; i < targets.Count; i++)
                         {
-                            GameObject _dummyPlayer = Instantiate(new GameObject());
-                            _dummyPlayer.transform.position = targets[keys[_i]].transform.position;
+                            Transform _dummyTransform = dummyTransforms[i];
+                            _dummyTransform.position = targets[keys[i]].transform.position;
                             
-                            _targetsArray[_i] = new CinemachineTargetGroup.Target
+                            _targetsArray[i] = new CinemachineTargetGroup.Target
                             {
-                                target = _dummyPlayer.transform,
+                                target = _dummyTransform,
                                 weight = playerWeight,
                                 radius = playerRadius,
                             };
@@ -285,21 +294,7 @@ namespace Game {
                 else
                 {
                     isMaxZoom = false;
-                    // Create a new array of targets
-                    CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
-                    
-                    // Loop through the players and add them to the target group
-                    for (int _i = 0; _i < targets.Count; _i++)
-                    {
-                        _targetsArray[_i] = new CinemachineTargetGroup.Target
-                        {
-                            target = targets[keys[_i]].transform,
-                            weight = playerWeight,
-                            radius = playerRadius,
-                        };
-                    }
-                    
-                    playerTargetGroup.m_Targets = _targetsArray;
+                    SetTargetGroupCamera();
                 }
             }
 

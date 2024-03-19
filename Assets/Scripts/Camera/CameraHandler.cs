@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using FMODUnity;
 using Game.Enemy;
 using Game.Player;
 using UnityEngine.Events;
@@ -39,6 +40,9 @@ namespace Game {
             [SerializeField] private UnityEngine.Camera uiCamera;
             [SerializeField] private CinemachineVirtualCamera virtualCamera;
             [SerializeField] private GameObject targetGroupPrefab;
+            
+            [Header("FMOD")]
+            [SerializeField] private StudioListener studioListener;
             
             // Private Variables
             private Dictionary<int, PlayerController> targets = new Dictionary<int, PlayerController>();
@@ -162,6 +166,9 @@ namespace Game {
                 playerTargetGroup = Instantiate(targetGroupPrefab).GetComponent<CinemachineTargetGroup>();
                 playerTargetGroup.transform.position = transform.position;
                 virtualCamera.Follow = playerTargetGroup.transform;
+                
+                // Setup FMOD listener
+                studioListener.attenuationObject = playerTargetGroup.transform.gameObject;
             }
 
             private IEnumerator MoveCameraToObjectives(int _stage)

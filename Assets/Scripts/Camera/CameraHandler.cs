@@ -46,6 +46,7 @@ namespace Game {
             private ObjectiveTransform objectiveTransform;
             private bool isMaxZoom;
             private Transform[] dummyTransforms;
+            private List<int> targetKeys = new List<int>(); 
             
             private bool canZoom = false;
             
@@ -195,8 +196,6 @@ namespace Game {
                 SetPlayerActiveState(true);
             }
 
-            List<int> keys = new List<int>(); 
-
             private void SetTargetGroupCamera()
             {
                 if (playerTargetGroup == null)
@@ -210,7 +209,7 @@ namespace Game {
                 var keyCollection = targets.Keys;
                 foreach (var key in keyCollection)
                 {
-                    keys.Add(key);
+                    targetKeys.Add(key);
                 }
                 
                 // Loop through the players and add them to the target group
@@ -218,7 +217,7 @@ namespace Game {
                 {
                     _targetsArray[i] = new CinemachineTargetGroup.Target
                     {
-                        target = targets[keys[i]].transform,
+                        target = targets[targetKeys[i]].transform,
                         weight = playerWeight,
                         radius = playerRadius,
                     };
@@ -273,12 +272,17 @@ namespace Game {
                     {
                         isMaxZoom = true;
                         CinemachineTargetGroup.Target[] _targetsArray = new CinemachineTargetGroup.Target[targets.Count];
-                    
+                        var keyCollection = targets.Keys;
+                        foreach (var key in keyCollection)
+                        {
+                            targetKeys.Add(key);
+                        }
+                        
                         // Loop through the players and add them to the target group
                         for (int i = 0; i < targets.Count; i++)
                         {
                             Transform _dummyTransform = dummyTransforms[i];
-                            _dummyTransform.position = targets[keys[i]].transform.position;
+                            _dummyTransform.position = targets[targetKeys[i]].transform.position;
                             
                             _targetsArray[i] = new CinemachineTargetGroup.Target
                             {

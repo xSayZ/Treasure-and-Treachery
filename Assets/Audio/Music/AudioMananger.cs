@@ -50,6 +50,7 @@ namespace Game {
             
            [SerializeField] private EventReference gameOverStinger;
            [SerializeField] private EventReference completeObjStinger;
+           [SerializeField] private EventReference victoryStinger;
             
             #region Public Functions
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
@@ -166,6 +167,14 @@ namespace Game {
                 {
                     Debug.LogError("[{AudioManager}]: Error Exception " + e);
                 }
+            }
+
+            public void VictoryStinger()
+            {
+                EventInstance victoryStinger1 = RuntimeManager.CreateInstance(victoryStinger);
+                victoryStinger1.start();
+                victoryStinger1.release();
+                
             }
 
 

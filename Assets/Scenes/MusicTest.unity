@@ -25422,7 +25422,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettings.Array.size
@@ -25433,8 +25433,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[4].action
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[4].paramName
+      value: VictoryProg
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[4].paramValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettings.Array.data[1].eventsToBePlayed
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettings.Array.data[2].eventsToBePlayed
@@ -25443,6 +25455,10 @@ PrefabInstance:
     - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: audioZoneSettings.Array.data[3].eventsToBePlayed
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1828032578653783740, guid: cc040940137e1504e935b1a917159e0b, type: 3}
+      propertyPath: audioZoneSettings.Array.data[4].eventsToBePlayed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1828032578653783741, guid: cc040940137e1504e935b1a917159e0b, type: 3}
       propertyPath: m_RootOrder
@@ -36743,6 +36759,111 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8927853945209056646, guid: 5e8d94cbc992b6b4190052fdbbe306ae, type: 3}
   m_PrefabInstance: {fileID: 1522333444}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1868246092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: destroyOnTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[0].action
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[1].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].action
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[1].action
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramName
+      value: VictoryProg
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].paramValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerExitAudioSettings.Array.data[1].eventsToBePlayed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[0].eventsToBePlayed
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798449, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: triggerEnterAudioSettings.Array.data[1].eventsToBePlayed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798450, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_Name
+      value: AudioTrigger (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.100004196
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -31.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5700800240619798477, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 21605f273f05a7d4aa1bdd7a294cdb91, type: 3}
 --- !u!1001 &1872674685
 PrefabInstance:
   m_ObjectHideFlags: 0

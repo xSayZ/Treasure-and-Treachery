@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
 using UnityEngine;
 using Ink.Runtime;
@@ -40,7 +41,8 @@ namespace Game {
             [SerializeField] private Slider progress;
             
             // EventDialogueAudioManager
-            // [SerializeField] private EventDialogueAudioManager eventDialogueAudioManager;
+            [Header("Audio")]
+            [SerializeField] private DialogueAudioWrapper dialogueAudio;
 
             [Header("Choices UI")]
             [SerializeField] private GameObject[] choices;
@@ -156,7 +158,15 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    // eventDialogueAudioManager.PlayEventAudio(eventIndex);
+                    try
+                    {
+                        dialogueAudio.BossEventDialogue(eventIndex);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{DialogueManager}]: Error Exception " + e);
+                    }
+                    
                 });
                 
   #endregion

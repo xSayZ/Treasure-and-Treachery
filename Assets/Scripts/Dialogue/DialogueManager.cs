@@ -6,6 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
 using System.Collections;
 using UnityEngine;
 using Ink.Runtime;
@@ -157,7 +158,15 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    dialogueAudio.BossEventDialogue(eventIndex);
+                    try
+                    {
+                        dialogueAudio.BossEventDialogue(eventIndex);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{DialogueManager}]: Error Exception " + e);
+                    }
+                    
                 });
                 
   #endregion

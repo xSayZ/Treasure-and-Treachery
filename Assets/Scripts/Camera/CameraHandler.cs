@@ -265,7 +265,7 @@ namespace Game {
                     virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance = Mathf.Clamp(_averageDistance, 10, maxZoomOut);
                 }
                 
-                // 
+                // Update target group to stop players from dragging each other
                 if (virtualCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance == maxZoomOut)
                 {
                     if (!isMaxZoom)

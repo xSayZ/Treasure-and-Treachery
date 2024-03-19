@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace Game {
     namespace Audio {
-        public class ObjectiveStinger : MonoBehaviour
+        public class CallStinger : MonoBehaviour
         {
         
 
@@ -34,10 +34,14 @@ namespace Game {
         public void CallObjectiveStinger()
         {
             AudioMananger.Instance.CompleteObjectiveStinger();
-           Debug.Log("log was removed stinger played");
             
         }
-        
+
+        public void CallVictoryStinger()
+        {
+            AudioMananger.Instance.VictoryStinger();
+            
+        }
 
 #endregion
 

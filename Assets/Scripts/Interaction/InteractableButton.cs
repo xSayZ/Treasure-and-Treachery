@@ -75,7 +75,7 @@ namespace Game {
                 if (!other.CompareTag("Player"))
                     return;
                 
-                if (!isPressed)
+                if (isPressed == false)
                 {
                     try
                     {

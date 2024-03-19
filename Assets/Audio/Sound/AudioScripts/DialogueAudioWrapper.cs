@@ -65,7 +65,6 @@ public class DialogueAudioWrapper : MonoBehaviour
                 WitchQuestDialogue();
                 break;
             case 3:
-                Debug.Log("helo");
                 GorgonQuestDialogue();
                 break;
             case 4:

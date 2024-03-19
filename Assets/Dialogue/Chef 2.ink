@@ -50,13 +50,13 @@ You tell him that you have a counter offer; he can go and fuck himself! Oof!
 
 You all laugh at your sick burn, the king, however, does not seem as amused by your antics. 
 
-“See this is the problem with you guys, you can never take anything serious!” He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is Cobalt.
+“See this is the problem with you guys, you can never take anything serious!” He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is <color=\#70e2fe> Cobalt</color>.
 
 “Here I am offering you your dream jobs back and this is the thanks I get? You know what, offer REVOKED! Now I've decided to kill you again.” He flips all of you off before once more disappearing. 
 
-As soon as the king has left, Cobalt dives onto the floor only to notice that the gold disappeared with the king.
+As soon as the king has left, <color=\#70e2fe> Cobalt</color> dives onto the floor only to notice that the gold disappeared with the king.
 
-You all gain <b><color=\#8F00FF>+1 very sad Cobalt :(</color></b>
+You all gain <b><color=\#70e2fe>+1 very sad  Cobalt :(</color></b>
 
 -> END
 === refuse ===
@@ -74,10 +74,10 @@ You all gain a new sense of integrity, which roughly translates to <b><color=\#E
 
 -> END
 === punch_king ===
-~ changeCurrency(-10, 0)
-~ changeCurrency(-10, 1)
-~ changeCurrency(-10, 2)
-~ changeCurrency(-10, 3)
+~ changeCurrency(-20, 0)
+~ changeCurrency(-20, 1)
+~ changeCurrency(-20, 2)
+~ changeCurrency(-20, 3)
 You all decide to punch him!
 
 As your fists are supposed to make an impact with the king, they instead seem to go straight through him instead!
@@ -86,6 +86,6 @@ As your fists are supposed to make an impact with the king, they instead seem to
 
 “I see you guys aren't ready to communicate so i'm hereby revoking my deal! Now I've decided to kill you again! Bye losers!” He once more disappears in his puff of red smoke. 
 
-You later notice that whilst trying to punch the king you accidentally dropped some gold, you all lose <b><color=\#D30000>-10 gold</color></b> each.
+You later notice that whilst trying to punch the king you accidentally dropped some gold, you all lose <b><color=\#e06666>-20 gold</color></b> each.
 
 -> END

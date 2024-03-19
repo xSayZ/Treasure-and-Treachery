@@ -1,17 +1,21 @@
 using System;
 using System.Collections.Generic;
 using Game.Backend;
+using Game.CharacterSelection;
 using Game.Dialogue;
 using Game.Managers;
 using Game.WorldMap;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace Game {
     namespace Scenes {
-        public class Ending : MonoBehaviour {
+        public class Ending : MonoBehaviour
+        {
             [Header("Ink Story")]
+            [SerializeField] private PlayerInput playerInput;
             [SerializeField] private LevelDataSO level;
             [SerializeField] private List<Dialogue> dialogues = new List<Dialogue>();
             [SerializeField] private DialogueManager dialogueManager;
@@ -28,7 +32,10 @@ namespace Game {
                     hasBeenRead = _hasBeenRead;
                 }
             }
-            void Start() {
+            
+            void Start()
+            {
+                playerInput.SwitchCurrentControlScheme(CharacterSelect.GetFirstInputDevice());
                 StartDialogue(0);
             }
             

@@ -52,7 +52,6 @@ namespace Game {
 
                 private void Update()
                 {
-                    Debug.Log(playersInSpawner.Count);
                     SpawnEnemy();
                     elapsedTime += Time.deltaTime;
                 }

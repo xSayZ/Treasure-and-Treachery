@@ -32,17 +32,17 @@ You all collaborate to climb the tree and bring the cat down. With a little conv
 
 The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color> to grab the cat. The cat, terrified by the blue scaly creature, scratches <color=\#70e2fe>Cobalt</color> which makes them fall. <color=\#70e2fe>Cobalt</color> lands on top of <color=\#ac70fe>Violet</color> which then results in them both falling on top of <color=\#ed9177>Rusty</color>. 
 
-    Positives? <color=\#96d87d> Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
+    Positives? <color=\#96d87d>Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
     
-    Negatives? <color=\#70e2fe> Cobalt</color>, <color=\#ac70fe> Violet</color> and <color=\#ed9177> Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
+    Negatives? <color=\#70e2fe>Cobalt</color>, <color=\#ac70fe> Violet</color> and <color=\#ed9177>Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
 
 === punch_tree ===
 ~ changePersonalObjective (20, 0)
 Really, this is your plan? Sure, why not. You all move to stand on different sides of the tree and then start to simultaneously punch it. The tree is hard and its bark scratches you with each hit. 
 
-You quickly realize that punching trees really isn't as fun as one would like to think, well, unless your name is <color=\#ed9177> Rusty</color>. 
+You quickly realize that punching trees really isn't as fun as one would like to think, well, unless your name is <color=\#ed9177>Rusty</color>. 
 
-<color=\#ed9177> Rusty</color> is going fucking in on that tree! Honestly this might be really good for him, a safe way to let out his anger! …Or it's completely useless, but hey, at least the guy is having fun.
+<color=\#ed9177>Rusty</color> is going fucking in on that tree! Honestly this might be really good for him, a safe way to let out his anger! …Or it's completely useless, but hey, at least the guy is having fun.
 
 By some miracle your strategy seems to actually work and the cat eventually falls down from the tree, landing safely on its feet.
 
@@ -65,7 +65,7 @@ Yucky!
 
 The party gets <b><color=\#fc8ff8> +1 dead ghost cat on everyone's conscience!</color></b>
 
-…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe> +5 souls</color></b> for <color=\#ac70fe> Violet</color>!
+…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe> +5 souls</color></b> for <color=\#ac70fe>Violet</color>!
 Neat!-> END
 
 === communicate ===

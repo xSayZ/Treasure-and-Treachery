@@ -8,7 +8,6 @@
 
 using Game.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 
 namespace Game {
@@ -55,12 +54,15 @@ namespace Game {
                 canPickUp = true;
             }
 
-            private void OnEnable()
+            public void CancelScene()
             {
-                Reset();
+                personalObjective -= personalObjectiveThisLevel;
+                currency -= currencyThisLevel;
+                kills -= killsThisLevel;
             }
 
-            public void Reset() {
+            public void Reset()
+            {
                 currentHealth = startingHealth;
                 currentItem = null;
                 canPickUp = true;
@@ -76,6 +78,11 @@ namespace Game {
                 
                 hasMeleeWeapon = hasStartingMeleeWeapon;
                 hasRangedWeapon = hasStartingRangedWeapon;
+            }
+
+            private void OnEnable()
+            {
+                Reset();
             }
         }
     }

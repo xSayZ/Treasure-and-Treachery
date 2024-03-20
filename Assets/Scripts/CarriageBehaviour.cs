@@ -15,7 +15,6 @@ using UnityEngine;
 using Game.Quest;
 using Game.Player;
 using Game.WorldMap;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
@@ -37,6 +36,9 @@ namespace Game {
             [SerializeField] private string allPlayersDiedText;
             [SerializeField] private string carriageDestroyedText;
             [SerializeField] private string timeRanOutText;
+            
+            [Header("Reset")]
+            [SerializeField] private PlayerData[] playerDatasToReset;
             
             [Header("Audio")]
             [SerializeField] private InteractablesAudio interactablesAudio;
@@ -233,6 +235,12 @@ namespace Game {
                 lostCanvas.SetActive(true);
                 lostCanvas.GetComponent<LostCanvas>().Setup(_reason);
                 AudioMananger.Instance.GameOverStinger();
+                
+                // Reset score gained during this level
+                foreach (PlayerData _playerData in playerDatasToReset)
+                {
+                    _playerData.CancelScene();
+                }
                 
                 // Reset carriage health
                 Invincible = true;

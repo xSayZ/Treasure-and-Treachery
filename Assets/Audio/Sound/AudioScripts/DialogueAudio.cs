@@ -85,7 +85,6 @@ namespace Game {
             public void UpdateWereWolfRageAudio(float rageAmount)
             {
                 playerAttackAudioInstance.setParameterByName("WolfRage", rageAmount);
-                Debug.Log("Wrath is" + rageAmount);
             }
             public void PlayerAttackAudio(int _playerID)
             {
@@ -100,11 +99,9 @@ namespace Game {
                             playerAttackAudioInstance = RuntimeManager.CreateInstance(dragonAttackRef);
                             break;
                         case 2:
-                            Debug.Log("hej");
                             playerAttackAudioInstance = RuntimeManager.CreateInstance(witchAttackRef);
                             break;
                         case 3:
-                            Debug.Log("ansknkd");
                             playerAttackAudioInstance = RuntimeManager.CreateInstance(gorgonAttackRef);
                             break;
                     }

@@ -151,7 +151,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{AudioManager}]: Error Exception " + e);
+                    //Debug.LogError("[{AudioManager}]: Error Exception " + e);
                 }
             }
 
@@ -165,7 +165,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{AudioManager}]: Error Exception " + e);
+                   // Debug.LogError("[{AudioManager}]: Error Exception " + e);
                 }
             }
 

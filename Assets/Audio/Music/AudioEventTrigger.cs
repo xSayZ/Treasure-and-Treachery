@@ -39,14 +39,11 @@ namespace Game {
             {
                 if (musicCrossOver==true)
                 {
-                    Debug.Log("MusicContinued into next scene");
+                    //Debug.Log("MusicContinued into next scene");
                     return;
                 }
                 musicBus.stopAllEvents(STOP_MODE.ALLOWFADEOUT);
-                Debug.Log("Unity Scene changed-Music Bus stopped");
-                /*musicBus.getPaused(out bool state);
-                Debug.Log("Music Bus state is" + state);
-                */
+                //Debug.Log("Unity Scene changed-Music Bus stopped");
               
             }
             
@@ -56,8 +53,7 @@ namespace Game {
             void Start()
             {
                 musicBus = RuntimeManager.GetBus("Bus:/PreMaster/Music Bus");
-                /*musicBus.getPaused(out bool state);
-                Debug.Log("Music Bus state is" + state); */
+               
                 
             }
     
@@ -76,15 +72,15 @@ namespace Game {
                 {
                     if (i.action == Action.None)
                     {
-                        Debug.Log(
-                            "You have unfinished fields in AudioZoneSettings, action set to -None or -ParameterName was missing");
+                        //Debug.Log( "You have unfinished fields in AudioZoneSettings, action set to -None or -ParameterName was missing");
+                        
                     }
                     else
                     {
                         switch (i.action)
                         {
                             case Action.None: 
-                                Debug.Log("Action set to None in MusicZoneSettings");
+                                //Debug.Log("Action set to None in MusicZoneSettings");
                                 break;
                               
                             case Action.PlayMusic: 

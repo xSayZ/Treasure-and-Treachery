@@ -48,7 +48,7 @@ namespace Game {
               //Om det inte skrivits in något i inspectorn på parameternamn eller om action är satt till none så skrivs debug, annars körs nedan kod i nästa scope nedan
               if (i.action == Action.None)
               {
-                Debug.Log("action set to -None on AudioTrigger");
+                //Debug.Log("action set to -None on AudioTrigger");
               }
               
               else
@@ -57,7 +57,7 @@ namespace Game {
                 switch (i.action)
                 {
                   case Action.None: 
-                    Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
+                    //Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
                     break;
                   
                   case Action.PlayMusic: 
@@ -82,7 +82,7 @@ namespace Game {
             if (destroyOnTrigger == true)
             {
               gameObject.SetActive(false);
-              Debug.Log("boxcollider of gameobject set to false-DestroyOnTrigger is set to true");
+              //Debug.Log("boxcollider of gameobject set to false-DestroyOnTrigger is set to true");
             }
             
           }
@@ -102,7 +102,7 @@ namespace Game {
               //Om det inte skrivits in något i inspectorn på parameternamn eller om action är satt till none så skrivs debug, annars körs nedan kod i nästa scope nedan
               if (i.action == Action.None)
               {
-                Debug.Log("action set to -None on AudioTrigger");
+               // Debug.Log("action set to -None on AudioTrigger");
               }
               
               else
@@ -111,7 +111,7 @@ namespace Game {
                 switch (i.action)
                 {
                   case Action.None: 
-                    Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
+                   // Debug.Log("Action set to None on AudioTrigger - OnTriggerEnter");
                     break;
                   
                   case Action.PlayMusic: 
@@ -136,7 +136,7 @@ namespace Game {
             if (destroyOnTrigger == true)
             {
               gameObject.SetActive(false);
-              Debug.Log("boxcollider of gameobject set to false-DestroyOnTrigger is set to true");
+             // Debug.Log("boxcollider of gameobject set to false-DestroyOnTrigger is set to true");
             }
             
           }

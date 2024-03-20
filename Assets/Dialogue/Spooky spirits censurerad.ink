@@ -31,7 +31,7 @@ You tell them that the mask clad spirit is the scariest one! The spirit wearing 
 
 Welp, that could have gone better!
 
-You all earn <b><color=\#8F00FF>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666> -20 total score</color></b>
+You all earn <b><color=\#8F00FF>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666>-20 total score</color></b>
 
 Better luck next time! -> END
 
@@ -55,11 +55,11 @@ You tell them that the spirit in the gorilla costume is the scariest one by far.
 
 Too stunned to act, you all stand helplessly by as the gorilla brutally murders all of the spirits. Once happy with his ghastly murder the gorilla seems to be looking at you next!
 
-Through the power of colleagues you all manage to fend off the gorilla long enough for all of you to once more enter the carriage. As soon as you are all inside you yell at the carriage to quickly drive away. 
+Through the power of colleagues you all manage to fend off the gorilla long enough for all of you to once more enter the carriage. As soon as you are all inside you yell at the armadillo to quickly run away. 
 
-The gorilla makes an attempt to follow, but is simply no match for the speed of a magical carriage!
+The gorilla makes an attempt to follow, but is simply no match for the speed of a giant armadillo!
 
-Turns out the gorilla really was the scariest spirit, so scary in fact that 5 souls residing in <color=\#ac70fe> Violet</color> seems to have fled her body to escape the gorilla
+Turns out the gorilla really was the scariest spirit, so scary in fact that 5 souls residing in <color=\#ac70fe>Violet</color> seems to have fled her body to escape the gorilla
 
 <color=\#ac70fe>Violet</color> loses <b><color=\#ac70fe>-5 souls</color></b> and you all gain <b><color=\#fc8ff8>+1 angry gorilla on your tail!</color></b>
 
@@ -69,13 +69,14 @@ Exciting! -> END
 ~ changePersonalObjective (5, 3)
 These losers? frick no! The scariest spirits are <i> clearly you guys! </i> You decide to prove it the only way you know how; by running the group of spirits over.
 
-The ride is loud and bumpy, each ‘thump’ paired with a new spirit’s agonizing screams as they are painfully crushed beneath the carriage's weight. 
+The ride is loud and bumpy, each ‘thump’ paired with a new spirit’s agonizing screams as they are painfully crushed beneath the weight of the giant armadillo and carriage.
 
 Once the screams have quieted down, you all look out through the carriage's back window. Where the group of spirits once stood, now lies only a pile of gold, spirit dust, and a little blood?.
+
 Yucky!
 
-Your murderous actions reward you each with the title of  <b><color=\#fc8ff8>“The Scariest Spirits”.</color></b> Rad!
+Your murderous actions reward you each with the title of <b><color=\#fc8ff8>“The Scariest Spirits”.</color></b> Rad!
 
-Although <color=\#96d87d>Jade</color> is usually one to break statues, it seems in this case breaking bones was just as rewarding! <color=\#96d87d> Jade</color> gets <b><color=\#96d87d>+5 shatter!</color></b>
+Although <color=\#96d87d>Jade</color> is usually one to break statues, it seems in this case breaking bones was just as rewarding! <color=\#96d87d>Jade</color> gets <b><color=\#96d87d>+5 shatter!</color></b>
  -> END
 

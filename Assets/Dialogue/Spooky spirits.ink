@@ -69,7 +69,9 @@ Exciting! -> END
 
 ===show_them===
 ~ changePersonalObjective (5, 3)
-These losers? Fuck no! The scariest spirits are <i>clearly you guys!</i> You decide to prove it the only way you know how; by running the group of spirits over.
+These losers? Fuck no! The scariest spirits are <i>clearly you guys!</i> You decide to prove it the only way you know how... 
+
+By running the group of spirits over!
 
 The ride is loud and bumpy, each ‘thump’ paired with a new spirit’s agonizing screams as they are painfully crushed beneath the weight of the giant armadillo and carriage. 
 

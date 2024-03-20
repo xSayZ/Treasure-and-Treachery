@@ -27,7 +27,8 @@ namespace Game {
             }
             
             public void UpdateMovementAnimation(float movementBlendValue) {
-                animator.SetFloat(carriageMovementAnimationID, movementBlendValue);
+                if(animator != null)
+                    animator.SetFloat(carriageMovementAnimationID, movementBlendValue);
             }
         }
     }

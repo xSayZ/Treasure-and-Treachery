@@ -14,7 +14,7 @@ What do you do?
 
 * [Suggest a blood sacrifice!] -> Blood_sacrifice
 * [Show them your sick party moves!] -> Party_moves
-* [Make <color=\#ed9177> Rusty</color> howl his self composed song!] ->Howl_song
+* [Make <color=\#ed9177>Rusty</color> howl his self composed song!] ->Howl_song
 * [Enjoy the chill vibe!] -> Chill
 
 === Blood_sacrifice===
@@ -44,7 +44,7 @@ Your shame makes you all lose <b><color=\#e06666> -10 total score</color></b> ea
 ~ changeScore (20,2)
 ~ changeScore (20,3)
 
-You all unleash your inner party animals! <color=\#70e2fe> Cobalt</color> quickly does a keg stand, Violet uses their magic to put on a firework show, and both <color=\#ed9177> Rusty</color> and Jade whip out some epic dance moves!
+You all unleash your inner party animals! <color=\#70e2fe>Cobalt</color> quickly does a keg stand, <color=\#ac70fe>Violet</color> uses their magic to put on a firework show, and both <color=\#ed9177>Rusty</color> and <color=\#96d87d>Jade</color> whip out some epic dance moves!
 
 You all greatly impress the undead partygoers, inspiring them to join you making the party turn a lot more rowdy! 
 
@@ -55,15 +55,15 @@ You all gain <b><color=\#ECBD00>+5 gold</color></b> and +20 total score -> END
 ===Howl_song===
 ~ changeCurrency(2,0 )
 ~ changeCurrency(18,1)
-With a little convincing by the rest of the group, <color=\#ed9177> Rusty</color> agrees to howl his self composed song!
+With a little convincing by the rest of the group, <color=\#ed9177>Rusty</color> agrees to howl his self composed song!
 
-The night gets filled with <color=\#ed9177> Rusty</color>s wolfish wails. It’s a moving piece about love, loss, and the bravery of being yourself in spite of the people trying to tear you down.
+The night gets filled with <color=\#ed9177>Rusty</color>s wolfish wails. It’s a moving piece about love, loss, and the bravery of being yourself in spite of the people trying to tear you down.
 
-Once the song has finished you see many of the vamps wiping their tear stained cheeks. <color=\#70e2fe> Cobalt</color>, under the guise of being <color=\#ed9177> Rusty</color>s agent, takes the opportunity to gather tips from the awestruck audience.
+Once the song has finished you see many of the vamps wiping their tear stained cheeks. <color=\#70e2fe>Cobalt</color>, under the guise of being <color=\#ed9177>Rusty</color>s agent, takes the opportunity to gather tips from the awestruck audience.
 
-<color=\#70e2fe> Cobalt</color> makes sure to later give <color=\#ed9177> Rusty</color> his fair share of the profit, with a <i> generous </i> 10/90 deal.
+<color=\#70e2fe>Cobalt</color> makes sure to later give <color=\#ed9177> Rusty</color> his fair share of the profit, with a <i> generous </i> 10/90 deal.
 
-<color=\#ed9177> Rusty</color> gains  <b><color=\#ffd966>+2 Gold</color></b> and <color=\#70e2fe> Cobalt</color> gains  <b><color=\#ffd966>+18 Gold</color></b>, both of them seemingly just as happy with their earnings!
+<color=\#ed9177>Rusty</color> gains  <b><color=\#ffd966>+2 Gold</color></b> and <color=\#70e2fe>Cobalt</color> gains  <b><color=\#ffd966>+18 Gold</color></b>, both of them seemingly just as happy with their earnings!
 
 
  -> END
@@ -79,7 +79,7 @@ Even though the vibes are great you decide to leave the gathering early, there's
 
 You all have a great evening and earn <b><color=\#8F00FF>+1 feeling of yourselfs turning into your parents…</color></b> <i> shudders <i>
 
-The evening seems to have been so relaxing that <color=\#ed9177> Rusty</color>'s lost about <b><color=\#ed9177>-20 wrath,</color></b> which is probably really good for his heart but is kinda lame for being a raging werewolf…
+The evening seems to have been so relaxing that <color=\#ed9177>Rusty</color>'s lost about <b><color=\#ed9177>-20 wrath,</color></b> which is probably really good for his heart but is kinda lame for being a raging werewolf…
 
 -> END
 

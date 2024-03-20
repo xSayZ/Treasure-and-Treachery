@@ -51,6 +51,7 @@ namespace Game {
            [SerializeField] private EventReference gameOverStinger;
            [SerializeField] private EventReference completeObjStinger;
            [SerializeField] private EventReference victoryStinger;
+           [SerializeField] private EventReference waveStinger1;
             
             #region Public Functions
             public void PlayMusicEvent(EventsToBePlayed eventsToBePlayed)
@@ -129,16 +130,12 @@ namespace Game {
                 return isActive;
             }
 
-            public void WaveStinger(EventsToBePlayed eventsToBePlayed)
+            public void WaveStinger()
             {
-                //konvertar enum namn till ints (letar upp events)
-                int num = Convert.ToInt32(eventsToBePlayed);
-                
-                musicInstances[num] = RuntimeManager.CreateInstance(musicReferences[num]);
-                musicInstances[num].start();
-                musicInstances[num].release();
-                //Debug.Log("played music event" + num);
-                
+                EventInstance waveStinger = RuntimeManager.CreateInstance(waveStinger1);
+                waveStinger.start();
+                waveStinger.release();
+
             }
 
             public void GameOverStinger()

@@ -56,7 +56,7 @@ namespace Game {
             private CinemachineFramingTransposer framingTransposer;
             float startingCameraDistance;
             
-            private bool canZoom = false;
+            private bool canZoom;
             
             [Serializable]
             private class ObjectiveStages {
@@ -118,6 +118,7 @@ namespace Game {
                 
                 if (objectiveStages.Length > 0) {
                     // Get the active player controllers
+                    canZoom = false;
                     StartCoroutine(MoveCameraToObjectives(_stage));
                 }
                 else

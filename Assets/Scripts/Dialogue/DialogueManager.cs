@@ -214,6 +214,7 @@ namespace Game {
                 story.ChooseChoiceIndex(choiceIndex);
                 HideChoices();
                 canContinueToNextLine = true;
+                typing = false;
                 StartCoroutine(OnAdvanceStory());
             }
 
@@ -333,7 +334,6 @@ namespace Game {
                     }
                 }
 
-                canContinueToNextLine = true;
                 typing = false;
             }
             private IEnumerator SelectFirstChoice() 

@@ -365,7 +365,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638465393455983593
+  lastModified: 638465443301964535
   FileSizes: []
   Exists: 1
 --- !u!114 &-6627330813449302297
@@ -530,6 +530,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 45
   Length: 1123
+--- !u!114 &-6340905953547562107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/WaveStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/WaveStinger
+  Guid:
+    Data1: -1765121799
+    Data2: 1322447865
+    Data3: 198427308
+    Data4: -2038292595
+  Banks:
+  - {fileID: 4218797353800513367}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4285
 --- !u!114 &-6250798937288560225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,6 +1135,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 5167
+--- !u!114 &-3994310565767736327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Dialogue/VOX/CharacterSelect/CharacterSelect
+  m_EditorClassIdentifier: 
+  Path: event:/Dialogue/VOX/CharacterSelect/CharacterSelect
+  Guid:
+    Data1: -1226667361
+    Data2: 1225412879
+    Data3: -180395094
+    Data4: -227618545
+  Banks:
+  - {fileID: -6796613496901478413}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1725403148090601600}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-3933699432145148146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,33 +1215,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-3445814198132007756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/Timed Stinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/Timed Stinger
-  Guid:
-    Data1: -1765121799
-    Data2: 1322447865
-    Data3: 198427308
-    Data4: -2038292595
-  Banks:
-  - {fileID: 4218797353800513367}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4285
 --- !u!114 &-3414957097704591326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,7 +1977,6 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   - {fileID: 4218797353800513367}
   EditorEvents:
-  - {fileID: -3445814198132007756}
   - {fileID: 3118349444904529808}
   - {fileID: -5370977247339574998}
   - {fileID: 3006823077082858334}
@@ -2036,6 +2063,9 @@ MonoBehaviour:
   - {fileID: -6924749809849436413}
   - {fileID: -4300133120870387722}
   - {fileID: -6404507418495864043}
+  - {fileID: -3994310565767736327}
+  - {fileID: 4416028762117830405}
+  - {fileID: -6340905953547562107}
   EditorParameters:
   - {fileID: 806776110565252230}
   - {fileID: 3750933606372616956}
@@ -2044,7 +2074,7 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   StringsBanks:
   - {fileID: 8938361992119362503}
-  cacheTime: 638465393457329578
+  cacheTime: 638465443304234129
   cacheVersion: 131609
 --- !u!114 &113248971625124846
 MonoBehaviour:
@@ -2306,6 +2336,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &1725403148090601600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/CharacterSelect/SpeakerCharacter
+  m_EditorClassIdentifier: 
+  Name: SpeakerCharacter
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 1760367425
+    data2: 2972608440
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Wolf
+  - Dragon
+  - Witch
+  - Gorgon
+  Exists: 1
 --- !u!114 &1820540558937355959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2934,7 +2992,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638465393457329578
+  lastModified: 638465443304234129
   FileSizes: []
   Exists: 1
 --- !u!114 &4344160753167907814
@@ -2988,6 +3046,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 2621
+--- !u!114 &4416028762117830405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Players/PLY_DRAGON/PLY_DRAG_Pickpocket
+  m_EditorClassIdentifier: 
+  Path: event:/Players/PLY_DRAGON/PLY_DRAG_Pickpocket
+  Guid:
+    Data1: -1248006235
+    Data2: 1131607533
+    Data3: 1056964773
+    Data4: -651151274
+  Banks:
+  - {fileID: -6796613496901478413}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2056
 --- !u!114 &4688383347653153110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3979,10 +4064,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638465393456025961
+  lastModified: 638465443302076730
   FileSizes:
   - Name: 
-    Value: 8296
+    Value: 8420
   Exists: 1
 --- !u!114 &9157920777133037557
 MonoBehaviour:

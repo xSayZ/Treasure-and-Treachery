@@ -18,13 +18,25 @@ namespace Game {
     namespace Audio {
         public class TimeSetParam : MonoBehaviour {
             [SerializeField] private bool useTimer = true;
-            private float timer;
+            private float time;
+            private float roundTime;
+            private bool setupComplete = false;
             private EventsToBePlayed eventsToBePlayed;
             
+            private GameManager gameManager;
+            
 #region Unity Functions
+            
+            public void Setup(GameManager _gameManager)
+            {
+                gameManager = _gameManager;
+                roundTime = gameManager.roundTime;
+                setupComplete = true;
+            }
+            
             void Update()
             {
-                if (useTimer) {
+                if (useTimer && setupComplete) {
                     SetParamByTime();
                 }
 
@@ -39,17 +51,16 @@ namespace Game {
 
         private void SetParamByTime()
         {
-            timer = GameManager.Instance.timer.GetCurrentTime();
-            var _roundTime = GameManager.Instance.roundTime;
+            time = GameManager.Instance.timer.GetCurrentTime();
                 
             // Set the parameter of the music event based on the timer
-            int[] _thresholds = { (int)(_roundTime / 2.5), (int)(_roundTime / 2), (int)(_roundTime / 1.5), (int)(_roundTime / 1.2)};
+            int[] _thresholds = { (int)(roundTime / 2.5), (int)(roundTime / 2), (int)(roundTime / 1.5), (int)(roundTime / 1.2)};
             float[] _musicParameters = { 2f, 3f, 4f, 5f };
             
             // Set the parameter of the music event based on the timer
             for (int i = 0; i < _thresholds.Length; i++)
             {
-                if (timer >= _thresholds[i])
+                if (time >= _thresholds[i])
                 {
                     //Debug.Log("Setting parameter to: " + _musicParameters[i]);
                     // Set the parameter of the music event

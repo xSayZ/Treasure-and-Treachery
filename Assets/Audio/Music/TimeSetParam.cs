@@ -18,13 +18,24 @@ namespace Game {
     namespace Audio {
         public class TimeSetParam : MonoBehaviour {
             [SerializeField] private bool useTimer = true;
-            private float timer;
+            private float time;
+            private float roundTime;
+            private bool setupComplete;
             private EventsToBePlayed eventsToBePlayed;
+
+            private GameManager gameManager;
             
 #region Unity Functions
+            public void Setup(GameManager _gameManager)
+            {
+                gameManager = _gameManager;
+                roundTime = gameManager.roundTime;
+                setupComplete = true;
+            }
+            
             void Update()
             {
-                if (useTimer) {
+                if (useTimer && setupComplete) {
                     SetParamByTime();
                 }
 
@@ -39,28 +50,40 @@ namespace Game {
 
         private void SetParamByTime()
         {
-            timer = GameManager.Instance.timer.GetCurrentTime();
-            var _roundTime = GameManager.Instance.roundTime;
-                
+            time = GameManager.Instance.timer.GetCurrentTime();
             // Set the parameter of the music event based on the timer
-            int[] _thresholds = { (int)(_roundTime / 2.5), (int)(_roundTime / 2), (int)(_roundTime / 1.5), (int)(_roundTime / 1.2)};
+            int currentThreshold = CalculateCurrentThreshold(time);
             float[] _musicParameters = { 2f, 3f, 4f, 5f };
             
-            // Set the parameter of the music event based on the timer
-            for (int i = 0; i < _thresholds.Length; i++)
+            switch (currentThreshold)
             {
-                if (timer >= _thresholds[i])
-                {
-                    Debug.Log("Setting parameter to: " + _musicParameters[i]);
-                    // Set the parameter of the music event
-                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", _musicParameters[i], false, false);
-                }
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", _musicParameters[currentThreshold], false, false);
+                    break;
+                default:
+                    break;
             }
 
             if (GameManager.Instance.ActivePlayerControllers.Count == 0)
             {
                 AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", 1f, false, false);
             }
+        }
+        
+        private int CalculateCurrentThreshold(float time)
+        {
+            int[] _thresholds = { Mathf.RoundToInt(roundTime * 0.25f), Mathf.RoundToInt(roundTime * 0.5f), Mathf.RoundToInt(roundTime * 0.75f), Mathf.RoundToInt(roundTime)};
+            for (int i = 0; i < _thresholds.Length; i++)
+            {
+                if (time >= _thresholds[i])
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 #endregion
         }

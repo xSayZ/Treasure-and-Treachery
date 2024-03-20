@@ -80,91 +80,88 @@ public class DialogueAudioWrapper : MonoBehaviour
     }
     public void WolfQuestDialogue()
     {
-        if (!wolfIcon)
+        var player = GameManager.Instance.ActivePlayerControllers;
+        if (player.ContainsKey(0))
         {
-            return;
+            if (!wolfIcon)
+            {
+                return;
+            }
+        
+            wolfIcon.SetActive(true);
+            wolfDialogueInstance.release();
+            wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
+            wolfDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWolf);
+            PlayDialogue(0, wolfDialogueInstance);
+            StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf, wolfIcon));
+        
+            dialogueProgressionWolf++;
+            speakerAfterWolf = 4;
         }
-        
-        wolfIcon.SetActive(true);
-        wolfDialogueInstance.release();
-        wolfDialogueInstance = RuntimeManager.CreateInstance(wolfDialogue);
-        wolfDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWolf);
-        PlayDialogue(0, wolfDialogueInstance);
-        StartCoroutine(QueNextDialogue(wolfDialogueInstance, speakerAfterWolf, wolfIcon));
-        
-        dialogueProgressionWolf++;
-        speakerAfterWolf = 4;
     }
     public void DragonQuestDialogue()
     {
-        if (!dragonIcon)
+        var player = GameManager.Instance.ActivePlayerControllers;
+        if (player.ContainsKey(1))
         {
-            return;
-        }
+            if (!dragonIcon)
+            {
+                return;
+            }
 
-        dragonIcon.SetActive(true);
-        dragonDialogueInstance.release();
-        dragonDialogueInstance = RuntimeManager.CreateInstance(dragonDialogue);
-        dragonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionDragon);
-        PlayDialogue(1, dragonDialogueInstance);
-        StartCoroutine(QueNextDialogue(dragonDialogueInstance, speakerAfterDragon, dragonIcon));
+            dragonIcon.SetActive(true);
+            dragonDialogueInstance.release();
+            dragonDialogueInstance = RuntimeManager.CreateInstance(dragonDialogue);
+            dragonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionDragon);
+            PlayDialogue(1, dragonDialogueInstance);
+            StartCoroutine(QueNextDialogue(dragonDialogueInstance, speakerAfterDragon, dragonIcon));
         
-        dialogueProgressionDragon++;
-        speakerAfterDragon = 4;
+            dialogueProgressionDragon++;
+            speakerAfterDragon = 4;
+        }
     }
     public void WitchQuestDialogue()
     {
-        if (!witchIcon)
+        var player = GameManager.Instance.ActivePlayerControllers;
+        if (player.ContainsKey(2))
         {
-            return;
+            if (!witchIcon)
+            {
+                return;
+            }
+            witchIcon.SetActive(true);
+            witchDialogueInstance.release();
+            witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
+            witchDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWitch);
+            PlayDialogue(2, witchDialogueInstance);
+            StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch, witchIcon));
+
+            dialogueProgressionWitch++;
+            speakerAfterWitch = 4;
         }
 
-        witchIcon.SetActive(true);
-        witchDialogueInstance.release();
-        witchDialogueInstance = RuntimeManager.CreateInstance(witchDialogue);
-        witchDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionWitch);
-        PlayDialogue(2, witchDialogueInstance);
-        StartCoroutine(QueNextDialogue(witchDialogueInstance, speakerAfterWitch, witchIcon));
-
-        dialogueProgressionWitch++;
-        speakerAfterWitch = 4;
     }
     public void GorgonQuestDialogue()
     {
-        if (!gorgonIcon)
+        var player = GameManager.Instance.ActivePlayerControllers;
+        if (player.ContainsKey(3))
         {
-            return;
-        }
-
-        gorgonIcon.SetActive(true);
-        gorgonDialogueInstance.release();
-        gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
-        gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
-        PlayDialogue(3, gorgonDialogueInstance);
-        StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
+            if (!gorgonIcon)
+            {
+                return;
+            }
+            gorgonIcon.SetActive(true);
+            gorgonDialogueInstance.release();
+            gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
+            gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
+            PlayDialogue(3, gorgonDialogueInstance);
+            StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
         
-        dialogueProgressionGorgon++;
-        speakerAfterGorgon++;
-    }
-    
-    public void GorgonWitchDialogue()
-    {
-        if (!gorgonIcon)
-        {
-            return;
+            dialogueProgressionGorgon++;
+            speakerAfterGorgon++;
         }
-
-        gorgonIcon.SetActive(true);
-        gorgonDialogueInstance.release();
-        gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
-        gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
-        PlayDialogue(3, gorgonDialogueInstance);
-        StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
-        
-        dialogueProgressionGorgon++;
-        speakerAfterGorgon = 4;
     }
-    
+
     public void BossEventDialogue(int dialogueProgressionBoss)
     {
         try

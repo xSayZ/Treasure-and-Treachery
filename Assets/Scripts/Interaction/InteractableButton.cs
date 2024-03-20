@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Game.Audio;
 using Game.Scene;
 using UnityEngine;
@@ -44,6 +45,9 @@ namespace Game {
             
             // Private Arrays
             private Material[] materials;
+            
+            // Private List
+            private List<int> playersOnButton;
 
 #region Unity Functions
             private void Start() {
@@ -57,6 +61,8 @@ namespace Game {
 
             public void Setup() {
                 SetMaterial();
+                
+                playersOnButton = new List<int>();
 
                 for (int i = buttons.Count - 1; i >= 0; i--) {
                     buttons[i].isPressed = false;
@@ -75,6 +81,11 @@ namespace Game {
                 if (!other.CompareTag("Player"))
                     return;
                 
+                int _index = other.GetComponent<Player.PlayerController>().PlayerData.playerIndex;
+                if (!playersOnButton.Contains(_index)) {
+                    playersOnButton.Add(_index);
+                }
+                
                 if (isPressed == false)
                 {
                     try
@@ -87,7 +98,8 @@ namespace Game {
                     }
                 } 
                 
-                isPressed = true;
+                if (playersOnButton.Count > 0)
+                    isPressed = true;
                 
                 renderer.material = pressedMaterial;
                 
@@ -100,14 +112,23 @@ namespace Game {
             private void OnTriggerExit(Collider other) {
                 if (!other.CompareTag("Player") || isToggle)
                     return;
+                
+                int _index = other.GetComponent<Player.PlayerController>().PlayerData.playerIndex;
+                if (playersOnButton.Contains(_index))
+                {
+                    playersOnButton.Remove(_index);
+                }
 
-                if (isTimed && !coroutineRunning) {
-                    StartCoroutine(ResetButton());
-                } else if (!isTimed) {
-                    isPressed = false;
-                    renderer.material = defaultMaterial;
-                    if(buttonSpawn != null)
-                        buttonSpawn.offButtonPressed.Invoke();
+                if (playersOnButton.Count == 0)
+                {
+                    if (isTimed && !coroutineRunning) {
+                        StartCoroutine(ResetButton());
+                    } else if (!isTimed) {
+                        isPressed = false;
+                        renderer.material = defaultMaterial;
+                        if(buttonSpawn != null)
+                            buttonSpawn.offButtonPressed.Invoke();
+                    }
                 }
             }
             

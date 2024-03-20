@@ -50,7 +50,7 @@ You all greatly impress the undead partygoers, inspiring them to join you making
 
 The party seems to go on all night and its not until the sun has almost come up that the vampires decide to take their leave. Before going they all reward you with gold as a thank you for saving their lame party.
 
-You all gain <b><color=\#ECBD00>+5 gold</color></b> and +20 total score -> END
+You all gain <b><color=\#ECBD00>+5 gold</color></b> and <b><color=\#ffd966>+20 total score</color></b> -> END
 
 ===Howl_song===
 ~ changeCurrency(2,0 )

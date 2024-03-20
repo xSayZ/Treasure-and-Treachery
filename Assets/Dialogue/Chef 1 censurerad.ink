@@ -76,7 +76,7 @@ He repeatedly tells you to take it back, but eventually accepts your unwillingne
 
 “Suit yourselves!” He says before dejectedly disappearing in a new puff of red smoke.
 
-By winning this battle of wits you feel yourself somehow gain<b><color=\#ffd966>+40 total score</color></b> each! Good jobb!
+By winning this battle of wits you feel yourself somehow gain <b><color=\#ffd966>+40 total score</color></b> each! Good jobb!
 
 -> END
 ===accept_fate===

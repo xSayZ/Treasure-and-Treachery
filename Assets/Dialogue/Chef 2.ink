@@ -50,7 +50,7 @@ You tell him that you have a counter offer; he can go and fuck himself! Oof!
 
 You all laugh at your sick burn, the king, however, does not seem as amused by your antics. 
 
-“See this is the problem with you guys, you can never take anything serious!” He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is <color=\#70e2fe> Cobalt</color>.
+“See this is the problem with you guys, you can never take anything serious!” He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is <color=\#70e2fe>Cobalt</color>.
 
 “Here I am offering you your dream jobs back and this is the thanks I get? You know what, offer REVOKED! Now I've decided to kill you again.” He flips all of you off before once more disappearing. 
 

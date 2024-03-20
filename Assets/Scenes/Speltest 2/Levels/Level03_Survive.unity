@@ -4148,6 +4148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioQuestTriggerEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7285971618589040860, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
       propertyPath: setSpeakerAfterBoss
       value: 4
@@ -4253,6 +4257,11 @@ PrefabInstance:
 --- !u!4 &497946034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7285971618589040863, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
+  m_PrefabInstance: {fileID: 497946033}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &497946035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7285971618589040848, guid: 06c8da3224bd7437ea6577f16b1cd252, type: 3}
   m_PrefabInstance: {fileID: 497946033}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &499133962
@@ -5467,7 +5476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -5479,6 +5488,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -5494,6 +5507,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 558262668}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 497946035}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -5503,6 +5520,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -5518,6 +5539,10 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: Game.UI.QuestUI, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -5528,6 +5553,14 @@ PrefabInstance:
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
       value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
@@ -5543,6 +5576,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
       propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418930959967727667, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
+      propertyPath: questCompleted.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5418930959967727668, guid: 5465de28e47f70c4695911ab8c400183, type: 3}
@@ -5689,7 +5726,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh254890
+  m_Name: pb_Mesh272692
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

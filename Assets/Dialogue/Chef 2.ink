@@ -37,7 +37,7 @@ You tell him you accept the deal, if you get one month's pay up front!
 
 5 gold? That's it? You guys earned way more whilst killing spirits! You tell the king that you don't accept such a low salary and are therefore quitting.
 
-“You're always so ungrateful! Give me the gold back at least!” You tell him that its you gold now.
+“You're always so ungrateful! Give me the gold back at least!” You tell him that it's you gold now.
 
  He lets out an agitated groan before telling you that you're all gonna regret this, and once more disappearing in a puff of smoke. 
 
@@ -60,17 +60,17 @@ You all gain <b><color=\#70e2fe>+1 very sad  Cobalt :(</color></b>
 
 -> END
 === refuse ===
-~ changeCurrency(15,0)
-~ changeCurrency(15,1)
-~ changeCurrency(15,2)
-~ changeCurrency(15,3)
+~ changeScore(60,0)
+~ changeScore(60,1)
+~ changeScore(60,2)
+~ changeScore(15,3)
 You politely tell him you are still quite set on killing him and therefore have to refuse the deal.
 
-“Wow, you guys have like integrity now? I respect it!” He pauses and seems to be looking at all of you from a new perspective, maybe you guys just got off on the wrong foot al those years ago, maybe all you needed was- 
+“Wow, you guys have like integrity now? I respect it!” He pauses and seems to be looking at all of you from a new perspective, maybe you guys just got off on the wrong foot all those years ago, maybe all you needed was- 
 
 “I'm still gonna kill you guys tho! Bye losers!" He once more disappears in a puff of red smoke. 
 
-You all gain a new sense of integrity, which roughly translates to <b><color=\#ECBD00>+15 gold</color></b> each! Epic!
+You all gain a new sense of integrity, which roughly translates to <b><color=\#ffd966>+60 total score</color></b> each! Epic!
 
 -> END
 === punch_king ===
@@ -80,9 +80,9 @@ You all gain a new sense of integrity, which roughly translates to <b><color=\#E
 ~ changeCurrency(-20, 3)
 You all decide to punch him!
 
-As your fists are supposed to make an impact with the king, they instead seem to go straight through him instead!
+As your fists are supposed to make an impact with the king, they instead seem to go straight through him!
 
-“You guys don't think I would actually risk my life by actually going to talk to you guys now? Not that I'm afraid of you guys or anything! Do I look like someone who would be afraid?” The king says this while looking very much like someone who would be afraid. 
+“You guys don't think I would actually risk my life by physically going to talk to you guys now? Not that I'm afraid of you guys or anything! Do I look like someone who would be afraid?” The king says this while looking very much like someone who would be afraid. 
 
 “I see you guys aren't ready to communicate so i'm hereby revoking my deal! Now I've decided to kill you again! Bye losers!” He once more disappears in his puff of red smoke. 
 

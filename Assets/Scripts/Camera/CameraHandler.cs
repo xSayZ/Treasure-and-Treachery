@@ -176,7 +176,9 @@ namespace Game {
 
             private IEnumerator MoveCameraToObjectives(int _stage)
             {
+                
                 SetPlayerActiveState(false);
+                SetEnemiesActiveState(false);
                 
                 // Swap to objective follow transform
                 objectiveFollowTransform.position = playerTargetGroup.transform.position;
@@ -215,6 +217,7 @@ namespace Game {
                 virtualCamera.Follow = playerTargetGroup.transform;
                 framingTransposer.m_CameraDistance = startingCameraDistance;
                 SetTargetGroupCamera();
+                SetEnemiesActiveState(true);
                 SetPlayerActiveState(true);
             }
 

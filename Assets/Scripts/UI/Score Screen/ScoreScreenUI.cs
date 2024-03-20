@@ -73,8 +73,6 @@ namespace Game {
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)
             {
-                Debug.Log("Submit");
-                
                 if (playersDoneCountingUp == playersInScoreScreen)
                 {
                     LevelManager.Instance.LoadLevel(worldMap);

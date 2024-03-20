@@ -49,11 +49,7 @@ namespace Game {
                 input.actions["Submit"].performed += OnSubmit;
                 input.actions["Cancel"].performed += OnCancel;
             }
-
-            private void OnDisable() {
-                input.actions["Submit"].performed -= OnSubmit;
-                input.actions["Cancel"].performed -= OnCancel;
-            }
+            
 
             public void OnSubmit(InputAction.CallbackContext context)
             {
@@ -67,6 +63,8 @@ namespace Game {
             private void CanvasSwapper(bool isPressed)
             {
                 if (selectedObject.gameObject == uiButtons[0] && isPressed) {
+                    input.actions["Submit"].performed -= OnSubmit;
+                    input.actions["Cancel"].performed -= OnCancel;
                     Managers.LevelManager.Instance.LoadLevel(levelToLoad);
                     
                     //Reset

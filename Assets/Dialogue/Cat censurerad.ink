@@ -48,7 +48,7 @@ By some miracle your strategy seems to actually work and the cat eventually fall
 
 “Thank you for helping me down, guys!”. Says the cat, who apparently speaks English, before quickly scurrying away. 
 
-Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03> +20 Rage</color></b> to be specific! Epic!
+Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03>+20 Rage</color></b> to be specific! Epic!
 
  -> END
 
@@ -63,9 +63,9 @@ The cat gets completely disintegrated and disappears in a puff of smoke, only le
 
 Yucky!
 
-The party gets <b><color=\#fc8ff8> +1 dead ghost cat on everyone's conscience!</color></b>
+The party gets <b><color=\#fc8ff8>+1 dead ghost cat on everyone's conscience!</color></b>
 
-…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe> +5 souls</color></b> for <color=\#ac70fe>Violet</color>!
+…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe>+5 souls</color></b> for <color=\#ac70fe>Violet</color>!
 Neat!-> END
 
 === communicate ===

@@ -34,7 +34,7 @@ The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color> to grab
 
     Positives? <color=\#96d87d>Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
     
-    Negatives? <color=\#70e2fe>Cobalt</color>, <color=\#ac70fe> Violet</color> and <color=\#ed9177>Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
+    Negatives? <color=\#70e2fe>Cobalt</color>, <color=\#ac70fe>Violet</color> and <color=\#ed9177>Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
 
 === punch_tree ===
 ~ changePersonalObjective (20, 0)
@@ -48,7 +48,7 @@ By some miracle your strategy seems to actually work and the cat eventually fall
 
 “Thank you for helping me down, guys!”. Says the cat, who apparently speaks English, before quickly scurrying away. 
 
-Whilst punching the tree <color=\#ed9177> Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03> +20 Rage</color></b> to be specific! Epic!
+Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03>+20 Rage</color></b> to be specific! Epic!
 
  -> END
 
@@ -65,7 +65,7 @@ Yucky!
 
 The party gets <b><color=\#fc8ff8> +1 dead ghost cat on everyone's conscience!</color></b>
 
-…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe> +5 souls</color></b> for <color=\#ac70fe>Violet</color>!
+…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe>+5 souls</color></b> for <color=\#ac70fe>Violet</color>!
 Neat!-> END
 
 === communicate ===
@@ -73,7 +73,7 @@ For some reason you all decide that the best option is to communicate with the c
 
 You all start meowing a surprisingly beautiful quartet. All those office party performances are actually paying off! The cat's sad meows eventually quiet down only to come back louder, but happier, as it joins in on the song. 
 
-Encouraged by your song the cat is now brave enough to jump down on its own. 
+Encouraged by your song, the cat is now brave enough to jump down on its own. 
 
 “That was great guys! Here take my business card, in case you ever wanna make a career out of this!” 
 

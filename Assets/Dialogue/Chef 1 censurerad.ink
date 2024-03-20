@@ -11,7 +11,7 @@ EXTERNAL PlayEventAudio(index)
 ~ PlayEventAudio(0)
 “Well hello employees!” from a puff of red smoke, your boss shows up!
 
-It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with <color=\#e06666> Mr. Red </color> is that he is now a king!
+It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with <color=\#e06666>Mr. Red </color> is that he is now a king!
 ~ PlayEventAudio(1)
 “Ew, you guys are like super ugly! I mean, you weren't all that beautiful before, but now you're like super-super ugly!” He gives each one of you a once over, seemingly more disgusted for each one of you he looks at. 
 
@@ -42,7 +42,7 @@ He can't push you around anymore, and to prove this you all decide to push him! 
 
 “You're all gonna regret this!” he says before vanishing in a new puff of smoke. It would probably seem a lot more intimidating if he wasn't still sitting on the ground as he disappeared. 
 
-Seeing your previous boss being so lame is hilarious, so hilarious in fact that you all gain <b><color=\#ffd966> +20 total score each!</color></b> Yay!
+Seeing your previous boss being so lame is hilarious, so hilarious in fact that you all gain <b><color=\#ffd966>+20 total score each!</color></b> Yay!
 
 -> END
 ===dont_understand===
@@ -60,7 +60,7 @@ You explain to him that you didn't fully understand and would like for him to re
 
 You all feel your pockets empty, and notice that you seem to have lost <b><color=\#e06666>-15 gold</color></b> each! 
 
-You all spend the next thirty minutes trying to comfort the now hysteric <color=\#70e2fe> Cobalt</color>...
+You all spend the next thirty minutes trying to comfort the now hysteric <color=\#70e2fe>Cobalt</color>...
 
 -> END
 ===no_you===

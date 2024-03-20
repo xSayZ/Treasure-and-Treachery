@@ -28,13 +28,9 @@ The carriage slows down and you are all able to make out that the sad cries appe
 ~ changeCurrency(-5, 0)
 ~ changeCurrency(-5, 1)
 ~ changeCurrency(-5, 2)
-You all collaborate to climb the tree and bring the cat down. With a little convincing, <color=\#ed9177>Rusty</color> and <color=\#ac70fe>Violet</color> make a human tower, allowing <color=\#70e2fe>Cobalt</color>
- to use them as a makeshift ladder to climb the tree. <color=\#96d87d>Jade</color> stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
+You all collaborate to climb the tree and bring the cat down. With a little convincing, <color=\#ed9177>Rusty</color> and <color=\#ac70fe>Violet</color> make a human tower, allowing <color=\#70e2fe>Cobalt</color> to use them as a makeshift ladder to climb the tree. <color=\#96d87d>Jade</color> stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
 
-The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color>
- to grab the cat. The cat, terrified by the blue scaly creature, scratches <color=\#70e2fe> Cobalt</color>
- which makes them fall. <color=\#70e2fe>Cobalt</color>
- lands on top of <color=\#ac70fe>Violet</color> which then results in them both falling on top of <color=\#ed9177> Rusty</color>. 
+The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color> to grab the cat. The cat, terrified by the blue scaly creature, scratches <color=\#70e2fe>Cobalt</color> which makes them fall. <color=\#70e2fe>Cobalt</color> lands on top of <color=\#ac70fe>Violet</color> which then results in them both falling on top of <color=\#ed9177>Rusty</color>. 
 
     Positives? <color=\#96d87d>Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
     
@@ -52,7 +48,7 @@ By some miracle your strategy seems to actually work and the cat eventually fall
 
 “Thank you for helping me down, guys!”. Says the cat, who apparently speaks English, before quickly scurrying away. 
 
-Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03> +20 Rage</color></b> to be specific! Epic!
+Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up quite a bit of rage, <b><color=\#FC6A03>+20 Rage</color></b> to be specific! Epic!
 
  -> END
 
@@ -67,9 +63,9 @@ The cat gets completely disintegrated and disappears in a puff of smoke, only le
 
 Yucky!
 
-The party gets <b><color=\#fc8ff8> +1 dead ghost cat on everyone's conscience!</color></b>
+The party gets <b><color=\#fc8ff8>+1 dead ghost cat on everyone's conscience!</color></b>
 
-…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe> +5 souls</color></b> for <color=\#ac70fe> Violet</color>!
+…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe>+5 souls</color></b> for <color=\#ac70fe>Violet</color>!
 Neat!-> END
 
 === communicate ===

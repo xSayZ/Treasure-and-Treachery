@@ -40,7 +40,7 @@ namespace Game {
             [SerializeField] 
             private EventReference dragonShootAudio;
             [SerializeField] 
-            private EventReference dragonArrowAudio;
+            private EventReference dragonArrowAudio, dragonPickPocketAudio;
 
 
             private EventInstance dragonShootInstance;
@@ -118,6 +118,14 @@ public void DragonArrowAudio(GameObject arrowObj)
     RuntimeManager.AttachInstanceToGameObject(dragonArrowInstance, arrowObj.transform);
     dragonArrowInstance.start();
     dragonArrowInstance.release();
+}
+
+public void DragonPickPocket(GameObject dragonObject)
+{
+    EventInstance dragonPickPocketInstance = RuntimeManager.CreateInstance(dragonPickPocketAudio);
+    RuntimeManager.AttachInstanceToGameObject(dragonPickPocketInstance, dragonObject.transform);
+    dragonPickPocketInstance.start();
+    dragonPickPocketInstance.release();
 }
 
 public void MeleeAudioPlay(GameObject meleeObj, string characterType)

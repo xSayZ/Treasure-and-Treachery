@@ -200,7 +200,6 @@ namespace Game {
 
                 for (int i = 0; i < _itemsToRemove.Count; i++)
                 {
-                    Debug.Log("Item removed: " + _itemsToRemove[i]);
                     QuestManager.OnItemDropped.Invoke(requiredItems[_itemsToRemove[i]].PlayerIndex, _itemsToRemove[i], true);
                     requiredItems.Remove(_itemsToRemove[i]);
                 }
@@ -302,8 +301,12 @@ namespace Game {
                 // Stop progress if player is interacting
                 if (requiredItems.ContainsKey(_item))
                 {
-                    GameManager.Instance.ActivePlayerControllers[requiredItems[_item].PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = false;
                     requiredItems[_item].IsInteracting = false;
+                    
+                    if (GameManager.Instance.ActivePlayerControllers.ContainsKey(requiredItems[_item].PlayerIndex))
+                    {
+                        GameManager.Instance.ActivePlayerControllers[requiredItems[_item].PlayerIndex].gameObject.GetComponent<PlayerMovementBehaviour>().QuestMoveRotateLock = false;
+                    }
                 }
             }
 

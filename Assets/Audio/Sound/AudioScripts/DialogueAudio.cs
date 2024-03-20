@@ -9,6 +9,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
@@ -296,8 +297,8 @@ namespace Game {
             }
 
             public void GetRandomPlayerAndPlayResponse(int _playerID, Dictionary<int, PlayerController> _players, string context) 
-            { 
-                var _randomPlayer = _players[Random.Range(0, _players.Count)];
+            {
+                var _randomPlayer = _players.ElementAt(Random.Range(0, _players.Count)).Value;
                 
                 if (_randomPlayer != _players[_playerID])
                 {

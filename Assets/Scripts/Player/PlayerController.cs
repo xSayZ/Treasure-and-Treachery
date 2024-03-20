@@ -319,9 +319,17 @@ namespace Game
                 
                 StartCoroutine(DamageFlash());
                 
-                RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration, playerInput.devices[0]);
                 PlayerData.currentHealth = Health;
                 playerHealthBar.UpdateHealthBar(Health);
+                
+                try
+                {
+                    RumbleManager.Instance.RumblePulse(lowFrequency,highFrequency,duration, playerInput.devices[0]);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning("Rumble failed, error: " + e);
+                }
                 
                 try
                 {

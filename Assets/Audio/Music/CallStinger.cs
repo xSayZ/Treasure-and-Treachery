@@ -43,6 +43,12 @@ namespace Game {
             
         }
 
+        public void CallWaveStinger()
+        {
+            AudioMananger.Instance.WaveStinger();
+            
+        }
+
 #endregion
 
 #region Private Functions

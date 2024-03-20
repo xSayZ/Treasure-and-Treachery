@@ -272,15 +272,18 @@ namespace Game {
                                 
                     playerController.PlayerMovementBehaviour.CurrentTurnSpeed = rangedAimTurnSpeed;
                     playerController.PlayerMovementBehaviour.AimMoveLock = true;
-                    
-                    try
+                    if (characterType == "dragon")
                     {
-                        playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
+                       try
+                      {
+                          playerAudio.DragonShoot(playerObj, true, dragonShootinstance);
+                      }
+                      catch (Exception e)
+                      {
+                          Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                      }  
                     }
-                    catch (Exception e)
-                    {
-                        Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
-                    }
+                   
                 }
                 else if (IsAiming)
                 {

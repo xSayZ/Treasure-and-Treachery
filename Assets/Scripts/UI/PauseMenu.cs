@@ -6,9 +6,7 @@
 // --------------------------------
 // ------------------------------*/
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Game.Backend;
 using Game.Managers;
 using Game.Player;
@@ -36,6 +34,10 @@ namespace Game
             private PlayerInput focusedPad;
             [SerializeField]private MultiplayerEventSystem multiplayerpauseEventSystem;
             [SerializeField]private InputSystemUIInputModule uiInputModule;
+            
+            [Header("Reset")]
+            [SerializeField] private PlayerData[] playerDatasToReset;
+            
             #region Unity Functions
             
             public void StartPauseGameplay(bool pressed, PlayerController controller,MultiplayerEventSystem multiplayerEventSystem,InputSystemUIInputModule pauseInput)
@@ -68,6 +70,7 @@ namespace Game
 
                 if (pressed && isActive && EventSystem.current.currentSelectedGameObject == UIButtons[1].gameObject)
                 {
+                    ResetPlayerDatas();
                     LevelManager.Instance.LoadLevel(level);
                     GameManager.Instance.TogglePauseState(controller);
                 }
@@ -125,7 +128,7 @@ namespace Game
             }
 
 
-            public IEnumerator SelectFirstChoice()
+            private IEnumerator SelectFirstChoice()
             {
                 // Event System requires we clear it first, then wait
                 // for at least one frame before we set the current selected object.
@@ -133,6 +136,15 @@ namespace Game
                 EventSystem.current.SetSelectedGameObject(null);
                 yield return new WaitForEndOfFrame();
                 EventSystem.current.SetSelectedGameObject(UIButtons[0].gameObject);
+            }
+
+            private void ResetPlayerDatas()
+            {
+                // Reset score gained during this level
+                foreach (PlayerData _playerData in playerDatasToReset)
+                {
+                    _playerData.CancelScene();
+                }
             }
 
             #endregion

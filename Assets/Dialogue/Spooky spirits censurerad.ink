@@ -25,7 +25,7 @@ Who do you pick?
 ~ changeScore (-20,2)
 ~ changeScore (-20,3)
 
-You tell them that the mask kladd spirit is the scariest one! The spirit wearing the spooky mask looks very happy with your decision! You think he does at least, it's hard to tell with the mask after all. The rest of the spirits, however, seem to be less enthused with your decision.
+You tell them that the mask clad spirit is the scariest one! The spirit wearing the spooky mask looks very happy with your decision! You think he does at least, it's hard to tell with the mask after all. The rest of the spirits, however, seem to be less enthused with your decision.
 
 “Any old spirit could wear a spooky mask! And isn't he kind of trying too hard?” The rest of the spirits start to argue once more, seemingly not content with your decision. 
 

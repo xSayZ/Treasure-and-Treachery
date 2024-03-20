@@ -28,11 +28,13 @@ The carriage slows down and you are all able to make out that the sad cries appe
 ~ changeCurrency(-5, 0)
 ~ changeCurrency(-5, 1)
 ~ changeCurrency(-5, 2)
-You all collaborate to climb the tree and bring the cat down. With a little convincing, <color=\#ed9177> Rusty</color> and <color=\#ac70fe> Violet</color> make a human tower, allowing <color=\#70e2fe> Cobalt</color> to use them as a makeshift ladder to climb the tree. <color=\#96d87d> Jade</color> stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
+You all collaborate to climb the tree and bring the cat down. With a little convincing, <color=\#ed9177>Rusty</color> and <color=\#ac70fe>Violet</color> make a human tower, allowing <color=\#70e2fe>Cobalt</color> to use them as a makeshift ladder to climb the tree. <color=\#96d87d>Jade</color> stands off to the side cheering the group on, slightly upset that she doesn't have a larger part in the rescue mission. 
 
-The plan goes perfect until it's time for <color=\#70e2fe> Cobalt</color> to grab the cat. The cat, terrified by the blue scaly creature, scratches <color=\#70e2fe> Cobalt</color> which makes them fall. <color=\#70e2fe> Cobalt</color> lands on top of <color=\#ac70fe> Violet</color> which then results in them both falling on top of <color=\#ed9177> Rusty</color>. 
+The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color> to grab the cat. The cat, terrified by the blue scaly creature, scratches <color=\#70e2fe>Cobalt</color> which makes them fall. <color=\#70e2fe>Cobalt</color> lands on top of <color=\#ac70fe>Violet</color> which then results in them both falling on top of <color=\#ed9177>Rusty</color>. 
 
-    Positives? <color=\#96d87d> Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> Negatives? <color=\#70e2fe> Cobalt</color>, <color=\#ac70fe> Violet</color> and <color=\#ed9177> Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
+    Positives? <color=\#96d87d> Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
+    
+    Negatives? <color=\#70e2fe> Cobalt</color>, <color=\#ac70fe> Violet</color> and <color=\#ed9177> Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
 
 === punch_tree ===
 ~ changePersonalObjective (20, 0)
@@ -42,7 +44,7 @@ You quickly realize that punching trees really isn't as fun as one would like to
 
 <color=\#ed9177> Rusty</color> is going fucking in on that tree! Honestly this might be really good for him, a safe way to let out his anger! …Or it's completely useless, but hey, at least the guy is having fun.
 
-By some miracle your strategy seems to actually work and the cat eventually falls down from the tree.
+By some miracle your strategy seems to actually work and the cat eventually falls down from the tree, landing safely on its feet.
 
 “Thank you for helping me down, guys!”. Says the cat, who apparently speaks English, before quickly scurrying away. 
 
@@ -70,6 +72,8 @@ Neat!-> END
 For some reason you all decide that the best option is to communicate with the cat in the universal language of song. Just to make sure the ghostly cat will truly understand you also decide to sing it in meows. Brilliant idea…
 
 You all start meowing a surprisingly beautiful quartet. All those office party performances are actually paying off! The cat's sad meows eventually quiet down only to come back louder, but happier, as it joins in on the song. 
+
+Encouraged by your song the cat is now brave enough to jump down on its own. 
 
 “That was great guys! Here take my business card, in case you ever wanna make a career out of this!” 
 

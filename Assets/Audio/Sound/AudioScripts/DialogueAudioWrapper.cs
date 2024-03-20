@@ -144,6 +144,24 @@ public class DialogueAudioWrapper : MonoBehaviour
         StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
         
         dialogueProgressionGorgon++;
+        speakerAfterGorgon++;
+    }
+    
+    public void GorgonWitchDialogue()
+    {
+        if (!gorgonIcon)
+        {
+            return;
+        }
+
+        gorgonIcon.SetActive(true);
+        gorgonDialogueInstance.release();
+        gorgonDialogueInstance = RuntimeManager.CreateInstance(gorgonDialogue);
+        gorgonDialogueInstance.setParameterByName("DialogueProgression", dialogueProgressionGorgon);
+        PlayDialogue(3, gorgonDialogueInstance);
+        StartCoroutine(QueNextDialogue(gorgonDialogueInstance, speakerAfterGorgon, gorgonIcon));   
+        
+        dialogueProgressionGorgon++;
         speakerAfterGorgon = 4;
     }
     

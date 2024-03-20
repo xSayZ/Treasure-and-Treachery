@@ -198,6 +198,7 @@ public EventInstance InteractionAudio(EventInstance interactionInstance, GameObj
             interactionInstance.setParameterByName("InteractLooping", 0);
             interactionInstance.release();
             interactionInstance.keyOff();
+            interactionInstance.stop(STOP_MODE.ALLOWFADEOUT);
             break;
     }
     return interactionInstance;

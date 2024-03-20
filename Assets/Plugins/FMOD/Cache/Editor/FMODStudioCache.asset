@@ -365,7 +365,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638465430622655874
+  lastModified: 638465456106166855
   FileSizes: []
   Exists: 1
 --- !u!114 &-6627330813449302297
@@ -1160,33 +1160,6 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
---- !u!114 &-3445814198132007756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music Events/Timed Stinger
-  m_EditorClassIdentifier: 
-  Path: event:/Music Events/Timed Stinger
-  Guid:
-    Data1: -1765121799
-    Data2: 1322447865
-    Data3: 198427308
-    Data4: -2038292595
-  Banks:
-  - {fileID: 4218797353800513367}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4285
 --- !u!114 &-3414957097704591326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,7 +1922,6 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   - {fileID: 4218797353800513367}
   EditorEvents:
-  - {fileID: -3445814198132007756}
   - {fileID: 3118349444904529808}
   - {fileID: -5370977247339574998}
   - {fileID: 3006823077082858334}
@@ -2038,6 +2010,7 @@ MonoBehaviour:
   - {fileID: -6404507418495864043}
   - {fileID: 6554406472812098886}
   - {fileID: 3067546127754412225}
+  - {fileID: 6130783609142492258}
   EditorParameters:
   - {fileID: 806776110565252230}
   - {fileID: 3750933606372616956}
@@ -2046,7 +2019,7 @@ MonoBehaviour:
   - {fileID: -6796613496901478413}
   StringsBanks:
   - {fileID: 8938361992119362503}
-  cacheTime: 638465430625042618
+  cacheTime: 638465456107148305
   cacheVersion: 131609
 --- !u!114 &113248971625124846
 MonoBehaviour:
@@ -2963,7 +2936,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Music .bank
   Name: 'Music '
   StudioPath: 'bank:/Music '
-  lastModified: 638465430625042618
+  lastModified: 638465456107148305
   FileSizes: []
   Exists: 1
 --- !u!114 &4344160753167907814
@@ -3333,6 +3306,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &6130783609142492258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music Events/WaveStinger
+  m_EditorClassIdentifier: 
+  Path: event:/Music Events/WaveStinger
+  Guid:
+    Data1: -1765121799
+    Data2: 1322447865
+    Data3: 198427308
+    Data4: -2038292595
+  Banks:
+  - {fileID: 4218797353800513367}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4285
 --- !u!114 &6147775179635613011
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4064,10 +4064,10 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Banks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638465430622784105
+  lastModified: 638465456106197066
   FileSizes:
   - Name: 
-    Value: 8412
+    Value: 8420
   Exists: 1
 --- !u!114 &9157920777133037557
 MonoBehaviour:

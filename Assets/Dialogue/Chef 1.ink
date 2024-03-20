@@ -36,9 +36,9 @@ What do you do?
 ~ changeScore(20,1)
 ~ changeScore(20,2)
 ~ changeScore(20,3)
-He ain't the boss of you! I mean he literally was a couple of hours ago, but you fucking died so now he isnt! 
+He ain't the boss of you! I mean he literally was a couple of hours ago, but you fucking died so now he isn't! 
 
-He can't push you around anymore, and to prove this you all decide to push him! with a satisfying “omph!” The newly crowned king lands straight on his ass.
+He can't push you around anymore, and to prove this you all decide to push him! With a satisfying “omph!” The newly crowned king lands straight on his ass.
 
 “You're all gonna regret this!” he says before vanishing in a new puff of smoke. It would probably seem a lot more intimidating if he wasn't still sitting on the ground as he disappeared. 
 
@@ -70,7 +70,7 @@ You all spend the next thirty minutes trying to comfort the now hysteric <color=
 ~ changeScore(40,3)
 You see him physically recoil from the impact of your words! 
 
-“Take that back!” He’s got that look in his face he always gets when someone forgets to refill the ink in the copy machine. Pure anger.
+“Take that back!” He’s got that look in his face he always gets when someone forgets to refill the ink in the printer Pure anger.
 
 He repeatedly tells you to take it back, but eventually accepts your unwillingness to. 
 

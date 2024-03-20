@@ -7,6 +7,7 @@
 // ------------------------------*/
 
 using System.Collections.Generic;
+using Game.Audio;
 using Game.CharacterSelection;
 using UnityEngine;
 using Game.Player;
@@ -122,6 +123,11 @@ namespace Game {
             private void SetupLocalMultiplayer()
             {
                 QuestManager.SetUp();
+                if(AudioMananger.Instance.TryGetComponent(out TimeSetParam _timeSetParam))
+                {
+                    _timeSetParam.Setup(this);
+                }
+                
                 
                 OnPlayerDeath.AddListener(RemovePlayerFromCurrentPlayersList);
                 isPaused = false;

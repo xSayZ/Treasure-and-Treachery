@@ -64,8 +64,7 @@ namespace Game {
                 {
                     if (i.action == Action.None)
                     {
-                        Debug.Log(
-                            "You have unfinished fields in AudioZoneSettings, action set to -None or -ParameterName was missing");
+                       // Debug.Log("You have unfinished fields in AudioZoneSettings, action set to -None or -ParameterName was missing");
                     }
                     else
                     {

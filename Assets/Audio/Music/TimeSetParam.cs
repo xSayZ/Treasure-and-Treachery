@@ -51,7 +51,7 @@ namespace Game {
             {
                 if (timer >= _thresholds[i])
                 {
-                    Debug.Log("Setting parameter to: " + _musicParameters[i]);
+                    //Debug.Log("Setting parameter to: " + _musicParameters[i]);
                     // Set the parameter of the music event
                     AudioMananger.Instance.SetParameterMusicEvent(EventsToBePlayed.GamePlayMusic, "MusicProg", _musicParameters[i], false, false);
                 }

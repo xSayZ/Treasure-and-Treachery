@@ -105,7 +105,7 @@ namespace Game {
                     StartCoroutine(ResetButton());
                 } else if (!isTimed) {
                     isPressed = false;
-                    renderer.materials[1].color = originalColor;
+                    renderer.material = defaultMaterial;
                     if(buttonSpawn != null)
                         buttonSpawn.offButtonPressed.Invoke();
                 }

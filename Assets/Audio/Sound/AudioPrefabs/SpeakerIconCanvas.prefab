@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7949587343909791225}
   - component: {fileID: 5316970305290425186}
   - component: {fileID: 204449786642773169}
+  - component: {fileID: 3311403902268930274}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -33,10 +34,10 @@ RectTransform:
   m_Father: {fileID: 6006263495474170914}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 783.99994, y: -423}
-  m_SizeDelta: {x: 342, y: 241}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1768.1417, y: -972.5}
+  m_SizeDelta: {x: 305.10373, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5316970305290425186
 CanvasRenderer:
@@ -76,6 +77,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3311403902268930274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747165032776172709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.4190872
 --- !u!1 &6006263495439062762
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +102,7 @@ GameObject:
   - component: {fileID: 6006263495439062763}
   - component: {fileID: 6006263495439062761}
   - component: {fileID: 6006263495439062760}
+  - component: {fileID: 3807080060983174337}
   m_Layer: 0
   m_Name: DragonIcon
   m_TagString: Untagged
@@ -109,10 +125,10 @@ RectTransform:
   m_Father: {fileID: 6006263495474170914}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 783.99994, y: 47}
-  m_SizeDelta: {x: 342, y: 241}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1768.1417, y: -112.5}
+  m_SizeDelta: {x: 305.10373, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006263495439062761
 CanvasRenderer:
@@ -152,6 +168,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3807080060983174337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263495439062762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.4190872
 --- !u!1 &6006263495474170917
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +194,9 @@ GameObject:
   - component: {fileID: 6006263495474170913}
   - component: {fileID: 6006263495474170912}
   - component: {fileID: 6006263495474170915}
+  - component: {fileID: 3897418972637334211}
   m_Layer: 0
-  m_Name: SpeakerIconCanvass
+  m_Name: SpeakerIconCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,7 +265,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -257,6 +288,32 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3897418972637334211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263495474170917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 8
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &6006263496346491680
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +325,7 @@ GameObject:
   - component: {fileID: 6006263496346491681}
   - component: {fileID: 6006263496346491695}
   - component: {fileID: 6006263496346491694}
+  - component: {fileID: 5740312229915517718}
   m_Layer: 0
   m_Name: WolfIcon
   m_TagString: Untagged
@@ -290,10 +348,10 @@ RectTransform:
   m_Father: {fileID: 6006263495474170914}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 783.99994, y: -102}
-  m_SizeDelta: {x: 342, y: 241}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1768.1417, y: -327.5}
+  m_SizeDelta: {x: 305.10373, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006263496346491695
 CanvasRenderer:
@@ -333,6 +391,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5740312229915517718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263496346491680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.4190872
 --- !u!1 &6006263496766802877
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +416,7 @@ GameObject:
   - component: {fileID: 6006263496766802872}
   - component: {fileID: 6006263496766802875}
   - component: {fileID: 6006263496766802874}
+  - component: {fileID: 3159646594886598376}
   m_Layer: 0
   m_Name: GorgonIcon
   m_TagString: Untagged
@@ -366,10 +439,10 @@ RectTransform:
   m_Father: {fileID: 6006263495474170914}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 784, y: -263}
-  m_SizeDelta: {x: 342, y: 241}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1768.1417, y: -757.5}
+  m_SizeDelta: {x: 305.10373, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006263496766802875
 CanvasRenderer:
@@ -409,6 +482,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3159646594886598376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263496766802877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.4190872
 --- !u!1 &6006263496800720170
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,6 +507,7 @@ GameObject:
   - component: {fileID: 6006263496800720171}
   - component: {fileID: 6006263496800720169}
   - component: {fileID: 6006263496800720168}
+  - component: {fileID: 6630099173960996543}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Untagged
@@ -442,10 +530,10 @@ RectTransform:
   m_Father: {fileID: 6006263495474170914}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 783.99994, y: -419}
-  m_SizeDelta: {x: 342, y: 241}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1768.1417, y: -542.5}
+  m_SizeDelta: {x: 305.10373, y: 215}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6006263496800720169
 CanvasRenderer:
@@ -485,3 +573,17 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6630099173960996543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6006263496800720170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1.4190872

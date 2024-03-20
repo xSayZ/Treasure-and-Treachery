@@ -26,7 +26,6 @@ namespace Game {
             [Header("Level Data")]
             [Tooltip("The level data of the level. This is used to load the level scene.")]
             [SerializeField] private LevelDataSO levelData;
-            [SerializeField] private List<GameObject> gameObjectsForWorldChange = new List<GameObject>();
             
             [Header("Object Options")]
             [Tooltip("The level UI object. This is used to display the level UI.")]

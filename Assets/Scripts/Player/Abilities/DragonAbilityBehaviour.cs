@@ -6,6 +6,8 @@
 // --------------------------------
 // ------------------------------*/
 
+using System;
+using Game.Audio;
 using Game.Core;
 using Game.Enemy;
 using Game.Quest;
@@ -21,6 +23,9 @@ namespace Game {
             [SerializeField] private int goldOnDashKill;
             [SerializeField] private float healInterval;
             [SerializeField] private int healAmount;
+
+            [Header("Audio")] 
+            [SerializeField] private PlayerAudio playerAudio;
             
             private bool started;
             private float currentHealInterval;
@@ -49,6 +54,14 @@ namespace Game {
                 if (_enemyController.TryStealGold())
                 {
                     OnPersonalGoldPickedUp(goldOnDashKill);
+                    try
+                    {
+                        playerAudio.DragonPickPocket(gameObject);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError("[{DragonAbilityBehaviour}]: Error Exception " + e);
+                    }
                 }
             }
 
@@ -88,6 +101,15 @@ namespace Game {
                         {
                             OnPersonalGoldPickedUp(_pickUp.Amount);
                             Destroy(_pickUp.gameObject);
+
+                            try
+                            {
+                                playerAudio.DragonPickPocket(gameObject);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.LogError("[{DragonAbilityBehaviour}]: Error Exception " + e);
+                            }
                         }
                     }
                 }

@@ -26,7 +26,7 @@ namespace Game {
             GamePlayMusic,
             AmbienceTrees,
             AmbienceWind,
-            TimedStinger,
+            WaveStinger,
             IntroScene,
             MainTheme,
             VictoryTheme,
@@ -50,6 +50,7 @@ namespace Game {
             
            [SerializeField] private EventReference gameOverStinger;
            [SerializeField] private EventReference completeObjStinger;
+           [SerializeField] private EventReference fXObjStinger;
            [SerializeField] private EventReference victoryStinger;
            [SerializeField] private EventReference waveStinger1;
             
@@ -172,6 +173,14 @@ namespace Game {
                 victoryStinger1.start();
                 victoryStinger1.release();
                 
+            }
+
+            public void FXObjStinger()
+            {
+                EventInstance fxObjSting = RuntimeManager.CreateInstance(fXObjStinger);
+                fxObjSting.start();
+                fxObjSting.release();
+
             }
 
 

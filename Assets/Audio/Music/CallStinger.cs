@@ -37,6 +37,12 @@ namespace Game {
             
         }
 
+        public void CallFXObjStinger()
+        {
+            AudioMananger.Instance.FXObjStinger();
+            
+        }
+
         public void CallVictoryStinger()
         {
             AudioMananger.Instance.VictoryStinger();

@@ -71,6 +71,7 @@ namespace Game {
             public bool CameraMoveRotateLock { private get; set; }
             public bool QuestMoveRotateLock { private get; set; }
             public bool AttackStunMoveRotateLock { private get; set; }
+            public bool DeathMoveRotateLock { private get; set; }
             
             public bool AimMoveLock { private get; set; }
             
@@ -159,12 +160,12 @@ namespace Game {
 #region Public Functions
             public bool CanMove()
             {
-                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || AimMoveLock);
+                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || DeathMoveRotateLock || AimMoveLock);
             }
 
             public bool CanRotate()
             {
-                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || forceMoveRotateLock);
+                return !(CameraMoveRotateLock || QuestMoveRotateLock || AttackStunMoveRotateLock || DeathMoveRotateLock || forceMoveRotateLock);
             }
 
             public void UpdateMovementData(Vector3  _newMovementDirection)

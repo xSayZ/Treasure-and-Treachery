@@ -97,6 +97,22 @@ MonoBehaviour:
     m_ActionId: dac5d031-871d-4fdc-a6a0-a4c20397c5b7
     m_ActionName: Player/PauseMenu[/SwitchProControllerHID/start,/SwitchProControllerHID1/start,/Keyboard/escape]
   - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
+    m_ActionName: Menu/Move[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down,/SwitchProControllerHID/dpad/left,/SwitchProControllerHID1/dpad/left,/SwitchProControllerHID/dpad/right,/SwitchProControllerHID1/dpad/right,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
+    m_ActionName: Menu/Submit[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
+    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
+    m_ActionName: Menu/Pause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start]
+  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1358987129748573213}
         m_TargetAssemblyTypeName: Game.Racer.RacerPlayerInput, Assembly-CSharp
@@ -110,8 +126,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 045a087a-4694-45e7-b51a-ce4278c49190
-    m_ActionName: Menu/Move[/SwitchProControllerHID/leftStick,/SwitchProControllerHID1/leftStick,/SwitchProControllerHID/dpad/up,/SwitchProControllerHID1/dpad/up,/SwitchProControllerHID/dpad/down,/SwitchProControllerHID1/dpad/down,/SwitchProControllerHID/dpad/left,/SwitchProControllerHID1/dpad/left,/SwitchProControllerHID/dpad/right,/SwitchProControllerHID1/dpad/right,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+    m_ActionId: 96a29e41-73ce-4128-843d-537831acd3eb
+    m_ActionName: Racer/Movement[/XInputControllerWindows2/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1358987129748573213}
@@ -126,12 +142,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 580a49de-8e96-4e82-be73-152b5d3a8ea8
-    m_ActionName: Menu/Submit[/SwitchProControllerHID/buttonSouth,/SwitchProControllerHID1/buttonSouth,/Keyboard/space,/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fbf058c2-c2af-4c0f-9dd3-cd5d438e9f63
-    m_ActionName: Menu/Cancel[/SwitchProControllerHID/buttonEast,/SwitchProControllerHID1/buttonEast,/Keyboard/escape]
+    m_ActionId: 950753c4-ceaa-4b64-9147-4ab2bf6987f2
+    m_ActionName: Racer/Submit[/XInputControllerWindows2/buttonSouth,/Keyboard/space,/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1358987129748573213}
@@ -146,11 +158,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 65e4be2f-ea3e-4984-abd7-3cd5aa809c44
-    m_ActionName: Menu/Pause[/SwitchProControllerHID/start,/SwitchProControllerHID1/start]
+    m_ActionId: c75efe28-c091-4578-bcd9-a1a47e116a9f
+    m_ActionName: Racer/Pause[/XInputControllerWindows2/start,/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Menu
+  m_DefaultActionMap: Racer
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1358987129748573213
@@ -169,7 +181,7 @@ MonoBehaviour:
   multiplayerEventSystem: {fileID: 5728049724715446647}
   inputSystemUIInputModule: {fileID: 245067014412038948}
   _pauseMenu: {fileID: 0}
-  dialogueActice: 0
+  dialogueActive: 0
 --- !u!114 &5728049724715446647
 MonoBehaviour:
   m_ObjectHideFlags: 0

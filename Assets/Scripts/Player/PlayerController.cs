@@ -440,12 +440,18 @@ namespace Game
                         
                         foreach (Image _image in _imagesToFade)
                         {
-                            _image.color = new Color(255, 255, 255, 1 - _currentProgress);
+                            if (_image)
+                            {
+                                _image.color = new Color(255, 255, 255, 1 - _currentProgress);
+                            }
                         }
                         
                         foreach (SpriteRenderer _spriteRenderer in _spriteRenderersToFade)
                         {
-                            _spriteRenderer.color = new Color(255, 255, 255, 1 - _currentProgress);
+                            if (_spriteRenderer)
+                            {
+                                _spriteRenderer.color = new Color(255, 255, 255, 1 - _currentProgress);
+                            }
                         }
                         
                         yield return new WaitForSeconds(0.01f);

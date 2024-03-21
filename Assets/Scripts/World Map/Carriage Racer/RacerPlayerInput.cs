@@ -14,6 +14,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.Serialization;
 
 
 namespace Game {
@@ -26,7 +27,8 @@ namespace Game {
             [SerializeField] private InputSystemUIInputModule inputSystemUIInputModule;
             [SerializeField] private PauseMenu _pauseMenu;
 
-            [HideInInspector] public bool dialogueActice;
+            [FormerlySerializedAs("dialogueActice")]
+            [HideInInspector] public bool dialogueActive;
 
             private bool isFirstInput;
             private CarriageRacer carriageRacer;
@@ -41,7 +43,7 @@ namespace Game {
 
             public void Setup(CarriageRacer _carriageRacer, DialogueManager _dialogueManager, InputDevice _inputDevice)
             {
-                dialogueActice = false;
+                dialogueActive = false;
                 
                 carriageRacer = _carriageRacer;
                 dialogueManager = _dialogueManager;
@@ -65,7 +67,7 @@ namespace Game {
 
             public void OnSubmit(InputAction.CallbackContext _context)
             {
-                if (!dialogueActice)
+                if (!dialogueActive)
                 {
                     if (_context.started)
                     {

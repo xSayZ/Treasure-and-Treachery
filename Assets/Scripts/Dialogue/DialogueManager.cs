@@ -109,7 +109,7 @@ namespace Game {
                 // Set inputs to dialogue
                 foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
                 {
-                    _racerPlayerInput.dialogueActice = true;
+                    _racerPlayerInput.dialogueActive = true;
                 }
                 
                 if (hasRacer) {
@@ -272,7 +272,7 @@ namespace Game {
                 // Set inputs to not dialogue
                 foreach (RacerPlayerInput _racerPlayerInput in racerPlayerInputs)
                 {
-                    _racerPlayerInput.dialogueActice = false;
+                    _racerPlayerInput.dialogueActive = false;
                 }
                 
                 OnDialogueEnd.Invoke();

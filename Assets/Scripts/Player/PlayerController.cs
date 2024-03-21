@@ -44,6 +44,7 @@ namespace Game
             [Header("UI")]
             [SerializeField] private PlayerHealthBar playerHealthBar;
             [SerializeField] private PauseMenu pauseMenu;
+            [SerializeField] private Image circleImage;
             
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
@@ -104,8 +105,8 @@ namespace Game
                 inputSystemUIInputModule = GetComponent<InputSystemUIInputModule>();
                 
                 PlayerIndex = PlayerData.playerIndex;
-                
                 Health = PlayerData.currentHealth;
+                circleImage.color = PlayerData.playerMaterialColor;
                 
                 rigidbody = GetComponent<Rigidbody>();
                 

@@ -52,7 +52,7 @@ Seeing your previous boss being so lame is hilarious, so hilarious in fact that 
 ~ changeCurrency(-15,3)
 You explain to him that you didn't fully understand and would like for him to repeat himself. 
 
-<color=\#e06666>”Oh okey!”</color> He says before he repeats his whole speech from the beginning. It’s not until he has once more finished that he looks up and sees the grin on all of your faces.
+<color=\#e06666>”Oh okay!”</color> He says before he repeats his whole speech from the beginning. It’s not until he has once more finished that he looks up and sees the grin on all of your faces.
 
 <color=\#e06666>“Oh you think it’s sooo fun to mock me?”</color> He says before shooting some kind of red magic on you guys!
 

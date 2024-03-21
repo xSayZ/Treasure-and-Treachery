@@ -38,7 +38,7 @@ Better luck next time! -> END
 ===long_term_commitment===
 You tell them that the scariest spirit by far is the spirit looking for long term commitment. The spirit in question looks a little sad about it but the rest of them seem to actually agree with you.
 
-“That's true, most spirits just aint ready for that yet.” One of the spirits says, whilst patting the relationship ready spirit on the back.
+“That's true, most spirits just ain't ready for that yet.” One of the spirits says, whilst patting the relationship ready spirit on the back.
 
 You tell the, now sad, spirit to keep her head up and that she will find the right ghoul for her! She thanks you for your kind words.
 

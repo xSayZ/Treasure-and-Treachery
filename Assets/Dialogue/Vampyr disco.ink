@@ -77,7 +77,7 @@ You all sit down and have meaningful and deep conversations with the vampires. T
 
 Even though the vibes are great you decide to leave the gathering early, there's a day tomorrow as well after all. 
 
-You all have a great evening and earn <b><color=\#8F00FF>+1 feeling of yourselfs turning into your parents…</color></b> <i> shudders <i>
+You all have a great evening and earn <b><color=\#fc8ff8>+1 feeling of yourselfs turning into your parents…</color></b> <i> shudders <i>
 
 The evening seems to have been so relaxing that <color=\#ed9177>Rusty</color>'s lost about <b><color=\#ed9177>-20 wrath,</color></b> which is probably really good for his heart but is kinda lame for being a raging werewolf…
 

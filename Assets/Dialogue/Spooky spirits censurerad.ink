@@ -31,7 +31,7 @@ You tell them that the mask clad spirit is the scariest one! The spirit wearing 
 
 Welp, that could have gone better!
 
-You all earn <b><color=\#8F00FF>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666>-20 total score</color></b>
+You all earn <b><color=\#fc8ff8>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666>-20 total score</color></b>
 
 Better luck next time! -> END
 

@@ -105,11 +105,19 @@ namespace Game {
                 }
             }
 
-            public void SwitchScene() {
+            public void SwitchScene(GameObject marker) {
                 if (isLocked) return;
                 LevelManager.Instance.worldMapManager.carriagePosition = transform.position;
                 LevelManager.Instance.worldMapManager.carriageRotation = transform.rotation;
-                LevelManager.Instance.LoadLevel(levelData);
+                if (marker == null)
+                {
+                    LevelManager.Instance.LoadLevel(levelData);
+                }
+                else
+                {
+                    LevelManager.Instance.LoadLevel(marker.GetComponent<PlayMarker>().levelData);
+
+                }
             }
         }
     }

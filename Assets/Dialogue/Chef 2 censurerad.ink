@@ -9,11 +9,11 @@ EXTERNAL PlayEventAudio(index)
 
 === paragraph_1 ===
 ~ PlayEventAudio(6)
-“Im baaack!” from a puff of red smoke, your former boss has shown up once more!
+<color=\#e06666>“Im baaack!”</color> from a puff of red smoke, your former boss has shown up once more!
 ~ PlayEventAudio(7)
-“I'm sure I'm just imagining things, but are you guys actually heading towards my castle?” He lets out a scoff before continuing. “Surely you don't think you can beat me? There’s a reason that you guys are little employees, whilst I'm the boss!”
+<color=\#e06666>“I'm sure I'm just imagining things, but are you guys actually heading towards my castle?”</color> He lets out a scoff before continuing. <color=\#e06666>“Surely you don't think you can beat me? There’s a reason that you guys are little employees, whilst I'm the boss!”</color>
 ~ PlayEventAudio(8)
-“But since I'm such a great boss I'm here to offer you a deal, you go back to being loyal and wimpy employees, and in return I won't kill you!”
+<color=\#e06666>“But since I'm such a great boss I'm here to offer you a deal, you go back to being loyal and wimpy employees, and in return I won't kill you!”</color>
 
 What do you do?
 
@@ -32,11 +32,11 @@ What do you do?
 ~ changeCurrency(5,3)
 You tell him you accept the deal, if you get one month's pay up front!
 
-“I guess that sounds fair… okey!” The king gives all of you <b><color=\#ffd966>+5 gold</color></b> each
+<color=\#e06666>“I guess that sounds fair… okay!”</color> The king gives all of you <b><color=\#ffd966>+5 gold</color></b> each
 
 5 gold? That's it? You guys earned way more whilst killing spirits! You tell the king that you don't accept such a low salary and are therefore quitting.
 
-“You're always so ungrateful! Give me the gold back at least!” You tell him that it's your gold now.
+<color=\#e06666>“You're always so ungrateful! Give me the gold back at least!”</color> You tell him that it's your gold now.
 
  He lets out an agitated groan before telling you that you're all gonna regret this, and once more disappearing in a puff of smoke. 
 
@@ -49,9 +49,9 @@ You tell him that you have a counter offer; he can go and fudge himself! Oof!
 
 You all laugh at your sick burn, the king, however, does not seem as amused by your antics. 
 
-“See this is the problem with you guys, you can never take anything serious!” He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is <color=\#70e2fe>Cobalt</color>.
+<color=\#e06666>“See this is the problem with you guys, you can never take anything seriously!”</color> He stomps his foot into the ground and throws what seems to be a temper tantrum. Too preoccupied by his anger, he doesn't seem to notice all of the gold falling out of his pocket! Someone who notices however is <color=\#70e2fe>Cobalt</color>.
 
-“Here I am offering you your dream jobs back and this is the thanks I get? You know what, offer REVOKED! Now I've decided to kill you again.” He flips all of you off before once more disappearing. 
+<color=\#e06666>“Here I am offering you your dream jobs back and this is the thanks I get? You know what, offer REVOKED! Now I've decided to kill you again.”</color> He flips all of you off before once more disappearing. 
 
 As soon as the king has left, <color=\#70e2fe>Cobalt</color> dives onto the floor only to notice that the gold disappeared with the king.
 
@@ -65,9 +65,9 @@ You all gain <b><color=\#70e2fe>+1 very sad Cobalt:(</color></b>
 ~ changeScore(60,3)
 You politely tell him you are still quite set on killing him and therefore have to refuse the deal.
 
-“Wow, you guys have like integrity now? I respect it!” He pauses and seems to be looking at all of you from a new perspective, maybe you guys just got off on the wrong foot all those years ago, maybe all you needed was- 
+<color=\#e06666>“Wow, you guys have like integrity now? I respect it!”</color> He pauses and seems to be looking at all of you from a new perspective, maybe you guys just got off on the wrong foot all those years ago, maybe all you needed was- 
 
-“I'm still gonna kill you guys tho! Bye losers!" He once more disappears in a puff of red smoke. 
+<color=\#e06666>“I'm still gonna kill you guys tho! Bye losers!"</color> He once more disappears in a puff of red smoke. 
 
 You all gain a new sense of integrity, which roughly translates to <b><color=\#ffd966>+60 total score</color></b> each! Epic!
 
@@ -81,9 +81,9 @@ You all decide to punch him!
 
 As your fists are supposed to make an impact with the king, they instead seem to go straight through him!
 
-“You guys don't think I would actually risk my life by physically going to talk to you? Not that I'm afraid of you or anything! Do I look like someone who would be afraid?” The king says this while looking very much like someone who would be afraid. 
+<color=\#e06666>“You guys don't think I would actually risk my life by physically going to talk to you? Not that I'm afraid of you or anything! Do I look like someone who would be afraid?”</color> The king says this while looking very much like someone who would be afraid. 
 
-“I see you guys aren't ready to communicate so i'm hereby revoking my deal! Now I've decided to kill you again! Bye losers!” He once more disappears in his puff of red smoke. 
+<color=\#e06666>“I see you guys aren't ready to communicate so i'm hereby revoking my deal! Now I've decided to kill you again! Bye losers!”</color> He once more disappears in his puff of red smoke. 
 
 You later notice that whilst trying to punch the king you accidentally dropped some gold, you all lose <b><color=\#e06666>-10 gold</color></b> each.
 

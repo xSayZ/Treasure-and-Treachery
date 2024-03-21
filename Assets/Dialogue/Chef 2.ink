@@ -8,13 +8,13 @@ EXTERNAL PlayEventAudio(index)
 -> paragraph_1
 
 === paragraph_1 ===
-
+~ PlayEventAudio(6)
 “Im baaack!” from a puff of red smoke, your former boss has shown up once more!
-
+~ PlayEventAudio(7)
 “I'm sure I'm just imagining things, but are you guys actually heading towards my castle?” He lets out a scoff before continuing. “Surely you don't think you can beat me? There’s a reason that you guys are little employees, whilst I'm the boss!”
-
+~ PlayEventAudio(8)
 “But since I'm such a great boss I'm here to offer you a deal, you go back to being loyal and wimpy employees, and in return I won't kill you!”
-
+~ PlayEventAudio(9)
 What do you do?
 
 * [Take the deal] -> take_deal

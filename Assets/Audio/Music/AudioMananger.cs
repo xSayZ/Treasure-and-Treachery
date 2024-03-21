@@ -26,7 +26,7 @@ namespace Game {
             GamePlayMusic,
             AmbienceTrees,
             AmbienceWind,
-            TimedStinger,
+            WaveStinger,
             IntroScene,
             MainTheme,
             VictoryTheme,

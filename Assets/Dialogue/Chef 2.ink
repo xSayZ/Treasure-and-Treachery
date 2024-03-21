@@ -33,7 +33,7 @@ What do you do?
 
 You tell him you accept the deal, if you get one month's pay up front!
 
-“I guess that sounds fair… okey!” The king gives all of you <b><color=\#ECBD00>+5 gold</color></b> each
+“I guess that sounds fair… okay!” The king gives all of you <b><color=\#ECBD00>+5 gold</color></b> each
 
 5 gold? That's it? You guys earned way more whilst killing spirits! You tell the king that you don't accept such a low salary and are therefore quitting.
 

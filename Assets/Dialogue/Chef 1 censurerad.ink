@@ -11,7 +11,7 @@ EXTERNAL PlayEventAudio(index)
 ~ PlayEventAudio(0)
 “Well hello employees!” from a puff of red smoke, your boss shows up!
 
-It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with <color=\#e06666>Mr. Red </color> is that he is now a king!
+It seems that unlike you guys, who turned into monsters, the only thing different with <color=\#e06666>Mr. Red </color> is that he is now a king!
 ~ PlayEventAudio(1)
 “Ew, you guys are like super ugly! I mean, you weren't all that beautiful before, but now you're like super-super ugly!” He gives each one of you a once over, seemingly more disgusted for each one of you he looks at. 
 ~ PlayEventAudio(2)
@@ -36,9 +36,9 @@ What do you do?
 ~ changeScore(20,1)
 ~ changeScore(20,2)
 ~ changeScore(20,3)
-He ain't the boss of you! I mean he literally was a couple of hours ago, but you guys died so now he isn't! 
+He ain't the boss of you! I mean he literally was a couple of hours ago, but you guys fricking died so now he isn't! 
 
-He can't push you around anymore, and to prove this you all decide to push him! With a satisfying “omph!” The newly crowned king lands straight on his ass.
+He can't push you around anymore, and to prove this you all decide to push <i>him!<i> With a satisfying “omph!” The newly crowned king lands straight on his ass.
 
 “You're all gonna regret this!” he says before vanishing in a new puff of smoke. It would probably seem a lot more intimidating if he wasn't still sitting on the ground as he disappeared. 
 

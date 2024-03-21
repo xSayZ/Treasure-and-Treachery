@@ -174,15 +174,7 @@ namespace Game {
                 
                 story.BindExternalFunction("PlayEventAudio", (int eventIndex) => {
                     // Play Sound
-                    try
-                    {
-                        dialogueAudio.BossEventDialogue(eventIndex);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.LogWarning("[{DialogueManager}]: Error Exception " + e);
-                    }
-                    
+                    dialogueAudio.BossEventDialogue(eventIndex);
                 });
                 
   #endregion

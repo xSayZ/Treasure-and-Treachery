@@ -34,6 +34,8 @@ namespace Game {
             private Vector3 averageLeftStickValue;
             private PlayMarker playMarkerInRange;
 
+            private float originalShadowDistance;
+
 #region Unity Functions
             private void Awake()
             {
@@ -60,7 +62,9 @@ namespace Game {
             private void Start()
             {
                 playMarkerInRange = null;
-                
+
+                originalShadowDistance = QualitySettings.shadowDistance;
+                QualitySettings.shadowDistance = 120;
                 transform.position = LevelManager.Instance.worldMapManager.carriagePosition;
                 transform.rotation = LevelManager.Instance.worldMapManager.carriageRotation;
                 carriageMovementBehaviour.SetupBehaviour();
@@ -93,6 +97,8 @@ namespace Game {
                 if (playMarkerInRange != null)
                 {
                     playMarkerInRange.SwitchScene(null);
+
+                    QualitySettings.shadowDistance = originalShadowDistance;
                 }
             }
 

@@ -23,6 +23,7 @@ namespace Game {
             [Header("References")]
             [Tooltip("Add all buttons to work together for the event to trigger. Do not add this one to the list as it is added automatically.")]
             [SerializeField] private List<InteractableButton> buttons;
+            [SerializeField] private List<InteractableButton> buttonsOnSameDoor;
             [SerializeField] private DynamicButtonSpawn buttonSpawn;
 
             [Header("Settings")]
@@ -110,25 +111,24 @@ namespace Game {
             }
             
             private void OnTriggerExit(Collider other) {
-                if (!other.CompareTag("Player") || isToggle)
-                    return;
+                if (!other.CompareTag("Player") && !other.CompareTag("Enemy")) return;
+                
+                if (isToggle) return;
                 
                 int _index = other.GetComponent<Player.PlayerController>().PlayerData.playerIndex;
                 if (playersOnButton.Contains(_index))
                 {
                     playersOnButton.Remove(_index);
                 }
-
-                if (playersOnButton.Count == 0)
-                {
-                    if (isTimed && !coroutineRunning) {
-                        StartCoroutine(ResetButton());
-                    } else if (!isTimed) {
-                        isPressed = false;
-                        renderer.material = defaultMaterial;
-                        if(buttonSpawn != null)
-                            buttonSpawn.offButtonPressed.Invoke();
-                    }
+                
+                    
+                if (isTimed && !coroutineRunning) {
+                    StartCoroutine(ResetButton());
+                } else if (!isTimed) {
+                    isPressed = false;
+                    renderer.material = defaultMaterial;
+                    if(buttonSpawn != null)
+                        buttonSpawn.offButtonPressed.Invoke();
                 }
             }
             

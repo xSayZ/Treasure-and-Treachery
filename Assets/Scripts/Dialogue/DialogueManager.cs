@@ -142,25 +142,33 @@ namespace Game {
                 // Changes the currency of the player.
                 // How to use: changeCurrency(100, 0) - This will add 100 currency to the first player;
                 story.BindExternalFunction("changeCurrency", (int _amount, int _playerIndex) => {
-                    playerDatas[_playerIndex].currency += _amount;
+                    int _clampedAmount = Mathf.Max(0, playerDatas[_playerIndex].currency + _amount);
+                    playerDatas[_playerIndex].currency += _clampedAmount;
+                    playerDatas[_playerIndex].currencyFromDialogue += _clampedAmount;
                 });
                 
                 // Changes the personal objective of the player.
                 // How to use: changePersonalObjective(5, 0) - This will add 5 personal objective to the first player;
                 story.BindExternalFunction("changePersonalObjective", (int _amount, int _playerIndex) => {
-                    playerDatas[_playerIndex].personalObjective += _amount;
+                    int _clampedAmount = Mathf.Max(0, playerDatas[_playerIndex].personalObjective + _amount);
+                    playerDatas[_playerIndex].personalObjective += _clampedAmount;
+                    playerDatas[_playerIndex].personalObjectiveFromDialogue += _clampedAmount;
                 });
                 
                 // Changes the global score of the player.
                 // How to use: changeScore(100, 1) - This will add 100 score to the second player;
                 story.BindExternalFunction("changeScore", (int _amount, int _playerIndex) => {
-                    playerDatas[_playerIndex].points += _amount;
+                    int _clampedAmount = Mathf.Max(0, playerDatas[_playerIndex].points + _amount);
+                    playerDatas[_playerIndex].points += _clampedAmount;
+                    playerDatas[_playerIndex].pointsFromDialogue += _clampedAmount;
                 });
                 
                 // Changes the kills of the player.
                 // How to use: changeKills(1, 0) - This will add 1 kill to the first player;
                 story.BindExternalFunction("changeKills", (int _amount, int _playerIndex) => {
-                    playerDatas[_playerIndex].kills += _amount;
+                    int _clampedAmount = Mathf.Max(0, playerDatas[_playerIndex].kills + _amount);
+                    playerDatas[_playerIndex].kills += _clampedAmount;
+                    playerDatas[_playerIndex].killsFromDialogue += _clampedAmount;
                 });
                 
                 

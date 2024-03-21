@@ -55,18 +55,20 @@ namespace Game {
                 _color.a = backgroundImage.color.a;
                 backgroundImage.color = _color;
                 
-                int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier + _playerData.personalObjectiveThisLevel * _playerData.personalObjectiveMultiplier;
+                int _pointsThisLevel = _playerData.currencyThisLevel * coinPointMultiplier + _playerData.killsThisLevel * killPointMultiplier + _playerData.personalObjectiveThisLevel * _playerData.personalObjectiveMultiplier + _playerData.pointsFromDialogue;
                 _playerData.points += _pointsThisLevel;
                 
-                coinsText.text = (_playerData.currency - _playerData.currencyThisLevel).ToString();
-                killsText.text = (_playerData.kills - _playerData.killsThisLevel).ToString();
-                personalObjectiveText.text = (_playerData.personalObjective - _playerData.personalObjectiveThisLevel).ToString();
-                pointsText.text = pointsPrefix + (_playerData.points - _pointsThisLevel);
+                coinsText.text = (_playerData.currency - _playerData.currencyThisLevel - _playerData.currencyFromDialogue).ToString();
+                killsText.text = (_playerData.kills - _playerData.killsThisLevel - _playerData.killsFromDialogue).ToString();
+                personalObjectiveText.text = (_playerData.personalObjective - _playerData.personalObjectiveThisLevel - _playerData.personalObjectiveFromDialogue).ToString();
+                pointsText.text = pointsPrefix + (_playerData.points - _pointsThisLevel - _playerData.pointsFromDialogue);
                 
-                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel, _playerData.currency));
-                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel, _playerData.kills));
-                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel, _playerData.personalObjective));
-                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel, _playerData.points, pointsPrefix));
+                StartCoroutine(CountUp(coinsText, _playerData.currency - _playerData.currencyThisLevel - _playerData.currencyFromDialogue, _playerData.currency));
+                StartCoroutine(CountUp(killsText, _playerData.kills - _playerData.killsThisLevel - _playerData.killsFromDialogue, _playerData.kills));
+                StartCoroutine(CountUp(personalObjectiveText, _playerData.personalObjective - _playerData.personalObjectiveThisLevel - _playerData.personalObjectiveFromDialogue, _playerData.personalObjective));
+                StartCoroutine(CountUp(pointsText, _playerData.points - _pointsThisLevel - _playerData.pointsFromDialogue, _playerData.points, pointsPrefix));
+                
+                _playerData.ResetDialogueValues();
             }
 
             public void OnSubmitPressed(InputAction.CallbackContext _value)

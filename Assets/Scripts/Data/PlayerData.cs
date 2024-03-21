@@ -41,6 +41,11 @@ namespace Game {
             [SerializeField] public int kills;
             [SerializeField] public int killsThisLevel;
             
+            [SerializeField] public int personalObjectiveFromDialogue;
+            [SerializeField] public int currencyFromDialogue;
+            [SerializeField] public int killsFromDialogue;
+            [SerializeField] public int pointsFromDialogue;
+            
             [SerializeField] public bool hasMeleeWeapon;
             [SerializeField] public bool hasRangedWeapon;
 
@@ -59,6 +64,14 @@ namespace Game {
                 personalObjective -= personalObjectiveThisLevel;
                 currency -= currencyThisLevel;
                 kills -= killsThisLevel;
+            }
+
+            public void ResetDialogueValues()
+            {
+                personalObjectiveFromDialogue = 0;
+                currencyFromDialogue = 0;
+                killsFromDialogue = 0;
+                pointsFromDialogue = 0;
             }
 
             public void Reset()

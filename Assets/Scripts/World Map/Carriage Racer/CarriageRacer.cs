@@ -92,7 +92,7 @@ namespace Game {
             {
                 if (playMarkerInRange != null)
                 {
-                    playMarkerInRange.SwitchScene();
+                    playMarkerInRange.SwitchScene(null);
                 }
             }
 

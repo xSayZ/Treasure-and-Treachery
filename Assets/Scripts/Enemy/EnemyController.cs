@@ -103,7 +103,7 @@ namespace Game {
                 } 
                 catch (Exception e)
                 {
-                    Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                    Debug.LogWarning("[{EnemyController}]: Error Exception " + e);
                 }
             }
 
@@ -221,7 +221,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                        Debug.LogWarning("[{EnemyController}]: Error Exception " + e);
                     }
                 }
                 else
@@ -232,7 +232,7 @@ namespace Game {
                     } 
                     catch (Exception e)
                     {
-                        Debug.LogError("[{EnemyController}]: Error Exception " + e);
+                        Debug.LogWarning("[{EnemyController}]: Error Exception " + e);
                     }
                 }
                 

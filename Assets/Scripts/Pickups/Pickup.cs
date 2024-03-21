@@ -104,7 +104,7 @@ namespace Game {
                         }
                         catch (Exception e)
                         {
-                            Debug.LogError("[{Pickup}]: Error Exception " + e);
+                            Debug.LogWarning("[{Pickup}]: Error Exception " + e);
                         }
                         
                         Destroy(gameObject);

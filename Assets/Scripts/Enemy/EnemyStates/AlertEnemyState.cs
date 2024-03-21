@@ -46,7 +46,7 @@ namespace Game {
                 } 
                 catch (Exception e)
                 {
-                    Debug.LogError("[{AlertEnemyState}]: Error Exception " + e);
+                    Debug.LogWarning("[{AlertEnemyState}]: Error Exception " + e);
                 }
             }
 

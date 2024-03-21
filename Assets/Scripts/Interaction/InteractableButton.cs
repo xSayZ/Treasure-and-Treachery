@@ -94,7 +94,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{InteractableButton}]: Error Exception " + e);
+                        Debug.LogWarning("[{InteractableButton}]: Error Exception " + e);
                     }
                 } 
                 

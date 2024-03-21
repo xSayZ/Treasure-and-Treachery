@@ -61,7 +61,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{Projectile}]: Error Exception " + e);
+                    Debug.LogWarning("[{Projectile}]: Error Exception " + e);
                 }
             }
 
@@ -110,7 +110,7 @@ namespace Game {
                                 }
                                 catch (Exception e)
                                 {
-                                    Debug.LogError("[{Projectile}]: Error Exception " + e);
+                                    Debug.LogWarning("[{Projectile}]: Error Exception " + e);
                                 }
                             }
                         }

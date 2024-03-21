@@ -46,7 +46,7 @@ namespace Game {
                 } 
                 catch (Exception e)
                 {
-                    Debug.LogError("[{RoamEnemyState}]: Error Exception " + e);
+                    Debug.LogWarning("[{RoamEnemyState}]: Error Exception " + e);
                 }
             }
 

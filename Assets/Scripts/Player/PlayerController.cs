@@ -337,7 +337,7 @@ namespace Game
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                    Debug.LogWarning("[{PlayerController}]: Error Exception " + e);
                 }
             }
 

@@ -60,7 +60,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{DragonAbilityBehaviour}]: Error Exception " + e);
+                        Debug.LogWarning("[{DragonAbilityBehaviour}]: Error Exception " + e);
                     }
                 }
             }
@@ -108,7 +108,7 @@ namespace Game {
                             }
                             catch (Exception e)
                             {
-                                Debug.LogError("[{DragonAbilityBehaviour}]: Error Exception " + e);
+                                Debug.LogWarning("[{DragonAbilityBehaviour}]: Error Exception " + e);
                             }
                         }
                     }

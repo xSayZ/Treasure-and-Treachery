@@ -173,7 +173,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("[{DialogueAudioWrapper}]: Error Exception " + e);
+            Debug.LogWarning("[{DialogueAudioWrapper}]: Error Exception " + e);
         }
         
     }
@@ -209,7 +209,7 @@ public class DialogueAudioWrapper : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.LogError("[{DialogueAudioWrapper}]: Error Exception " + e);
+            Debug.LogWarning("[{DialogueAudioWrapper}]: Error Exception " + e);
         }
     }
 

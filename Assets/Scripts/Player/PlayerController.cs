@@ -17,6 +17,7 @@ using Game.Audio;
 using Game.NAME;
 using Game.UI;
 using UnityEngine.InputSystem.UI;
+using UnityEngine.UI;
 
 
 namespace Game
@@ -44,7 +45,6 @@ namespace Game
             [SerializeField] private PlayerHealthBar playerHealthBar;
             [SerializeField] private PauseMenu pauseMenu;
             
-                 
             [Header("Input Settings")]
             [SerializeField] private PlayerInput playerInput;
             [Tooltip("Effects How smooth the movement Interpolation is. Higher value is smoother movement. Lower value is more responsive movement.")]
@@ -61,7 +61,7 @@ namespace Game
             [SerializeField] private Color damageFlashColor;
             [SerializeField] private int numberOfDamageFlashes;
             [SerializeField] private float DamageFlashTime;
-            
+
             [Header("Death")]
             [SerializeField] private List<SkinnedMeshRenderer> skinnedMeshRenderers;
             [SerializeField] private Material deathMaterial;
@@ -89,10 +89,9 @@ namespace Game
             //pause menu independent Controls
             private MultiplayerEventSystem multiplayerEventSystem;
             private InputSystemUIInputModule inputSystemUIInputModule;
-            
+
             public void SetupPlayer(InputDevice _inputDevice)
             {
-                
                 if (_inputDevice != null)
                 {
                     playerInput.SwitchCurrentControlScheme(_inputDevice);
@@ -100,14 +99,14 @@ namespace Game
                 
                 PlayerData.NewScene();
                 pauseMenu = FindObjectOfType<PauseMenu>(true);
-
+                
                 multiplayerEventSystem = GetComponent<MultiplayerEventSystem>();
                 inputSystemUIInputModule = GetComponent<InputSystemUIInputModule>();
                 
                 PlayerIndex = PlayerData.playerIndex;
-               
+                
                 Health = PlayerData.currentHealth;
-
+                
                 rigidbody = GetComponent<Rigidbody>();
                 
                 PlayerMovementBehaviour.SetupBehaviour(this);
@@ -121,7 +120,6 @@ namespace Game
                 PlayerAttackBehaviour.SetupBehaviour(this, PlayerMovementBehaviour.CurrentTurnSpeed);
                 
                 playerHealthBar.SetupHealthBar(PlayerData.startingHealth, PlayerData.currentHealth);
-
             }
 
 #region Unity Functions
@@ -298,6 +296,8 @@ namespace Game
                 PlayerInteractionBehaviour.OnDeath();
                 GameManager.OnPlayerDeath.Invoke(PlayerIndex);
                 
+                PlayerMovementBehaviour.DeathMoveRotateLock = true;
+                
                 StartCoroutine(DeathSequence());
             }
             
@@ -417,11 +417,16 @@ namespace Game
 
             private IEnumerator DeathSequence()
             {
+                Image[] _imagesToFade = GetComponentsInChildren<Image>();
+                SpriteRenderer[] _spriteRenderersToFade = GetComponentsInChildren<SpriteRenderer>();
+                
                 float _currentProgress = 0f;
                 float _progressPerUpdate = 1f / (deathDuration / 0.01f);
                 
                 if (deathMaterial)
                 {
+                    deathMaterial.SetFloat("_DissolveAmount", 0);
+                    
                     foreach (SkinnedMeshRenderer _skinnedMeshRenderer in skinnedMeshRenderers)
                     {
                         _skinnedMeshRenderer.material = deathMaterial;
@@ -431,6 +436,16 @@ namespace Game
                     {
                         _currentProgress += _progressPerUpdate;
                         deathMaterial.SetFloat("_DissolveAmount", _currentProgress);
+                        
+                        foreach (Image _image in _imagesToFade)
+                        {
+                            _image.color = new Color(255, 255, 255, 1 - _currentProgress);
+                        }
+                        
+                        foreach (SpriteRenderer _spriteRenderer in _spriteRenderersToFade)
+                        {
+                            _spriteRenderer.color = new Color(255, 255, 255, 1 - _currentProgress);
+                        }
                         
                         yield return new WaitForSeconds(0.01f);
                     }

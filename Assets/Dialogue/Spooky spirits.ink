@@ -32,7 +32,7 @@ You tell them that the mask clad spirit is the scariest one! The spirit wearing 
 
 Welp, that could have gone better!
 
-You all earn <b><color=\#8F00FF>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666>-20 total score</color></b>
+You all earn <b><color=\#fc8ff8>+1 reputation of being a horrible decision makers,</color></b> which equals about <b><color=\#e06666>-20 total score</color></b>
 
 Better luck next time! -> END
 
@@ -73,14 +73,14 @@ These losers? Fuck no! The scariest spirits are <i>clearly you guys!</i> You dec
 
 By running the group of spirits over!
 
-The ride is loud and bumpy, each ‘thump’ paired with a new spirit’s agonizing screams as they are painfully crushed beneath the weight of the giant armadillo and carriage. 
+The ride is loud and bumpy, each ‘ thump ’ paired with a new spirit’s agonizing screams as they are painfully crushed beneath the weight of the giant armadillo and carriage. 
 
-Once the screams have quieted down, you all look out through the carriage's back window. Where the group of spirits once stood, now lies only a pile of gold, spirit dust, and a little blood?.
+Once the screams have quieted down, you all look out through the carriage's back window. Where the group of spirits once stood, now lies only a pile of gold, spirit dust, and a little... Blood?
 
 Yucky!
 
 Your murderous actions reward you each with the title of  <b><color=\#fc8ff8>“The Scariest Spirits”.</color></b> Rad!
 
-Although <color=\#96d87d>Jade</color> is usually one to break statues, it seems in this case breaking bones was just as rewarding! <color=\#96d87d>Jade</color> gets <b><color=\#96d87d>+5 shatter!</color></b>
+Although <color=\#96d87d>Jade</color> is usually one to break statues, it seems in this case breaking bones was just as rewarding! <color=\#96d87d>Jade</color> gets <b><color=\#96d87d>+5 shatters!</color></b>
  -> END
 

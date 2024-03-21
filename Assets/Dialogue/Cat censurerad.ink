@@ -34,7 +34,7 @@ The plan goes perfect until it's time for <color=\#70e2fe>Cobalt</color> to grab
 
     Positives? <color=\#96d87d>Jade</color> is no longer jealous that she wasn't a part of the rescue mission!<br> 
     
-    Negatives? <color=\#70e2fe>Cobalt</color>, <color=\#ac70fe>Violet</color> and <color=\#ed9177>Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall -> END
+    Negatives? <color=\#70e2fe>Cobalt</color>, <color=\#ac70fe>Violet</color> and <color=\#ed9177>Rusty</color> all lose <b><color=\#ffd966>-3 gold</color></b> in the fall. -> END
 
 === punch_tree ===
 ~ changePersonalObjective (20, 0)
@@ -54,7 +54,7 @@ Whilst punching the tree <color=\#ed9177>Rusty</color> seems to have worked up q
 
 
 === shooting ===
-~ changePersonalObjective (5, 2)
+~ changePersonalObjective (9, 2)
 Really, you decided to shoot the cat? What are you guys, monsters?
 
 Oh, right, you are!
@@ -65,7 +65,8 @@ Yucky!
 
 The party gets <b><color=\#fc8ff8>+1 dead ghost cat on everyone's conscience!</color></b>
 
-…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe>+5 souls</color></b> for <color=\#ac70fe>Violet</color>!
+…which doesnt mean a lot for most of you but counts as  <b><color=\#ac70fe>+9 souls</color></b> for <color=\#ac70fe>Violet</color>!
+
 Neat!-> END
 
 === communicate ===

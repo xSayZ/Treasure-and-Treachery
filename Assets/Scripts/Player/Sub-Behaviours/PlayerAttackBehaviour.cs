@@ -280,7 +280,7 @@ namespace Game {
                       }
                       catch (Exception e)
                       {
-                          Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                          Debug.LogWarning("[{PlayerAttackBehaviour}]: Error Exception " + e);
                       }  
                     }
                    
@@ -324,7 +324,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                        Debug.LogWarning("[{PlayerAttackBehaviour}]: Error Exception " + e);
                     }
                 }
             }
@@ -375,7 +375,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{PlayerController}]: Error Exception " + e);
+                    Debug.LogWarning("[{PlayerController}]: Error Exception " + e);
                 }
                 
                 // Run melee attack for a while longer
@@ -475,7 +475,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                    Debug.LogWarning("[{PlayerAttackBehaviour}]: Error Exception " + e);
                 }
             }
 

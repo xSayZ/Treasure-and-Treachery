@@ -35,7 +35,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{InteractablesAudio}]: Error Exception " + e);
+                    Debug.LogWarning("[{InteractablesAudio}]: Error Exception " + e);
                 }
             }
 
@@ -50,7 +50,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{InteractablesAudio}]: Error Exception " + e);
+                    Debug.LogWarning("[{InteractablesAudio}]: Error Exception " + e);
                 }
             }
 
@@ -65,7 +65,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{InteractablesAudio}]: Error Exception " + e);
+                    Debug.LogWarning("[{InteractablesAudio}]: Error Exception " + e);
                 }
             }
 #endregion

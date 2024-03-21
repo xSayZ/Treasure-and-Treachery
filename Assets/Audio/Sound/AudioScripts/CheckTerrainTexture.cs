@@ -68,7 +68,7 @@ public void PlayFootStep()
     }
     catch (Exception e)
     {
-        Debug.LogError("[{Projectile}]: Error Exception " + e);
+        Debug.LogWarning("[{Check Terrain Texture}]: Error Exception " + e);
     }
 }
 

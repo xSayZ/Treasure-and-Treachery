@@ -76,7 +76,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                        Debug.LogWarning("[{DialogueAudio}]: Error Exception " + e);
                     }
                     
                 }
@@ -150,7 +150,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                    Debug.LogWarning("[{DialogueAudio}]: Error Exception " + e);
                 }
 
             }
@@ -166,7 +166,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{DialogueAudio}]: Error Exception " + e);
+                    Debug.LogWarning("[{DialogueAudio}]: Error Exception " + e);
                 }
 
                 

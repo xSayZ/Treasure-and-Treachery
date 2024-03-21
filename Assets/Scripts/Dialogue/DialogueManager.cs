@@ -180,7 +180,7 @@ namespace Game {
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError("[{DialogueManager}]: Error Exception " + e);
+                        Debug.LogWarning("[{DialogueManager}]: Error Exception " + e);
                     }
                     
                 });
@@ -292,7 +292,7 @@ namespace Game {
                 List<Choice> currentChoices = story.currentChoices;
                 canContinueToNextLine = false;
                 if(currentChoices.Count > choices.Length) {
-                    Debug.LogError("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
+                    Debug.LogWarning("More choices were given than the UI can support. Number of choices given: " + currentChoices.Count);
                 }
 
                 int index = 0;

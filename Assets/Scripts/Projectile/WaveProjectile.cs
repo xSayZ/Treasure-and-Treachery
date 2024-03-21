@@ -43,7 +43,7 @@ namespace Game {
                 }
                 catch (Exception e)
                 {
-                    Debug.LogError("[{PlayerAttackBehaviour}]: Error Exception " + e);
+                    Debug.LogWarning("[{PlayerAttackBehaviour}]: Error Exception " + e);
                 }
             }
 

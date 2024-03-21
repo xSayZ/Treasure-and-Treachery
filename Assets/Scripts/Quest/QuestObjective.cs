@@ -166,7 +166,7 @@ namespace Game {
                                 } 
                                 catch (Exception e)
                                 {
-                                    Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                                    Debug.LogWarning("[{QuestObjective}]: Error Exception " + e);
                                 }
                             }
                         }
@@ -233,7 +233,7 @@ namespace Game {
                         }
                         catch (Exception e)
                         {
-                            Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                            Debug.LogWarning("[{QuestObjective}]: Error Exception " + e);
                         }
                     }
                     else
@@ -244,7 +244,7 @@ namespace Game {
                         }
                         catch (Exception e)
                         {
-                            Debug.LogError("[{QuestObjective}]: Error Exception " + e);
+                            Debug.LogWarning("[{QuestObjective}]: Error Exception " + e);
                         }
                     }
                 }

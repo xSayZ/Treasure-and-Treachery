@@ -43,7 +43,7 @@ namespace Game {
                 } 
                 catch (Exception e)
                 {
-                    Debug.LogError("[{StunnedEnemyState}]: Error Exception " + e);
+                    Debug.LogWarning("[{StunnedEnemyState}]: Error Exception " + e);
                 }
             }
 

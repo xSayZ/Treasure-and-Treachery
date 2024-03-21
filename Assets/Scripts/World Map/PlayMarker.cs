@@ -87,7 +87,7 @@ namespace Game {
 
             private void OnTriggerEnter(Collider _other)
             {
-                if (_other.CompareTag("Carriage"))
+                if (_other.CompareTag("Carriage") && !isLocked)
                 {
                     _other.GetComponent<CarriageRacer>().SetPlayMarkerInRange(this);
                     
@@ -97,7 +97,7 @@ namespace Game {
 
             private void OnTriggerExit(Collider _other)
             {
-                if (_other.CompareTag("Carriage"))
+                if (_other.CompareTag("Carriage") && !isLocked)
                 {
                     _other.GetComponent<CarriageRacer>().SetPlayMarkerInRange(null);
                     
@@ -105,8 +105,8 @@ namespace Game {
                 }
             }
 
-            public void SwitchScene()
-            {
+            public void SwitchScene() {
+                if (isLocked) return;
                 LevelManager.Instance.worldMapManager.carriagePosition = transform.position;
                 LevelManager.Instance.worldMapManager.carriageRotation = transform.rotation;
                 LevelManager.Instance.LoadLevel(levelData);

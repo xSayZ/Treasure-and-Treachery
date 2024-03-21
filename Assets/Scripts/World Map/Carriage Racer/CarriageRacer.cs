@@ -14,6 +14,8 @@ using Game.Managers;
 using Game.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 
 namespace Game {
@@ -34,11 +36,15 @@ namespace Game {
             private Vector3 averageLeftStickValue;
             private PlayMarker playMarkerInRange;
 
-            private float originalShadowDistance;
+            [SerializeField] private UniversalRenderPipelineAsset renderPipelineAsset;
+            private UniversalRenderPipelineAsset originalRenderPipelineAsset;
 
 #region Unity Functions
             private void Awake()
             {
+                originalRenderPipelineAsset = GraphicsSettings.renderPipelineAsset as UniversalRenderPipelineAsset;
+                GraphicsSettings.renderPipelineAsset = renderPipelineAsset;
+                
                 if (CharacterSelect.selectedCharacters.Count == 0)
                 {
                     foreach (InputDevice _inputDevice in InputSystem.devices)
@@ -63,8 +69,7 @@ namespace Game {
             {
                 playMarkerInRange = null;
 
-                originalShadowDistance = QualitySettings.shadowDistance;
-                QualitySettings.shadowDistance = 120;
+                
                 transform.position = LevelManager.Instance.worldMapManager.carriagePosition;
                 transform.rotation = LevelManager.Instance.worldMapManager.carriageRotation;
                 carriageMovementBehaviour.SetupBehaviour();
@@ -96,9 +101,10 @@ namespace Game {
             {
                 if (playMarkerInRange != null)
                 {
+                    GraphicsSettings.renderPipelineAsset = originalRenderPipelineAsset;
+
                     playMarkerInRange.SwitchScene(null);
 
-                    QualitySettings.shadowDistance = originalShadowDistance;
                 }
             }
 

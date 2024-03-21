@@ -91,6 +91,8 @@ namespace Game {
                 
                 hasMeleeWeapon = hasStartingMeleeWeapon;
                 hasRangedWeapon = hasStartingRangedWeapon;
+                
+                ResetDialogueValues();
             }
 
             private void OnEnable()

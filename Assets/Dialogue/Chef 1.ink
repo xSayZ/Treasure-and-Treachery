@@ -11,7 +11,7 @@ EXTERNAL PlayEventAudio(index)
 ~ PlayEventAudio(0)
 “Well hello employees!” from a puff of red smoke, your boss shows up!
 
-It seems that unlike you guys, who turned into monsters, the only thing different with <color=\#e06666>Mr. Red </color> is that he is now a king!
+It seems like the poster you found earlier was telling the truth, unlike you guys who turned into monsters, the only thing different with <color=\#e06666>Mr. Red </color> is that he is now a king!
 
 “Ew, you guys are like super ugly! I mean, you weren't all that pretty before, but now you're hideous!” He gives each one of you a once over, seemingly more disgusted for each one of you he looks at. 
 

@@ -21,7 +21,8 @@ namespace Game {
                 [SerializeField] private float spawnRate; // the rate at which enemies spawn per minute
                 [SerializeField] private int maxEnemies; // the maximum amount of enemies allowed to be spawned at once at this spawner
                 [SerializeField] private GameObject enemyPrefab; // the enemy prefab to be spawned
-                
+
+                [SerializeField] private bool dynamicSpawn;
                 public bool allowSpawnInsideOfCamera;
                 [HideInInspector] public bool allowForSpawn = true;
                 
@@ -48,6 +49,10 @@ namespace Game {
                 {
                     playersInSpawner = new List<int>();
                     allowForSpawn = true;
+                    if (dynamicSpawn) {
+                        maxEnemies = (maxEnemies * GameManager.Instance.ActivePlayerControllers.Count);
+                        spawnRate = (spawnRate * GameManager.Instance.ActivePlayerControllers.Count);
+                    }
                 }
 
                 private void Update()

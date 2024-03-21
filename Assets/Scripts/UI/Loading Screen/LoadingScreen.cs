@@ -38,6 +38,11 @@ namespace Game {
 
             private void Update()
             {
+                if (scene == null)
+                {
+                    return;
+                }
+                
                 actualSceneProgress = scene.progress;
                 fakeSceneProgress += Time.deltaTime / fakeSceneLoadTime;
                 
@@ -58,6 +63,11 @@ namespace Game {
 
             private void LoadSceneAsync(LevelDataSO _levelData)
             {
+                if (!_levelData)
+                {
+                    return;
+                }
+                
                 scene = SceneManager.LoadSceneAsync(_levelData.levelPath, LoadSceneMode.Single);
                 
                 scene.allowSceneActivation = false;

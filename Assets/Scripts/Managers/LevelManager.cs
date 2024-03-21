@@ -52,8 +52,9 @@ namespace Game {
             }
 
             private IEnumerator LoadSceneDirectly(LevelDataSO _levelData) {
-                worldMapManager.levelToLoad = _levelData;
+                worldMapManager.levelToLoad = null;
                 yield return null;
+                worldMapManager.levelToLoad = _levelData;
                 SceneManager.LoadScene(_levelData.levelPath,LoadSceneMode.Single);
             }
             

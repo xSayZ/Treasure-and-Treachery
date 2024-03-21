@@ -73,8 +73,6 @@ namespace Game {
                     _highestScore = _playersToRandomize[_index].playerIndex;
                 }
                 
-                Debug.Log("Player: " + _playersToRandomize[_highestScore].playerIndex + " Highest score: " + _highestScore);
-                
                 dialogueManager.eventImage.sprite = dialogues[_highestScore + 1].eventImage;
                 
                 for (int i = 0; i < dialogues.Count; i++)
